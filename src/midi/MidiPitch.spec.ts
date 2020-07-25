@@ -225,7 +225,7 @@ test('MidiPitch - fromFrequency - 440 = A5', () => {
     expect(midiNote).toEqual(expected);
 });
 
-test('MidiPitch - fromFrequency - LIMIT_5_SYMMETRIC_N1_440 E5 = E5 + 2 cents', () => {
+test('fromFrequency - LIMIT_5_SYMMETRIC_N1_440 E5 = E5 + 2 cents', () => {
     let symbolicPitch: SymbolicPitch = SPN.E5;
     let freq: number = Tuning.LIMIT_5_SYMMETRIC_N1_440.getFrequency(symbolicPitch);
     let midiNote = MidiPitch.fromFrequency(freq);
