@@ -7,5 +7,5 @@ export interface Chord<D extends Degree, I> {
     notes: D[];
     inversionNumber: number;
     root: D;
-    getInv(n: number): Chord<D, I>;
+    withInv(n: number): Chord<D, I>;
 }

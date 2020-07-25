@@ -27,7 +27,7 @@ export abstract class TonalityAbstract<I, D, C> {
 
     public containsChord(chord: DiatonicAltChord): boolean {
         for (let diatonicAlt of chord.notes) {
-            if (!this.containsNote(diatonicAlt))
+            if (!this.containsNote(<D><any>diatonicAlt))
                 return false;
         }
 

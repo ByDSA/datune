@@ -1,10 +1,10 @@
 import { ChromaticChord } from './chords/chromatic/ChromaticChord';
 import { DiatonicAltChord } from './chords/diatonicalt/DiatonicAltChord';
 import { Chromatic } from './degrees/Chromatic';
+import { DiatonicAltDegree } from './degrees/degrees/DiatonicAltDegree';
+import { DiatonicDegree } from './degrees/degrees/DiatonicDegree';
 import { Diatonic } from './degrees/Diatonic';
 import { DiatonicAlt } from './degrees/DiatonicAlt';
-import { DiatonicAltDegree } from './degrees/scale/DiatonicAltDegree';
-import { DiatonicDegree } from './degrees/scale/DiatonicDegree';
 import { DegreeFunction } from './function/DegreeFunction';
 import { IntervalDiatonic } from './interval/IntervalDiatonic';
 import { IntervalDiatonicAlt } from './interval/IntervalDiatonicAlt';

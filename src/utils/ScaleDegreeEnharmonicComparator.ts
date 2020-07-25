@@ -1,4 +1,4 @@
-import { DiatonicAltDegree } from '../degrees/scale/DiatonicAltDegree';
+import { DiatonicAltDegree } from '../degrees/degrees/DiatonicAltDegree';
 import { Scale } from '../tonality/Scale';
 import { SetComparator } from './SetComparator';
 

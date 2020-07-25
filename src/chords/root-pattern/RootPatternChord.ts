@@ -24,7 +24,7 @@ export class RootPatternChord<D extends Degree, I> {
             let ret: Chord<Chromatic, number> = ChromaticChord.from(<Chromatic[]>notes);
             return ret;
         } else if (this._degree instanceof DiatonicAlt) {
-            let ret: Chord<DiatonicAlt, IntervalDiatonicAlt> = DiatonicAltChord.fromDiatonicAlt(<DiatonicAlt[]>notes);
+            let ret: Chord<DiatonicAlt, IntervalDiatonicAlt> = DiatonicAltChord.from(<DiatonicAlt[]>notes);
             return ret;
         } else
             throw new Error();

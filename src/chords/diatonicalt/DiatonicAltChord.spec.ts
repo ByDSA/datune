@@ -1,11 +1,12 @@
 import { DiatonicAlt } from '../../degrees/DiatonicAlt';
+import { IntervalDiatonicAlt } from '../../interval/IntervalDiatonicAlt';
 import { Language } from '../../lang/Language';
 import { DiatonicAltPattern } from '../../patterns/DiatonicAltPattern';
 import * as precalc from "../../precalc";
 import { Settings } from '../../settings/Settings';
 import { RootPatternChord } from '../root-pattern/RootPatternChord';
 import { DiatonicAltChord } from './DiatonicAltChord';
-import { IntervalDiatonicAlt } from '../../interval/IntervalDiatonicAlt';
+import { DiatonicAltChordString } from './DiatonicAltChordString';
 precalc.chromatics();
 precalc.chromaticPatterns();
 precalc.diatonicPatterns();
@@ -16,259 +17,166 @@ precalc.intervalDiatonicAlts();
 precalc.diatonicAltChords();
 precalc.settings();
 
-test('DiatonicAltChord - from: get from ImmutableCache', () => {
-    let diatonicAltChord = DiatonicAltChord.fromDiatonicAlt(
-        [
+describe("from", () => {
+    test('get from ImmutableCache', async () => {
+        let diatonicAltChord = DiatonicAltChord.from(
+            [
+                DiatonicAlt.C,
+                DiatonicAlt.E,
+                DiatonicAlt.G,
+                DiatonicAlt.Bb,
+            ]);
+
+        let expected = DiatonicAltChord.C7;
+        expect(diatonicAltChord).toBe(expected);
+    });
+
+    test('from null', async () => {
+        let diatonicAltChord = DiatonicAltChord.from(null);
+
+        let expected = null;
+        expect(diatonicAltChord).toBe(expected);
+    });
+
+    test('from empty array', async () => {
+        let diatonicAltChord = DiatonicAltChord.from([]);
+
+        let expected = null;
+        expect(diatonicAltChord).toBe(expected);
+    });
+
+    test('from array which contains null element', async () => {
+        let diatonicAltChord = DiatonicAltChord.from([null, DiatonicAlt.C, DiatonicAlt.E, DiatonicAlt.G]);
+
+        let expected = DiatonicAltChord.C;
+        expect(diatonicAltChord).toBe(expected);
+    });
+})
+
+describe.each([
+    [Language.ENG, DiatonicAltChord.C, "C"],
+    [Language.ENG, DiatonicAltChord.C7, "C7"],
+    [Language.ENG, RootPatternChord.from(
+        DiatonicAlt.BBB,
+        DiatonicAltPattern.SEVENTH).chord, DiatonicAlt.BBB.toString() + "7"],
+    [Language.ENG, DiatonicAltChord.CMaj7, "CMaj7"],
+    [Language.ENG, DiatonicAltChord.CmMaj7, "CmMaj7"],
+    [Language.ENG, DiatonicAltChord.C.withInv(), "C/E"],
+    [Language.ENG, DiatonicAltChord.C.withInv(2), "C/G"],
+    [Language.ENG, DiatonicAltChord.C.withInv(3), "C"],
+    [Language.ENG, DiatonicAltChord.C7.withInv(), "C7/E"],
+    [Language.ENG, DiatonicAltChord.Fsus2, "Fsus2"],
+    [Language.ENG, DiatonicAltChord.Csus4.withInv(), "Fsus2"],
+    [Language.ENG, RootPatternChord.from(DiatonicAlt.C, DiatonicAltPattern.THIRTEENTH_b5a9).chord.withInv(2), "C13♭5♯9/G♭"],
+])("toString", (lang, chord, str) => {
+    test(`${lang.id} - ${chord} => "${str}"`, async () => {
+        Settings.lang = lang;
+        const actual = chord.toString();
+        expect(actual).toMatch(str);
+    });
+
+    test(`${lang.id} - "${str}" => ${chord}`, async () => {
+        const chordString = DiatonicAltChordString.from(str);
+        let actual = chordString.chord;
+        expect(actual).toBe(chord);
+    });
+});
+
+describe("precalc", () => {
+    test('CMaj7', async () => {
+        let chord = DiatonicAltChord.CMaj7;
+        expect(chord.length).toBe(4);
+        expect(chord.rootIndex).toBe(0);
+        expect(chord.notes).toStrictEqual([
             DiatonicAlt.C,
             DiatonicAlt.E,
             DiatonicAlt.G,
-            DiatonicAlt.Bb,
+            DiatonicAlt.B,
         ]);
+    });
 
-    let expected = DiatonicAltChord.C7;
-    expect(diatonicAltChord).toBe(expected);
+    test('CmMaj7', async () => {
+        let chord = DiatonicAltChord.CmMaj7;
+        expect(chord.length).toBe(4);
+        expect(chord.rootIndex).toBe(0);
+        expect(chord.notes).toStrictEqual([
+            DiatonicAlt.C,
+            DiatonicAlt.Eb,
+            DiatonicAlt.G,
+            DiatonicAlt.B,
+        ]);
+    });
+})
+
+describe.each([
+    [DiatonicAltChord.C, [DiatonicAlt.C, DiatonicAlt.E, DiatonicAlt.G]],
+    [DiatonicAltChord.C7, [DiatonicAlt.C, DiatonicAlt.E, DiatonicAlt.G, DiatonicAlt.Bb]],
+    [DiatonicAltChord.C7.withInv(), [DiatonicAlt.E, DiatonicAlt.G, DiatonicAlt.Bb, DiatonicAlt.C]],
+    [DiatonicAltChord.C7.withInv(2), [DiatonicAlt.G, DiatonicAlt.Bb, DiatonicAlt.C, DiatonicAlt.E]],
+    [DiatonicAltChord.C7.withInv().withInv(), [DiatonicAlt.G, DiatonicAlt.Bb, DiatonicAlt.C, DiatonicAlt.E]],
+])("notes", (chord, notes) => {
+    test(`${chord}.notes = ${notes}`, async () => {
+        const actual = chord.notes;
+        expect(actual).toStrictEqual(notes);
+    });
+
+    test(`${notes} => ${chord}`, async () => {
+        const actual = DiatonicAltChord.from(notes);
+        expect(actual).toStrictEqual(chord);
+    });
 });
 
-test('toString: C', () => {
-    let str = DiatonicAltChord.C.toString();
-
-    let expected = "C";
-    expect(str).toBe(expected);
-});
-test('DiatonicAltChord - toString: C7', () => {
-    let str = DiatonicAltChord.C7.toString();
-
-    let expected = "C7";
-    expect(str).toBe(expected);
-});
-
-test('DiatonicAltChord - toString: B##7', () => {
-    let str = RootPatternChord.from(
-        DiatonicAlt.BBB,
-        DiatonicAltPattern.SEVENTH).chord.toString();
-
-    let expected = DiatonicAlt.BBB.toString() + "7";
-    expect(str).toBe(expected);
+describe.each([
+    [DiatonicAltChord.C, DiatonicAlt.C],
+    [DiatonicAltChord.C7.withInv(), DiatonicAlt.C],
+    [DiatonicAltChord.C7.withInv(2), DiatonicAlt.C],
+    [DiatonicAltChord.C7.withInv().withInv(), DiatonicAlt.C],
+])("root", (chord, root) => {
+    test(`${chord}.root = ${root}`, async () => {
+        const actual = chord.root;
+        expect(actual).toBe(root);
+    });
 });
 
-test('DiatonicAltChord - toString: CMaj7', () => {
-    let str = DiatonicAltChord.CMaj7.toString();
-    expect(str).toBe("CMaj7");
+describe.each([
+    [DiatonicAltChord.C, 0],
+    [DiatonicAltChord.C.withInv(), 2],
+    [DiatonicAltChord.C.withInv(2), 1],
+])("rootIndex", (chord, root) => {
+    test(`${chord}.root = ${root}`, async () => {
+        const actual = chord.rootIndex;
+        expect(actual).toBe(root);
+    });
 });
 
-test('DiatonicAltChord - toString: CmMaj7', () => {
-    let str = DiatonicAltChord.CmMaj7.toString();
-    expect(str).toBe("CmMaj7");
+describe.each([
+    [DiatonicAltChord.C, DiatonicAlt.C, DiatonicAltChord.C],
+    [DiatonicAltChord.C, DiatonicAlt.E, DiatonicAltChord.C.withInv()],
+    [DiatonicAltChord.C, DiatonicAlt.D, null],
+])("withBass", (chord, bass, expectedChord) => {
+    test(`${chord}.withBass(${bass}) = ${expectedChord}`, async () => {
+        const actual = chord.withBass(bass);
+        expect(actual).toBe(expectedChord);
+    });
 });
 
-test('DiatonicAltChord - precalc: CMaj7', () => {
-    let chord = DiatonicAltChord.CMaj7;
-    expect(chord.length).toBe(4);
-    expect(chord.rootIndex).toBe(0);
-    expect(chord.notes).toStrictEqual([
-        DiatonicAlt.C,
-        DiatonicAlt.E,
-        DiatonicAlt.G,
-        DiatonicAlt.B,
-    ]);
+describe.each([
+    [DiatonicAltChord.C7, 4, DiatonicAltChord.C7],
+])("withInv", (chord, invs, expectedChord) => {
+    test(`${chord}.withInv(${invs}) = ${expectedChord}`, async () => {
+        const actual = chord.withInv(invs);
+        expect(actual).toBe(expectedChord);
+    });
 });
 
-test('DiatonicAltChord - precalc: CmMaj7', () => {
-    let chord = DiatonicAltChord.CmMaj7;
-    expect(chord.length).toBe(4);
-    expect(chord.rootIndex).toBe(0);
-    expect(chord.notes).toStrictEqual([
-        DiatonicAlt.C,
-        DiatonicAlt.Eb,
-        DiatonicAlt.G,
-        DiatonicAlt.B,
-    ]);
-});
-
-test('C7 = C E G Bb', () => {
-    let chord = DiatonicAltChord.C7;
-
-    expect(chord.notes[0]).toBe(DiatonicAlt.C);
-    expect(chord.notes[1]).toBe(DiatonicAlt.E);
-    expect(chord.notes[2]).toBe(DiatonicAlt.G);
-    expect(chord.notes[3]).toBe(DiatonicAlt.Bb);
-});
-
-test('toString: C + inv = C/E', () => {
-    let str = DiatonicAltChord.C.getInv(1).toString();
-
-    let expected = "C/E";
-    expect(str).toBe(expected);
-});
-
-test('toString: C + 2inv = C/E', () => {
-    let str = DiatonicAltChord.C.getInv(2).toString();
-
-    let expected = "C/G";
-    expect(str).toBe(expected);
-});
-
-test('toString: C + 3inv = C', () => {
-    let str = DiatonicAltChord.C.getInv(3).toString();
-
-    let expected = "C";
-    expect(str).toBe(expected);
-});
-
-test('toString: C7 + inv = C7/E', () => {
-    let str = DiatonicAltChord.C7.getInv(1).toString();
-
-    let expected = "C7/E";
-    expect(str).toBe(expected);
-});
-
-test('toString: C13b5#9/Gb', () => {
-    let pattern = DiatonicAltPattern.THIRTEENTH_b5a9;
-    let baseChord = RootPatternChord.from(DiatonicAlt.C, pattern);
-    let chord: DiatonicAltChord = <DiatonicAltChord>baseChord.chord;
-    let chordInv2 = chord.getInv(2);
-    let str = chordInv2.toString();
-
-    let expected = "C13♭5♯9/G♭";
-    expect(str).toBe(expected);
-});
-
-test('DiatonicAltChord - getInv: C7 + inv = C7/E', () => {
-    let diatonicAltChord = DiatonicAltChord.C7.getInv();
-
-    let expected = DiatonicAlt.C;
-    expect(diatonicAltChord.root).toBe(expected);
-    expect(diatonicAltChord.notes).toStrictEqual([
-        DiatonicAlt.E,
-        DiatonicAlt.G,
-        DiatonicAlt.Bb,
-        DiatonicAlt.C
-    ]);
-});
-
-test('DiatonicAltChord - getInv: C7 + 2inv = C7/G', () => {
-    let diatonicAltChord = DiatonicAltChord.C7.getInv(2);
-
-    expect(diatonicAltChord.root).toBe(DiatonicAlt.C);
-    expect(diatonicAltChord.notes).toStrictEqual([
-        DiatonicAlt.G,
-        DiatonicAlt.Bb,
-        DiatonicAlt.C,
-        DiatonicAlt.E
-    ]);
-});
-
-test('DiatonicAltChord - getInv: C7 + 4 inv', () => {
-    let diatonicAltChord = DiatonicAltChord.C7.getInv(4);
-
-    let expected = DiatonicAltChord.C7;
-    expect(diatonicAltChord).toBe(expected);
-});
-
-
-test('DiatonicAltChord - getInv: C7 + 1 inv + 1 inv', () => {
-    let diatonicAltChord = DiatonicAltChord.C7.getInv().getInv();
-
-    expect(diatonicAltChord.root).toBe(DiatonicAlt.C);
-    expect(diatonicAltChord.notes).toStrictEqual([
-        DiatonicAlt.G,
-        DiatonicAlt.Bb,
-        DiatonicAlt.C,
-        DiatonicAlt.E
-    ]);
-});
-
-test('rootIndex - C = 0', () => {
-    let chord = DiatonicAltChord.C;
-    let actual = chord.rootIndex;
-    let expected = 0;
-
-    expect(actual).toBe(expected);
-});
-
-test('rootIndex - C + inv = 2', () => {
-    let chord = DiatonicAltChord.C.getInv();
-    let actual = chord.rootIndex;
-    let expected = 2;
-
-    expect(actual).toBe(expected);
-});
-
-test('rootIndex - C + 2inv = 1', () => {
-    let chord = DiatonicAltChord.C.getInv(2);
-    let actual = chord.rootIndex;
-    let expected = 1;
-
-    expect(actual).toBe(expected);
-});
-
-test('toString - ENG - Fsus2', () => {
-    let chord = RootPatternChord.from(DiatonicAlt.F, DiatonicAltPattern.TRIAD_SUS2).chord;
-    let actual = chord.toString();
-    let expected = "Fsus2";
-
-    expect(actual).toBe(expected);
-});
-
-test('toString - ENG - Csus4 + inv = Fsus2', () => {
-    let chord = <DiatonicAltChord>RootPatternChord.from(DiatonicAlt.C, DiatonicAltPattern.TRIAD_SUS4).chord;
-    chord = chord.getInv();
-    let actual = chord.toString();
-    let expected = "Fsus2";
-
-    expect(actual).toBe(expected);
-});
-
-test('root - C + inv = C', () => {
-    let chord = DiatonicAltChord.C.getInv();
-    let actual = chord.root;
-    let expected = DiatonicAlt.C;
-
-    expect(actual).toBe(expected);
-});
-
-test('get from ImmutableCache: C7', () => {
-    let diatonicAltChord = RootPatternChord.from(DiatonicAlt.C, DiatonicAltPattern.SEVENTH).chord;
-
-    let expected = DiatonicAltChord.C7;
-    expect(diatonicAltChord).toBe(expected);
-});
-
-test('get from ImmutableCache: Am', () => {
-    let diatonicAltChord = RootPatternChord.from(DiatonicAlt.A, DiatonicAltPattern.TRIAD_MINOR).chord;
-
-    let expected = DiatonicAltChord.Am;
-    expect(diatonicAltChord).toBe(expected);
-});
-
-test('get from ImmutableCache: CMaj7', () => {
-    let diatonicAltChord = RootPatternChord.from(DiatonicAlt.C, DiatonicAltPattern.SEVENTH_MAJ7).chord;
-
-    let expected = DiatonicAltChord.CMaj7;
-    expect(diatonicAltChord).toBe(expected);
-});
-
-test('fromString - ENG - " c  " = C MAJOR', () => {
-    Settings.lang = Language.ENG;
-    expect(DiatonicAltChord.fromString(" c  ")).toBe(DiatonicAltChord.C);
-});
-
-test('fromString - ENG - "bb7" = C SEVENTH', () => {
-    Settings.lang = Language.ENG;
-    let expected = DiatonicAltChord.fromDiatonicAlt(
-        [DiatonicAlt.Bb, DiatonicAlt.D, DiatonicAlt.F, DiatonicAlt.Ab]);
-    let actual = DiatonicAltChord.fromString("bb7");
-    expect(actual).toBe(expected);
-});
-
-test('getAdd - C7 + MAJOR_SECOND = D7', () => {
-    let actual = DiatonicAltChord.C7.getAdd(IntervalDiatonicAlt.MAJOR_SECOND);
+test('withAdd - C7 + MAJOR_SECOND = D7', async () => {
+    let actual = DiatonicAltChord.C7.withAdd(IntervalDiatonicAlt.MAJOR_SECOND);
     let expected = RootPatternChord.from(DiatonicAlt.D, DiatonicAltPattern.SEVENTH).chord;
     expect(actual).toBe(expected);
 });
 
-test('getShift - C7 - MAJOR_SECOND = Bb7', () => {
-    let actual = DiatonicAltChord.C7.getSub(IntervalDiatonicAlt.MAJOR_SECOND);
+test('withSub - C7 - MAJOR_SECOND = Bb7', async () => {
+    let actual = DiatonicAltChord.C7.withSub(IntervalDiatonicAlt.MAJOR_SECOND);
     let expected = RootPatternChord.from(DiatonicAlt.Bb, DiatonicAltPattern.SEVENTH).chord;
     expect(actual).toBe(expected);
 });

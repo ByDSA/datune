@@ -1,5 +1,4 @@
 import { ChromaticChord } from '../../chords/chromatic/ChromaticChord';
-import { Assert } from '../../common/Assert';
 import { Immutables } from '../../common/Immutables';
 import { ImmutablesCache } from '../../common/ImmutablesCache';
 import { MathUtils } from '../../common/MathUtils';
@@ -8,7 +7,6 @@ import { DiatonicAlt } from '../../degrees/DiatonicAlt';
 import { IntervalDiatonicAlt } from '../../interval/IntervalDiatonicAlt';
 import { NameChordCalculator } from '../../lang/naming/NameChordCalculator';
 import { DiatonicAltPattern } from '../../patterns/DiatonicAltPattern';
-import { ParserBottomUp } from '../../Utils/Parser/Parser';
 import { Chord } from '../Chord';
 import { RootPatternChord } from '../root-pattern/RootPatternChord';
 
@@ -32,6 +30,8 @@ export class DiatonicAltChord implements Chord<DiatonicAlt, IntervalDiatonicAlt>
     public static Bm: DiatonicAltChord;
 
     public static CMaj7: DiatonicAltChord;
+    public static Csus4: DiatonicAltChord;
+    public static Fsus2: DiatonicAltChord;
     public static FMaj7: DiatonicAltChord;
 
     public static CmMaj7: DiatonicAltChord;
@@ -59,61 +59,41 @@ export class DiatonicAltChord implements Chord<DiatonicAlt, IntervalDiatonicAlt>
         Immutables.lockr(this);
     }
 
-    private static checkValidNotes(notes: DiatonicAlt[]) {
-        for (let note of notes)
-            Assert.notNull(note);
+    public static from(notes: readonly DiatonicAlt[]): DiatonicAltChord {
+        if (!notes)
+            return null;
+        const nonNullNotes = notes.filter(note => note);
+        if (nonNullNotes.length === 0)
+            return null;
+        return DiatonicAltChord.immutablesCache.getOrCreate(nonNullNotes);
     }
 
-    public static fromDiatonicAlt(notes: DiatonicAlt[]): DiatonicAltChord {
-        this.checkValidNotes(notes);
-        return DiatonicAltChord.immutablesCache.getOrCreate(notes);
-    }
-
-    public static fromString(strValue: string): DiatonicAltChord {
-        strValue = this.normalizeInputString(strValue);
-
-        let parser = new ParserBottomUp()
-            .from(strValue)
-            .expected([DiatonicAlt.name, DiatonicAltPattern.name])
-            .add(DiatonicAlt.name, function (str: string): DiatonicAlt {
-                return DiatonicAlt.fromString(str);
-            })
-            .add(DiatonicAltPattern.name, function (str: string): DiatonicAltPattern {
-                return DiatonicAltPattern.fromString(str);
-            });
-
-        let objects = parser.parse();
-
-        if (objects)
-            return <DiatonicAltChord>RootPatternChord.from(objects[0], objects[1]).chord;
-
-        throw new Error("Can't get " + this.name + " from string: " + strValue);
-    }
-
-    private static normalizeInputString(strValue: string): string {
-        strValue = strValue.replace(/ /g, '')
-            .toLowerCase();
-        return strValue;
-    }
-
-    public getInv(n: number = 1): DiatonicAltChord {
+    public withInv(n: number = 1): DiatonicAltChord {
         let rootIndex = this.rootIndex - n;
         rootIndex = MathUtils.rotativeTrim(rootIndex, this._notes.length);
         let notes = this.notes;
         notes = Utils.arrayRotateLeft(notes, n);
-        return DiatonicAltChord.fromDiatonicAlt(notes);
+        return DiatonicAltChord.from(notes);
     }
 
-    public getAdd(interval: IntervalDiatonicAlt): DiatonicAltChord {
+    public withAdd(interval: IntervalDiatonicAlt): DiatonicAltChord {
         let notes: DiatonicAlt[] = this.notes.map(note => note.getAdd(interval));
 
-        return DiatonicAltChord.fromDiatonicAlt(notes);
+        return DiatonicAltChord.from(notes);
     }
 
-    public getSub(interval: IntervalDiatonicAlt): DiatonicAltChord {
+    public withSub(interval: IntervalDiatonicAlt): DiatonicAltChord {
         let notes: DiatonicAlt[] = this.notes.map(note => note.getSub(interval));
 
-        return DiatonicAltChord.fromDiatonicAlt(notes);
+        return DiatonicAltChord.from(notes);
+    }
+
+    withBass(bass: DiatonicAlt): DiatonicAltChord {
+        const oldIndexOfNewBass = this.notes.indexOf(bass);
+        if (oldIndexOfNewBass < 0)
+            return null;
+
+        return this.withInv(oldIndexOfNewBass);
     }
 
     public get root(): DiatonicAlt {

@@ -5,9 +5,7 @@ import { Utils } from '../../common/Utils';
 import { Chromatic } from '../../degrees/Chromatic';
 import { NameChordCalculator } from '../../lang/naming/NameChordCalculator';
 import { ChromaticPattern } from '../../patterns/ChromaticPattern';
-import { ParserBottomUp } from '../../Utils/Parser/Parser';
 import { Chord } from '../Chord';
-import { RootPatternChord } from '../root-pattern/RootPatternChord';
 
 type HashingObjectType = Chromatic[];
 export class ChromaticChord implements Chord<Chromatic, number> {
@@ -41,33 +39,6 @@ export class ChromaticChord implements Chord<Chromatic, number> {
         return this.immutablesCache.getOrCreate(notes);
     }
 
-    public static fromString(strValue: string): ChromaticChord {
-        strValue = this.normalizeInputString(strValue);
-
-        let parser = new ParserBottomUp()
-            .from(strValue)
-            .expected([Chromatic.name, ChromaticPattern.name])
-            .add(Chromatic.name, function (str: string): Chromatic {
-                return Chromatic.fromString(str);
-            })
-            .add(ChromaticPattern.name, function (str: string): ChromaticPattern {
-                return ChromaticPattern.fromString(str);
-            });
-
-        let objects = parser.parse();
-
-        if (objects)
-            return <ChromaticChord>RootPatternChord.from(objects[0], objects[1]).chord;
-
-        throw new Error("Can't get " + this.name + " from string: " + strValue);
-    }
-
-    private static normalizeInputString(strValue: string): string {
-        strValue = strValue.replace(/ /g, '')
-            .toLowerCase();
-        return strValue;
-    }
-
     public get root(): Chromatic {
         return this.notes[this.rootIndex];
     }
@@ -84,7 +55,7 @@ export class ChromaticChord implements Chord<Chromatic, number> {
         return Array.from(this._notes);
     }
 
-    public getInv(n: number = 1): ChromaticChord {
+    public withInv(n: number = 1): ChromaticChord {
         let rootIndex = this.rootIndex - n;
         rootIndex = MathUtils.rotativeTrim(rootIndex, this._notes.length);
         let notes = this.notes;
@@ -94,7 +65,7 @@ export class ChromaticChord implements Chord<Chromatic, number> {
     }
 
     public getShift(interval: number): ChromaticChord {
-        let notes : Chromatic[] = this.notes.map(note => note.getShift(interval));
+        let notes: Chromatic[] = this.notes.map(note => note.getShift(interval));
 
         return ChromaticChord.from(notes);
     }

@@ -158,7 +158,7 @@ export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I
         return this._rootIntervals.length;
     }
 
-    public getInv(n: number = 1): ChromaticPattern {
+    public withInv(n: number = 1): ChromaticPattern {
         let values = Array.from(this.rootIntervals);
         for (let i = 0; i < n; i++) {
             let firstValue = values.shift();
@@ -184,8 +184,8 @@ export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I
     private static initialize() {
         ChromaticPattern.POWER_CHORD = ChromaticPattern.fromRootIntervals(0, 7);
         ChromaticPattern.TRIAD_MAJOR = ChromaticPattern.fromRootIntervals(0, 4, 7);
-        ChromaticPattern.TRIAD_MAJOR.getInv(1)._rootIndex = 2;
-        ChromaticPattern.TRIAD_MAJOR.getInv(2)._rootIndex = 1;
+        ChromaticPattern.TRIAD_MAJOR.withInv(1)._rootIndex = 2;
+        ChromaticPattern.TRIAD_MAJOR.withInv(2)._rootIndex = 1;
         ChromaticPattern.TRIAD_MINOR = ChromaticPattern.fromRootIntervals(0, 3, 7);
         ChromaticPattern.TRIAD_DIMINISHED = ChromaticPattern.fromRootIntervals(0, 3, 6);
         ChromaticPattern.TRIAD_AUGMENTED = ChromaticPattern.fromRootIntervals(0, 4, 8);

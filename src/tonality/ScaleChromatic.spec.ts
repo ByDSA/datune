@@ -11,383 +11,178 @@ precalc.settings();
 precalc.diatonicDegrees();
 precalc.degreeFunctions();
 
-test('precalc', () => {
-    let scale = ScaleChromatic.MAJOR;
+describe('precalc', () => {
+    describe.each(ScaleChromatic.sets.all())
+        ('sets.all() not undefined', (scale) => {
+            test(`${scale}`, async () => {
+                expect(scale).not.toBeUndefined();
+            })
+        });
 
-    expect(scale).not.toBeUndefined();
-    expect(scale).not.toBeNull();
-    expect(scale).toBe(ScaleChromatic.MAJOR);
-});
+    test('manual', async () => {
+        let scale = ScaleChromatic.MAJOR;
 
-test('precalc all', () => {
-    expect(ScaleChromatic.MAJOR).not.toBeUndefined();
-    expect(ScaleChromatic.DORIAN).not.toBeUndefined();
-    expect(ScaleChromatic.PHRYGIAN).not.toBeUndefined();
-    expect(ScaleChromatic.LYDIAN).not.toBeUndefined();
-    expect(ScaleChromatic.MIXOLYDIAN).not.toBeUndefined();
-    expect(ScaleChromatic.MINOR).not.toBeUndefined();
-    expect(ScaleChromatic.LOCRIAN).not.toBeUndefined();
-
-    expect(ScaleChromatic.HARMONIC_MINOR).not.toBeUndefined();
-    expect(ScaleChromatic.LOCRIAN_a6).not.toBeUndefined();
-    expect(ScaleChromatic.IONIAN_a5).not.toBeUndefined();
-    expect(ScaleChromatic.DORIAN_a4).not.toBeUndefined();
-    expect(ScaleChromatic.MIXOLYDIAN_b9_b13).not.toBeUndefined();
-    expect(ScaleChromatic.LYDIAN_a2).not.toBeUndefined();
-    expect(ScaleChromatic.SUPERLOCRIAN_bb7).not.toBeUndefined();
-
-    expect(ScaleChromatic.HARMONIC_MAJOR).not.toBeUndefined();
-    expect(ScaleChromatic.DORIAN_b5).not.toBeUndefined();
-    expect(ScaleChromatic.PHRYGIAN_b4).not.toBeUndefined();
-    expect(ScaleChromatic.LYDIAN_b3).not.toBeUndefined();
-    expect(ScaleChromatic.MIXOLYDIAN_b2).not.toBeUndefined();
-    expect(ScaleChromatic.AEOLIAN_b1).not.toBeUndefined();
-    expect(ScaleChromatic.LOCRIAN_bb7).not.toBeUndefined();
-
-    expect(ScaleChromatic.MELODIC_MINOR).not.toBeUndefined();
-    expect(ScaleChromatic.DORIAN_b2).not.toBeUndefined();
-    expect(ScaleChromatic.LYDIAN_a5).not.toBeUndefined();
-    expect(ScaleChromatic.LYDIAN_b7).not.toBeUndefined();
-    expect(ScaleChromatic.MIXOLYDIAN_b13).not.toBeUndefined();
-    expect(ScaleChromatic.LOCRIAN_a2).not.toBeUndefined();
-    expect(ScaleChromatic.SUPERLOCRIAN).not.toBeUndefined();
-
-    expect(ScaleChromatic.DOUBLE_HARMONIC).not.toBeUndefined();
-    expect(ScaleChromatic.LYDIAN_a2_a6).not.toBeUndefined();
-    expect(ScaleChromatic.ULTRAPHRYGIAN).not.toBeUndefined();
-    expect(ScaleChromatic.HUNGARIAN_MINOR).not.toBeUndefined();
-    expect(ScaleChromatic.ORIENTAL).not.toBeUndefined();
-    expect(ScaleChromatic.IONIAN_AUGMENTED_a2).not.toBeUndefined();
-    expect(ScaleChromatic.LOCRIAN_bb3_bb7).not.toBeUndefined();
-
-    expect(ScaleChromatic.NEAPOLITAN_MINOR).not.toBeUndefined();
-    expect(ScaleChromatic.NEAPOLITAN_MAJOR).not.toBeUndefined();
-
-    // 6
-    expect(ScaleChromatic.BLUES_b5).not.toBeUndefined();
-    expect(ScaleChromatic.BLUES_a4).not.toBeUndefined();
-
-    // 5
-    expect(ScaleChromatic.PENTATONIC_MINOR).not.toBeUndefined();
-    expect(ScaleChromatic.PENTATONIC).not.toBeUndefined();
-    expect(ScaleChromatic.EGYPCIAN).not.toBeUndefined();
-    expect(ScaleChromatic.BLUES_MINOR).not.toBeUndefined();
-    expect(ScaleChromatic.BLUES_MAJOR).not.toBeUndefined();
-
-    // Symmetric
-    expect(ScaleChromatic.DOM7b5).not.toBeUndefined();
-    expect(ScaleChromatic.AUGMENTED_TRIAD).not.toBeUndefined();
-    expect(ScaleChromatic.DIMINISHED_7th).not.toBeUndefined();
-    expect(ScaleChromatic.HALF_DIMINISHED).not.toBeUndefined();
-    expect(ScaleChromatic.CHROMATIC).not.toBeUndefined();
-    expect(ScaleChromatic.WHOLE_TONE).not.toBeUndefined();
-    expect(ScaleChromatic.MESSIAEN_V_TRUNCATED).not.toBeUndefined();
-    expect(ScaleChromatic.MESSIAEN_INV_III_V_TRUNCATED_n2).not.toBeUndefined();
-    expect(ScaleChromatic.MESSIAEN_V).not.toBeUndefined();
-    expect(ScaleChromatic.RAGA_INDRUPRIYA_INDIA).not.toBeUndefined();
-    expect(ScaleChromatic.MESSIAEN_II_TRUNCATED_n3).not.toBeUndefined();
-    expect(ScaleChromatic.MESSIAEN_III_INV).not.toBeUndefined();
-    expect(ScaleChromatic.MESSIAEN_IV).not.toBeUndefined();
-    expect(ScaleChromatic.MESSIAEN_VI).not.toBeUndefined();
-    expect(ScaleChromatic.MESSIAEN_VII).not.toBeUndefined();
-
-    // Bebop
-    expect(ScaleChromatic.BEBOP_MAJOR).not.toBeUndefined();
-    expect(ScaleChromatic.BEBOP_DORIAN).not.toBeUndefined();
-    expect(ScaleChromatic.BEBOP_DOMINANT).not.toBeUndefined();
-    expect(ScaleChromatic.BEBOP_MELODIC_MINOR).not.toBeUndefined();
-    expect(ScaleChromatic.BEBOP_HARMONIC_MINOR).not.toBeUndefined();
-
-    for (let scale of ScaleChromatic.sets.all()) {
         expect(scale).not.toBeUndefined();
         expect(scale).not.toBeNull();
-    }
-});
+        expect(scale).toBe(ScaleChromatic.MAJOR);
+    });
+})
 
-test('getModeIntraIntervals - -III  = MINOR.intervals', () => {
-    let actual: number[] = (<any>ScaleChromatic.MAJOR).getModeIntraIntervals(-3);
-    let expected: number[] = [2, 1, 2, 2, 1, 2, 2];
+describe('getModeIntraIntervals', () => {
+    test('-III  = MINOR.intervals', async () => {
+        let actual: number[] = (<any>ScaleChromatic.MAJOR).getModeIntraIntervals(-3);
+        let expected: number[] = [2, 1, 2, 2, 1, 2, 2];
 
-    expect(actual).toStrictEqual(expected);
-});
+        expect(actual).toStrictEqual(expected);
+    });
 
-test('getModeIntraIntervals - VI  = MINOR.intervals', () => {
-    let actual: number[] = (<any>ScaleChromatic.MAJOR).getModeIntraIntervals(6);
-    let expected: number[] = [2, 1, 2, 2, 1, 2, 2];
+    test('VI  = MINOR.intervals', async () => {
+        let actual: number[] = (<any>ScaleChromatic.MAJOR).getModeIntraIntervals(6);
+        let expected: number[] = [2, 1, 2, 2, 1, 2, 2];
 
-    expect(actual).toStrictEqual(expected);
-});
+        expect(actual).toStrictEqual(expected);
+    });
+})
 
-test('getMode - I = MAJOR', () => {
-    let mode = ScaleChromatic.MAJOR.getMode(1);
-    let expected = ScaleChromatic.MAJOR;
+describe.each([
+    [1, ScaleChromatic.MAJOR, ScaleChromatic.MAJOR],
+    [-1, ScaleChromatic.MAJOR, ScaleChromatic.MAJOR],
+    [2, ScaleChromatic.MAJOR, ScaleChromatic.DORIAN],
+    [-2, ScaleChromatic.MAJOR, ScaleChromatic.LOCRIAN],
+])('getMode', (modeNumber: number, scaleBase, expected) => {
+    test(`${modeNumber} of ${scaleBase} => ${expected}`, async () => {
+        let mode = scaleBase.getMode(modeNumber);
+        expect(mode).toBe(expected);
+    });
+})
 
-    expect(mode).toBe(expected);
-});
-
-test('getMode - -I = MAJOR', () => {
-    let mode = ScaleChromatic.MAJOR.getMode(-1);
-    let expected = ScaleChromatic.MAJOR;
-
-    expect(mode).toBe(expected);
-});
-
-test('getMode - II = DORIAN', () => {
-    let mode = ScaleChromatic.MAJOR.getMode(2);
-    let expected = ScaleChromatic.DORIAN;
-
-    expect(mode).toBe(expected);
-});
-
-test('getMode - -II = LOCRIAN', () => {
-    let mode = ScaleChromatic.MAJOR.getMode(-2);
-    let expected = ScaleChromatic.LOCRIAN;
-
-    expect(mode).toBe(expected);
-});
-
-test('degrees not null or undefined', () => {
+test('degrees not null or undefined', async () => {
     for (let scale of ScaleChromatic.sets.all()) {
         expect(scale.degrees).not.toBeNull();
     }
 });
 
-test('degrees: MAJOR', () => {
-    let scale = ScaleChromatic.MAJOR;
-    let degrees = scale.degrees;
-    expect(degrees).toStrictEqual([0, 2, 4, 5, 7, 9, 11]);
-});
+describe.each([
+    [ScaleChromatic.MAJOR, [0, 2, 4, 5, 7, 9, 11]],
+    [ScaleChromatic.MINOR, [0, 2, 3, 5, 7, 8, 10]],
+    [ScaleChromatic.MIXOLYDIAN, [0, 2, 4, 5, 7, 9, 10]],
+])('degrees', (scale, expectedDegrees) => {
+    test(`${scale} => ${expectedDegrees}`, async () => {
+        let degrees = scale.degrees;
+        expect(degrees).toStrictEqual(expectedDegrees);
+    });
+})
 
-test('degrees: MINOR', () => {
-    let scale = ScaleChromatic.MINOR;
-    let degrees = scale.degrees;
-    expect(degrees).toStrictEqual([0, 2, 3, 5, 7, 8, 10]);
-});
+describe.each([
+    [ScaleChromatic.MAJOR, [2, 2, 1, 2, 2, 2, 1]],
+    [ScaleChromatic.BLUES_b5, [3, 2, 1, 1, 3, 2]],
+    [ScaleChromatic.BLUES_a4, [3, 2, 1, 1, 3, 2]],
+    [ScaleChromatic.PENTATONIC_MINOR, [3, 2, 2, 3, 2]],
+    [ScaleChromatic.PENTATONIC, [2, 2, 3, 2, 3]],
+    [ScaleChromatic.EGYPCIAN, [2, 3, 2, 3, 2]],
+    [ScaleChromatic.BLUES_MINOR, [3, 2, 3, 2, 2]],
+    [ScaleChromatic.BLUES_MAJOR, [2, 3, 2, 2, 3]],
+    [ScaleChromatic.BEBOP_DOMINANT, [2, 2, 1, 2, 2, 1, 1, 1]],
+    [ScaleChromatic.BLUES_b5.modes[4], [3, 2, 3, 2, 1, 1]],
+])('intraIntervals', (scale, intraIntervals) => {
+    test(`${scale} => ${intraIntervals}`, async () => {
+        let degrees = scale.intraIntervals;
+        expect(degrees).toStrictEqual(intraIntervals);
+    });
 
-test('intraIntervals: BLUES_b5', () => {
-    let scale = ScaleChromatic.BLUES_b5;
-    let intraIntervals = scale.intraIntervals;
-    expect(intraIntervals).toStrictEqual([3, 2, 1, 1, 3, 2]);
-});
+    test(`${intraIntervals} => ${scale}`, async () => {
+        let actual = ScaleChromatic.fromIntraIntervals(...intraIntervals);
+        expect(actual).toBe(scale);
+    });
+})
 
-test('intraIntervals: BLUES_a4', () => {
-    let scale = ScaleChromatic.BLUES_a4;
-    let intraIntervals = scale.intraIntervals;
-    expect(intraIntervals).toStrictEqual([3, 2, 1, 1, 3, 2]);
-});
-
-
-test('intraIntervals: pentatonic minor', () => {
-    let scale = ScaleChromatic.PENTATONIC_MINOR;
-    let intraIntervals = scale.intraIntervals;
-    expect(intraIntervals).toStrictEqual([3, 2, 2, 3, 2]);
-});
-
-test('intraIntervals: pentatonic', () => {
-    let scale = ScaleChromatic.PENTATONIC;
-    let intraIntervals = scale.intraIntervals;
-    expect(intraIntervals).toStrictEqual([2, 2, 3, 2, 3]);
-});
-
-test('intraIntervals: egypcian', () => {
-    let scale = ScaleChromatic.EGYPCIAN;
-    let intraIntervals = scale.intraIntervals;
-    expect(intraIntervals).toStrictEqual([2, 3, 2, 3, 2]);
-});
-
-test('intraIntervals: blues minor', () => {
-    let scale = ScaleChromatic.BLUES_MINOR;
-    let intraIntervals = scale.intraIntervals;
-    expect(intraIntervals).toStrictEqual([3, 2, 3, 2, 2]);
-});
-
-test('intraIntervals: blues major', () => {
-    let scale = ScaleChromatic.BLUES_MAJOR;
-    let intraIntervals = scale.intraIntervals;
-    expect(intraIntervals).toStrictEqual([2, 3, 2, 2, 3]);
-});
-
-test('set all: contains BLUES_a4', () => {
+test('set all: contains BLUES_a4', async () => {
     expect(ScaleChromatic.sets.all().includes(ScaleChromatic.BLUES_a4)).toBe(true);
 });
 
-test('pitchClass: MIXOLYDIAN', () => {
-    let scale = ScaleChromatic.MIXOLYDIAN;
-    let degrees = scale.degrees;
-    expect(degrees).toStrictEqual([0, 2, 4, 5, 7, 9, 10]);
-});
-
-test('intervalClass: BEBOP DOMINANT', () => {
-    let scale = ScaleChromatic.BEBOP_DOMINANT;
-    let intraIntervals = scale.intraIntervals;
-    expect(intraIntervals).toStrictEqual([2, 2, 1, 2, 2, 1, 1, 1]);
-});
-
-test('fromPC: MAJOR', () => {
+test('fromPC: MAJOR', async () => {
     let scale = ScaleChromatic.fromRootIntervals(0, 2, 4, 5, 7, 9, 11);
     expect(scale).toBe(ScaleChromatic.MAJOR);
 });
 
-test('fromIC: MAJOR', () => {
-    let scale = ScaleChromatic.fromIntraIntervals(2, 2, 1, 2, 2, 2, 1);
-    expect(scale).toBe(ScaleChromatic.MAJOR);
-});
 
-test('intervalClass: BLUES_b5, mode V', () => {
-    let scale: ScaleChromatic = ScaleChromatic.BLUES_b5.modes[4];
-    let intervals = scale.intraIntervals;
-    expect(intervals).toStrictEqual([3, 2, 3, 2, 1, 1]);
-});
-
-test('toString: all have string', () => {
+test('toString: all have string', async () => {
     for (let scale of ScaleChromatic.sets.all()) {
         expect(scale.toString()).not.toBeNull();
         expect(scale.toString()).not.toBeUndefined();
     }
 });
 
-test('toString - ESP - AEOLIAN_b1 - LIDIA AUMENTADA #2', () => {
-    Settings.lang = Language.ESP;
-    expect(ScaleChromatic.AEOLIAN_b1.toString()).toEqual("LIDIA AUMENTADA ♯2");
-});
+describe.each([
+    [Language.ESP, ScaleChromatic.MAJOR, "MAYOR"],
+    [Language.ESP, ScaleChromatic.MINOR, "MENOR"],
+    [Language.ESP, ScaleChromatic.AEOLIAN_b1, "LIDIA AUMENTADA ♯2"],
 
-test('fromString - ESP - MAYOR', () => {
-    Settings.lang = Language.ESP;
-    expect(ScaleChromatic.fromString("MAYOR")).toBe(ScaleChromatic.MAJOR);
-});
+    [Language.ENG, ScaleChromatic.MAJOR, "MAJOR"],
+    [Language.ENG, ScaleChromatic.MINOR, "MINOR"],
+    [Language.ENG, ScaleChromatic.AEOLIAN_b1, "LYDIAN AUGMENTED ♯2"],
+])('toString', (lang, scale, str) => {
+    test(`${lang.id} - ${scale} => ${str}`, async () => {
+        Settings.lang = lang;
+        expect(scale.toString()).toBe(str);
+    });
+    test(`${lang.id} - ${str} => ${scale}`, async () => {
+        Settings.lang = lang;
+        expect(ScaleChromatic.fromString(str)).toBe(scale);
+    });
+})
 
-test('fromString - ESP - MAJOR', () => {
-    Settings.lang = Language.ESP;
-    const t = () => {
-        ScaleChromatic.fromString("MAJOR")
-    };
-    expect(t).toThrow(Error);
-});
+describe('fromString', () => {
+    describe.each([
+        [Language.ESP, "  ma Yor  ", ScaleChromatic.MAJOR],
+        [Language.ESP, "LiDIA aume Ntada #2", ScaleChromatic.AEOLIAN_b1],
+        [Language.ESP, "LiDIA AUMENTada ♯2", ScaleChromatic.AEOLIAN_b1],
+        [Language.ESP, "LiDIA b7", ScaleChromatic.LYDIAN_b7],
+        [Language.ESP, "SUPERLOCRIA bb7", ScaleChromatic.SUPERLOCRIAN_bb7],
 
-test('fromString - ESP - maYor (with spaces)', () => {
-    Settings.lang = Language.ESP;
-    expect(ScaleChromatic.fromString("  ma Yor  ")).toBe(ScaleChromatic.MAJOR);
-});
+        [Language.ENG, "  ma Jor  ", ScaleChromatic.MAJOR],
+        [Language.ENG, "LyDIAN augme Nted #2", ScaleChromatic.AEOLIAN_b1],
+        [Language.ENG, "LYDIAN AUGMENTED ♯2", ScaleChromatic.AEOLIAN_b1],
+        [Language.ENG, "LYDIAN b7", ScaleChromatic.LYDIAN_b7],
+        [Language.ENG, "blues b5", ScaleChromatic.BLUES_b5],
+        [Language.ENG, "SUPERLOCRIAN bb7", ScaleChromatic.SUPERLOCRIAN_bb7],
+    ])('name', (lang, str, expected) => {
+        test(`${lang.id} - ${str} => ${expected}`, async () => {
+            Settings.lang = lang;
+            expect(ScaleChromatic.fromString(str)).toBe(expected);
+        });
+    })
 
-test('fromString - ESP - MENOR', () => {
-    Settings.lang = Language.ESP;
-    expect(ScaleChromatic.fromString("MENOR")).toBe(ScaleChromatic.MINOR);
-});
+    describe.each([
+        [Language.ESP, "MAJOR"],
+        [Language.ENG, "MAYOR"],
+    ])('name - error', (lang, str) => {
+        test(`${lang.id} - ${str}`, async () => {
+            Settings.lang = lang;
+            const t = () => {
+                ScaleChromatic.fromString(str)
+            };
+            expect(t).toThrow(Error);
+        });
+    })
 
-test('fromString - ESP - LiDIA aume Ntada #2', () => {
-    Settings.lang = Language.ESP;
-    expect(ScaleChromatic.fromString("LiDIA aume Ntada #2")).toBe(ScaleChromatic.AEOLIAN_b1);
-});
-
-test('fromString - ESP - LiDIA AUMENTada ♯2', () => {
-    Settings.lang = Language.ESP;
-    expect(ScaleChromatic.fromString("LiDIA AUMENTada ♯2")).toBe(ScaleChromatic.AEOLIAN_b1);
-});
-
-test('fromString - ESP - LYDIAN b7', () => {
-    Settings.lang = Language.ESP;
-    expect(ScaleChromatic.fromString("LiDIA b7")).toBe(ScaleChromatic.LYDIAN_b7);
-});
-
-test('fromString - ENG - SUPERLOCRIA bb7', () => {
-    Settings.lang = Language.ESP;
-    expect(ScaleChromatic.fromString("SUPERLOCRIA bb7")).toBe(ScaleChromatic.SUPERLOCRIAN_bb7);
-});
-
-test('toString - ENG - AEOLIAN_b1 - LYDIAN AUGMENTED #2', () => {
-    Settings.lang = Language.ENG;
-    expect(ScaleChromatic.AEOLIAN_b1.toString()).toEqual("LYDIAN AUGMENTED ♯2");
-});
-test('fromString - ENG - MAYOR', () => {
-    Settings.lang = Language.ENG;
-    expect(ScaleChromatic.fromString("MAJOR")).toBe(ScaleChromatic.MAJOR);
-});
-
-test('fromString - ENG - MAYOR', () => {
-    Settings.lang = Language.ENG;
-    const t = () => {
-        ScaleChromatic.fromString("MAYOR")
-    };
-    expect(t).toThrow(Error);
-});
-
-test('fromString - ENG - maJor (with spaces)', () => {
-    Settings.lang = Language.ENG;
-    expect(ScaleChromatic.fromString("  ma Jor  ")).toBe(ScaleChromatic.MAJOR);
-});
-
-test('fromString - ENG - MINOR', () => {
-    Settings.lang = Language.ENG;
-    expect(ScaleChromatic.fromString("MINOR")).toBe(ScaleChromatic.MINOR);
-});
-
-test('fromString - ENG - LyDIAN augme Nted #2', () => {
-    Settings.lang = Language.ENG;
-    expect(ScaleChromatic.fromString("LyDIAN augme Nted #2")).toBe(ScaleChromatic.AEOLIAN_b1);
-});
-
-test('fromString - ENG - LYDIAN AUGMENTED ♯2', () => {
-    Settings.lang = Language.ENG;
-    expect(ScaleChromatic.fromString("LYDIAN AUGMENTED ♯2")).toBe(ScaleChromatic.AEOLIAN_b1);
-});
-
-test('fromString - ENG - LYDIAN b7', () => {
-    Settings.lang = Language.ENG;
-    expect(ScaleChromatic.fromString("LYDIAN b7")).toBe(ScaleChromatic.LYDIAN_b7);
-});
-
-test('fromString - ENG - BLUES b5', () => {
-    Settings.lang = Language.ENG;
-    expect(ScaleChromatic.fromString("blues b5")).toBe(ScaleChromatic.BLUES_b5);
-});
-
-test('fromString - ENG - SUPERLOCRIAN bb7', () => {
-    Settings.lang = Language.ENG;
-    expect(ScaleChromatic.fromString("SUPERLOCRIAN bb7")).toBe(ScaleChromatic.SUPERLOCRIAN_bb7);
-});
-
-test('fromIntraIntervals - 2-2-1-2-2-2-1 (MAJOR)', () => {
-    let actual = ScaleChromatic.fromIntraIntervals(2, 2, 1, 2, 2, 2, 1);
-    expect(actual).toBe(ScaleChromatic.MAJOR);
-});
-
-test('fromString - 2-2-1-2-2-2-1 (MAJOR)', () => {
-    let actual = ScaleChromatic.fromString("2-2-1-2-2-2-1");
-    let expected = ScaleChromatic.MAJOR;
-    expect(actual).toBe(expected);
-});
-
-test('fromString - 2:2-1:2-2:2-1 (MAJOR)', () => {
-    let actual = ScaleChromatic.fromString("2:2-1:2-2:2-1");
-    expect(actual).toBe(ScaleChromatic.MAJOR);
-});
-
-test('fromString - 2 2 1 2-2 2:1 (MAJOR)', () => {
-    let actual = ScaleChromatic.fromString("2 2 1 2-2 2:1");
-    let expected = ScaleChromatic.MAJOR;
-    expect(actual).toBe(expected);
-});
-
-test('fromString - 2:2-1 2-2:2-1 (MAJOR)', () => {
-    let actual = ScaleChromatic.fromString("2:2-1 2-2:2-1");
-    let expected = ScaleChromatic.MAJOR;
-    expect(actual).toBe(expected);
-});
-
-test('fromString - 2-2-1-2-2-2-1 (MAJOR)', () => {
-    let actual = ScaleChromatic.fromString("2-2-1-2-2-2-1");
-    let expected = ScaleChromatic.MAJOR;
-    expect(actual).toBe(expected);
-});
-
-test('fromString - 2:2-1:2-2:2-1 (MAJOR)', () => {
-    let actual = ScaleChromatic.fromString("2:2-1:2-2:2-1");
-    let expected = ScaleChromatic.MAJOR;
-    expect(actual).toBe(expected);
-});
-
-test('fromString - 2 2 1 2-2 2:1 (MAJOR)', () => {
-    let actual = ScaleChromatic.fromString("2 2 1 2-2 2:1");
-    let expected = ScaleChromatic.MAJOR;
-    expect(actual).toBe(expected);
-});
+    describe.each([
+        ["2-2-1-2-2-2-1", ScaleChromatic.MAJOR],
+        ["2:2-1:2-2:2-1", ScaleChromatic.MAJOR],
+        ["2 2 1 2-2 2:1", ScaleChromatic.MAJOR],
+        ["2:2-1 2-2:2-1", ScaleChromatic.MAJOR],
+        ["2-2-1-2-2-2-1", ScaleChromatic.MAJOR],
+        ["2:2-1:2-2:2-1", ScaleChromatic.MAJOR],
+        ["2 2 1 2-2 2:1", ScaleChromatic.MAJOR],
+    ])('intraIntervals', (str, expected) => {
+        describe.each([
+            Language.ENG,
+            Language.ESP,
+        ])("lang", (lang) => {
+            test(`${lang.id} - ${str} => ${expected}`, async () => {
+                Settings.lang = lang;
+                expect(ScaleChromatic.fromString(str)).toBe(expected);
+            });
+        })
+    })
+})

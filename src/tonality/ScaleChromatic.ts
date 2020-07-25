@@ -2,7 +2,7 @@ import { ImmutablesCache } from '../common/ImmutablesCache';
 import { MathUtils } from '../common/MathUtils';
 import { Chromatic } from '../degrees/Chromatic';
 import { Diatonic } from '../degrees/Diatonic';
-import { DiatonicAltDegree } from '../degrees/scale/DiatonicAltDegree';
+import { DiatonicAltDegree } from '../degrees/degrees/DiatonicAltDegree';
 import { IntervalDiatonic } from '../interval/IntervalDiatonic';
 import { IntervalDiatonicAlt } from '../interval/IntervalDiatonicAlt';
 import { NamingScale } from '../lang/naming/NamingScale';

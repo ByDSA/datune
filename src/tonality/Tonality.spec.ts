@@ -15,18 +15,17 @@ precalc.scales();
 precalc.tonalities();
 precalc.settings();
 
-test('Tonality - scales & root: ', () => {
-    expect(Tonality.C.scale).toBe(Scale.MAJOR);
-    expect(Tonality.C.root).toBe(DiatonicAlt.C);
-});
+describe.each([
+    [Tonality.C, DiatonicAlt.C, Scale.MAJOR],
+    [Tonality.from(DiatonicAlt.C, Scale.ORIENTAL), DiatonicAlt.C, Scale.ORIENTAL],
+])("scales & root", (tonality, root, scale) => {
+    test(`${tonality} => root=${root}, scale=${scale}`, () => {
+        expect(tonality.scale).toBe(scale);
+        expect(tonality.root).toBe(root);
+    });
+})
 
-test('Tonality - scales & root: Scale.ORIENTAL', () => {
-    let tonality = Tonality.from(DiatonicAlt.C, Scale.ORIENTAL);
-    expect(tonality.scale).toBe(Scale.ORIENTAL);
-    expect(tonality.root).toBe(DiatonicAlt.C);
-});
-
-test('Tonality - notes: C', () => {
+test('notes: C', () => {
     let notes = Tonality.C.notes;
     expect(notes.length).toBe(7);
     expect(notes).toStrictEqual(
@@ -42,26 +41,26 @@ test('Tonality - notes: C', () => {
     );
 });
 
-test('Tonality - rootChord3: C -> C', () => {
+test('rootChord3: C -> C', () => {
     let rootChord3: DiatonicAltChord = Tonality.C.rootChord3;
     expect(rootChord3.length).toBe(3);
     expect(rootChord3).toBe(DiatonicAltChord.C);
 });
 
-test('Tonality - rootChord3: C Oriental -> Am', () => {
+test('rootChord3: C Oriental -> Am', () => {
     let tonality = Tonality.from(DiatonicAlt.C, Scale.ORIENTAL);
     let rootChord3: DiatonicAltChord = tonality.rootChord3;
     expect(rootChord3.length).toBe(3);
     expect(rootChord3).toBe(DiatonicAltChord.Am);
 });
 
-test('Tonality - rootChord4: C -> CMaj7', () => {
+test('rootChord4: C -> CMaj7', () => {
     let rootChord4 = Tonality.C.rootChord4;
     expect(rootChord4.length).toBe(4);
     expect(rootChord4).toBe(DiatonicAltChord.CMaj7);
 });
 
-test('Tonality - notes: C BLUES MINOR', () => {
+test('notes: C BLUES MINOR', () => {
     let tonality = Tonality.from(DiatonicAlt.C, Scale.BLUES_MINOR);
     let notes = tonality.notes;
     expect(notes.length).toBe(5);
@@ -76,56 +75,34 @@ test('Tonality - notes: C BLUES MINOR', () => {
     );
 });
 
-test('toString - ENG - C', () => {
-    Settings.lang = Language.ENG;
-    let tonality = Tonality.C;
-    let actual = tonality.toString();
-    let expected = "C MAJOR";
-    
-    expect(actual).toBe(expected);
+describe.each([
+    [Language.ENG, Tonality.C, "C MAJOR"],
+    [Language.ESP, Tonality.C, "Do MAYOR"],
+])("toString", (lang, tonality, str) => {
+    test(`${lang.id} - ${tonality} => "${str}"`, async () => {
+        Settings.lang = lang;
+        const actual = tonality.toString();
+        expect(actual).toMatch(str);
+    });
+
+    test(`${lang.id} - "${str}" => ${tonality}`, async () => {
+        const tonality = Tonality.fromString(str);
+        expect(tonality).toBe(tonality);
+    });
 });
 
-test('fromString - ESP - Do MAYOR', () => {
-    Settings.lang = Language.ESP;
-    expect(Tonality.fromString("Do MAYOR")).toBe(Tonality.C);
-});
-
-test('fromString - ESP - Do ', () => {
-    Settings.lang = Language.ESP;
-    expect(Tonality.fromString("Do ")).toBe(Tonality.C);
-});
-
-test('fromString - ESP - Do', () => {
-    Settings.lang = Language.ESP;
-    expect(Tonality.fromString("Do")).toBe(Tonality.C);
-});
-
-test('fromString - ESP - Do m', () => {
-    Settings.lang = Language.ESP;
-    expect(Tonality.fromString("Do m")).toBe(Tonality.Cm);
-});
-
-test('fromString - ENG - C MAJOR', () => {
-    Settings.lang = Language.ENG;
-    expect(Tonality.fromString("C MAJOR")).toBe(Tonality.C);
-});
-
-test('fromString - ENG - C ', () => {
-    Settings.lang = Language.ENG;
-    expect(Tonality.fromString("C ")).toBe(Tonality.C);
-});
-
-test('fromString - ENG - C', () => {
-    Settings.lang = Language.ENG;
-    expect(Tonality.fromString("C")).toBe(Tonality.C);
-});
-
-test('fromString - ENG - C m', () => {
-    Settings.lang = Language.ENG;
-    expect(Tonality.fromString("C m")).toBe(Tonality.Cm);
-});
-
-test('fromString - ENG - bBBbLuEsB5', () => {
-    Settings.lang = Language.ENG;
-    expect(Tonality.fromString("bBBbLuEsB5")).toBe(Tonality.from(DiatonicAlt.Bbb, Scale.BLUES_b5));
+describe.each([
+    [Language.ESP, "Do ", Tonality.C],
+    [Language.ESP, "Do", Tonality.C],
+    [Language.ESP, "Do m", Tonality.Cm],
+    [Language.ENG, "C ", Tonality.C],
+    [Language.ENG, "C", Tonality.C],
+    [Language.ENG, "Cm", Tonality.Cm],
+    [Language.ENG, "bBBbLuEsB5", Tonality.from(DiatonicAlt.Bbb, Scale.BLUES_b5)],
+])("fromString", (lang, str, expectedTonality) => {
+    test(`${lang.id} - "${str}" => ${expectedTonality}`, async () => {
+        Settings.lang = lang;
+        const tonality = Tonality.fromString(str);
+        expect(tonality).toBe(expectedTonality);
+    });
 });

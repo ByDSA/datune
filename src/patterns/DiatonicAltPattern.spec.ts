@@ -60,8 +60,8 @@ test('shortName - SEVENTH = 7', () => {
     expect(actual).toBe(expected);
 });
 
-test('getInv: TRIAD MAJOR + 2inv', () => {
-    let diatonicAltPattern = DiatonicAltPattern.TRIAD_MAJOR.getInv(2);
+test('withInv: TRIAD MAJOR + 2inv', () => {
+    let diatonicAltPattern = DiatonicAltPattern.TRIAD_MAJOR.withInv(2);
     let expected = DiatonicAltPattern.fromRootIntervals(IntervalDiatonicAlt.PERFECT_UNISON, IntervalDiatonicAlt.PERFECT_FOURTH, IntervalDiatonicAlt.MAJOR_SIXTH);
     expect(diatonicAltPattern).toBe(expected);
 });
@@ -180,14 +180,14 @@ test('toString() - ESP - SEVENTH SUS4 b9', () => {
 });
 
 test('inversionNumber: SEVENTH + inv = 1', () => {
-    let pattern = DiatonicAltPattern.SEVENTH.getInv(1);
+    let pattern = DiatonicAltPattern.SEVENTH.withInv(1);
     let inversionNumber = pattern.inversionNumber;
     let expected = 1;
     expect(inversionNumber).toBe(expected);
 });
 
 test('inversionNumber: 13b5#9 + 2 inv = 2', () => {
-    let pattern = DiatonicAltPattern.THIRTEENTH_b5a9.getInv(2);
+    let pattern = DiatonicAltPattern.THIRTEENTH_b5a9.withInv(2);
     let inversionNumber = pattern.inversionNumber;
 
     let expected = 2;

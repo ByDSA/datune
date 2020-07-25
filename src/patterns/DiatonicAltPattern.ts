@@ -1,4 +1,4 @@
-import { DiatonicAltDegree } from 'degrees/scale/DiatonicAltDegree';
+import { DiatonicAltDegree } from '../degrees/degrees/DiatonicAltDegree';
 import { ImmutablesCache } from '../common/ImmutablesCache';
 import { IntervalDiatonic } from '../interval/IntervalDiatonic';
 import { IntervalDiatonicAlt } from '../interval/IntervalDiatonicAlt';
@@ -171,7 +171,7 @@ export class DiatonicAltPattern implements DegreePattern<D, I>, Iterable<I> {
         return this._rootIntervals;
     }
 
-    public getInv(n: number = 1): DiatonicAltPattern {
+    public withInv(n: number = 1): DiatonicAltPattern {
         let rootIntervals: Difference[] = Array.from(this.rootIntervals);
         for (let i = 0; i < n; i++) {
             let firstValue: Difference = rootIntervals.shift();
@@ -224,8 +224,8 @@ export class DiatonicAltPattern implements DegreePattern<D, I>, Iterable<I> {
         DiatonicAltPattern.TRIAD_DIMINISHED = DiatonicAltPattern.fromPatterns(ChromaticPattern.TRIAD_DIMINISHED, DiatonicPattern.TRIAD);
         DiatonicAltPattern.TRIAD_AUGMENTED = DiatonicAltPattern.fromPatterns(ChromaticPattern.TRIAD_AUGMENTED, DiatonicPattern.TRIAD);
         DiatonicAltPattern.TRIAD_SUS4 = DiatonicAltPattern.fromPatterns(ChromaticPattern.TRIAD_SUS4, DiatonicPattern.SUS4);
-        DiatonicAltPattern.TRIAD_SUS2 = DiatonicAltPattern.TRIAD_SUS4.getInv();
-        DiatonicAltPattern.TRIAD_QUARTAL = DiatonicAltPattern.TRIAD_SUS2.getInv();
+        DiatonicAltPattern.TRIAD_SUS2 = DiatonicAltPattern.TRIAD_SUS4.withInv();
+        DiatonicAltPattern.TRIAD_QUARTAL = DiatonicAltPattern.TRIAD_SUS2.withInv();
         DiatonicAltPattern.SEVENTH = DiatonicAltPattern.fromPatterns(ChromaticPattern.SEVENTH, DiatonicPattern.SEVENTH);
         DiatonicAltPattern.SEVENTH_b5 = DiatonicAltPattern.fromPatterns(ChromaticPattern.SEVENTH_b5, DiatonicPattern.SEVENTH);
         DiatonicAltPattern.SEVENTH_MAJ7_b5 = DiatonicAltPattern.fromPatterns(ChromaticPattern.SEVENTH_MAJ7_b5, DiatonicPattern.SEVENTH);
@@ -356,7 +356,7 @@ export class DiatonicAltPattern implements DegreePattern<D, I>, Iterable<I> {
 
         for (let pattern of this.all()) {
             for (let i = 1; i < pattern.length; i++) {
-                let patternInv = pattern.getInv(i);
+                let patternInv = pattern.withInv(i);
                 if (!this.all().includes(patternInv)) {
                     patternInv._rootIndex = pattern.length - i;
                 }
@@ -365,7 +365,7 @@ export class DiatonicAltPattern implements DegreePattern<D, I>, Iterable<I> {
 
         for (let pattern of this.all()) {
             for (let i = 0; i < pattern.length; i++) {
-                let patternInv = pattern.getInv(i);
+                let patternInv = pattern.withInv(i);
                 Object.freeze(patternInv);
             }
         }

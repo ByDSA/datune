@@ -1,5 +1,5 @@
 import { DiatonicAltChord } from "../chords/diatonicalt/DiatonicAltChord";
-import { DiatonicAltDegree } from "../degrees/scale/DiatonicAltDegree";
+import { DiatonicAltDegree } from "../degrees/degrees/DiatonicAltDegree";
 import { DiatonicAltPattern } from "../patterns/DiatonicAltPattern";
 import * as precalc from "../precalc";
 import { Tonality } from "../tonality/Tonality";

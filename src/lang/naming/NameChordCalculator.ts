@@ -11,7 +11,7 @@ export class NameChordCalculator {
 
     public get(): string {
         this.inversion = this.chord.inversionNumber;
-        this.pattern = this.chord.pattern.getInv(this.chord.rootIndex);
+        this.pattern = this.chord.pattern.withInv(this.chord.rootIndex);
 
         return this.chord.root.toString() + this.pattern.shortName + this.inversionName();
     }

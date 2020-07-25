@@ -1,5 +1,5 @@
-import { DiatonicAltDegree } from '../degrees/scale/DiatonicAltDegree';
-import { DiatonicDegree } from '../degrees/scale/DiatonicDegree';
+import { DiatonicAltDegree } from '../degrees/degrees/DiatonicAltDegree';
+import { DiatonicDegree } from '../degrees/degrees/DiatonicDegree';
 import { Scale } from './Scale';
 import { ScaleChromatic } from './ScaleChromatic';
 

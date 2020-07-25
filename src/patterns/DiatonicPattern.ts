@@ -73,7 +73,7 @@ export class DiatonicPattern implements DegreePattern<D, I> {
         return this._rootIntervalInts.length;
     }
 
-    public getInv(n: number = 1): DiatonicPattern {
+    public withInv(n: number = 1): DiatonicPattern {
         let rootIntervalInts = this.rootIntervalInts;
         for (let i = 0; i < n; i++) {
             let firstValue = rootIntervalInts.shift();

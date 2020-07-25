@@ -1,4 +1,4 @@
-import { Degree } from 'degrees/Degree';
+import { Degree } from '../degrees/Degree';
 import { RelativePitch } from './RelativePitch';
 import { Voicing } from './Voicing';
 

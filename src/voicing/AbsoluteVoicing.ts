@@ -1,5 +1,5 @@
-import { Degree } from 'degrees/Degree';
-import { SymbolicPitch } from 'pitch/symbolic/SymbolicPitch';
+import { Degree } from '../degrees/Degree';
+import { SymbolicPitch } from '../pitch/symbolic/SymbolicPitch';
 import { Chromatic } from '../degrees/Chromatic';
 import { SPN } from '../pitch/symbolic/SPN';
 import { Voicing } from './Voicing';

@@ -8,7 +8,7 @@ import { MidiPitch } from "./MidiPitch";
 precalc.midiPitches();
 precalc.settings();
 
-test('MidiPitch - PRECALC', () => {
+test('PRECALC', async () => {
     let midiNote = MidiPitch.C5;
 
     let spn: SPN = midiNote.spn;
@@ -18,7 +18,7 @@ test('MidiPitch - PRECALC', () => {
     expect(cents).toEqual(0);
 });
 
-test('MidiPitch - frequency - C4', () => {
+test('frequency - C4', async () => {
     let midiNote = MidiPitch.C4;
     let frequency: number = midiNote.frequency;
     let expected: number = 130.81;
@@ -26,7 +26,7 @@ test('MidiPitch - frequency - C4', () => {
     expect(frequency).toBeCloseTo(expected);
 });
 
-test('MidiPitch - frequency - A4', () => {
+test('frequency - A4', async () => {
     let midiNote = MidiPitch.A4;
     let frequency: number = midiNote.frequency;
     let expected: number = 220;
@@ -34,7 +34,7 @@ test('MidiPitch - frequency - A4', () => {
     expect(frequency).toBeCloseTo(expected);
 });
 
-test('MidiPitch - frequency - A5', () => {
+test('frequency - A5', async () => {
     let midiNote = MidiPitch.A5;
     let frequency: number = midiNote.frequency;
     let expected: number = 440;
@@ -42,7 +42,7 @@ test('MidiPitch - frequency - A5', () => {
     expect(frequency).toBeCloseTo(expected);
 });
 
-test('MidiPitch - frequency - A0', () => {
+test('frequency - A0', async () => {
     let midiNote = MidiPitch.A0;
     let frequency: number = midiNote.frequency;
     let expected: number = 13.75;
@@ -50,7 +50,7 @@ test('MidiPitch - frequency - A0', () => {
     expect(frequency).toBeCloseTo(expected);
 });
 
-test('MidiPitch - frequency - C0', () => {
+test('frequency - C0', async () => {
     let midiNote = MidiPitch.C0;
     let frequency: number = midiNote.frequency;
     let expected: number = 8.18;
@@ -58,7 +58,7 @@ test('MidiPitch - frequency - C0', () => {
     expect(frequency).toBeCloseTo(expected);
 });
 
-test('MidiPitch - frequency - B1', () => {
+test('frequency - B1', async () => {
     let midiNote = MidiPitch.B2;
     let frequency: number = midiNote.frequency;
     let expected: number = 61.74;
@@ -66,7 +66,7 @@ test('MidiPitch - frequency - B1', () => {
     expect(frequency).toBeCloseTo(expected);
 });
 
-test('MidiPitch - code - C0', () => {
+test('code - C0', async () => {
     let midiNote = MidiPitch.C0;
     let code: number = midiNote.code;
     let expected: number = 0;
@@ -74,7 +74,7 @@ test('MidiPitch - code - C0', () => {
     expect(code).toEqual(expected);
 });
 
-test('MidiPitch - spn - C0', () => {
+test('SPN - C0', async () => {
     let midiNote = MidiPitch.C0;
     let spn: SPN = midiNote.spn;
     let expected: SPN = SPN.C_S1;
@@ -82,7 +82,7 @@ test('MidiPitch - spn - C0', () => {
     expect(spn).toEqual(expected);
 });
 
-test('MidiPitch - code - B0', () => {
+test('code - B0', async () => {
     let midiNote = MidiPitch.B0;
     let code: number = midiNote.code;
     let expected: number = 11;
@@ -90,7 +90,7 @@ test('MidiPitch - code - B0', () => {
     expect(code).toEqual(expected);
 });
 
-test('MidiPitch - code - C1', () => {
+test('code - C1', async () => {
     let midiNote = MidiPitch.C1;
     let code: number = midiNote.code;
     let expected: number = 12;
@@ -98,7 +98,7 @@ test('MidiPitch - code - C1', () => {
     expect(code).toEqual(expected);
 });
 
-test('MidiPitch - code - A5', () => {
+test('code - A5', async () => {
     let midiNote = MidiPitch.A5;
     let code: number = midiNote.code;
     let expected: number = 69;
@@ -106,7 +106,7 @@ test('MidiPitch - code - A5', () => {
     expect(code).toBeCloseTo(expected);
 });
 
-test('MidiPitch - spn - A5', () => {
+test('SPN - A5', async () => {
     let midiNote = MidiPitch.A5;
     let spn: SPN = midiNote.spn;
     let expected: SPN = SPN.A4;
@@ -114,7 +114,7 @@ test('MidiPitch - spn - A5', () => {
     expect(spn).toEqual(expected);
 });
 
-test('MidiPitch - spn - C10', () => {
+test('SPN - C10', async () => {
     let midiNote = MidiPitch.C10;
     let spn: SPN = midiNote.spn;
     let expected: SPN = SPN.C9;
