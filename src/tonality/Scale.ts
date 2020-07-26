@@ -1,5 +1,5 @@
 import { DiatonicAlt } from 'degrees/DiatonicAlt';
-import { ImmutablesCache } from '../common/ImmutablesCache';
+import { PrecalcCache } from '../common/PrecalcCache';
 import { MathUtils } from '../common/MathUtils';
 import { Chromatic } from '../degrees/Chromatic';
 import { Diatonic } from '../degrees/Diatonic';
@@ -113,7 +113,7 @@ export class Scale extends ScaleAbstract<I, D> {
         static symmetricScales: () => Scale[];
     });
 
-    private static immutablesCache = new ImmutablesCache<Scale, HashingObject>(
+    private static immutablesCache = new PrecalcCache<Scale, HashingObject>(
         function (hashingObject: HashingObject): string {
             let ret = "";
             for (const interval of hashingObject)

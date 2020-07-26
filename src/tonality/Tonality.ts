@@ -1,6 +1,6 @@
 import { DiatonicAltChord } from '../chords/diatonicalt/DiatonicAltChord';
 import { RootPatternChord } from '../chords/root-pattern/RootPatternChord';
-import { ImmutablesCache } from '../common/ImmutablesCache';
+import { PrecalcCache } from '../common/PrecalcCache';
 import { Chromatic } from '../degrees/Chromatic';
 import { DiatonicAlt } from '../degrees/DiatonicAlt';
 import { IntervalDiatonicAlt } from '../interval/IntervalDiatonicAlt';
@@ -38,7 +38,7 @@ export class Tonality {
     public static Am: Tonality;
     public static Bm: Tonality;
 
-    private static immutablesCache = new ImmutablesCache<Tonality, HashingObjectType>(
+    private static immutablesCache = new PrecalcCache<Tonality, HashingObjectType>(
         function (hashingObject: HashingObjectType): string {
             return hashingObject.scale.hashCode() + ":" + hashingObject.root.valueOf();
         },

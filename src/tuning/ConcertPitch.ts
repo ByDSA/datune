@@ -1,7 +1,8 @@
-import { ImmutablesCache } from '../common/ImmutablesCache';
+import { PrecalcCache } from '../common/PrecalcCache';
 import { Pitch } from '../pitch/Pitch';
 import { SPN } from '../pitch/symbolic/SPN';
 import { SymbolicPitch } from '../pitch/symbolic/SymbolicPitch';
+import { Immutables } from 'common/Immutables';
 
 type HashingObject = { frequency: number, symbolicPitch: SymbolicPitch };
 export class ConcertPitch extends Pitch {
@@ -9,7 +10,7 @@ export class ConcertPitch extends Pitch {
     public static A432;
     public static A444;
 
-    private static immutablesCache = new ImmutablesCache<ConcertPitch, HashingObject>(
+    private static _cache = new PrecalcCache<ConcertPitch, HashingObject>(
         function (hashingObject: HashingObject): string {
             let symbolicPitchHashCode: any = hashingObject.symbolicPitch.valueOf();
 
@@ -32,7 +33,7 @@ export class ConcertPitch extends Pitch {
     }
 
     public static fromFrequency(frequency: number, symbolicPitch: SymbolicPitch): ConcertPitch {
-        return this.immutablesCache.getOrCreate({ frequency: frequency, symbolicPitch: symbolicPitch });
+        return this._cache.getOrCreate({ frequency, symbolicPitch });
     }
 
     public get frequency(): number {
@@ -53,12 +54,18 @@ export class ConcertPitch extends Pitch {
     }
 
     public hashCode(): string {
-        return ConcertPitch.immutablesCache.getHash({ frequency: this.frequency, symbolicPitch: this.symbolicPitch });
+        return ConcertPitch._cache.getHash(this.hashingObject);
+    }
+
+    private get hashingObject() {
+        return { frequency: this.frequency, symbolicPitch: this.symbolicPitch }
     }
 
     private static initialize() {
         this.A440 = ConcertPitch.fromFrequency(440, SPN.A4);
         this.A432 = ConcertPitch.fromFrequency(432, SPN.A4);
         this.A444 = ConcertPitch.fromFrequency(444, SPN.A4);
+
+        Immutables.lockr(this);
     }
 }

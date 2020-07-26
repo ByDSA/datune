@@ -1,4 +1,4 @@
-import { ImmutablesCache } from '../common/ImmutablesCache';
+import { PrecalcCache } from '../common/PrecalcCache';
 import { IntervalPitch } from '../tuning/IntervalPitch';
 import { ScaleAbstract } from './ScaleAbstract';
 
@@ -7,7 +7,7 @@ export class ScalePitch extends ScaleAbstract<IntervalPitch, number> {
     static MAJOR_ET12: ScalePitch;
     static MAJOR_PYTHAGOREAN: ScalePitch;
 
-    private static immutablesCache = new ImmutablesCache<ScalePitch, HashingObject>(
+    private static immutablesCache = new PrecalcCache<ScalePitch, HashingObject>(
         function (hashingObject: HashingObject): string {
             let ret = "";
             for (const interval of hashingObject)

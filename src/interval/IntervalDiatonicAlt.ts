@@ -1,5 +1,5 @@
 import { Assert } from '../common/Assert';
-import { ImmutablesCache } from '../common/ImmutablesCache';
+import { PrecalcCache } from '../common/PrecalcCache';
 import { MathUtils } from '../common/MathUtils';
 import { Chromatic } from '../degrees/Chromatic';
 import { Diatonic } from '../degrees/Diatonic';
@@ -97,7 +97,7 @@ export class IntervalDiatonicAlt implements IntervalSymbolic<DiatonicAlt> {
 
     private _intervalChromatic: number = null;
 
-    private static immutablesCache = new ImmutablesCache<IntervalDiatonicAlt, HashingObject>(
+    private static immutablesCache = new PrecalcCache<IntervalDiatonicAlt, HashingObject>(
         function (hashingObject: HashingObject): string {
             return hashingObject.interval + "|" + hashingObject.quality.shortName;
         },

@@ -1,4 +1,4 @@
-import { ImmutablesCache } from '../../common/ImmutablesCache';
+import { PrecalcCache } from '../../common/PrecalcCache';
 import { MathUtils } from '../../common/MathUtils';
 import { Chromatic } from '../../degrees/Chromatic';
 import { Diatonic } from '../../degrees/Diatonic';
@@ -25,7 +25,7 @@ export class DiatonicAltDegree {
     public static bVII: DiatonicAltDegree;
     public static VII: DiatonicAltDegree;
 
-    private static immutablesCache = new ImmutablesCache<DiatonicAltDegree, HashingObjectType>(
+    private static immutablesCache = new PrecalcCache<DiatonicAltDegree, HashingObjectType>(
         function (hashingObject: HashingObjectType): string {
             return hashingObject.diatonicDegree.hashCode() + "a:" + hashingObject.alts;
         },

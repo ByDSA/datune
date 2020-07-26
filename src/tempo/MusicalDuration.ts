@@ -1,4 +1,4 @@
-import { ImmutablesCache } from '../common/ImmutablesCache';
+import { PrecalcCache } from '../common/PrecalcCache';
 import { BPM } from './BPM';
 import { Time } from './Time';
 
@@ -17,7 +17,7 @@ export class MusicalDuration implements Time {
 
     public static ZERO: MusicalDuration;
 
-    private static immutablesCache = new ImmutablesCache<MusicalDuration, HashingObject>(
+    private static immutablesCache = new PrecalcCache<MusicalDuration, HashingObject>(
         function (hashingObject: HashingObject): string {
             return hashingObject.toString();
         },

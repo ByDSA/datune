@@ -1,4 +1,4 @@
-import { ImmutablesCache } from '../common/ImmutablesCache';
+import { PrecalcCache } from '../common/PrecalcCache';
 import { Diatonic } from '../degrees/Diatonic';
 import { IntervalSymbolic } from './IntervalSymbolic';
 
@@ -20,7 +20,7 @@ export class IntervalDiatonic implements IntervalSymbolic<Diatonic> {
     public static FOURTEENTH;
     public static FIFTEENTH;
 
-    private static immutablesCache = new ImmutablesCache<IntervalDiatonic, HashingObject>(
+    private static immutablesCache = new PrecalcCache<IntervalDiatonic, HashingObject>(
         function (num: HashingObject): string {
             return "" + num;
         },

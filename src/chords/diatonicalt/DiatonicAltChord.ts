@@ -1,6 +1,6 @@
 import { ChromaticChord } from '../../chords/chromatic/ChromaticChord';
 import { Immutables } from '../../common/Immutables';
-import { ImmutablesCache } from '../../common/ImmutablesCache';
+import { PrecalcCache } from '../../common/PrecalcCache';
 import { MathUtils } from '../../common/MathUtils';
 import { Utils } from '../../common/Utils';
 import { DiatonicAlt } from '../../degrees/DiatonicAlt';
@@ -39,7 +39,7 @@ export class DiatonicAltChord implements Chord<DiatonicAlt, IntervalDiatonicAlt>
     public static C7: DiatonicAltChord;
     public static C0: DiatonicAltChord;
 
-    private static immutablesCache = new ImmutablesCache<DiatonicAltChord, HashingObjectType>(
+    private static immutablesCache = new PrecalcCache<DiatonicAltChord, HashingObjectType>(
         function (hashingObject: HashingObjectType) {
             let ret = "";
             for (let diatonicAlt of hashingObject)
@@ -227,6 +227,6 @@ export class DiatonicAltChord implements Chord<DiatonicAlt, IntervalDiatonicAlt>
             }
         }
 
-        Immutables.lockrIf(DiatonicAltChord, (obj) => !(obj instanceof ImmutablesCache));
+        Immutables.lockrIf(DiatonicAltChord, (obj) => !(obj instanceof PrecalcCache));
     }
 }

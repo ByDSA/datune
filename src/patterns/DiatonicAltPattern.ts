@@ -1,5 +1,5 @@
 import { DiatonicAltDegree } from '../degrees/degrees/DiatonicAltDegree';
-import { ImmutablesCache } from '../common/ImmutablesCache';
+import { PrecalcCache } from '../common/PrecalcCache';
 import { IntervalDiatonic } from '../interval/IntervalDiatonic';
 import { IntervalDiatonicAlt } from '../interval/IntervalDiatonicAlt';
 import { NamingDiatonicAltPattern } from '../lang/naming/NamingDiatonicAltPattern';
@@ -79,7 +79,7 @@ export class DiatonicAltPattern implements DegreePattern<D, I>, Iterable<I> {
 
     public static all: () => DiatonicAltPattern[];
 
-    private static immutablesCache = new ImmutablesCache<DiatonicAltPattern, Difference[]>(
+    private static immutablesCache = new PrecalcCache<DiatonicAltPattern, Difference[]>(
         function (values: Difference[]): string {
             let hash = "";
             for (const value of values) {

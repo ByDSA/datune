@@ -1,5 +1,5 @@
 import { Immutables } from '../common/Immutables';
-import { ImmutablesCache } from '../common/ImmutablesCache';
+import { PrecalcCache } from '../common/PrecalcCache';
 import { IntervalDiatonicAlt } from '../interval/IntervalDiatonicAlt';
 import { NamingDiatonicAlt } from '../lang/naming/NamingDiatonicAlt';
 import { Chromatic } from './Chromatic';
@@ -52,7 +52,7 @@ export class DiatonicAlt implements Degree {
     public static Bb: DiatonicAlt;
     public static Bbb: DiatonicAlt;
 
-    private static immutablesCache = new ImmutablesCache<DiatonicAlt, HashingObjectType>(
+    private static immutablesCache = new PrecalcCache<DiatonicAlt, HashingObjectType>(
         function (hashingObject: HashingObjectType) {
             return hashingObject.diatonic.valueOf() + ":" + hashingObject.alts;
         },
@@ -193,6 +193,6 @@ export class DiatonicAlt implements Degree {
         DiatonicAlt.Bb = DiatonicAlt.from(Diatonic.B, -1);
         DiatonicAlt.Bbb = DiatonicAlt.from(Diatonic.B, -2);
 
-        Immutables.lockrIf(DiatonicAlt, (obj) => !(obj instanceof ImmutablesCache));
+        Immutables.lockrIf(DiatonicAlt, (obj) => !(obj instanceof PrecalcCache));
     }
 }

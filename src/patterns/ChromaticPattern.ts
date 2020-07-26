@@ -1,5 +1,5 @@
 import { Immutables } from '../common/Immutables';
-import { ImmutablesCache } from '../common/ImmutablesCache';
+import { PrecalcCache } from '../common/PrecalcCache';
 import { Chromatic } from '../degrees/Chromatic';
 import { NamingChromaticChordPattern } from '../lang/naming/NamingChromaticChordPattern';
 import { DegreePattern } from '../patterns/DegreePattern';
@@ -73,7 +73,7 @@ export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I
 
     public static all: () => ChromaticPattern[];
 
-    private static immutablesCache = new ImmutablesCache<ChromaticPattern, I[]>(
+    private static immutablesCache = new PrecalcCache<ChromaticPattern, I[]>(
         function (hashingObject: I[]) {
             return hashingObject.toString();
         },
@@ -317,6 +317,6 @@ export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I
             ];
         }
 
-        Immutables.lockrIf(ChromaticPattern, (obj) => !(obj instanceof ImmutablesCache));
+        Immutables.lockrIf(ChromaticPattern, (obj) => !(obj instanceof PrecalcCache));
     }
 }

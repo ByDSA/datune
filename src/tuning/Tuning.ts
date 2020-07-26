@@ -1,4 +1,4 @@
-import { ImmutablesCache } from '../common/ImmutablesCache';
+import { PrecalcCache } from '../common/PrecalcCache';
 import { Chromatic } from '../degrees/Chromatic';
 import { Degree } from '../degrees/Degree';
 import { DiatonicAlt } from '../degrees/DiatonicAlt';
@@ -13,7 +13,7 @@ export class Tuning {
     public static EQUAL_440;
     public static LIMIT_5_SYMMETRIC_N1_440;
 
-    private static immutablesCache = new ImmutablesCache<Tuning, HashingObject>(
+    private static immutablesCache = new PrecalcCache<Tuning, HashingObject>(
         function (hashingObject: HashingObject): string {
             let concertPitchHashCode = hashingObject.concertPitch.hashCode();
             let temperamentHashCode = hashingObject.temperament.hashCode();

@@ -1,5 +1,5 @@
 import { Immutables } from '../../common/Immutables';
-import { ImmutablesCache } from '../../common/ImmutablesCache';
+import { PrecalcCache } from '../../common/PrecalcCache';
 import { MathUtils } from '../../common/MathUtils';
 import { Utils } from '../../common/Utils';
 import { Chromatic } from '../../degrees/Chromatic';
@@ -16,11 +16,11 @@ export class ChromaticChord implements Chord<Chromatic, number> {
     public static C7;
     public static Dm7;
 
-    private static immutablesCache = new ImmutablesCache<ChromaticChord, HashingObjectType>(
+    private static _cache = new PrecalcCache<ChromaticChord, HashingObjectType>(
         function (hashingObject: HashingObjectType) {
             let ret = "";
             for (const chromatic of hashingObject)
-                ret += chromatic.valueOf();
+                ret += chromatic.valueOf() + ":";
 
             return ret;
         },
@@ -36,7 +36,7 @@ export class ChromaticChord implements Chord<Chromatic, number> {
     }
 
     public static from(notes: Chromatic[]): ChromaticChord {
-        return this.immutablesCache.getOrCreate(notes);
+        return this._cache.getOrCreate(notes);
     }
 
     public get root(): Chromatic {
@@ -128,7 +128,7 @@ export class ChromaticChord implements Chord<Chromatic, number> {
         this.C7 = ChromaticChord.from([Chromatic.C, Chromatic.E, Chromatic.G, Chromatic.AA]);
         this.Dm7 = ChromaticChord.from([Chromatic.D, Chromatic.F, Chromatic.A, Chromatic.AA]);
 
-        Immutables.lockrIf(ChromaticChord, (obj) => !(obj instanceof ImmutablesCache));
+        Immutables.lockrIf(ChromaticChord, (obj) => !(obj instanceof PrecalcCache));
 
     }
 }

@@ -1,4 +1,4 @@
-import { ImmutablesCache } from '../common/ImmutablesCache';
+import { PrecalcCache } from '../common/PrecalcCache';
 import { MathUtils } from '../common/MathUtils';
 import { Chromatic } from '../degrees/Chromatic';
 import { Diatonic } from '../degrees/Diatonic';
@@ -108,7 +108,7 @@ export class ScaleChromatic extends ScaleAbstract<I, D> {
         static symmetricScales: () => ScaleChromatic[];
     });
 
-    private static immutablesCache = new ImmutablesCache<ScaleChromatic, HashingObject>(
+    private static immutablesCache = new PrecalcCache<ScaleChromatic, HashingObject>(
         function (hashingObject: HashingObject): string {
             let ret = "";
             for (const interval of hashingObject)

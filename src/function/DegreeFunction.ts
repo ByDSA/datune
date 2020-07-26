@@ -1,6 +1,6 @@
 import { DiatonicAltChord } from '../chords/diatonicalt/DiatonicAltChord';
 import { RootPatternChord } from '../chords/root-pattern/RootPatternChord';
-import { ImmutablesCache } from '../common/ImmutablesCache';
+import { PrecalcCache } from '../common/PrecalcCache';
 import { Chromatic } from '../degrees/Chromatic';
 import { Diatonic } from '../degrees/Diatonic';
 import { DiatonicAlt } from '../degrees/DiatonicAlt';
@@ -226,7 +226,7 @@ export class DegreeFunction extends HarmonicFunction {
         return degree.hashCode() + "|" + pattern.hashCode();
     }
 
-    private static immutablesCache = new ImmutablesCache<DegreeFunction, HashingObjectType>(
+    private static immutablesCache = new PrecalcCache<DegreeFunction, HashingObjectType>(
         function (hashingObject: HashingObjectType): string {
             return DegreeFunction.hashCodeFunction(hashingObject.degree, hashingObject.pattern);
         },

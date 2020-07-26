@@ -1,4 +1,4 @@
-import { ImmutablesCache } from '../../common/ImmutablesCache';
+import { PrecalcCache } from '../../common/PrecalcCache';
 import { Chromatic } from '../../degrees/Chromatic';
 import { SymbolicPitch } from './SymbolicPitch';
 
@@ -137,7 +137,7 @@ export class SPN implements SymbolicPitch {
     public static AA9;
     public static B9;
 
-    private static immutablesCache = new ImmutablesCache<SPN, HashingObject>(
+    private static immutablesCache = new PrecalcCache<SPN, HashingObject>(
         function (hashingObject: HashingObject): number {
             return hashingObject.chromatic.valueOf() + hashingObject.octave * Chromatic.NUMBER;
         },

@@ -1,4 +1,4 @@
-import { ImmutablesCache } from '../common/ImmutablesCache';
+import { PrecalcCache } from '../common/PrecalcCache';
 import { Chromatic } from "../degrees/Chromatic";
 import { Pitch } from "../pitch/Pitch";
 import { SPN } from "../pitch/symbolic/SPN";
@@ -139,7 +139,7 @@ export class MidiPitch extends Pitch {
 
     public static MAX: MidiPitch;
 
-    private static immutablesCache = new ImmutablesCache<MidiPitch, HashingObject>(
+    private static immutablesCache = new PrecalcCache<MidiPitch, HashingObject>(
         function (hashingObject: HashingObject): string {
             return hashingObject.spn.valueOf() + "-" + hashingObject.detuned;
         },
