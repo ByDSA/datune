@@ -1,8 +1,8 @@
+import { Immutables } from '../common/Immutables';
 import { PrecalcCache } from '../common/PrecalcCache';
 import { Pitch } from '../pitch/Pitch';
 import { SPN } from '../pitch/symbolic/SPN';
 import { SymbolicPitch } from '../pitch/symbolic/SymbolicPitch';
-import { Immutables } from 'common/Immutables';
 
 type HashingObject = { frequency: number, symbolicPitch: SymbolicPitch };
 export class ConcertPitch extends Pitch {

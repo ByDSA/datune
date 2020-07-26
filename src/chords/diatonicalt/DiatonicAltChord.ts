@@ -188,7 +188,7 @@ export class DiatonicAltChord implements Chord<DiatonicAlt, IntervalDiatonicAlt>
     }
 
     private static initialize() {
-        let diatonicAlts = [
+        const diatonicAlts = [
             DiatonicAlt.C,
             DiatonicAlt.CC,
             DiatonicAlt.Db,

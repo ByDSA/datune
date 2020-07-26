@@ -1,6 +1,6 @@
 import { Immutables } from '../../common/Immutables';
-import { PrecalcCache } from '../../common/PrecalcCache';
 import { MathUtils } from '../../common/MathUtils';
+import { PrecalcCache } from '../../common/PrecalcCache';
 import { Utils } from '../../common/Utils';
 import { Chromatic } from '../../degrees/Chromatic';
 import { NameChordCalculator } from '../../lang/naming/NameChordCalculator';
@@ -10,7 +10,6 @@ import { Chord } from '../Chord';
 type HashingObjectType = Chromatic[];
 export class ChromaticChord implements Chord<Chromatic, number> {
     // Precalc
-
     public static C;
     public static Dm;
     public static C7;
@@ -30,7 +29,7 @@ export class ChromaticChord implements Chord<Chromatic, number> {
         function (hashingObject: HashingObjectType): ChromaticChord {
             return new ChromaticChord(hashingObject);
         }
-    );
+    )
 
     private constructor(private _notes: Chromatic[]) {
     }
@@ -64,40 +63,19 @@ export class ChromaticChord implements Chord<Chromatic, number> {
         return ChromaticChord.from(notes);
     }
 
-    public getShift(interval: number): ChromaticChord {
+    public withShift(interval: number): ChromaticChord {
         let notes: Chromatic[] = this.notes.map(note => note.getShift(interval));
 
         return ChromaticChord.from(notes);
     }
 
     public get pattern(): ChromaticPattern {
-        let patternArray = this.getArrayFromChromaticChord();
+        let patternArray = this.getRootIntervalsArray();
 
         return ChromaticPattern.fromRootIntervals(...patternArray);
     }
 
-    private getArrayFromChromaticChord(): number[] {
-        let patternArray = [0];
-        let last: Chromatic;
-
-        let unsortedNotes: Chromatic[] = this.notes;
-
-        let first = true;
-        unsortedNotes.forEach(current => {
-            if (first) {
-                first = false;
-                last = current;
-                return;
-            }
-
-            let dist = MathUtils.rotativeTrim(current.intValue - last.intValue, Chromatic.NUMBER);
-            patternArray.push(dist);
-        });
-
-        return patternArray;
-    }
-
-    private getArrayFromChromaticChordRoot(): number[] {
+    private getRootIntervalsArray(): number[] {
         let patternArray = [0];
         let last: Chromatic;
 
