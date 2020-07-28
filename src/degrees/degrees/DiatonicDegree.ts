@@ -1,6 +1,6 @@
 import { Diatonic } from '../../degrees/Diatonic';
 import { Immutables } from '../../common/Immutables';
-import { MathUtils } from '../../common/MathUtils';
+import { rotativeTrim } from '../../common/MathUtils';
 
 export class DiatonicDegree {
     public static I;
@@ -15,7 +15,7 @@ export class DiatonicDegree {
     }
 
     public static fromInt(n: number): DiatonicDegree {
-        n = MathUtils.rotativeTrim(n, Diatonic.NUMBER);
+        n = rotativeTrim(n, Diatonic.NUMBER);
 
         switch (n) {
             case 0: return DiatonicDegree.I;

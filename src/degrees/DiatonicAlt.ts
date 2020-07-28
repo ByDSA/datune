@@ -52,20 +52,22 @@ export class DiatonicAlt implements Degree {
     public static Bb: DiatonicAlt;
     public static Bbb: DiatonicAlt;
 
-    private static immutablesCache = new PrecalcCache<DiatonicAlt, HashingObjectType>(
-        function (hashingObject: HashingObjectType) {
+    private static _cache = new (class Cache extends PrecalcCache<DiatonicAlt, HashingObjectType>{
+        getHash(hashingObject: HashingObjectType): string {
             return hashingObject.diatonic.valueOf() + ":" + hashingObject.alts;
-        },
-        function (diatonicAlt: DiatonicAlt): HashingObjectType {
+        }
+
+        getHashingObject(diatonicAlt: DiatonicAlt): HashingObjectType {
             return { diatonic: diatonicAlt.diatonic, alts: diatonicAlt.alts };
-        },
-        function (hashingObject: HashingObjectType): DiatonicAlt {
+        }
+
+        create(hashingObject: HashingObjectType): DiatonicAlt {
             return new DiatonicAlt(hashingObject.diatonic, hashingObject.alts);
         }
-    );
+    });
 
     public static from(diatonic: Diatonic, alts: number): DiatonicAlt {
-        return DiatonicAlt.immutablesCache.getOrCreate({ diatonic: diatonic, alts: alts });
+        return DiatonicAlt._cache.getOrCreate({ diatonic: diatonic, alts: alts });
     }
 
     public static fromString(str: string): DiatonicAlt {

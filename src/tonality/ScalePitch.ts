@@ -7,20 +7,22 @@ export class ScalePitch extends ScaleAbstract<IntervalPitch, number> {
     static MAJOR_ET12: ScalePitch;
     static MAJOR_PYTHAGOREAN: ScalePitch;
 
-    private static immutablesCache = new PrecalcCache<ScalePitch, HashingObject>(
-        function (hashingObject: HashingObject): string {
+    private static immutablesCache = new (class Cache extends PrecalcCache<ScalePitch, HashingObject> {
+        getHash(hashingObject: HashingObject): string {
             let ret = "";
             for (const interval of hashingObject)
                 ret += interval.hashCode() + "|";
             return ret;
-        },
-        function (scale: ScalePitch): HashingObject {
+        }
+
+        getHashingObject(scale: ScalePitch): HashingObject {
             return scale.intraIntervals;
-        },
-        function (hashingObject: HashingObject): ScalePitch {
+        }
+
+        create(hashingObject: HashingObject): ScalePitch {
             return new ScalePitch(...hashingObject);
         }
-    );
+    });
 
     private constructor(...intervals: IntervalPitch[]) {
         super(...intervals);

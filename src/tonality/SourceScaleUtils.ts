@@ -1,4 +1,4 @@
-import { Utils } from '../common/Utils';
+import { arrayHas } from '../common/Utils';
 import { Scale } from './Scale';
 
 export interface SourceScaleInfo {
@@ -35,7 +35,7 @@ export class SourceScaleUtils {
 
             let i = 1;
             for (const element of scale.modes) {
-                if (Utils.arrayHas(allScales, element)) {
+                if (arrayHas(allScales, element)) {
                     let modeNum = (scale.length - i + 1) % scale.length;
                     ret = { scale: <Scale>element, mode: modeNum };
                 }

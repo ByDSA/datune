@@ -1,5 +1,5 @@
-import { DiatonicAltDegree } from '../degrees/degrees/DiatonicAltDegree';
 import { PrecalcCache } from '../common/PrecalcCache';
+import { DiatonicAltDegree } from '../degrees/degrees/DiatonicAltDegree';
 import { IntervalDiatonic } from '../interval/IntervalDiatonic';
 import { IntervalDiatonicAlt } from '../interval/IntervalDiatonicAlt';
 import { NamingDiatonicAltPattern } from '../lang/naming/NamingDiatonicAltPattern';
@@ -79,21 +79,23 @@ export class DiatonicAltPattern implements DegreePattern<D, I>, Iterable<I> {
 
     public static all: () => DiatonicAltPattern[];
 
-    private static immutablesCache = new PrecalcCache<DiatonicAltPattern, Difference[]>(
-        function (values: Difference[]): string {
-            let hash = "";
+    private static _cache = new (class Cache extends PrecalcCache<DiatonicAltPattern, Difference[]>{
+        getHash(values: Difference[]): string {
+            let hash: string = "";
             for (const value of values) {
                 hash += DiatonicAltPattern.hashCodeDiatonicAltPatternValue(value.intervalChromatic, value.intervalDiatonic);
             }
             return hash;
-        },
-        function (diatonicAltChordPattern: DiatonicAltPattern) {
+        }
+
+        getHashingObject(diatonicAltChordPattern: DiatonicAltPattern) {
             return diatonicAltChordPattern._rootIntervals;
-        },
-        function (values: Difference[]): DiatonicAltPattern {
+        }
+
+        create(values: Difference[]): DiatonicAltPattern {
             return new DiatonicAltPattern(...values);
         }
-    );
+    });
 
     private _rootIntervals: I[];
     private _rootIndex: number;
@@ -132,13 +134,13 @@ export class DiatonicAltPattern implements DegreePattern<D, I>, Iterable<I> {
     }
 
     public static fromRootIntervals(...rootIntervals: I[]): DiatonicAltPattern {
-        return this.immutablesCache.getOrCreate(rootIntervals);
+        return this._cache.getOrCreate(rootIntervals);
     }
 
     public static fromString(strValue: string): DiatonicAltPattern {
         strValue = this.normalizeInputString(strValue);
 
-        for (let diatonicAltPattern of this.immutablesCache.list) {
+        for (let diatonicAltPattern of this._cache.list) {
             let normalizedString = this.normalizeInputString(diatonicAltPattern.toString());
             let normalizedShortName = this.normalizeInputString(diatonicAltPattern.shortName);
 

@@ -17,17 +17,19 @@ export class MusicalDuration implements Time {
 
     public static ZERO: MusicalDuration;
 
-    private static immutablesCache = new PrecalcCache<MusicalDuration, HashingObject>(
-        function (hashingObject: HashingObject): string {
+    private static _cache = new (class Cache extends PrecalcCache<MusicalDuration, HashingObject>{
+        getHash(hashingObject: HashingObject): string {
             return hashingObject.toString();
-        },
-        function (musicalDuration: MusicalDuration): HashingObject {
+        }
+
+        getHashingObject(musicalDuration: MusicalDuration): HashingObject {
             return musicalDuration.value;
-        },
-        function (hashingObject: HashingObject): MusicalDuration {
+        }
+
+        create(hashingObject: HashingObject): MusicalDuration {
             return new MusicalDuration(hashingObject);
         }
-    );
+    });
 
     private _value: number;
 
@@ -36,7 +38,7 @@ export class MusicalDuration implements Time {
     }
 
     public static from(value: number) {
-        return MusicalDuration.immutablesCache.getOrCreate(value);
+        return MusicalDuration._cache.getOrCreate(value);
     }
 
     public static fromMillisAndBPM(millis: number, bpm: BPM) {

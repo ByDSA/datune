@@ -13,8 +13,8 @@ export class Tuning {
     public static EQUAL_440;
     public static LIMIT_5_SYMMETRIC_N1_440;
 
-    private static immutablesCache = new PrecalcCache<Tuning, HashingObject>(
-        function (hashingObject: HashingObject): string {
+    private static immutablesCache = new (class Cache extends PrecalcCache<Tuning, HashingObject>{
+        getHash(hashingObject: HashingObject): string {
             let concertPitchHashCode = hashingObject.concertPitch.hashCode();
             let temperamentHashCode = hashingObject.temperament.hashCode();
 
@@ -22,14 +22,14 @@ export class Tuning {
                 throw new Error();
 
             return concertPitchHashCode + temperamentHashCode;
-        },
-        function (tuning: Tuning): HashingObject {
+        }
+        getHashingObject(tuning: Tuning): HashingObject {
             return { concertPitch: tuning.concertPitch, temperament: tuning.temperament };
-        },
-        function (hashingObject: HashingObject): Tuning {
+        }
+        create(hashingObject: HashingObject): Tuning {
             return new Tuning(hashingObject.concertPitch, hashingObject.temperament);
         }
-    );
+    });
 
     private constructor(private _concertPitch: ConcertPitch, private _temperament: Temperament) {
     }

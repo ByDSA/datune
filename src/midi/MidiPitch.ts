@@ -139,24 +139,26 @@ export class MidiPitch extends Pitch {
 
     public static MAX: MidiPitch;
 
-    private static immutablesCache = new PrecalcCache<MidiPitch, HashingObject>(
-        function (hashingObject: HashingObject): string {
+    private static _cache = new (class Cache extends PrecalcCache<MidiPitch, HashingObject>{
+        getHash(hashingObject: HashingObject): string {
             return hashingObject.spn.valueOf() + "-" + hashingObject.detuned;
-        },
-        function (midiNote: MidiPitch): HashingObject {
+        }
+
+        getHashingObject(midiNote: MidiPitch): HashingObject {
             return { spn: midiNote.spn, detuned: midiNote.cents };
-        },
-        function (hashingObject: HashingObject): MidiPitch {
+        }
+
+        create(hashingObject: HashingObject): MidiPitch {
             return new MidiPitch(hashingObject.spn, hashingObject.detuned);
         }
-    );
+    });
 
     private constructor(private _spn: SPN, private _cents: number) {
         super();
     }
 
     public static from(spn: SPN, detuned: number = 0) {
-        return this.immutablesCache.getOrCreate({ spn: spn, detuned: detuned });
+        return this._cache.getOrCreate({ spn: spn, detuned: detuned });
     }
 
     public static fromFrequency(f: number): MidiPitch {

@@ -1,5 +1,5 @@
 import { Immutables } from '../common/Immutables';
-import { MathUtils } from '../common/MathUtils';
+import { rotativeTrim } from '../common/MathUtils';
 import { NamingChromatic } from '../lang/naming/NamingChromatic';
 import { Settings } from '../settings/Settings';
 import { Degree } from './Degree';
@@ -26,7 +26,7 @@ export class Chromatic implements Degree {
     }
 
     static fromInt(intValue: number): Chromatic {
-        intValue = MathUtils.rotativeTrim(intValue, Chromatic.NUMBER);
+        intValue = rotativeTrim(intValue, Chromatic.NUMBER);
         switch (intValue) {
             case 0: return Chromatic.C;
             case 1: return Chromatic.CC;
@@ -73,7 +73,7 @@ export class Chromatic implements Degree {
     }
 
     public getShift(semis: number): Chromatic {
-        let intValue = MathUtils.rotativeTrim(this.intValue + semis, Chromatic.NUMBER);
+        let intValue = rotativeTrim(this.intValue + semis, Chromatic.NUMBER);
         return Chromatic.fromInt(intValue);
     }
 

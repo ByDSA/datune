@@ -1,4 +1,4 @@
-import { Utils } from '../common/Utils';
+import { arrayRotateLeft, arrayRotateRight } from '../common/Utils';
 
 export abstract class ScaleAbstract<I, D> {
     protected _intraIntervals: I[];
@@ -35,9 +35,9 @@ export abstract class ScaleAbstract<I, D> {
     protected getModeIntraIntervals(n: number): I[] {
         let intervals: I[] = this.intraIntervals;
         if (n > 0)
-            Utils.arrayRotateLeft(intervals, n - 1);
+            arrayRotateLeft(intervals, n - 1);
         else if (n < 0)
-            Utils.arrayRotateRight(intervals, -n - 1);
+            arrayRotateRight(intervals, -n - 1);
 
         return intervals;
     }

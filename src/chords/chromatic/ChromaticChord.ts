@@ -1,7 +1,7 @@
 import { Immutables } from '../../common/Immutables';
-import { MathUtils } from '../../common/MathUtils';
+import { rotativeTrim } from '../../common/MathUtils';
 import { PrecalcCache } from '../../common/PrecalcCache';
-import { Utils } from '../../common/Utils';
+import { arrayRotateLeft } from '../../common/Utils';
 import { Chromatic } from '../../degrees/Chromatic';
 import { NameChordCalculator } from '../../lang/naming/NameChordCalculator';
 import { ChromaticPattern } from '../../patterns/ChromaticPattern';
@@ -15,21 +15,23 @@ export class ChromaticChord implements Chord<Chromatic, number> {
     public static C7;
     public static Dm7;
 
-    private static _cache = new PrecalcCache<ChromaticChord, HashingObjectType>(
-        function (hashingObject: HashingObjectType) {
+    private static _cache = new (class Cache extends PrecalcCache<ChromaticChord, HashingObjectType> {
+        getHash(hashingObject: HashingObjectType): string {
             let ret = "";
             for (const chromatic of hashingObject)
                 ret += chromatic.valueOf() + ":";
 
             return ret;
-        },
-        function (chromaticChord: ChromaticChord): HashingObjectType {
+        }
+
+        getHashingObject(chromaticChord: ChromaticChord): HashingObjectType {
             return chromaticChord.notes;
-        },
-        function (hashingObject: HashingObjectType): ChromaticChord {
+        }
+
+        create(hashingObject: HashingObjectType): ChromaticChord {
             return new ChromaticChord(hashingObject);
         }
-    )
+    });
 
     private constructor(private _notes: Chromatic[]) {
     }
@@ -56,9 +58,9 @@ export class ChromaticChord implements Chord<Chromatic, number> {
 
     public withInv(n: number = 1): ChromaticChord {
         let rootIndex = this.rootIndex - n;
-        rootIndex = MathUtils.rotativeTrim(rootIndex, this._notes.length);
+        rootIndex = rotativeTrim(rootIndex, this._notes.length);
         let notes = this.notes;
-        notes = Utils.arrayRotateLeft(notes, n);
+        notes = arrayRotateLeft(notes, n);
 
         return ChromaticChord.from(notes);
     }
@@ -89,7 +91,7 @@ export class ChromaticChord implements Chord<Chromatic, number> {
                 return;
             }
 
-            let dist = MathUtils.rotativeTrim(current.intValue - last.intValue, Chromatic.NUMBER);
+            let dist = rotativeTrim(current.intValue - last.intValue, Chromatic.NUMBER);
             patternArray.push(dist);
         });
 

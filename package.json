@@ -15,6 +15,7 @@
   "name": "datune",
   "scripts": {
     "test": "jest",
+    "test:a": "jest src/midi/MidiPitch.spec.ts",
     "build": "tsc --declaration",
     "build-dev": "npm run clean && tsc --declaration --outDir dist/",
     "clean": "rm -rf dist",

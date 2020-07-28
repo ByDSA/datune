@@ -10,19 +10,21 @@ export class ConcertPitch extends Pitch {
     public static A432;
     public static A444;
 
-    private static _cache = new PrecalcCache<ConcertPitch, HashingObject>(
-        function (hashingObject: HashingObject): string {
+    private static _cache = new (class Cache extends PrecalcCache<ConcertPitch, HashingObject>{
+        getHash(hashingObject: HashingObject): string {
             let symbolicPitchHashCode: any = hashingObject.symbolicPitch.valueOf();
 
             return symbolicPitchHashCode + ":" + hashingObject.frequency;
-        },
-        function (concertPitch: ConcertPitch): HashingObject {
+        }
+
+        getHashingObject(concertPitch: ConcertPitch): HashingObject {
             return { frequency: concertPitch.frequency, symbolicPitch: concertPitch.symbolicPitch };
-        },
-        function (hashingObject: HashingObject): ConcertPitch {
+        }
+
+        create(hashingObject: HashingObject): ConcertPitch {
             return new ConcertPitch(hashingObject.frequency, hashingObject.symbolicPitch);
         }
-    );
+    });
 
     private constructor(private _frequency: number, private _symbolicPitch: SymbolicPitch) {
         super();

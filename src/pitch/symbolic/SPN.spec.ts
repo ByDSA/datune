@@ -53,6 +53,18 @@ test('SPN - precalc - C_S1', () => {
     expect(octave).toBe(expectedOctave);
 });
 
+test('SPN - precalc - A_S1', () => {
+    let spn = SPN.A_S1;
+    let chromatic: Chromatic = spn.chromatic;
+    let octave = spn.octave;
+
+    let expectedChromatic: Chromatic = Chromatic.A;
+    let expectedOctave: number = -1;
+
+    expect(chromatic).toBe(expectedChromatic);
+    expect(octave).toBe(expectedOctave);
+});
+
 test('SPN - precalc - G8', () => {
     let spn = SPN.G8;
     let chromatic: Chromatic = spn.chromatic;

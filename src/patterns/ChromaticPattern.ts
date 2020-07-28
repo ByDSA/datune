@@ -73,17 +73,19 @@ export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I
 
     public static all: () => ChromaticPattern[];
 
-    private static immutablesCache = new PrecalcCache<ChromaticPattern, I[]>(
-        function (hashingObject: I[]) {
+    private static _cache = new (class Cache extends PrecalcCache<ChromaticPattern, I[]>{
+        getHash(hashingObject: I[]) {
             return hashingObject.toString();
-        },
-        function (chromaticChordPattern: ChromaticPattern) {
+        }
+
+        getHashingObject(chromaticChordPattern: ChromaticPattern) {
             return chromaticChordPattern._rootIntervals;
-        },
-        function (values: I[]): ChromaticPattern {
+        }
+
+        create(values: I[]): ChromaticPattern {
             return new ChromaticPattern(...values);
         }
-    );
+    });
 
     private _rootIntervals: I[];
     private _precalcIntraIntervals: I[];
@@ -99,7 +101,7 @@ export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I
     public static fromRootIntervals(...rootIntervals: I[]): ChromaticPattern {
         if (rootIntervals[0] > 0)
             rootIntervals = this.getStartFromZero(rootIntervals);
-        return this.immutablesCache.getOrCreate(rootIntervals);
+        return this._cache.getOrCreate(rootIntervals);
     }
 
     private static getStartFromZero(array: number[]) {
@@ -125,7 +127,7 @@ export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I
     public static fromString(strValue: string): ChromaticPattern {
         strValue = this.normalizeInputString(strValue);
 
-        for (let chromaticPattern of this.immutablesCache.list) {
+        for (let chromaticPattern of this._cache.list) {
             let normalizedString = this.normalizeInputString(chromaticPattern.toString());
             let normalizedShortName = this.normalizeInputString(chromaticPattern.shortName);
 

@@ -20,17 +20,19 @@ export class IntervalDiatonic implements IntervalSymbolic<Diatonic> {
     public static FOURTEENTH;
     public static FIFTEENTH;
 
-    private static immutablesCache = new PrecalcCache<IntervalDiatonic, HashingObject>(
-        function (num: HashingObject): string {
+    private static _cache = new (class Cache extends PrecalcCache<IntervalDiatonic, HashingObject>{
+        getHash(num: HashingObject): string {
             return "" + num;
-        },
-        function (intervalDiatonic: IntervalDiatonic): HashingObject {
+        }
+
+        getHashingObject(intervalDiatonic: IntervalDiatonic): HashingObject {
             return intervalDiatonic.intValue;
-        },
-        function (num: HashingObject): IntervalDiatonic {
+        }
+
+        create(num: HashingObject): IntervalDiatonic {
             return new IntervalDiatonic(num);
         }
-    );
+    });
 
     private constructor(private _number: number) {
     }
@@ -38,7 +40,7 @@ export class IntervalDiatonic implements IntervalSymbolic<Diatonic> {
     public static from(num: number) {
         if (num < 0)
             num = num % Diatonic.NUMBER + Diatonic.NUMBER;
-        return IntervalDiatonic.immutablesCache.getOrCreate(num);
+        return IntervalDiatonic._cache.getOrCreate(num);
     }
 
     public getAdd(interval: IntervalDiatonic): IntervalDiatonic {

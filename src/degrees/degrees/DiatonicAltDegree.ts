@@ -1,5 +1,5 @@
+import { rotativeTrim } from '../../common/MathUtils';
 import { PrecalcCache } from '../../common/PrecalcCache';
-import { MathUtils } from '../../common/MathUtils';
 import { Chromatic } from '../../degrees/Chromatic';
 import { Diatonic } from '../../degrees/Diatonic';
 import { DiatonicAlt } from '../../degrees/DiatonicAlt';
@@ -25,17 +25,19 @@ export class DiatonicAltDegree {
     public static bVII: DiatonicAltDegree;
     public static VII: DiatonicAltDegree;
 
-    private static immutablesCache = new PrecalcCache<DiatonicAltDegree, HashingObjectType>(
-        function (hashingObject: HashingObjectType): string {
+    private static _cache = new (class Cache extends PrecalcCache<DiatonicAltDegree, HashingObjectType>{
+        getHash(hashingObject: HashingObjectType): string {
             return hashingObject.diatonicDegree.hashCode() + "a:" + hashingObject.alts;
-        },
-        function (diatonicAltDegree: DiatonicAltDegree): HashingObjectType {
+        }
+
+        getHashingObject(diatonicAltDegree: DiatonicAltDegree): HashingObjectType {
             return { diatonicDegree: diatonicAltDegree.diatonicDegree, alts: diatonicAltDegree.alts };
-        },
-        function (hashingObject: HashingObjectType): DiatonicAltDegree {
+        }
+
+        create(hashingObject: HashingObjectType): DiatonicAltDegree {
             return new DiatonicAltDegree(hashingObject.diatonicDegree, hashingObject.alts);
         }
-    );
+    });
 
     private constructor(private _diatonicDegree: DiatonicDegree, private _alts: number) {
     }
@@ -45,7 +47,7 @@ export class DiatonicAltDegree {
 
     public static from(diatonicDegree: DiatonicDegree, alts: number): DiatonicAltDegree {
         alts = (<any>DiatonicAlt).fixAlts(alts);
-        return this.immutablesCache.getOrCreate({ diatonicDegree: diatonicDegree, alts: alts });
+        return this._cache.getOrCreate({ diatonicDegree: diatonicDegree, alts: alts });
     }
 
     public static fromSemis(diatonicDegree: DiatonicDegree, semis: number): DiatonicAltDegree {
@@ -63,7 +65,7 @@ export class DiatonicAltDegree {
 
     public get semis(): number {
         let semis = Diatonic.fromInt(this.diatonicDegree.intValue).chromatic.intValue + this.alts;
-        semis = MathUtils.rotativeTrim(semis, Chromatic.NUMBER);
+        semis = rotativeTrim(semis, Chromatic.NUMBER);
         return semis;
     }
 

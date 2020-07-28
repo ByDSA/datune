@@ -2,10 +2,10 @@ import { DiatonicAltChord } from '../chords/diatonicalt/DiatonicAltChord';
 import { RootPatternChord } from '../chords/root-pattern/RootPatternChord';
 import { PrecalcCache } from '../common/PrecalcCache';
 import { Chromatic } from '../degrees/Chromatic';
-import { Diatonic } from '../degrees/Diatonic';
-import { DiatonicAlt } from '../degrees/DiatonicAlt';
 import { DiatonicAltDegree } from '../degrees/degrees/DiatonicAltDegree';
 import { DiatonicDegree } from '../degrees/degrees/DiatonicDegree';
+import { Diatonic } from '../degrees/Diatonic';
+import { DiatonicAlt } from '../degrees/DiatonicAlt';
 import { DiatonicAltPattern } from '../patterns/DiatonicAltPattern';
 import { Tonality } from '../tonality/Tonality';
 import { HarmonicFunction } from './HarmonicFunction';
@@ -226,24 +226,26 @@ export class DegreeFunction extends HarmonicFunction {
         return degree.hashCode() + "|" + pattern.hashCode();
     }
 
-    private static immutablesCache = new PrecalcCache<DegreeFunction, HashingObjectType>(
-        function (hashingObject: HashingObjectType): string {
+    private static _cache = new (class Cache extends PrecalcCache<DegreeFunction, HashingObjectType>{
+        getHash(hashingObject: HashingObjectType): string {
             return DegreeFunction.hashCodeFunction(hashingObject.degree, hashingObject.pattern);
-        },
-        function (degreeFunction: DegreeFunction): HashingObjectType {
+        }
+
+        getHashingObject(degreeFunction: DegreeFunction): HashingObjectType {
             return { degree: degreeFunction.degree, pattern: degreeFunction.pattern };
-        },
-        function (hashingObject: HashingObjectType): DegreeFunction {
+        }
+
+        create(hashingObject: HashingObjectType): DegreeFunction {
             return new DegreeFunction(hashingObject.degree, hashingObject.pattern);
         }
-    );
+    });
 
     protected constructor(private _degree: DiatonicAltDegree, private _pattern: DiatonicAltPattern) {
         super();
     }
 
     public static from(degree: DiatonicAltDegree, pattern: DiatonicAltPattern): DegreeFunction {
-        return this.immutablesCache.getOrCreate({ degree: degree, pattern: pattern });
+        return this._cache.getOrCreate({ degree: degree, pattern: pattern });
     }
 
     public get degree(): DiatonicAltDegree {

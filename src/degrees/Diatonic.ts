@@ -1,5 +1,5 @@
 import { Immutables } from '../common/Immutables';
-import { MathUtils } from '../common/MathUtils';
+import { rotativeTrim } from '../common/MathUtils';
 import { IntervalDiatonic } from '../interval/IntervalDiatonic';
 import { NamingDiatonic } from '../lang/naming/NamingDiatonic';
 import { Chromatic } from './Chromatic';
@@ -27,7 +27,7 @@ export class Diatonic implements Degree {
     }
 
     static fromInt(intValue: number): Diatonic {
-        intValue = MathUtils.rotativeTrim(intValue, Diatonic.NUMBER);
+        intValue = rotativeTrim(intValue, Diatonic.NUMBER);
         switch (intValue) {
             case 0: return Diatonic.C;
             case 1: return Diatonic.D;
@@ -38,7 +38,7 @@ export class Diatonic implements Degree {
             case 6: return Diatonic.B;
         }
 
-        throw new Error("Impossible get Diatonic from int value: " + intValue);
+        return null;
     }
 
     static fromString(strValue: string): Diatonic {
@@ -53,7 +53,8 @@ export class Diatonic implements Degree {
             case Diatonic.A.toString(): return Diatonic.A;
             case Diatonic.B.toString(): return Diatonic.B;
         }
-        throw new Error("Impossible get Diatonic from string: " + strValue);
+
+        return null;
     }
 
     private static normalizeInputString(strValue: string): string {

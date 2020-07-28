@@ -1,10 +1,10 @@
 import { DiatonicAlt } from 'degrees/DiatonicAlt';
+import { rotativeTrim } from '../common/MathUtils';
 import { PrecalcCache } from '../common/PrecalcCache';
-import { MathUtils } from '../common/MathUtils';
 import { Chromatic } from '../degrees/Chromatic';
-import { Diatonic } from '../degrees/Diatonic';
 import { DiatonicAltDegree } from '../degrees/degrees/DiatonicAltDegree';
 import { DiatonicDegree } from '../degrees/degrees/DiatonicDegree';
+import { Diatonic } from '../degrees/Diatonic';
 import { DegreeFunction } from '../function/DegreeFunction';
 import { IntervalDiatonic } from '../interval/IntervalDiatonic';
 import { IntervalDiatonicAlt } from '../interval/IntervalDiatonicAlt';
@@ -113,20 +113,22 @@ export class Scale extends ScaleAbstract<I, D> {
         static symmetricScales: () => Scale[];
     });
 
-    private static immutablesCache = new PrecalcCache<Scale, HashingObject>(
-        function (hashingObject: HashingObject): string {
+    private static _cache = new (class Cache extends PrecalcCache<Scale, HashingObject> {
+        getHash(hashingObject: HashingObject): string {
             let ret = "";
             for (const interval of hashingObject)
                 ret += interval.hashCode();
             return ret;
-        },
-        function (scale: Scale): HashingObject {
+        }
+
+        getHashingObject(scale: Scale): HashingObject {
             return scale.intraIntervals;
-        },
-        function (hashingObject: HashingObject): Scale {
+        }
+
+        create(hashingObject: HashingObject): Scale {
             return new Scale(...hashingObject);
         }
-    );
+    });
 
     private constructor(...intervals: I[]) {
         super(...intervals);
@@ -160,9 +162,9 @@ export class Scale extends ScaleAbstract<I, D> {
             let degree = degrees[i % degrees.length];
             let prevDegree = degrees[i - 1];
             let distDiatonicInt = degree.diatonicDegree.intValue - prevDegree.diatonicDegree.intValue;
-            distDiatonicInt = MathUtils.rotativeTrim(distDiatonicInt, Diatonic.NUMBER);
+            distDiatonicInt = rotativeTrim(distDiatonicInt, Diatonic.NUMBER);
             let distChromaticInt = degree.semis - prevDegree.semis;
-            distChromaticInt = MathUtils.rotativeTrim(distChromaticInt, Chromatic.NUMBER);
+            distChromaticInt = rotativeTrim(distChromaticInt, Chromatic.NUMBER);
             let intervalDiatonic = IntervalDiatonic.from(distDiatonicInt);
             let interval = IntervalDiatonicAlt.fromIntervals(distChromaticInt, intervalDiatonic);
             intervals.push(interval);
@@ -172,7 +174,7 @@ export class Scale extends ScaleAbstract<I, D> {
     }
 
     public static fromIntraIntervals(...intervals: I[]): Scale {
-        return Scale.immutablesCache.getOrCreate(intervals);
+        return Scale._cache.getOrCreate(intervals);
     }
 
     getMode(n: number): Scale {

@@ -26,10 +26,8 @@ test('fromString - ESP - Do', () => {
 
 test('fromString - ESP - La#', () => {
     Settings.lang = Language.ESP;
-    const t = () => {
-        Diatonic.fromString("La#");
-    };
-    expect(t).toThrow(Error);
+    let diatonic = Diatonic.fromString("La#");
+    expect(diatonic).toBeNull();
 });
 
 test('fromString - ESP - La (spaces)', () => {
@@ -44,18 +42,14 @@ test('fromString - ESP - La (spaces middle)', () => {
 
 test('fromString - ESP - Lab', () => {
     Settings.lang = Language.ESP;
-    const t = () => {
-        Diatonic.fromString("Lab");
-    };
-    expect(t).toThrow(Error);
+    let diatonic = Diatonic.fromString("Lab");
+    expect(diatonic).toBeNull();
 });
 
 test('fromString - ESP - C', () => {
     Settings.lang = Language.ESP;
-    const t = () => {
-        Diatonic.fromString("C");
-    };
-    expect(t).toThrow(Error);
+    let diatonic = Diatonic.fromString("C");
+    expect(diatonic).toBeNull();
 });
 
 test('fromString - ENG - C', () => {
@@ -75,16 +69,12 @@ test('fromString - ENG - La# (spaces middle)', () => {
 
 test('fromString - ENG - Ab', () => {
     Settings.lang = Language.ENG;
-    const t = () => {
-        Diatonic.fromString("Ab");
-    };
-    expect(t).toThrow(Error);
+    let diatonic = Diatonic.fromString("Ab");
+    expect(diatonic).toBeNull();
 });
 
 test('fromString - ENG - Do', () => {
     Settings.lang = Language.ENG;
-    const t = () => {
-        Diatonic.fromString("Do");
-    };
-    expect(t).toThrow(Error);
+    let diatonic = Diatonic.fromString("Do");
+    expect(diatonic).toBeNull();
 });

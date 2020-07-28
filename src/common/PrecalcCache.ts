@@ -1,31 +1,29 @@
 import { Assert } from './Assert';
 
-export class PrecalcCache<T, HashingObjectType> {
-    private map: Map<string, T>;
+type KeyType = string;
+export abstract class PrecalcCache<T, HashingObjectType> {
+    private map: Map<KeyType, T>;
 
-    public getHash: (hashingObject:HashingObjectType) => string;
-    public getHashingObject: (T) => HashingObjectType;
-    private create: (hashingObject:HashingObjectType) => T;
+    public abstract getHash(hashingObject: HashingObjectType): KeyType;
+    public abstract getHashingObject(T): HashingObjectType;
+    public abstract create(hashingObject: HashingObjectType): T;
 
-    public constructor(getHash, getHashingObject, create) {
-        this.getHash = getHash;
-        this.getHashingObject = getHashingObject;
-        this.create = create;
+    public constructor() {
     }
 
     public add(object: T): void {
         let hashingObject = this.getHashingObject(object);
-        if (hashingObject === undefined)
-            throw new Error("No hashingObject has been put.");
-        let hash = this.getHash(hashingObject);
+        if (hashingObject === undefined || hashingObject === null)
+            throw new Error(`hashingObject from ${object} is null or undefined.`)
 
+        let hash = this.getHash(hashingObject);
         this.map = this.map || new Map<string, T>();
         this.map.set(hash, object);
     }
 
     public get(hashingObject: HashingObjectType): T | undefined {
-        let hash = this.getHash(hashingObject);
-        this.map = this.map || new Map<string, T>();
+        let hash: KeyType = this.getHash(hashingObject);
+        this.map = this.map || new Map<KeyType, T>();
         return this.map.get(hash);
     }
 

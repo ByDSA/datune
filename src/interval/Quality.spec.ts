@@ -3,6 +3,7 @@ import * as precalc from "../precalc";
 import { Settings } from "../settings/Settings";
 import { Quality } from './Quality';
 precalc.qualities();
+precalc.settings();
 
 test('precalc - MAJOR', () => {
     let actual = Quality.MAJOR;

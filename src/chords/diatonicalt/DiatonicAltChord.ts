@@ -1,8 +1,8 @@
 import { ChromaticChord } from '../../chords/chromatic/ChromaticChord';
 import { Immutables } from '../../common/Immutables';
+import { rotativeTrim } from '../../common/MathUtils';
+import { arrayRotateLeft } from '../../common/Utils';
 import { PrecalcCache } from '../../common/PrecalcCache';
-import { MathUtils } from '../../common/MathUtils';
-import { Utils } from '../../common/Utils';
 import { DiatonicAlt } from '../../degrees/DiatonicAlt';
 import { IntervalDiatonicAlt } from '../../interval/IntervalDiatonicAlt';
 import { NameChordCalculator } from '../../lang/naming/NameChordCalculator';
@@ -39,21 +39,23 @@ export class DiatonicAltChord implements Chord<DiatonicAlt, IntervalDiatonicAlt>
     public static C7: DiatonicAltChord;
     public static C0: DiatonicAltChord;
 
-    private static immutablesCache = new PrecalcCache<DiatonicAltChord, HashingObjectType>(
-        function (hashingObject: HashingObjectType) {
+    private static _cache = new (class Cache extends PrecalcCache<DiatonicAltChord, HashingObjectType> {
+        getHash(hashingObject: HashingObjectType): string {
             let ret = "";
             for (let diatonicAlt of hashingObject)
                 ret += "d" + diatonicAlt.valueOf();
 
             return ret;
-        },
-        function (diatonicAltChord: DiatonicAltChord): HashingObjectType {
+        }
+
+        getHashingObject(diatonicAltChord: DiatonicAltChord): HashingObjectType {
             return diatonicAltChord.notes;
-        },
-        function (hashingObject: HashingObjectType): DiatonicAltChord {
+        }
+
+        create(hashingObject: HashingObjectType): DiatonicAltChord {
             return new DiatonicAltChord(hashingObject);
         }
-    );
+    });
 
     private constructor(private _notes: DiatonicAlt[]) {
         Immutables.lockr(this);
@@ -65,14 +67,14 @@ export class DiatonicAltChord implements Chord<DiatonicAlt, IntervalDiatonicAlt>
         const nonNullNotes = notes.filter(note => note);
         if (nonNullNotes.length === 0)
             return null;
-        return DiatonicAltChord.immutablesCache.getOrCreate(nonNullNotes);
+        return DiatonicAltChord._cache.getOrCreate(nonNullNotes);
     }
 
     public withInv(n: number = 1): DiatonicAltChord {
         let rootIndex = this.rootIndex - n;
-        rootIndex = MathUtils.rotativeTrim(rootIndex, this._notes.length);
+        rootIndex = rotativeTrim(rootIndex, this._notes.length);
         let notes = this.notes;
-        notes = Utils.arrayRotateLeft(notes, n);
+        notes = arrayRotateLeft(notes, n);
         return DiatonicAltChord.from(notes);
     }
 

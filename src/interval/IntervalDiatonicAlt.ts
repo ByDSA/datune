@@ -1,6 +1,6 @@
 import { Assert } from '../common/Assert';
+import { rotativeTrim } from '../common/MathUtils';
 import { PrecalcCache } from '../common/PrecalcCache';
-import { MathUtils } from '../common/MathUtils';
 import { Chromatic } from '../degrees/Chromatic';
 import { Diatonic } from '../degrees/Diatonic';
 import { DiatonicAlt } from '../degrees/DiatonicAlt';
@@ -97,30 +97,32 @@ export class IntervalDiatonicAlt implements IntervalSymbolic<DiatonicAlt> {
 
     private _intervalChromatic: number = null;
 
-    private static immutablesCache = new PrecalcCache<IntervalDiatonicAlt, HashingObject>(
-        function (hashingObject: HashingObject): string {
+    private static _cache = new (class Cache extends PrecalcCache<IntervalDiatonicAlt, HashingObject>{
+        getHash(hashingObject: HashingObject): string {
             return hashingObject.interval + "|" + hashingObject.quality.shortName;
-        },
-        function (intervalDiatonicAlt: IntervalDiatonicAlt): HashingObject {
+        }
+
+        getHashingObject(intervalDiatonicAlt: IntervalDiatonicAlt): HashingObject {
             return { interval: intervalDiatonicAlt.intervalDiatonic, quality: intervalDiatonicAlt.quality };
-        },
-        function (hashingObject: HashingObject): IntervalDiatonicAlt {
+        }
+
+        create(hashingObject: HashingObject): IntervalDiatonicAlt {
             return new IntervalDiatonicAlt(hashingObject.interval, hashingObject.quality);
         }
-    );
+    });
 
     private constructor(private _intervalDiatonic, private quality: Quality) {
     }
 
     static from(intervalDiatonic: IntervalDiatonic, quality: Quality): IntervalDiatonicAlt {
-        return this.immutablesCache.getOrCreate({ interval: intervalDiatonic, quality: quality });
+        return this._cache.getOrCreate({ interval: intervalDiatonic, quality: quality });
     }
 
     public static between(diatonicAlt1: DiatonicAlt, diatonicAlt2: DiatonicAlt) {
         let intervalDiatonic: IntervalDiatonic = IntervalDiatonic.from(diatonicAlt2.diatonic.intValue - diatonicAlt1.diatonic.intValue);
 
         let intervalChromatic = diatonicAlt2.chromatic.intValue - diatonicAlt1.chromatic.intValue;
-        intervalChromatic = MathUtils.rotativeTrim(intervalChromatic, Chromatic.NUMBER);
+        intervalChromatic = rotativeTrim(intervalChromatic, Chromatic.NUMBER);
 
         return this.fromIntervals(intervalChromatic, intervalDiatonic);
     }

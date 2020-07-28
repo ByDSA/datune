@@ -1,4 +1,3 @@
-import { IntervalDiatonicAlt } from 'interval/IntervalDiatonicAlt';
 import { Chromatic } from '../../degrees/Chromatic';
 import { Degree } from '../../degrees/Degree';
 import { DiatonicAlt } from '../../degrees/DiatonicAlt';
@@ -18,33 +17,42 @@ export class RootPatternChord<D extends Degree, I> {
     }
 
     public get chord(): Chord<Degree, any> {
-        let notes = this.calculateNotes();
-
         if (this._degree instanceof Chromatic) {
-            let ret: Chord<Chromatic, number> = ChromaticChord.from(<Chromatic[]>notes);
-            return ret;
+            return this.getChromaticChord();
         } else if (this._degree instanceof DiatonicAlt) {
-            let ret: Chord<DiatonicAlt, IntervalDiatonicAlt> = DiatonicAltChord.from(<DiatonicAlt[]>notes);
-            return ret;
+            return this.getDiatonicAltChord();
         } else
             throw new Error();
     }
 
-    private calculateNotes(): Degree[] {
-        let notes: Degree[] = [];
-
-        if (this._degree instanceof Chromatic)
-            for (let semis of <ChromaticPattern><any>this.pattern) {
-                let chromaticShifted: Chromatic = (<Chromatic>this._degree).getShift(semis);
-                notes.push(chromaticShifted);
-            }
-        else if (this._degree instanceof DiatonicAlt)
-            for (let semis of <DiatonicAltPattern><any>this.pattern) {
-                let chromaticShifted: DiatonicAlt = (<DiatonicAlt>this._degree).getAdd(semis);
-                notes.push(chromaticShifted);
-            }
+    private getChromaticChordNotes(): Chromatic[] {
+        let notes: Chromatic[] = [];
+        for (let semis of <ChromaticPattern><any>this.pattern) {
+            let chromaticShifted: Chromatic = (<Chromatic><any>this._degree).getShift(semis);
+            notes.push(chromaticShifted);
+        }
 
         return notes;
+    }
+
+    private getChromaticChord(): ChromaticChord {
+        let notes = this.getChromaticChordNotes();
+        return ChromaticChord.from(notes);
+    }
+
+    private getDiatonicAltChordNotes(): DiatonicAlt[] {
+        let notes: DiatonicAlt[] = [];
+        for (let semis of <DiatonicAltPattern><any>this.pattern) {
+            let diatonicAltShifted: DiatonicAlt = (<DiatonicAlt><any>this._degree).getAdd(semis);
+            notes.push(diatonicAltShifted);
+        }
+
+        return notes;
+    }
+
+    private getDiatonicAltChord(): DiatonicAltChord {
+        let notes = this.getDiatonicAltChordNotes();
+        return DiatonicAltChord.from(notes);
     }
 
     /* Getters and setters */

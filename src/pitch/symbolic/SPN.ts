@@ -137,23 +137,26 @@ export class SPN implements SymbolicPitch {
     public static AA9;
     public static B9;
 
-    private static immutablesCache = new PrecalcCache<SPN, HashingObject>(
-        function (hashingObject: HashingObject): number {
-            return hashingObject.chromatic.valueOf() + hashingObject.octave * Chromatic.NUMBER;
-        },
-        function (spn: SPN): HashingObject {
+    private static _cache = new (class Cache extends PrecalcCache<SPN, HashingObject> {
+        getHash(hashingObject: HashingObject): string {
+            let value = hashingObject.chromatic.valueOf() + hashingObject.octave * Chromatic.NUMBER
+            return "" + value;
+        }
+
+        getHashingObject(spn: SPN): HashingObject {
             return { chromatic: spn.chromatic, octave: spn.octave };
-        },
-        function (hashingObject: HashingObject): SPN {
+        }
+
+        create(hashingObject: HashingObject): SPN {
             return new SPN(hashingObject.chromatic, hashingObject.octave);
         }
-    );
+    });
 
     private constructor(private _chromatic: Chromatic, private _octave: number) {
     }
 
     public static from(chromatic: Chromatic, octave: number) {
-        return this.immutablesCache.getOrCreate({ chromatic: chromatic, octave: octave });
+        return this._cache.getOrCreate({ chromatic: chromatic, octave: octave });
     }
 
     public get chromatic(): Chromatic {

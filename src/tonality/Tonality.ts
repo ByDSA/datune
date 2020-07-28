@@ -38,17 +38,19 @@ export class Tonality {
     public static Am: Tonality;
     public static Bm: Tonality;
 
-    private static immutablesCache = new PrecalcCache<Tonality, HashingObjectType>(
-        function (hashingObject: HashingObjectType): string {
+    private static immutablesCache = new (class Cache extends PrecalcCache<Tonality, HashingObjectType>{
+        getHash(hashingObject: HashingObjectType): string {
             return hashingObject.scale.hashCode() + ":" + hashingObject.root.valueOf();
-        },
-        function (tonality: Tonality): HashingObjectType {
+        }
+
+        getHashingObject(tonality: Tonality): HashingObjectType {
             return { root: tonality.root, scale: tonality.scale };
-        },
-        function (hashingObject: HashingObjectType): Tonality {
+        }
+
+        create(hashingObject: HashingObjectType): Tonality {
             return new Tonality(hashingObject.root, hashingObject.scale);
         }
-    );
+    });
 
     private _notes: DiatonicAlt[] = [];
     private _rootChord3: DiatonicAltChord;
