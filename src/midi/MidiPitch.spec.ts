@@ -1,12 +1,12 @@
 import { Language } from "../lang/Language";
-import { SPN } from "../pitch/symbolic/SPN";
-import { SymbolicPitch } from "../pitch/symbolic/SymbolicPitch";
-import * as precalc from "../precalc";
+import { SPN } from "../pitches/symbolic/SPN";
+import { SymbolicPitch } from "../pitches/symbolic/SymbolicPitch";
+import * as init from "../initializer";
 import { Settings } from "../settings/Settings";
 import { Tuning } from "../tuning/Tuning";
 import { MidiPitch } from "./MidiPitch";
-precalc.midiPitches();
-precalc.settings();
+init.midiPitches.default();
+init.settings.default();
 
 describe.each([
     [MidiPitch.C5, SPN.C4],

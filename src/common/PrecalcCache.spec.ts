@@ -18,19 +18,16 @@ class TestClass {
 }
 
 class TestCache extends PrecalcCache<TestClass, H> {
-    public getHash(hashingObject: H): string {
+    getHash(hashingObject: H): string {
         return new Hashids().encode([hashingObject.a, hashingObject.b]);
     }
-    public getHashingObject(c: TestClass): H {
+    
+    getHashingObject(c: TestClass): H {
         return c.hashingObject;
-    }
-
-    public create(hashingObject: H): TestClass {
-        return new TestClass(hashingObject);
     }
 }
 beforeAll(() => {
-    TestClass._cache = new TestCache();
+    TestClass._cache = new TestCache((hashingObject: H) => new TestClass(hashingObject));
 })
 
 it('Cache should not contain {a: 1, b: 2}', () => {

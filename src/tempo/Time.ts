@@ -1,15 +1,13 @@
 export interface Time {
-    getAdd(time: Time): Time;
+    withAdd(time: Time): Time;
 
-    getSub(time: Time): Time;
+    withSub(time: Time): Time;
 
-    getMult(factor: number): Time;
+    withMult(factor: number): Time;
 
-    getDivCell(cellSize: Time): number;
+    withDivCell(cellSize: Time): number;
 
-    getDiv(n: number): Time;
+    withDiv(n: number): Time;
 
     valueOf(): number;
-
-    clone(): Time;
 }

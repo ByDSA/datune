@@ -1,9 +1,9 @@
-import * as precalc from "../precalc";
+import * as init from "../initializer";
 import { BPM } from "./BPM";
 import { MusicalDuration } from "./MusicalDuration";
-precalc.bpms();
+init.bpms.default();
 
-test('BPM - from - 120 QUARTER', () => {
+test('from - 120 QUARTER', () => {
     let n = 120;
     let beat: MusicalDuration = MusicalDuration.QUARTER;
 
@@ -13,7 +13,7 @@ test('BPM - from - 120 QUARTER', () => {
     expect(bpm.beat).toEqual(beat);
 });
 
-test('BPM - from - 120', () => {
+test('from - 120', () => {
     let n = 120;
 
     let bpm = BPM.from(n);
@@ -24,7 +24,7 @@ test('BPM - from - 120', () => {
     expect(bpm.beat).toEqual(expectedBeat);
 });
 
-test('BPM - precalc - QUARTER_120', () => {
+test('precalc - QUARTER_120', () => {
     let bpm = BPM.QUARTER_120;
 
     let expectedBeat: MusicalDuration = MusicalDuration.QUARTER;
@@ -34,7 +34,7 @@ test('BPM - precalc - QUARTER_120', () => {
     expect(bpm.beat).toEqual(expectedBeat);
 });
 
-test('BPM - getMillis - QUARTER_120 - WHOLE = 2s', () => {
+test('getMillis - QUARTER_120 - WHOLE = 2s', () => {
     let bpm = BPM.QUARTER_120;
 
     let actualDuration = bpm.getMillis(MusicalDuration.WHOLE);
@@ -43,7 +43,7 @@ test('BPM - getMillis - QUARTER_120 - WHOLE = 2s', () => {
     expect(actualDuration).toEqual(expectedDuration);
 });
 
-test('BPM - getMillis - QUARTER_120 - QUARTER = 0.5s', () => {
+test('getMillis - QUARTER_120 - QUARTER = 0.5s', () => {
     let bpm = BPM.QUARTER_120;
 
     let actualDuration = bpm.getMillis(MusicalDuration.QUARTER);

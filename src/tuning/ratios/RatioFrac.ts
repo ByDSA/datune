@@ -14,7 +14,7 @@ export class RatioFrac extends Ratio {
         this.fraction = fraction(numerator, denominator);
     }
 
-    public static from(numerator: number, denominator: number): RatioFrac {
+    static from(numerator: number, denominator: number): RatioFrac {
         return new RatioFrac(numerator, denominator);
     }
 

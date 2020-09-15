@@ -8,23 +8,23 @@ export class MidiSequence extends TimeSequence<MidiNote, MusicalDuration> {
         super(cellSize);
     }
 
-    public static create(): MidiSequence {
+    static create(): MidiSequence {
         return new MidiSequence(MusicalDuration.QUARTER);
     }
 
-    public get cellSize(): MusicalDuration {
+    get cellSize(): MusicalDuration {
         return super.cellSize;
     }
 
-    public get nodes(): TemporalNode<MidiNote, MusicalDuration>[] {
+    get nodes(): TemporalNode<MidiNote, MusicalDuration>[] {
         return super.nodes;
     }
 
-    public get duration(): MusicalDuration {
+    get duration(): MusicalDuration {
         return super.duration;
     }
 
-    public get startTime(): MusicalDuration {
+    get startTime(): MusicalDuration {
         return MusicalDuration.ZERO;
     }
 }

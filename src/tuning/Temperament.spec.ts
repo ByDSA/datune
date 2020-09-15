@@ -1,14 +1,14 @@
 import { Chromatic } from "../degrees/Chromatic";
 import { DiatonicAlt } from "../degrees/DiatonicAlt";
-import { IntervalDiatonicAlt } from "../interval/IntervalDiatonicAlt";
-import * as precalc from "../precalc";
+import { IntervalDiatonicAlt } from "../intervals/IntervalDiatonicAlt";
+import * as init from "../initializer";
 import { IntervalPitch } from "./IntervalPitch";
 import { Temperament } from "./Temperament";
-precalc.chromatics();
-precalc.diatonicAlts();
-precalc.temperaments();
+init.chromatics.default();
+init.diatonicAlts.default();
+init.temperaments.default();
 
-test('Temperament - EQUAL - root ratio - Chromatic.C', () => {
+test('EQUAL - root ratio - Chromatic.C', () => {
     let note = Chromatic.C;
     let root = Chromatic.C;
 
@@ -20,7 +20,7 @@ test('Temperament - EQUAL - root ratio - Chromatic.C', () => {
     expect(actual).toEqual(expected);
 });
 
-test('Temperament - EQUAL - root ratio - DiatonicAlt.C', () => {
+test('EQUAL - root ratio - DiatonicAlt.C', () => {
     let note = DiatonicAlt.C;
     let root = DiatonicAlt.C;
     let intervalDiatonicAlt: IntervalDiatonicAlt = IntervalDiatonicAlt.between(root, note);
@@ -30,7 +30,7 @@ test('Temperament - EQUAL - root ratio - DiatonicAlt.C', () => {
     expect(actual).toEqual(expected);
 });
 
-test('Temperament - EQUAL - root ratio - DiatonicAlt.G', () => {
+test('EQUAL - root ratio - DiatonicAlt.G', () => {
     let note = DiatonicAlt.G;
     let root = DiatonicAlt.C;
     let intervalDiatonicAlt: IntervalDiatonicAlt = IntervalDiatonicAlt.between(root, note);
@@ -40,7 +40,7 @@ test('Temperament - EQUAL - root ratio - DiatonicAlt.G', () => {
     expect(actual).toBeCloseTo(expected);
 });
 
-test('Temperament - EQUAL - root ratio - note= DiatonicAlt.C, root = DiatonicAlt.G', () => {
+test('EQUAL - root ratio - note= DiatonicAlt.C, root = DiatonicAlt.G', () => {
     let note = DiatonicAlt.C;
     let root = DiatonicAlt.G;
 
@@ -51,7 +51,7 @@ test('Temperament - EQUAL - root ratio - note= DiatonicAlt.C, root = DiatonicAlt
     expect(actual).toBeCloseTo(expected);
 });
 
-test('Temperament - EQUAL - root ratio - note= DiatonicAlt.CCC, root = DiatonicAlt.GGG', () => {
+test('EQUAL - root ratio - note= DiatonicAlt.CCC, root = DiatonicAlt.GGG', () => {
     let note = DiatonicAlt.CCC;
     let root = DiatonicAlt.GGG;
 
@@ -62,7 +62,7 @@ test('Temperament - EQUAL - root ratio - note= DiatonicAlt.CCC, root = DiatonicA
     expect(actual).toBeCloseTo(expected);
 });
 
-test('Temperament - LIMIT_5_SYMMETRIC_N1 - P5 = 1.5', () => {
+test('LIMIT_5_SYMMETRIC_N1 - P5 = 1.5', () => {
     let note = DiatonicAlt.E;
     let root = DiatonicAlt.A;
 
@@ -74,7 +74,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N1 - P5 = 1.5', () => {
 });
 
 
-test('Temperament - LIMIT_5_SYMMETRIC_N1 - UNISON - cents', () => {
+test('LIMIT_5_SYMMETRIC_N1 - UNISON - cents', () => {
     let interval = IntervalDiatonicAlt.PERFECT_UNISON;
 
     let actual: number = Temperament.LIMIT_5_SYMMETRIC_N1.getIntervalPitch(interval).cents;
@@ -83,7 +83,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N1 - UNISON - cents', () => {
     expect(actual).toEqual(expected);
 });
 
-test('Temperament - LIMIT_5_SYMMETRIC_N1 - MINOR SECOND - cents', () => {
+test('LIMIT_5_SYMMETRIC_N1 - MINOR SECOND - cents', () => {
     let interval = IntervalDiatonicAlt.MINOR_SECOND;
 
     let actual: number = Temperament.LIMIT_5_SYMMETRIC_N1.getIntervalPitch(interval).cents;
@@ -92,7 +92,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N1 - MINOR SECOND - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - LIMIT_5_SYMMETRIC_N1 - MAJOR SECOND - cents', () => {
+test('LIMIT_5_SYMMETRIC_N1 - MAJOR SECOND - cents', () => {
     let interval = IntervalDiatonicAlt.MAJOR_SECOND;
 
     let actual: number = Temperament.LIMIT_5_SYMMETRIC_N1.getIntervalPitch(interval).cents;
@@ -101,7 +101,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N1 - MAJOR SECOND - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - LIMIT_5_SYMMETRIC_N2 - MAJOR SECOND - cents', () => {
+test('LIMIT_5_SYMMETRIC_N2 - MAJOR SECOND - cents', () => {
     let interval = IntervalDiatonicAlt.MAJOR_SECOND;
 
     let actual: number = Temperament.LIMIT_5_SYMMETRIC_N2.getIntervalPitch(interval).cents;
@@ -110,7 +110,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N2 - MAJOR SECOND - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - LIMIT_5_SYMMETRIC_N1 - MINOR THIRD - cents', () => {
+test('LIMIT_5_SYMMETRIC_N1 - MINOR THIRD - cents', () => {
     let interval = IntervalDiatonicAlt.MINOR_THIRD;
 
     let actual: number = Temperament.LIMIT_5_SYMMETRIC_N1.getIntervalPitch(interval).cents;
@@ -119,7 +119,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N1 - MINOR THIRD - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - LIMIT_5_SYMMETRIC_N1 - MAJOR THIRD - cents', () => {
+test('LIMIT_5_SYMMETRIC_N1 - MAJOR THIRD - cents', () => {
     let interval = IntervalDiatonicAlt.MAJOR_THIRD;
 
     let actual: number = Temperament.LIMIT_5_SYMMETRIC_N1.getIntervalPitch(interval).cents;
@@ -128,7 +128,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N1 - MAJOR THIRD - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - LIMIT_5_SYMMETRIC_N1 - PERFECT FOURTH - cents', () => {
+test('LIMIT_5_SYMMETRIC_N1 - PERFECT FOURTH - cents', () => {
     let interval = IntervalDiatonicAlt.PERFECT_FOURTH;
 
     let actual: number = Temperament.LIMIT_5_SYMMETRIC_N1.getIntervalPitch(interval).cents;
@@ -138,7 +138,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N1 - PERFECT FOURTH - cents', () => {
 });
 
 
-test('Temperament - LIMIT_5_SYMMETRIC_N1 - AUGMENTED FOURTH - cents', () => {
+test('LIMIT_5_SYMMETRIC_N1 - AUGMENTED FOURTH - cents', () => {
     let interval = IntervalDiatonicAlt.AUGMENTED_FOURTH;
 
     let actual: number = Temperament.LIMIT_5_SYMMETRIC_N1.getIntervalPitch(interval).cents;
@@ -147,7 +147,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N1 - AUGMENTED FOURTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - LIMIT_5_SYMMETRIC_N1 - PERFECT FIFTH - cents', () => {
+test('LIMIT_5_SYMMETRIC_N1 - PERFECT FIFTH - cents', () => {
     let interval = IntervalDiatonicAlt.PERFECT_FIFTH;
 
     let actual: number = Temperament.LIMIT_5_SYMMETRIC_N1.getIntervalPitch(interval).cents;
@@ -156,7 +156,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N1 - PERFECT FIFTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - LIMIT_5_SYMMETRIC_N1 - MINOR SIXTH - cents', () => {
+test('LIMIT_5_SYMMETRIC_N1 - MINOR SIXTH - cents', () => {
     let interval = IntervalDiatonicAlt.MINOR_SIXTH;
 
     let actual: number = Temperament.LIMIT_5_SYMMETRIC_N1.getIntervalPitch(interval).cents;
@@ -165,7 +165,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N1 - MINOR SIXTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - LIMIT_5_SYMMETRIC_N1 - MAJOR SIXTH - cents', () => {
+test('LIMIT_5_SYMMETRIC_N1 - MAJOR SIXTH - cents', () => {
     let interval = IntervalDiatonicAlt.MAJOR_SIXTH;
 
     let actual: number = Temperament.LIMIT_5_SYMMETRIC_N1.getIntervalPitch(interval).cents;
@@ -174,7 +174,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N1 - MAJOR SIXTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - LIMIT_5_SYMMETRIC_N1 - MINOR SEVENTH - cents', () => {
+test('LIMIT_5_SYMMETRIC_N1 - MINOR SEVENTH - cents', () => {
     let interval = IntervalDiatonicAlt.MINOR_SEVENTH;
 
     let actual: number = Temperament.LIMIT_5_SYMMETRIC_N1.getIntervalPitch(interval).cents;
@@ -183,7 +183,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N1 - MINOR SEVENTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - LIMIT_5_SYMMETRIC_N2 - MINOR SEVENTH - cents', () => {
+test('LIMIT_5_SYMMETRIC_N2 - MINOR SEVENTH - cents', () => {
     let interval = IntervalDiatonicAlt.MINOR_SEVENTH;
 
     let actual: number = Temperament.LIMIT_5_SYMMETRIC_N2.getIntervalPitch(interval).cents;
@@ -192,7 +192,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N2 - MINOR SEVENTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - LIMIT_5_SYMMETRIC_N1 - MAJOR SEVENTH - cents', () => {
+test('LIMIT_5_SYMMETRIC_N1 - MAJOR SEVENTH - cents', () => {
     let interval = IntervalDiatonicAlt.MAJOR_SEVENTH;
 
     let actual: number = Temperament.LIMIT_5_SYMMETRIC_N1.getIntervalPitch(interval).cents;
@@ -204,7 +204,7 @@ test('Temperament - LIMIT_5_SYMMETRIC_N1 - MAJOR SEVENTH - cents', () => {
 
 /* PYTHAGOREAN */
 
-test('Temperament - PYTHAGOREAN - MINOR SECOND - cents', () => {
+test('PYTHAGOREAN - MINOR SECOND - cents', () => {
     let interval = IntervalDiatonicAlt.PERFECT_UNISON;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -213,7 +213,7 @@ test('Temperament - PYTHAGOREAN - MINOR SECOND - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - MINOR SECOND - cents', () => {
+test('PYTHAGOREAN - MINOR SECOND - cents', () => {
     let interval = IntervalDiatonicAlt.MINOR_SECOND;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -222,7 +222,7 @@ test('Temperament - PYTHAGOREAN - MINOR SECOND - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - MAJOR SECOND - cents', () => {
+test('PYTHAGOREAN - MAJOR SECOND - cents', () => {
     let interval = IntervalDiatonicAlt.MAJOR_SECOND;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -231,7 +231,7 @@ test('Temperament - PYTHAGOREAN - MAJOR SECOND - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - MINOR THIRD - cents', () => {
+test('PYTHAGOREAN - MINOR THIRD - cents', () => {
     let interval = IntervalDiatonicAlt.MINOR_THIRD;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -241,7 +241,7 @@ test('Temperament - PYTHAGOREAN - MINOR THIRD - cents', () => {
 });
 
 
-test('Temperament - PYTHAGOREAN - AUGMENTED SECOND - cents', () => {
+test('PYTHAGOREAN - AUGMENTED SECOND - cents', () => {
     let interval = IntervalDiatonicAlt.AUGMENTED_SECOND;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -250,7 +250,7 @@ test('Temperament - PYTHAGOREAN - AUGMENTED SECOND - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - MAJOR THIRD - cents', () => {
+test('PYTHAGOREAN - MAJOR THIRD - cents', () => {
     let interval = IntervalDiatonicAlt.MAJOR_THIRD;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -259,7 +259,7 @@ test('Temperament - PYTHAGOREAN - MAJOR THIRD - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - DIMINISHED FOURTH - cents', () => {
+test('PYTHAGOREAN - DIMINISHED FOURTH - cents', () => {
     let interval = IntervalDiatonicAlt.DIMINISHED_FOURTH;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -268,7 +268,7 @@ test('Temperament - PYTHAGOREAN - DIMINISHED FOURTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - PERFECT FOURTH - cents', () => {
+test('PYTHAGOREAN - PERFECT FOURTH - cents', () => {
     let interval = IntervalDiatonicAlt.PERFECT_FOURTH;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -277,7 +277,7 @@ test('Temperament - PYTHAGOREAN - PERFECT FOURTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - AUGMENTED THIRD - cents', () => {
+test('PYTHAGOREAN - AUGMENTED THIRD - cents', () => {
     let interval = IntervalDiatonicAlt.AUGMENTED_THIRD;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -286,7 +286,7 @@ test('Temperament - PYTHAGOREAN - AUGMENTED THIRD - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - AUGMENTED FOURTH - cents', () => {
+test('PYTHAGOREAN - AUGMENTED FOURTH - cents', () => {
     let interval = IntervalDiatonicAlt.AUGMENTED_FOURTH;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -295,7 +295,7 @@ test('Temperament - PYTHAGOREAN - AUGMENTED FOURTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - DIMINISHED FIFTH - cents', () => {
+test('PYTHAGOREAN - DIMINISHED FIFTH - cents', () => {
     let interval = IntervalDiatonicAlt.DIMINISHED_FIFTH;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -304,7 +304,7 @@ test('Temperament - PYTHAGOREAN - DIMINISHED FIFTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - PERFECT FIFTH - cents', () => {
+test('PYTHAGOREAN - PERFECT FIFTH - cents', () => {
     let interval = IntervalDiatonicAlt.PERFECT_FIFTH;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -313,7 +313,7 @@ test('Temperament - PYTHAGOREAN - PERFECT FIFTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - DIMINISHED SIXTH - cents', () => {
+test('PYTHAGOREAN - DIMINISHED SIXTH - cents', () => {
     let interval = IntervalDiatonicAlt.DIMINISHED_SIXTH;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -322,7 +322,7 @@ test('Temperament - PYTHAGOREAN - DIMINISHED SIXTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - MINOR SIXTH - cents', () => {
+test('PYTHAGOREAN - MINOR SIXTH - cents', () => {
     let interval = IntervalDiatonicAlt.MINOR_SIXTH;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -331,7 +331,7 @@ test('Temperament - PYTHAGOREAN - MINOR SIXTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - MAJOR SIXTH - cents', () => {
+test('PYTHAGOREAN - MAJOR SIXTH - cents', () => {
     let interval = IntervalDiatonicAlt.MAJOR_SIXTH;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -340,7 +340,7 @@ test('Temperament - PYTHAGOREAN - MAJOR SIXTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - MINOR SEVENTH - cents', () => {
+test('PYTHAGOREAN - MINOR SEVENTH - cents', () => {
     let interval = IntervalDiatonicAlt.MINOR_SEVENTH;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;
@@ -349,7 +349,7 @@ test('Temperament - PYTHAGOREAN - MINOR SEVENTH - cents', () => {
     expect(actual).toBeCloseTo(expected, 0);
 });
 
-test('Temperament - PYTHAGOREAN - MAJOR SEVENTH - cents', () => {
+test('PYTHAGOREAN - MAJOR SEVENTH - cents', () => {
     let interval = IntervalDiatonicAlt.MAJOR_SEVENTH;
 
     let actual: number = Temperament.PYTHAGOREAN.getIntervalPitch(interval).cents;

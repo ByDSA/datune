@@ -11,7 +11,7 @@ export class MidiNote implements TemporalEvent<MusicalDuration> {
         this.velocity = velocity;
     }
 
-    public static from(pitch: MidiPitch, duration: MusicalDuration, velocity: number = 100) {
+    static from(pitch: MidiPitch, duration: MusicalDuration, velocity: number = 100) {
         return new MidiNote(pitch, duration, velocity);
     }
 

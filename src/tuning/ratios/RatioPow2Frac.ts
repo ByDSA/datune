@@ -14,11 +14,11 @@ export class RatioPow2Frac extends Ratio {
         this.fraction = fraction(numerator, denominator);
     }
 
-    public static from(numerator: number, denominator: number): RatioPow2Frac {
+    static from(numerator: number, denominator: number): RatioPow2Frac {
         return new RatioPow2Frac(numerator, denominator);
     }
 
-    public static fromCents(cents: number): RatioPow2Frac {
+    static fromCents(cents: number): RatioPow2Frac {
         return new RatioPow2Frac(cents, 1200);
     }
 

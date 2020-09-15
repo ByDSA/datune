@@ -1,10 +1,10 @@
-import { SPN } from "../pitch/symbolic/SPN";
-import { SymbolicPitch } from "../pitch/symbolic/SymbolicPitch";
-import * as precalc from "../precalc";
+import { SPN } from "../pitches/symbolic/SPN";
+import { SymbolicPitch } from "../pitches/symbolic/SymbolicPitch";
+import * as init from "../initializer";
 import { ConcertPitch } from "./ConcertPitch";
-precalc.concertPitches();
-precalc.spns();
-precalc.settings(); // Por si salta excepción
+init.concertPitches.default();
+init.spns.default();
+init.settings.default(); // Por si salta excepción
 
 describe.each([
     [ConcertPitch.A440, SPN.A4],

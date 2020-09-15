@@ -1,10 +1,10 @@
-import * as precalc from "../precalc";
+import * as init from "../initializer";
 import { MusicalDuration } from "../tempo/MusicalDuration";
 import { TemporalNode } from "../timelayer/TemporalNode";
 import { MidiNote } from "./MidiNote";
 import { MidiPitch } from "./MidiPitch";
-precalc.midiPitches();
-precalc.musicalDurations();
+init.midiPitches.default();
+init.musicalDurations.default();
 
 test('from - ZERO (C5 QUARTER 90)', () => {
     let midiPitch: MidiPitch = MidiPitch.C5;

@@ -1,13 +1,8 @@
-import { Assert } from './Assert';
-
-
 export function cloneString(str: String): string {
   return (' ' + str).slice(1);
 }
 
 export function arrayRemove<T>(array: T[], item: T): boolean {
-  Assert.notNull(array);
-
   let index = array.indexOf(item);
   if (index >= 0 && index < array.length) {
     array.splice(index, 1);
@@ -18,16 +13,12 @@ export function arrayRemove<T>(array: T[], item: T): boolean {
 }
 
 export function arrayRotateLeft<T>(array: T[], n: number): T[] {
-  Assert.notNull(array);
-
   for (let i = 0; i < n; i++)
     array.push(array.shift());
   return array;
 }
 
 export function arrayRotateRight<T>(array: T[], n: number): T[] {
-  Assert.notNull(array);
-
   for (let i = 0; i < n; i++)
     array.unshift(array.pop());
   return array;
@@ -38,8 +29,6 @@ export function arrayHas<T>(array: T[], obj: T): boolean {
 }
 
 export function setAddArray<T>(set: Set<T>, array: T[]): void {
-  Assert.notNull(array);
-
   for (let e of array)
     set.add(e);
 }
@@ -60,9 +49,6 @@ export function getRomanNumeral(n: number): string {
 }
 
 export function arraySameContent<T>(a: T[], b: T[]): boolean {
-  Assert.notNull(a);
-  Assert.notNull(b);
-
   if (a == b)
     return true;
 

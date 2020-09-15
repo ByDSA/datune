@@ -1,21 +1,21 @@
 import { Language } from "../lang/Language";
-import * as precalc from "../precalc";
+import * as init from "../initializer";
 import { Settings } from "../settings/Settings";
 import { Chromatic } from "./Chromatic";
 import { Diatonic } from "./Diatonic";
-precalc.chromatics();
-precalc.diatonics();
-precalc.settings();
+init.chromatics.default();
+init.diatonics.default();
+init.settings.default();
 
-test('Diatonic - chromatic: B ', () => {
+test('chromatic: B ', () => {
     expect(Diatonic.B.chromatic).toBe(Chromatic.B);
 });
 
-test('Diatonic - chromatic: C ', () => {
+test('chromatic: C ', () => {
     expect(Diatonic.C.chromatic).toBe(Chromatic.C);
 });
 
-test('Diatonic - chromatic: A ', () => {
+test('chromatic: A ', () => {
     expect(Diatonic.A.chromatic).toBe(Chromatic.A);
 });
 

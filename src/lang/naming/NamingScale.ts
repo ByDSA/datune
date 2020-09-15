@@ -1,13 +1,13 @@
-import { ScaleAbstract } from '../../tonality/ScaleAbstract';
-import { ScaleChromatic } from '../../tonality/ScaleChromatic';
+import { ScaleAbstract } from '../../scales/ScaleAbstract';
+import { ScaleChromatic } from '../../scales/ScaleChromatic';
 import { Settings } from '../../settings/Settings';
-import { Scale } from '../../tonality/Scale';
+import { Scale } from '../../scales/scale';
 
 export class NamingScale {
     private constructor() {
     }
 
-    public static toString<I, D>(scale: ScaleAbstract<I, D>): string {
+    static toString<I, D>(scale: ScaleAbstract<I, D>): string {
         switch (<any>scale) {
             case ScaleChromatic.MAJOR:
             case Scale.MAJOR: return Settings.scales.MAJOR;

@@ -1,35 +1,24 @@
-import { PrecalcCache } from '../common/PrecalcCache';
 import { BPM } from './BPM';
 import { Time } from './Time';
+import { HashingObject, MusicalDurationCache } from './MusicalDurationCache';
 
-type HashingObject = number;
 export class MusicalDuration implements Time {
-    public static MAXIMA: MusicalDuration;
-    public static LONGA: MusicalDuration;
-    public static DOUBLE: MusicalDuration;
-    public static WHOLE: MusicalDuration;
-    public static HALF: MusicalDuration;
-    public static QUARTER: MusicalDuration;
-    public static EIGHTH: MusicalDuration;
-    public static SIXTEENTH: MusicalDuration;
-    public static THIRTYSECOND: MusicalDuration;
-    public static SIXTYFOURTH: MusicalDuration;
+    static MAXIMA: MusicalDuration;
+    static LONGA: MusicalDuration;
+    static DOUBLE: MusicalDuration;
+    static WHOLE: MusicalDuration;
+    static HALF: MusicalDuration;
+    static QUARTER: MusicalDuration;
+    static EIGHTH: MusicalDuration;
+    static SIXTEENTH: MusicalDuration;
+    static THIRTYSECOND: MusicalDuration;
+    static SIXTYFOURTH: MusicalDuration;
 
-    public static ZERO: MusicalDuration;
+    static ZERO: MusicalDuration;
 
-    private static _cache = new (class Cache extends PrecalcCache<MusicalDuration, HashingObject>{
-        getHash(hashingObject: HashingObject): string {
-            return hashingObject.toString();
-        }
-
-        getHashingObject(musicalDuration: MusicalDuration): HashingObject {
-            return musicalDuration.value;
-        }
-
-        create(hashingObject: HashingObject): MusicalDuration {
-            return new MusicalDuration(hashingObject);
-        }
-    });
+    private static _cache = new MusicalDurationCache(
+        (hashingObject: HashingObject) => new MusicalDuration(hashingObject)
+    );
 
     private _value: number;
 
@@ -37,11 +26,11 @@ export class MusicalDuration implements Time {
         this._value = value;
     }
 
-    public static from(value: number) {
+    static from(value: number) {
         return MusicalDuration._cache.getOrCreate(value);
     }
 
-    public static fromMillisAndBPM(millis: number, bpm: BPM) {
+    static fromMillisAndBPM(millis: number, bpm: BPM) {
         let millisBeat = bpm.getMillis(bpm.beat);
         let millisWhole = millisBeat / bpm.beat.value;
         let value = millis / millisWhole;
@@ -53,27 +42,27 @@ export class MusicalDuration implements Time {
         return this._value;
     }
 
-    public getAdd(musicalDuration: MusicalDuration): MusicalDuration {
+    withAdd(musicalDuration: MusicalDuration): MusicalDuration {
         return MusicalDuration.from(this.value + musicalDuration.value);
     }
 
-    public getSub(musicalDuration: MusicalDuration): MusicalDuration {
+    withSub(musicalDuration: MusicalDuration): MusicalDuration {
         return MusicalDuration.from(this.value - musicalDuration.value);
     }
 
-    public getMult(factor: number): MusicalDuration {
+    withMult(factor: number): MusicalDuration {
         return MusicalDuration.from(this.value * factor);
     }
 
-    public getDivCell(cellSize: MusicalDuration): number {
+    withDivCell(cellSize: MusicalDuration): number {
         return Math.floor(this.value / cellSize.value);
     }
 
-    public getDiv(n: number): MusicalDuration {
+    withDiv(n: number): MusicalDuration {
         return MusicalDuration.from(this.value / n);
     }
 
-    public valueOf(): number {
+    valueOf(): number {
         return this.value;
     }
 
@@ -81,30 +70,15 @@ export class MusicalDuration implements Time {
         return this;
     }
 
-    public get dotted() {
-        return this.getMult(1.5);
+    get dotted() {
+        return this.withMult(1.5);
     }
 
-    public get triplet() {
-        return this.getDiv(1.5);
+    get triplet() {
+        return this.withDiv(1.5);
     }
 
-    public toString(): string {
+    toString(): string {
         return (this.value / MusicalDuration.QUARTER.value).toString();
-    }
-
-    private static initialize() {
-        this.MAXIMA = new MusicalDuration(8);
-        this.LONGA = new MusicalDuration(4);
-        this.DOUBLE = new MusicalDuration(2);
-        this.WHOLE = new MusicalDuration(1);
-        this.HALF = new MusicalDuration(1 / 2.0);
-        this.QUARTER = new MusicalDuration(1 / 4.0);
-        this.EIGHTH = new MusicalDuration(1 / 8.0);
-        this.SIXTEENTH = new MusicalDuration(1 / 16.0);
-        this.THIRTYSECOND = new MusicalDuration(1 / 32.0);
-        this.SIXTYFOURTH = new MusicalDuration(1 / 64.0);
-
-        this.ZERO = new MusicalDuration(0);
     }
 }
