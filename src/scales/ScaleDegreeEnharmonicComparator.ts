@@ -1,5 +1,5 @@
 import { DiatonicAltDegree } from './degrees/DiatonicAltDegree';
-import { Scale } from './scale';
+import { Scale } from './Scale';
 import { SetComparator } from '../utils/SetComparator';
 
 export class ScaleDegreeEnharmonicComparator extends SetComparator<DiatonicAltDegree> {

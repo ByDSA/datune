@@ -5,7 +5,7 @@ import { DiatonicAlt } from '../../degrees/DiatonicAlt';
 import { IntervalDiatonic } from '../../intervals/IntervalDiatonic';
 import { IntervalDiatonicAlt } from '../../intervals/IntervalDiatonicAlt';
 import { Settings } from '../../settings/Settings';
-import { Scale } from '../scale';
+import { Scale } from '../Scale';
 import { DiatonicDegree } from './DiatonicDegree';
 import { DiatonicAltDegreeCache, HashingObjectType } from './DiatonicAltDegreeCache';
 

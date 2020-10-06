@@ -1,5 +1,5 @@
 import { SourceScaleUtils } from './SourceScaleUtils';
-import { Scale } from './scale';
+import { Scale } from './Scale';
 
 export default () => {
     if ((<any>SourceScaleUtils)._sourceScales)

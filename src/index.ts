@@ -15,7 +15,7 @@ export * from './patterns/DiatonicAltPattern';
 export * from './patterns/DiatonicPattern';
 export * from './scales/degrees/DiatonicAltDegree';
 export * from './scales/degrees/DiatonicDegree';
-export * from './scales/scale';
+export * from './scales/Scale';
 export * from './scales/ScaleDegreeComparator';
 export * from './settings/DefaultSettings';
 export * from './settings/Settings';

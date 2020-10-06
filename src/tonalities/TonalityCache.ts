@@ -1,6 +1,6 @@
 import { PrecalcCache } from '../common/PrecalcCache';
 import { DiatonicAlt } from '../degrees/DiatonicAlt';
-import { Scale } from '../scales/scale';
+import { Scale } from '../scales/Scale';
 import { Tonality } from './Tonality';
 
 export type HashingObjectType = { root: DiatonicAlt, scale: Scale };

@@ -1,6 +1,6 @@
 import { DiatonicAlt } from '../degrees/DiatonicAlt';
 import { diatonicAlts, scales, chromatics, intervalDiatonicAlts, diatonicAltPatterns } from '../initializer';
-import { Scale } from '../scales/scale';
+import { Scale } from '../scales/Scale';
 import { Tonality } from './Tonality';
 
 export default () => {

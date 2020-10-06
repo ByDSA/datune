@@ -5,7 +5,7 @@ import { Chromatic } from '../degrees/Chromatic';
 import { DiatonicAlt } from '../degrees/DiatonicAlt';
 import { Language } from '../lang/Language';
 import { DiatonicAltPattern } from '../patterns/DiatonicAltPattern';
-import { Scale } from '../scales/scale';
+import { Scale } from '../scales/Scale';
 import { Tonality } from '../tonalities/Tonality';
 import { ConcertPitch } from '../tuning/ConcertPitch';
 import { Temperament } from '../tuning/Temperament';

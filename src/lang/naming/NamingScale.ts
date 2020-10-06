@@ -1,7 +1,7 @@
 import { ScaleAbstract } from '../../scales/ScaleAbstract';
 import { ScaleChromatic } from '../../scales/ScaleChromatic';
 import { Settings } from '../../settings/Settings';
-import { Scale } from '../../scales/scale';
+import { Scale } from '../../scales/Scale';
 
 export class NamingScale {
     private constructor() {

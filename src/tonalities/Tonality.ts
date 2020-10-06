@@ -7,7 +7,7 @@ import { ChromaticPattern } from '../patterns/ChromaticPattern';
 import { DiatonicAltPattern } from '../patterns/DiatonicAltPattern';
 import { DiatonicPattern } from '../patterns/DiatonicPattern';
 import { ParserBottomUp } from "../Utils/Parser/Parser";
-import { Scale } from '../scales/scale';
+import { Scale } from '../scales/Scale';
 import { HashingObjectType } from './TonalityCache';
 import { TonalityCache } from './TonalityCache';
 import { TonalityStaticNames } from './TonalityStaticNames';

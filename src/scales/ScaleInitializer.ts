@@ -1,7 +1,7 @@
 import { IntervalDiatonicAlt } from '../intervals/IntervalDiatonicAlt';
 import { DiatonicAltDegree } from './degrees/DiatonicAltDegree';
 import { DiatonicDegree } from './degrees/DiatonicDegree';
-import { Scale } from './scale';
+import { Scale } from './Scale';
 import { ScaleChromatic } from './ScaleChromatic';
 import { ScaleDiatonicAltConversor } from './ScaleDiatonicAltConversor';
 import { chromatics, diatonicAltDegrees, scaleChromatics, intervalDiatonicAlts } from '../initializer';
