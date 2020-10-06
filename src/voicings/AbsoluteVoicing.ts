@@ -1,7 +1,7 @@
 import { Degree } from '../degrees/Degree';
-import { SymbolicPitch } from '../pitches/symbolic/SymbolicPitch';
-import { Chromatic } from '../degrees/Chromatic';
+import { DiatonicAlt } from '../degrees/DiatonicAlt';
 import { SPN } from '../pitches/symbolic/SPN';
+import { SymbolicPitch } from '../pitches/symbolic/SymbolicPitch';
 import { Voicing } from './Voicing';
 
 export type AbsoluteVoicing = SymbolicPitch[];
@@ -14,7 +14,7 @@ export function createAbsoluteVoicing<D extends Degree>(voicing: Voicing<D>, abs
         let octave = absoluteOctaveBase + relativeVoice.octaveRelative;
 
         let symbolicPitch: SymbolicPitch;
-        if (degree instanceof Chromatic) {
+        if (degree instanceof DiatonicAlt) {
             symbolicPitch = SPN.from(degree, octave);
         } else
             throw new Error();

@@ -1,3 +1,4 @@
+import { DiatonicAlt } from '../../degrees/DiatonicAlt';
 import { Chromatic, getVarStringFrom as getVarStringFromChromatic } from '../../degrees/Chromatic';
 import { HashingObject, SPNCache } from './SPNCache';
 import { SPNStaticNames } from './SPNStaticNames';
@@ -5,23 +6,19 @@ import { SymbolicPitch } from './SymbolicPitch';
 
 export class SPN extends SPNStaticNames implements SymbolicPitch {
     private static _cache = new SPNCache(
-        (hashingObject: HashingObject) => new SPN(hashingObject.chromatic, hashingObject.octave)
+        (hashingObject: HashingObject) => new SPN(hashingObject.diatonicAlt, hashingObject.octave)
     );
 
-    private constructor(private _chromatic: Chromatic, private _octave: number) {
+    private constructor(private _diatonicAlt: DiatonicAlt, private _octave: number) {
         super();
     }
 
-    static from(chromatic: Chromatic, octave: number) {
-        return this._cache.getOrCreate({ chromatic: chromatic, octave: octave });
+    static from(diatonicAlt: DiatonicAlt, octave: number) {
+        return this._cache.getOrCreate({ diatonicAlt, octave });
     }
 
-    get chromatic(): Chromatic {
-        return this._chromatic;
-    }
-
-    get degree(): Chromatic {
-        return this.chromatic;
+    get degree(): DiatonicAlt {
+        return this._diatonicAlt;
     }
 
     get octave(): number {
@@ -29,29 +26,11 @@ export class SPN extends SPNStaticNames implements SymbolicPitch {
     }
 
     toString() {
-        return this.chromatic.toString() + this.octave;
+        return this.degree.toString() + this.octave;
     }
 
     valueOf(): number {
-        return this.chromatic.valueOf() + this.octave * Chromatic.NUMBER;
-    }
-
-    get next(): SPN {
-        let chromatic = this.chromatic.withShift(1);
-        let octave = this.octave;
-        if (chromatic.compareTo(this._chromatic) < 0)
-            octave++;
-
-        return SPN.from(chromatic, octave);
-    }
-
-    get previous(): SPN {
-        let chromatic = this.chromatic.withShift(-1);
-        let octave = this.octave;
-        if (chromatic.compareTo(this._chromatic) > 0)
-            octave--;
-
-        return SPN.from(chromatic, octave);
+        return this.degree.valueOf() + this.octave * Chromatic.NUMBER;
     }
 }
 

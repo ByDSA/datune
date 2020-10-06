@@ -42,6 +42,14 @@ test('A to A#: ', () => {
     expect(intervalDiatonicAlt).toBe(expected);
 });
 
+test('A to G#: ', () => {
+    let a = DiatonicAlt.A;
+    let b = DiatonicAlt.GG;
+    let intervalDiatonicAlt = IntervalDiatonicAlt.between(a, b);
+    let expected = IntervalDiatonicAlt.MAJOR_SEVENTH;
+    expect(intervalDiatonicAlt).toBe(expected);
+});
+
 test('fromIntervalQuality - M3 ', () => {
     let actual = IntervalDiatonicAlt.from(IntervalDiatonic.THIRD, Quality.MAJOR);
     let expected = IntervalDiatonicAlt.MAJOR_THIRD;

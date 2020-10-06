@@ -1,8 +1,9 @@
+import { DiatonicAlt } from '../degrees/DiatonicAlt';
 import { Chromatic } from "../degrees/Chromatic";
 import { Pitch } from "../pitches/Pitch";
 import { SPN } from "../pitches/symbolic/SPN";
 import { Tuning } from "../tuning/Tuning";
-import { MidiPitchCache, HashingObject } from './MidiPitchCache';
+import { HashingObject, MidiPitchCache } from './MidiPitchCache';
 
 export class MidiPitch extends Pitch {
     static MIN: MidiPitch;
@@ -168,7 +169,8 @@ export class MidiPitch extends Pitch {
         let octave = Math.floor(code / Chromatic.NUMBER);
         let chromaticInt = code - Chromatic.NUMBER * octave;
         let chromatic: Chromatic = Chromatic.fromInt(chromaticInt);
-        let spn: SPN = SPN.from(chromatic, octave - 1)
+        let diatonicAlt = DiatonicAlt.fromChromatic(chromatic);
+        let spn: SPN = SPN.from(diatonicAlt, octave - 1)
 
         return this.from(spn, cents);
     }
@@ -209,7 +211,7 @@ export class MidiPitch extends Pitch {
     }
 
     toString(): string {
-        return this.spn.chromatic.toString() + this.octave + this.getCentsTxt();
+        return this.spn.degree.toString() + this.octave + this.getCentsTxt();
     }
 
     private getCentsTxt(): string {
