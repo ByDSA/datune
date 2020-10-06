@@ -18,7 +18,7 @@
     "build:postinstall": "tsc --declaration",
     "build:dev": "npm run clean && tsc --declaration --outDir dist/",
     "clean": "rm -rf dist",
-    "postinstall": "npm run build:postinstall && rm -r src"
+    "postinstall": "npm run build:postinstall && rm -r src && rm tsconfig.json && rm jest.config.js"
   },
   "typings": "./dist/index.d.ts",
   "main": "./dist/index.js",
