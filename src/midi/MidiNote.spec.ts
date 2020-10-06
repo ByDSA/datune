@@ -1,8 +1,8 @@
-import * as precalc from "../precalc";
+import * as init from "../initializer";
 import { MusicalDuration } from "../tempo/MusicalDuration";
 import { MidiNote } from "./MidiNote";
 import { MidiPitch } from "./MidiPitch";
-precalc.midiPitches();
+init.midiPitches.default();
 
 test('from - C5 QUARTER 90', () => {
     let midiPitch: MidiPitch = MidiPitch.C5;

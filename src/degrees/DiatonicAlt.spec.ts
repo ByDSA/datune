@@ -1,46 +1,46 @@
-import { IntervalDiatonicAlt } from "../interval/IntervalDiatonicAlt";
+import * as init from "../initializer";
+import { IntervalDiatonicAlt } from "../intervals/IntervalDiatonicAlt";
 import { Language } from "../lang/Language";
-import * as precalc from "../precalc";
 import { Settings } from "../settings/Settings";
 import { Chromatic } from './Chromatic';
 import { Diatonic } from "./Diatonic";
 import { DiatonicAlt } from "./DiatonicAlt";
-precalc.chromatics();
-precalc.diatonics();
-precalc.diatonicAlts();
-precalc.intervalDiatonicAlts();
-precalc.settings();
+init.chromatics.default();
+init.diatonics.default();
+init.diatonicAlts.default();
+init.intervalDiatonicAlts.default();
+init.settings.default();
 
-test('DiatonicAlt - precalc ', () => {
-    expect(DiatonicAlt.C).not.toBe(undefined);
-    expect(DiatonicAlt.CC).not.toBe(undefined);
-    expect(DiatonicAlt.D).not.toBe(undefined);
-    expect(DiatonicAlt.DD).not.toBe(undefined);
-    expect(DiatonicAlt.E).not.toBe(undefined);
-    expect(DiatonicAlt.F).not.toBe(undefined);
-    expect(DiatonicAlt.FF).not.toBe(undefined);
-    expect(DiatonicAlt.G).not.toBe(undefined);
-    expect(DiatonicAlt.GG).not.toBe(undefined);
-    expect(DiatonicAlt.A).not.toBe(undefined);
-    expect(DiatonicAlt.AA).not.toBe(undefined);
-    expect(DiatonicAlt.B).not.toBe(undefined);
+test('precalc ', () => {
+    expect(DiatonicAlt.C).toBeDefined();
+    expect(DiatonicAlt.CC).toBeDefined();
+    expect(DiatonicAlt.D).toBeDefined();
+    expect(DiatonicAlt.DD).toBeDefined();
+    expect(DiatonicAlt.E).toBeDefined();
+    expect(DiatonicAlt.F).toBeDefined();
+    expect(DiatonicAlt.FF).toBeDefined();
+    expect(DiatonicAlt.G).toBeDefined();
+    expect(DiatonicAlt.GG).toBeDefined();
+    expect(DiatonicAlt.A).toBeDefined();
+    expect(DiatonicAlt.AA).toBeDefined();
+    expect(DiatonicAlt.B).toBeDefined();
 });
 
-test('DiatonicAlt - precalc: alts ', () => {
+test('precalc: alts ', () => {
     expect(DiatonicAlt.Cbb.alts).toBe(-2);
     expect(DiatonicAlt.Cb.alts).toBe(-1);
     expect(DiatonicAlt.C.alts).toBe(0);
     expect(DiatonicAlt.BBB.alts).toBe(2);
 });
 
-test('DiatonicAlt - precalc immutables: reassign DiatonicAlt.C', () => {
+test('precalc immutables: reassign DiatonicAlt.C', () => {
     const t = () => {
         DiatonicAlt.C = DiatonicAlt.D;
     };
     expect(t).toThrow(TypeError);
 });
 
-test('DiatonicAlt - fromChromatic: without diatonic', () => {
+test('fromChromatic: without diatonic', () => {
     expect(DiatonicAlt.fromChromatic(Chromatic.C)).toBe(DiatonicAlt.C);
     expect(DiatonicAlt.fromChromatic(Chromatic.CC)).toBe(DiatonicAlt.CC);
     expect(DiatonicAlt.fromChromatic(Chromatic.D)).toBe(DiatonicAlt.D);
@@ -55,7 +55,7 @@ test('DiatonicAlt - fromChromatic: without diatonic', () => {
     expect(DiatonicAlt.fromChromatic(Chromatic.B)).toBe(DiatonicAlt.B);
 });
 
-test('DiatonicAlt - fromChromatic: with diatonic', () => {
+test('fromChromatic: with diatonic', () => {
     expect(DiatonicAlt.fromChromatic(Chromatic.C, Diatonic.B)).toBe(DiatonicAlt.BB);
     expect(DiatonicAlt.fromChromatic(Chromatic.DD, Diatonic.E)).toBe(DiatonicAlt.Eb);
     expect(DiatonicAlt.fromChromatic(Chromatic.GG, Diatonic.A)).toBe(DiatonicAlt.Ab);
@@ -64,7 +64,7 @@ test('DiatonicAlt - fromChromatic: with diatonic', () => {
     expect(DiatonicAlt.fromChromatic(Chromatic.AA, Diatonic.C)).toBe(DiatonicAlt.Cbb);
 });
 
-test('DiatonicAlt - toString - ENG', () => {
+test('toString - ENG', () => {
     Settings.lang = Language.ENG;
     expect(DiatonicAlt.BB.toString()).toBe("B♯");
     expect(DiatonicAlt.Eb.toString()).toBe("E♭");
@@ -73,7 +73,7 @@ test('DiatonicAlt - toString - ENG', () => {
     expect(DiatonicAlt.BBB.toString()).toBe("B♯♯");
 });
 
-test('DiatonicAlt - toString() - ESP', () => {
+test('toString() - ESP', () => {
     Settings.lang = Language.ESP;
     expect(DiatonicAlt.BB.toString()).toBe("Si♯");
     expect(DiatonicAlt.Eb.toString()).toBe("Mi♭");
@@ -82,47 +82,47 @@ test('DiatonicAlt - toString() - ESP', () => {
     expect(DiatonicAlt.BBB.toString()).toBe("Si♯♯");
 });
 
-test('DiatonicAlt - getAdd: minor second', () => {
-    let chromatic = DiatonicAlt.C.getAdd(IntervalDiatonicAlt.MINOR_SECOND);
+test('withAdd: minor second', () => {
+    let chromatic = DiatonicAlt.C.withAdd(IntervalDiatonicAlt.MINOR_SECOND);
     let expected = DiatonicAlt.Db;
     expect(chromatic).toBe(expected);
 });
 
-test('DiatonicAlt - getSub: minor second', () => {
-    let chromatic = DiatonicAlt.C.getSub(IntervalDiatonicAlt.MINOR_SECOND);
+test('withSub: minor second', () => {
+    let chromatic = DiatonicAlt.C.withSub(IntervalDiatonicAlt.MINOR_SECOND);
     let expected = DiatonicAlt.B;
     expect(chromatic).toBe(expected);
 });
 
-test('DiatonicAlt - chromatic: BBB ', () => {
+test('chromatic: BBB ', () => {
     expect(DiatonicAlt.BBB.chromatic).toBe(Chromatic.CC);
 });
 
-test('DiatonicAlt - chromatic: BB ', () => {
+test('chromatic: BB ', () => {
     expect(DiatonicAlt.BB.chromatic).toBe(Chromatic.C);
 });
 
-test('DiatonicAlt - chromatic: C ', () => {
+test('chromatic: C ', () => {
     expect(DiatonicAlt.C.chromatic).toBe(Chromatic.C);
 });
 
-test('DiatonicAlt - chromatic: E ', () => {
+test('chromatic: E ', () => {
     expect(DiatonicAlt.E.chromatic).toBe(Chromatic.E);
 });
 
-test('DiatonicAlt - chromatic: Cb ', () => {
+test('chromatic: Cb ', () => {
     expect(DiatonicAlt.Cb.chromatic).toBe(Chromatic.B);
 });
 
-test('DiatonicAlt - chromatic: Cbb ', () => {
+test('chromatic: Cbb ', () => {
     expect(DiatonicAlt.Cbb.chromatic).toBe(Chromatic.AA);
 });
 
-test('DiatonicAlt - chromatic: Custom Cbbb ', () => {
+test('chromatic: Custom Cbbb ', () => {
     expect(DiatonicAlt.from(Diatonic.C, -3).chromatic).toBe(Chromatic.A);
 });
 
-test('DiatonicAlt - chromatic: Custom Ebbbb ', () => {
+test('chromatic: Custom Ebbbb ', () => {
     expect(DiatonicAlt.from(Diatonic.E, -4).chromatic).toBe(Chromatic.C);
 });
 
@@ -142,6 +142,18 @@ test('toString() - ESP - C', () => {
     let expected = "Do";
 
     expect(actual).toBe(expected);
+});
+
+test('fromChromatic without Diatonic', () => {
+    expect(DiatonicAlt.fromChromatic(Chromatic.C)).toBe(DiatonicAlt.C);
+    expect(DiatonicAlt.fromChromatic(Chromatic.G)).toBe(DiatonicAlt.G);
+});
+
+test('fromChromatic with Diatonic', () => {
+    expect(DiatonicAlt.fromChromatic(Chromatic.C, Diatonic.C)).toBe(DiatonicAlt.C);
+    expect(DiatonicAlt.fromChromatic(Chromatic.G, Diatonic.G)).toBe(DiatonicAlt.G);
+    expect(DiatonicAlt.fromChromatic(Chromatic.E, Diatonic.F)).toBe(DiatonicAlt.Fb);
+    expect(DiatonicAlt.fromChromatic(Chromatic.F, Diatonic.E)).toBe(DiatonicAlt.EE);
 });
 
 test('fromString - ESP - Do', () => {

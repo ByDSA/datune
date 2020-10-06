@@ -1,165 +1,156 @@
-import { PrecalcCache } from '../common/PrecalcCache';
 import { Chromatic } from "../degrees/Chromatic";
-import { Pitch } from "../pitch/Pitch";
-import { SPN } from "../pitch/symbolic/SPN";
+import { Pitch } from "../pitches/Pitch";
+import { SPN } from "../pitches/symbolic/SPN";
 import { Tuning } from "../tuning/Tuning";
+import { MidiPitchCache, HashingObject } from './MidiPitchCache';
 
-type HashingObject = { spn: SPN, detuned: number };
 export class MidiPitch extends Pitch {
-    public static MIN: MidiPitch;
+    static MIN: MidiPitch;
 
-    public static C0: MidiPitch;
-    public static CC0: MidiPitch;
-    public static D0: MidiPitch;
-    public static DD0: MidiPitch;
-    public static E0: MidiPitch;
-    public static F0: MidiPitch;
-    public static FF0: MidiPitch;
-    public static G0: MidiPitch;
-    public static GG0: MidiPitch;
-    public static A0: MidiPitch;
-    public static AA0: MidiPitch;
-    public static B0: MidiPitch;
-    public static C1: MidiPitch;
-    public static CC1: MidiPitch;
-    public static D1: MidiPitch;
-    public static DD1: MidiPitch;
-    public static E1: MidiPitch;
-    public static F1: MidiPitch;
-    public static FF1: MidiPitch;
-    public static G1: MidiPitch;
-    public static GG1: MidiPitch;
-    public static A1: MidiPitch;
-    public static AA1: MidiPitch;
-    public static B1: MidiPitch;
-    public static C2: MidiPitch;
-    public static CC2: MidiPitch;
-    public static D2: MidiPitch;
-    public static DD2: MidiPitch;
-    public static E2: MidiPitch;
-    public static F2: MidiPitch;
-    public static FF2: MidiPitch;
-    public static G2: MidiPitch;
-    public static GG2: MidiPitch;
-    public static A2: MidiPitch;
-    public static AA2: MidiPitch;
-    public static B2: MidiPitch;
-    public static C3: MidiPitch;
-    public static CC3: MidiPitch;
-    public static D3: MidiPitch;
-    public static DD3: MidiPitch;
-    public static E3: MidiPitch;
-    public static F3: MidiPitch;
-    public static FF3: MidiPitch;
-    public static G3: MidiPitch;
-    public static GG3: MidiPitch;
-    public static A3: MidiPitch;
-    public static AA3: MidiPitch;
-    public static B3: MidiPitch;
-    public static C4: MidiPitch;
-    public static CC4: MidiPitch;
-    public static D4: MidiPitch;
-    public static DD4: MidiPitch;
-    public static E4: MidiPitch;
-    public static F4: MidiPitch;
-    public static FF4: MidiPitch;
-    public static G4: MidiPitch;
-    public static GG4: MidiPitch;
-    public static A4: MidiPitch;
-    public static AA4: MidiPitch;
-    public static B4: MidiPitch;
-    public static C5: MidiPitch;
-    public static CC5: MidiPitch;
-    public static D5: MidiPitch;
-    public static DD5: MidiPitch;
-    public static E5: MidiPitch;
-    public static F5: MidiPitch;
-    public static FF5: MidiPitch;
-    public static G5: MidiPitch;
-    public static GG5: MidiPitch;
-    public static A5: MidiPitch;
-    public static AA5: MidiPitch;
-    public static B5: MidiPitch;
-    public static C6: MidiPitch;
-    public static CC6: MidiPitch;
-    public static D6: MidiPitch;
-    public static DD6: MidiPitch;
-    public static E6: MidiPitch;
-    public static F6: MidiPitch;
-    public static FF6: MidiPitch;
-    public static G6: MidiPitch;
-    public static GG6: MidiPitch;
-    public static A6: MidiPitch;
-    public static AA6: MidiPitch;
-    public static B6: MidiPitch;
-    public static C7: MidiPitch;
-    public static CC7: MidiPitch;
-    public static D7: MidiPitch;
-    public static DD7: MidiPitch;
-    public static E7: MidiPitch;
-    public static F7: MidiPitch;
-    public static FF7: MidiPitch;
-    public static G7: MidiPitch;
-    public static GG7: MidiPitch;
-    public static A7: MidiPitch;
-    public static AA7: MidiPitch;
-    public static B7: MidiPitch;
-    public static C8: MidiPitch;
-    public static CC8: MidiPitch;
-    public static D8: MidiPitch;
-    public static DD8: MidiPitch;
-    public static E8: MidiPitch;
-    public static F8: MidiPitch;
-    public static FF8: MidiPitch;
-    public static G8: MidiPitch;
-    public static GG8: MidiPitch;
-    public static A8: MidiPitch;
-    public static AA8: MidiPitch;
-    public static B8: MidiPitch;
-    public static C9: MidiPitch;
-    public static CC9: MidiPitch;
-    public static D9: MidiPitch;
-    public static DD9: MidiPitch;
-    public static E9: MidiPitch;
-    public static F9: MidiPitch;
-    public static FF9: MidiPitch;
-    public static G9: MidiPitch;
-    public static GG9: MidiPitch;
-    public static A9: MidiPitch;
-    public static AA9: MidiPitch;
-    public static B9: MidiPitch;
-    public static C10: MidiPitch;
-    public static CC10: MidiPitch;
-    public static D10: MidiPitch;
-    public static DD10: MidiPitch;
-    public static E10: MidiPitch;
-    public static F10: MidiPitch;
-    public static FF10: MidiPitch;
-    public static G10: MidiPitch;
+    static C0: MidiPitch;
+    static CC0: MidiPitch;
+    static D0: MidiPitch;
+    static DD0: MidiPitch;
+    static E0: MidiPitch;
+    static F0: MidiPitch;
+    static FF0: MidiPitch;
+    static G0: MidiPitch;
+    static GG0: MidiPitch;
+    static A0: MidiPitch;
+    static AA0: MidiPitch;
+    static B0: MidiPitch;
+    static C1: MidiPitch;
+    static CC1: MidiPitch;
+    static D1: MidiPitch;
+    static DD1: MidiPitch;
+    static E1: MidiPitch;
+    static F1: MidiPitch;
+    static FF1: MidiPitch;
+    static G1: MidiPitch;
+    static GG1: MidiPitch;
+    static A1: MidiPitch;
+    static AA1: MidiPitch;
+    static B1: MidiPitch;
+    static C2: MidiPitch;
+    static CC2: MidiPitch;
+    static D2: MidiPitch;
+    static DD2: MidiPitch;
+    static E2: MidiPitch;
+    static F2: MidiPitch;
+    static FF2: MidiPitch;
+    static G2: MidiPitch;
+    static GG2: MidiPitch;
+    static A2: MidiPitch;
+    static AA2: MidiPitch;
+    static B2: MidiPitch;
+    static C3: MidiPitch;
+    static CC3: MidiPitch;
+    static D3: MidiPitch;
+    static DD3: MidiPitch;
+    static E3: MidiPitch;
+    static F3: MidiPitch;
+    static FF3: MidiPitch;
+    static G3: MidiPitch;
+    static GG3: MidiPitch;
+    static A3: MidiPitch;
+    static AA3: MidiPitch;
+    static B3: MidiPitch;
+    static C4: MidiPitch;
+    static CC4: MidiPitch;
+    static D4: MidiPitch;
+    static DD4: MidiPitch;
+    static E4: MidiPitch;
+    static F4: MidiPitch;
+    static FF4: MidiPitch;
+    static G4: MidiPitch;
+    static GG4: MidiPitch;
+    static A4: MidiPitch;
+    static AA4: MidiPitch;
+    static B4: MidiPitch;
+    static C5: MidiPitch;
+    static CC5: MidiPitch;
+    static D5: MidiPitch;
+    static DD5: MidiPitch;
+    static E5: MidiPitch;
+    static F5: MidiPitch;
+    static FF5: MidiPitch;
+    static G5: MidiPitch;
+    static GG5: MidiPitch;
+    static A5: MidiPitch;
+    static AA5: MidiPitch;
+    static B5: MidiPitch;
+    static C6: MidiPitch;
+    static CC6: MidiPitch;
+    static D6: MidiPitch;
+    static DD6: MidiPitch;
+    static E6: MidiPitch;
+    static F6: MidiPitch;
+    static FF6: MidiPitch;
+    static G6: MidiPitch;
+    static GG6: MidiPitch;
+    static A6: MidiPitch;
+    static AA6: MidiPitch;
+    static B6: MidiPitch;
+    static C7: MidiPitch;
+    static CC7: MidiPitch;
+    static D7: MidiPitch;
+    static DD7: MidiPitch;
+    static E7: MidiPitch;
+    static F7: MidiPitch;
+    static FF7: MidiPitch;
+    static G7: MidiPitch;
+    static GG7: MidiPitch;
+    static A7: MidiPitch;
+    static AA7: MidiPitch;
+    static B7: MidiPitch;
+    static C8: MidiPitch;
+    static CC8: MidiPitch;
+    static D8: MidiPitch;
+    static DD8: MidiPitch;
+    static E8: MidiPitch;
+    static F8: MidiPitch;
+    static FF8: MidiPitch;
+    static G8: MidiPitch;
+    static GG8: MidiPitch;
+    static A8: MidiPitch;
+    static AA8: MidiPitch;
+    static B8: MidiPitch;
+    static C9: MidiPitch;
+    static CC9: MidiPitch;
+    static D9: MidiPitch;
+    static DD9: MidiPitch;
+    static E9: MidiPitch;
+    static F9: MidiPitch;
+    static FF9: MidiPitch;
+    static G9: MidiPitch;
+    static GG9: MidiPitch;
+    static A9: MidiPitch;
+    static AA9: MidiPitch;
+    static B9: MidiPitch;
+    static C10: MidiPitch;
+    static CC10: MidiPitch;
+    static D10: MidiPitch;
+    static DD10: MidiPitch;
+    static E10: MidiPitch;
+    static F10: MidiPitch;
+    static FF10: MidiPitch;
+    static G10: MidiPitch;
 
-    public static MAX: MidiPitch;
+    static MAX: MidiPitch;
 
-    private static immutablesCache = new PrecalcCache<MidiPitch, HashingObject>(
-        function (hashingObject: HashingObject): string {
-            return hashingObject.spn.valueOf() + "-" + hashingObject.detuned;
-        },
-        function (midiNote: MidiPitch): HashingObject {
-            return { spn: midiNote.spn, detuned: midiNote.cents };
-        },
-        function (hashingObject: HashingObject): MidiPitch {
-            return new MidiPitch(hashingObject.spn, hashingObject.detuned);
-        }
+    private static _cache = new MidiPitchCache(
+        (hashingObject: HashingObject) => new MidiPitch(hashingObject.spn, hashingObject.detuned)
     );
 
     private constructor(private _spn: SPN, private _cents: number) {
         super();
     }
 
-    public static from(spn: SPN, detuned: number = 0) {
-        return this.immutablesCache.getOrCreate({ spn: spn, detuned: detuned });
+    static from(spn: SPN, detuned: number = 0) {
+        return this._cache.getOrCreate({ spn: spn, detuned: detuned });
     }
 
-    public static fromFrequency(f: number): MidiPitch {
+    static fromFrequency(f: number): MidiPitch {
         let semis = 12 * Math.log2(f / 440);
         let code = 69 + Math.round(semis);
         let cents = Math.round(100 * (semis - Math.round(semis)));
@@ -167,7 +158,7 @@ export class MidiPitch extends Pitch {
         return this.fromCode(code, cents);
     }
 
-    public static fromCode(code: number, cents: number = 0): MidiPitch {
+    static fromCode(code: number, cents: number = 0): MidiPitch {
         if (Math.floor(code) != code)
             throw new Error();
 
@@ -217,7 +208,7 @@ export class MidiPitch extends Pitch {
         this._precalcFrequency = this._precalcFrequencyWithoutDetuned * Math.pow(2, this.cents / 1200);
     }
 
-    public toString(): string {
+    toString(): string {
         return this.spn.chromatic.toString() + this.octave + this.getCentsTxt();
     }
 
@@ -228,32 +219,5 @@ export class MidiPitch extends Pitch {
             return " (" + this.cents.toString() + ")";
         else
             return "";
-    }
-
-    private static initialize() {
-        mainLoop: for (let i = 0; i <= 10; i++) {
-            for (const chromatic of Chromatic.all) {
-                let varStr: string = (<any>chromatic).varStr + i;
-                let varSPN = this.getVarSPN(chromatic, i);
-
-                this[varStr] = MidiPitch.from(SPN[varSPN], 0);
-
-                if (varStr == "G10")
-                    break mainLoop;
-            }
-        }
-
-        this.MIN = this.C0;
-        this.MAX = this.G10;
-    }
-
-    private static getVarSPN(chromatic: Chromatic, octave: number): string {
-        let varSPN = (<any>chromatic).varStr;
-        if (octave > 0)
-            varSPN += octave - 1;
-        else
-            varSPN += "_S" + (-(octave - 1));
-
-        return varSPN;
     }
 }

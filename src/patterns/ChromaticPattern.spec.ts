@@ -1,10 +1,10 @@
+import * as init from "../initializer";
 import { Language } from "../lang/Language";
-import * as precalc from "../precalc";
 import { Settings } from "../settings/Settings";
 import { ChromaticPattern } from "./ChromaticPattern";
-precalc.chromaticPatterns();
-precalc.chromaticChords();
-precalc.settings(); // Por si hay errores, mostrar el nombre del test
+init.chromaticPatterns.default();
+init.chromaticChords.default();
+init.settings.default(); // Por si hay errores, mostrar el nombre del test
 
 describe.each([
     [[0, 4, 7], ChromaticPattern.TRIAD_MAJOR],

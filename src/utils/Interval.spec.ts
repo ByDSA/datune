@@ -1,7 +1,7 @@
-import * as precalc from "../precalc";
+import * as init from "../initializer";
 import { Interval } from "./Interval";
-precalc.musicalDurations();
-precalc.bpms();
+init.musicalDurations.default();
+init.bpms.default();
 
 test('contains - 3 in [0, 10)', () => {
     let interval: Interval<number> = Interval.fromInclusiveToExclusive(0, 10);

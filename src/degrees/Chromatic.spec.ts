@@ -1,13 +1,13 @@
+import * as init from "../initializer";
 import { Language } from "../lang/Language";
-import * as precalc from "../precalc";
 import { Settings } from "../settings/Settings";
 import { Chromatic } from './Chromatic';
-precalc.chromatics();
-precalc.diatonics();
-precalc.diatonicAlts();
-precalc.settings();
+init.chromatics.default();
+init.diatonics.default();
+init.diatonicAlts.default();
+init.settings.default();
 
-test('Chromatic - precalc ', () => {
+test('precalc not undefined ', () => {
     expect(Chromatic.C).not.toBe(undefined);
     expect(Chromatic.CC).not.toBe(undefined);
     expect(Chromatic.D).not.toBe(undefined);
@@ -22,36 +22,29 @@ test('Chromatic - precalc ', () => {
     expect(Chromatic.B).not.toBe(undefined);
 });
 
-test('Chromatic - precalc immutables: reassign Chromatic.C', () => {
+test('precalc immutables: reassign Chromatic.C', () => {
     const t = () => {
         Chromatic.C = Chromatic.D;
     };
     expect(t).toThrow(TypeError);
 });
 
-test('Chromatic - precalc immutables: reassign Chromatic.C._intValue', () => {
-    const t = () => {
-        (<any>Chromatic.C)._intValue = 2;
-    };
-    expect(t).toThrow(TypeError);
+test('valueOf() ', () => {
+    expect(Chromatic.C.valueOf()).toBe(0);
+    expect(Chromatic.CC.valueOf()).toBe(1);
+    expect(Chromatic.D.valueOf()).toBe(2);
+    expect(Chromatic.DD.valueOf()).toBe(3);
+    expect(Chromatic.E.valueOf()).toBe(4);
+    expect(Chromatic.F.valueOf()).toBe(5);
+    expect(Chromatic.FF.valueOf()).toBe(6);
+    expect(Chromatic.G.valueOf()).toBe(7);
+    expect(Chromatic.GG.valueOf()).toBe(8);
+    expect(Chromatic.A.valueOf()).toBe(9);
+    expect(Chromatic.AA.valueOf()).toBe(10);
+    expect(Chromatic.B.valueOf()).toBe(11);
 });
 
-test('Chromatic - intValues ', () => {
-    expect(Chromatic.C.intValue).toBe(0);
-    expect(Chromatic.CC.intValue).toBe(1);
-    expect(Chromatic.D.intValue).toBe(2);
-    expect(Chromatic.DD.intValue).toBe(3);
-    expect(Chromatic.E.intValue).toBe(4);
-    expect(Chromatic.F.intValue).toBe(5);
-    expect(Chromatic.FF.intValue).toBe(6);
-    expect(Chromatic.G.intValue).toBe(7);
-    expect(Chromatic.GG.intValue).toBe(8);
-    expect(Chromatic.A.intValue).toBe(9);
-    expect(Chromatic.AA.intValue).toBe(10);
-    expect(Chromatic.B.intValue).toBe(11);
-});
-
-test('Chromatic - fromInt: 0-11 ', () => {
+test('fromInt: 0-11 ', () => {
     expect(Chromatic.fromInt(0)).toBe(Chromatic.C);
     expect(Chromatic.fromInt(1)).toBe(Chromatic.CC);
     expect(Chromatic.fromInt(2)).toBe(Chromatic.D);
@@ -66,17 +59,17 @@ test('Chromatic - fromInt: 0-11 ', () => {
     expect(Chromatic.fromInt(11)).toBe(Chromatic.B);
 });
 
-test('Chromatic - fromInt: negative', () => {
+test('fromInt: negative', () => {
     expect(Chromatic.fromInt(-1)).toBe(Chromatic.B);
     expect(Chromatic.fromInt(-12)).toBe(Chromatic.C);
 });
 
-test('Chromatic - fromInt: above 11', () => {
+test('fromInt: above 11', () => {
     expect(Chromatic.fromInt(12)).toBe(Chromatic.C);
     expect(Chromatic.fromInt(25)).toBe(Chromatic.CC);
 });
 
-test('Chromatic - toString() - ENG', () => {
+test('toString() - ENG', () => {
     Settings.lang = Language.ENG;
     expect(Chromatic.C.toString()).toBe("C");
     expect(Chromatic.CC.toString()).toBe("C♯");
@@ -92,7 +85,7 @@ test('Chromatic - toString() - ENG', () => {
     expect(Chromatic.B.toString()).toBe("B");
 });
 
-test('Chromatic - toString() - ESP', () => {
+test('toString() - ESP', () => {
     Settings.lang = Language.ESP;
     expect(Chromatic.C.toString()).toBe("Do");
     expect(Chromatic.CC.toString()).toBe("Do♯");
@@ -108,20 +101,20 @@ test('Chromatic - toString() - ESP', () => {
     expect(Chromatic.B.toString()).toBe("Si");
 });
 
-test('Chromatic - getShift: +1', () => {
-    let chromatic = Chromatic.C.getShift(1);
+test('withShift: +1', () => {
+    let chromatic = Chromatic.C.withShift(1);
     let expected = Chromatic.CC;
     expect(chromatic).toBe(expected);
 });
 
-test('Chromatic - getShift: -1', () => {
-    let chromatic = Chromatic.C.getShift(-1);
+test('withShift: -1', () => {
+    let chromatic = Chromatic.C.withShift(-1);
     let expected = Chromatic.B;
     expect(chromatic).toBe(expected);
 });
 
-test('Chromatic - getShift: -27', () => {
-    let chromatic = Chromatic.C.getShift(-27);
+test('withShift: -27', () => {
+    let chromatic = Chromatic.C.withShift(-27);
     let expected = Chromatic.A;
     expect(chromatic).toBe(expected);
 });
@@ -196,4 +189,24 @@ test('fromString - ENG - Do', () => {
         Chromatic.fromString("Do");
     };
     expect(t).toThrow(Error);
+});
+
+test('all values', () => {
+    let chromatics: Chromatic[] = [
+        Chromatic.C,
+        Chromatic.CC,
+        Chromatic.D,
+        Chromatic.DD,
+        Chromatic.E,
+        Chromatic.F,
+        Chromatic.FF,
+        Chromatic.G,
+        Chromatic.GG,
+        Chromatic.A,
+        Chromatic.AA,
+        Chromatic.B
+    ];
+    for (const chromatic of chromatics)
+        expect(Chromatic.all).toContain(chromatic);
+    expect(Chromatic.all.length).toBe(Chromatic.NUMBER);
 });

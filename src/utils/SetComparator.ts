@@ -7,7 +7,7 @@ export abstract class SetComparator<T> {
         this.calculated = false;
     }
 
-    public calculate(): void {
+    calculate(): void {
         this.addAllValuesToCommon();
         this.removeNonCommonValues();
         this.calculated = true;
@@ -34,12 +34,12 @@ export abstract class SetComparator<T> {
         return set.has(value);
     }
 
-    public get common(): Set<T> {
+    get common(): Set<T> {
         this.errorIfNotCalculated();
         return this._common;
     }
 
-    public get different(): Set<T> {
+    get different(): Set<T> {
         this.errorIfNotCalculated();
         return this._different;
     }

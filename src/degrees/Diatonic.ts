@@ -1,6 +1,6 @@
 import { Immutables } from '../common/Immutables';
-import { MathUtils } from '../common/MathUtils';
-import { IntervalDiatonic } from '../interval/IntervalDiatonic';
+import { rotativeTrim } from '../common/MathUtils';
+import { IntervalDiatonic } from '../intervals/IntervalDiatonic';
 import { NamingDiatonic } from '../lang/naming/NamingDiatonic';
 import { Chromatic } from './Chromatic';
 import { Degree } from './Degree';
@@ -14,20 +14,10 @@ export class Diatonic implements Degree {
     static A: Diatonic;
     static B: Diatonic;
 
-    public static NUMBER = 7;
-
-    public getAdd(intervalDiatonic: IntervalDiatonic): Diatonic {
-        let intValue = this.intValue + intervalDiatonic.intValue;
-        return Diatonic.fromInt(intValue);
-    }
-
-    public getSub(intervalDiatonic: IntervalDiatonic): Diatonic {
-        let intValue = this.intValue - intervalDiatonic.intValue;
-        return Diatonic.fromInt(intValue);
-    }
+    static NUMBER = 7;
 
     static fromInt(intValue: number): Diatonic {
-        intValue = MathUtils.rotativeTrim(intValue, Diatonic.NUMBER);
+        intValue = rotativeTrim(intValue, Diatonic.NUMBER);
         switch (intValue) {
             case 0: return Diatonic.C;
             case 1: return Diatonic.D;
@@ -38,7 +28,7 @@ export class Diatonic implements Degree {
             case 6: return Diatonic.B;
         }
 
-        throw new Error("Impossible get Diatonic from int value: " + intValue);
+        return null;
     }
 
     static fromString(strValue: string): Diatonic {
@@ -53,7 +43,8 @@ export class Diatonic implements Degree {
             case Diatonic.A.toString(): return Diatonic.A;
             case Diatonic.B.toString(): return Diatonic.B;
         }
-        throw new Error("Impossible get Diatonic from string: " + strValue);
+
+        return null;
     }
 
     private static normalizeInputString(strValue: string): string {
@@ -61,11 +52,21 @@ export class Diatonic implements Degree {
         return strValue;
     }
 
+    private static initializerConstructor(intValue: number): Diatonic {
+        return new Diatonic(intValue);
+    }
+
     private constructor(private _intValue: number) {
     }
 
-    get intValue() {
-        return this._intValue;
+    withAdd(intervalDiatonic: IntervalDiatonic): Diatonic {
+        let intValue = this.valueOf() + intervalDiatonic.valueOf();
+        return Diatonic.fromInt(intValue);
+    }
+
+    withSub(intervalDiatonic: IntervalDiatonic): Diatonic {
+        let intValue = this.valueOf() - intervalDiatonic.valueOf();
+        return Diatonic.fromInt(intValue);
     }
 
     toString() {
@@ -73,7 +74,7 @@ export class Diatonic implements Degree {
     }
 
     valueOf(): number {
-        return this.intValue;
+        return this._intValue;
     }
 
     get chromatic() {
@@ -86,17 +87,5 @@ export class Diatonic implements Degree {
             case Diatonic.A: return Chromatic.A;
             case Diatonic.B: return Chromatic.B;
         }
-    }
-
-    private static initialize() {
-        Diatonic.C = new Diatonic(0);
-        Diatonic.D = new Diatonic(1);
-        Diatonic.E = new Diatonic(2);
-        Diatonic.F = new Diatonic(3);
-        Diatonic.G = new Diatonic(4);
-        Diatonic.A = new Diatonic(5);
-        Diatonic.B = new Diatonic(6);
-
-        Immutables.lock(Diatonic);
     }
 }

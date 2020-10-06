@@ -1,11 +1,10 @@
-import { Immutables } from '../common/Immutables';
-import { MathUtils } from '../common/MathUtils';
+import { rotativeTrim } from '../common/MathUtils';
 import { NamingChromatic } from '../lang/naming/NamingChromatic';
 import { Settings } from '../settings/Settings';
 import { Degree } from './Degree';
 
 export class Chromatic implements Degree {
-    public static NUMBER = 12;
+    static NUMBER = 12;
 
     // Precalc
 
@@ -25,8 +24,12 @@ export class Chromatic implements Degree {
     private constructor(private _intValue: number) {
     }
 
+    private static initializerConstructor(intValue: number): Chromatic {
+        return new Chromatic(intValue);
+    }
+
     static fromInt(intValue: number): Chromatic {
-        intValue = MathUtils.rotativeTrim(intValue, Chromatic.NUMBER);
+        intValue = rotativeTrim(intValue, Chromatic.NUMBER);
         switch (intValue) {
             case 0: return Chromatic.C;
             case 1: return Chromatic.CC;
@@ -72,21 +75,9 @@ export class Chromatic implements Degree {
         return strValue;
     }
 
-    public getShift(semis: number): Chromatic {
-        let intValue = MathUtils.rotativeTrim(this.intValue + semis, Chromatic.NUMBER);
+    withShift(semis: number): Chromatic {
+        let intValue = rotativeTrim(this.valueOf() + semis, Chromatic.NUMBER);
         return Chromatic.fromInt(intValue);
-    }
-
-    get intValue() {
-        return this._intValue;
-    }
-
-    toString() {
-        return NamingChromatic.toString(this);
-    }
-
-    valueOf(): number {
-        return this.intValue;
     }
 
     compareTo(chromatic: Chromatic): number {
@@ -98,54 +89,34 @@ export class Chromatic implements Degree {
             return 0;
     }
 
-    private get varStr() {
-        switch (this) {
-            case Chromatic.C: return "C";
-            case Chromatic.CC: return "CC";
-            case Chromatic.D: return "D";
-            case Chromatic.DD: return "DD";
-            case Chromatic.E: return "E";
-            case Chromatic.F: return "F";
-            case Chromatic.FF: return "FF";
-            case Chromatic.G: return "G";
-            case Chromatic.GG: return "GG";
-            case Chromatic.A: return "A";
-            case Chromatic.AA: return "AA";
-            case Chromatic.B: return "B";
-        }
+    private static _all: readonly Chromatic[];
+
+    static get all(): readonly Chromatic[] {
+        return this._all;
     }
 
-    static get all(): Chromatic[] {
-        return [
-            Chromatic.C,
-            Chromatic.CC,
-            Chromatic.D,
-            Chromatic.DD,
-            Chromatic.E,
-            Chromatic.F,
-            Chromatic.FF,
-            Chromatic.G,
-            Chromatic.GG,
-            Chromatic.A,
-            Chromatic.AA,
-            Chromatic.B,
-        ];
+    toString() {
+        return NamingChromatic.toString(this);
     }
 
-    private static initialize() {
-        Chromatic.C = new Chromatic(0);
-        Chromatic.CC = new Chromatic(1);
-        Chromatic.D = new Chromatic(2);
-        Chromatic.DD = new Chromatic(3);
-        Chromatic.E = new Chromatic(4);
-        Chromatic.F = new Chromatic(5);
-        Chromatic.FF = new Chromatic(6);
-        Chromatic.G = new Chromatic(7);
-        Chromatic.GG = new Chromatic(8);
-        Chromatic.A = new Chromatic(9);
-        Chromatic.AA = new Chromatic(10);
-        Chromatic.B = new Chromatic(11);
+    valueOf(): number {
+        return this._intValue;
+    }
+}
 
-        Immutables.lockr(Chromatic);
+export function getVarStringFrom(chromatic: Chromatic): string {
+    switch (chromatic) {
+        case Chromatic.C: return "C";
+        case Chromatic.CC: return "CC";
+        case Chromatic.D: return "D";
+        case Chromatic.DD: return "DD";
+        case Chromatic.E: return "E";
+        case Chromatic.F: return "F";
+        case Chromatic.FF: return "FF";
+        case Chromatic.G: return "G";
+        case Chromatic.GG: return "GG";
+        case Chromatic.A: return "A";
+        case Chromatic.AA: return "AA";
+        case Chromatic.B: return "B";
     }
 }

@@ -1,11 +1,11 @@
-import * as precalc from "../precalc";
+import * as init from "../initializer";
 import { MusicalDuration } from "../tempo/MusicalDuration";
 import { MidiNote, MidiNoteNode } from "./MidiNote";
 import { MidiPitch } from "./MidiPitch";
 import { MidiSequence } from "./MidiSequence";
 import { TemporalNode } from "../timelayer/TemporalNode";
-precalc.midiPitches();
-precalc.musicalDurations();
+init.midiPitches.default();
+init.musicalDurations.default();
 
 test('from - cellSize=QUARTER', () => {
     let cellSize: MusicalDuration = MusicalDuration.QUARTER;

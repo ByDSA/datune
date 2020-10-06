@@ -1,11 +1,11 @@
-import { ChromaticChord } from '../chords/chromatic/ChromaticChord';
-import { DiatonicAltChord } from '../chords/diatonicalt/DiatonicAltChord';
+import { ChromaticChord } from '../chords/ChromaticChord';
+import { DiatonicAltChord } from '../chords/DiatonicAltChord';
 import { Chromatic } from '../degrees/Chromatic';
 import { DiatonicAlt } from '../degrees/DiatonicAlt';
 import { LanguageInterface } from '../lang/LanguageInterface';
 import { DiatonicAltPattern } from '../patterns/DiatonicAltPattern';
-import { Scale } from '../tonality/Scale';
-import { Tonality } from '../tonality/Tonality';
+import { Scale } from '../scales/scale';
+import { Tonality } from '../tonalities/Tonality';
 import { ConcertPitch } from '../tuning/ConcertPitch';
 import { Temperament } from '../tuning/Temperament';
 import { Tuning } from '../tuning/Tuning';

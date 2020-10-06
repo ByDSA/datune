@@ -5,7 +5,7 @@ export class NamingDiatonicAlt {
     private constructor() {
     }
 
-    public static toString(diatonicAlt: DiatonicAlt): string {
+    static toString(diatonicAlt: DiatonicAlt): string {
         return diatonicAlt.diatonic.toString() + Settings.symbols.alts(diatonicAlt.alts);
     }
 

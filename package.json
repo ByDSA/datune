@@ -15,10 +15,10 @@
   "name": "datune",
   "scripts": {
     "test": "jest",
-    "build": "tsc --declaration",
-    "build-dev": "npm run clean && tsc --declaration --outDir dist/",
+    "build:postinstall": "tsc --declaration",
+    "build:dev": "npm run clean && tsc --declaration --outDir dist/",
     "clean": "rm -rf dist",
-    "postinstall": "npm run build && rm -r src"
+    "postinstall": "npm run build:postinstall && rm -r src"
   },
   "typings": "./dist/index.d.ts",
   "main": "./dist/index.js",

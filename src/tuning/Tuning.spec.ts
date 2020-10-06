@@ -1,14 +1,14 @@
-import { SPN } from "../pitch/symbolic/SPN";
-import * as precalc from "../precalc";
+import { SPN } from "../pitches/symbolic/SPN";
+import * as init from "../initializer";
 import { ConcertPitch } from "./ConcertPitch";
 import { Tuning } from "./Tuning";
-precalc.chromatics();
-precalc.diatonicAlts();
-precalc.spns();
-precalc.concertPitches();
-precalc.temperaments();
-precalc.settings();
-precalc.tunings();
+init.chromatics.default();
+init.diatonicAlts.default();
+init.spns.default();
+init.concertPitches.default();
+init.temperaments.default();
+init.settings.default();
+init.tunings.default();
 
 test('Tuning - EQUAL_440 - A4 = 440', () => {
     let symbolicPitch = ConcertPitch.A440.symbolicPitch;

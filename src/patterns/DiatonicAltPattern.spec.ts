@@ -1,14 +1,14 @@
-import { IntervalDiatonicAlt } from "../interval/IntervalDiatonicAlt";
+import * as init from "../initializer";
+import { IntervalDiatonicAlt } from "../intervals/IntervalDiatonicAlt";
 import { Language } from "../lang/Language";
-import * as precalc from "../precalc";
 import { Settings } from "../settings/Settings";
 import { ChromaticPattern } from "./ChromaticPattern";
 import { DiatonicAltPattern } from "./DiatonicAltPattern";
 import { DiatonicPattern } from "./DiatonicPattern";
-precalc.diatonicAltPatterns();
-precalc.diatonicAltChords();
-precalc.intervalDiatonicAlts();
-precalc.settings();
+init.diatonicAltPatterns.default();
+init.diatonicAltChords.default();
+init.intervalDiatonicAlts.default();
+init.settings.default();
 
 test('fromRootIntervals - immutable: 0, 4, 7', () => {
     let diatonicAltPattern = DiatonicAltPattern.fromRootIntervals(IntervalDiatonicAlt.PERFECT_UNISON, IntervalDiatonicAlt.MAJOR_THIRD, IntervalDiatonicAlt.PERFECT_FIFTH);

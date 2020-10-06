@@ -5,7 +5,7 @@ export class NamingChromatic {
     private constructor() {
     }
 
-    public static toString(chromatic: Chromatic): string {
+    static toString(chromatic: Chromatic): string {
         let diatonicAlt = DiatonicAlt.fromChromatic(chromatic);
 
         return diatonicAlt.toString();

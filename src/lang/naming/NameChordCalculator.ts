@@ -1,4 +1,4 @@
-import { Chord } from 'chords/Chord';
+import { Chord } from '../../chords/Chord';
 import { DiatonicAlt } from '../../degrees/DiatonicAlt';
 import { DegreePattern } from '../../patterns/DegreePattern';
 
@@ -9,7 +9,7 @@ export class NameChordCalculator {
     constructor(private chord: Chord<any, any>) {
     }
 
-    public get(): string {
+    get(): string {
         this.inversion = this.chord.inversionNumber;
         this.pattern = this.chord.pattern.withInv(this.chord.rootIndex);
 

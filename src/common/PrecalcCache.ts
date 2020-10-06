@@ -1,47 +1,48 @@
-import { Assert } from './Assert';
+type KeyType = string;
+export abstract class PrecalcCache<T, HashingObjectType> {
+    private map: Map<KeyType, T>;
 
-export class PrecalcCache<T, HashingObjectType> {
-    private map: Map<string, T>;
+    abstract getHash(hashingObject: HashingObjectType): KeyType;
 
-    public getHash: (hashingObject:HashingObjectType) => string;
-    public getHashingObject: (T) => HashingObjectType;
-    private create: (hashingObject:HashingObjectType) => T;
+    abstract getHashingObject(T): HashingObjectType;
 
-    public constructor(getHash, getHashingObject, create) {
-        this.getHash = getHash;
-        this.getHashingObject = getHashingObject;
-        this.create = create;
+    create(hashingObject: HashingObjectType): T {
+        return this.innerCreate(hashingObject);
     }
 
-    public add(object: T): void {
-        let hashingObject = this.getHashingObject(object);
-        if (hashingObject === undefined)
-            throw new Error("No hashingObject has been put.");
-        let hash = this.getHash(hashingObject);
+    constructor(private innerCreate: (hashingObject: HashingObjectType) => T) {
+    }
 
+    add(object: T): void {
+        let hashingObject = this.getHashingObject(object);
+        if (hashingObject === undefined || hashingObject === null)
+            throw new Error(`hashingObject from ${object} is null or undefined.`)
+
+        let hash = this.getHash(hashingObject);
         this.map = this.map || new Map<string, T>();
         this.map.set(hash, object);
     }
 
-    public get(hashingObject: HashingObjectType): T | undefined {
-        let hash = this.getHash(hashingObject);
-        this.map = this.map || new Map<string, T>();
+    get(hashingObject: HashingObjectType): T | undefined {
+        let hash: KeyType = this.getHash(hashingObject);
+        this.map = this.map || new Map<KeyType, T>();
         return this.map.get(hash);
     }
 
-    public getOrCreate(hashingObject: HashingObjectType): T {
+    getOrCreate(hashingObject: HashingObjectType): T | undefined {
         let obj: T | undefined = this.get(hashingObject);
 
         if (obj === undefined) {
             obj = this.create(hashingObject);
-            Assert.notNull(obj);
+            if (!obj)
+                return undefined;
             this.add(obj);
         }
 
         return obj;
     }
 
-    public get list(): T[] {
+    get list(): T[] {
         return Array.from(this.map.values());
     }
 }

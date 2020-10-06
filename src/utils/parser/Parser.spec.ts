@@ -1,12 +1,12 @@
 import { ParserBottomUp } from "./Parser";
 import { Diatonic } from "../../degrees/Diatonic";
 
-import * as precalc from "../../precalc";
-precalc.chromatics();
-precalc.diatonics();
-precalc.diatonicAlts();
-precalc.intervalDiatonicAlts();
-precalc.settings();
+import * as init from "../../initializer";
+init.chromatics.default();
+init.diatonics.default();
+init.diatonicAlts.default();
+init.intervalDiatonicAlts.default();
+init.settings.default();
 
 test('CD - diatonic diatonic', () => {
     let str = "CD";

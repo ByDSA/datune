@@ -5,7 +5,7 @@ export class NamingDiatonic {
     private constructor() {
     }
     
-    public static toString(diatonic: Diatonic): string {
+    static toString(diatonic: Diatonic): string {
         switch (diatonic) {
             case Diatonic.C: return Settings.lang.diatonic.C;
             case Diatonic.D: return Settings.lang.diatonic.D;
@@ -16,7 +16,7 @@ export class NamingDiatonic {
             case Diatonic.B: return Settings.lang.diatonic.B;
         }
 
-        throw new Error("Can't get string from '" + diatonic.intValue + "'.");
+        throw new Error("Can't get string from '" + diatonic.valueOf() + "'.");
     }
 
     static get(diatonicStr: string): Diatonic {

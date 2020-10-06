@@ -1,6 +1,6 @@
-import * as precalc from "../precalc";
+import * as init from "../initializer";
 import { IntervalPitch } from "./IntervalPitch";
-precalc.intervalPitches();
+init.intervalPitches.default();
 
 describe.each([
     [IntervalPitch.UNISON, 0],
