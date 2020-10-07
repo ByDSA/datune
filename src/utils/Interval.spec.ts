@@ -62,3 +62,36 @@ test('contains - 0 in (0, 10)', () => {
 
     expect(actual).toEqual(expected);
 });
+
+test('intersects - [0,1] and [2,4]', () => {
+    let interval1: Interval<number> = Interval.fromInclusiveToExclusive(0, 1);
+    let interval2: Interval<number> = Interval.fromInclusiveToExclusive(2, 4);
+
+    let intersects1 = interval1.intersects(interval2);
+    let intersects2 = interval2.intersects(interval1);
+
+    expect(intersects1).toBeFalsy();
+    expect(intersects2).toBeFalsy();
+})
+
+test('intersects - [0,1] and itself', () => {
+    let interval1: Interval<number> = Interval.fromInclusiveToExclusive(0, 1);
+    let interval2: Interval<number> = Interval.fromInclusiveToExclusive(0, 1);
+
+    let intersects1 = interval1.intersects(interval2);
+    let intersects2 = interval2.intersects(interval1);
+
+    expect(intersects1).toBeTruthy();
+    expect(intersects2).toBeTruthy();
+});
+
+test('intersects - [0,1] and [1,2]', () => {
+    let interval1: Interval<number> = Interval.fromInclusiveToExclusive(0, 1);
+    let interval2: Interval<number> = Interval.fromInclusiveToExclusive(1, 2);
+
+    let intersects1 = interval1.intersects(interval2);
+    let intersects2 = interval2.intersects(interval1);
+
+    expect(intersects1).toBeFalsy();
+    expect(intersects2).toBeFalsy();
+});

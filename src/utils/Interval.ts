@@ -25,7 +25,7 @@ export class Interval<C> {
     }
 
     intersects(interval: Interval<C>): boolean {
-        return this.to > interval.from;
+        return this.to > interval.from && this.from < interval.to;
     }
 
     toString(): string {
