@@ -12,13 +12,13 @@ export function arrayRemove<T>(array: T[], item: T): boolean {
   return false;
 }
 
-export function arrayRotateLeft<T>(array: T[], n: number): T[] {
+export function arrayRotateLeft<T>(array: T[], n: number = 1): T[] {
   for (let i = 0; i < n; i++)
     array.push(array.shift());
   return array;
 }
 
-export function arrayRotateRight<T>(array: T[], n: number): T[] {
+export function arrayRotateRight<T>(array: T[], n: number = 1): T[] {
   for (let i = 0; i < n; i++)
     array.unshift(array.pop());
   return array;
