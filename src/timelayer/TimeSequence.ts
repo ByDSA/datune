@@ -6,7 +6,7 @@ import { TemporalNode } from './TemporalNode';
 import { TimeLayer } from './TimeLayer';
 
 export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
-    implements TimeLayer<E[], T>, TemporalEvent<T> {
+    implements TimeLayer<T>, TemporalEvent<T> {
 
     private cells: TreeMap<number, TemporalNode<E, T>[]>;
     private _nodes: TemporalNode<E, T>[];
