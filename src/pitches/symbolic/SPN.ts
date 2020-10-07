@@ -34,8 +34,8 @@ export class SPN extends SPNStaticNames implements SymbolicPitch {
     }
 }
 
-export function getVarStringFromSPN(chromatic: Chromatic, octave: number): string {
-    let varSPN = getVarStringFromChromatic(chromatic);
+export function getVarStringFromSPN(diatonicAlt: DiatonicAlt, octave: number): string {
+    let varSPN = getVarStringFromChromatic(diatonicAlt.chromatic);
     if (octave > 0)
         varSPN += octave - 1;
     else

@@ -1,4 +1,5 @@
 import { Chromatic, getVarStringFrom } from '../degrees/Chromatic';
+import { DiatonicAlt } from '../degrees/DiatonicAlt';
 import { diatonicAlts, intervalDiatonicAlts, spns, tunings } from '../initializer';
 import { MidiPitch } from '../midi/MidiPitch';
 import { getVarStringFromSPN, SPN } from '../pitches/symbolic/SPN';
@@ -15,7 +16,8 @@ export default () => {
     mainLoop: for (let i = 0; i <= 10; i++) {
         for (const chromatic of Chromatic.all) {
             let varStr: string = getVarStringFrom(chromatic) + i;
-            let varSPN = getVarStringFromSPN(chromatic, i);
+            const diatonicAlt = DiatonicAlt.fromChromatic(chromatic);
+            let varSPN = getVarStringFromSPN(diatonicAlt, i);
 
             MidiPitch[varStr] = MidiPitch.from(SPN[varSPN], 0);
 
