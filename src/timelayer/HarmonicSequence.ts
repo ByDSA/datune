@@ -1,27 +1,27 @@
 import { RhythmPattern } from '../rythm/RhythmPattern';
 import { MusicalDuration } from '../tempo/MusicalDuration';
-import { Time } from '../tempo/Time';
-import { TimeLayer } from './TimeLayer';
+import { NotesSequence } from './NotesSequence';
 
-export class RhythmSequence<T extends Time> {
+export class HarmonicSequence {
     private _rhythmPattern: RhythmPattern;
     private _beat: MusicalDuration;
-    private _layers: TimeLayer<T>[];
+
+    private _notesSequence: NotesSequence;
 
     private constructor() {
-        this._layers = [];
+        this._notesSequence = new NotesSequence();
     }
 
-    static create<T extends Time>(rhythmPattern: RhythmPattern, beat: MusicalDuration): RhythmSequence<T> {
-        let rhythmSequence = new RhythmSequence<T>();
+    static create(rhythmPattern: RhythmPattern, beat: MusicalDuration): HarmonicSequence {
+        let rhythmSequence = new HarmonicSequence();
         rhythmSequence._rhythmPattern = rhythmPattern;
         rhythmSequence._beat = beat;
 
         return rhythmSequence;
     }
 
-    get layers(): TimeLayer<T>[] {
-        return this._layers;
+    get notesSequence(): NotesSequence {
+        return this._notesSequence;
     }
 
     get beat(): MusicalDuration {

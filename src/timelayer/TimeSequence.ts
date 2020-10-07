@@ -1,9 +1,12 @@
 import TreeMap from 'ts-treemap';
+import { MusicalDuration } from '../tempo/MusicalDuration';
 import { Time } from '../tempo/Time';
 import { Interval } from '../utils/Interval';
 import { TemporalEvent } from './TemporalEvent';
 import { TemporalNode } from './TemporalNode';
 import { TimeLayer } from './TimeLayer';
+
+export function getDefaultCellSize(){ return MusicalDuration.WHOLE }
 
 export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
     implements TimeLayer<T>, TemporalEvent<T> {
@@ -62,7 +65,12 @@ export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
     addAt(time: T, temporalEvent: E): void {
         let event = TemporalNode.createFrom(time, temporalEvent);
         this.add(event);
+    }
 
+    addAtEnd(temporalEvent: E): void {
+        const time = this.duration;
+        let event = TemporalNode.createFrom(time, temporalEvent);
+        this.add(event);
     }
 
     addSequence(midiSequence: TimeSequence<E, T>): void {
