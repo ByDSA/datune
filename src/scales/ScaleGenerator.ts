@@ -1,4 +1,4 @@
-import { IntervalDiatonicAlt } from 'intervals/IntervalDiatonicAlt';
+import { IntervalDiatonicAlt } from '../intervals/IntervalDiatonicAlt';
 import { Scale } from './Scale';
 
 type Interval = IntervalDiatonicAlt;
