@@ -30,7 +30,7 @@ export class SPN extends SPNStaticNames implements SymbolicPitch {
     }
 
     valueOf(): number {
-        return this.degree.valueOf() + this.octave * Chromatic.NUMBER;
+        return this.degree.chromatic.valueOf() + this.octave * Chromatic.NUMBER;
     }
 }
 
