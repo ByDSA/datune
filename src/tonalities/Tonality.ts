@@ -6,7 +6,7 @@ import { IntervalDiatonicAlt } from '../intervals/IntervalDiatonicAlt';
 import { ChromaticPattern } from '../patterns/ChromaticPattern';
 import { DiatonicAltPattern } from '../patterns/DiatonicAltPattern';
 import { DiatonicPattern } from '../patterns/DiatonicPattern';
-import { ParserBottomUp } from "../Utils/Parser/Parser";
+import { ParserBottomUp } from "../utils/parser/Parser";
 import { Scale } from '../scales/Scale';
 import { HashingObjectType } from './TonalityCache';
 import { TonalityCache } from './TonalityCache';

@@ -1,6 +1,6 @@
 import { Chromatic } from '../degrees/Chromatic';
 import { ChromaticPattern } from '../patterns/ChromaticPattern';
-import { ParserBottomUp } from '../Utils/Parser/Parser';
+import { ParserBottomUp } from '../utils/parser/Parser';
 import { RootPatternChord } from './parametric/RootPatternChord';
 import { ChromaticChord } from './ChromaticChord';
 import { ChordString } from './ChordString';

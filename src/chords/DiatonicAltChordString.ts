@@ -1,6 +1,6 @@
 import { DiatonicAlt } from '../degrees/DiatonicAlt';
 import { DiatonicAltPattern } from '../patterns/DiatonicAltPattern';
-import { ParserBottomUp } from '../Utils/Parser/Parser';
+import { ParserBottomUp } from '../utils/parser/Parser';
 import { ChordString } from './ChordString';
 import { DiatonicAltChord } from './DiatonicAltChord';
 import { RootPatternChord } from './parametric/RootPatternChord';
