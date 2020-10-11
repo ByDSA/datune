@@ -6,7 +6,7 @@ import { TemporalEvent } from './TemporalEvent';
 import { TemporalNode } from './TemporalNode';
 import { TimeLayer } from './TimeLayer';
 
-export function getDefaultCellSize(){ return MusicalDuration.WHOLE }
+export function getDefaultCellSize() { return MusicalDuration.WHOLE }
 
 export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
     implements TimeLayer<T>, TemporalEvent<T> {
@@ -138,6 +138,25 @@ export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
                 i--;
             }
         }
+    }
+
+    remove(durableEvent: TemporalNode<E, T>): void {
+        let iniCell: number = this.getCellIndex(durableEvent.from);
+        let endCell: number = this.getCellIndex(durableEvent.to);
+
+        // Fix open Interval
+        if (durableEvent.to == this.cellSize.withMult(endCell))
+            endCell--;
+
+        for (let i: number = iniCell; i <= endCell; i++) {
+            let cell: TemporalNode<E, T>[] = this.getCellFromIndex(i);
+
+            const index = cell.indexOf(durableEvent);
+            cell.splice(index, 1);
+        }
+
+        const index = this._nodes.indexOf(durableEvent);
+        this._nodes.splice(index, 1);
     }
 
     get cellSize(): T {
