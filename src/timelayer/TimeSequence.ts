@@ -140,7 +140,13 @@ export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
         }
     }
 
-    remove(durableEvent: TemporalNode<E, T>): void {
+    remove(durableEvent: TemporalNode<E, T>): boolean {
+        const index = this._nodes.indexOf(durableEvent);
+        if (index == -1)
+            return false;
+
+        this._nodes.splice(index, 1);
+
         let iniCell: number = this.getCellIndex(durableEvent.from);
         let endCell: number = this.getCellIndex(durableEvent.to);
 
@@ -152,11 +158,11 @@ export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
             let cell: TemporalNode<E, T>[] = this.getCellFromIndex(i);
 
             const index = cell.indexOf(durableEvent);
-            cell.splice(index, 1);
+            if (index != -1)
+                cell.splice(index, 1);
         }
 
-        const index = this._nodes.indexOf(durableEvent);
-        this._nodes.splice(index, 1);
+        return true;
     }
 
     get cellSize(): T {

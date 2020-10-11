@@ -44,6 +44,24 @@ it("number of notes", () => {
     expect(s.nodes.length).toBe(7);
 })
 
+it("remove", () => {
+    const s = generateCMajorTest();
+
+    const n2 = s.nodes[2];
+
+    expect(s.nodes.indexOf(n2)).not.toBe(-1);
+
+    let ok = s.remove(n2);
+
+    expect(ok).toBeTruthy();
+    expect(s.nodes.indexOf(n2)).toBe(-1);
+    expect(s.nodes.length).toBe(6);
+    
+    ok = s.remove(n2);
+    expect(ok).toBeFalsy();
+    expect(s.nodes.length).toBe(6);
+})
+
 it("pick by node position", () => {
     const s = generateCMajorTest();
 
