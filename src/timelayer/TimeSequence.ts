@@ -73,6 +73,10 @@ export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
         this.add(event);
     }
 
+    moveTo(temporalEvent: E, time: T): void {
+        sdfsdf
+    }
+
     addSequence(midiSequence: TimeSequence<E, T>): void {
         this.addSequenceAt(this.duration, midiSequence)
     }
