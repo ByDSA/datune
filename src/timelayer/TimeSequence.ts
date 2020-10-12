@@ -38,21 +38,21 @@ export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
         return cell;
     }
 
-    add(durableEvent: TemporalNode<E, T>): void {
-        let iniCell: number = this.getCellIndex(durableEvent.from);
-        let endCell: number = this.getCellIndex(durableEvent.to);
+    add(node: TemporalNode<E, T>): void {
+        let iniCell: number = this.getCellIndex(node.from);
+        let endCell: number = this.getCellIndex(node.to);
 
         // Fix open Interval
-        if (durableEvent.to == this.cellSize.withMult(endCell))
+        if (node.to == this.cellSize.withMult(endCell))
             endCell--;
 
         for (let i: number = iniCell; i <= endCell; i++) {
             let cell: TemporalNode<E, T>[] = this.getCellFromIndex(i);
 
-            cell.push(durableEvent);
+            cell.push(node);
         }
 
-        this._nodes.push(durableEvent);
+        this._nodes.push(node);
     }
 
     addSequenceAt(time: T, timeSequence: TimeSequence<E, T>): void {
@@ -62,19 +62,24 @@ export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
         }
     }
 
-    addAt(time: T, temporalEvent: E): void {
-        let event = TemporalNode.createFrom(time, temporalEvent);
-        this.add(event);
+    addAt(time: T, event: E): TemporalNode<E, T> {
+        let node = TemporalNode.createFrom(time, event);
+        this.add(node);
+
+        return node;
     }
 
-    addAtEnd(temporalEvent: E): void {
+    addAtEnd(event: E): TemporalNode<E, T> {
         const time = this.duration;
-        let event = TemporalNode.createFrom(time, temporalEvent);
-        this.add(event);
+        let node = TemporalNode.createFrom(time, event);
+        this.add(node);
+
+        return node;
     }
 
-    moveTo(temporalEvent: E, time: T): void {
-        sdfsdf
+    moveTo(node: TemporalNode<E, T>, time: T): TemporalNode<E, T> {
+        this.remove(node);
+        return this.addAt(time, node.event);
     }
 
     addSequence(midiSequence: TimeSequence<E, T>): void {
@@ -144,29 +149,33 @@ export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
         }
     }
 
-    remove(durableEvent: TemporalNode<E, T>): boolean {
-        const index = this._nodes.indexOf(durableEvent);
+    remove(node: TemporalNode<E, T>): boolean {
+        const index = this._nodes.indexOf(node);
         if (index == -1)
             return false;
 
         this._nodes.splice(index, 1);
 
-        let iniCell: number = this.getCellIndex(durableEvent.from);
-        let endCell: number = this.getCellIndex(durableEvent.to);
+        let iniCell: number = this.getCellIndex(node.from);
+        let endCell: number = this.getCellIndex(node.to);
 
         // Fix open Interval
-        if (durableEvent.to == this.cellSize.withMult(endCell))
+        if (node.to == this.cellSize.withMult(endCell))
             endCell--;
 
         for (let i: number = iniCell; i <= endCell; i++) {
             let cell: TemporalNode<E, T>[] = this.getCellFromIndex(i);
 
-            const index = cell.indexOf(durableEvent);
-            if (index != -1)
-                cell.splice(index, 1);
+            this.removeNodeFromCell(node, cell);
         }
 
         return true;
+    }
+
+    private removeNodeFromCell(node: TemporalNode<E, T>, cell: TemporalNode<E, T>[]) {
+        const index = cell.indexOf(node);
+            if (index != -1)
+                cell.splice(index, 1);
     }
 
     get cellSize(): T {
