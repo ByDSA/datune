@@ -60,3 +60,8 @@ test('semis: bI.semis == VII.semis', () => {
 
     expect(diatonicAltDegree1.semis).toEqual(diatonicAltDegree2.semis);
 });
+
+it("toString", () => {
+    expect(DiatonicAltDegree.I.toString()).toBe("I");
+    expect(DiatonicAltDegree.VII.toString()).toBe("VII");
+})

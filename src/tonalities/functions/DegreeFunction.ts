@@ -276,7 +276,7 @@ export class DegreeFunction extends HarmonicFunction {
             case DiatonicAltPattern.TRIAD_MINOR: return this._degree.toString().toLowerCase();
         }
 
-        return this._degree + this._pattern.shortName;
+        return this._degree.toString() + this._pattern.shortName;
     }
 
     hashCode(): string {

@@ -91,3 +91,10 @@ test('from: I + TRIAD_MAJOR = I', () => {
     let expected = DegreeFunction.I;
     expect(degreeFunction).toEqual(expected);
 });
+
+it("toString", () => {
+    expect(DegreeFunction.I.toString()).toBe("I");
+    expect(DegreeFunction.i.toString()).toBe("i");
+    expect(DegreeFunction.I5.toString()).toBe("I5");
+    expect(DegreeFunction.VISUS4.toString()).toBe("VIsus4");
+})

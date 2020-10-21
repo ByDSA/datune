@@ -101,6 +101,6 @@ export class DiatonicAltDegree {
 
     toString(): string {
         let alts = Settings.symbols.alts(this.alts);
-        return alts + this.diatonicDegree;
+        return alts + this.diatonicDegree.toString();
     }
 }
