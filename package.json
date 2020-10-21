@@ -15,14 +15,14 @@
   "name": "datune",
   "scripts": {
     "test": "jest",
-    "build:postinstall": "tsc --declaration",
-    "build:dev": "npm run clean && tsc --declaration --outDir dist/",
-    "clean": "rm -rf dist",
-    "postinstall": "npm run build:postinstall && rm -r src && rm tsconfig.json && rm jest.config.js"
+    "build:production": "tsc --declaration",
+    "dev": "npm run clean && tsc --declaration --outDir builddev/",
+    "clean": "rm -rf builddev",
+    "prepack": "npm i && npm run build:production && rm -r src && rm tsconfig.json && rm jest.config.js"
   },
-  "typings": "./dist/index.d.ts",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
+  "typings": "./builddev/index.d.ts",
+  "main": "./builddev/index.js",
+  "module": "./builddev/index.js",
   "version": "0.0.0",
   "devDependencies": {
     "@types/jest": "^25.2.1",
