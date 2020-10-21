@@ -17,7 +17,11 @@ export * from './scales/degrees/DiatonicAltDegree';
 export * from './scales/degrees/DiatonicDegree';
 export * from './scales/Scale';
 export * from './scales/ScaleDegreeComparator';
+export * from './scales/ScaleDegreeEnharmonicComparator';
+export * from './scales/ScalePitch';
+export * from './scales/SourceScaleUtils';
 export * from './settings/DefaultSettings';
 export * from './settings/Settings';
 export * from './settings/SettingsInterface';
 export * from './tonalities/Tonality';
+
