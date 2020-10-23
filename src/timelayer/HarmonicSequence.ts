@@ -1,15 +1,14 @@
 import { RhythmPattern } from '../rythm/RhythmPattern';
 import { MusicalDuration } from '../tempo/MusicalDuration';
-import { NotesSequence } from './NotesSequence';
+import { NotesTimeSequence } from './NotesTimeSequence';
 
 export class HarmonicSequence {
     private _rhythmPattern: RhythmPattern;
     private _beat: MusicalDuration;
-
-    private _notesSequence: NotesSequence;
+    private _notesTimeSequence: NotesTimeSequence;
 
     private constructor() {
-        this._notesSequence = new NotesSequence();
+        this._notesTimeSequence = new NotesTimeSequence();
     }
 
     static create(rhythmPattern: RhythmPattern, beat: MusicalDuration): HarmonicSequence {
@@ -20,8 +19,8 @@ export class HarmonicSequence {
         return rhythmSequence;
     }
 
-    get notesSequence(): NotesSequence {
-        return this._notesSequence;
+    get notesTimeSequence(): NotesTimeSequence {
+        return this._notesTimeSequence;
     }
 
     get beat(): MusicalDuration {

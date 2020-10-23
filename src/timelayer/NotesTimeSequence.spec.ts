@@ -5,18 +5,18 @@ import { MusicalDuration } from "../tempo/MusicalDuration";
 import { Tonality } from "../tonalities/Tonality";
 import { Interval } from "../utils/Interval";
 import { Note } from "./Note";
-import { NotesSequence } from "./NotesSequence";
+import { NotesTimeSequence } from "./NotesTimeSequence";
 init.musicalDurations.default();
 init.diatonicAlts.default();
 init.tonalities.default();
 init.spns.default();
 
 function generateCMajorTest() {
-    let s = new NotesSequence();
+    let s = new NotesTimeSequence();
     for (let diatonicAlt of Tonality.C.notes) {
         let spn = SPN.from(diatonicAlt, 4);
         let note = Note.from(spn, MusicalDuration.QUARTER);
-        s.addAtEnd(note);
+        s.addEventAtEnd(note);
     }
 
     return s;
@@ -51,13 +51,13 @@ it("remove", () => {
 
     expect(s.nodes.indexOf(n2)).not.toBe(-1);
 
-    let ok = s.remove(n2);
+    let ok = s.removeNode(n2);
 
     expect(ok).toBeTruthy();
     expect(s.nodes.indexOf(n2)).toBe(-1);
     expect(s.nodes.length).toBe(6);
     
-    ok = s.remove(n2);
+    ok = s.removeNode(n2);
     expect(ok).toBeFalsy();
     expect(s.nodes.length).toBe(6);
 })
@@ -72,7 +72,7 @@ it("pick by interval", () => {
     const s = generateCMajorTest();
 
     const interval = Interval.fromInclusiveToExclusive(MusicalDuration.QUARTER, MusicalDuration.WHOLE);
-    const nodes = s.getAtInterval(interval);
+    const nodes = s.getNodesAtInterval(interval);
 
     const diatonicAlts = nodes.map(node => node.event.pitch.degree);
 
