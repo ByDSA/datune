@@ -9,14 +9,13 @@ import { TimeLayer } from './TimeLayer';
 export function getDefaultCellSize() { return MusicalDuration.WHOLE }
 
 export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
-    implements TimeLayer<T>, TemporalEvent<T> {
+    implements TimeLayer<E, T>, TemporalEvent<T> {
 
     private cells: TreeMap<number, TemporalNode<E, T>[]>;
     private _nodes: TemporalNode<E, T>[];
 
     protected constructor(private _cellSize: T) {
-        this.cells = new TreeMap();
-        this._nodes = [];
+        this.clear();
     }
 
     private _getCellIndexFromTime(time: T): number {
@@ -51,6 +50,10 @@ export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
         }
     }
 
+    addSequenceAtEnd(midiSequence: TimeSequence<E, T>): void {
+        this.addSequenceAt(this.duration, midiSequence)
+    }
+
     addEventAt(time: T, event: E): TemporalNode<E, T> {
         let node = TemporalNode.createFrom(time, event);
         this.addNode(node);
@@ -69,10 +72,6 @@ export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
     moveNodeTo(node: TemporalNode<E, T>, time: T): TemporalNode<E, T> {
         this.removeNode(node);
         return this.addEventAt(time, node.event);
-    }
-
-    addSequence(midiSequence: TimeSequence<E, T>): void {
-        this.addSequenceAt(this.duration, midiSequence)
     }
 
     private _forEachCellsAtInterval(interval: Interval<T>, f: (cell: TemporalNode<E, T>[]) => void) {
@@ -112,7 +111,7 @@ export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
         return ret;
     }
 
-    getNodesAtTime(time: T): TemporalNode<E, T>[] {
+    getNodesAt(time: T): TemporalNode<E, T>[] {
         let ret: TemporalNode<E, T>[] = [];
 
         let cell: TemporalNode<E, T>[] = this._getCellFromTime(time);
@@ -144,7 +143,7 @@ export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
         return this._nodes;
     }
 
-    removeNodesAtTime(time: T): void {
+    removeNodesAt(time: T): void {
         let cell: TemporalNode<E, T>[] = this._getCellFromTime(time);
         this._cellFilterMutable(cell, (node) => !node.interval.contains(time))
     }
@@ -178,6 +177,11 @@ export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
         return true;
     }
 
+    clear() {
+        this.cells = new TreeMap();
+        this._nodes = [];
+    }
+
     private _removeNodeFromCell(node: TemporalNode<E, T>, cell: TemporalNode<E, T>[]) {
         const index = cell.indexOf(node);
         if (index != -1)
@@ -189,7 +193,7 @@ export abstract class TimeSequence<E extends TemporalEvent<T>, T extends Time>
         cell.splice(index, 1);
     }
 
-    get cellSize(): T {
+    protected get cellSize(): T {
         return this._cellSize;
     }
 }

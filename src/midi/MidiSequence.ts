@@ -12,7 +12,7 @@ export class MidiSequence extends TimeSequence<MidiNote, MusicalDuration> {
         return new MidiSequence(MusicalDuration.QUARTER);
     }
 
-    get cellSize(): MusicalDuration {
+    protected get cellSize(): MusicalDuration {
         return super.cellSize;
     }
 
