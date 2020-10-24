@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "./packages/core"
+		},
+		{
+			"path": "./packages/analyzer"
+		},
+		{
+			"path": "./packages/midi"
+		},
+		{
+			"path": "./packages/utils"
+		}
+	]
+}

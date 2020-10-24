@@ -1,0 +1,32 @@
+{
+  "name": "@datune/analyzer",
+  "version": "0.0.1",
+  "description": "Datune - the analyzer",
+  "author": "Daniel Sales Álvarez <danisales.es@gmail.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ByDSA/datune.git",
+    "directory": "packages/analyzer"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "test": "bash ../../scripts/test.sh",
+    "build": "bash ../../scripts/build.sh",
+    "clean": "bash ../../scripts/clean.sh",
+    "publish": "bash ../../scripts/publish.sh"
+  },
+  "dependencies": {
+    "ts-treemap": "^1.0.0",
+    "@datune/utils": "file:../utils/dist",
+    "@datune/core": "file:../core/dist"
+  },
+  "devDependencies": {
+    "tslib": "^1.10.0",
+    "@types/jest": "^25.2.1",
+    "jest": "^25.3.0",
+    "ts-jest": "^25.3.1",
+    "typescript": "^3.8.3"
+  }
+}

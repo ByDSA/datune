@@ -1,2 +1,3 @@
 node_modules
-builddev
+dist
+package-lock.json
