@@ -46,8 +46,13 @@ it("cached values", () => {
     expect(MusicalDuration.EIGHTH).toBe(MusicalDuration.from(0.125));
     expect(MusicalDuration.SIXTEENTH).toBe(MusicalDuration.from(0.0625));
     expect(MusicalDuration.THIRTYSECOND).toBe(MusicalDuration.from(0.03125));
-    expect(MusicalDuration.SIXTYFOURTH).toBe(MusicalDuration.from(0.03125/2));
+    expect(MusicalDuration.SIXTYFOURTH).toBe(MusicalDuration.from(0.03125 / 2));
     expect(MusicalDuration.ZERO).toBe(MusicalDuration.from(0));
+})
+
+it("trying to change values", () => {
+    const f = () => MusicalDuration.QUARTER = MusicalDuration.EIGHTH;
+    expect(f).toThrow(TypeError);
 })
 
 test('fromMillisAndBPM - 1000ms in QUARTER_120 = HALF', () => {

@@ -1,4 +1,6 @@
+import { Immutables } from '@datune/utils/Immutables';
 import { MusicalDuration } from './MusicalDuration';
+import { MusicalDurationCache } from './MusicalDurationCache';
 
 export default () => {
     if (MusicalDuration.QUARTER)
@@ -16,4 +18,6 @@ export default () => {
     MusicalDuration.SIXTYFOURTH = MusicalDuration.from(1 / 64.0);
 
     MusicalDuration.ZERO = MusicalDuration.from(0);
+
+    Immutables.lockrIf(MusicalDuration, (obj) => !(obj instanceof MusicalDurationCache));
 }
