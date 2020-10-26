@@ -36,6 +36,20 @@ test('precalc - ZERO', () => {
     expect(value).toEqual(expected);
 });
 
+it("cached values", () => {
+    expect(MusicalDuration.MAXIMA).toBe(MusicalDuration.from(8));
+    expect(MusicalDuration.LONGA).toBe(MusicalDuration.from(4));
+    expect(MusicalDuration.DOUBLE).toBe(MusicalDuration.from(2));
+    expect(MusicalDuration.WHOLE).toBe(MusicalDuration.from(1));
+    expect(MusicalDuration.HALF).toBe(MusicalDuration.from(0.5));
+    expect(MusicalDuration.QUARTER).toBe(MusicalDuration.from(0.25));
+    expect(MusicalDuration.EIGHTH).toBe(MusicalDuration.from(0.125));
+    expect(MusicalDuration.SIXTEENTH).toBe(MusicalDuration.from(0.0625));
+    expect(MusicalDuration.THIRTYSECOND).toBe(MusicalDuration.from(0.03125));
+    expect(MusicalDuration.SIXTYFOURTH).toBe(MusicalDuration.from(0.03125/2));
+    expect(MusicalDuration.ZERO).toBe(MusicalDuration.from(0));
+})
+
 test('fromMillisAndBPM - 1000ms in QUARTER_120 = HALF', () => {
     let bpm: BPM = BPM.QUARTER_120;
     let actual: MusicalDuration = MusicalDuration.fromMillisAndBPM(1000, bpm);
