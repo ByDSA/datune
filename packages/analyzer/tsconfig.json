@@ -13,6 +13,7 @@
     "esModuleInterop": true,
     "importHelpers": true,
     "target": "es2015",
+    "strictNullChecks": true,
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -26,7 +27,8 @@
     "strictInjectionParameters": true
   },
   "include": [
-    "src/**/*.ts", "tests/**/*.ts",
+    "src/**/*.ts",
+    "tests/**/*.ts",
   ],
   "files": [
     "src/index.ts"
@@ -39,6 +41,10 @@
   "filesGlob": [
     "src/**/*.ts"
   ],
-  "types": [ "node" ],
-  "typeRoots": [ "../node_modules/@types" ]
+  "types": [
+    "node"
+  ],
+  "typeRoots": [
+    "../node_modules/@types"
+  ]
 }

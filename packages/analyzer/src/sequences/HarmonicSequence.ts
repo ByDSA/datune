@@ -1,16 +1,16 @@
 import { RhythmPattern } from '@datune/core/rythm/RhythmPattern';
 import { MusicalDuration } from '@datune/core/tempo/MusicalDuration';
 import { ChordSequence } from './ChordSequence';
-import { NotesTimeSequence } from './NotesTimeSequence';
+import { NotesSequence } from './NotesSequence';
 
 export class HarmonicSequence {
     private _rhythmPattern: RhythmPattern;
     private _beat: MusicalDuration;
-    private _notesTimeSequence: NotesTimeSequence;
+    private _notesTimeSequence: NotesSequence;
     private _chordSequence: ChordSequence;
 
     private constructor() {
-        this._notesTimeSequence = new NotesTimeSequence();
+        this._notesTimeSequence = new NotesSequence();
         this._chordSequence = new ChordSequence();
     }
 
@@ -26,7 +26,7 @@ export class HarmonicSequence {
         return rhythmSequence;
     }
 
-    get notesTimeSequence(): NotesTimeSequence {
+    get notesTimeSequence(): NotesSequence {
         return this._notesTimeSequence;
     }
 

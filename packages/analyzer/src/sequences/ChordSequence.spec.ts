@@ -4,24 +4,24 @@ import * as init from "@datune/core/initializer";
 import { SPN } from "@datune/core/pitches/symbolic/SPN";
 import { RhythmPattern } from "@datune/core/rythm/RhythmPattern";
 import { MusicalDuration } from "@datune/core/tempo/MusicalDuration";
+import { NoteEvent } from "../events/NoteEvent";
 import { HarmonicSequence } from "./HarmonicSequence";
-import { Note } from "./Note";
-import { NotesTimeSequence } from "./NotesTimeSequence";
+import { NotesSequence } from "./NotesSequence";
 init.settings.default();
 init.diatonicAltChords.default();
 init.spns.default();
 init.musicalDurations.default();
 
 const testNoteTimeSequence = () => {
-    const notesTimeSequence = new NotesTimeSequence();
-    notesTimeSequence.addEventAtEnd(Note.from(SPN.C4, MusicalDuration.QUARTER));
-    notesTimeSequence.addEventAtEnd(Note.from(SPN.E4, MusicalDuration.QUARTER));
-    notesTimeSequence.addEventAtEnd(Note.from(SPN.G4, MusicalDuration.QUARTER));
-    notesTimeSequence.addEventAtEnd(Note.from(SPN.B4, MusicalDuration.QUARTER));
-    notesTimeSequence.addEventAtEnd(Note.from(SPN.D5, MusicalDuration.QUARTER));
-    notesTimeSequence.addEventAtEnd(Note.from(SPN.F5, MusicalDuration.QUARTER));
-    notesTimeSequence.addEventAtEnd(Note.from(SPN.A5, MusicalDuration.QUARTER));
-    notesTimeSequence.addEventAtEnd(Note.from(SPN.C6, MusicalDuration.QUARTER));
+    const notesTimeSequence = new NotesSequence();
+    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.C4, MusicalDuration.QUARTER));
+    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.E4, MusicalDuration.QUARTER));
+    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.G4, MusicalDuration.QUARTER));
+    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.B4, MusicalDuration.QUARTER));
+    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.D5, MusicalDuration.QUARTER));
+    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.F5, MusicalDuration.QUARTER));
+    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.A5, MusicalDuration.QUARTER));
+    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.C6, MusicalDuration.QUARTER));
 
     return notesTimeSequence;
 }
