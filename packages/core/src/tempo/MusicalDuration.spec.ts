@@ -37,17 +37,17 @@ test('precalc - ZERO', () => {
 });
 
 it("cached values", () => {
-    expect(MusicalDuration.MAXIMA).toBe(MusicalDuration.from(8));
-    expect(MusicalDuration.LONGA).toBe(MusicalDuration.from(4));
-    expect(MusicalDuration.DOUBLE).toBe(MusicalDuration.from(2));
-    expect(MusicalDuration.WHOLE).toBe(MusicalDuration.from(1));
-    expect(MusicalDuration.HALF).toBe(MusicalDuration.from(0.5));
-    expect(MusicalDuration.QUARTER).toBe(MusicalDuration.from(0.25));
-    expect(MusicalDuration.EIGHTH).toBe(MusicalDuration.from(0.125));
-    expect(MusicalDuration.SIXTEENTH).toBe(MusicalDuration.from(0.0625));
-    expect(MusicalDuration.THIRTYSECOND).toBe(MusicalDuration.from(0.03125));
-    expect(MusicalDuration.SIXTYFOURTH).toBe(MusicalDuration.from(0.03125 / 2));
-    expect(MusicalDuration.ZERO).toBe(MusicalDuration.from(0));
+    expect(MusicalDuration.MAXIMA).toEqual(MusicalDuration.from(8));
+    expect(MusicalDuration.LONGA).toEqual(MusicalDuration.from(4));
+    expect(MusicalDuration.DOUBLE).toEqual(MusicalDuration.from(2));
+    expect(MusicalDuration.WHOLE).toEqual(MusicalDuration.from(1));
+    expect(MusicalDuration.HALF).toEqual(MusicalDuration.from(0.5));
+    expect(MusicalDuration.QUARTER).toEqual(MusicalDuration.from(0.25));
+    expect(MusicalDuration.EIGHTH).toEqual(MusicalDuration.from(0.125));
+    expect(MusicalDuration.SIXTEENTH).toEqual(MusicalDuration.from(0.0625));
+    expect(MusicalDuration.THIRTYSECOND).toEqual(MusicalDuration.from(0.03125));
+    expect(MusicalDuration.SIXTYFOURTH).toEqual(MusicalDuration.from(0.03125 / 2));
+    expect(MusicalDuration.ZERO).toEqual(MusicalDuration.from(0));
 })
 
 it("trying to change values", () => {
