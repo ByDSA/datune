@@ -91,7 +91,7 @@ export class Chromatic implements Degree {
 
     private static _all: readonly Chromatic[];
 
-    static get all(): readonly Chromatic[] {
+    static all(): readonly Chromatic[] {
         return this._all;
     }
 

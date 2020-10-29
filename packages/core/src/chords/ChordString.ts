@@ -1,6 +1,12 @@
 import { Degree } from '../degrees/Degree';
 import { Chord } from './Chord';
 
-export interface ChordString<C extends Chord<Degree, any>> {
-    chord: C;
+export abstract class ChordString<C extends Chord<Degree, any>> {
+    abstract calculateChord(): C;
+
+    protected constructor(protected strValue: string) {
+    }
+
+    protected abstract parsingNormal(): C;
+    protected abstract parsingInversion(): C;
 }

@@ -11,6 +11,7 @@ export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I
     static TRIAD_DIMINISHED: ChromaticPattern;
     static TRIAD_AUGMENTED: ChromaticPattern;
     static TRIAD_SUS4: ChromaticPattern;
+    static TRIAD_SUS2: ChromaticPattern;
     static TRIAD_QUARTAL: ChromaticPattern;
     static SEVENTH: ChromaticPattern;
     static SEVENTH_b5: ChromaticPattern;

@@ -1,33 +1,105 @@
 export class ChromaticChordStaticNames {
     static C;
+    static CC;
     static D;
+    static DD;
     static E;
     static F;
+    static FF;
     static G;
+    static GG;
     static A;
+    static AA;
     static B;
 
+    static Csus4;
+    static CCsus4;
+    static Dsus4;
+    static DDsus4;
+    static Esus4;
+    static Fsus4;
+    static FFsus4;
+    static Gsus4;
+    static GGsus4;
+    static Asus4;
+    static AAsus4;
+    static Bsus4;
+
+    static Csus2;
+    static CCsus2;
+    static Dsus2;
+    static DDsus2;
+    static Esus2;
+    static Fsus2;
+    static FFsus2;
+    static Gsus2;
+    static GGsus2;
+    static Asus2;
+    static AAsus2;
+    static Bsus2;
+
+    static CMaj7;
+    static CCMaj7;
+    static DMaj7;
+    static DDMaj7;
+    static EMaj7;
+    static FMaj7;
+    static FFMaj7;
+    static GMaj7;
+    static GGMaj7;
+    static AMaj7;
+    static AAMaj7;
+    static BMaj7;
+
+    static CmMaj7;
+    static CCmMaj7;
+    static DmMaj7;
+    static DDmMaj7;
+    static EmMaj7;
+    static FmMaj7;
+    static FFmMaj7;
+    static GmMaj7;
+    static GGmMaj7;
+    static AmMaj7;
+    static AAmMaj7;
+    static BmMaj7;
+
     static Cm;
+    static CCm;
     static Dm;
+    static DDm;
     static Em;
     static Fm;
+    static FFm;
     static Gm;
+    static GGm;
     static Am;
+    static AAm;
     static Bm;
 
     static C7;
+    static CC7;
     static D7;
+    static DD7;
     static E7;
     static F7;
+    static FF7;
     static G7;
+    static GG7;
     static A7;
+    static AA7;
     static B7;
 
     static Cm7;
+    static CCm7;
     static Dm7;
+    static DDm7;
     static Em7;
     static Fm7;
+    static FFm7;
     static Gm7;
+    static GGm7;
     static Am7;
+    static AAm7;
     static Bm7;
 }

@@ -16,7 +16,7 @@ describe.each([
     test(`${lang.id} - "${str}" => ${expected}`, async () => {
         Settings.lang = lang;
         const chromaticChordString = ChromaticChordString.from(str);
-        const chromaticChord = chromaticChordString.chord;
+        const chromaticChord = chromaticChordString.calculateChord();
         expect(chromaticChord).toBe(expected);
     });
 });

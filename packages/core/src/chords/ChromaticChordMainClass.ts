@@ -8,12 +8,12 @@ import { Chord } from './Chord';
 import { ChromaticCache, HashingObjectType } from './ChromaticChordCache';
 import { ChromaticChordStaticNames } from './ChromaticChordStaticNames';
 
-export class ChromaticChord extends ChromaticChordStaticNames implements Chord<Chromatic, number> {
-    private static _cache = new ChromaticCache((hashingObject: HashingObjectType) => new ChromaticChord(hashingObject));
+export class ChromaticChordMainClass extends ChromaticChordStaticNames implements Chord<Chromatic, number> {
+    private static _cache = new ChromaticCache((hashingObject: HashingObjectType) => new ChromaticChordMainClass(hashingObject));
 
     private _notes: Chromatic[];
 
-    static from(notes: Chromatic[]): ChromaticChord {
+    static from(notes: Chromatic[]): ChromaticChordMainClass {
         return this._cache.getOrCreate(notes);
     }
 
@@ -41,19 +41,27 @@ export class ChromaticChord extends ChromaticChordStaticNames implements Chord<C
         return this._notes;
     }
 
-    withInv(n: number = 1): ChromaticChord {
+    withInv(n: number = 1): ChromaticChordMainClass {
         let rootIndex = this.rootIndex - n;
         rootIndex = rotativeTrim(rootIndex, this._notes.length);
         let notes = Array.from(this.notes);
         notes = arrayRotateLeft(notes, n);
 
-        return ChromaticChord.from(notes);
+        return ChromaticChordMainClass.from(notes);
     }
 
-    withShift(interval: number): ChromaticChord {
+    withShift(interval: number): ChromaticChordMainClass {
         let notes: Chromatic[] = this.notes.map(note => note.withShift(interval));
 
-        return ChromaticChord.from(notes);
+        return ChromaticChordMainClass.from(notes);
+    }
+
+    withBass(bass: Chromatic): ChromaticChordMainClass {
+        const oldIndexOfNewBass = this.notes.indexOf(bass);
+        if (oldIndexOfNewBass < 0)
+            return null;
+
+        return this.withInv(oldIndexOfNewBass);
     }
 
     get pattern(): ChromaticPattern {

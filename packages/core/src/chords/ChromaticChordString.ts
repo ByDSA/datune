@@ -5,8 +5,9 @@ import { RootPatternChord } from './parametric/RootPatternChord';
 import { ChromaticChord } from './ChromaticChord';
 import { ChordString } from './ChordString';
 
-export class ChromaticChordString implements ChordString<ChromaticChord> {
-    private constructor(private strValue: string) {
+export class ChromaticChordString extends ChordString<ChromaticChord> {
+    private constructor(strValue: string) {
+        super(strValue);
     }
 
     static from(strValue: string): ChromaticChordString {
@@ -15,7 +16,18 @@ export class ChromaticChordString implements ChordString<ChromaticChord> {
         return new ChromaticChordString(strValue);
     }
 
-    get chord(): ChromaticChord | undefined {
+    calculateChord(): ChromaticChord | undefined {
+        let ret: ChromaticChord;
+
+        if (this.strValue.includes("/"))
+            ret = this.parsingInversion();
+        else
+            ret = this.parsingNormal();
+
+        return ret;
+    }
+
+    protected parsingNormal(): ChromaticChord {
         let parser = new ParserBottomUp()
             .from(this.strValue)
             .expected([Chromatic.name, ChromaticPattern.name])
@@ -30,8 +42,22 @@ export class ChromaticChordString implements ChordString<ChromaticChord> {
 
         if (objects)
             return <ChromaticChord>RootPatternChord.from(objects[0], objects[1]).chord;
-        else
-            return undefined;
+    }
+
+    protected parsingInversion(): ChromaticChord {
+        const strValueSplited: string[] = this.strValue.split("/");
+        if (strValueSplited.length !== 2)
+            return null;
+        let baseChordStr, bassStr;
+        [baseChordStr, bassStr] = strValueSplited;
+
+        const baseChord: ChromaticChord = ChromaticChordString.from(baseChordStr).calculateChord();
+        const bass: Chromatic = Chromatic.fromString(bassStr);
+
+        if (!baseChord || !bass)
+            return null;
+
+        return baseChord.withBass(bass);
     }
 
     private static normalizeInputString(strValue: string): string {
@@ -42,5 +68,5 @@ export class ChromaticChordString implements ChordString<ChromaticChord> {
 }
 
 export function fromString(str: string): ChromaticChord | undefined {
-    return ChromaticChordString.from(str).chord;
+    return ChromaticChordString.from(str).calculateChord();
 }

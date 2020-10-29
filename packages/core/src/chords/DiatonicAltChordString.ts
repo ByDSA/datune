@@ -5,8 +5,9 @@ import { ChordString } from './ChordString';
 import { DiatonicAltChord } from './DiatonicAltChord';
 import { RootPatternChord } from './parametric/RootPatternChord';
 
-export class DiatonicAltChordString implements ChordString<DiatonicAltChord> {
-    private constructor(private strValue: string) {
+export class DiatonicAltChordString extends ChordString<DiatonicAltChord> {
+    private constructor(strValue: string) {
+        super(strValue)
     }
 
     static from(strValue: string): DiatonicAltChordString {
@@ -14,20 +15,20 @@ export class DiatonicAltChordString implements ChordString<DiatonicAltChord> {
         return new DiatonicAltChordString(strValue);
     }
 
-    get chord(): DiatonicAltChord | undefined {
-        let ret: DiatonicAltChord = null;
+    calculateChord(): DiatonicAltChord | undefined {
+        let ret: DiatonicAltChord;
 
         if (this.strValue.includes("/"))
-            ret = DiatonicAltChordString.parsingInversion(this.strValue);
+            ret = this.parsingInversion();
         else
-            ret = DiatonicAltChordString.parsingNormal(this.strValue);
+            ret = this.parsingNormal();
 
         return ret;
     }
 
-    private static parsingNormal(strValue: string): DiatonicAltChord {
+    protected parsingNormal(): DiatonicAltChord {
         let parser = new ParserBottomUp()
-            .from(strValue)
+            .from(this.strValue)
             .expected([DiatonicAlt.name, DiatonicAltPattern.name])
             .add(DiatonicAlt.name, function (str: string): DiatonicAlt {
                 return DiatonicAlt.fromString(str);
@@ -42,14 +43,14 @@ export class DiatonicAltChordString implements ChordString<DiatonicAltChord> {
             return <DiatonicAltChord>RootPatternChord.from(objects[0], objects[1]).chord;
     }
 
-    private static parsingInversion(strValue: string): DiatonicAltChord {
-        const strValueSplited: string[] = strValue.split("/");
+    protected parsingInversion(): DiatonicAltChord {
+        const strValueSplited: string[] = this.strValue.split("/");
         if (strValueSplited.length !== 2)
             return null;
         let baseChordStr, bassStr;
         [baseChordStr, bassStr] = strValueSplited;
 
-        const baseChord: DiatonicAltChord = this.parsingNormal(baseChordStr);
+        const baseChord: DiatonicAltChord = DiatonicAltChordString.from(baseChordStr).calculateChord();
         const bass: DiatonicAlt = DiatonicAlt.fromString(bassStr);
 
         if (!baseChord || !bass)
@@ -66,5 +67,5 @@ export class DiatonicAltChordString implements ChordString<DiatonicAltChord> {
 }
 
 export function fromString(str: string): DiatonicAltChord | undefined {
-    return DiatonicAltChordString.from(str).chord;
+    return DiatonicAltChordString.from(str).calculateChord();
 }
