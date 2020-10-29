@@ -4,18 +4,18 @@ import { SPN } from "@datune/core/pitches/symbolic/SPN";
 import { MusicalDuration } from "@datune/core/tempo/MusicalDuration";
 import { Tonality } from "@datune/core/tonalities/Tonality";
 import { Interval } from "@datune/utils/Interval";
-import { Note } from "./Note";
-import { NotesTimeSequence } from "./NotesTimeSequence";
+import { NoteEvent } from "../events/NoteEvent";
+import { NotesSequence } from "./NotesSequence";
 init.musicalDurations.default();
 init.diatonicAlts.default();
 init.tonalities.default();
 init.spns.default();
 
 function generateCMajorTest() {
-    let s = new NotesTimeSequence();
+    let s = new NotesSequence();
     for (let diatonicAlt of Tonality.C.notes) {
         let spn = SPN.from(diatonicAlt, 4);
-        let note = Note.from(spn, MusicalDuration.QUARTER);
+        let note = NoteEvent.from(spn, MusicalDuration.QUARTER);
         s.addEventAtEnd(note);
     }
 

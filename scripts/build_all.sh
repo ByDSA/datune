@@ -9,7 +9,7 @@ function build {
 	rm -rf dist
 	echo "Removing 'node_modules' folder..."
 	rm -rf node_modules
-	rm package-lock.json
+	rm -f package-lock.json
 	echo "Installing dependencies..."
 	npm i
 	echo "Building..."

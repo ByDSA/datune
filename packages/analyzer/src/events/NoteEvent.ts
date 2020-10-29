@@ -2,7 +2,7 @@ import { SPN } from '@datune/core/pitches/symbolic/SPN';
 import { MusicalDuration } from '@datune/core/tempo/MusicalDuration';
 import { TemporalEvent } from './TemporalEvent';
 
-export class Note implements TemporalEvent<MusicalDuration> {
+export class NoteEvent implements TemporalEvent<MusicalDuration> {
     private _pitch: SPN;
     private _duration: MusicalDuration;
 
@@ -12,7 +12,7 @@ export class Note implements TemporalEvent<MusicalDuration> {
     }
 
     static from(pitch: SPN, duration: MusicalDuration) {
-        return new Note(pitch, duration);
+        return new NoteEvent(pitch, duration);
     }
 
     get duration() {

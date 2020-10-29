@@ -1,30 +1,14 @@
-import { DiatonicAltChord } from '@datune/core/chords/DiatonicAltChord';
-import { MusicalDuration } from '@datune/core/tempo/MusicalDuration';
-import { Interval } from '@datune/utils/Interval';
-import { HarmonicSequence } from './HarmonicSequence';
-import { Note } from './Note';
-import { TemporalEvent } from './TemporalEvent';
-import { TemporalNode } from './TemporalNode';
-import { getDefaultCellSize, TimeSequence } from './TimeSequence';
+import { DiatonicAltChord } from "@datune/core";
+import { MusicalDuration } from "@datune/core/tempo/MusicalDuration";
+import { Interval } from "@datune/utils";
+import { ChordEvent } from '../events/ChordEvent';
+import { NoteEvent } from "../events/NoteEvent";
+import { Node } from "sequences/Node";
+import { ChordSequence } from "./ChordSequence";
+import { HarmonicSequence } from "./HarmonicSequence";
 
-export class ChordSequence extends TimeSequence<ChordNode, MusicalDuration> {
-    constructor() {
-        super(getDefaultCellSize());
-    }
-
-    get startTime(): MusicalDuration {
-        return MusicalDuration.ZERO;
-    }
-
-    calculateFrom(harmonicSequence: HarmonicSequence) {
-        let calculator = new ChordSequenceCalculator(harmonicSequence, this);
-        calculator.calculate();
-    }
-}
-
-class ChordSequenceCalculator {
+export class ChordSequenceCalculator {
     constructor(private harmonicSequence: HarmonicSequence, private chordSequence: ChordSequence) {
-
     }
 
     calculate() {
@@ -35,7 +19,7 @@ class ChordSequenceCalculator {
             const degrees = nodesSorted.map(node => node.event.pitch.degree);
             const degreesUnique = degrees;
             const chord = DiatonicAltChord.from(degreesUnique);
-            const chordNode = ChordNode.from(chord, interval.to.withSub(interval.from));
+            const chordNode = ChordEvent.from(chord, interval.to.withSub(interval.from));
             this.chordSequence.addEventAt(interval.from, chordNode);
         });
     }
@@ -63,7 +47,7 @@ class ChordSequenceCalculator {
         }
     }
 
-    private static _sortNodesByPitch(nodes: TemporalNode<Note, MusicalDuration>[]): TemporalNode<Note, MusicalDuration>[] {
+    private static _sortNodesByPitch(nodes: Node<NoteEvent, MusicalDuration>[]): Node<NoteEvent, MusicalDuration>[] {
         return nodes.sort((a, b) => {
             const valueA = a.event.pitch.valueOf();
             const valueB = b.event.pitch.valueOf();
@@ -74,27 +58,5 @@ class ChordSequenceCalculator {
             else
                 return 0;
         })
-    }
-}
-
-export class ChordNode implements TemporalEvent<MusicalDuration> {
-    private _chord: DiatonicAltChord;
-    private _duration: MusicalDuration;
-
-    private constructor(chord: DiatonicAltChord, duration: MusicalDuration) {
-        this._chord = chord;
-        this._duration = duration;
-    }
-
-    static from(chord: DiatonicAltChord, duration: MusicalDuration) {
-        return new ChordNode(chord, duration);
-    }
-
-    get duration() {
-        return this._duration;
-    }
-
-    get chord() {
-        return this._chord;
     }
 }
