@@ -2,13 +2,18 @@ import { ChromaticChord } from "./ChromaticChord";
 import { Immutables } from '@datune/utils/Immutables';
 import { PrecalcCache } from '@datune/utils/PrecalcCache';
 import { Chromatic } from '../degrees/Chromatic';
-import { chromatics } from '../initializer';
+import { chromatics, diatonics, settings, diatonicAltPatterns } from '../initializer';
 
 export default () => {
     if (ChromaticChord.C)
         return;
 
     chromatics.default();
+
+    // toString
+    diatonicAltPatterns.default();
+    settings.default();
+    diatonics.default();
 
     ChromaticChord.C = ChromaticChord.from([Chromatic.C, Chromatic.E, Chromatic.G]);
     ChromaticChord.Dm = ChromaticChord.from([Chromatic.D, Chromatic.F, Chromatic.A]);
