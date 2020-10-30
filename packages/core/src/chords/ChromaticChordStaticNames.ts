@@ -12,6 +12,19 @@ export class ChromaticChordStaticNames {
     static AA;
     static B;
 
+    static C5;
+    static CC5;
+    static D5;
+    static DD5;
+    static E5;
+    static F5;
+    static FF5;
+    static G5;
+    static GG5;
+    static A5;
+    static AA5;
+    static B5;
+
     static Csus4;
     static CCsus4;
     static Dsus4;

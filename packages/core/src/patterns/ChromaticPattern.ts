@@ -127,7 +127,9 @@ export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I
     }
 
     private static normalizeInputString(strValue: string): string {
-        strValue = strValue.replace(/ /g, '')
+        strValue = strValue.replace(/ |\(|\)/g, '')
+            .replace('♯', '#')
+            .replace('♭', 'b')
             .toLowerCase();
         return strValue;
     }

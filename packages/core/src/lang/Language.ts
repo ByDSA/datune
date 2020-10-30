@@ -5,6 +5,13 @@ export class Language {
     private constructor() {
     }
 
+    static all(): LanguageInterface[] {
+        return [
+            Language.ENG,
+            Language.ESP
+        ];
+    }
+
     static ENG: LanguageInterface = {
         id: "ENG",
         diatonic: {
@@ -110,7 +117,7 @@ export class Language {
             NINTH_ADD6: "NINTH ADD6",
             NINTH_MAJ9: "NINTH MAJ9",
             get NINTH_MAJ9_a11(): string { return "NINTH MAJ9 " + Settings.mods.a11; },
-            NINTH_MINOR: "NINTH_MINOR",
+            NINTH_MINOR: "NINTH MINOR",
             NINTH_MINOR_MAJ9: "NINTH MINOR MAJ9",
             NINTH_SUS4: "NINTH SUS4",
             get NINTH_a11(): string { return "NINTH " + Settings.mods.a11; },
@@ -141,7 +148,6 @@ export class Language {
             THIRTEENTH_MAJ13: "THIRTEENTH MAJ13",
             get THIRTEENTH_MAJ13_a5(): string { return Language.ENG.patterns.THIRTEENTH_MAJ13 + " " + Settings.mods.a5; },
             get THIRTEENTH_MAJ13_a5a9(): string { return Language.ENG.patterns.THIRTEENTH_MAJ13 + " " + Settings.mods.a5 + Settings.mods.a9; },
-            get THIRTEENTH_b5a9(): string { return Language.ENG.patterns.THIRTEENTH_MAJ13 + " " + Settings.mods.b5 + Settings.mods.a9; },
             get THIRTEENTH_MAJ13_a5b9(): string { return Language.ENG.patterns.THIRTEENTH_MAJ13 + " " + Settings.mods.a5 + Settings.mods.b9; },
             get THIRTEENTH_MAJ13_a9(): string { return Language.ENG.patterns.THIRTEENTH_MAJ13 + " " + Settings.mods.a9; },
             get THIRTEENTH_MAJ13_b5(): string { return Language.ENG.patterns.THIRTEENTH_MAJ13 + " " + Settings.mods.b5; },
@@ -154,6 +160,7 @@ export class Language {
             get THIRTEENTH_a5(): string { return "THIRTEENTH " + Settings.mods.a5; },
             get THIRTEENTH_a5a9(): string { return "THIRTEENTH " + Settings.mods.a5 + Settings.mods.a9; },
             get THIRTEENTH_a5b9(): string { return "THIRTEENTH " + Settings.mods.a5 + Settings.mods.b9; },
+            get THIRTEENTH_b5a9(): string { return "THIRTEENTH " + Settings.mods.b5 + Settings.mods.a9; },
             get THIRTEENTH_a9(): string { return "THIRTEENTH " + Settings.mods.a9; },
             get THIRTEENTH_b5(): string { return "THIRTEENTH " + Settings.mods.b5; },
             get THIRTEENTH_b5b9(): string { return "THIRTEENTH " + Settings.mods.b5 + Settings.mods.b9; },
@@ -163,7 +170,7 @@ export class Language {
             get TRIAD_MAJOR(): string { return ""; },
             get TRIAD_MINOR(): string { return "m"; },
             get TRIAD_AUGMENTED(): string { return "+"; },
-            get TRIAD_DIMINISHED(): string { return "dim"; },
+            get TRIAD_DIMINISHED(): string { return "0"; },
             get TRIAD_SUS4(): string { return "sus4"; },
             get TRIAD_SUS2(): string { return "sus2"; },
             get TRIAD_QUARTAL(): string { return "quartal"; },
@@ -396,7 +403,6 @@ export class Language {
             THIRTEENTH_MAJ13: "TRECEAVA MAJ13",
             get THIRTEENTH_MAJ13_a5(): string { return "TRECEAVA MAJ13 " + Settings.mods.a5; },
             get THIRTEENTH_MAJ13_a5a9(): string { return "TRECEAVA MAJ13 " + Settings.mods.a5 + Settings.mods.a9; },
-            get THIRTEENTH_b5a9(): string { return "TRECEAVA " + Settings.mods.b5 + Settings.mods.a9; },
             get THIRTEENTH_MAJ13_a5b9(): string { return Language.ESP.patterns.THIRTEENTH_MAJ13 + " " + Settings.mods.a5 + Settings.mods.b9; },
             get THIRTEENTH_MAJ13_a9(): string { return Language.ESP.patterns.THIRTEENTH_MAJ13 + " " + Settings.mods.a9; },
             get THIRTEENTH_MAJ13_b5(): string { return Language.ESP.patterns.THIRTEENTH_MAJ13 + " " + Settings.mods.b5; },
@@ -407,6 +413,7 @@ export class Language {
             get THIRTEENTH_MINOR_MAJ13(): string { return Language.ESP.patterns.THIRTEENTH_MINOR + " MAJ13"; },
             get THIRTEENTH_SUS4(): string { return "TRECEAVA SUS4"; },
             get THIRTEENTH_a5(): string { return "TRECEAVA " + Settings.mods.a5; },
+            get THIRTEENTH_b5a9(): string { return "TRECEAVA " + Settings.mods.b5 + Settings.mods.a9; },
             get THIRTEENTH_a5a9(): string { return "TRECEAVA " + Settings.mods.a5 + Settings.mods.a9; },
             get THIRTEENTH_a5b9(): string { return "TRECEAVA " + Settings.mods.a5 + Settings.mods.b9; },
             get THIRTEENTH_a9(): string { return "TRECEAVA " + Settings.mods.a9; },
@@ -418,7 +425,7 @@ export class Language {
             get TRIAD_MAJOR(): string { return ""; },
             get TRIAD_MINOR(): string { return "m"; },
             get TRIAD_AUGMENTED(): string { return "+"; },
-            get TRIAD_DIMINISHED(): string { return "dim"; },
+            get TRIAD_DIMINISHED(): string { return "0"; },
             get TRIAD_SUS4(): string { return "sus4"; },
             get TRIAD_SUS2(): string { return "sus2"; },
             get TRIAD_QUARTAL(): string { return "quartal"; },

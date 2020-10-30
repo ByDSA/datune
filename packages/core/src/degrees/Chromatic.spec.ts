@@ -207,6 +207,6 @@ test('all values', () => {
         Chromatic.B
     ];
     for (const chromatic of chromatics)
-        expect(Chromatic.all).toContain(chromatic);
-    expect(Chromatic.all.length).toBe(Chromatic.NUMBER);
+        expect(Chromatic.all()).toContain(chromatic);
+    expect(Chromatic.all().length).toBe(Chromatic.NUMBER);
 });

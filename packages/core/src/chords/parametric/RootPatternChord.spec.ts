@@ -1,8 +1,8 @@
 import { Chromatic } from "../../degrees/Chromatic";
 import { DiatonicAlt } from "../../degrees/DiatonicAlt";
+import * as init from "../../initializer";
 import { ChromaticPattern } from "../../patterns/ChromaticPattern";
 import { DiatonicAltPattern } from "../../patterns/DiatonicAltPattern";
-import * as init from "../../initializer";
 import { ChromaticChord } from "../ChromaticChord";
 import { DiatonicAltChord } from "../DiatonicAltChord";
 import { RootPatternChord } from "./RootPatternChord";
@@ -31,6 +31,20 @@ describe.each([
 })
 
 describe.each([
+    [DiatonicAlt.C, DiatonicAltPattern.TRIAD_MAJOR],
+    [DiatonicAlt.C, DiatonicAltPattern.SEVENTH],
+    [DiatonicAlt.A, DiatonicAltPattern.TRIAD_MINOR],
+    [DiatonicAlt.C, DiatonicAltPattern.SEVENTH_MAJ7],
+    [DiatonicAlt.C, DiatonicAltPattern.NINTH],
+])("DiatonicAlt = chord.root + DiatonicAltPattern = chord.pattern", (degree, pattern) => {
+    it(`root=${degree}, pattern=${pattern}`, async () => {
+        const rootPatternChord = RootPatternChord.from(degree, pattern).chord;
+        expect(rootPatternChord.root).toBe(degree);
+        expect(rootPatternChord.pattern).toBe(pattern);
+    })
+})
+
+describe.each([
     [Chromatic.C, ChromaticPattern.TRIAD_MAJOR, ChromaticChord.C],
 ])("from Chromatic", (degree, pattern, expected) => {
     it(`(${degree}, ${pattern}) => ${expected}`, async () => {
@@ -40,5 +54,19 @@ describe.each([
 
         const diatonicAltChord = rootPatternChord.chord;
         expect(diatonicAltChord).toBe(expected);
+    })
+})
+
+describe.each([
+    [Chromatic.C, ChromaticPattern.TRIAD_MAJOR],
+    [Chromatic.C, ChromaticPattern.SEVENTH],
+    [Chromatic.A, ChromaticPattern.TRIAD_MINOR],
+    [Chromatic.C, ChromaticPattern.SEVENTH_MAJ7],
+    [Chromatic.C, ChromaticPattern.NINTH],
+])("Chromatic = chord.root + ChromaticPattern = chord.pattern", (degree, pattern) => {
+    it(`root=${degree}, pattern=${pattern}`, async () => {
+        const rootPatternChord = RootPatternChord.from(degree, pattern).chord;
+        expect(rootPatternChord.root).toBe(degree);
+        expect(rootPatternChord.pattern).toBe(pattern);
     })
 })

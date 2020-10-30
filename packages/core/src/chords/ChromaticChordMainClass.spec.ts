@@ -32,18 +32,30 @@ describe.each([
     [Language.ENG, ChromaticChord.C7.withInv(), "C7/E"],
     [Language.ENG, ChromaticChord.Fsus2, "Fsus2"],
     [Language.ENG, ChromaticChord.Csus4.withInv(), "Fsus2"],
-    [Language.ENG, RootPatternChord.from(Chromatic.C, ChromaticPattern.THIRTEENTH_b5a9).chord.withInv(2), "C13♭5♯9/G♭"],
+    [Language.ENG, RootPatternChord.from(Chromatic.C, ChromaticPattern.THIRTEENTH_b5a9).chord, "C13♭5♯9"],
+    [Language.ENG, RootPatternChord.from(Chromatic.C, ChromaticPattern.THIRTEENTH_b5a9).chord.withInv(2), "C13♭5♯9/F♯"],
 ])("toString", (lang, chord: ChromaticChord, str) => {
-    test(`${lang.id} - chord=${chord} => str="${str}"`, async () => {
+    test(`Chord to string: ${lang.id} - ${chord.notes} => "${str}"`, async () => {
         Settings.lang = lang;
         const actual = chord.toString();
         expect(actual).toMatch(str);
     });
 
-    test(`${lang.id} - str="${str}" => chord=${chord.notes}`, async () => {
+    test(`String to Chord: ${lang.id} - "${str}" => ${chord.notes}`, async () => {
         const chordString = ChromaticChordString.from(str);
-        let actual = chordString.chord;
+        let actual = chordString.parse();
         expect(actual).toBe(chord);
+    });
+});
+
+describe.each([
+    [ChromaticChord.C5, ChromaticPattern.POWER_CHORD],
+    [ChromaticChord.C, ChromaticPattern.TRIAD_MAJOR],
+    [ChromaticChord.C7, ChromaticPattern.SEVENTH],
+])("pattern's ChromaticChord", (chord: ChromaticChord, pattern: ChromaticPattern) => {
+    test(`Chord ${chord}. Expected pattern ${pattern}. Actual pattern: ${chord.pattern}`, async () => {
+        const actual = chord.pattern;
+        expect(actual).toBe(pattern);
     });
 });
 

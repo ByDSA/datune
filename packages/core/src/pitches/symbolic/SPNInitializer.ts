@@ -10,7 +10,7 @@ export default () => {
     chromatics.default();
 
     for (let octave of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) // El negativo es por compatibilidad con MidiPitch
-        for (const chromatic of Chromatic.all) {
+        for (const chromatic of Chromatic.all()) {
             let chromaticStr = getVarStringFrom(chromatic);
             let octaveStr;
             if (octave >= 0)

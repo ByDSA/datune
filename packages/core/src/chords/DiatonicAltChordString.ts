@@ -15,7 +15,7 @@ export class DiatonicAltChordString extends ChordString<DiatonicAltChord> {
         return new DiatonicAltChordString(strValue);
     }
 
-    calculateChord(): DiatonicAltChord | undefined {
+    parse(): DiatonicAltChord | undefined {
         let ret: DiatonicAltChord;
 
         if (this.strValue.includes("/"))
@@ -50,7 +50,7 @@ export class DiatonicAltChordString extends ChordString<DiatonicAltChord> {
         let baseChordStr, bassStr;
         [baseChordStr, bassStr] = strValueSplited;
 
-        const baseChord: DiatonicAltChord = DiatonicAltChordString.from(baseChordStr).calculateChord();
+        const baseChord: DiatonicAltChord = DiatonicAltChordString.from(baseChordStr).parse();
         const bass: DiatonicAlt = DiatonicAlt.fromString(bassStr);
 
         if (!baseChord || !bass)
@@ -67,5 +67,5 @@ export class DiatonicAltChordString extends ChordString<DiatonicAltChord> {
 }
 
 export function fromString(str: string): DiatonicAltChord | undefined {
-    return DiatonicAltChordString.from(str).calculateChord();
+    return DiatonicAltChordString.from(str).parse();
 }

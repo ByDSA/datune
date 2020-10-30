@@ -27,6 +27,7 @@ function chromatic2Str(chromatic: Chromatic): string {
 
 function chromaticPattern2Str(pattern: ChromaticPattern): string {
     switch (pattern) {
+        case ChromaticPattern.POWER_CHORD: return "5";
         case ChromaticPattern.TRIAD_MAJOR: return "";
         case ChromaticPattern.TRIAD_MINOR: return "m";
         case ChromaticPattern.TRIAD_AUGMENTED: return "AUG";

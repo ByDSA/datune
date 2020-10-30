@@ -1,9 +1,9 @@
+import { ParserBottomUp } from '@datune/utils/parser/Parser';
 import { Chromatic } from '../degrees/Chromatic';
 import { ChromaticPattern } from '../patterns/ChromaticPattern';
-import { ParserBottomUp } from '@datune/utils/parser/Parser';
-import { RootPatternChord } from './parametric/RootPatternChord';
-import { ChromaticChord } from './ChromaticChord';
 import { ChordString } from './ChordString';
+import { ChromaticChord } from './ChromaticChord';
+import { RootPatternChord } from './parametric/RootPatternChord';
 
 export class ChromaticChordString extends ChordString<ChromaticChord> {
     private constructor(strValue: string) {
@@ -12,11 +12,10 @@ export class ChromaticChordString extends ChordString<ChromaticChord> {
 
     static from(strValue: string): ChromaticChordString {
         strValue = this.normalizeInputString(strValue);
-
         return new ChromaticChordString(strValue);
     }
 
-    calculateChord(): ChromaticChord | undefined {
+    parse(): ChromaticChord | undefined {
         let ret: ChromaticChord;
 
         if (this.strValue.includes("/"))
@@ -51,7 +50,7 @@ export class ChromaticChordString extends ChordString<ChromaticChord> {
         let baseChordStr, bassStr;
         [baseChordStr, bassStr] = strValueSplited;
 
-        const baseChord: ChromaticChord = ChromaticChordString.from(baseChordStr).calculateChord();
+        const baseChord: ChromaticChord = ChromaticChordString.from(baseChordStr).parse();
         const bass: Chromatic = Chromatic.fromString(bassStr);
 
         if (!baseChord || !bass)
@@ -68,5 +67,5 @@ export class ChromaticChordString extends ChordString<ChromaticChord> {
 }
 
 export function fromString(str: string): ChromaticChord | undefined {
-    return ChromaticChordString.from(str).calculateChord();
+    return ChromaticChordString.from(str).parse();
 }
