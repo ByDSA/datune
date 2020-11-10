@@ -1,77 +1,12 @@
 import { Chromatic } from '../degrees/Chromatic';
 import { NamingChromaticChordPattern } from '../lang/naming/NamingChromaticChordPattern';
 import { ChromaticPatternCache } from './ChromaticPatternCache';
+import { ChromaticPatternStaticNames } from './ChromaticPatternStaticNames';
 import { DegreePattern } from './DegreePattern';
 
 export type I = number;
-export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I> {
-    static POWER_CHORD: ChromaticPattern;
-    static TRIAD_MAJOR: ChromaticPattern;
-    static TRIAD_MINOR: ChromaticPattern;
-    static TRIAD_DIMINISHED: ChromaticPattern;
-    static TRIAD_AUGMENTED: ChromaticPattern;
-    static TRIAD_SUS4: ChromaticPattern;
-    static TRIAD_SUS2: ChromaticPattern;
-    static TRIAD_QUARTAL: ChromaticPattern;
-    static SEVENTH: ChromaticPattern;
-    static SEVENTH_b5: ChromaticPattern;
-    static SEVENTH_MAJ7_b5: ChromaticPattern;
-    static SEVENTH_a5: ChromaticPattern;
-    static SEVENTH_SUS4: ChromaticPattern;
-    static SEVENTH_SUS4_b9: ChromaticPattern;
-    static SEVENTH_MINOR: ChromaticPattern;
-    static SEVENTH_MINOR_b5: ChromaticPattern;
-    static SEVENTH_MINOR_a5: ChromaticPattern;
-    static SIXTH: ChromaticPattern;
-    static SIXTH_MINOR: ChromaticPattern;
-    static SIXTH_SUS4: ChromaticPattern;
-    static SEVENTH_MAJ7: ChromaticPattern;
-    static SEVENTH_MINOR_MAJ7: ChromaticPattern;
-    static SIXTH_ADD9: ChromaticPattern;
-    static SIXTH_MINOR_ADD9: ChromaticPattern;
-    static SEVENTH_b9: ChromaticPattern;
-    static SEVENTH_a9: ChromaticPattern;
-    static SEVENTH_MINOR_b9: ChromaticPattern;
-    static SEVENTH_ADD11: ChromaticPattern;
-    static SEVENTH_ADD13: ChromaticPattern;
-    static NINTH: ChromaticPattern;
-    static NINTH_MINOR: ChromaticPattern;
-    static NINTH_b5: ChromaticPattern;
-    static NINTH_a5: ChromaticPattern;
-    static NINTH_SUS4: ChromaticPattern;
-    static NINTH_MAJ9: ChromaticPattern;
-    static NINTH_MINOR_MAJ9: ChromaticPattern;
-    static NINTH_ADD6: ChromaticPattern;
-    static NINTH_a11: ChromaticPattern;
-    static NINTH_MAJ9_a11: ChromaticPattern;
-    static ELEVENTH: ChromaticPattern;
-    static ELEVENTH_MINOR: ChromaticPattern;
-    static ELEVENTH_b9: ChromaticPattern;
-    static ELEVENTH_a9: ChromaticPattern;
-    static ELEVENTH_MAJ11: ChromaticPattern;
-    static ELEVENTH_MINOR_MAJ11: ChromaticPattern;
-    static THIRTEENTH_MINOR: ChromaticPattern;
-    static THIRTEENTH_SUS4: ChromaticPattern;
-    static THIRTEENTH_b5: ChromaticPattern;
-    static THIRTEENTH_a5: ChromaticPattern;
-    static THIRTEENTH_b9: ChromaticPattern;
-    static THIRTEENTH_a9: ChromaticPattern;
-    static THIRTEENTH_b5b9: ChromaticPattern;
-    static THIRTEENTH_b5a9: ChromaticPattern;
-    static THIRTEENTH_a5b9: ChromaticPattern;
-    static THIRTEENTH_a5a9: ChromaticPattern;
-    static THIRTEENTH_MAJ13: ChromaticPattern;
-    static THIRTEENTH_MINOR_MAJ13: ChromaticPattern;
-    static THIRTEENTH_MAJ13_b5: ChromaticPattern;
-    static THIRTEENTH_MAJ13_a5: ChromaticPattern;
-    static THIRTEENTH_MAJ13_b9: ChromaticPattern;
-    static THIRTEENTH_MAJ13_a9: ChromaticPattern;
-    static THIRTEENTH_MAJ13_b5b9: ChromaticPattern;
-    static THIRTEENTH_MAJ13_b5a9: ChromaticPattern;
-    static THIRTEENTH_MAJ13_a5b9: ChromaticPattern;
-    static THIRTEENTH_MAJ13_a5a9: ChromaticPattern;
-
-    static all: () => ChromaticPattern[];
+export class ChromaticPattern extends ChromaticPatternStaticNames implements DegreePattern<Chromatic, I>, Iterable<I> {
+    static commonPatterns: () => ChromaticPattern[];
 
     private static _cache = new ChromaticPatternCache((values: I[]) => new ChromaticPattern(...values));
 
@@ -80,6 +15,7 @@ export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I
     private _rootIndex: number;
 
     private constructor(...values: I[]) {
+        super();
         this._rootIntervals = values;
         this._rootIndex = 0;
         Object.freeze(this._rootIntervals);
@@ -87,12 +23,14 @@ export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I
     }
 
     static fromRootIntervals(...rootIntervals: I[]): ChromaticPattern {
+        if (!rootIntervals)
+            return null;
         if (rootIntervals[0] > 0)
-            rootIntervals = this.getStartFromZero(rootIntervals);
+            rootIntervals = this._getStartFromZero(rootIntervals);
         return this._cache.getOrCreate(rootIntervals);
     }
 
-    private static getStartFromZero(array: number[]) {
+    private static _getStartFromZero(array: number[]) {
         return array.map((ic, i, a) => ic - a[0]);
     }
 
@@ -113,11 +51,11 @@ export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I
     }
 
     static fromString(strValue: string): ChromaticPattern {
-        strValue = this.normalizeInputString(strValue);
+        strValue = this._normalizeInputString(strValue);
 
         for (let chromaticPattern of this._cache.list) {
-            let normalizedString = this.normalizeInputString(chromaticPattern.toString());
-            let normalizedShortName = this.normalizeInputString(chromaticPattern.shortName);
+            let normalizedString = this._normalizeInputString(chromaticPattern.toString());
+            let normalizedShortName = this._normalizeInputString(chromaticPattern.shortName);
 
             if (strValue == normalizedString || strValue == normalizedShortName)
                 return chromaticPattern;
@@ -126,7 +64,7 @@ export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I
         throw new Error("Can't get " + this.name + " from string '" + strValue + "'.");
     }
 
-    private static normalizeInputString(strValue: string): string {
+    private static _normalizeInputString(strValue: string): string {
         strValue = strValue.replace(/ |\(|\)/g, '')
             .replace('♯', '#')
             .replace('♭', 'b')
@@ -153,12 +91,24 @@ export class ChromaticPattern implements DegreePattern<Chromatic, I>, Iterable<I
     withInv(n: number = 1): ChromaticPattern {
         let values = Array.from(this.rootIntervals);
         for (let i = 0; i < n; i++) {
-            let firstValue = values.shift();
-            values.push(firstValue + Chromatic.NUMBER);
+            let firstRootInterval = values.shift();
+            let lastRootInterval = values[values.length - 1];
+            firstRootInterval = this._getFixedOctaveRootInterval(lastRootInterval, firstRootInterval);
+            values.push(firstRootInterval);
             values = values.map((value: number) => value - values[0]);
         }
 
         return ChromaticPattern.fromRootIntervals(...values);
+    }
+
+    private _getFixedOctaveRootInterval(lastRootInterval: number, rootInterval: number): number {
+        let rootIntervalInOneOctave = rootInterval % Chromatic.NUMBER;
+        let lastRootIntervalOctave = Math.floor(lastRootInterval / Chromatic.NUMBER);
+        let ret = lastRootIntervalOctave * Chromatic.NUMBER + rootIntervalInOneOctave;
+        if (ret < lastRootInterval)
+            ret += Chromatic.NUMBER;
+
+        return ret;
     }
 
     toString() {

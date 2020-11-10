@@ -115,4 +115,17 @@ export class ChromaticChordStaticNames {
     static Am7;
     static AAm7;
     static Bm7;
+
+    static C13b5a9;
+    static CC13b5a9;
+    static D13b5a9;
+    static DD13b5a9;
+    static E13b5a9;
+    static F13b5a9;
+    static FF13b5a9;
+    static G13b5a9;
+    static GG13b5a9;
+    static A13b5a9;
+    static AA13b5a9;
+    static B13b5a9;
 }

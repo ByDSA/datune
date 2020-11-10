@@ -56,7 +56,7 @@ export default () => {
     settings.default();
     diatonics.default();
 
-    let patterns = ChromaticPattern.all();
+    let patterns = ChromaticPattern.commonPatterns();
 
     for (const chromatic of Chromatic.all()) {
         const diatonicAltStr = chromatic2Str(chromatic);

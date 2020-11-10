@@ -72,20 +72,23 @@ export class ChromaticChordMainClass extends ChromaticChordStaticNames implement
 
     private getRootIntervalsArray(): number[] {
         let patternArray = [0];
-        let last: Chromatic;
-
         const unsortedNotes: Chromatic[] = this.notes;
+        let lastChromatic: Chromatic = unsortedNotes[0];
+        let lastNumber = 0;
 
-        let first = true;
-        unsortedNotes.forEach(current => {
-            if (first) {
-                first = false;
-                last = current;
+
+        unsortedNotes.forEach((current, i) => {
+            if (i == 0) {
+                lastChromatic = current;
                 return;
             }
 
-            let dist = rotativeTrim(current.valueOf() - last.valueOf(), Chromatic.NUMBER);
-            patternArray.push(dist);
+            let dist = rotativeTrim(current.valueOf() - lastChromatic.valueOf(), Chromatic.NUMBER);
+            let currentNumber = lastNumber + dist;
+            patternArray.push(currentNumber);
+            
+            lastNumber = currentNumber;
+            lastChromatic = current;
         });
 
         return patternArray;

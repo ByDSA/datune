@@ -10,6 +10,7 @@ init.settings.default(); // Por si hay errores, mostrar el nombre del test
 describe.each([
     [[0, 4, 7], ChromaticPattern.TRIAD_MAJOR],
     [[0, 4, 7], ChromaticPattern.TRIAD_MAJOR.withInv(3)],
+    [[1, 5, 8], ChromaticPattern.TRIAD_MAJOR, false],
     [[0, 3, 7], ChromaticPattern.TRIAD_MINOR],
     [[0, 3, 6], ChromaticPattern.TRIAD_DIMINISHED],
     [[0, 4, 8], ChromaticPattern.TRIAD_AUGMENTED],
@@ -18,7 +19,6 @@ describe.each([
     [[0, 4, 7, 11], ChromaticPattern.SEVENTH_MAJ7],
     [[0, 5, 9], ChromaticPattern.TRIAD_MAJOR.withInv(2)],
     [[0, 3, 8], ChromaticPattern.TRIAD_MAJOR.withInv()],
-    [[1, 5, 8], ChromaticPattern.TRIAD_MAJOR, false],
     [[0, 4, 6, 11], ChromaticPattern.SEVENTH_MAJ7_b5],
     [[0, 5, 7, 10, 15], ChromaticPattern.SEVENTH_SUS4_b9],
     [[0, 4, 8, 10, 13, 17, 21], ChromaticPattern.THIRTEENTH_a5b9],
@@ -26,19 +26,20 @@ describe.each([
     [[0, 3, 7, 10], ChromaticPattern.SEVENTH_MINOR],
     [[0, 4, 6, 11, 15, 17, 21], ChromaticPattern.THIRTEENTH_MAJ13_b5a9],
     [[0, 4, 6, 10, 15, 17, 21], ChromaticPattern.THIRTEENTH_b5a9],
-])('fromRootIntervals', (rootIntervals, pattern, reverse = true) => {
-    test(`${rootIntervals} => ${pattern}`, async () => {
+    [[0, 4, 9, 11, 15, 18, 22], ChromaticPattern.THIRTEENTH_b5a9.withInv(2)],
+])('fromRootIntervals', (rootIntervals, expectedPattern, reverse = true) => {
+    test(`${rootIntervals} => ${expectedPattern}`, async () => {
         let chromaticPattern = ChromaticPattern.fromRootIntervals(...rootIntervals);
-        expect(chromaticPattern).toBe(pattern);
+        expect(chromaticPattern).toBe(expectedPattern);
     });
 
     if (reverse)
-        test(`${pattern}.rootIntervals = ${rootIntervals}`, async () => {
-            expect(pattern.rootIntervals).toStrictEqual(rootIntervals);
+        test(`${expectedPattern}.rootIntervals = ${rootIntervals}`, async () => {
+            expect(expectedPattern.rootIntervals).toStrictEqual(rootIntervals);
         });
 })
 
-test('fromIC - immutable new pattern: 0, 1, 2', async () => {
+test('fromRootIntervals - all patterns with same rootIntervals are the same', async () => {
     let chromaticPattern = ChromaticPattern.fromRootIntervals(0, 1, 2);
     let chromaticPattern2 = ChromaticPattern.fromRootIntervals(0, 1, 2);
     expect(chromaticPattern2).toBe(chromaticPattern);
@@ -48,7 +49,7 @@ describe.each([
     [Language.ENG, ChromaticPattern.TRIAD_MAJOR, "MAJOR"],
     [Language.ESP, ChromaticPattern.TRIAD_MAJOR, "MAYOR"],
     [Language.ENG, ChromaticPattern.fromRootIntervals(0, 1, 2), "0-1-2"],
-])('toString', (lang, pattern, str) => {
+])('string conversion', (lang, pattern, str) => {
     test(`${lang.id} - ${pattern} => "${str}"`, async () => {
         Settings.lang = lang;
         let actual = pattern.toString();
@@ -64,7 +65,22 @@ describe.each([
     });
 })
 
-const patternAllLanguages = [].concat(...ChromaticPattern.all().map(e => {
+it("formRootIntervals - null value", () => {
+    const pattern = ChromaticPattern.fromRootIntervals(null);
+    expect(pattern).toBeNull();
+})
+
+it("formRootIntervals - empty array", () => {
+    const pattern = ChromaticPattern.fromRootIntervals(...[]);
+    expect(pattern).toBeNull();
+})
+
+it("formRootIntervals - no array", () => {
+    const pattern = ChromaticPattern.fromRootIntervals();
+    expect(pattern).toBeNull();
+})
+
+const patternAllLanguages = [].concat(...ChromaticPattern.commonPatterns().map(e => {
     const ret = [];
     for (const lang of Language.all())
         ret.push([lang, e]);
@@ -72,7 +88,7 @@ const patternAllLanguages = [].concat(...ChromaticPattern.all().map(e => {
     return ret;
 }));
 describe.each(patternAllLanguages)
-    ("All patterns have name", (lang: LanguageInterface, pattern: ChromaticPattern) => {
+    ("All patterns have name and shortName", (lang: LanguageInterface, pattern: ChromaticPattern) => {
         it(`${lang.id} - Pattern ${pattern} string defined. str=${pattern.toString()}`, async () => {
             Settings.lang = lang;
             const str = pattern.toString();
@@ -138,8 +154,11 @@ test('fromString - "0 4 6 11" = SEVENTH MAJ7 b5', () => {
 });
 */
 
-test('fromIntraIntervals - 4 3', async () => {
-    let actual = ChromaticPattern.fromIntraIntervals(4, 3);
-    let expected = ChromaticPattern.TRIAD_MAJOR;
-    expect(actual).toBe(expected);
+describe.each([
+    [[4, 3], ChromaticPattern.TRIAD_MAJOR]
+])("fromIntraIntervals", (intraIntervals: number[], expectedPattern) => {
+    test(`${intraIntervals} => ${expectedPattern}`, async () => {
+        let actual = ChromaticPattern.fromIntraIntervals(...intraIntervals);
+        expect(actual).toBe(expectedPattern);
+    });
 });

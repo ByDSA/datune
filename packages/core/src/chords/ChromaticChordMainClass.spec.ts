@@ -59,6 +59,18 @@ describe.each([
     });
 });
 
+describe.each([
+    [[Chromatic.C, Chromatic.G], ChromaticPattern.POWER_CHORD],
+    [[Chromatic.C, Chromatic.E, Chromatic.G], ChromaticPattern.TRIAD_MAJOR],
+    [[Chromatic.C, Chromatic.E, Chromatic.G, Chromatic.AA], ChromaticPattern.SEVENTH],
+    [[Chromatic.C, Chromatic.E, Chromatic.FF, Chromatic.B, Chromatic.DD, Chromatic.F], ChromaticPattern.THIRTEENTH_MAJ13_b5a9],
+])("pattern's chromatic notes", (notes: Chromatic[], pattern: ChromaticPattern) => {
+        test(`Notes ${notes}. Expected pattern ${pattern}. Actual pattern: ${ChromaticChord.from(notes).pattern}`, async () => {
+            const actual = ChromaticChord.from(notes).pattern;
+            expect(actual).toBe(pattern);
+        });
+    });
+
 describe('withShift', () => {
     it('C7 + 2 = D7', () => {
         let actual = ChromaticChord.C7.withShift(2);

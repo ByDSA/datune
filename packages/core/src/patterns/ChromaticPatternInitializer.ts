@@ -10,7 +10,7 @@ export default () => {
     initializeTriads();
     initializeSevenths();
     initializeExtensions();
-    ChromaticPattern.all = function () {
+    ChromaticPattern.commonPatterns = function () {
         return [
             ChromaticPattern.POWER_CHORD,
             ChromaticPattern.TRIAD_MAJOR,
@@ -173,16 +173,16 @@ function initializeThirteenths() {
 }
 
 function initializeInversions() {
-    for (let pattern of ChromaticPattern.all()) {
+    for (let pattern of ChromaticPattern.commonPatterns()) {
         for (let i = 1; i < pattern.length; i++) {
             let patternInv = pattern.withInv(i);
-            if (!ChromaticPattern.all().includes(patternInv)) {
+            if (!ChromaticPattern.commonPatterns().includes(patternInv)) {
                 (<any>patternInv)._rootIndex = pattern.length - i;
             }
         }
     }
 
-    for (let pattern of ChromaticPattern.all()) {
+    for (let pattern of ChromaticPattern.commonPatterns()) {
         for (let i = 0; i < pattern.length; i++) {
             let patternInv = pattern.withInv(i);
             Object.freeze(patternInv);
