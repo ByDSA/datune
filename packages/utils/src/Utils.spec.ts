@@ -1,4 +1,4 @@
-import { arrayRemove } from "./Utils";
+import { arrayRemove, isValidArray } from "./Utils";
 
 test('arrayRemove: item is multiple times', () => {
   let array = [1, 2, 3, 2, 1];
@@ -28,4 +28,26 @@ test('arrayRemove: item not found', () => {
   expect(arrayRemove(array, item)).toBe(false);
   expect(array.length).toBe(initialSize);
   expect(array).toStrictEqual([1, 2, 3, 4]);
+});
+
+describe("isValidArray", () => {
+  it("null", () => {
+    const b = isValidArray(null);
+    expect(b).toBeFalsy();
+  });
+
+  it("...[null]", () => {
+    const b = isValidArray([null]);
+    expect(b).toBeFalsy();
+  });
+
+  it("...[]", () => {
+    const b = isValidArray([]);
+    expect(b).toBeFalsy();
+  });
+
+  it("[0]", () => {
+    const b = isValidArray([0]);
+    expect(b).toBeTruthy();
+  });
 });

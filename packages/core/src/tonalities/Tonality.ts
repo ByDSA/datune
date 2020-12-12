@@ -1,15 +1,14 @@
+import { ParserBottomUp } from "@datune/utils/parser/Parser";
+import { RootPatternBuilder } from '../chords/builders/RootPatternBuilder';
 import { DiatonicAltChord } from '../chords/DiatonicAltChord';
-import { RootPatternChord } from '../chords/parametric/RootPatternChord';
 import { Chromatic } from '../degrees/Chromatic';
 import { DiatonicAlt } from '../degrees/DiatonicAlt';
 import { IntervalDiatonicAlt } from '../intervals/IntervalDiatonicAlt';
 import { ChromaticPattern } from '../patterns/ChromaticPattern';
 import { DiatonicAltPattern } from '../patterns/DiatonicAltPattern';
 import { DiatonicPattern } from '../patterns/DiatonicPattern';
-import { ParserBottomUp } from "@datune/utils/parser/Parser";
 import { Scale } from '../scales/Scale';
-import { HashingObjectType } from './TonalityCache';
-import { TonalityCache } from './TonalityCache';
+import { HashingObjectType, TonalityCache } from './TonalityCache';
 import { TonalityStaticNames } from './TonalityStaticNames';
 
 export class Tonality extends TonalityStaticNames {
@@ -109,7 +108,10 @@ export class Tonality extends TonalityStaticNames {
         this._rootChord3 = null;
         for (const pattern of chordRootPatternPriority) {
             let note = this.root.withAdd(pattern.interval);
-            let chord = <DiatonicAltChord>RootPatternChord.from(note, pattern.pattern).chord;
+            let chord = <DiatonicAltChord>RootPatternBuilder.create()
+                .setRoot(note)
+                .setPattern(pattern.pattern)
+                .build();
 
             if (this.containsChord(chord)) {
                 this._rootChord3 = chord;
@@ -134,7 +136,10 @@ export class Tonality extends TonalityStaticNames {
 
         this._rootChord4 = null;
         for (const pattern of chordRootPatternPriority) {
-            let chord = <DiatonicAltChord>RootPatternChord.from(this.root, pattern).chord;
+            let chord = <DiatonicAltChord>RootPatternBuilder.create()
+                .setRoot(this.root)
+                .setPattern(pattern)
+                .build();
             if (this.containsChord(chord)) {
                 this._rootChord4 = chord;
                 break;

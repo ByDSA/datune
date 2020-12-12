@@ -5,7 +5,7 @@ import { ChromaticPattern } from "../../patterns/ChromaticPattern";
 import { DiatonicAltPattern } from "../../patterns/DiatonicAltPattern";
 import { ChromaticChord } from "../ChromaticChord";
 import { DiatonicAltChord } from "../DiatonicAltChord";
-import { RootPatternChord } from "./RootPatternChord";
+import { RootPatternBuilder } from "./RootPatternBuilder";
 init.chromatics.default();
 init.chromaticChords.default();
 init.chromaticPatterns.default();
@@ -21,11 +21,13 @@ describe.each([
     [DiatonicAlt.C, DiatonicAltPattern.SEVENTH_MAJ7, DiatonicAltChord.CMaj7],
 ])("from DiatonicAlt", (degree, pattern, expected) => {
     it(`(${degree}, ${pattern}) => ${expected}`, async () => {
-        const rootPatternChord = RootPatternChord.from(degree, pattern);
-        expect(rootPatternChord.degree).toBe(degree);
-        expect(rootPatternChord.pattern).toBe(pattern);
+        const builder = RootPatternBuilder.create()
+            .setRoot(degree)
+            .setPattern(pattern);
+        expect(builder.getRoot()).toBe(degree);
+        expect(builder.getPattern()).toBe(pattern);
 
-        const diatonicAltChord = rootPatternChord.chord;
+        const diatonicAltChord = builder.build();
         expect(diatonicAltChord).toBe(expected);
     })
 })
@@ -38,9 +40,12 @@ describe.each([
     [DiatonicAlt.C, DiatonicAltPattern.NINTH],
 ])("DiatonicAlt = chord.root + DiatonicAltPattern = chord.pattern", (degree, pattern) => {
     it(`root=${degree}, pattern=${pattern}`, async () => {
-        const rootPatternChord = RootPatternChord.from(degree, pattern).chord;
-        expect(rootPatternChord.root).toBe(degree);
-        expect(rootPatternChord.pattern).toBe(pattern);
+        const chord = RootPatternBuilder.create()
+            .setRoot(degree)
+            .setPattern(pattern)
+            .build();
+        expect(chord.root).toBe(degree);
+        expect(chord.pattern).toBe(pattern);
     })
 })
 
@@ -48,11 +53,13 @@ describe.each([
     [Chromatic.C, ChromaticPattern.TRIAD_MAJOR, ChromaticChord.C],
 ])("from Chromatic", (degree, pattern, expected) => {
     it(`(${degree}, ${pattern}) => ${expected}`, async () => {
-        const rootPatternChord = RootPatternChord.from(degree, pattern);
-        expect(rootPatternChord.degree).toBe(degree);
-        expect(rootPatternChord.pattern).toBe(pattern);
+        const builder = RootPatternBuilder.create()
+            .setRoot(degree)
+            .setPattern(pattern);
+        expect(builder.getRoot()).toBe(degree);
+        expect(builder.getPattern()).toBe(pattern);
 
-        const diatonicAltChord = rootPatternChord.chord;
+        const diatonicAltChord = builder.build();
         expect(diatonicAltChord).toBe(expected);
     })
 })
@@ -65,8 +72,8 @@ describe.each([
     [Chromatic.C, ChromaticPattern.NINTH],
 ])("Chromatic = chord.root + ChromaticPattern = chord.pattern", (degree, pattern) => {
     it(`root=${degree}, pattern=${pattern}`, async () => {
-        const rootPatternChord = RootPatternChord.from(degree, pattern).chord;
-        expect(rootPatternChord.root).toBe(degree);
-        expect(rootPatternChord.pattern).toBe(pattern);
+        const chord = RootPatternBuilder.create().setRoot(degree).setPattern(pattern).build();
+        expect(chord.root).toBe(degree);
+        expect(chord.pattern).toBe(pattern);
     })
 })

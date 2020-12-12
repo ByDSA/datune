@@ -1,9 +1,9 @@
+import { TemporalEvent } from '@datune/analyzer/events/TemporalEvent';
+import { Node } from '@datune/analyzer/sequences/Node';
 import { MusicalDuration } from '@datune/core/tempo/MusicalDuration';
 import { MidiPitch } from "../pitch/MidiPitch";
-import { TemporalEvent } from '@datune/analyzer/timelayer/TemporalEvent';
-import { TemporalNode } from '@datune/analyzer/timelayer/TemporalNode';
 
-export type MidiNoteNode = TemporalNode<MidiNote, MusicalDuration>;
+export type MidiNoteNode = Node<MidiNote, MusicalDuration>;
 export class MidiNote implements TemporalEvent<MusicalDuration> {
     private _velocity: number;
 

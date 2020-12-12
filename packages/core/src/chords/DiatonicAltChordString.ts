@@ -1,9 +1,9 @@
+import { ParserBottomUp } from '@datune/utils/parser/Parser';
 import { DiatonicAlt } from '../degrees/DiatonicAlt';
 import { DiatonicAltPattern } from '../patterns/DiatonicAltPattern';
-import { ParserBottomUp } from '@datune/utils/parser/Parser';
+import { RootPatternBuilder } from './builders/RootPatternBuilder';
 import { ChordString } from './ChordString';
 import { DiatonicAltChord } from './DiatonicAltChord';
-import { RootPatternChord } from './parametric/RootPatternChord';
 
 export class DiatonicAltChordString extends ChordString<DiatonicAltChord> {
     private constructor(strValue: string) {
@@ -40,7 +40,10 @@ export class DiatonicAltChordString extends ChordString<DiatonicAltChord> {
         let objects = parser.parse();
 
         if (objects)
-            return <DiatonicAltChord>RootPatternChord.from(objects[0], objects[1]).chord;
+            return <DiatonicAltChord>RootPatternBuilder.create()
+                .setRoot(objects[0])
+                .setPattern(objects[1])
+                .build();
     }
 
     protected parsingInversion(): DiatonicAltChord {

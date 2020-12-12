@@ -4,8 +4,8 @@ import { IntervalDiatonicAlt } from '../intervals/IntervalDiatonicAlt';
 import { Language } from '../lang/Language';
 import { DiatonicAltPattern } from '../patterns/DiatonicAltPattern';
 import { Settings } from '../settings/Settings';
+import { RootPatternBuilder } from './builders/RootPatternBuilder';
 import { DiatonicAltChord, DiatonicAltChordString } from './DiatonicAltChord';
-import { RootPatternChord } from './parametric/RootPatternChord';
 init.chromatics.default();
 init.chromaticPatterns.default();
 init.diatonicPatterns.default();
@@ -55,9 +55,9 @@ describe("from", () => {
 describe.each([
     [Language.ENG, DiatonicAltChord.C, "C"],
     [Language.ENG, DiatonicAltChord.C7, "C7"],
-    [Language.ENG, RootPatternChord.from(
-        DiatonicAlt.BBB,
-        DiatonicAltPattern.SEVENTH).chord, DiatonicAlt.BBB.toString() + "7"],
+    [Language.ENG, RootPatternBuilder.create()
+        .setRoot(DiatonicAlt.BBB)
+        .setPattern(DiatonicAltPattern.SEVENTH).build(), DiatonicAlt.BBB.toString() + "7"],
     [Language.ENG, DiatonicAltChord.CMaj7, "CMaj7"],
     [Language.ENG, DiatonicAltChord.CmMaj7, "CmMaj7"],
     [Language.ENG, DiatonicAltChord.C.withInv(), "C/E"],
@@ -66,7 +66,7 @@ describe.each([
     [Language.ENG, DiatonicAltChord.C7.withInv(), "C7/E"],
     [Language.ENG, DiatonicAltChord.Fsus2, "Fsus2"],
     [Language.ENG, DiatonicAltChord.Csus4.withInv(), "Fsus2"],
-    [Language.ENG, RootPatternChord.from(DiatonicAlt.C, DiatonicAltPattern.THIRTEENTH_b5a9).chord.withInv(2), "C13♭5♯9/G♭"],
+    [Language.ENG, RootPatternBuilder.create().setRoot(DiatonicAlt.C).setPattern(DiatonicAltPattern.THIRTEENTH_b5a9).build().withInv(2), "C13♭5♯9/G♭"],
 ])("toString", (lang, chord, str) => {
     test(`${lang.id} - ${chord} => "${str}"`, async () => {
         Settings.lang = lang;
@@ -76,7 +76,7 @@ describe.each([
 
     test(`${lang.id} - "${str}" => ${chord}`, async () => {
         const chordString = DiatonicAltChordString.from(str);
-        let actual = chordString.chord;
+        let actual = chordString.parse();
         expect(actual).toBe(chord);
     });
 });
@@ -170,12 +170,18 @@ describe.each([
 
 test('withAdd - C7 + MAJOR_SECOND = D7', async () => {
     let actual = DiatonicAltChord.C7.withAdd(IntervalDiatonicAlt.MAJOR_SECOND);
-    let expected = RootPatternChord.from(DiatonicAlt.D, DiatonicAltPattern.SEVENTH).chord;
+    let expected = RootPatternBuilder.create()
+        .setRoot(DiatonicAlt.D)
+        .setPattern(DiatonicAltPattern.SEVENTH)
+        .build();
     expect(actual).toBe(expected);
 });
 
 test('withSub - C7 - MAJOR_SECOND = Bb7', async () => {
     let actual = DiatonicAltChord.C7.withSub(IntervalDiatonicAlt.MAJOR_SECOND);
-    let expected = RootPatternChord.from(DiatonicAlt.Bb, DiatonicAltPattern.SEVENTH).chord;
+    let expected = RootPatternBuilder.create()
+        .setRoot(DiatonicAlt.Bb)
+        .setPattern(DiatonicAltPattern.SEVENTH)
+        .build();
     expect(actual).toBe(expected);
 });

@@ -2,7 +2,8 @@ import { Immutables } from '@datune/utils/Immutables';
 import { PrecalcCache } from '@datune/utils/PrecalcCache';
 import { Diatonic } from './Diatonic';
 import { DiatonicAlt } from './DiatonicAlt';
-import { diatonics } from '../initializer';
+import { diatonics, chromatics } from '../initializer';
+import { Chromatic } from './Chromatic';
 
 export default () => {
     if (DiatonicAlt.C)
@@ -52,5 +53,5 @@ export default () => {
     DiatonicAlt.Bb = DiatonicAlt.from(Diatonic.B, -1);
     DiatonicAlt.Bbb = DiatonicAlt.from(Diatonic.B, -2);
 
-    Immutables.lockrIf(DiatonicAlt, (obj) => !(obj instanceof PrecalcCache));
+    Immutables.lockrIf(DiatonicAlt, (obj) => !(obj instanceof PrecalcCache) && !(obj instanceof Map));
 }

@@ -9,7 +9,7 @@ export class NamingDiatonicAlt {
         return diatonicAlt.diatonic.toString() + Settings.symbols.alts(diatonicAlt.alts);
     }
 
-    static get(str: string): DiatonicAlt {
+    static get(str: string): DiatonicAlt | undefined {
         str = this.normalizeInputString(str);
 
         switch (str) {
@@ -49,7 +49,8 @@ export class NamingDiatonicAlt {
             case DiatonicAlt.Bb.toString().toLowerCase(): return DiatonicAlt.Bb;
             case DiatonicAlt.Bbb.toString().toLowerCase(): return DiatonicAlt.Bbb;
         }
-        throw new Error("Can't convert '" + str + "' to DiatonicAlt.");
+
+        return undefined;
     }
 
     private static normalizeInputString(strValue: string): string {

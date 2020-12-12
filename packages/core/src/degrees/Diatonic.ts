@@ -5,6 +5,10 @@ import { Chromatic } from './Chromatic';
 import { Degree } from './Degree';
 
 export class Diatonic implements Degree {
+    // Sets
+
+    static NUMBER = 7;
+
     static C: Diatonic;
     static D: Diatonic;
     static E: Diatonic;
@@ -13,7 +17,28 @@ export class Diatonic implements Degree {
     static A: Diatonic;
     static B: Diatonic;
 
-    static NUMBER = 7;
+    private static _all: readonly Diatonic[] = [
+        Diatonic.C,
+        Diatonic.D,
+        Diatonic.E,
+        Diatonic.F,
+        Diatonic.G,
+        Diatonic.A,
+        Diatonic.B,
+    ];
+
+    static all(): readonly Diatonic[] {
+        return this._all;
+    }
+
+    // Building
+
+    private constructor(private _intValue: number) {
+    }
+
+    private static initializerConstructor(intValue: number): Diatonic {
+        return new Diatonic(intValue);
+    }
 
     static fromInt(intValue: number): Diatonic {
         intValue = rotativeTrim(intValue, Diatonic.NUMBER);
@@ -30,7 +55,7 @@ export class Diatonic implements Degree {
         return null;
     }
 
-    static fromString(strValue: string): Diatonic {
+    static fromString(strValue: string): Diatonic | undefined {
         strValue = this.normalizeInputString(strValue);
 
         switch (strValue) {
@@ -43,7 +68,7 @@ export class Diatonic implements Degree {
             case Diatonic.B.toString(): return Diatonic.B;
         }
 
-        return null;
+        return undefined;
     }
 
     private static normalizeInputString(strValue: string): string {
@@ -51,12 +76,7 @@ export class Diatonic implements Degree {
         return strValue;
     }
 
-    private static initializerConstructor(intValue: number): Diatonic {
-        return new Diatonic(intValue);
-    }
-
-    private constructor(private _intValue: number) {
-    }
+    // Immutable methods
 
     withAdd(intervalDiatonic: IntervalDiatonic): Diatonic {
         let intValue = this.valueOf() + intervalDiatonic.valueOf();
@@ -66,14 +86,6 @@ export class Diatonic implements Degree {
     withSub(intervalDiatonic: IntervalDiatonic): Diatonic {
         let intValue = this.valueOf() - intervalDiatonic.valueOf();
         return Diatonic.fromInt(intValue);
-    }
-
-    toString() {
-        return NamingDiatonic.toString(this);
-    }
-
-    valueOf(): number {
-        return this._intValue;
     }
 
     get chromatic() {
@@ -86,5 +98,26 @@ export class Diatonic implements Degree {
             case Diatonic.A: return Chromatic.A;
             case Diatonic.B: return Chromatic.B;
         }
+    }
+
+    // Sortable methods
+
+    compareTo(diatonic: Diatonic): number {
+        if (this._intValue < diatonic._intValue)
+            return -1;
+        else if (this._intValue > diatonic._intValue)
+            return 1;
+        else
+            return 0;
+    }
+
+    // Object methods
+
+    toString() {
+        return NamingDiatonic.toString(this);
+    }
+
+    valueOf(): number {
+        return this._intValue;
     }
 }

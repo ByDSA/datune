@@ -14,7 +14,7 @@ export default () => {
     tunings.default();
 
     mainLoop: for (let i = 0; i <= 10; i++) {
-        for (const chromatic of Chromatic.all) {
+        for (const chromatic of Chromatic.all()) {
             let varStr: string = getVarStringFrom(chromatic) + i;
             const diatonicAlt = DiatonicAlt.fromChromatic(chromatic);
             let varSPN = getVarStringFromSPN(diatonicAlt, i);

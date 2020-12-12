@@ -62,3 +62,9 @@ export function arraySameContent<T>(a: T[], b: T[]): boolean {
 
   return true;
 }
+
+export function isValidArray<A>(array: A[]): boolean {
+  return !(!array
+    || array.length == 0
+    || array.length == 1 && (array[0] == undefined || array[0] == null));
+}

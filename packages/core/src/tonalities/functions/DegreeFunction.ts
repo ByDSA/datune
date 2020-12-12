@@ -1,14 +1,14 @@
+import { RootPatternBuilder } from '../../chords/builders/RootPatternBuilder';
 import { DiatonicAltChord } from '../../chords/DiatonicAltChord';
-import { RootPatternChord } from '../../chords/parametric/RootPatternChord';
 import { Chromatic } from '../../degrees/Chromatic';
-import { DiatonicAltDegree } from '../../scales/degrees/DiatonicAltDegree';
-import { DiatonicDegree } from '../../scales/degrees/DiatonicDegree';
 import { Diatonic } from '../../degrees/Diatonic';
 import { DiatonicAlt } from '../../degrees/DiatonicAlt';
 import { DiatonicAltPattern } from '../../patterns/DiatonicAltPattern';
+import { DiatonicAltDegree } from '../../scales/degrees/DiatonicAltDegree';
+import { DiatonicDegree } from '../../scales/degrees/DiatonicDegree';
 import { Tonality } from '../Tonality';
+import { DegreeFunctionCache, hashCodeFunction, HashingObjectType } from './DegreeFunctionCache';
 import { HarmonicFunction } from './HarmonicFunction';
-import { HashingObjectType, DegreeFunctionCache, hashCodeFunction } from './DegreeFunctionCache';
 
 export class DegreeFunction extends HarmonicFunction {
     static I5: DegreeFunction;
@@ -244,7 +244,10 @@ export class DegreeFunction extends HarmonicFunction {
     calculateChord(tonality: Tonality): DiatonicAltChord {
         let noteBase: DiatonicAlt = DegreeFunction.getNoteBaseFromChromaticFunctionAndTonality(tonality, this);
 
-        return <DiatonicAltChord>RootPatternChord.from(noteBase, this._pattern).chord;
+        return <DiatonicAltChord>RootPatternBuilder.create()
+            .setRoot(noteBase)
+            .setPattern(this._pattern)
+            .build();
     }
 
     private static getNoteBaseFromChromaticFunctionAndTonality(tonality: Tonality, degreeFunction: DegreeFunction): DiatonicAlt {

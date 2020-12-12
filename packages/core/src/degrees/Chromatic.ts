@@ -4,9 +4,9 @@ import { Settings } from '../settings/Settings';
 import { Degree } from './Degree';
 
 export class Chromatic implements Degree {
-    static NUMBER = 12;
+    // Sets
 
-    // Precalc
+    static NUMBER = 12;
 
     static C: Chromatic;
     static CC: Chromatic;
@@ -20,6 +20,15 @@ export class Chromatic implements Degree {
     static A: Chromatic;
     static AA: Chromatic;
     static B: Chromatic;
+
+
+    private static _all: readonly Chromatic[];
+
+    static all(): readonly Chromatic[] {
+        return this._all;
+    }
+
+    // Building
 
     private constructor(private _intValue: number) {
     }
@@ -47,7 +56,7 @@ export class Chromatic implements Degree {
         throw new Error("Impossible get Chromatic from int value: " + intValue);
     }
 
-    static fromString(strValue: string): Chromatic {
+    static fromString(strValue: string): Chromatic | undefined {
         strValue = this.normalizeInputString(strValue);
 
         switch (strValue) {
@@ -64,7 +73,8 @@ export class Chromatic implements Degree {
             case Chromatic.AA.toString().toLowerCase(): return Chromatic.AA;
             case Chromatic.B.toString().toLowerCase(): return Chromatic.B;
         }
-        throw new Error("Impossible get Chromatic from string: " + strValue);
+
+        return undefined;
     }
 
     private static normalizeInputString(strValue: string): string {
@@ -75,10 +85,14 @@ export class Chromatic implements Degree {
         return strValue;
     }
 
+    // Immutable methods
+
     withShift(semis: number): Chromatic {
         let intValue = rotativeTrim(this.valueOf() + semis, Chromatic.NUMBER);
         return Chromatic.fromInt(intValue);
     }
+
+    // Sortable methods
 
     compareTo(chromatic: Chromatic): number {
         if (this._intValue < chromatic._intValue)
@@ -89,11 +103,7 @@ export class Chromatic implements Degree {
             return 0;
     }
 
-    private static _all: readonly Chromatic[];
-
-    static all(): readonly Chromatic[] {
-        return this._all;
-    }
+    // Object methods
 
     toString() {
         return NamingChromatic.toString(this);

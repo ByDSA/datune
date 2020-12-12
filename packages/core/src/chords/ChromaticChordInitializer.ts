@@ -1,10 +1,10 @@
-import { ChromaticChord } from "./ChromaticChord";
 import { Immutables } from '@datune/utils/Immutables';
 import { PrecalcCache } from '@datune/utils/PrecalcCache';
 import { Chromatic } from '../degrees/Chromatic';
-import { chromatics, diatonics, settings, diatonicAltPatterns, chromaticPatterns } from '../initializer';
+import { chromaticPatterns, chromatics, diatonicAltPatterns, diatonics, settings } from '../initializer';
 import { ChromaticPattern } from '../patterns/ChromaticPattern';
-import { RootPatternChord } from './parametric/RootPatternChord';
+import { RootPatternBuilder } from './builders/RootPatternBuilder';
+import { ChromaticChord } from "./ChromaticChord";
 
 function chromatic2Str(chromatic: Chromatic): string {
     switch (chromatic) {
@@ -70,7 +70,10 @@ export default () => {
 
             const name = diatonicAltStr + diatonicAltChordPatternStr;
 
-            ChromaticChord[name] = RootPatternChord.from(chromatic, diatonicAltChordPattern).chord;
+            ChromaticChord[name] = RootPatternBuilder.create()
+                .setRoot(chromatic)
+                .setPattern(diatonicAltChordPattern)
+                .build();
         }
     }
 

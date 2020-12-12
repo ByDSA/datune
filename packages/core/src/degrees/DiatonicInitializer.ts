@@ -13,5 +13,15 @@ export default () => {
     Diatonic.A = (<any>Diatonic).initializerConstructor(5);
     Diatonic.B = (<any>Diatonic).initializerConstructor(6);
 
+    (<any>Diatonic)._all = [
+        Diatonic.C,
+        Diatonic.D,
+        Diatonic.E,
+        Diatonic.F,
+        Diatonic.G,
+        Diatonic.A,
+        Diatonic.B,
+    ];
+
     Immutables.lock(Diatonic);
 }

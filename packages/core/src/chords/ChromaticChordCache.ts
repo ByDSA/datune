@@ -2,7 +2,9 @@ import { PrecalcCache } from "@datune/utils/PrecalcCache";
 import { Chromatic } from '../degrees/Chromatic';
 import { ChromaticChordMainClass } from './ChromaticChordMainClass';
 
+/** @internal */
 export type HashingObjectType = Chromatic[];
+/** @internal */
 export class ChromaticCache extends PrecalcCache<ChromaticChordMainClass, HashingObjectType> {
     getHash(hashingObject: HashingObjectType): string {
         let ret = "";

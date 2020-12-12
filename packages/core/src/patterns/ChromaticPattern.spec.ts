@@ -70,6 +70,11 @@ it("formRootIntervals - null value", () => {
     expect(pattern).toBeNull();
 })
 
+it("formRootIntervals - 0", () => {
+    const pattern = ChromaticPattern.fromRootIntervals(0);
+    expect(pattern).not.toBeNull();
+})
+
 it("formRootIntervals - empty array", () => {
     const pattern = ChromaticPattern.fromRootIntervals(...[]);
     expect(pattern).toBeNull();

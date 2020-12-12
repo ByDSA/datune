@@ -1,3 +1,4 @@
+import { isValidArray } from '@datune/utils/Utils';
 import { Chromatic } from '../degrees/Chromatic';
 import { NamingChromaticChordPattern } from '../lang/naming/NamingChromaticChordPattern';
 import { ChromaticPatternCache } from './ChromaticPatternCache';
@@ -22,8 +23,8 @@ export class ChromaticPattern extends ChromaticPatternStaticNames implements Deg
         Object.freeze(this._rootIndex);
     }
 
-    static fromRootIntervals(...rootIntervals: I[]): ChromaticPattern {
-        if (!rootIntervals)
+    static fromRootIntervals(...rootIntervals: I[]): ChromaticPattern | null {
+        if (!isValidArray(rootIntervals))
             return null;
         if (rootIntervals[0] > 0)
             rootIntervals = this._getStartFromZero(rootIntervals);
@@ -34,7 +35,10 @@ export class ChromaticPattern extends ChromaticPatternStaticNames implements Deg
         return array.map((ic, i, a) => ic - a[0]);
     }
 
-    static fromIntraIntervals(...intraIntervals: I[]): ChromaticPattern {
+    static fromIntraIntervals(...intraIntervals: I[]): ChromaticPattern | null {
+        if (!isValidArray(intraIntervals))
+            return null;
+
         let baseIntervals: I[] = [0];
         for (let i = 0; i < intraIntervals.length; i++) {
             let baseInterval_i = baseIntervals[baseIntervals.length - 1] + intraIntervals[i];

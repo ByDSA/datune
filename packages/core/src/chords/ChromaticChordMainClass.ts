@@ -8,6 +8,7 @@ import { Chord } from './Chord';
 import { ChromaticCache, HashingObjectType } from './ChromaticChordCache';
 import { ChromaticChordStaticNames } from './ChromaticChordStaticNames';
 
+/** @internal */
 export class ChromaticChordMainClass extends ChromaticChordStaticNames implements Chord<Chromatic, number> {
     private static _cache = new ChromaticCache((hashingObject: HashingObjectType) => new ChromaticChordMainClass(hashingObject));
 

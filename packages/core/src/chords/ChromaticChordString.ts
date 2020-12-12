@@ -1,9 +1,9 @@
 import { ParserBottomUp } from '@datune/utils/parser/Parser';
 import { Chromatic } from '../degrees/Chromatic';
 import { ChromaticPattern } from '../patterns/ChromaticPattern';
+import { RootPatternBuilder } from './builders/RootPatternBuilder';
 import { ChordString } from './ChordString';
 import { ChromaticChord } from './ChromaticChord';
-import { RootPatternChord } from './parametric/RootPatternChord';
 
 export class ChromaticChordString extends ChordString<ChromaticChord> {
     private constructor(strValue: string) {
@@ -40,7 +40,10 @@ export class ChromaticChordString extends ChordString<ChromaticChord> {
         let objects = parser.parse();
 
         if (objects)
-            return <ChromaticChord>RootPatternChord.from(objects[0], objects[1]).chord;
+            return <ChromaticChord>RootPatternBuilder.create()
+            .setRoot(objects[0])
+            .setPattern(objects[1])
+            .build();
     }
 
     protected parsingInversion(): ChromaticChord {

@@ -1,13 +1,13 @@
 import { rotativeTrim } from '@datune/utils/MathUtils';
+import { fixAlts } from '../../degrees/DiatonicAltBuilder';
 import { Chromatic } from '../../degrees/Chromatic';
 import { Diatonic } from '../../degrees/Diatonic';
-import { DiatonicAlt } from '../../degrees/DiatonicAlt';
 import { IntervalDiatonic } from '../../intervals/IntervalDiatonic';
 import { IntervalDiatonicAlt } from '../../intervals/IntervalDiatonicAlt';
 import { Settings } from '../../settings/Settings';
 import { Scale } from '../Scale';
-import { DiatonicDegree } from './DiatonicDegree';
 import { DiatonicAltDegreeCache, HashingObjectType } from './DiatonicAltDegreeCache';
+import { DiatonicDegree } from './DiatonicDegree';
 
 const ScaleMajor = [0, 2, 4, 5, 7, 9, 11];
 export class DiatonicAltDegree {
@@ -32,7 +32,7 @@ export class DiatonicAltDegree {
     }
 
     static from(diatonicDegree: DiatonicDegree, alts: number): DiatonicAltDegree {
-        alts = (<any>DiatonicAlt).fixAlts(alts);
+        alts = fixAlts(alts);
         return this._cache.getOrCreate({ diatonicDegree: diatonicDegree, alts: alts });
     }
 

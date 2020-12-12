@@ -4,7 +4,7 @@ import { MusicalDuration } from "@datune/core/tempo/MusicalDuration";
 import { MidiNote, MidiNoteNode } from "./MidiNote";
 import { MidiPitch } from "../pitch/MidiPitch";
 import { MidiSequence } from "./MidiSequence";
-import { TemporalNode } from "@datune/analyzer/timelayer/TemporalNode";
+import { Node } from "@datune/analyzer/sequences/Node";
 initMidiPitches.default();
 init.musicalDurations.default();
 
@@ -18,7 +18,7 @@ test('from - cellSize=QUARTER', () => {
 test('add - ZERO [C5 QUARTER]', () => {
     let duration: MusicalDuration = MusicalDuration.QUARTER;
     let midiNote: MidiNote = MidiNote.from(MidiPitch.C5, duration);
-    let midiNoteNode: MidiNoteNode = TemporalNode.createFrom(MusicalDuration.ZERO, midiNote);
+    let midiNoteNode: MidiNoteNode = Node.createFrom(MusicalDuration.ZERO, midiNote);
 
     let midiSequence: MidiSequence = MidiSequence.create();
     midiSequence.addNode(midiNoteNode);
@@ -126,13 +126,13 @@ function generateSample(): MidiSequence {
 
     let duration: MusicalDuration = MusicalDuration.QUARTER;
     let midiNote: MidiNote = MidiNote.from(MidiPitch.C5, duration);
-    let midiEvent: MidiNoteNode = TemporalNode.createFrom(MusicalDuration.ZERO, midiNote);
+    let midiEvent: MidiNoteNode = Node.createFrom(MusicalDuration.ZERO, midiNote);
 
     let midiNote2: MidiNote = MidiNote.from(MidiPitch.E5, duration);
-    let midiEvent2: MidiNoteNode = TemporalNode.createFrom(MusicalDuration.ZERO, midiNote2);
+    let midiEvent2: MidiNoteNode = Node.createFrom(MusicalDuration.ZERO, midiNote2);
 
     let midiNote3: MidiNote = MidiNote.from(MidiPitch.G5, duration);
-    let midiEvent3: MidiNoteNode = TemporalNode.createFrom(MusicalDuration.ZERO, midiNote3);
+    let midiEvent3: MidiNoteNode = Node.createFrom(MusicalDuration.ZERO, midiNote3);
 
     midiSequence.addNode(midiEvent);
     midiSequence.addNode(midiEvent2);
@@ -146,13 +146,13 @@ function generateSampleArp(): MidiSequence {
 
     let duration: MusicalDuration = MusicalDuration.QUARTER;
     let midiNote: MidiNote = MidiNote.from(MidiPitch.C5, duration);
-    let midiEvent: MidiNoteNode = TemporalNode.createFrom(MusicalDuration.ZERO, midiNote);
+    let midiEvent: MidiNoteNode = Node.createFrom(MusicalDuration.ZERO, midiNote);
 
     let midiNote2: MidiNote = MidiNote.from(MidiPitch.E5, duration);
-    let midiEvent2: MidiNoteNode = TemporalNode.createFrom(MusicalDuration.QUARTER, midiNote2);
+    let midiEvent2: MidiNoteNode = Node.createFrom(MusicalDuration.QUARTER, midiNote2);
 
     let midiNote3: MidiNote = MidiNote.from(MidiPitch.G5, duration);
-    let midiEvent3: MidiNoteNode = TemporalNode.createFrom(MusicalDuration.HALF, midiNote3);
+    let midiEvent3: MidiNoteNode = Node.createFrom(MusicalDuration.HALF, midiNote3);
 
     midiSequence.addNode(midiEvent);
     midiSequence.addNode(midiEvent2);

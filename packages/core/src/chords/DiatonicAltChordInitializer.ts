@@ -1,10 +1,10 @@
-import { DiatonicAltChord } from '../chords/DiatonicAltChord';
-import { RootPatternChord } from '../chords/parametric/RootPatternChord';
 import { Immutables } from '@datune/utils/Immutables';
 import { PrecalcCache } from '@datune/utils/PrecalcCache';
+import { RootPatternBuilder } from '../chords/builders/RootPatternBuilder';
+import { DiatonicAltChord } from '../chords/DiatonicAltChord';
 import { DiatonicAlt } from "../degrees/DiatonicAlt";
+import { chromatics, diatonicAltPatterns, diatonicAlts } from '../initializer';
 import { DiatonicAltPattern } from '../patterns/DiatonicAltPattern';
-import { diatonicAlts, diatonicAltPatterns, chromatics } from '../initializer';
 
 function diatonicAlt2Str(diatonicAlt: DiatonicAlt): string {
     switch (diatonicAlt) {
@@ -94,7 +94,10 @@ export default () => {
 
             const name = diatonicAltStr + diatonicAltChordPatternStr;
 
-            DiatonicAltChord[name] = RootPatternChord.from(diatonicAlt, diatonicAltChordPattern).chord;
+            DiatonicAltChord[name] = RootPatternBuilder.create()
+                .setRoot(diatonicAlt)
+                .setPattern(diatonicAltChordPattern)
+                .build();
         }
     }
 

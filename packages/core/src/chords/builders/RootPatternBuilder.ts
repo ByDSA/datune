@@ -8,15 +8,20 @@ import { Chord } from '../Chord';
 import { ChromaticChord } from '../ChromaticChord';
 import { DiatonicAltChord } from '../DiatonicAltChord';
 
-export class RootPatternChord<D extends Degree, I> {
-    private constructor(private _degree: D, private _degreePattern: DegreePattern<D, I>) {
+export class RootPatternBuilder {
+    private _degree: Degree;
+    private _degreePattern: DegreePattern<Degree, any>;
+
+    private constructor() {
     }
 
-    static from<D extends Degree, I>(degree: D, pattern: DegreePattern<D, I>): RootPatternChord<D, I> {
-        return new RootPatternChord(degree, pattern);
+    static create(): RootPatternBuilder {
+        return new RootPatternBuilder();
     }
 
-    get chord(): Chord<Degree, any> {
+    build(): Chord<Degree, any> {
+        this._checkBuildingConsistence();
+
         if (this._degree instanceof Chromatic) {
             return this.getChromaticChord();
         } else if (this._degree instanceof DiatonicAlt) {
@@ -25,9 +30,14 @@ export class RootPatternChord<D extends Degree, I> {
             throw new Error();
     }
 
+    private _checkBuildingConsistence() {
+        if (!this._degree || !this._degreePattern)
+            throw new Error();
+    }
+
     private getChromaticChordNotes(): Chromatic[] {
         let notes: Chromatic[] = [];
-        for (let semis of <ChromaticPattern><any>this.pattern) {
+        for (let semis of <ChromaticPattern><any>this.getPattern()) {
             let chromaticShifted: Chromatic = (<Chromatic><any>this._degree).withShift(semis);
             notes.push(chromaticShifted);
         }
@@ -42,7 +52,7 @@ export class RootPatternChord<D extends Degree, I> {
 
     private getDiatonicAltChordNotes(): DiatonicAlt[] {
         let notes: DiatonicAlt[] = [];
-        for (let semis of <DiatonicAltPattern><any>this.pattern) {
+        for (let semis of <DiatonicAltPattern><any>this.getPattern()) {
             let diatonicAltShifted: DiatonicAlt = (<DiatonicAlt><any>this._degree).withAdd(semis);
             notes.push(diatonicAltShifted);
         }
@@ -57,20 +67,24 @@ export class RootPatternChord<D extends Degree, I> {
 
     /* Getters and setters */
 
-    get degree(): D {
+    getRoot(): Degree {
         return this._degree;
     }
 
-    set degree(degree: D) {
+    setRoot(degree: Degree): RootPatternBuilder {
         this._degree = degree;
+
+        return this;
     }
 
-    get pattern(): DegreePattern<D, I> {
+    getPattern(): DegreePattern<Degree, any> {
         return this._degreePattern;
     }
 
-    set pattern(pattern: DegreePattern<D, I>) {
+    setPattern(pattern: DegreePattern<Degree, any>) {
         this._degreePattern = pattern;
+
+        return this;
     }
 
     /* Object */
