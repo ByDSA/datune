@@ -1,6 +1,6 @@
-import { PrecalcCache } from '@datune/utils/PrecalcCache';
+import { SPN } from '@datune/core';
+import { PrecalcCache } from '@datune/utils';
 import { MidiPitch } from './MidiPitch';
-import { SPN } from '@datune/core/pitches/symbolic/SPN';
 
 export type HashingObject = { spn: SPN, detuned: number };
 export class MidiPitchCache extends PrecalcCache<MidiPitch, HashingObject>{

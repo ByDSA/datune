@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+	"strict": true,
     "baseUrl": "./src/",
     "outDir": "./",
     "sourceMap": true,
@@ -8,7 +9,7 @@
     "inlineSources": true,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "module": "esnext",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "importHelpers": true,
@@ -18,13 +19,8 @@
     ],
     "lib": [
       "es2018",
-      "dom",
-      "esnext.bigint" // hashids
+      "dom"
     ]
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
   },
   "include": [
     "src/**/*.ts",

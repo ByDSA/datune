@@ -1,66 +1,72 @@
-import { arrayRotateLeft, arrayRotateRight } from '@datune/utils/Utils';
+import { Arrays, NonEmptyArray } from '@datune/utils';
 
-export abstract class ScaleAbstract<I, D> {
-    protected _intraIntervals: I[];
-    protected _precalcDegrees: D[] = null;
-    protected _precalcModes: ScaleAbstract<I, D>[] = null;
+export abstract class ScaleAbstract<INTERVAL, DEGREE> {
+    protected _intraIntervals: NonEmptyArray<INTERVAL>;
+    protected _precalcDegrees: NonEmptyArray<DEGREE> | undefined;
+    protected _precalcModes: ScaleAbstract<INTERVAL, DEGREE>[] | undefined;
 
-    protected constructor(...intraIntervals: I[]) {
+    protected constructor(...intraIntervals: NonEmptyArray<INTERVAL>) {
         this._intraIntervals = intraIntervals;
         Object.freeze(this._intraIntervals);
     }
 
     // Modes
 
-    get modes(): ScaleAbstract<I, D>[] {
-        if (!this._precalcModes)
-            this.calculateModes();
+    get modes(): ScaleAbstract<INTERVAL, DEGREE>[] {
+        if (!this._precalcModes) {
+            this._precalcModes = this.calcModes();
+            Object.freeze(this._precalcModes);
+        }
 
         return this._precalcModes;
     }
 
-    private calculateModes(): void {
-        let scaleTmp: ScaleAbstract<I, D> = this;
-        this._precalcModes = [this];
+    private calcModes(): ScaleAbstract<INTERVAL, DEGREE>[] {
+        let scaleTmp: ScaleAbstract<INTERVAL, DEGREE> = this;
+        let ret: ScaleAbstract<INTERVAL, DEGREE>[] = [this];
         while (true) {
             scaleTmp = scaleTmp.getMode(2);
             if (scaleTmp == this)
                 break;
-            this._precalcModes.push(scaleTmp);
+            ret.push(scaleTmp);
         }
+
+        return ret;
     }
 
     abstract getMode(n: number): any;
 
-    protected getModeIntraIntervals(n: number): I[] {
-        let intervals: I[] = this.intraIntervals;
+    protected getModeIntraIntervals(n: number): NonEmptyArray<INTERVAL> {
+        let intervals: NonEmptyArray<INTERVAL> = this.intraIntervals;
         if (n > 0)
-            arrayRotateLeft(intervals, n - 1);
+            Arrays.rotateLeft(intervals, n - 1);
         else if (n < 0)
-            arrayRotateRight(intervals, -n - 1);
+            Arrays.rotateRight(intervals, -n - 1);
 
         return intervals;
     }
 
     // Absolute Intervals
 
-    get degrees(): D[] {
-        if (this._precalcDegrees == null)
-            this.calculateDegrees();
+    get degrees(): NonEmptyArray<DEGREE> {
+        if (!this._precalcDegrees) {
+            this._precalcDegrees = this.calcDegrees();
+            Object.freeze(this._precalcDegrees);
+        }
         return this._precalcDegrees;
     }
 
-    protected abstract calculateDegrees();
+    protected abstract calcDegrees(): NonEmptyArray<DEGREE>;
 
-    get intraIntervals(): I[] {
-        return Array.from(this._intraIntervals);
+    get intraIntervals(): NonEmptyArray<INTERVAL> {
+        return [...this._intraIntervals];
     }
 
     get length(): number {
         return this._intraIntervals.length;
     }
 
-    hasDegrees(...degrees: D[]): boolean {
+    hasDegrees(...degrees: NonEmptyArray<DEGREE>): boolean {
         for (let degree of degrees) {
             if (!this.degrees.includes(degree))
                 return false;
@@ -68,4 +74,7 @@ export abstract class ScaleAbstract<I, D> {
 
         return true;
     }
+
+    /** @interal */
+    abstract hashCode(): string;
 }

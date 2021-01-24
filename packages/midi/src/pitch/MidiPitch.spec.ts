@@ -1,13 +1,5 @@
-import { Language } from "@datune/core/lang/Language";
-import { SPN } from "@datune/core/pitches/symbolic/SPN";
-import { SymbolicPitch } from "@datune/core/pitches/symbolic/SymbolicPitch";
-import * as initMidiPitches from "./MidiPitchInitializer";
-import * as init from "@datune/core/initializer";
-import { Settings } from "@datune/core/settings/Settings";
-import { Tuning } from "@datune/core/tuning/Tuning";
+import { Language, Settings, SPN, Tuning } from "@datune/core";
 import { MidiPitch } from "./MidiPitch";
-initMidiPitches.default();
-init.settings.default();
 
 describe.each([
     [MidiPitch.C5, SPN.C4],
@@ -76,7 +68,7 @@ test('MidiPitch - fromFrequency - 440 = A5', () => {
 });
 
 test('fromFrequency - LIMIT_5_SYMMETRIC_N1_440 E5 = E5 + 2 cents', () => {
-    let symbolicPitch: SymbolicPitch = SPN.E5;
+    let symbolicPitch: SPN = SPN.E5;
     let freq: number = Tuning.LIMIT_5_SYMMETRIC_N1_440.getFrequency(symbolicPitch);
     let midiNote = MidiPitch.fromFrequency(freq);
     let expectedDetuned = 2;
@@ -86,7 +78,7 @@ test('fromFrequency - LIMIT_5_SYMMETRIC_N1_440 E5 = E5 + 2 cents', () => {
 });
 
 test('fromFrequency - LIMIT_5_SYMMETRIC_N1_440 FF5 = FF5 - 16 cents', () => {
-    let symbolicPitch: SymbolicPitch = SPN.FF5;
+    let symbolicPitch: SPN = SPN.FF5;
     let freq: number = Tuning.LIMIT_5_SYMMETRIC_N1_440.getFrequency(symbolicPitch);
     let midiNote = MidiPitch.fromFrequency(freq);
     let expectedCents = -16;

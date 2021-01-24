@@ -1,24 +1,31 @@
-import { TonalityFunctionBuilder } from '../../chords/builders/TonalityFunctionBuilder';
-import { DiatonicAltChord } from '../../chords/DiatonicAltChord';
-import { Tonality } from '../Tonality';
+import { Chord, ChordAlt } from '../../chords';
+import { TonalityAlt } from '../alt/TonalityAlt';
+import { Tonality } from '../chromatic/Tonality';
 
 export abstract class HarmonicFunction {
-    private static functionCache = new Map<string, DiatonicAltChord>();
+    private static functionCache = new Map<string, Chord>();
+    private static functionCacheAlt = new Map<string, ChordAlt>();
 
-    getChord(tonality: Tonality): DiatonicAltChord | null {
-        let builder: TonalityFunctionBuilder = TonalityFunctionBuilder.create()
-            .setTonality(tonality)
-            .setFunction(this);
-        let hashCode = builder.hashCode();
-        let diatonicAltChord = HarmonicFunction.functionCache.get(hashCode);
-        if (diatonicAltChord == undefined) {
-            diatonicAltChord = this.calculateChord(tonality);
-            HarmonicFunction.functionCache.set(hashCode, diatonicAltChord);
+    getChordAlt(tonalityAlt: TonalityAlt): ChordAlt {
+        let hashCode = tonalityAlt + " " + this.toString();
+        let chordAlt = HarmonicFunction.functionCacheAlt.get(hashCode);
+        if (chordAlt === undefined) {
+            chordAlt = this.calculateChordAlt(tonalityAlt);
+            HarmonicFunction.functionCacheAlt.set(hashCode, chordAlt);
         }
-        return diatonicAltChord;
+        return chordAlt;
     }
 
-    protected abstract calculateChord(tonality: Tonality): DiatonicAltChord | null;
+    getChord(tonality: Tonality): Chord {
+        let hashCode = tonality + " " + this.toString();
+        let chord = HarmonicFunction.functionCache.get(hashCode);
+        if (chord === undefined) {
+            chord = this.calculateChord(tonality);
+            HarmonicFunction.functionCache.set(hashCode, chord);
+        }
+        return chord;
+    }
 
-    abstract hashCode(): string;
+    protected abstract calculateChordAlt(tonality: TonalityAlt): ChordAlt;
+    protected abstract calculateChord(tonality: Tonality): Chord;
 }

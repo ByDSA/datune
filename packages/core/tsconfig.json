@@ -1,6 +1,7 @@
 {
-  "compileOnSave": false,
+  "compileOnSave": true,
   "compilerOptions": {
+    "strict": true,
     "baseUrl": "./src/",
     "outDir": "./",
     "sourceMap": true,
@@ -21,12 +22,8 @@
       "dom"
     ]
   },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
-  },
   "include": [
-    "src/**/*.ts", "tests/**/*.ts",
+    "src/**/*.ts",
   ],
   "files": [
     "src/index.ts"
@@ -34,7 +31,7 @@
   "exclude": [
     "dist",
     "node_modules",
-    "**/*.spec.ts"
+	"**/*.spec.ts"
   ],
   "filesGlob": [
     "src/**/*.ts"

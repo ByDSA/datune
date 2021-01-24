@@ -1,17 +1,10 @@
-import { ParserBottomUp } from "@datune/utils/parser/Parser";
-import * as init from "../../src/initializer";
-import { Diatonic } from "../../src/degrees/Diatonic";
-
-init.chromatics.default();
-init.diatonics.default();
-init.diatonicAlts.default();
-init.intervalDiatonicAlts.default();
-init.settings.default();
+import { ParserBottomUp } from "@datune/utils";
+import { Diatonic } from "../../src/pitches";
 
 test('CD - diatonic diatonic', () => {
     let str = "CD";
     let parser = new ParserBottomUp()
-        .add(Diatonic.name, function (str: string): Diatonic {
+        .add(Diatonic.name, function (str: string): Diatonic | null {
             return Diatonic.fromString(str);
         })
         .from(str)

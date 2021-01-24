@@ -1,14 +1,12 @@
-import { Chromatic } from "../degrees/Chromatic";
-import { Diatonic } from "../degrees/Diatonic";
-import { DiatonicAlt } from "../degrees/DiatonicAlt";
-import * as init from "../initializer";
+import { DiatonicAltArray } from "../chords/octave/alt/ChordAlt";
+import { ChromaticArray } from "../chords/octave/chromatic/ChromaticChord";
+import { Chromatic, Diatonic, DiatonicAlt } from "../pitches";
+import { DiatonicArray } from "../pitches/symbolic/octave/diatonic/Diatonic";
 import { VoicingGenerator } from "./VoicingGenerator";
-init.chromatics.default();
-init.diatonicAlts.default();
 
 test('CLOSED - C E G', () => {
-    let degrees = [Chromatic.C, Chromatic.E, Chromatic.G];
-    let actual = VoicingGenerator.CLOSED.make(degrees);
+    let degrees: ChromaticArray = [Chromatic.C, Chromatic.E, Chromatic.G];
+    let actual = VoicingGenerator.CLOSED.apply(...degrees);
 
     expect(actual.length).toEqual(3);
     expect(actual[0].degree).toEqual(Chromatic.C);
@@ -20,8 +18,8 @@ test('CLOSED - C E G', () => {
 });
 
 test('CLOSED - REPEAT DEGREE - C E G C', () => {
-    let degrees = [Chromatic.C, Chromatic.E, Chromatic.G, Chromatic.C];
-    let actual = VoicingGenerator.CLOSED.make(degrees);
+    let degrees: ChromaticArray = [Chromatic.C, Chromatic.E, Chromatic.G, Chromatic.C];
+    let actual = VoicingGenerator.CLOSED.apply(...degrees);
 
     expect(actual.length).toEqual(3);
     expect(actual[0].degree).toEqual(Chromatic.C);
@@ -33,8 +31,8 @@ test('CLOSED - REPEAT DEGREE - C E G C', () => {
 });
 
 test('CLOSED - C E G B', () => {
-    let degrees = [Chromatic.C, Chromatic.E, Chromatic.G, Chromatic.B];
-    let actual = VoicingGenerator.CLOSED.make(degrees);
+    let degrees: ChromaticArray = [Chromatic.C, Chromatic.E, Chromatic.G, Chromatic.B];
+    let actual = VoicingGenerator.CLOSED.apply(...degrees);
 
     expect(actual.length).toEqual(4);
     expect(actual[0].degree).toEqual(Chromatic.C);
@@ -48,8 +46,8 @@ test('CLOSED - C E G B', () => {
 });
 
 test('CLOSED - C E G B D', () => {
-    let degrees = [Chromatic.C, Chromatic.E, Chromatic.G, Chromatic.B, Chromatic.D];
-    let actual = VoicingGenerator.CLOSED.make(degrees);
+    let degrees: ChromaticArray = [Chromatic.C, Chromatic.E, Chromatic.G, Chromatic.B, Chromatic.D];
+    let actual = VoicingGenerator.CLOSED.apply(...degrees);
 
     expect(actual.length).toEqual(5);
     expect(actual[0].degree).toEqual(Chromatic.C);
@@ -65,8 +63,8 @@ test('CLOSED - C E G B D', () => {
 });
 
 test('CLOSED UNSORTED - REPEAT DEGREE - C G E C', () => {
-    let degrees = [Chromatic.C, Chromatic.G, Chromatic.E, Chromatic.C];
-    let actual = VoicingGenerator.CLOSED_UNSORTED.make(degrees);
+    let degrees: ChromaticArray = [Chromatic.C, Chromatic.G, Chromatic.E, Chromatic.C];
+    let actual = VoicingGenerator.CLOSED_UNSORTED.apply(...degrees);
 
     expect(actual.length).toEqual(3);
     expect(actual[0].degree).toEqual(Chromatic.C);
@@ -78,8 +76,8 @@ test('CLOSED UNSORTED - REPEAT DEGREE - C G E C', () => {
 });
 
 test('CLOSED UNSORTED - C E G B D', () => {
-    let degrees = [Chromatic.C, Chromatic.E, Chromatic.G, Chromatic.B, Chromatic.D];
-    let actual = VoicingGenerator.CLOSED_UNSORTED.make(degrees);
+    let degrees: ChromaticArray = [Chromatic.C, Chromatic.E, Chromatic.G, Chromatic.B, Chromatic.D];
+    let actual = VoicingGenerator.CLOSED_UNSORTED.apply(...degrees);
 
     expect(actual.length).toEqual(5);
     expect(actual[0].degree).toEqual(Chromatic.C);
@@ -95,8 +93,8 @@ test('CLOSED UNSORTED - C E G B D', () => {
 });
 
 test('CLOSED - DiatonicAlt: C Eb G Bb', () => {
-    let degrees = [DiatonicAlt.C, DiatonicAlt.Eb, DiatonicAlt.G, DiatonicAlt.Bb];
-    let actual = VoicingGenerator.CLOSED.make(degrees);
+    let degrees: DiatonicAltArray = [DiatonicAlt.C, DiatonicAlt.Eb, DiatonicAlt.G, DiatonicAlt.Bb];
+    let actual = VoicingGenerator.CLOSED.apply(...degrees);
 
     expect(actual.length).toEqual(4);
     expect(actual[0].degree).toEqual(DiatonicAlt.C);
@@ -110,8 +108,8 @@ test('CLOSED - DiatonicAlt: C Eb G Bb', () => {
 });
 
 test('CLOSED UNSORTED - Diatonic: C E G B D', () => {
-    let degrees = [Diatonic.C, Diatonic.E, Diatonic.G, Diatonic.B, Diatonic.D];
-    let actual = VoicingGenerator.CLOSED_UNSORTED.make(degrees);
+    let degrees: DiatonicArray = [Diatonic.C, Diatonic.E, Diatonic.G, Diatonic.B, Diatonic.D];
+    let actual = VoicingGenerator.CLOSED_UNSORTED.apply(...degrees);
 
     expect(actual.length).toEqual(5);
     expect(actual[0].degree).toEqual(Diatonic.C);

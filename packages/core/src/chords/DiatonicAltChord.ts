@@ -1,2 +1,0 @@
-export { DiatonicAltChordMainClass as DiatonicAltChord } from "./DiatonicAltChordMainClass";
-export { DiatonicAltChordString, fromString as getDiatonicAltChordFromString } from "./DiatonicAltChordString";

@@ -1,22 +1,22 @@
-import { Time } from '@datune/core/tempo/Time';
-import { Interval } from '@datune/utils/Interval';
+import { Time } from '@datune/core';
+import { Interval } from '@datune/utils';
 import { TemporalEvent } from '../events/TemporalEvent';
-import { Node } from './Node';
-import { Sequence } from './Sequence';
+import { TemporalNode } from './TemporalNode';
+import { Sequence } from './sequence/Sequence';
 
 export interface TimeLayer<E extends TemporalEvent<T>, T extends Time> extends TemporalEvent<T> {
-    addNode(node: Node<E, T>): void;
+    addNode(node: TemporalNode<E, T>): void;
     addSequenceAt(time: T, timeSequence: Sequence<E, T>): void;
     addSequenceAtEnd(timeSequence: Sequence<E, T>): void;
-    addEventAt(time: T, event: E): Node<E, T>;
-    addEventAtEnd(event: E): Node<E, T>;
-    moveNodeTo(node: Node<E, T>, time: T): Node<E, T>;
-    removeNode(node: Node<E, T>): Node<E, T> | undefined;
-    removeNodesAt(time: T): Node<E, T>[];
-    removeNodesAtInterval(intervalTime: Interval<T>): Node<E, T>[];
-    getNodesAtInterval(interval: Interval<T>): Node<E, T>[];
-    getNodesAt(time: T): Node<E, T>[];
+    addEventAt(time: T, event: E): TemporalNode<E, T>;
+    addEventAtEnd(event: E): TemporalNode<E, T>;
+    moveNodeTo(node: TemporalNode<E, T>, time: T): TemporalNode<E, T>;
+    removeNode(node: TemporalNode<E, T>): TemporalNode<E, T> | undefined;
+    removeNodesAt(time: T): TemporalNode<E, T>[];
+    removeNodesAtInterval(intervalTime: Interval<T>): TemporalNode<E, T>[];
+    getNodesAtInterval(interval: Interval<T>): TemporalNode<E, T>[];
+    getNodesAt(time: T): TemporalNode<E, T>[];
     clear(): void;
 
-    nodes: Node<E, T>[];
+    nodes: TemporalNode<E, T>[];
 }

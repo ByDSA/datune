@@ -1,27 +1,63 @@
-export * from './chords/ChromaticChord';
-export * from './chords/DiatonicAltChord';
-export * from './chords/builders/TonalityFunctionBuilder';
-export * from './chords/builders/RootPatternBuilder';
-export * from './degrees/Chromatic';
-export * from './degrees/Diatonic';
-export * from './degrees/DiatonicAlt';
-export * from './initializer';
-export * from './intervals/IntervalDiatonic';
-export * from './intervals/IntervalDiatonicAlt';
-export * from './lang/Language';
-export * from './lang/LanguageInterface';
-export * from './patterns/ChromaticPattern';
-export * from './patterns/DiatonicAltPattern';
-export * from './patterns/DiatonicPattern';
-export * from './scales/degrees/DiatonicAltDegree';
-export * from './scales/degrees/DiatonicDegree';
-export * from './scales/Scale';
-export * from './scales/ScaleDegreeComparator';
-export * from './scales/ScaleDegreeEnharmonicComparator';
-export * from './scales/ScalePitch';
-export * from './scales/SourceScaleUtils';
-export * from './settings/DefaultSettings';
-export * from './settings/Settings';
-export * from './settings/SettingsInterface';
-export * from './tonalities/Tonality';
+import { Chord, ChordAlt } from './chords';
+import { Language, Settings } from './config';
+import { Initializer } from './initializers';
+import { ChromaticInterval, IntervalDiatonic, IntervalDiatonicAlt, IntervalPitch, Quality } from './intervals';
+import { Chromatic, ConcertPitch, Diatonic, DiatonicAlt, SPN, SPNAlt } from './pitches';
+import { DegreeAlt, DiatonicDegree, Scale, ScaleAlt, ScaleDegreeAltComparator, ScaleDegreeComparator, ScalePitch } from './scales';
+import { SourceScale } from './scales/symbolic/alt/sourcescale/SourceScaleUtils';
+import { BPM, MusicalDuration, RhythmPattern, Time, TimeSignature } from './time';
+import { Func, Tonality, TonalityAlt } from './tonalities';
+import { Temperament, Tuning } from './tuning';
+import { ChromaticPattern, DiatonicAltPattern, DiatonicPattern } from './voicings';
+
+export {
+    Chord,
+    ChordAlt,
+
+    Diatonic,
+    Chromatic as Note,
+    DiatonicAlt as NoteAlt,
+
+    IntervalDiatonic,
+    ChromaticInterval as Interval,
+    IntervalDiatonicAlt as IntervalAlt,
+    Quality,
+    IntervalPitch,
+
+    ChromaticPattern as Pattern,
+    DiatonicAltPattern as PatternAlt,
+    DiatonicPattern,
+    DegreeAlt,
+    DiatonicDegree,
+
+    Scale,
+    ScaleAlt,
+    ScalePitch,
+
+    ScaleDegreeAltComparator,
+    ScaleDegreeComparator as ScaleDegreeEnharmonicComparator,
+    SourceScale,
+
+
+    TonalityAlt as KeyAlt,
+    Tonality as Key,
+    Func,
+
+    Time,
+    MusicalDuration,
+    RhythmPattern,
+    BPM,
+    TimeSignature,
+
+    Tuning,
+    ConcertPitch,
+    SPN,
+    SPNAlt,
+    Temperament,
+
+    Language,
+    Settings,
+
+    Initializer as Init
+};
 

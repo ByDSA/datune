@@ -12,5 +12,8 @@
 		{
 			"path": "./packages/utils"
 		}
-	]
+	],
+	"settings": {
+		"jest.runAllTestsFirst": false
+	}
 }

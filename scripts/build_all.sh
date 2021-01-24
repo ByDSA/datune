@@ -8,10 +8,10 @@ function build {
 	echo "Removing 'dist' folder..."
 	rm -rf dist
 	echo "Removing 'node_modules' folder..."
-	rm -rf node_modules
+	#rm -rf node_modules
 	rm -f package-lock.json
 	echo "Installing dependencies..."
-	npm i
+	#npm i
 	echo "Building..."
 	npm run build
 	echo "Fixing package.json..."
@@ -21,7 +21,7 @@ function build {
 	cd ..
 }
 cd ../packages
-build utils
+#build utils
 build core
-build analyzer
-build midi
+#build analyzer
+#build midi
