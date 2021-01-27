@@ -18,10 +18,12 @@
     "publish": "bash ../../scripts/publish.sh"
   },
   "dependencies": {
-    "hashids": "^2.2.1",
-    "mathjs": "^7.0.1"
+    "hashids": "^2.2.8",
+    "mathjs": "^9.1.0",
+    "ts-treemap": "^1.1.0"
   },
   "devDependencies": {
+    "@types/mathjs": "^6.0.11",
     "tslib": "^1.10.0",
     "jest-expect-message": "^1.0.2",
     "@types/jest-expect-message": "^1.0.3",

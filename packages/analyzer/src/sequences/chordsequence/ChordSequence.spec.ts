@@ -1,19 +1,17 @@
-
 import { Chord, MusicalDuration, Note, RhythmPattern, SPN } from "@datune/core";
-import { NoteEvent } from "../notessequence/NoteEvent";
 import { TonalApporach } from "../../approaches/tonal/TonalApproach";
 import { NotesSequence } from "../notessequence/NotesSequence";
 
 const testNoteTimeSequence = () => {
     const notesTimeSequence = new NotesSequence();
-    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.C4, MusicalDuration.QUARTER));
-    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.E4, MusicalDuration.QUARTER));
-    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.G4, MusicalDuration.QUARTER));
-    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.B4, MusicalDuration.QUARTER));
-    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.D5, MusicalDuration.QUARTER));
-    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.F5, MusicalDuration.QUARTER));
-    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.A5, MusicalDuration.QUARTER));
-    notesTimeSequence.addEventAtEnd(NoteEvent.from(SPN.C6, MusicalDuration.QUARTER));
+    notesTimeSequence.addEvent(SPN.C4, notesTimeSequence.duration, MusicalDuration.QUARTER);
+    notesTimeSequence.addEvent(SPN.E4, notesTimeSequence.duration, MusicalDuration.QUARTER);
+    notesTimeSequence.addEvent(SPN.G4, notesTimeSequence.duration, MusicalDuration.QUARTER);
+    notesTimeSequence.addEvent(SPN.B4, notesTimeSequence.duration, MusicalDuration.QUARTER);
+    notesTimeSequence.addEvent(SPN.D5, notesTimeSequence.duration, MusicalDuration.QUARTER);
+    notesTimeSequence.addEvent(SPN.F5, notesTimeSequence.duration, MusicalDuration.QUARTER);
+    notesTimeSequence.addEvent(SPN.A5, notesTimeSequence.duration, MusicalDuration.QUARTER);
+    notesTimeSequence.addEvent(SPN.C6, notesTimeSequence.duration, MusicalDuration.QUARTER);
 
     return notesTimeSequence;
 }
@@ -21,7 +19,7 @@ const testNoteTimeSequence = () => {
 it("Chord Analyser 4/4", () => {
     const notesTimeSequence = testNoteTimeSequence();
     const harmonicSequence = TonalApporach.create(RhythmPattern.QUARTER, MusicalDuration.QUARTER);
-    harmonicSequence.notesTimeSequence.addSequenceAtEnd(notesTimeSequence);
+    harmonicSequence.notesTimeSequence.addTimeLayer(notesTimeSequence);
     harmonicSequence.calculateChords();
 
     const nodes = harmonicSequence.chordSequence.nodes;
@@ -33,7 +31,7 @@ it("Chord Analyser 4/4", () => {
 it("Chord Analyser 3/4", () => {
     const notesTimeSequence = testNoteTimeSequence();
     const harmonicSequence = TonalApporach.create(RhythmPattern.THIRD, MusicalDuration.QUARTER);
-    harmonicSequence.notesTimeSequence.addSequenceAtEnd(notesTimeSequence);
+    harmonicSequence.notesTimeSequence.addTimeLayer(notesTimeSequence);
     harmonicSequence.calculateChords();
 
     const nodes = harmonicSequence.chordSequence.nodes;

@@ -1,10 +1,9 @@
-
-import { Time } from '../../../Time';
+import { ImmutableTime } from '@datune/utils';
 import { BPM } from '../bpm/BPM';
 import { HashingObject, MusicalDurationCache } from './MusicalDurationCache';
 import { MusicalDurationStaticNames } from './MusicalDurationStaticNames';
 
-export class MusicalDuration extends MusicalDurationStaticNames implements Time {
+export class MusicalDuration extends MusicalDurationStaticNames implements ImmutableTime {
     private static _cache = new MusicalDurationCache(
         (hashingObject: HashingObject) => new MusicalDuration(hashingObject)
     );

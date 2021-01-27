@@ -1,29 +1,29 @@
-import { Chord, MusicalDuration } from "@datune/core";
+import { Chord, MusicalDuration, SPN } from "@datune/core";
 import { ChromaticArray } from "@datune/core/chords";
-import { Interval } from "@datune/utils";
+import { Interval, TemporalNode } from "@datune/utils";
+import { NotesSequence } from "..";
 import { ChordEvent } from './chordsequence/ChordEvent';
-import { NoteEvent } from "./notessequence/NoteEvent";
 import { ChordSequence } from "./chordsequence/ChordSequence";
-import { TonalApporach } from "../approaches/tonal/TonalApproach";
-import { TemporalNode } from "./TemporalNode";
 
 export class ChordSequenceCalculator {
-    constructor(private harmonicSequence: TonalApporach, private chordSequence: ChordSequence) {
+    constructor(private notesTimeSequence: NotesSequence, private _rhythmSequence: RhythmSequence) {
     }
 
-    calculate() {
-        this.chordSequence.clear();
+    calculate(): ChordSequence {
+        let chordSequence = new ChordSequence();
         this._forEachPart(interval => {
-            const nodes = this.harmonicSequence.notesTimeSequence.getNodesAtInterval(interval);
+            const nodes = this.notesTimeSequence.getNodesAtInterval(interval);
             const nodesSorted = ChordSequenceCalculator._sortNodesByPitch(nodes);
-            const degrees = nodesSorted.map(node => node.event.pitch.degree);
+            const degrees = nodesSorted.map(node => node.event.degree);
             const degreesUnique = degrees;
             if (degreesUnique.length < 2)
                 return;
             const chord = Chord.fromNotes(...<ChromaticArray>degreesUnique);
             const chordNode = ChordEvent.from(chord, interval.to.withSub(interval.from));
-            this.chordSequence.addEventAt(interval.from, chordNode);
+            chordSequence.addEvent(chordNode, interval.from);
         });
+
+        return chordSequence;
     }
 
     private _getCeilDuration(duration: MusicalDuration, compas: MusicalDuration): MusicalDuration {
@@ -35,12 +35,11 @@ export class ChordSequenceCalculator {
     }
 
     private _forEachPart(f: (interval: Interval<MusicalDuration>) => void) {
-        const harmonicSequence = this.harmonicSequence;
-        const beat = harmonicSequence.beat;
-        const times = harmonicSequence.rhythmPattern.values.length;
+        const beat = this._rhythmSequence.beat;
+        const times = this._rhythmSequence.values.length;
         const compasDuration = beat.withMult(times);
         const intervalIni = Interval.fromInclusiveToExclusive(MusicalDuration.ZERO, compasDuration);
-        const ceilDuration = this._getCeilDuration(harmonicSequence.notesTimeSequence.duration, compasDuration);
+        const ceilDuration = this._getCeilDuration(this.notesTimeSequence.duration, compasDuration);
         for (let interval = intervalIni;
             interval.from.value < ceilDuration.value;
             interval = Interval.fromInclusiveToExclusive(interval.to, interval.to.withAdd(compasDuration))) {
@@ -49,10 +48,10 @@ export class ChordSequenceCalculator {
         }
     }
 
-    private static _sortNodesByPitch(nodes: TemporalNode<NoteEvent, MusicalDuration>[]): TemporalNode<NoteEvent, MusicalDuration>[] {
+    private static _sortNodesByPitch(nodes: TemporalNode<SPN, MusicalDuration>[]): TemporalNode<SPN, MusicalDuration>[] {
         return nodes.sort((a, b) => {
-            const valueA = a.event.pitch.valueOf();
-            const valueB = b.event.pitch.valueOf();
+            const valueA = a.event.valueOf();
+            const valueB = b.event.valueOf();
             if (valueA < valueB)
                 return -1;
             else if (valueA > valueB)

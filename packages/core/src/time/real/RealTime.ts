@@ -1,6 +1,6 @@
-import { Time } from '../Time';
+import { ImmutableTime } from '@datune/utils';
 
-export class RealTime implements Time {
+export class RealTime implements ImmutableTime {
     private constructor(private _millis: number) {
     }
 
@@ -16,11 +16,11 @@ export class RealTime implements Time {
         return RealTime.fromMillis(this.millis + time.millis);
     }
 
-    withSub(time: RealTime): Time {
+    withSub(time: RealTime): ImmutableTime {
         return RealTime.fromMillis(this.millis - time.millis);
     }
 
-    withMult(factor: number): Time {
+    withMult(factor: number): ImmutableTime {
         return RealTime.fromMillis(this.millis * factor);
     }
 

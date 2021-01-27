@@ -5,5 +5,4 @@ export { EuclideanRhythmCalculator } from "./symbolic/rythm/euclidean/EuclideanR
 export { RhythmPattern } from "./symbolic/rythm/pattern/RhythmPattern";
 export { TimeSignature } from "./symbolic/rythm/signature/TimeSignature";
 export { Tempo } from "./symbolic/tempo/Tempo";
-export { Time } from "./Time";
 

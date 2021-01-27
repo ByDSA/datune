@@ -5,7 +5,7 @@ import { ChromaticInterval, IntervalDiatonic, IntervalDiatonicAlt, IntervalPitch
 import { Chromatic, ConcertPitch, Diatonic, DiatonicAlt, SPN, SPNAlt } from './pitches';
 import { DegreeAlt, DiatonicDegree, Scale, ScaleAlt, ScaleDegreeAltComparator, ScaleDegreeComparator, ScalePitch } from './scales';
 import { SourceScale } from './scales/symbolic/alt/sourcescale/SourceScaleUtils';
-import { BPM, MusicalDuration, RhythmPattern, Time, TimeSignature } from './time';
+import { BPM, MusicalDuration, RhythmPattern, TimeSignature } from './time';
 import { Func, Tonality, TonalityAlt } from './tonalities';
 import { Temperament, Tuning } from './tuning';
 import { ChromaticPattern, DiatonicAltPattern, DiatonicPattern } from './voicings';
@@ -43,7 +43,6 @@ export {
     Tonality as Key,
     Func,
 
-    Time,
     MusicalDuration,
     RhythmPattern,
     BPM,

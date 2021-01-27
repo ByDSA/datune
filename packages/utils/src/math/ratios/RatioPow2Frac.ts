@@ -1,9 +1,9 @@
-import { fraction, sum } from 'mathjs';
+import { Fraction, fraction, sum } from 'mathjs';
 import { Ratio } from './Ratio';
 import { RatioNumber } from './RatioNumber';
 
 export class RatioPow2Frac extends Ratio {
-    protected fraction;
+    protected fraction: Fraction;
 
     get value(): number {
         return Math.pow(2, this.fraction.n / this.fraction.d);
@@ -11,7 +11,7 @@ export class RatioPow2Frac extends Ratio {
 
     private constructor(numerator: number, denominator: number) {
         super();
-        this.fraction = fraction(numerator, denominator);
+        this.fraction = <Fraction>fraction(numerator, denominator);
     }
 
     static from(numerator: number, denominator: number): RatioPow2Frac {

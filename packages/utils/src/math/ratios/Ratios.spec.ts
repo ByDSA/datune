@@ -1,5 +1,5 @@
 import { RatioFrac } from "./RatioFrac";
-import { fraction, multiply } from 'mathjs';
+import { Fraction, fraction, multiply } from 'mathjs';
 import { RatioPow2Frac } from "./RatioPow2Frac";
 
 test('from', async () => {
@@ -25,7 +25,7 @@ test('getMult', async () => {
 test('fraction - multiply', async () => {
     let a = fraction(3, 2);
     let b = fraction(3, 2);
-    let actual = multiply(a, b);
+    let actual = <Fraction>multiply(a, b);
 
     expect(actual).toEqual(fraction(9, 4));
     expect(actual.n).toEqual(9);

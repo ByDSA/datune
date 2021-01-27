@@ -1,9 +1,9 @@
-import { fraction, multiply } from 'mathjs';
+import { Fraction, fraction, multiply } from 'mathjs';
 import { Ratio } from './Ratio';
 import { RatioNumber } from './RatioNumber';
 
 export class RatioFrac extends Ratio {
-    protected fraction;
+    protected fraction: Fraction;
 
     get value(): number {
         return this.numerator / this.denominator;
@@ -11,7 +11,7 @@ export class RatioFrac extends Ratio {
 
     protected constructor(private numerator: number, private denominator: number) {
         super();
-        this.fraction = fraction(numerator, denominator);
+        this.fraction = <Fraction>fraction(numerator, denominator);
     }
 
     static from(numerator: number, denominator: number): RatioFrac {
@@ -20,7 +20,7 @@ export class RatioFrac extends Ratio {
 
     getMult(ratio: Ratio): Ratio {
         if (ratio instanceof RatioFrac) {
-            let fractionResult = multiply(this.fraction, ratio.fraction);
+            let fractionResult = <Fraction>multiply(this.fraction, ratio.fraction);
 
             return RatioFrac.from(fractionResult.n, fractionResult.d);
         }

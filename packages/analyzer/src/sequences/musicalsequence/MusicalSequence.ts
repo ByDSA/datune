@@ -1,15 +1,10 @@
 import { MusicalDuration } from '@datune/core';
-import { TemporalEvent } from '../../events/TemporalEvent';
-import { Sequence } from '../sequence/Sequence';
+import { LinearSequence } from '@datune/utils';
 
 export function getDefaultCellSize() { return MusicalDuration.WHOLE }
 
-export class MusicalSequence<E extends TemporalEvent<MusicalDuration>> extends Sequence<E, MusicalDuration> {
+export class MusicalSequence<E> extends LinearSequence<E, MusicalDuration> {
     constructor(cellSize: MusicalDuration = getDefaultCellSize()) {
-        super(cellSize);
-    }
-
-    get startTime(): MusicalDuration {
-        return MusicalDuration.ZERO;
+        super(MusicalDuration.ZERO, cellSize);
     }
 }

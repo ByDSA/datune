@@ -1,14 +1,13 @@
 import { Key, MusicalDuration, Note, SPN } from "@datune/core";
 import { Interval } from "@datune/utils";
-import { NoteEvent } from "./NoteEvent";
 import { NotesSequence } from "./NotesSequence";
 
 function generateCMajorTest() {
     let s = new NotesSequence();
     for (let n of Key.C.notes.map(n => Note.fromInt(n.valueOf()))) {
         let spn = <SPN>SPN.from(n, 4);
-        let note = NoteEvent.from(spn, MusicalDuration.QUARTER);
-        s.addEventAtEnd(note);
+        let node = s.addEvent(spn);
+        node.to = node.from.withAdd(MusicalDuration.QUARTER);
     }
 
     return s;
@@ -57,7 +56,7 @@ it("remove", () => {
 it("pick by node position", () => {
     const s = generateCMajorTest();
 
-    expect(s.nodes[4].event.pitch.degree).toBe(Note.G);
+    expect(s.nodes[4].event.degree).toBe(Note.G);
 })
 
 it(`a`, () => {
@@ -72,7 +71,7 @@ it("pick by interval", () => {
 
     const interval = Interval.fromInclusiveToExclusive(MusicalDuration.QUARTER, MusicalDuration.WHOLE);
     const nodes = s.getNodesAtInterval(interval);
-    const notes = nodes.map(node => node.event.pitch.degree);
+    const notes = nodes.map(node => node.event.degree);
 
     expect(notes).toEqual([
         Note.D,

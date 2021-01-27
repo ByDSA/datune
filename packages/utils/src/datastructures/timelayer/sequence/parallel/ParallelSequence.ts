@@ -1,26 +1,19 @@
-import { Time } from '@datune/core';
-import { Interval } from '@datune/utils';
 import TreeMap from 'ts-treemap';
-import { TemporalEvent } from '../../events/TemporalEvent';
-import { TemporalNode } from '../TemporalNode';
-import { TimeLayer } from '../TimeLayer';
+import { Interval } from '../../../../math/interval/Interval';
+import { ImmutableTime } from '../../../../time/ImmutableTime';
+import { AlreadyAddedError, TemporalNode } from '../../temporalnode/TemporalNode';
+import { SequenceAddListener, SequenceChangeListener, SequenceRemoveListener, TimeLayer } from '../../TimeLayer';
 
-export type SequenceChangeListener<E extends TemporalEvent<T>, T extends Time> = (oldNode: TemporalNode<E, T>, newNode: TemporalNode<E, T>) => void;
-export type SequenceAddListener<E extends TemporalEvent<T>, T extends Time> = (node: TemporalNode<E, T>) => void;
-export type SequenceRemoveListener<E extends TemporalEvent<T>, T extends Time> = (node: TemporalNode<E, T>) => void;
-
-export abstract class Sequence<E extends TemporalEvent<T>, T extends Time>
-    implements TimeLayer<E, T>, TemporalEvent<T> {
-
-    private cells: TreeMap<number, TemporalNode<E, T>[]>;
+export abstract class ParallelSequence<E, T extends ImmutableTime> implements TimeLayer<E, T> {
+    private _cells: TreeMap<number, TemporalNode<E, T>[]>;
     private _nodes: TemporalNode<E, T>[];
 
     private _onChangeListeners: SequenceChangeListener<E, T>[];
     private _onAddListeners: SequenceAddListener<E, T>[];
     private _onRemoveListeners: SequenceRemoveListener<E, T>[];
 
-    protected constructor(private _cellSize: T) {
-        this.cells = new TreeMap();
+    protected constructor(private _startTime: T, private _cellSize: T) {
+        this._cells = new TreeMap();
         this._nodes = [];
 
         this._onChangeListeners = [];
@@ -38,16 +31,16 @@ export abstract class Sequence<E extends TemporalEvent<T>, T extends Time>
     }
 
     private _getCellFromIndex(index: number): TemporalNode<E, T>[] {
-        let cell = this.cells.get(index);
+        let cell = this._cells.get(index);
         if (!cell) {
             cell = [];
-            this.cells.set(index, cell);
+            this._cells.set(index, cell);
         }
 
         return cell;
     }
 
-    addOnChangeListener(listener: SequenceChangeListener<E, T>) {
+    onChange(listener: SequenceChangeListener<E, T>) {
         this._onChangeListeners.push(listener);
     }
 
@@ -66,11 +59,11 @@ export abstract class Sequence<E extends TemporalEvent<T>, T extends Time>
             f(node);
     }
 
-    addOnAddListener(listener: SequenceAddListener<E, T>) {
+    onAdd(listener: SequenceAddListener<E, T>) {
         this._onAddListeners.push(listener);
     }
 
-    addOnRemoveListener(listener: SequenceRemoveListener<E, T>) {
+    onRemove(listener: SequenceRemoveListener<E, T>) {
         this._onRemoveListeners.push(listener);
     }
 
@@ -78,39 +71,57 @@ export abstract class Sequence<E extends TemporalEvent<T>, T extends Time>
         this._forEachCellsAtInterval(node.interval, cell => cell.push(node));
 
         this._nodes.push(node);
+        this._assignTimeLayerToNode(node);
 
         this._callOnAddListeners(node);
     }
 
-    addSequenceAt(time: T, timeSequence: Sequence<E, T>): void {
-        for (let eventSource of timeSequence.nodes) {
-            let event: TemporalNode<E, T> = <TemporalNode<E, T>>TemporalNode.createFrom(time.withAdd(eventSource.from), eventSource.event);
-            this.addNode(event);
+    private _assignTimeLayerToNode(node: TemporalNode<E, T>) {
+        if ((<any>node)._currentTimeLayer)
+            throw new AlreadyAddedError;
+        (<any>node)._currentTimeLayer = this;
+    }
+
+    private _unassignTimeLayerToNode(node: TemporalNode<E, T>) {
+        (<any>node)._currentTimeLayer = null;
+    }
+
+    addTimeLayer(timeSequence: ParallelSequence<E, T>, time: T = this.duration): void {
+        for (let nodeSource of timeSequence.nodes) {
+            let node: TemporalNode<E, T> = TemporalNode.builder<E, T>()
+                .from(<T>time.withAdd(nodeSource.from))
+                .to(<T>time.withAdd(nodeSource.to))
+                .event(nodeSource.event)
+                .create();
+
+            this.addNode(node);
         }
     }
 
-    addSequenceAtEnd(midiSequence: Sequence<E, T>): void {
-        this.addSequenceAt(this.duration, midiSequence)
-    }
+    addEvent(event: E, from: T = this.duration, to: T = this.duration): TemporalNode<E, T> {
+        let node = TemporalNode.builder<E, T>()
+            .from(from)
+            .to(to)
+            .event(event)
+            .create();
 
-    addEventAt(time: T, event: E): TemporalNode<E, T> {
-        let node = TemporalNode.createFrom(time, event);
         this.addNode(node);
 
         return node;
     }
 
-    addEventAtEnd(event: E): TemporalNode<E, T> {
-        const time = this.duration;
-        let node = TemporalNode.createFrom(time, event);
-        this.addNode(node);
-
-        return node;
-    }
-
-    moveNodeTo(node: TemporalNode<E, T>, time: T): TemporalNode<E, T> {
+    moveNodeBeginTo(node: TemporalNode<E, T>, time: T): TemporalNode<E, T> {
         this.removeNode(node);
-        const ret = this.addEventAt(time, node.event);
+        const to = node.to;
+        const ret = this.addEvent(node.event, time, to);
+
+        this._callOnChangeListeners(node, ret);
+        return ret;
+    }
+
+    moveNodeEndTo(node: TemporalNode<E, T>, time: T): TemporalNode<E, T> {
+        this.removeNode(node);
+        const ret = this.addEvent(node.event, node.from, time);
 
         this._callOnChangeListeners(node, ret);
         return ret;
@@ -166,9 +177,9 @@ export abstract class Sequence<E extends TemporalEvent<T>, T extends Time>
     }
 
     get duration(): T {
-        const lastEntry = this.cells.lastEntry();
+        const lastEntry = this._cells.lastEntry();
         if (!lastEntry)
-            return this.startTime;
+            return this._startTime;
 
         const lastCell: TemporalNode<E, T>[] = lastEntry[1];
         let max: T = lastCell[0].to;
@@ -179,8 +190,6 @@ export abstract class Sequence<E extends TemporalEvent<T>, T extends Time>
         }
         return max;
     }
-
-    abstract get startTime(): T;
 
     get nodes(): TemporalNode<E, T>[] {
         return this._nodes;
@@ -217,13 +226,15 @@ export abstract class Sequence<E extends TemporalEvent<T>, T extends Time>
         return removedNodes;
     }
 
-    removeNode(node: TemporalNode<E, T>): TemporalNode<E, T> | undefined {
+    removeNode(node: TemporalNode<E, T>): TemporalNode<E, T> | null {
         const index = this._nodes.indexOf(node);
         if (index == -1)
-            return undefined;
+            return null;
 
         this._forEachCellsAtInterval(node.interval, cell => this._removeNodeFromCell(node, cell));
         this._nodes.splice(index, 1);
+
+        this._unassignTimeLayerToNode(node);
 
         this._callOnRemoveListeners(node);
 
@@ -231,8 +242,11 @@ export abstract class Sequence<E extends TemporalEvent<T>, T extends Time>
     }
 
     clear() {
-        this.cells = new TreeMap();
+        const oldNodes = this._nodes;
         this._nodes = [];
+        this._cells = new TreeMap();
+        for (const oldNode of oldNodes)
+            this._callOnRemoveListeners(oldNode);
     }
 
     private _removeNodeFromCell(node: TemporalNode<E, T>, cell: TemporalNode<E, T>[]) {
