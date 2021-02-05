@@ -15,12 +15,14 @@
     "test": "bash ../../scripts/test.sh",
     "build": "bash ../../scripts/build.sh",
     "clean": "bash ../../scripts/clean.sh",
-    "publish": "bash ../../scripts/publish.sh"
+    "publish": "bash ../../scripts/publish.sh",
+    "gen": "cd tests/gen && echo Transpiling... && tsc && echo Executing... && node gen.js && echo Done! && npm run genclean",
+    "genclean": "cd tests/gen && find . -type f -name '*.d.ts' -delete && find . -type f -name '*.js' -delete && find . -type f -name '*.js.map' -delete"
   },
   "dependencies": {
-    "@datune/analyzer": "file:../analyzer/dist",
-    "@datune/core": "file:../core/dist",
     "@datune/utils": "file:../utils/dist",
+    "@datune/core": "file:../core/dist",
+    "@datune/analyzer": "file:../analyzer/dist",
     "@tonejs/midi": "^2.0.25",
     "node-fetch": "^2.6.1"
   },

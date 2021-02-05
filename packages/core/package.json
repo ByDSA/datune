@@ -1,7 +1,7 @@
 {
   "name": "@datune/core",
   "version": "0.0.1",
-  "description": "Datune - the core",
+  "description": "Datune - core",
   "author": "Daniel Sales Álvarez <danisales.es@gmail.com>",
   "license": "UNLICENSED",
   "private": true,

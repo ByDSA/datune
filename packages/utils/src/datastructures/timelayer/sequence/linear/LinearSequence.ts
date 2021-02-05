@@ -9,6 +9,8 @@ export class LinearSequence<E, T extends ImmutableTime> extends ParallelSequence
 
     addNode(node: TemporalNode<E, T>): void {
         this._fixOverlappingNodes(node);
+
+        super.addNode(node);
     }
 
     private _fixOverlappingNodes(node: TemporalNode<E, T>) {
@@ -30,7 +32,7 @@ export class LinearSequence<E, T extends ImmutableTime> extends ParallelSequence
         }
     }
 
-    getNodeAt(time: T): TemporalNode<E, T> {
+    getNodeAt(time: T): TemporalNode<E, T> | null {
         return super.getNodesAt(time)[0];
     }
 }

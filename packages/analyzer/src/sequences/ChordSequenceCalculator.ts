@@ -2,8 +2,8 @@ import { Chord, MusicalDuration, SPN } from "@datune/core";
 import { ChromaticArray } from "@datune/core/chords";
 import { Interval, TemporalNode } from "@datune/utils";
 import { NotesSequence } from "..";
-import { ChordEvent } from './chordsequence/ChordEvent';
 import { ChordSequence } from "./chordsequence/ChordSequence";
+import { RhythmSequence } from "./rhythmsequence/RhythmSequence";
 
 export class ChordSequenceCalculator {
     constructor(private notesTimeSequence: NotesSequence, private _rhythmSequence: RhythmSequence) {
@@ -19,8 +19,7 @@ export class ChordSequenceCalculator {
             if (degreesUnique.length < 2)
                 return;
             const chord = Chord.fromNotes(...<ChromaticArray>degreesUnique);
-            const chordNode = ChordEvent.from(chord, interval.to.withSub(interval.from));
-            chordSequence.addEvent(chordNode, interval.from);
+            chordSequence.addEvent(chord, interval.from, interval.to);
         });
 
         return chordSequence;
@@ -35,9 +34,11 @@ export class ChordSequenceCalculator {
     }
 
     private _forEachPart(f: (interval: Interval<MusicalDuration>) => void) {
-        const beat = this._rhythmSequence.beat;
-        const times = this._rhythmSequence.values.length;
-        const compasDuration = beat.withMult(times);
+        const timeSignatureAtBegin = this._rhythmSequence.getNodeAt(MusicalDuration.ZERO);
+        if (!timeSignatureAtBegin)
+            throw new Error("RhythmSequence has no time signature at begin.");
+
+        const compasDuration = timeSignatureAtBegin.event.denominatorBeat.withMult(timeSignatureAtBegin.event.numerator);
         const intervalIni = Interval.fromInclusiveToExclusive(MusicalDuration.ZERO, compasDuration);
         const ceilDuration = this._getCeilDuration(this.notesTimeSequence.duration, compasDuration);
         for (let interval = intervalIni;

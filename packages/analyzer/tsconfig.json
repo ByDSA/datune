@@ -1,5 +1,5 @@
 {
-  "compileOnSave": false,
+  "compileOnSave": true,
   "compilerOptions": {
     "strict": true,
     "baseUrl": "./src/",
@@ -14,7 +14,6 @@
     "esModuleInterop": true,
     "importHelpers": true,
     "target": "es2015",
-    "strictNullChecks": true,
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -22,10 +21,6 @@
       "es2018",
       "dom"
     ]
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
   },
   "include": [
     "src/**/*.ts",

@@ -19,10 +19,18 @@ function nodeCreator(from: SimpleTime, to: SimpleTime, ev: EventTest): TemporalN
         .create();
 }
 
-it(`initial state`, () => {
+it(`initial state - nodes`, () => {
     const expected = 0;
     const seq = new ParalelSequenceTest();
     const actual = seq.nodes.length;
+
+    expect(actual).toStrictEqual(expected);
+});
+
+it(`initial state - duration`, () => {
+    const expected = new SimpleTime(0);
+    const seq = new ParalelSequenceTest();
+    const actual = seq.duration;
 
     expect(actual).toStrictEqual(expected);
 });
@@ -45,6 +53,16 @@ it(`add event - length nodes`, () => {
     const actual = seq.nodes.length;
 
     expect(actual).toBe(expected);
+});
+
+it(`add event - duration`, () => {
+    const expected = new SimpleTime(2);
+    const seq = new ParalelSequenceTest();
+    seq.addEvent(new EventTest(), new SimpleTime(0), new SimpleTime(1));
+    seq.addEvent(new EventTest(), seq.duration, seq.duration.withAdd(new SimpleTime(1)));
+    const actual = seq.duration;
+
+    expect(actual).toStrictEqual(expected);
 });
 
 

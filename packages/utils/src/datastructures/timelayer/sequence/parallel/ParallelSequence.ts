@@ -146,7 +146,6 @@ export abstract class ParallelSequence<E, T extends ImmutableTime> implements Ti
         let iniCell: number = this._getCellIndexFromTime(interval.from);
         let endCell: number = this._getCellIndexFromTime(interval.to);
 
-        let ret: TemporalNode<E, T>[] = [];
         for (let i: number = iniCell; i <= endCell; i++) {
             let cell: TemporalNode<E, T>[] = this._getCellFromIndex(i);
 
@@ -169,7 +168,7 @@ export abstract class ParallelSequence<E, T extends ImmutableTime> implements Ti
 
         let cell: TemporalNode<E, T>[] = this._getCellFromTime(time);
         for (let musicalEvent of cell) {
-            if (time >= musicalEvent.from && time <= musicalEvent.to)
+            if (time >= musicalEvent.from && time < musicalEvent.to)
                 ret.push(musicalEvent);
         }
 
@@ -177,7 +176,7 @@ export abstract class ParallelSequence<E, T extends ImmutableTime> implements Ti
     }
 
     get duration(): T {
-        const lastEntry = this._cells.lastEntry();
+        const lastEntry = this._lastEntryWithNodes();
         if (!lastEntry)
             return this._startTime;
 
@@ -189,6 +188,18 @@ export abstract class ParallelSequence<E, T extends ImmutableTime> implements Ti
                 max = c.to;
         }
         return max;
+    }
+
+    private _lastEntryWithNodes(): [number, TemporalNode<E, T>[]] | undefined {
+        do {
+            let lastEntry = this._cells.lastEntry();
+            if (!lastEntry)
+                return undefined;
+            if (lastEntry[1].length == 0)
+                this._cells.popEntry();
+            else
+                return lastEntry;
+        } while (true);
     }
 
     get nodes(): TemporalNode<E, T>[] {

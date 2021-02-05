@@ -1,5 +1,5 @@
-import { TemporalNode } from "@datune/analyzer";
 import { MusicalDuration } from "@datune/core";
+import { TemporalNode } from "@datune/utils";
 import { MidiPitch } from "../pitch/MidiPitch";
 import { MidiNote, MidiNoteNode } from "./MidiNote";
 import { MidiSequence } from "./MidiSequence";

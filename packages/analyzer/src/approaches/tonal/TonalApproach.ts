@@ -1,43 +1,76 @@
-import { MusicalDuration, RhythmPattern } from '@datune/core';
+import { MusicalDuration, TimeSignature } from '@datune/core';
 import { ChordSequence } from '../../sequences/chordsequence/ChordSequence';
+import { ChordSequenceCalculator } from '../../sequences/ChordSequenceCalculator';
+import { FuncSequence } from '../../sequences/functionssequence/FuncSequence';
+import { KeySequence } from '../../sequences/keysequence/KeySequence';
+import { MainFuncSequence } from '../../sequences/mainfuncseq/MainFuncSequence';
 import { NotesSequence } from '../../sequences/notessequence/NotesSequence';
+import { RhythmSequence } from '../../sequences/rhythmsequence/RhythmSequence';
 
-export class TonalApporach {
-    private _rhythmPattern: RhythmPattern;
-    private _beat: MusicalDuration;
-    private _notesTimeSequence: NotesSequence;
+export class TonalApproach {
+    private _keySequence: KeySequence;
+    private _keyChordSequence: KeySequence;
+    private _mainFuncSequence: MainFuncSequence;
+    private _funcSequence: FuncSequence;
+    private _rhythmSequence: RhythmSequence;
+    private _notesSequence: NotesSequence;
     private _chordSequence: ChordSequence;
+    private _maxDuration: MusicalDuration;
 
-    private constructor(rhythmPattern: RhythmPattern, beat: MusicalDuration) {
-        this._notesTimeSequence = new NotesSequence();
+    private constructor(initialTiemSignature: TimeSignature) {
+        this._maxDuration = MusicalDuration.ZERO;
+        this._mainFuncSequence = new MainFuncSequence();
+        this._funcSequence = new FuncSequence();
+        this._keyChordSequence = new KeySequence();
+        this._keySequence = new KeySequence();
+        this._notesSequence = new NotesSequence();
         this._chordSequence = new ChordSequence();
-        this._rhythmPattern = rhythmPattern;
-        this._beat = beat;
+        this._rhythmSequence = new RhythmSequence();
+        this._rhythmSequence.addEvent(initialTiemSignature, MusicalDuration.ZERO, MusicalDuration.WHOLE);
     }
 
     calculateChords() {
-        this._chordSequence.calculateFrom(this);
+        let chordSequenceCalculator = new ChordSequenceCalculator(this._notesSequence, this._rhythmSequence);
+        this._chordSequence = chordSequenceCalculator.calculate();
     }
 
-    static create(rhythmPattern: RhythmPattern, beat: MusicalDuration): TonalApporach {
-        let rhythmSequence = new TonalApporach(rhythmPattern, beat);
-
-        return rhythmSequence;
+    static create(initialTiemSignature: TimeSignature): TonalApproach {
+        return new TonalApproach(initialTiemSignature);
     }
 
-    get notesTimeSequence(): NotesSequence {
-        return this._notesTimeSequence;
+    set maxDuration(d: MusicalDuration) {
+        this._maxDuration = d;
+    }
+
+    get maxDuration(): MusicalDuration {
+        return this._maxDuration;
+    }
+
+    get notesSequence(): NotesSequence {
+        return this._notesSequence;
     }
 
     get chordSequence(): ChordSequence {
         return this._chordSequence;
     }
 
-    get beat(): MusicalDuration {
-        return this._beat
+    get keySequence(): KeySequence {
+        return this._keySequence;
     }
 
-    get rhythmPattern(): RhythmPattern {
-        return this._rhythmPattern;
+    get keyChordSequence(): KeySequence {
+        return this._keyChordSequence;
+    }
+
+    get funcSequence(): FuncSequence {
+        return this._funcSequence;
+    }
+
+    get mainFuncSequence(): MainFuncSequence {
+        return this._mainFuncSequence;
+    }
+
+    get rhythmSequence(): RhythmSequence {
+        return this._rhythmSequence;
     }
 }

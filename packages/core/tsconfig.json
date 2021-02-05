@@ -36,6 +36,10 @@
   "filesGlob": [
     "src/**/*.ts"
   ],
-  "types": [ "node" ],
-  "typeRoots": [ "../node_modules/@types" ]
+  "types": [
+    "node"
+  ],
+  "typeRoots": [
+    "../node_modules/@types"
+  ]
 }

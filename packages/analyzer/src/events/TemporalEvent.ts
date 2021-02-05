@@ -1,5 +1,5 @@
-import { Time } from '@datune/core';
+import { ImmutableTime } from "@datune/utils";
 
-export interface TemporalEvent<T extends Time> {
+export interface TemporalEvent<T extends ImmutableTime> {
     duration: T;
 }

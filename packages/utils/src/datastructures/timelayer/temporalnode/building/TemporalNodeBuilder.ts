@@ -25,7 +25,7 @@ export class TemporalNodeBuilder<E, T extends ImmutableTime> {
     }
 
     create(): TemporalNode<E, T> {
-        if (!this._event)
+        if (this._event === null || this.event === undefined)
             throw new Error("Event not defined.");
         if (!this._from)
             throw new Error("'From' time not defined.");

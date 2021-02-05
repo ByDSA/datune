@@ -1,11 +1,10 @@
 import { MusicalDuration } from '@datune/core';
-import { TemporalNode } from '@datune/analyzer/sequences/Node';
-import { Sequence } from "@datune/analyzer/sequences/Sequence";
+import { ParallelSequence, TemporalNode } from '@datune/utils';
 import { MidiNote } from './node/MidiNote';
 
-export class MidiSequence extends Sequence<MidiNote, MusicalDuration> {
+export class MidiSequence extends ParallelSequence<MidiNote, MusicalDuration> {
     protected constructor(cellSize: MusicalDuration) {
-        super(cellSize);
+        super(MusicalDuration.ZERO, cellSize);
     }
 
     static create(): MidiSequence {

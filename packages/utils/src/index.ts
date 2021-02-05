@@ -11,8 +11,8 @@ export * from "./misc/Utils";
 export { ImmutableTime } from "./time/ImmutableTime";
 export { SimpleTime } from "./time/SimpleTime";
 export { PrecalcCache, SetComparator, Immutables, Interval };
+export { random } from "./random/random";
 import { PrecalcCache } from "./caching/PrecalcCache";
 import { SetComparator } from "./datastructures/sets/setcomparator/SetComparator";
 import { Immutables } from "./immutables/Immutables";
 import { Interval } from "./math/interval/Interval";
-
