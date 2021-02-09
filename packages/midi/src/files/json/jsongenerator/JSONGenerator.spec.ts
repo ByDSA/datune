@@ -13,7 +13,7 @@ it(`tempo`, () => {
             bpm: 80
         }
     ];
-    const midiFile = new MidiFile()
+    const midiFile = MidiFile.create()
         .addBPM(BPM.QUARTER_120)
         .addBPM(BPM.from(80, MusicalDuration.EIGHTH), MusicalDuration.WHOLE);
     const jsonGenerator = new JSONGenerator(midiFile)

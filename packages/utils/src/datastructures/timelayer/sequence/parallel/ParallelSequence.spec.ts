@@ -1,4 +1,5 @@
 import { SimpleTime } from "../../../../time/SimpleTime";
+import { TemporalNodeBuilder } from "../../temporalnode/building/TemporalNodeBuilder";
 import { AlreadyAddedError, TemporalNode } from "../../temporalnode/TemporalNode";
 import { ParallelSequence } from "./ParallelSequence";
 
@@ -12,7 +13,7 @@ class ParalelSequenceTest extends ParallelSequence<EventTest, SimpleTime> {
 }
 
 function nodeCreator(from: SimpleTime, to: SimpleTime, ev: EventTest): TemporalNode<EventTest, SimpleTime> {
-    return TemporalNode.builder<EventTest, SimpleTime>()
+    return new TemporalNodeBuilder<EventTest, SimpleTime>()
         .from(from)
         .to(to)
         .event(ev)
@@ -69,7 +70,7 @@ it(`add event - duration`, () => {
 it(`add node - node info`, () => {
     const seq = new ParalelSequenceTest();
     const ev = new EventTest();
-    const node = TemporalNode.builder<EventTest, SimpleTime>()
+    const node = new TemporalNodeBuilder<EventTest, SimpleTime>()
         .from(new SimpleTime(5))
         .to(new SimpleTime(10))
         .event(ev)
@@ -85,7 +86,7 @@ it(`add node - length nodes`, () => {
     const expected = 1;
     const seq = new ParalelSequenceTest();
     const ev = new EventTest();
-    const node = TemporalNode.builder<EventTest, SimpleTime>()
+    const node = new TemporalNodeBuilder<EventTest, SimpleTime>()
         .from(new SimpleTime(5))
         .to(new SimpleTime(10))
         .event(ev)
@@ -136,7 +137,7 @@ it(`node.timeLayer - node added at sequence`, () => {
 });
 
 it(`node.timeLayer - node not added yet`, () => {
-    const node = TemporalNode.builder()
+    const node = new TemporalNodeBuilder()
         .event(new EventTest())
         .from(new SimpleTime(0))
         .to(new SimpleTime(3))

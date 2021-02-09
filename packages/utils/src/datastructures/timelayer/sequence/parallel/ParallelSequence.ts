@@ -1,6 +1,7 @@
 import TreeMap from 'ts-treemap';
 import { Interval } from '../../../../math/interval/Interval';
 import { ImmutableTime } from '../../../../time/ImmutableTime';
+import { TemporalNodeBuilder } from '../../temporalnode/building/TemporalNodeBuilder';
 import { AlreadyAddedError, TemporalNode } from '../../temporalnode/TemporalNode';
 import { SequenceAddListener, SequenceChangeListener, SequenceRemoveListener, TimeLayer } from '../../TimeLayer';
 
@@ -88,7 +89,7 @@ export abstract class ParallelSequence<E, T extends ImmutableTime> implements Ti
 
     addTimeLayer(timeSequence: ParallelSequence<E, T>, time: T = this.duration): void {
         for (let nodeSource of timeSequence.nodes) {
-            let node: TemporalNode<E, T> = TemporalNode.builder<E, T>()
+            let node: TemporalNode<E, T> = new TemporalNodeBuilder<E, T>()
                 .from(<T>time.withAdd(nodeSource.from))
                 .to(<T>time.withAdd(nodeSource.to))
                 .event(nodeSource.event)
@@ -99,7 +100,7 @@ export abstract class ParallelSequence<E, T extends ImmutableTime> implements Ti
     }
 
     addEvent(event: E, from: T = this.duration, to: T = this.duration): TemporalNode<E, T> {
-        let node = TemporalNode.builder<E, T>()
+        let node = new TemporalNodeBuilder<E, T>()
             .from(from)
             .to(to)
             .event(event)

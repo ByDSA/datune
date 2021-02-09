@@ -3,7 +3,7 @@ import { Midi } from "@tonejs/midi";
 import * as fs from "fs";
 import { JSONGenerator } from "../json/jsongenerator/JSONGenerator";
 import { Track } from "../track/Track";
-import { MidiAdapter } from "./builders/MidiAdapter";
+import { MidiAdapter } from "./building/MidiAdapter";
 
 export class MidiFile {
     bpmEvents: { time: MusicalDuration, bpm: BPM }[];

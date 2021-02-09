@@ -1,4 +1,4 @@
-import { BPM } from "../BPM/BPM";
+import { BPM } from "../bpm/BPM";
 import { MusicalDuration } from "./MusicalDuration";
 
 test('precalc - QUARTER', () => {

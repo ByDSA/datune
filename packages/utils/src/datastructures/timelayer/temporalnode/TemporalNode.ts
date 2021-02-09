@@ -7,12 +7,8 @@ export class TemporalNode<E, T extends ImmutableTime> {
     private _interval: Interval<T> | undefined;
     private _currentTimeLayer: TimeLayer<E, T> | null;
 
-    private constructor(private _from: T, private _to: T, private _event: E) {
+    protected constructor(private _from: T, private _to: T, private _event: E) {
         this._currentTimeLayer = null;
-    }
-
-    static builder<E, T extends ImmutableTime>(): TemporalNodeBuilder<E, T> {
-        return new TemporalNodeBuilder<E, T>();
     }
 
     private static _create<E, T extends ImmutableTime>(e: E, f: T, t: T): TemporalNode<E, T> {
@@ -66,7 +62,7 @@ export class TemporalNode<E, T extends ImmutableTime> {
     }
 
     duplicate(): TemporalNode<E, T> {
-        return TemporalNode.builder<E, T>()
+        return new TemporalNodeBuilder<E, T>()
             .from(this.from)
             .to(this.to)
             .event(this.event)

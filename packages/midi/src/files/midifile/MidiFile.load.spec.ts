@@ -1,8 +1,8 @@
 import { MusicalDuration } from '@datune/core';
 import * as fs from "fs";
 import { MidiPitch } from '../../pitch/MidiPitch';
-import { MidiNote } from '../../sequence/node/MidiNote';
-import { Instrument } from '../Instrument';
+import { MidiNote } from '../../sequence/note/MidiNote';
+import { Instrument } from '../instrument/Instrument';
 import { MidiFile } from "./MidiFile";
 const LOAD_SAMPLE = "./tests/sample.mid";
 
@@ -46,56 +46,56 @@ it(`load notes info`, () => {
     .pitch(MidiPitch.C5)
     .velocity(100)
     .duration(MusicalDuration.QUARTER.dotted)
-    .time(MusicalDuration.ZERO)
+    .from(MusicalDuration.ZERO)
     .create()
   );
   expect(notes[1]).toStrictEqual(MidiNote.builder()
     .pitch(MidiPitch.D5)
     .velocity(100)
     .duration(MusicalDuration.EIGHTH)
-    .time(MusicalDuration.QUARTER.dotted)
+    .from(MusicalDuration.QUARTER.dotted)
     .create()
   );
   expect(notes[2]).toStrictEqual(MidiNote.builder()
     .pitch(MidiPitch.E5)
     .velocity(127)
     .duration(MusicalDuration.QUARTER.withSub(MusicalDuration.SIXTEENTH))
-    .time(MusicalDuration.QUARTER.withMult(2))
+    .from(MusicalDuration.QUARTER.withMult(2))
     .create()
   );
   expect(notes[3]).toStrictEqual(MidiNote.builder()
     .pitch(MidiPitch.F5)
     .velocity(100)
     .duration(MusicalDuration.QUARTER)
-    .time(MusicalDuration.SIXTEENTH.withMult(11))
+    .from(MusicalDuration.SIXTEENTH.withMult(11))
     .create()
   );
   expect(notes[4]).toStrictEqual(MidiNote.builder()
     .pitch(MidiPitch.G5)
     .velocity(100)
     .duration(MusicalDuration.QUARTER.withAdd(MusicalDuration.SIXTEENTH))
-    .time(MusicalDuration.WHOLE.withSub(MusicalDuration.SIXTEENTH))
+    .from(MusicalDuration.WHOLE.withSub(MusicalDuration.SIXTEENTH))
     .create()
   );
   expect(notes[5]).toStrictEqual(MidiNote.builder()
     .pitch(MidiPitch.A5)
     .velocity(100)
     .duration(MusicalDuration.SIXTEENTH)
-    .time(MusicalDuration.QUARTER.withMult(5))
+    .from(MusicalDuration.QUARTER.withMult(5))
     .create()
   );
   expect(notes[6]).toStrictEqual(MidiNote.builder()
     .pitch(MidiPitch.B5)
     .velocity(100)
     .duration(MusicalDuration.QUARTER)
-    .time(MusicalDuration.QUARTER.withMult(5).withAdd(MusicalDuration.SIXTEENTH))
+    .from(MusicalDuration.QUARTER.withMult(5).withAdd(MusicalDuration.SIXTEENTH))
     .create()
   );
   expect(notes[7]).toStrictEqual(MidiNote.builder()
     .pitch(MidiPitch.C6)
     .velocity(127)
     .duration(MusicalDuration.SIXTEENTH.withMult(7))
-    .time(MusicalDuration.QUARTER.withMult(6).withAdd(MusicalDuration.SIXTEENTH))
+    .from(MusicalDuration.QUARTER.withMult(6).withAdd(MusicalDuration.SIXTEENTH))
     .create()
   );
 });

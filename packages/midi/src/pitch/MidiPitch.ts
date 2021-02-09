@@ -95,6 +95,10 @@ export class MidiPitch extends RealPitch {
         return this._precalcFrequencyWithoutDetuned * Math.pow(2, this.cents / 1200);
     }
 
+    valueOf(): number {
+        return this.frequency;
+    }
+
     toString(): string {
         return this.spn.degree.toString() + this.octave + this._getCentsTxt();
     }

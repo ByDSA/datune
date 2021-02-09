@@ -66,7 +66,7 @@ export class JSONGenerator {
                         durationTicks: this.mf.getInnerTick(n.duration),
                         midi: n.pitch.code,
                         name: "",
-                        ticks: this.mf.getInnerTick(n.time),
+                        ticks: this.mf.getInnerTick(n.from),
                         time: 0,
                         velocity: n.velocity / 127
                     }

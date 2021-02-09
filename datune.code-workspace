@@ -4,6 +4,9 @@
 			"path": "./packages/core"
 		},
 		{
+			"path": "./packages/ai"
+		},
+		{
 			"path": "./packages/analyzer"
 		},
 		{

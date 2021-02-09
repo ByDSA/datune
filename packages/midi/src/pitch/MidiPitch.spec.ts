@@ -1,5 +1,5 @@
 import { Language, Settings, SPN, Tuning } from "@datune/core";
-import { MidiPitch } from "./MidiPitch";
+import { MidiCode, MidiPitch } from "./MidiPitch";
 
 describe.each([
     [MidiPitch.C5, SPN.C4],
@@ -33,20 +33,20 @@ describe.each([
 })
 
 describe.each([
-    [MidiPitch.C0, 0],
-    [MidiPitch.MIN, 0],
-    [MidiPitch.B0, 11],
-    [MidiPitch.C1, 12],
-    [MidiPitch.A5, 69],
-    [MidiPitch.A4, 57],
-    [MidiPitch.C5, 60],
-    [MidiPitch.C6, 72],
-    [MidiPitch.C8, 96],
-    [MidiPitch.C9, 108],
-    [MidiPitch.B9, 119],
-    [MidiPitch.C10, 120],
-    [MidiPitch.MAX, 127],
-])('code', (midiPitch, code) => {
+    [MidiPitch.C0, <MidiCode>0],
+    [MidiPitch.MIN, <MidiCode>0],
+    [MidiPitch.B0, <MidiCode>11],
+    [MidiPitch.C1, <MidiCode>12],
+    [MidiPitch.A5, <MidiCode>69],
+    [MidiPitch.A4, <MidiCode>57],
+    [MidiPitch.C5, <MidiCode>60],
+    [MidiPitch.C6, <MidiCode>72],
+    [MidiPitch.C8, <MidiCode>96],
+    [MidiPitch.C9, <MidiCode>108],
+    [MidiPitch.B9, <MidiCode>119],
+    [MidiPitch.C10, <MidiCode>120],
+    [MidiPitch.MAX, <MidiCode>127],
+])('code', (midiPitch, code: MidiCode) => {
     test(`${midiPitch}.code = ${midiPitch.code}`, () => {
         let actualCode: number = midiPitch.code;
 
