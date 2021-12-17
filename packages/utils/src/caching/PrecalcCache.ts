@@ -1,71 +1,77 @@
 type KeyType = string;
-export abstract class PrecalcCache<T, HashingObjectType> {
-    private _map: Map<KeyType, T> | undefined;
+type OnCreate<T> = (hash: string, obj: T)=> void;
+type GetHashFunc<HashingObjectType> = (hashingObject: HashingObjectType)=> KeyType;
+type GetHashingObjectFunc<T, HashingObjectType> = (t: T)=> HashingObjectType;
+type InnerCreateFunc<T, HashingObjectType> = (hashingObject: HashingObjectType)=> T;
+export type Funcs<T, HashingObjectType> = {
+  getHash: GetHashFunc<HashingObjectType>;
+  getHashingObject: GetHashingObjectFunc<T, HashingObjectType>;
+  innerCreate: InnerCreateFunc<T, HashingObjectType>;
+};
 
-    abstract getHash(hashingObject: HashingObjectType): KeyType;
+export default class PrecalcCache<T, HashingObjectType> {
+  private _map: Map<KeyType, T>;
 
-    abstract getHashingObject(t:T): HashingObjectType;
+  getHash: GetHashFunc<HashingObjectType>;
 
-    constructor(private _innerCreate: (hashingObject: HashingObjectType) => T) {
+  getHashingObject: GetHashingObjectFunc<T, HashingObjectType>;
+
+  private _innerCreate: InnerCreateFunc<T, HashingObjectType>;
+
+  constructor(funcs: Funcs<T, HashingObjectType>) {
+    this.getHash = funcs.getHash;
+    this.getHashingObject = funcs.getHashingObject;
+    this._innerCreate = funcs.innerCreate;
+    this._map = new Map<string, T>();
+  }
+
+  add(object: T): T {
+    const hashingObject = this.getHashingObject(object);
+    const hash: KeyType = this.getHash(hashingObject);
+    const currentObject = this._map.get(hash);
+
+    if (currentObject)
+      return currentObject;
+
+    this._innerAdd(hash, object);
+
+    return object;
+  }
+
+  private _innerAdd(hash: KeyType, obj: T) {
+    this._map.set(hash, obj);
+  }
+
+  get(hashingObject: HashingObjectType): T | undefined {
+    const hash: KeyType = this.getHash(hashingObject);
+
+    return this._innerGet(hash);
+  }
+
+  private _innerGet(hash: KeyType): T | undefined {
+    return this._map.get(hash);
+  }
+
+  getOrCreate(hashingObject: HashingObjectType, onCreate: OnCreate<T> = () => { } ): T {
+    const hash = this.getHash(hashingObject);
+    let obj: T | undefined = this._innerGet(hash);
+
+    if (obj === undefined) {
+      obj = this._innerCreate(hashingObject);
+      this._innerAdd(hash, obj);
+      onCreate(hash, obj);
     }
 
-    add(object: T): T {
-        let hashingObject = this.getHashingObject(object);
-        if (hashingObject === undefined || hashingObject === null)
-            throw new Error(`hashingObject from ${object} is null or undefined.`);
+    return obj;
+  }
 
-        let hash: KeyType = this.getHash(hashingObject);
+  // eslint-disable-next-line accessor-pairs
+  get list(): T[] {
+    return [...this._map.values()];
+  }
 
-        this._map = this._getValidMap();
-        const currentObject = this._map.get(hash);
-        if (currentObject)
-            return currentObject;
-
-        this._innerAdd(hash, object);
-
-        return object;
-    }
-
-    private _getValidMap(): Map<string, T> {
-        return this._map || new Map<string, T>();
-    }
-
-    private _innerAdd(hash: KeyType, obj: T) {
-        this._map = this._getValidMap();
-        this._map.set(hash, obj);
-    }
-
-    get(hashingObject: HashingObjectType): T | undefined {
-        let hash: KeyType = this.getHash(hashingObject);
-        return this._innerGet(hash);
-    }
-
-    private _innerGet(hash: KeyType): T | undefined {
-        this._map = this._getValidMap();
-        return this._map.get(hash);
-    }
-
-    getOrCreate(hashingObject: HashingObjectType, onCreate: (hash: string, obj: T) => void = () => { }): T {
-        const hash = this.getHash(hashingObject);
-        let obj: T | undefined = this._innerGet(hash);
-
-        if (obj === undefined) {
-            obj = this._innerCreate(hashingObject);
-            this._innerAdd(hash, obj);
-            onCreate(hash, obj);
-        }
-
-        return obj;
-    }
-
-    get list(): T[] {
-        if (!this._map)
-            return [];
-        return [...this._map.values()];
-    }
-
-    clear() {
-        if (this._map)
-            this._map.clear();
-    }
+  clear() {
+    if (this._map)
+      this._map.clear();
+  }
 }

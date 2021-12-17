@@ -1,94 +1,105 @@
-import { Interval } from "./Interval";
+import Interval from "./Interval";
 
-test('contains - 3 in [0, 10)', () => {
-    let interval: Interval<number> = Interval.fromInclusiveToExclusive(0, 10);
-    let element = 3;
-
-    let actual = interval.contains(element);
-    let expected = true;
-
-    expect(actual).toEqual(expected);
-});
-
-test('contains - -1 not in [0, 10)', () => {
-    let interval: Interval<number> = Interval.fromInclusiveToExclusive(0, 10);
-    let element = -1;
-
-    let actual = interval.contains(element);
-    let expected = false;
+describe("contains", () => {
+  test("3 in [0, 10)", () => {
+    const interval: Interval<number> = Interval.of(0, 10);
+    const element = 3;
+    const actual = interval.contains(element);
+    const expected = true;
 
     expect(actual).toEqual(expected);
-});
+  } );
 
-test('contains - 0 in [0, 10)', () => {
-    let interval: Interval<number> = Interval.fromInclusiveToExclusive(0, 10);
-    let element = 0;
-
-    let actual = interval.contains(element);
-    let expected = true;
-
-    expect(actual).toEqual(expected);
-});
-
-test('contains - 10 not in [0, 10)', () => {
-    let interval: Interval<number> = Interval.fromInclusiveToExclusive(0, 10);
-    let element = 10;
-
-    let actual = interval.contains(element);
-    let expected = false;
+  test("-1 not in [0, 10)", () => {
+    const interval: Interval<number> = Interval.of(0, 10);
+    const element = -1;
+    const actual = interval.contains(element);
+    const expected = false;
 
     expect(actual).toEqual(expected);
-});
+  } );
 
-test('contains - 10 in [0, 10]', () => {
-    let interval: Interval<number> = Interval.from(0, true, 10, true);
-    let element = 10;
-
-    let actual = interval.contains(element);
-    let expected = true;
-
-    expect(actual).toEqual(expected);
-});
-
-test('contains - 0 in (0, 10)', () => {
-    let interval: Interval<number> = Interval.from(0, false, 10, false);
-    let element = 0;
-
-    let actual = interval.contains(element);
-    let expected = false;
+  test("0 in [0, 10)", () => {
+    const interval: Interval<number> = Interval.of(0, 10);
+    const element = 0;
+    const actual = interval.contains(element);
+    const expected = true;
 
     expect(actual).toEqual(expected);
-});
+  } );
 
-test('intersects - [0,1] and [2,4]', () => {
-    let interval1: Interval<number> = Interval.fromInclusiveToExclusive(0, 1);
-    let interval2: Interval<number> = Interval.fromInclusiveToExclusive(2, 4);
+  test("10 not in [0, 10)", () => {
+    const interval: Interval<number> = Interval.of(0, 10);
+    const element = 10;
+    const actual = interval.contains(element);
 
-    let intersects1 = interval1.intersects(interval2);
-    let intersects2 = interval2.intersects(interval1);
+    expect(actual).toBeFalsy();
+  } );
+
+  test("10 in [0, 10]", () => {
+    const obj = {
+      from: 0,
+      fromInclusive: true,
+      to: 10,
+      toInclusive: true,
+    };
+    const interval: Interval<number> = new Interval(obj);
+    const element = 10;
+    const actual = interval.contains(element);
+
+    expect(actual).toBeTruthy();
+  } );
+
+  test("0 in (0, 10)", () => {
+    const obj = {
+      from: 0,
+      fromInclusive: false,
+      to: 10,
+      toInclusive: false,
+    };
+    const interval: Interval<number> = new Interval(obj);
+    const element = 0;
+    const actual = interval.contains(element);
+
+    expect(actual).toBeFalsy();
+  } );
+} );
+
+describe("intersects", () => {
+  test("[0,1) and [2,4)", () => {
+    const interval1: Interval<number> = Interval.of(0, 1);
+    const interval2: Interval<number> = Interval.of(2, 4);
+    const intersects1 = interval1.intersects(interval2);
+    const intersects2 = interval2.intersects(interval1);
 
     expect(intersects1).toBeFalsy();
     expect(intersects2).toBeFalsy();
-})
+  } );
 
-test('intersects - [0,1] and itself', () => {
-    let interval1: Interval<number> = Interval.fromInclusiveToExclusive(0, 1);
-    let interval2: Interval<number> = Interval.fromInclusiveToExclusive(0, 1);
-
-    let intersects1 = interval1.intersects(interval2);
-    let intersects2 = interval2.intersects(interval1);
+  test("[0,1] and itself", () => {
+    const interval1: Interval<number> = Interval.of(0, 1);
+    const interval2: Interval<number> = Interval.of(0, 1);
+    const intersects1 = interval1.intersects(interval2);
+    const intersects2 = interval2.intersects(interval1);
 
     expect(intersects1).toBeTruthy();
     expect(intersects2).toBeTruthy();
-});
+  } );
 
-test('intersects - [0,1] and [1,2]', () => {
-    let interval1: Interval<number> = Interval.fromInclusiveToExclusive(0, 1);
-    let interval2: Interval<number> = Interval.fromInclusiveToExclusive(1, 2);
-
-    let intersects1 = interval1.intersects(interval2);
-    let intersects2 = interval2.intersects(interval1);
+  test("[0,1) and [1,2)", () => {
+    const interval1: Interval<number> = Interval.of(0, 1);
+    const interval2: Interval<number> = Interval.of(1, 2);
+    const intersects1 = interval1.intersects(interval2);
+    const intersects2 = interval2.intersects(interval1);
 
     expect(intersects1).toBeFalsy();
     expect(intersects2).toBeFalsy();
-});
+  } );
+} );
+
+it("info", () => {
+  const expectedInterval = Interval.of(0, 1);
+
+  expect(expectedInterval.from).toBe(0);
+  expect(expectedInterval.to).toBe(1);
+} );

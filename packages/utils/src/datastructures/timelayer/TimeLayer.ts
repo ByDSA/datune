@@ -1,21 +1,12 @@
-import { Interval } from "../../math/interval/Interval";
 import { ImmutableTime } from "../../time/ImmutableTime";
-import { TemporalNode } from "./temporalnode/TemporalNode";
+import TemporalNode from "./TemporalNode/TemporalNode";
+import { AddType, GetType, RemoveType, SequenceAddListener, SequenceChangeListener, SequenceRemoveListener } from "./types";
 
-export type SequenceChangeListener<E, T extends ImmutableTime> = (oldNode: TemporalNode<E, T>, newNode: TemporalNode<E, T>) => void;
-export type SequenceAddListener<E, T extends ImmutableTime> = (node: TemporalNode<E, T>) => void;
-export type SequenceRemoveListener<E, T extends ImmutableTime> = (node: TemporalNode<E, T>) => void;
-
-export interface TimeLayer<E, T extends ImmutableTime> {
-    addNode(node: TemporalNode<E, T>): void;
-    addTimeLayer(timeSequence: TimeLayer<E, T>, time?: T): void;
-    addEvent(event: E, time?: T): TemporalNode<E, T>;
-    removeNodesAt(time: T): TemporalNode<E, T>[];
-    removeNodesAtInterval(intervalTime: Interval<T>): TemporalNode<E, T>[];
-    getNodesAtInterval(interval: Interval<T>): TemporalNode<E, T>[];
-    getNodesAt(time: T): TemporalNode<E, T>[];
+export default interface TimeLayer<E, T extends ImmutableTime> {
+    add(obj: AddType<E, T>): TemporalNode<E, T>[];
+    remove(obj: RemoveType<E, T>): TemporalNode<E, T>[];
+    get(obj: GetType<T>): TemporalNode<E, T>[];
     clear(): void;
-    removeNode(node: TemporalNode<E, T>): TemporalNode<E, T> | null;
     moveNodeBeginTo(node: TemporalNode<E, T>, time: T): TemporalNode<E, T>;
     moveNodeEndTo(node: TemporalNode<E, T>, time: T): TemporalNode<E, T>;
 

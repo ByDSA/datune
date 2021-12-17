@@ -1,5 +1,4 @@
-export function mod(a: number, n: number): number {
-    if (isNaN(n))
-        throw new Error("Input number is NaN");
-    return ((a % n) + n) % n;
+/* eslint-disable import/prefer-default-export */
+export function cyclicMod(a: number, n: number): number {
+  return ((a % n) + n) % n;
 }

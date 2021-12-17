@@ -1,24 +1,30 @@
-import { mod } from './misc';
+import { cyclicMod } from "./misc";
 
-describe("mod", () => {
-    test('lower than limit', () => {
-        let n = 7;
-        let limit = 12;
+describe("cyclicMod", () => {
+  test("lower than limit", () => {
+    const n = 7;
+    const limit = 12;
 
-        expect(mod(n, limit)).toBe(7);
-    });
+    expect(cyclicMod(n, limit)).toBe(7);
+  } );
 
-    test('over limit', () => {
-        let n = 14;
-        let limit = 12;
+  test("over limit", () => {
+    const n = 14;
+    const limit = 12;
 
-        expect(mod(n, limit)).toBe(2);
-    });
+    expect(cyclicMod(n, limit)).toBe(2);
+  } );
 
-    test('below 0', () => {
-        let n = -1;
-        let limit = 12;
+  test("below 0", () => {
+    const n = -1;
+    const limit = 12;
 
-        expect(mod(n, limit)).toBe(11);
-    });
-});
+    expect(cyclicMod(n, limit)).toBe(11);
+  } );
+
+  it("with NaN", () => {
+    const actual = cyclicMod(3, NaN);
+
+    expect(actual).toBe(NaN);
+  } );
+} );

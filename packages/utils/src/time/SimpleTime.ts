@@ -1,30 +1,35 @@
+import { lockr } from "immutables";
 import { ImmutableTime } from "./ImmutableTime";
 
-export class SimpleTime implements ImmutableTime {
-    constructor(private _value: number) {
-    }
+export default class SimpleTime implements ImmutableTime {
+  value: number;
 
-    withAdd(time: SimpleTime): SimpleTime {
-        return new SimpleTime(this._value + time._value);
-    }
+  constructor(value: number) {
+    this.value = value;
+    lockr(this);
+  }
 
-    withSub(time: SimpleTime): SimpleTime {
-        return new SimpleTime(this._value - time._value);
-    }
+  withAdd(time: SimpleTime): SimpleTime {
+    return new SimpleTime(this.value + time.value);
+  }
 
-    withMult(factor: number): SimpleTime {
-        return new SimpleTime(this._value * factor);
-    }
+  withSub(time: SimpleTime): SimpleTime {
+    return new SimpleTime(this.value - time.value);
+  }
 
-    withDivCell(cellSize: SimpleTime): number {
-        return Math.floor(this._value / cellSize._value);
-    }
+  withMult(factor: number): SimpleTime {
+    return new SimpleTime(this.value * factor);
+  }
 
-    withDiv(n: number): SimpleTime {
-        return new SimpleTime(this._value / n);
-    }
+  withDivCell(cellSize: SimpleTime): number {
+    return Math.floor(this.value / cellSize.value);
+  }
 
-    valueOf(): number {
-        return this._value;
-    }
+  withDiv(n: number): SimpleTime {
+    return new SimpleTime(this.value / n);
+  }
+
+  valueOf(): number {
+    return this.value;
+  }
 }

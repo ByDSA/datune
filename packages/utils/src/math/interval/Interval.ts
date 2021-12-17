@@ -1,36 +1,68 @@
-export class Interval<C extends Object> {
-    private constructor(private _from: C, private _fromInclusive: boolean, private _to: C, private _toInclusive: boolean) {
-    }
+import { lock } from "immutables";
 
-    static from<C>(from: C, fromInclusive: boolean, to: C, toInclusive: boolean): Interval<C> {
-        return new Interval(from, fromInclusive, to, toInclusive);
-    }
+export type ObjectConstructor<C> = {
+    from: C;
+    fromInclusive: boolean;
+    to: C;
+    toInclusive: boolean;
+};
 
-    static fromInclusiveToExclusive<C>(from: C, to: C) {
-        return this.from(from, true, to, false);
-    }
+export default class Interval<C extends Object> {
+  from: C;
 
-    get from(): C {
-        return this._from;
-    }
+  fromInclusive: boolean;
 
-    get to(): C {
-        return this._to;
-    }
+  to: C;
 
-    contains(element: C): boolean {
-        return element > this._from && element < this._to
-            || this._fromInclusive && element.valueOf() == this._from.valueOf()
-            || this._toInclusive && element.valueOf() == this._to.valueOf();
-    }
+  toInclusive: boolean;
 
-    intersects(interval: Interval<C>): boolean {
-        return this.to > interval.from && this.from < interval.to;
-    }
+  private _str?: string;
 
-    toString(): string {
-        return (this._fromInclusive ? "[" : "(")
-            + this.from + ", " + this.to
-            + (this._toInclusive ? "]" : ")");
-    }
+  constructor(obj: ObjectConstructor<C>) {
+    this.from = obj.from;
+    this.fromInclusive = obj.fromInclusive;
+    this.to = obj.to;
+    this.toInclusive = obj.toInclusive;
+
+    this.makeImmutable();
+  }
+
+  static of<C>(from: C, to: C) {
+    return new Interval( {
+      from,
+      fromInclusive: true,
+      to,
+      toInclusive: false,
+    } );
+  }
+
+  private makeImmutable(): void {
+    lock(this.from);
+    lock(this.fromInclusive);
+    lock(this.to);
+    lock(this.toInclusive);
+  }
+
+  contains(element: C): boolean {
+    return (element > this.from && element < this.to)
+            || (this.fromInclusive && element.valueOf() === this.from.valueOf())
+            || (this.toInclusive && element.valueOf() === this.to.valueOf());
+  }
+
+  intersects(interval: Interval<C>): boolean {
+    return this.to > interval.from && this.from < interval.to;
+  }
+
+  toString(): string {
+    if (!this._str)
+      this._str = calculateString(this);
+
+    return this._str;
+  }
+}
+
+function calculateString<C>(interval: Interval<C>): string {
+  return `${(interval.fromInclusive ? "[" : "(")
+            + interval.from}, ${interval.to
+  }${interval.toInclusive ? "]" : ")"}`;
 }

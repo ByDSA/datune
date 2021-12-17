@@ -1,67 +1,71 @@
 
-import { Immutables } from './Immutables';
+import { lockr } from ".";
 
 function classTest() {
-    return class {
-        static STATIC = 12;
-        static STATIC_OBJ = {
-            a: 1,
-            b: 2
-        }
+  return class {
+    static STATIC = 12;
 
-        constructor(private privateVar: number = 2, public publicVar = 3) {
-        }
+    static STATIC_OBJ = {
+      a: 1,
+      b: 2,
     };
+
+    private privateVar: number = 2;
+
+    public publicVar = 3;
+  };
 }
 
 function objTest() {
-    return new (classTest());
+  return new (classTest())();
 }
 
-test('immutableRecursive: change privateVar', () => {
+describe("immutable recursive (lockr)", () => {
+  test("change privateVar", () => {
+    const obj = objTest();
 
-    let obj = objTest();
-
-    Immutables.lockr(obj);
-
-    const t = () => {
-        (<any>obj).privateVar = 22;
-    };
-    expect(t).toThrow(TypeError);
-});
-
-test('immutableRecursive: new key', () => {
-
-    let obj = objTest();
-
-    Immutables.lockr(obj);
+    lockr(obj);
 
     const t = () => {
-        (<any>obj).asd = 22;
+      (<any>obj).privateVar = 22;
     };
+
     expect(t).toThrow(TypeError);
-});
+  } );
 
-test('immutableRecursive: change static obj', () => {
+  test("new key", () => {
+    const obj = objTest();
 
-    let obj = classTest();
-
-    Immutables.lockr(obj);
+    lockr(obj);
 
     const t = () => {
-        obj.STATIC_OBJ.a = 22;
+      (<any>obj).asd = 22;
     };
+
     expect(t).toThrow(TypeError);
-});
+  } );
 
-test('immutableRecursive: change static', () => {
+  test("change static obj", () => {
+    const obj = classTest();
 
-    let obj = classTest();
-
-    Immutables.lockr(obj);
+    lockr(obj);
 
     const t = () => {
-        obj.STATIC = 22;
+      obj.STATIC_OBJ.a = 22;
     };
+
     expect(t).toThrow(TypeError);
-});
+  } );
+
+  test("change static", () => {
+    const obj = classTest();
+
+    lockr(obj);
+
+    const t = () => {
+      obj.STATIC = 22;
+    };
+
+    expect(t).toThrow(TypeError);
+  } );
+} );

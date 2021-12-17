@@ -1,65 +1,55 @@
-import { Arrays } from "./Arrays";
-
-test('arrayRemove: item is multiple times', () => {
-    let array = [1, 2, 3, 2, 1];
-    let item = 1;
-    let initialSize = array.length;
-    expect(Arrays.removeItem(array, item)).toBe(true);
-    expect(array.length).toBe(initialSize - 1);
-    expect(array).toStrictEqual([2, 3, 2, 1]);
-});
-
-
-test('arrayRemove: item is one times', () => {
-    let array = [1, 2, 3, 4];
-    let item = 1;
-    let initialSize = array.length;
-
-    expect(Arrays.removeItem(array, item)).toBe(true);
-    expect(array.length).toBe(initialSize - 1);
-    expect(array).toStrictEqual([2, 3, 4]);
-});
-
-test('arrayRemove: item not found', () => {
-    let array = [1, 2, 3, 4];
-    let item = 5;
-    let initialSize = array.length;
-
-    expect(Arrays.removeItem(array, item)).toBe(false);
-    expect(array.length).toBe(initialSize);
-    expect(array).toStrictEqual([1, 2, 3, 4]);
-});
+import { Arrays } from "../../index";
 
 describe("isValidArray", () => {
+  it("...[null]", () => {
+    const b = Arrays.isDefined([null]);
 
-    it("...[null]", () => {
-        const b = Arrays.isDefined([null]);
-        expect(b).toBeFalsy();
-    });
+    expect(b).toBeFalsy();
+  } );
 
-    it("...[]", () => {
-        const b = Arrays.isDefined([]);
-        expect(b).toBeFalsy();
-    });
+  it("...[]", () => {
+    const b = Arrays.isDefined([]);
 
-    it("[0]", () => {
-        const b = Arrays.isDefined([0]);
-        expect(b).toBeTruthy();
-    });
-});
+    expect(b).toBeFalsy();
+  } );
 
-it(`right rotate`, () => {
-    const expected = [3, 4, 0, 1, 2];
-    const actual = [0, 1, 2, 3, 4];
-    Arrays.rotateRight(actual, 2);
+  it("[0]", () => {
+    const b = Arrays.isDefined([0]);
 
-    expect(actual).toStrictEqual(expected);
-});
+    expect(b).toBeTruthy();
+  } );
+} );
 
-it(`left rotate`, () => {
-    const expected = [2, 3, 4, 0, 1];
-    const actual = [0, 1, 2, 3, 4];
-    Arrays.rotateLeft(actual, 2);
+describe("hasSameContent", () => {
+  it("Different array reference", () => {
+    const expected = [1, 2, 3, 4];
+    const actual = [1, 2, 3, 4];
+    const b = Arrays.hasSameContent(actual, expected);
 
-    expect(actual).toStrictEqual(expected);
-});
+    expect(b).toBeTruthy();
+  } );
+
+  it("Same array reference", () => {
+    const expected = [1, 2, 3, 4];
+    const actual = expected;
+    const b = Arrays.hasSameContent(actual, expected);
+
+    expect(b).toBeTruthy();
+  } );
+
+  it("Different length", () => {
+    const array1 = [1, 2, 3, 4];
+    const array2 = [1, 2, 3];
+    const b = Arrays.hasSameContent(array1, array2);
+
+    expect(b).toBeFalsy();
+  } );
+
+  it("Different content", () => {
+    const array1 = [1, 2, 3, 4];
+    const array2 = [1, 2, 3, 5];
+    const b = Arrays.hasSameContent(array1, array2);
+
+    expect(b).toBeFalsy();
+  } );
+} );

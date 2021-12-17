@@ -1,11 +1,10 @@
 {
-  "compileOnSave": false,
+  "compileOnSave": true,
   "compilerOptions": {
     "strict": true,
-    "baseUrl": "./src/",
+    "declaration": true,
     "outDir": "./",
     "sourceMap": true,
-    "declaration": true,
     "inlineSources": true,
     "downlevelIteration": true,
     "experimentalDecorators": true,
@@ -20,22 +19,23 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "baseUrl": "./src/",
   },
   "include": [
-    "src/**/*.ts",
-  ],
-  "files": [
-    "src/index.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "dist",
-    "node_modules",
-    "**/*.spec.ts"
+    "node_modules"
   ],
   "filesGlob": [
     "src/**/*.ts"
   ],
-  "types": [ "node" ],
-  "typeRoots": [ "../node_modules/@types" ]
+  "types": [
+    "node"
+  ],
+  "typeRoots": [
+    "../node_modules/@types"
+  ]
 }
