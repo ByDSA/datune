@@ -1,17 +1,17 @@
-import { SPN } from "@datune/core";
-import { Constraint } from "../Constraint";
+import { SPN } from "@datune/core/spns/chromatic";
+import Constraint from "../Constraint";
 
-export abstract class ConstraintSPN extends Constraint {
-    protected constructor(public spn: SPN, prob: number) {
-        super(prob);
-    }
+export default abstract class ConstraintSPN extends Constraint {
+  protected constructor(public spn: SPN, prob: number) {
+    super(prob);
+  }
 
-    check(spn: SPN): boolean {
-        if (this.isMustConstrain())
-            return this.innerCheck(spn);
-        else
-            return true;
-    }
+  check(spn: SPN): boolean {
+    if (this.isMustConstrain())
+      return this.innerCheck(spn);
 
-    protected abstract innerCheck(spn: SPN): boolean;
+    return true;
+  }
+
+  protected abstract innerCheck(spn: SPN): boolean;
 }

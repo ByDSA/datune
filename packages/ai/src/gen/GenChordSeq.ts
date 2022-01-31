@@ -1,110 +1,123 @@
-import { TonalApproach } from "@datune/analyzer";
-import { Chord, Key, MusicalDuration, Scale } from "@datune/core";
-import { Func, HarmonicFunction } from "@datune/core/tonalities";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Chord } from "@datune/core/chords/chromatic";
+import { bIII, bVI, bVII, HarmonicFunction, I, II0, IIIm, IIm, Im, IV, IVm, V, V7, VII0, VIm } from "@datune/core/functions/chromatic";
+import { from as keyFrom, Key } from "@datune/core/keys/chromatic";
+import { ZERO } from "@datune/core/time";
 import { random } from "@datune/utils";
-import { GenSeq } from "./GenSeq";
+import { intervalOf } from "@datune/utils/math";
+import { CHROMATIC, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN } from "scales/chromatic";
+import GenSeq from "./GenSeq";
 
-export class GenChordSeq extends GenSeq {
-    constructor(tonalApporach: TonalApproach) {
-        super(tonalApporach);
+export default class GenChordSeq extends GenSeq {
+  generate() {
+    const tonalApproach = this.tonalApporach;
+
+    for (let time = ZERO, toTime = time; time < tonalApproach.keySequence.duration; time = toTime) {
+      const keyNode = tonalApproach.keySequence.get( {
+        at: time,
+      } )[0];
+      const key: Key = <Key>keyNode?.event;
+      const fNode = tonalApproach.funcSequence.get( {
+        at: time,
+      } )[0];
+
+      if (!fNode)
+        throw new Error(`${time} ${tonalApproach.funcSequence.duration}`);
+
+      const func = fNode.event as HarmonicFunction;
+
+      toTime = fNode.interval.to;
+
+      const chord = func.getChord(key);
+
+      tonalApproach.chordSequence.add( {
+        event: chord,
+        interval: intervalOf(time, toTime),
+      } );
+
+      const keyChord = pickKeyChord(key, func, chord);
+
+      tonalApproach.keyChordSequence.add( {
+        event: keyChord,
+        interval: intervalOf(time, toTime),
+      } );
     }
+  }
+}
 
-    generate() {
-        const tonalApproach = this.tonalApporach;
-        for (let time = MusicalDuration.ZERO, toTime = time; time < tonalApproach.keySequence.duration; time = toTime) {
-            const keyNode = tonalApproach.keySequence.getNodeAt(time);
-            const key: Key = <Key>keyNode?.event;
+function pickKeyChord(originalKey: Key, f: HarmonicFunction, chord: Chord): Key {
+  const root = f.getChord(originalKey).pitches[0];
+  const available: Key[] = [];
 
-            const fNode = tonalApproach.funcSequence.getNodeAt(time);
-            if (!fNode)
-                throw new Error(time + " " + tonalApproach.funcSequence.duration);
-            const func: HarmonicFunction = fNode.event;
+  switch (f) {
+    case I:
+    case bIII:
+      available.push(keyFrom(root, MAJOR));
+      break;
+    case IIm:
+      available.push(keyFrom(root, DORIAN));
+      break;
+    case IIIm:
+    case IVm:
+      available.push(keyFrom(root, PHRYGIAN));
+      break;
+    case IV:
+    case bVI:
+      available.push(keyFrom(root, LYDIAN));
+      break;
+    case V:
+    case bVII:
+    case V7:
+      available.push(keyFrom(root, MIXOLYDIAN));
+      break;
+    case VIm:
+    case Im:
+      available.push(keyFrom(root, MINOR));
+      break;
+    case VII0:
+    case II0:
+      available.push(keyFrom(root, LOCRIAN));
+      break;
+    default:
+      available.push(keyFrom(root, CHROMATIC));
+      break;
+  }
+  // let chord = f.getChord(originalKey);
+  // switch (chord.voicing) {
+  //     case Pattern.TRIAD_MAJOR:
+  //         available.push(
+  //             keyFrom(root, Scale.MAJOR),
+  //             keyFrom(root, Scale.LYDIAN),
+  //             keyFrom(root, Scale.MIXOLYDIAN),
+  //         );
+  //         break;
+  //     case Pattern.SEVENTH_MAJ7:
+  //         available.push(
+  //             keyFrom(root, Scale.MAJOR),
+  //             keyFrom(root, Scale.LYDIAN)
+  //         );
+  //         break;
+  //     case Pattern.TRIAD_MINOR:
+  //         available.push(
+  //             keyFrom(root, Scale.MINOR),
+  //             keyFrom(root, Scale.DORIAN),
+  //             keyFrom(root, Scale.PHRYGIAN)
+  //         );
+  //         break;
+  //     case Pattern.SEVENTH_MINOR:
+  //         available.push(
+  //             keyFrom(root, Scale.MINOR),
+  //             keyFrom(root, Scale.DORIAN),
+  //             keyFrom(root, Scale.PHRYGIAN)
+  //         );
+  //         break;
+  //     case Pattern.TRIAD_DIMINISHED:
+  //     case Pattern.SEVENTH_b5:
+  //         return keyFrom(root, Scale.LOCRIAN);
+  // }
 
-            toTime = fNode.to;
+  if (available.length === 0)
+    return originalKey;
 
-            const chord = func.getChord(key);
-            tonalApproach.chordSequence.addEvent(chord,
-                time,
-                toTime);
-
-            const keyChord = this._pickKeyChord(key, func, chord);
-            tonalApproach.keyChordSequence.addEvent(keyChord,
-                time,
-                toTime);
-        }
-    }
-
-    private _pickKeyChord(originalKey: Key, f: HarmonicFunction, chord: Chord): Key {
-        const root = f.getChord(originalKey).notes[0];
-        let available: Key[] = [];
-
-        switch (f) {
-            case Func.I:
-            case Func.bIII:
-                available.push(Key.from(root, Scale.MAJOR));
-                break;
-            case Func.ii:
-            case Func.iv:
-                available.push(Key.from(root, Scale.DORIAN));
-                break;
-            case Func.iii:
-            case Func.iv:
-                available.push(Key.from(root, Scale.PHRYGIAN));
-                break;
-            case Func.IV:
-            case Func.bVI:
-                available.push(Key.from(root, Scale.LYDIAN));
-                break;
-            case Func.V:
-            case Func.bVII:
-            case Func.V7:
-                available.push(Key.from(root, Scale.MIXOLYDIAN));
-                break;
-            case Func.vi:
-            case Func.i:
-                available.push(Key.from(root, Scale.MINOR));
-                break;
-            case Func.VII0:
-            case Func.II0:
-                available.push(Key.from(root, Scale.LOCRIAN));
-                break;
-        }
-        // let chord = f.getChord(originalKey);
-        // switch (chord.pattern) {
-        //     case Pattern.TRIAD_MAJOR:
-        //         available.push(
-        //             Key.from(root, Scale.MAJOR),
-        //             Key.from(root, Scale.LYDIAN),
-        //             Key.from(root, Scale.MIXOLYDIAN),
-        //         );
-        //         break;
-        //     case Pattern.SEVENTH_MAJ7:
-        //         available.push(
-        //             Key.from(root, Scale.MAJOR),
-        //             Key.from(root, Scale.LYDIAN)
-        //         );
-        //         break;
-        //     case Pattern.TRIAD_MINOR:
-        //         available.push(
-        //             Key.from(root, Scale.MINOR),
-        //             Key.from(root, Scale.DORIAN),
-        //             Key.from(root, Scale.PHRYGIAN)
-        //         );
-        //         break;
-        //     case Pattern.SEVENTH_MINOR:
-        //         available.push(
-        //             Key.from(root, Scale.MINOR),
-        //             Key.from(root, Scale.DORIAN),
-        //             Key.from(root, Scale.PHRYGIAN)
-        //         );
-        //         break;
-        //     case Pattern.TRIAD_DIMINISHED:
-        //     case Pattern.SEVENTH_b5:
-        //         return Key.from(root, Scale.LOCRIAN);
-        // }
-
-        if (available.length == 0)
-            return originalKey;
-        return available[random(available.length)];
-    }
+  return available[random(available.length)];
 }

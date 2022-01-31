@@ -1,3 +1,5 @@
-export enum MainFunc {
+enum MainFunc {
     TONIC, SUBDOMINANT, DOMINANT
 }
+
+export default MainFunc;

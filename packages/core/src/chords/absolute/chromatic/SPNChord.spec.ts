@@ -1,53 +1,20 @@
-import { SPN } from "pitches";
-import { ChromaticPattern } from "voicings";
-import { SPNArray, SPNChord } from "./SPNChord";
+import { Array as SPNArray, C4, E4, G4 } from "spns/chromatic";
+import { TestInit } from "tests";
+import { fromSPNs } from "./building";
 
-// test('CLOSED - G E C, o = 5', () => {
-//     let degrees = [DiatonicAlt.G, DiatonicAlt.E, DiatonicAlt.C];
-//     let voicing = VoicingGenerator.CLOSED.make(degrees);
-//     let actual: SPNChord = createAbsoluteVoicing(voicing, 5);
-
-//     expect(actual.length).toEqual(3);
-//     expect(actual[0].degree).toEqual(DiatonicAlt.C);
-//     expect(actual[0].octave).toEqual(5);
-//     expect(actual[1].degree).toEqual(DiatonicAlt.E);
-//     expect(actual[1].octave).toEqual(5);
-//     expect(actual[2].degree).toEqual(DiatonicAlt.G);
-//     expect(actual[2].octave).toEqual(5);
-// })
-
-// test('CLOSED UNSORTED - G E C, o = 5', () => {
-//     let degrees = [DiatonicAlt.G, DiatonicAlt.E, DiatonicAlt.C];
-//     let voicing = VoicingGenerator.CLOSED_UNSORTED.make(degrees);
-//     let actual: SPNChord = createAbsoluteVoicing(voicing, 5);
-
-//     expect(actual.length).toEqual(3);
-//     expect(actual[0].degree).toEqual(DiatonicAlt.G);
-//     expect(actual[0].octave).toEqual(5);
-//     expect(actual[1].degree).toEqual(DiatonicAlt.E);
-//     expect(actual[1].octave).toEqual(6);
-//     expect(actual[2].degree).toEqual(DiatonicAlt.C);
-//     expect(actual[2].octave).toEqual(7);
-// })
-
+TestInit.chromaticSPN();
+TestInit.chromaticVoicing();
 it("cache", () => {
-    let notes: SPNArray = [SPN.C4, SPN.E4, SPN.G4];
-    let actual = SPNChord.fromNotes(...notes);
-    let actual2 = SPNChord.fromNotes(...notes);
+  const notes: SPNArray = [C4, E4, G4];
+  const actual = fromSPNs(...notes);
+  const actual2 = fromSPNs(...notes);
 
-    expect(actual).toBe(actual2);
-})
+  expect(actual).toBe(actual2);
+} );
 
 it("fromNotes - notes", () => {
-    let notes: SPNArray = [SPN.C4, SPN.E4, SPN.G4];
-    let actual = SPNChord.fromNotes(...notes);
+  const notes: SPNArray = [C4, E4, G4];
+  const actual = fromSPNs(...notes);
 
-    expect(actual.notes).toStrictEqual(notes);
-})
-
-it("fromNotes - pattern", () => {
-    let actual = SPNChord.fromNotes(SPN.D4, SPN.F4, SPN.A4);
-    let expected = ChromaticPattern.TRIAD_MINOR;
-
-    expect(actual.pattern).toBe(expected);
-})
+  expect(actual.pitches).toStrictEqual(notes);
+} );

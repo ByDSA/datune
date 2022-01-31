@@ -3,5 +3,3 @@ node_modules/
 /docs/
 .env
 /dist/
-/tmp/
-/tests/gen/dist/

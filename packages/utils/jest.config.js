@@ -17,7 +17,7 @@ module.exports = {
     },
   },
   moduleNameMapper: {
-    "^@datune/utils/(.*)$": "<rootDir>/../utils/src/$1",
+    "^@time/(.*)$": "<rootDir>/src/time/$1",
     "^@tests/(.*)$": "<rootDir>/tests/$1",
   },
 };

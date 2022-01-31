@@ -1,4 +1,4 @@
-export { Language } from "./lang/Language";
-export { LanguageInterface } from "./lang/LanguageInterface";
-export { Settings } from "./Settings";
-
+/* eslint-disable import/prefer-default-export */
+export {
+  Settings,
+} from "./settings";

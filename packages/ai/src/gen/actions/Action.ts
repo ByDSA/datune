@@ -1,11 +1,11 @@
-import { Picker } from "../Picker";
+import Picker from "../Picker";
 
-export abstract class Action<T> {
-    protected picker: Picker<T>;
+export default abstract class Action<T> {
+  protected picker: Picker<T>;
 
-    constructor(possibilities: T[]) {
-        this.picker = new Picker<T>(possibilities);
-    }
+  constructor(possibilities: T[]) {
+    this.picker = new Picker<T>(possibilities);
+  }
 
     abstract check(): boolean;
 

@@ -1,5 +1,5 @@
-import { Key } from '@datune/core';
-import { MusicalSequence } from '../musicalsequence/MusicalSequence';
+import { Key } from "@datune/core/keys/chromatic";
+import MusicalSequence from "../musicalsequence/MusicalSequence";
 
-export class KeySequence extends MusicalSequence<Key> {
+export default class KeySequence extends MusicalSequence<Key> {
 }

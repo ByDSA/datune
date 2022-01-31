@@ -2,14 +2,13 @@
   "compileOnSave": true,
   "compilerOptions": {
     "strict": true,
-    "baseUrl": "./src/",
-    "outDir": "./",
-    "sourceMap": true,
     "declaration": true,
+    "outDir": "./dist",
+    "sourceMap": true,
     "inlineSources": true,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "module": "CommonJS",
+    "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "importHelpers": true,
@@ -18,23 +17,25 @@
       "node_modules/@types"
     ],
     "lib": [
-      "es2018",
+      "es2021",
       "dom"
-    ]
+    ],
+    "paths": {
+      "tests/*": ["../tests/*"],
+      "tests": ["../tests"]
+    },
+    "baseUrl": "./src/"
   },
   "include": [
-    "src/**/*.ts",
-  ],
-  "files": [
-    "src/index.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "dist",
-    "node_modules",
-	"**/*.spec.ts"
+    "node_modules"
   ],
   "filesGlob": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "tests/**/*.ts"
   ],
   "types": [
     "node"

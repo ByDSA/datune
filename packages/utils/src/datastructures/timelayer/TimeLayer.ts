@@ -1,19 +1,20 @@
-import { ImmutableTime } from "../../time/ImmutableTime";
-import TemporalNode from "./TemporalNode/TemporalNode";
+import { Time } from "../../time";
+import { TemporalNode } from "./temporal-node";
 import { AddType, GetType, RemoveType, SequenceAddListener, SequenceChangeListener, SequenceRemoveListener } from "./types";
 
-export default interface TimeLayer<E, T extends ImmutableTime> {
-    add(obj: AddType<E, T>): TemporalNode<E, T>[];
-    remove(obj: RemoveType<E, T>): TemporalNode<E, T>[];
-    get(obj: GetType<T>): TemporalNode<E, T>[];
+export default interface TimeLayer<E> {
+    add(obj: AddType<E>): TemporalNode<E>[];
+    remove(obj: RemoveType<E>): TemporalNode<E>[];
+    get(obj: GetType): TemporalNode<E>[];
     clear(): void;
-    moveNodeBeginTo(node: TemporalNode<E, T>, time: T): TemporalNode<E, T>;
-    moveNodeEndTo(node: TemporalNode<E, T>, time: T): TemporalNode<E, T>;
+    moveNode(node: TemporalNode<E>, time: Time): TemporalNode<E>;
+    moveNodeEndTo(node: TemporalNode<E>, time: Time): TemporalNode<E>;
 
-    nodes: readonly TemporalNode<E, T>[];
-    duration: T;
+    nodes: readonly TemporalNode<E>[];
+    duration: Time;
+    startTime: Time;
 
-    onChange(listener: SequenceChangeListener<E, T>): void;
-    onAdd(listener: SequenceAddListener<E, T>): void;
-    onRemove(listener: SequenceRemoveListener<E, T>): void;
+    onChange(listener: SequenceChangeListener<E>): void;
+    onAdd(listener: SequenceAddListener<E>): void;
+    onRemove(listener: SequenceRemoveListener<E>): void;
 }

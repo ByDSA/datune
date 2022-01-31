@@ -1,22 +1,16 @@
-import { SymbolicDegree } from "../../pitches";
+import { lockr } from "@datune/utils/immutables";
+import OctavePitch from "pitches/OctavePitch";
 
-export class RelativePitch<D extends SymbolicDegree> {
-    private constructor(private _degree: D, private _octaveRelative: number) {
-    }
+export default class RelativePitch<P extends OctavePitch> {
+  private constructor(public pitch: P, public octaveRelative: number) {
+    lockr(this);
+  }
 
-    static from<D extends SymbolicDegree>(degree: D, octaveRelative: number): RelativePitch<D> {
-        return new RelativePitch(degree, octaveRelative);
-    }
+  static from<P extends OctavePitch>(pitch: P, octaveRelative: number): RelativePitch<P> {
+    return new RelativePitch(pitch, octaveRelative);
+  }
 
-    get octaveRelative(): number {
-        return this._octaveRelative;
-    }
-
-    get degree(): D {
-        return this._degree;
-    }
-
-    toString(): string {
-        return this._degree + " " + this._octaveRelative;
-    }
+  toString(): string {
+    return `${this.pitch} ${this.octaveRelative}`;
+  }
 }

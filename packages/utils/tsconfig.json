@@ -3,7 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "declaration": true,
-    "outDir": "./",
+    "outDir": "./dist",
     "sourceMap": true,
     "inlineSources": true,
     "downlevelIteration": true,
@@ -12,15 +12,15 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "es2021",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2018",
+      "es2021",
       "dom"
     ],
-    "baseUrl": "./src/",
+    "baseUrl": "./src/"
   },
   "include": [
     "src/**/*.ts"

@@ -1,10 +1,6 @@
-import { SymbolicDegree } from "../../pitches";
-import { Pattern } from "../../voicings";
-import { ChordInterface } from "../ChordInterface";
+import OctavePitch from "pitches/OctavePitch";
+import Chord from "../Chord";
 
-export interface SymbolicChord<D extends SymbolicDegree, P extends Pattern<D, any>, SELF> extends ChordInterface<D, P> {
-    rootIndex: number;
-    inversionNumber: number;
-    root: D;
-    withInv(n: number): SELF;
+export default interface SymbolicChord<
+P extends OctavePitch> extends Chord<P> {
 }

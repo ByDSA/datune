@@ -1,85 +1,82 @@
 import { MidiJSON } from "@tonejs/midi";
 import { ControlChangeJSON } from "@tonejs/midi/dist/ControlChange";
 import { ControlChangesJSON } from "@tonejs/midi/dist/ControlChanges";
-import { MidiFile } from "../../midifile/MidiFile";
+import { MidiNode } from "sequence";
+import MidiFile, { getInnerTick } from "../../midi-file/MidiFile";
 
-export class JSONGenerator {
-    constructor(private mf: MidiFile) {
-    }
+export default class JSONGenerator {
+  private mf: MidiFile;
 
-    generate() {
-        const json: MidiJSON = {
-            header: {
-                name: "name",
-                ppq: <number>this.mf.ppq,
-                meta: [],
-                tempos: this._tempos(),
-                timeSignatures: this._timeSignatures(),
-                keySignatures: []
-            },
-            tracks: this._geneateTracks()
-        };
+  constructor(mf: MidiFile) {
+    this.mf = mf;
+  }
 
-        return json;
-    }
+  generate() {
+    const json: MidiJSON = {
+      header: {
+        name: "name",
+        ppq: <number> this.mf.ppq,
+        meta: [],
+        tempos: this._tempos(),
+        timeSignatures: this._timeSignatures(),
+        keySignatures: [],
+      },
+      tracks: this._geneateTracks(),
+    };
 
-    private _tempos() {
-        return this.mf.bpmEvents.map(bpmEvent => {
-            return {
-                ticks: this.mf.getInnerTick(bpmEvent.time),
-                bpm: bpmEvent.bpm.bpm
-            };
-        });
-    }
+    return json;
+  }
 
-    private _timeSignatures() {
-        return this.mf.timeSignatureEvents.map(timeSignatureEvent => {
-            return {
-                ticks: timeSignatureEvent.time.value,
-                timeSignature: [timeSignatureEvent.timeSignaure.numerator, timeSignatureEvent.timeSignaure.denominator]
-            };
-        })
-    }
+  private _tempos() {
+    return this.mf.bpmEvents.map((bpmEvent) => ( {
+      ticks: getInnerTick(bpmEvent.time),
+      bpm: bpmEvent.bpm.bpm,
+    } ));
+  }
 
-    private _geneateTracks() {
-        const controlChange: ControlChangeJSON = {
-            number: 0,
-            ticks: 0,
-            time: 0,
-            value: 0,
-        }
+  private _timeSignatures() {
+    return this.mf.timeSignatureEvents.map((timeSignatureEvent) => ( {
+      ticks: timeSignatureEvent.time,
+      timeSignature: [
+        timeSignatureEvent.timeSignaure.numerator,
+        timeSignatureEvent.timeSignaure.denominator,
+      ],
+    } ));
+  }
 
-        const controlChangeArray: ControlChangeJSON[] = [
-            controlChange
-        ];
+  private _geneateTracks() {
+    const controlChange: ControlChangeJSON = {
+      number: 0,
+      ticks: 0,
+      time: 0,
+      value: 0,
+    };
+    const controlChangeArray: ControlChangeJSON[] = [
+      controlChange,
+    ];
+    const controlChanges: ControlChangesJSON = {
+      // 2: controlChangeArray
+    };
 
-        const controlChanges: ControlChangesJSON = {
-            //2: controlChangeArray
-        };
-
-        return this.mf.tracks.map(t => {
-            return {
-                name: t.name,
-                notes: t.notes.map(n => {
-                    return {
-                        duration: 0,
-                        durationTicks: this.mf.getInnerTick(n.duration),
-                        midi: n.pitch.code,
-                        name: "",
-                        ticks: this.mf.getInnerTick(n.from),
-                        time: 0,
-                        velocity: n.velocity / 127
-                    }
-                }),
-                channel: t.channel,
-                instrument: {
-                    number: t.instrument,
-                    name: "",
-                    family: ""
-                },
-                controlChanges: controlChanges,
-                pitchBends: []
-            }
-        })
-    }
+    return this.mf.tracks.map((t) => ( {
+      name: t.name,
+      notes: t.nodes.map((node: MidiNode) => ( {
+        duration: 0,
+        durationTicks: getInnerTick(node.event.duration),
+        midi: +node.event.pitch,
+        name: "",
+        ticks: getInnerTick(node.interval.from),
+        time: 0,
+        velocity: node.event.velocity / 127,
+      } )),
+      channel: t.channel,
+      instrument: {
+        number: t.instrument,
+        name: "",
+        family: "",
+      },
+      controlChanges,
+      pitchBends: [],
+    } ));
+  }
 }

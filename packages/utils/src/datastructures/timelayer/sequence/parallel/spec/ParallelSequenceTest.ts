@@ -1,12 +1,11 @@
-import SimpleTime from "time/SimpleTime";
-import EventTest from "../../../TemporalNode/spec/EventTest";
+import EventTest from "../../../temporal-node/spec/EventTest";
 import ParallelSequence from "../ParallelSequence";
 
-export default class ParalelSequenceTest extends ParallelSequence<EventTest, SimpleTime> {
+export default class ParalelSequenceTest extends ParallelSequence<EventTest> {
   constructor() {
     super( {
-      startTime: new SimpleTime(0),
-      cellSize: new SimpleTime(10),
+      startTime: 0,
+      cellSize: 10,
     } );
   }
 }

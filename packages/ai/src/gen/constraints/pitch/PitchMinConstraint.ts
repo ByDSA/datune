@@ -1,12 +1,12 @@
-import { SPN } from "@datune/core";
-import { ConstraintSPN } from "./ConstraintSPN";
+import { SPN } from "@datune/core/spns/chromatic";
+import ConstraintSPN from "./ConstraintSPN";
 
-export class PitchMinConstraint extends ConstraintSPN {
-    constructor(minSPN: SPN, public probability: number = 100) {
-        super(minSPN, probability);
-    }
+export default class PitchMinConstraint extends ConstraintSPN {
+  constructor(minSPN: SPN, public probability: number = 100) {
+    super(minSPN, probability);
+  }
 
-    protected innerCheck(spn: SPN): boolean {
-        return spn >= this.spn;
-    }
+  protected innerCheck(spn: SPN): boolean {
+    return spn >= this.spn;
+  }
 }

@@ -1,6 +1,9 @@
-import { ChordInterface } from "../ChordInterface";
-import { AbsolutePitch, SymbolicDegree } from "../../pitches";
-import { Pattern } from "../../voicings/relative/Pattern";
+import OctavePitch from "pitches/OctavePitch";
+import { SPN } from "spns";
+import Chord from "../Chord";
 
-export interface AbsoluteChordInterface<N extends AbsolutePitch<D>, D extends SymbolicDegree, P extends Pattern<D, any>> extends ChordInterface<N, P> {
+export default interface AbsoluteChord<
+P extends OctavePitch,
+S extends SPN<P>,
+> extends Chord<S> {
 }

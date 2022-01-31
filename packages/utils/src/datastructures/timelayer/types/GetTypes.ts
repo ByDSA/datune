@@ -1,30 +1,30 @@
+import { Time } from "time";
 import Interval from "../../../math/interval/Interval";
-import { ImmutableTime } from "../../../time/ImmutableTime";
 
-export type GetNodesAtIntervalType<T extends ImmutableTime> = {
-  interval: Interval<T>;
+export type GetNodesAtIntervalType = {
+  interval: Interval<Time>;
 };
 
-export type GetNodesFromToType<T extends ImmutableTime> = {
-  from: T;
-  to: T;
+export type GetNodesFromToType = {
+  from: Time;
+  to: Time;
 };
 
-export type GetNodesAtType<T extends ImmutableTime> = {
-  at: T;
+export type GetNodesAtType = {
+  at: Time;
 };
 
-export type GetType<T extends ImmutableTime> =
-GetNodesAtIntervalType<T> | GetNodesAtType<T> | GetNodesFromToType<T>;
+export type GetType =
+GetNodesAtIntervalType | GetNodesAtType | GetNodesFromToType;
 
-export function isGetNodesAtIntervalType<T extends ImmutableTime>(obj: GetType<T>): boolean {
+export function isGetNodesAtIntervalType(obj: GetType): obj is GetNodesAtIntervalType {
   return "interval" in obj;
 }
 
-export function isGetNodesFromToType<T extends ImmutableTime>(obj: GetType<T>): boolean {
+export function isGetNodesFromToType(obj: GetType): obj is GetNodesFromToType {
   return "from" in obj && "to" in obj;
 }
 
-export function isGetNodesAtType<T extends ImmutableTime>(obj: GetType<T>): boolean {
+export function isGetNodesAtType(obj: GetType): obj is GetNodesAtType {
   return "at" in obj;
 }

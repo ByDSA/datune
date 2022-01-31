@@ -1,64 +1,90 @@
-import { Chord, MusicalDuration, SPN } from "@datune/core";
-import { ChromaticArray } from "@datune/core/chords";
+import { MusicalDuration } from "@datune/core";
+import { fromPitches } from "@datune/core/chords/chromatic";
+import { Array as ChromaticArray } from "@datune/core/pitches/chromatic";
+import { SPN } from "@datune/core/spns/chromatic";
+import { ZERO } from "@datune/core/time";
 import { Interval, TemporalNode } from "@datune/utils";
+import { intervalOf } from "@datune/utils/math";
 import { NotesSequence } from "..";
-import { ChordSequence } from "./chordsequence/ChordSequence";
-import { RhythmSequence } from "./rhythmsequence/RhythmSequence";
+import ChordSequence from "./chordsequence/ChordSequence";
+import RhythmSequence from "./rhythmsequence/RhythmSequence";
 
-export class ChordSequenceCalculator {
-    constructor(private notesTimeSequence: NotesSequence, private _rhythmSequence: RhythmSequence) {
-    }
+export default class ChordSequenceCalculator {
+  private notesTimeSequence: NotesSequence;
 
-    calculate(): ChordSequence {
-        let chordSequence = new ChordSequence();
-        this._forEachPart(interval => {
-            const nodes = this.notesTimeSequence.getNodesAtInterval(interval);
-            const nodesSorted = ChordSequenceCalculator._sortNodesByPitch(nodes);
-            const degrees = nodesSorted.map(node => node.event.degree);
-            const degreesUnique = degrees;
-            if (degreesUnique.length < 2)
-                return;
-            const chord = Chord.fromNotes(...<ChromaticArray>degreesUnique);
-            chordSequence.addEvent(chord, interval.from, interval.to);
-        });
+  private _rhythmSequence: RhythmSequence;
 
-        return chordSequence;
-    }
+  constructor(notesTimeSequence: NotesSequence, rhythmSequence: RhythmSequence) {
+    this.notesTimeSequence = notesTimeSequence;
+    this._rhythmSequence = rhythmSequence;
+  }
 
-    private _getCeilDuration(duration: MusicalDuration, compas: MusicalDuration): MusicalDuration {
-        const compasses: number = duration.value / compas.value;
-        const compassesCeil = Math.ceil(compasses);
-        const ceilDuration = MusicalDuration.from(compassesCeil * compas.value);
+  calculate(): ChordSequence {
+    const chordSequence = new ChordSequence();
 
-        return <MusicalDuration>ceilDuration;
-    }
+    this._forEachPart((interval) => {
+      const nodes = this.notesTimeSequence.get( {
+        interval,
+      } );
+      const nodesSorted = sortNodesByPitch(nodes);
+      const pitches = nodesSorted.map((node) => node.event.pitch) as ChromaticArray;
+      const pitchesUnique = pitches;
 
-    private _forEachPart(f: (interval: Interval<MusicalDuration>) => void) {
-        const timeSignatureAtBegin = this._rhythmSequence.getNodeAt(MusicalDuration.ZERO);
-        if (!timeSignatureAtBegin)
-            throw new Error("RhythmSequence has no time signature at begin.");
+      if (pitchesUnique.length < 2)
+        return;
 
-        const compasDuration = timeSignatureAtBegin.event.denominatorBeat.withMult(timeSignatureAtBegin.event.numerator);
-        const intervalIni = Interval.fromInclusiveToExclusive(MusicalDuration.ZERO, compasDuration);
-        const ceilDuration = this._getCeilDuration(this.notesTimeSequence.duration, compasDuration);
-        for (let interval = intervalIni;
-            interval.from.value < ceilDuration.value;
-            interval = Interval.fromInclusiveToExclusive(interval.to, interval.to.withAdd(compasDuration))) {
+      const chord = fromPitches(...pitchesUnique);
 
-            f(interval);
-        }
-    }
+      chordSequence.add( {
+        event: chord,
+        interval,
+      } );
+    } );
 
-    private static _sortNodesByPitch(nodes: TemporalNode<SPN, MusicalDuration>[]): TemporalNode<SPN, MusicalDuration>[] {
-        return nodes.sort((a, b) => {
-            const valueA = a.event.valueOf();
-            const valueB = b.event.valueOf();
-            if (valueA < valueB)
-                return -1;
-            else if (valueA > valueB)
-                return 1;
-            else
-                return 0;
-        })
-    }
+    return chordSequence;
+  }
+
+  private _forEachPart(f: (interval: Interval<MusicalDuration>)=> void) {
+    const timeSignatureAtBegin = this._rhythmSequence.get( {
+      at: ZERO,
+    } )[0];
+
+    if (!timeSignatureAtBegin)
+      throw new Error("RhythmSequence has no time signature at begin.");
+
+    const compasDuration = timeSignatureAtBegin.event.denominatorBeat
+    * timeSignatureAtBegin.event.numerator;
+    const intervalIni = intervalOf(ZERO, compasDuration);
+    const ceilDuration = getCeilDuration(this.notesTimeSequence.duration, compasDuration);
+
+    for (let interval = intervalIni;
+      interval.from < ceilDuration;
+      interval = intervalOf(interval.to, interval.to + compasDuration))
+      f(interval);
+  }
+}
+
+function sortNodesByPitch(
+  nodes: TemporalNode<SPN>[],
+): TemporalNode<SPN>[] {
+  return nodes.sort((a, b) => {
+    const valueA = a.event.valueOf();
+    const valueB = b.event.valueOf();
+
+    if (valueA < valueB)
+      return -1;
+
+    if (valueA > valueB)
+      return 1;
+
+    return 0;
+  } );
+}
+
+function getCeilDuration(duration: MusicalDuration, compas: MusicalDuration): MusicalDuration {
+  const compasses: number = duration / compas;
+  const compassesCeil = Math.ceil(compasses);
+  const ceilDuration = compassesCeil * compas;
+
+  return ceilDuration;
 }

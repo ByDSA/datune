@@ -10,35 +10,61 @@
     "url": "https://github.com/ByDSA/datune.git",
     "directory": "packages/analyzer"
   },
-  "sideEffects": false,
   "scripts": {
-    "test": "bash ../../scripts/test.sh",
-    "build": "bash ../../scripts/build.sh",
-    "clean": "bash ../../scripts/clean.sh",
-    "publish": "bash ../../scripts/publish.sh"
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "prebuild": "npm run build:clean && npm rebuild && npm test",
+    "build": "npm run build:raw",
+    "build:clean": "rm -rf dist",
+    "build:raw": "tsc -p tsconfig-build.json",
+    "postbuild:raw": "tsc-alias -p tsconfig-build.json",
+    "prepublishOnly": "npm run test:coverage && npm run lint:fix && npm run build",
+    "postpublish": "npm run build:clean",
+    "docs": "npm run lint:fix && npm run docs:clean && typedoc",
+    "postdocs": ".scripts/docs-footer.sh",
+    "docs:clean": ".scripts/docs-clean.sh",
+    "docs:push": ".scripts/docs-push.sh",
+    "lint:eslint": "eslint ./src/*.ts ./tests/*.ts",
+    "lint:fix": "eslint ./src/*.ts --fix",
+    "release": "standard-version",
+    "release:push": "git push && git push --tags && npm run docs:push",
+    "readme": "npm run readme:clean && npx readme-md-generator -p .readme/template.md -y",
+    "readme:clean": "rm -f README.md"
   },
   "dependencies": {
     "@datune/core": "file:../core/dist",
     "@datune/utils": "file:../utils/dist"
   },
   "devDependencies": {
-    "@types/jest": "^25.2.1",
-    "@types/jest-expect-message": "^1.0.3",
-    "jest": "^26.6.3",
-    "jest-expect-message": "^1.0.2",
-    "ts-jest": "^26.4.4",
-    "tslib": "^1.10.0",
-    "typescript": "^3.8.3"
+    "@types/jest": "^27.4.0",
+    "jest": "^27.4.7",
+    "ts-jest": "^27.1.3",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.5",
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^5.7.0",
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.3.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.2",
+    "tsc-alias": "^1.5.0",
+    "standard-version": "^9.3.2"
   },
-  "jest": {
-    "roots": [
-      "<rootDir>"
-    ],
-    "modulePaths": [
-      "<rootDir>"
-    ],
-    "moduleDirectories": [
-      "node_modules"
+  "lint-staged": {
+    "*.{js,json,yml,yaml,css,scss,ts,tsx,md}": [
+      "eslint --fix"
     ]
+  },
+  "standard-version": {
+    "scripts": {
+      "postcommit": "npm run docs && npm run release:push"
+    }
   }
 }

@@ -15,9 +15,10 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "prebuild": "npm run build:clean && npm rebuild && npm test",
-    "build": "tsc -p tsconfig-build.json",
+    "build": "npm run build:raw",
+    "build:raw": "tsc -p tsconfig-build.json",
+    "postbuild:raw": "tsc-alias -p tsconfig-build.json",
     "build:clean": "rm -rf dist",
-    "postbuild": "cp package.json dist/package.json",
     "prepublishOnly": "npm run test:coverage && npm run lint:fix && npm run build",
     "postpublish": "npm run build:clean",
     "docs": "npm run lint:fix && npm run docs:clean && typedoc",
@@ -33,19 +34,12 @@
   },
   "dependencies": {
     "hashids": "^2.2.10",
-    "mathjs": "^10.0.0",
     "ts-treemap": "^1.1.0"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.3",
-    "@types/jest-expect-message": "^1.0.3",
-    "@types/mathjs": "^9.4.2",
-    "jest": "^27.4.5",
-    "ts-jest": "^27.1.1",
-    "tslib": "^2.3.1",
-    "typescript": "^4.5.4",
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
+    "@types/jest": "^27.0.3",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
     "eslint": "^8.4.1",
@@ -55,8 +49,13 @@
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jest": "^25.3.0",
     "husky": "^7.0.4",
+    "jest": "^27.4.5",
     "lint-staged": "^12.1.2",
-    "standard-version": "^9.3.2"
+    "standard-version": "^9.3.2",
+    "ts-jest": "^27.1.1",
+    "tsc-alias": "^1.5.0",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.4"
   },
   "lint-staged": {
     "*.{js,json,yml,yaml,css,scss,ts,tsx,md}": [
@@ -69,7 +68,7 @@
     }
   },
   "_moduleAliases": {
-    "@datune/utils": "dist/src",
+    "@time": "dist/src/time",
     "@tests": "dist/tests"
   }
 }

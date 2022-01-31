@@ -1,51 +1,51 @@
-import { MusicalDuration } from "../musicalduration/MusicalDuration";
-import { BPM } from "./BPM";
+import { initialize as initializeMD, MusicalDuration, QUARTER, WHOLE } from "../musical-duration";
+import { from } from "./building";
+import { initialize, QUARTER_120 } from "./constants";
 
-test('from - 120 QUARTER', () => {
-    let n = 120;
-    let beat: MusicalDuration = MusicalDuration.QUARTER;
+beforeAll(() => {
+  initializeMD();
+  initialize();
+} );
 
-    let bpm = BPM.from(n, beat);
+it("from - 120 QUARTER", () => {
+  const n = 120;
+  const beat: MusicalDuration = QUARTER;
+  const bpm = from(n, beat);
 
-    expect(bpm.bpm).toEqual(n);
-    expect(bpm.beat).toEqual(beat);
-});
+  expect(bpm.bpm).toEqual(n);
+  expect(bpm.beat).toEqual(beat);
+} );
 
-test('from - 120', () => {
-    let n = 120;
+it("from - 120", () => {
+  const n = 120;
+  const bpm = from(n);
+  const expectedBeat: MusicalDuration = QUARTER;
 
-    let bpm = BPM.from(n);
+  expect(bpm.bpm).toEqual(n);
+  expect(bpm.beat).toEqual(expectedBeat);
+} );
 
-    let expectedBeat: MusicalDuration = MusicalDuration.QUARTER;
+it("precalc - QUARTER_120", () => {
+  const bpm = QUARTER_120;
+  const expectedBeat: MusicalDuration = QUARTER;
+  const expectedNum: number = 120;
 
-    expect(bpm.bpm).toEqual(n);
-    expect(bpm.beat).toEqual(expectedBeat);
-});
+  expect(bpm.bpm).toEqual(expectedNum);
+  expect(bpm.beat).toEqual(expectedBeat);
+} );
 
-test('precalc - QUARTER_120', () => {
-    let bpm = BPM.QUARTER_120;
+it("getMillis - QUARTER_120 - WHOLE = 2s", () => {
+  const bpm = QUARTER_120;
+  const actualDuration = bpm.getMillis(WHOLE);
+  const expectedDuration: number = 2000;
 
-    let expectedBeat: MusicalDuration = MusicalDuration.QUARTER;
-    let expectedNum: number = 120;
+  expect(actualDuration).toEqual(expectedDuration);
+} );
 
-    expect(bpm.bpm).toEqual(expectedNum);
-    expect(bpm.beat).toEqual(expectedBeat);
-});
+it("getMillis - QUARTER_120 - QUARTER = 0.5s", () => {
+  const bpm = QUARTER_120;
+  const actualDuration = bpm.getMillis(QUARTER);
+  const expectedDuration: number = 500;
 
-test('getMillis - QUARTER_120 - WHOLE = 2s', () => {
-    let bpm = BPM.QUARTER_120;
-
-    let actualDuration = bpm.getMillis(MusicalDuration.WHOLE);
-    let expectedDuration: number = 2000;
-
-    expect(actualDuration).toEqual(expectedDuration);
-});
-
-test('getMillis - QUARTER_120 - QUARTER = 0.5s', () => {
-    let bpm = BPM.QUARTER_120;
-
-    let actualDuration = bpm.getMillis(MusicalDuration.QUARTER);
-    let expectedDuration: number = 500;
-
-    expect(actualDuration).toEqual(expectedDuration);
-});
+  expect(actualDuration).toEqual(expectedDuration);
+} );

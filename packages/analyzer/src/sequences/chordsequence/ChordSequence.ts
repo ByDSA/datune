@@ -1,5 +1,5 @@
-import { Chord } from '@datune/core';
-import { MusicalSequence } from '../musicalsequence/MusicalSequence';
+import { Chord } from "@datune/core/chords/chromatic";
+import MusicalSequence from "../musicalsequence/MusicalSequence";
 
-export class ChordSequence extends MusicalSequence<Chord> {
+export default class ChordSequence extends MusicalSequence<Chord> {
 }

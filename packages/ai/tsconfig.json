@@ -3,7 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": "./src/",
-    "outDir": "./",
+    "outDir": "./dist",
     "sourceMap": true,
     "declaration": true,
     "inlineSources": true,
@@ -20,21 +20,39 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "tests": ["../tests"],
+      "tests/*": ["../tests/*"],
+      "chords": ["../../core/dist/chords"],
+      "chords/*": ["../../core/dist/chords/*"],
+      "concert-pitches/*": ["../../core/dist/concert-pitches/*"],
+      "degrees/*": ["../../core/dist/degrees/*"],
+      "functions/*": ["../../core/dist/functions/*"],
+      "intervals/*": ["../../core/dist/intervals/*"],
+      "keys/*": ["../../core/dist/keys/*"],
+      "pitches": ["../../core/dist/pitches"],
+      "pitches/*": ["../../core/dist/pitches/*"],
+      "scales/*": ["../../core/dist/scales/*"],
+      "spns/*": ["../../core/dist/spns/*"],
+      "temperaments/*": ["../../core/dist/temperaments/*"],
+      "tunings/*": ["../../core/dist/tunings/*"],
+      "voicings/*": ["../../core/dist/voicings/*"]
+    }
   },
   "include": [
-    "src/**/*.ts",
+    "src/**/*.ts"
   ],
   "files": [
     "src/index.ts"
   ],
   "exclude": [
     "dist",
-    "node_modules",
-    "**/*.spec.ts"
+    "node_modules"
   ],
   "filesGlob": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "tests/**/*.ts"
   ],
   "types": [
     "node"

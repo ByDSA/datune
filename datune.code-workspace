@@ -1,7 +1,13 @@
 {
 	"folders": [
 		{
+			"path": "./packages/utils"
+		},
+		{
 			"path": "./packages/core"
+		},
+        {
+			"path": "./packages/core-ext"
 		},
 		{
 			"path": "./packages/ai"
@@ -13,7 +19,7 @@
 			"path": "./packages/midi"
 		},
 		{
-			"path": "./packages/utils"
+			"path": "./packages/strings"
 		}
 	],
 	"settings": {

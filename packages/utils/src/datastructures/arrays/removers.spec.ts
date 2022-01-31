@@ -1,7 +1,7 @@
 import { Arrays } from "../../index";
 
 describe("remove", () => {
-  test("item is multiple times", () => {
+  it("item is multiple times", () => {
     const array = [1, 2, 3, 2, 1];
     const item = 1;
     const initialSize = array.length;
@@ -11,7 +11,7 @@ describe("remove", () => {
     expect(array).toStrictEqual([2, 3, 2, 1]);
   } );
 
-  test("item is one time", () => {
+  it("item is one time", () => {
     const array = [1, 2, 3, 4];
     const item = 1;
     const initialSize = array.length;
@@ -21,7 +21,7 @@ describe("remove", () => {
     expect(array).toStrictEqual([2, 3, 4]);
   } );
 
-  test("item not found", () => {
+  it("item not found", () => {
     const array = [1, 2, 3, 4];
     const item = 5;
     const initialSize = array.length;

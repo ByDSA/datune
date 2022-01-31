@@ -1,21 +1,21 @@
 import { cyclicMod } from "./misc";
 
 describe("cyclicMod", () => {
-  test("lower than limit", () => {
+  it("lower than limit", () => {
     const n = 7;
     const limit = 12;
 
     expect(cyclicMod(n, limit)).toBe(7);
   } );
 
-  test("over limit", () => {
+  it("over limit", () => {
     const n = 14;
     const limit = 12;
 
     expect(cyclicMod(n, limit)).toBe(2);
   } );
 
-  test("below 0", () => {
+  it("below 0", () => {
     const n = -1;
     const limit = 12;
 

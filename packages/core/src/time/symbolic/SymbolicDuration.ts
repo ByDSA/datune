@@ -1,3 +1,2 @@
-export abstract class SymbolicDuration {
-    
+export default abstract class SymbolicDuration {
 }

@@ -1,81 +1,94 @@
-import { Key, MusicalDuration, Note, SPN } from "@datune/core";
-import { Interval } from "@datune/utils";
-import { NotesSequence } from "./NotesSequence";
+import { C as T_C } from "@datune/core/keys/chromatic";
+import { add, C as P_C, D as P_D, E as P_E, F as P_F, G as P_G } from "@datune/core/pitches/chromatic";
+import { fromPitchOctave as spnFrom, SPN } from "@datune/core/spns/chromatic";
+import { QUARTER, WHOLE, ZERO } from "@datune/core/time";
+import { intervalOf } from "@datune/utils/math";
+import { TestInit } from "tests";
+import NotesSequence from "./NotesSequence";
 
+TestInit.initAll();
 function generateCMajorTest() {
-    let s = new NotesSequence();
-    for (let n of Key.C.notes.map(n => Note.fromInt(n.valueOf()))) {
-        let spn = <SPN>SPN.from(n, 4);
-        let node = s.addEvent(spn);
-        node.to = node.from.withAdd(MusicalDuration.QUARTER);
-    }
+  const s = new NotesSequence();
 
-    return s;
+  for (const n of T_C.pitches) {
+    const spn = spnFrom(n, 4) as SPN;
+
+    s.add( {
+      event: spn,
+      from: s.duration,
+      to: s.duration + QUARTER,
+    } );
+  }
+
+  return s;
 }
 
 it("every note time marks", () => {
-    const s = generateCMajorTest();
+  const s = generateCMajorTest();
 
-    for (let n = 0; n < 7; n++) {
-        let node = s.nodes[n];
-        expect(node.from).toEqual(MusicalDuration.ZERO.withAdd(MusicalDuration.QUARTER.withMult(n)));
-        expect(node.to).toEqual(MusicalDuration.QUARTER.withMult(n + 1));
-    }
-})
+  for (let n = 0; n < 7; n++) {
+    const node = s.nodes[n];
+    const expectedFrom = ZERO + (QUARTER * n);
+    const expectedTo = QUARTER * (n + 1);
+
+    expect(node.interval.from).toBe(expectedFrom);
+    expect(node.interval.to).toBe(expectedTo);
+  }
+} );
 
 it("musical length", () => {
-    const s = generateCMajorTest();
+  const s = generateCMajorTest();
 
-    expect(s.duration).toEqual(MusicalDuration.QUARTER.withMult(7));
-})
+  expect(s.duration).toEqual(QUARTER * (7));
+} );
 
 it("number of notes", () => {
-    const s = generateCMajorTest();
+  const s = generateCMajorTest();
 
-    expect(s.nodes.length).toBe(7);
-})
+  expect(s.nodes.length).toBe(7);
+} );
 
 it("remove", () => {
-    const s = generateCMajorTest();
+  const s = generateCMajorTest();
+  const n2 = s.nodes[2];
 
-    const n2 = s.nodes[2];
+  expect(s.nodes.includes(n2)).toBeTruthy();
 
-    expect(s.nodes.indexOf(n2)).not.toBe(-1);
+  let [ok] = s.remove(n2);
 
-    let ok = s.removeNode(n2);
+  expect(ok).toBeTruthy();
+  expect(s.nodes.includes(n2)).toBeFalsy();
+  expect(s.nodes.length).toBe(6);
 
-    expect(ok).toBeTruthy();
-    expect(s.nodes.indexOf(n2)).toBe(-1);
-    expect(s.nodes.length).toBe(6);
-
-    ok = s.removeNode(n2);
-    expect(ok).toBeFalsy();
-    expect(s.nodes.length).toBe(6);
-})
+  [ok] = s.remove(n2);
+  expect(ok).toBeFalsy();
+  expect(s.nodes.length).toBe(6);
+} );
 
 it("pick by node position", () => {
-    const s = generateCMajorTest();
+  const s = generateCMajorTest();
 
-    expect(s.nodes[4].event.degree).toBe(Note.G);
-})
+  expect(s.nodes[4].event.pitch).toBe(P_G);
+} );
 
-it(`a`, () => {
-    const expected = Note.D;
-    const actual = Note.C.withShift(2);
+it("a", () => {
+  const expected = P_D;
+  const actual = add(P_C, 2);
 
-    expect(actual).toBe(expected);
-});
+  expect(actual).toBe(expected);
+} );
 
 it("pick by interval", () => {
-    const s = generateCMajorTest();
+  const s = generateCMajorTest();
+  const interval = intervalOf(QUARTER, WHOLE);
+  const nodes = s.get( {
+    interval,
+  } );
+  const notes = nodes.map((node) => node.event.pitch);
 
-    const interval = Interval.fromInclusiveToExclusive(MusicalDuration.QUARTER, MusicalDuration.WHOLE);
-    const nodes = s.getNodesAtInterval(interval);
-    const notes = nodes.map(node => node.event.degree);
-
-    expect(notes).toEqual([
-        Note.D,
-        Note.E,
-        Note.F
-    ]);
-})
+  expect(notes).toEqual([
+    P_D,
+    P_E,
+    P_F,
+  ]);
+} );

@@ -1,37 +1,42 @@
-import { Action } from "./Action";
+import Action from "./Action";
 
-export class ActionManager<A extends Action<T>, T> {
-    actions: A[];
-    end: boolean;
+export default class ActionManager<A extends Action<T>, T> {
+  actions: A[];
 
-    constructor() {
-        this.end = false;
-        this.actions = [];
-    }
+  end: boolean;
 
-    addAndDo(action: A): void {
-        this.actions.push(action);
-        console.log("Added action nº " + this.actions.length);
+  constructor() {
+    this.end = false;
+    this.actions = [];
+  }
 
-        this.doLast();
-    }
+  addAndDo(action: A): void {
+    this.actions.push(action);
+    console.log(`Added action nº ${this.actions.length}`);
 
-    private doLast() {
-        let done = false;
-        do {
-            let lastAction = this.actions[this.actions.length - 1];
+    this.doLast();
+  }
 
-            console.log("Do action nº " + this.actions.length);
-            done = lastAction.do();
-            if (!done) {
-                console.log("Undo action nº " + this.actions.length);
-                lastAction.undo();
-                this.actions.splice(this.actions.indexOf(lastAction));
-            }
-        } while (!done && this.actions.length > 0);
-        if (done)
-            console.log("Done action nº " + this.actions.length);
-        if (this.actions.length == 0)
-            throw new Error("Impossible!");
-    }
+  private doLast() {
+    let done = false;
+
+    do {
+      const lastAction = this.actions[this.actions.length - 1];
+
+      console.log(`Do action nº ${this.actions.length}`);
+      done = lastAction.do();
+
+      if (!done) {
+        console.log(`Undo action nº ${this.actions.length}`);
+        lastAction.undo();
+        this.actions.splice(this.actions.indexOf(lastAction));
+      }
+    } while (!done && this.actions.length > 0);
+
+    if (done)
+      console.log(`Done action nº ${this.actions.length}`);
+
+    if (this.actions.length === 0)
+      throw new Error("Impossible!");
+  }
 }

@@ -1,4 +1,5 @@
-import { SymbolicDegree } from '../../pitches';
-import { RelativePitch } from './RelativePitch';
+import OctavePitch from "pitches/OctavePitch";
+import RelativePitch from "./RelativePitch";
 
-export type Voicing<D extends SymbolicDegree> = RelativePitch<D>[];
+type Voicing<D extends OctavePitch> = RelativePitch<D>[];
+export default Voicing;

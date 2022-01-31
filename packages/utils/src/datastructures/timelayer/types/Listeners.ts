@@ -1,11 +1,10 @@
-import { ImmutableTime } from "index";
-import TemporalNode from "../TemporalNode";
+import { TemporalNode } from "../temporal-node";
 
-export type SequenceChangeListener<E, T extends ImmutableTime> = (
-  oldNode: TemporalNode<E, T>,
-  newNode: TemporalNode<E, T>
+export type SequenceChangeListener<E> = (
+  oldNode: TemporalNode<E>,
+  newNode: TemporalNode<E>
   )=> void;
 
-export type SequenceAddListener<E, T extends ImmutableTime> = (node: TemporalNode<E, T>)=> void;
+export type SequenceAddListener<E> = (node: TemporalNode<E>)=> void;
 
-export type SequenceRemoveListener<E, T extends ImmutableTime> = (node: TemporalNode<E, T>)=> void;
+export type SequenceRemoveListener<E> = (node: TemporalNode<E>)=> void;

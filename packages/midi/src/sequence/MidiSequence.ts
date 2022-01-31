@@ -1,29 +1,18 @@
-import { MusicalDuration } from '@datune/core';
-import { ParallelSequence, TemporalNode } from '@datune/utils';
-import { MidiNote } from './note/MidiNote';
+import { QUARTER, ZERO } from "@datune/core/time";
+import { ParallelSequence } from "@datune/utils";
+import { TimeLayerConstructorObject } from "@datune/utils/datastructures/timelayer/types";
+import MidiNote from "./note/MidiNote";
 
-export class MidiSequence extends ParallelSequence<MidiNote, MusicalDuration> {
-    protected constructor(cellSize: MusicalDuration) {
-        super(MusicalDuration.ZERO, cellSize);
-    }
+export default class MidiSequence extends ParallelSequence<MidiNote> {
+  constructor(obj?: Partial<TimeLayerConstructorObject>) {
+    const DEFAULT: TimeLayerConstructorObject = {
+      startTime: ZERO,
+      cellSize: QUARTER,
+    };
 
-    static create(): MidiSequence {
-        return new MidiSequence(MusicalDuration.QUARTER);
-    }
-
-    protected get cellSize(): MusicalDuration {
-        return super.cellSize;
-    }
-
-    get nodes(): TemporalNode<MidiNote, MusicalDuration>[] {
-        return super.nodes;
-    }
-
-    get duration(): MusicalDuration {
-        return super.duration;
-    }
-
-    get startTime(): MusicalDuration {
-        return MusicalDuration.ZERO;
-    }
+    super( {
+      ...DEFAULT,
+      ...obj,
+    } );
+  }
 }

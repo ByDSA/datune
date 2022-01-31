@@ -1,26 +1,26 @@
-import { MidiNote } from "../../sequence/note/MidiNote";
-import { Instrument } from "../instrument/Instrument";
+import { MidiNode } from "../../sequence/node";
+import { Instrument } from "../instrument";
+import Channel from "./Channel";
 
-type ChanelNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
-export class Track {
-    name: string;
-    private _notes: MidiNote[];
-    channel: ChanelNumber;
-    instrument: Instrument;
+type Track = {
+  name: string;
 
-    constructor() {
-        this.name = "";
-        this._notes = [];
-        this.channel = 0;
-        this.instrument = Instrument.ACOUSTIC_PIANO;
-    }
+  nodes: MidiNode[];
 
-    addNotes(notes: MidiNote[]): Track {
-        this._notes.push(...notes);
-        return this;
-    }
+  channel: Channel;
 
-    get notes(): readonly MidiNote[] {
-        return this._notes;
-    }
-}
+  instrument: Instrument;
+};
+
+export default Track;
+
+const DEFAULT: Track = {
+  name: "",
+  nodes: [],
+  channel: 0,
+  instrument: Instrument.ACOUSTIC_PIANO,
+};
+
+export {
+  DEFAULT,
+};

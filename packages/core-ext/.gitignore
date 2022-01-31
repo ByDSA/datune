@@ -1,0 +1,7 @@
+node_modules/
+/coverage/
+/docs/
+.env
+/dist/
+/tmp/
+/tests/cache.json

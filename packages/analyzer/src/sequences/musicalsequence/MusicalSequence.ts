@@ -1,10 +1,11 @@
-import { MusicalDuration } from '@datune/core';
-import { LinearSequence } from '@datune/utils';
+import { LinearSequence } from "@datune/utils";
+import { getDefaultConstructorObj, SequenceConstructor } from "../ConstructorObjType";
 
-export function getDefaultCellSize() { return MusicalDuration.WHOLE }
-
-export class MusicalSequence<E> extends LinearSequence<E, MusicalDuration> {
-    constructor(cellSize: MusicalDuration = getDefaultCellSize()) {
-        super(MusicalDuration.ZERO, cellSize);
-    }
+export default class MusicalSequence<E> extends LinearSequence<E> {
+  constructor(obj?: SequenceConstructor) {
+    super( {
+      ...getDefaultConstructorObj(),
+      ...obj,
+    } );
+  }
 }

@@ -1,65 +1,63 @@
-import { MusicalDuration } from "@datune/core";
-import { MidiPitch } from "../../pitch/MidiPitch";
-import { MidiNote } from "../note/MidiNote";
-import { MidiNode } from "./MidiNode";
+import { HALF, QUARTER, WHOLE, ZERO } from "@datune/core/time";
+import { TestInit } from "tests";
+import { C5 } from "../../pitch/constants";
+import { from as noteFrom, MidiNote } from "../note";
+import { from } from "./building";
 
-test('from - ZERO (C5 QUARTER 90)', () => {
-    let midiPitch: MidiPitch = MidiPitch.C5;
-    let duration: MusicalDuration = MusicalDuration.QUARTER;
-    let velocity = 90;
+TestInit.initAll();
 
-    let midiNote: MidiNote = MidiNote.builder()
-        .pitch(midiPitch)
-        .duration(duration)
-        .velocity(velocity)
-        .create();
+describe("from - ZERO (C5 QUARTER 90)", () => {
+  const note: MidiNote = noteFrom( {
+    pitch: C5,
+    duration: QUARTER,
+    velocity: 90,
+  } );
+  const node = from( {
+    note,
+  } );
 
-    let midiNode: MidiNode = MidiNode.builder()
-        .midiNote(midiNote)
-        .from(MusicalDuration.ZERO)
-        .create();
-    expect(midiNode.from).toBe(MusicalDuration.ZERO);
-    expect(midiNode.event).toBe(midiNote);
-    expect(midiNode.to).toBe(MusicalDuration.QUARTER);
-});
+  it("from", () => {
+    expect(node.interval.from).toBe(ZERO);
+  } );
+  it("note", () => {
+    expect(node.event).toBe(note);
+  } );
+  it("to", () => {
+    expect(node.interval.to).toEqual(QUARTER);
+  } );
+} );
 
-test('from - QUARTER (C5 QUARTER 90)', () => {
-    let midiPitch: MidiPitch = MidiPitch.C5;
-    let duration: MusicalDuration = MusicalDuration.QUARTER;
-    let velocity = 90;
+describe("from - QUARTER (C5 QUARTER 90)", () => {
+  const note: MidiNote = noteFrom( {
+    pitch: C5,
+    duration: QUARTER,
+    velocity: 90,
+  } );
+  const node = from( {
+    note,
+    at: QUARTER,
+  } );
 
-    let midiNote: MidiNote = MidiNote.builder()
-        .pitch(midiPitch)
-        .duration(duration)
-        .velocity(velocity)
-        .create();
+  it("from", () => {
+    expect(node.interval.from).toBe(QUARTER);
+  } );
+  it("note", () => {
+    expect(node.event).toBe(note);
+  } );
+  it("to", () => {
+    expect(node.interval.to).toEqual(HALF);
+  } );
+} );
 
-    let midiNode: MidiNode = MidiNode.builder()
-        .midiNote(midiNote)
-        .from(MusicalDuration.QUARTER)
-        .create();
+it("immutability", () => {
+  const note = noteFrom( {
+    velocity: 50,
+  } );
+  const node = from( {
+    note,
+  } );
 
-    expect(midiNode.from).toBe(MusicalDuration.QUARTER);
-    expect(midiNode.event).toBe(midiNote);
-    expect(midiNode.to).toBe(MusicalDuration.HALF);
-});
-
-test('changing to', () => {
-    let duration: MusicalDuration = MusicalDuration.QUARTER;
-
-    let midiNote: MidiNote = MidiNote.builder()
-        .duration(duration)
-        .create();
-
-    let midiNode: MidiNode = MidiNode.builder()
-        .midiNote(midiNote)
-        .from(MusicalDuration.QUARTER)
-        .create();
-
-    midiNode.to = MusicalDuration.WHOLE;
-
-    expect(midiNode.from).toBe(MusicalDuration.QUARTER);
-    expect(midiNode.event).not.toBe(midiNote);
-    expect(midiNode.event.duration).toBe(MusicalDuration.WHOLE.withSub(MusicalDuration.QUARTER));
-    expect(midiNode.to).toBe(MusicalDuration.WHOLE);
-});
+  expect(() => {
+    (node as any).to = WHOLE;
+  } ).toThrow(TypeError);
+} );

@@ -1,9 +1,12 @@
-import { MusicalDuration, SPN } from '@datune/core';
-import { ParallelSequence } from '@datune/utils';
-import { getDefaultCellSize } from '../../sequences/musicalsequence/MusicalSequence';
+import { SPN } from "@datune/core/spns/chromatic";
+import { ParallelSequence } from "@datune/utils";
+import { getDefaultConstructorObj, SequenceConstructor } from "../ConstructorObjType";
 
-export class NotesSequence extends ParallelSequence<SPN, MusicalDuration> {
-    constructor(cellSize: MusicalDuration = getDefaultCellSize()) {
-        super(MusicalDuration.ZERO, cellSize);
-    }
+export default class NotesSequence extends ParallelSequence<SPN> {
+  constructor(obj?: SequenceConstructor) {
+    super( {
+      ...getDefaultConstructorObj(),
+      ...obj,
+    } );
+  }
 }

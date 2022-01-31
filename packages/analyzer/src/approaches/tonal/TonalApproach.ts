@@ -1,76 +1,54 @@
-import { MusicalDuration, TimeSignature } from '@datune/core';
-import { ChordSequence } from '../../sequences/chordsequence/ChordSequence';
-import { ChordSequenceCalculator } from '../../sequences/ChordSequenceCalculator';
-import { FuncSequence } from '../../sequences/functionssequence/FuncSequence';
-import { KeySequence } from '../../sequences/keysequence/KeySequence';
-import { MainFuncSequence } from '../../sequences/mainfuncseq/MainFuncSequence';
-import { NotesSequence } from '../../sequences/notessequence/NotesSequence';
-import { RhythmSequence } from '../../sequences/rhythmsequence/RhythmSequence';
+import { MusicalDuration } from "@datune/core";
+import { WHOLE, ZERO } from "@datune/core/time";
+import mergeDeep from "mergeDeep";
+import { ChordSequence, FuncSequence, KeySequence, MainFuncSequence, NotesSequence, RhythmSequence } from "../../sequences";
+import ChordSequenceCalculator from "../../sequences/ChordSequenceCalculator";
+import ConstructorObjType, { DEFAULT_CONSTRUCTOR_OBJ } from "./Constructor";
 
-export class TonalApproach {
-    private _keySequence: KeySequence;
-    private _keyChordSequence: KeySequence;
-    private _mainFuncSequence: MainFuncSequence;
-    private _funcSequence: FuncSequence;
-    private _rhythmSequence: RhythmSequence;
-    private _notesSequence: NotesSequence;
-    private _chordSequence: ChordSequence;
-    private _maxDuration: MusicalDuration;
+export default class TonalApproach {
+  keySequence: KeySequence;
 
-    private constructor(initialTiemSignature: TimeSignature) {
-        this._maxDuration = MusicalDuration.ZERO;
-        this._mainFuncSequence = new MainFuncSequence();
-        this._funcSequence = new FuncSequence();
-        this._keyChordSequence = new KeySequence();
-        this._keySequence = new KeySequence();
-        this._notesSequence = new NotesSequence();
-        this._chordSequence = new ChordSequence();
-        this._rhythmSequence = new RhythmSequence();
-        this._rhythmSequence.addEvent(initialTiemSignature, MusicalDuration.ZERO, MusicalDuration.WHOLE);
-    }
+  keyChordSequence: KeySequence;
 
-    calculateChords() {
-        let chordSequenceCalculator = new ChordSequenceCalculator(this._notesSequence, this._rhythmSequence);
-        this._chordSequence = chordSequenceCalculator.calculate();
-    }
+  mainFuncSequence: MainFuncSequence;
 
-    static create(initialTiemSignature: TimeSignature): TonalApproach {
-        return new TonalApproach(initialTiemSignature);
-    }
+  funcSequence: FuncSequence;
 
-    set maxDuration(d: MusicalDuration) {
-        this._maxDuration = d;
-    }
+  rhythmSequence: RhythmSequence;
 
-    get maxDuration(): MusicalDuration {
-        return this._maxDuration;
-    }
+  notesSequence: NotesSequence;
 
-    get notesSequence(): NotesSequence {
-        return this._notesSequence;
-    }
+  chordSequence: ChordSequence;
 
-    get chordSequence(): ChordSequence {
-        return this._chordSequence;
-    }
+  maxDuration: MusicalDuration;
 
-    get keySequence(): KeySequence {
-        return this._keySequence;
-    }
+  constructor(obj?: Partial<ConstructorObjType>) {
+    const input: ConstructorObjType = {
+    } as any;
 
-    get keyChordSequence(): KeySequence {
-        return this._keyChordSequence;
-    }
+    mergeDeep(input, DEFAULT_CONSTRUCTOR_OBJ, obj);
 
-    get funcSequence(): FuncSequence {
-        return this._funcSequence;
-    }
+    this.maxDuration = ZERO;
+    this.mainFuncSequence = new MainFuncSequence();
+    this.funcSequence = new FuncSequence();
+    this.keyChordSequence = new KeySequence();
+    this.keySequence = new KeySequence();
+    this.notesSequence = new NotesSequence();
+    this.chordSequence = new ChordSequence();
+    this.rhythmSequence = new RhythmSequence();
+    this.rhythmSequence.add( {
+      event: input.initial.timeSignature,
+      from: ZERO,
+      to: WHOLE,
+    } );
+  }
 
-    get mainFuncSequence(): MainFuncSequence {
-        return this._mainFuncSequence;
-    }
+  calculateChords() {
+    const chordSequenceCalculator = new ChordSequenceCalculator(
+      this.notesSequence,
+      this.rhythmSequence,
+    );
 
-    get rhythmSequence(): RhythmSequence {
-        return this._rhythmSequence;
-    }
+    this.chordSequence = chordSequenceCalculator.calculate();
+  }
 }

@@ -1,47 +1,55 @@
-import { MusicalDuration, SPN } from "@datune/core";
-import { MidiNote, MidiPitch } from "@datune/midi";
-import { Interval, TemporalNode } from "@datune/utils";
-import { Voice } from "../../voice/Voice";
-import { VoiceConstraint } from "./VoiceConstraint";
+import { MusicalDuration } from "@datune/core";
+import { MidiNote } from "@datune/midi";
+import { TemporalNode } from "@datune/utils";
+import { intervalOf } from "@datune/utils/math";
+import { SPN } from "spns/chromatic";
+import Voice from "../../voice/Voice";
+import VoiceConstraint from "./VoiceConstraint";
 
-type Node = TemporalNode<MidiNote, MusicalDuration>;
-export class LowerVoiceConstraint extends VoiceConstraint {
-    constructor(voiceLower: Voice, public probability: number = 100) {
-        super(voiceLower, probability);
-    }
+type Node = TemporalNode<MidiNote>;
+export default class LowerVoiceConstraint extends VoiceConstraint {
+  constructor(voiceLower: Voice, public probability: number = 100) {
+    super(voiceLower, probability);
+  }
 
-    check(voice: Voice, from: MusicalDuration, to: MusicalDuration): boolean {
-        if (this.isMustConstrain()) {
-            const interval = Interval.fromInclusiveToExclusive(from, to);
-            const voiceNodes = voice.notesSequence.getNodesAtInterval(interval);
+  check(voice: Voice, from: MusicalDuration, to: MusicalDuration): boolean {
+    if (this.isMustConstrain()) {
+      const interval1 = intervalOf(from, to);
+      const voiceNodes = voice.notesSequence.get( {
+        interval: interval1,
+      } );
 
-            for (const node of voiceNodes) {
-                const interval = Interval.fromInclusiveToExclusive(node.from, node.to);
-                const otherNodes = this.otherVoice.notesSequence.getNodesAtInterval(interval);
-                for (const otherNode of otherNodes) {
-                    if (!this.innerCheck(node, otherNode))
-                        return false;
-                }
-            }
-
-        }
-        return true;
-    }
-
-    checkPitch(midiPitch: MidiPitch, from: MusicalDuration, to: MusicalDuration): boolean {
-        const interval = Interval.fromInclusiveToExclusive(from, to);
-        const otherNodes = this.otherVoice.notesSequence.getNodesAtInterval(interval);
+      for (const node of voiceNodes) {
+        const { interval } = node;
+        const otherNodes = this.otherVoice.notesSequence.get( {
+          interval,
+        } );
 
         for (const otherNode of otherNodes) {
-            if (otherNode.event.pitch >= midiPitch)
-                return false;
+          if (!innerCheck(node, otherNode))
+            return false;
         }
-
-        return true;
+      }
     }
 
+    return true;
+  }
 
-    protected innerCheck(node: Node, otherNode: Node): boolean {
-        return node.event.pitch > otherNode.event.pitch;
+  checkPitch(spn: SPN, from: MusicalDuration, to: MusicalDuration): boolean {
+    const interval = intervalOf(from, to);
+    const otherNodes = this.otherVoice.notesSequence.get( {
+      interval,
+    } );
+
+    for (const otherNode of otherNodes) {
+      if (otherNode.event.pitch.spn >= spn)
+        return false;
     }
+
+    return true;
+  }
+}
+
+function innerCheck(node: Node, otherNode: Node): boolean {
+  return node.event.pitch > otherNode.event.pitch;
 }

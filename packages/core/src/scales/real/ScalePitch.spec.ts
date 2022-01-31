@@ -1,36 +1,41 @@
-import { IntervalPitch } from "../../intervals";
-import { ScalePitch } from "./ScalePitch";
+import { ET12_MAJOR_SECOND, ET12_MAJOR_SEVENTH, ET12_MAJOR_SIXTH, ET12_MAJOR_THIRD, ET12_PERFECT_FIFTH, ET12_PERFECT_FOURTH, PT_MAJOR_SECOND, PT_MAJOR_SEVENTH, PT_MAJOR_SIXTH, PT_MAJOR_THIRD, PT_PERFECT_FIFTH, PT_PERFECT_FOURTH, UNISON } from "intervals/real";
+import { TestInit } from "tests";
+import { ET12_MAJOR, PT_MAJOR } from "./constants";
 
-test('precalc - MAJOR 12-ET', () => {
-    let scale = ScalePitch.MAJOR_ET12;
+TestInit.realScale();
 
-    expect(scale).toBe(ScalePitch.MAJOR_ET12);
-});
+it("precalc - MAJOR 12-ET", () => {
+  const scale = ET12_MAJOR;
 
-test('intervals: MAJOR ET-12', () => {
-    let scale = ScalePitch.MAJOR_ET12;
-    let intraIntervals = scale.intraIntervals;
-    expect(intraIntervals).toStrictEqual([
-        IntervalPitch.UNISON,
-        IntervalPitch.ET12.MAJOR_SECOND,
-        IntervalPitch.ET12.MAJOR_THIRD,
-        IntervalPitch.ET12.PERFECT_FOURTH,
-        IntervalPitch.ET12.PERFECT_FIFTH,
-        IntervalPitch.ET12.MAJOR_SIXTH,
-        IntervalPitch.ET12.MAJOR_SEVENTH,
-    ]);
-});
+  expect(scale).toBeDefined();
+} );
 
-test('intervals: MAJOR PYTHAGOREAN', () => {
-    let scale = ScalePitch.MAJOR_PYTHAGOREAN;
-    let intraIntervals = scale.intraIntervals;
-    expect(intraIntervals).toStrictEqual([
-        IntervalPitch.UNISON,
-        IntervalPitch.PYTHAGOREAN.MAJOR_SECOND,
-        IntervalPitch.PYTHAGOREAN.MAJOR_THIRD,
-        IntervalPitch.PYTHAGOREAN.PERFECT_FOURTH,
-        IntervalPitch.PYTHAGOREAN.PERFECT_FIFTH,
-        IntervalPitch.PYTHAGOREAN.MAJOR_SIXTH,
-        IntervalPitch.PYTHAGOREAN.MAJOR_SEVENTH,
-    ]);
-});
+it("intraintervals: MAJOR ET-12", () => {
+  const scale = ET12_MAJOR;
+  const { intraIntervals } = scale;
+
+  expect(intraIntervals).toStrictEqual([
+    UNISON,
+    ET12_MAJOR_SECOND,
+    ET12_MAJOR_THIRD,
+    ET12_PERFECT_FOURTH,
+    ET12_PERFECT_FIFTH,
+    ET12_MAJOR_SIXTH,
+    ET12_MAJOR_SEVENTH,
+  ]);
+} );
+
+it("intervals: MAJOR PYTHAGOREAN", () => {
+  const scale = PT_MAJOR;
+  const { intraIntervals } = scale;
+
+  expect(intraIntervals).toStrictEqual([
+    UNISON,
+    PT_MAJOR_SECOND,
+    PT_MAJOR_THIRD,
+    PT_PERFECT_FOURTH,
+    PT_PERFECT_FIFTH,
+    PT_MAJOR_SIXTH,
+    PT_MAJOR_SEVENTH,
+  ]);
+} );

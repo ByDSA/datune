@@ -1,56 +1,82 @@
 import { TonalApproach } from "@datune/analyzer";
 import { MusicalDuration, TimeSignature } from "@datune/core";
+import { ZERO } from "@datune/core/time";
+import { divCell } from "@datune/utils/time";
 import { limitTime } from "./utils";
 
-export abstract class GenSeq {
-    protected constructor(protected tonalApporach: TonalApproach) {
-    }
+export default abstract class GenSeq {
+  protected tonalApporach: TonalApproach;
 
-    abstract generate(): void;
+  constructor(tonalApporach: TonalApproach) {
+    this.tonalApporach = tonalApporach;
+  }
 
-    protected limitMaxDuration(m: MusicalDuration): MusicalDuration {
-        return limitTime(m, this.tonalApporach.maxDuration);
-    }
+  abstract generate(): void;
 
-    protected limitNextMeasure(duration: MusicalDuration, time: MusicalDuration): MusicalDuration {
-        const nextMeasureTime = this.getNextMeasureTime(time);
-        const addedTime = time.withAdd(duration).value;
+  protected limitMaxDuration(m: MusicalDuration): MusicalDuration {
+    return limitTime(m, this.tonalApporach.maxDuration);
+  }
 
-        return MusicalDuration.from(Math.min(nextMeasureTime.value, addedTime)).withSub(time);
-    }
+  protected limitNextMeasure(duration: MusicalDuration, time: MusicalDuration): MusicalDuration {
+    const nextMeasureTime = this.getNextMeasureTime(time);
+    const addedTime = time + (duration);
 
-    protected getNextMeasureTime(time: MusicalDuration): MusicalDuration {
-        const currentRythmNode = this.tonalApporach.rhythmSequence.getNodeAt(time) || this.tonalApporach.rhythmSequence.getNodeAt(MusicalDuration.ZERO);
-        const measureDuration = this.getMeasureDuration(time);
-        const currentRelativeMeasure = time.withSub(<MusicalDuration>currentRythmNode?.from).withDivCell(measureDuration);
-        const nextMeasureRelativeTime = measureDuration.withMult(currentRelativeMeasure + 1);
-        const nextMeasureTime = <MusicalDuration>currentRythmNode?.from.withAdd(nextMeasureRelativeTime);
+    return (Math.min(nextMeasureTime, addedTime)) - (time);
+  }
 
-        return nextMeasureTime;
-    }
+  protected getNextMeasureTime(time: MusicalDuration): MusicalDuration {
+    const currentRythmNode = this.tonalApporach.rhythmSequence.get( {
+      at: time,
+    } )[0]
+      || this.tonalApporach.rhythmSequence.get( {
+        at: ZERO,
+      } )[0];
+    const measureDuration = this.getMeasureDuration(time);
+    const currentRelativeMeasure = time
+      - divCell(currentRythmNode?.interval.from, measureDuration);
+    const nextMeasureRelativeTime = measureDuration * (currentRelativeMeasure + 1);
+    const nextMeasureTime = currentRythmNode.interval.from + (nextMeasureRelativeTime);
 
-    private getMeasureDuration(time: MusicalDuration): MusicalDuration {
-        const currentRythmNode = this.tonalApporach.rhythmSequence.getNodeAt(time) || this.tonalApporach.rhythmSequence.getNodeAt(MusicalDuration.ZERO);
-        const currentRythm = <TimeSignature>currentRythmNode?.event;
-        return currentRythm.denominatorBeat.withMult(currentRythm.numerator);
-    }
+    return nextMeasureTime;
+  }
 
-    protected getStartMeasureTime(time: MusicalDuration): MusicalDuration {
-        const currentRythmNode = this.tonalApporach.rhythmSequence.getNodeAt(time) || this.tonalApporach.rhythmSequence.getNodeAt(MusicalDuration.ZERO);
-        const measureDuration = this.getMeasureDuration(time);
-        const currentRelativeMeasure = time.withSub(<MusicalDuration>currentRythmNode?.from).withDivCell(measureDuration);
-        const currentMeasureRelativeTime = measureDuration.withMult(currentRelativeMeasure);
-        const currentMeasureTime = <MusicalDuration>currentRythmNode?.from.withAdd(currentMeasureRelativeTime);
+  private getMeasureDuration(time: MusicalDuration): MusicalDuration {
+    const currentRythmNode = this.tonalApporach.rhythmSequence.get( {
+      at: time,
+    } )[0]
+      || this.tonalApporach.rhythmSequence.get( {
+        at: ZERO,
+      } )[0];
+    const currentRythm = <TimeSignature>currentRythmNode?.event;
 
-        return currentMeasureTime;
-    }
+    return currentRythm.denominatorBeat * (currentRythm.numerator);
+  }
 
-    protected hasNewKeyAt(time: MusicalDuration): boolean {
-        let currentKeyNode = this.tonalApporach.keySequence.getNodeAt(time);
-        return currentKeyNode?.from == time;
-    }
+  protected getStartMeasureTime(time: MusicalDuration): MusicalDuration {
+    const currentRythmNode = this.tonalApporach.rhythmSequence.get( {
+      at: time,
+    } )[0]
+      || this.tonalApporach.rhythmSequence.get( {
+        at: ZERO,
+      } )[0];
+    const measureDuration = this.getMeasureDuration(time);
+    const currentRelativeMeasure = time
+      - divCell(currentRythmNode?.interval.from, measureDuration);
+    const currentMeasureRelativeTime = measureDuration * (currentRelativeMeasure);
+    const currentMeasureTime = currentRythmNode.interval.from + (currentMeasureRelativeTime);
 
-    protected isNewMeasure(time: MusicalDuration): boolean {
-        return time == this.getStartMeasureTime(time);
-    }
+    return currentMeasureTime;
+  }
+
+  protected hasNewKeyAt(time: MusicalDuration): boolean {
+    const currentKeyNode = this.tonalApporach.keySequence.get( {
+      at: time,
+    } )[0];
+
+    return currentKeyNode?.interval.from === time;
+  }
+
+  protected isNewMeasure(time: MusicalDuration): boolean {
+    return time === this.getStartMeasureTime(time);
+  }
 }

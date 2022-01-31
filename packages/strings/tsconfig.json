@@ -1,0 +1,61 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "strict": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "sourceMap": true,
+    "inlineSources": true,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "target": "es2021",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2021",
+      "dom"
+    ],
+    "baseUrl": "./src/",
+    "paths": {
+      "tests": ["../tests"],
+      "tests/*": ["../tests/*"],
+      "chords": ["../../core/dist/chords"],
+      "chords/*": ["../../core/dist/chords/*"],
+      "concert-pitches/*": ["../../core/dist/concert-pitches/*"],
+      "degrees/*": ["../../core/dist/degrees/*"],
+      "functions/*": ["../../core/dist/functions/*"],
+      "intervals/*": ["../../core/dist/intervals/*"],
+      "keys/*": ["../../core/dist/keys/*"],
+      "pitches": ["../../core/dist/pitches"],
+      "pitches/*": ["../../core/dist/pitches/*"],
+      "scales/*": ["../../core/dist/scales/*"],
+      "spns/*": ["../../core/dist/spns/*"],
+      "temperaments/*": ["../../core/dist/temperaments/*"],
+      "tunings/*": ["../../core/dist/tunings/*"],
+      "voicings/*": ["../../core/dist/voicings/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ],
+  "filesGlob": [
+    "src/**/*.ts",
+    "tests/**/*.ts"
+  ],
+  "types": [
+    "node"
+  ],
+  "typeRoots": [
+    "../node_modules/@types"
+  ]
+}

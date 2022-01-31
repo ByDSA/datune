@@ -1,51 +1,56 @@
-export abstract class SetComparator<T> {
-    private _common = new Set<T>();
-    private _different = new Set<T>();
-    private calculated: boolean;
+/* eslint-disable no-continue */
+/* eslint-disable no-labels */
+/* eslint-disable no-restricted-syntax */
+export default class SetComparator<T> {
+  private _common = new Set<T>();
 
-    protected constructor(private sets: Set<T>[]) {
-        this.calculated = false;
-    }
+  private _different = new Set<T>();
 
-    compare(): void {
-        this.addAllValuesToCommon();
-        this.removeNonCommonValues();
-        this.calculated = true;
-    }
+  private calculated: boolean;
 
-    private addAllValuesToCommon(): void {
-        for (let set of this.sets)
-            for (let value of set)
-                this._common.add(value);
-    }
+  constructor(private sets: Set<T>[]) {
+    this.calculated = false;
+  }
 
-    private removeNonCommonValues(): void {
-        mainFor: for (let value of this._common)
-            for (let set of this.sets) {
-                if (!this.setHasValue(set, value)) {
-                    this._common.delete(value)
-                    this._different.add(value);
-                    continue mainFor;
-                }
-            }
-    }
+  compare(): void {
+    this.addAllValuesToCommon();
+    this.removeNonCommonValues();
+    this.calculated = true;
+  }
 
-    protected setHasValue(set: Set<T>, value: T): boolean {
-        return set.has(value);
+  private addAllValuesToCommon(): void {
+    for (const set of this.sets) {
+      for (const value of set)
+        this._common.add(value);
     }
+  }
 
-    get common(): Set<T> {
-        this.errorIfNotCalculated();
-        return this._common;
+  private removeNonCommonValues(): void {
+    mainFor: for (const value of this._common) {
+      for (const set of this.sets) {
+        if (!set.has(value)) {
+          this._common.delete(value);
+          this._different.add(value);
+          continue mainFor;
+        }
+      }
     }
+  }
 
-    get different(): Set<T> {
-        this.errorIfNotCalculated();
-        return this._different;
-    }
+  getCommon(): Set<T> {
+    this.errorIfNotCalculated();
 
-    private errorIfNotCalculated() {
-        if (!this.calculated)
-            throw new Error("Not calculated yet");
-    }
+    return this._common;
+  }
+
+  getDifferent(): Set<T> {
+    this.errorIfNotCalculated();
+
+    return this._different;
+  }
+
+  private errorIfNotCalculated() {
+    if (!this.calculated)
+      throw new Error("Not calculated yet");
+  }
 }

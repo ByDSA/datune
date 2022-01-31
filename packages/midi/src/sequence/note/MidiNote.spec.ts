@@ -1,42 +1,51 @@
 import { MusicalDuration } from "@datune/core";
-import { MidiPitch } from "../../pitch/MidiPitch";
-import { MidiNote } from "./MidiNote";
+import { QUARTER } from "@datune/core/time";
+import { C5 } from "pitch/constants";
+import { TestInit } from "tests";
+import MidiPitch from "../../pitch/MidiPitch";
+import { from } from "./building";
+import Dto from "./PartialMidiNote";
 
-test('from - C5 QUARTER 90', () => {
-    let midiPitch: MidiPitch = MidiPitch.C5;
-    let duration: MusicalDuration = MusicalDuration.QUARTER;
-    let from: MusicalDuration = MusicalDuration.HALF;
-    let velocity = 90;
+TestInit.initAll();
+it("from - C5 QUARTER 90", () => {
+  const pitch: MidiPitch = C5;
+  const duration: MusicalDuration = QUARTER;
+  const velocity = 90;
+  const midiNote: Dto = from( {
+    pitch,
+    duration,
+    velocity,
+  } );
 
-    let midiNote = MidiNote.builder()
-        .pitch(midiPitch)
-        .duration(duration)
-        .velocity(velocity)
-        .from(from)
-        .create();
+  expect(midiNote.pitch).toBe(pitch);
+  expect(midiNote.duration).toBe(duration);
+  expect(midiNote.velocity).toBe(velocity);
+} );
 
-    expect(midiNote.pitch).toEqual(midiPitch);
-    expect(midiNote.duration).toEqual(duration);
-    expect(midiNote.velocity).toEqual(velocity);
-    expect(midiNote.from).toEqual(from);
-});
+it("from - vel 200 (vel to 127)", () => {
+  const velocity = 200;
+  const midiNote = from( {
+    velocity,
+  } );
 
-test('from - vel 200 (vel to 127)', () => {
-    let velocity = 200;
+  expect(midiNote.velocity).toBe(127);
+} );
 
-    let midiNote = MidiNote.builder()
-        .velocity(velocity)
-        .create();
+it("from - vel -12 (vel to 0)", () => {
+  const velocity = -12;
+  const midiNote = from( {
+    velocity,
+  } );
 
-    expect(midiNote.velocity).toEqual(127);
-});
+  expect(midiNote.velocity).toBe(0);
+} );
 
-test('from - vel -12 (vel to 0)', () => {
-    let velocity = -12;
+it("immutability", () => {
+  const note = from( {
+    velocity: 50,
+  } );
 
-    let midiNote = MidiNote.builder()
-        .velocity(velocity)
-        .create();
-
-    expect(midiNote.velocity).toEqual(0);
-});
+  expect(() => {
+    (note as any).velocity = 100;
+  } ).toThrow(TypeError);
+} );

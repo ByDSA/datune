@@ -1,113 +1,108 @@
-import { MusicalDuration, SPN } from "@datune/core";
-import { MidiNode, MidiNote } from "@datune/midi";
+/* eslint-disable class-methods-use-this */
+/* eslint-disable max-classes-per-file */
+import { MusicalDuration } from "@datune/core";
+import { MidiNode, MidiNote, nodeFrom } from "@datune/midi";
 import { TemporalNode } from "@datune/utils";
-import { Voice } from "../voice/Voice";
-import { ActionNote } from "./ActionNote";
+import ActionGenState from "./ActionGenState";
+import ActionNote from "./ActionNote";
 
-type Node = TemporalNode<MidiNote, MusicalDuration>;
-export class ActionGenState {
-    i: number = 0;
-    times: MusicalDuration[] = [];
-    voices: Voice[] = [];
-    voicesNumber: number;
-    lasts: (MidiNote | null)[] = [];
+type Node = TemporalNode<MidiNote>;
 
-    constructor(voices: Voice[]) {
-        this.voices = voices;
-        this.voicesNumber = voices.length;
-        this.lasts = [null, null, null];
-        this.times = [MusicalDuration.ZERO, MusicalDuration.ZERO, MusicalDuration.ZERO];
-    }
+export default class ActionGen extends ActionNote {
+  private node: MidiNode | undefined;
 
-    toString() {
-        return `i=${this.i} time=${this.times[this.i]}`;
-    }
-}
+  private last: MidiNote | null;
 
-export class ActionGen extends ActionNote {
-    private node: MidiNode | undefined;
-    private last: MidiNote | null;
-    private time: MusicalDuration;
-    private i: number;
+  private time: MusicalDuration;
 
-    constructor(possibilities: MidiNote[], private state: ActionGenState) {
-        super(possibilities);
-        this.i = state.i;
-        this.last = state.lasts[this.i];
-        this.time = state.times[this.i];
-    }
+  private i: number;
 
-    check(): boolean {
-        let ret: boolean = true;
+  constructor(possibilities: MidiNote[], private state: ActionGenState) {
+    super(possibilities);
+    this.i = state.i;
+    this.last = state.lasts[this.i];
+    this.time = state.times[this.i];
+  }
 
-        // console.log(`check: ${this.state} ${this.node?.event} ${ret}`);
+  check(): boolean {
+    const ret: boolean = true;
 
-        return ret;
-    }
+    // console.log(`check: ${this.state} ${this.node?.event} ${ret}`);
 
-    do(): boolean {
-        let ok = false;
-        do {
-            ok = this.try();
-            if (!ok)
-                return false;
-            if (this.check())
-                break;
-            else
-                this.untry();
-        } while (true);
+    return ret;
+  }
 
-        this.nextState();
+  do(): boolean {
+    let ok = false;
 
-        return true;
-    }
+    do {
+      ok = this.try();
 
-    private nextState(): void {
-        this.state.times[this.i] = <MusicalDuration>this.node?.to;
-        this.state.i = this.getLowerTimeI();
-    }
+      if (!ok)
+        return false;
 
-    private getLowerTimeI(): number {
-        return this.state.times.map((t, i) => {
-            return { time: t, i };
-        }).sort((v1, v2) => {
-            if (v1.time < v2.time)
-                return -1;
-            if (v1.time > v2.time)
-                return 1;
+      if (this.check())
+        break;
+      else
+        this.untry();
+    } while (true);
 
-            return 0;
-        })[0].i;
-    }
+    this.nextState();
 
-    try(): boolean {
-        const midiNote = this.picker.pickAndRemove();
-        console.log(`try: ${this.state} ${midiNote} remainingPossibilities=${this.picker.possibilities.map(a => a.toString())}`);
-        if (!midiNote)
-            return false;
+    return true;
+  }
 
-        this.node = MidiNode.builder()
-            .midiNote(midiNote)
-            .from(this.time)
-            .create();
-        this.state.voices[this.state.i].notesSequence.addNode(this.node);
-        this.state.lasts[this.state.i] = midiNote;
+  private nextState(): void {
+    this.state.times[this.i] = <MusicalDuration> this.node?.interval.to;
+    this.state.i = this.getLowerTimeI();
+  }
 
-        return true;
-    }
+  private getLowerTimeI(): number {
+    return this.state.times.map((t, i) => ( {
+      time: t,
+      i,
+    } )).sort((v1, v2) => {
+      if (v1.time < v2.time)
+        return -1;
 
-    untry(): void {
-        this.state.voices[this.state.i].notesSequence.removeNode(<Node>this.node);
-        this.node = undefined;
-        this.state.lasts[this.state.i] = this.last;
-        console.log("untry");
-    }
+      if (v1.time > v2.time)
+        return 1;
 
-    undo(): void {
-        this.prevState();
-    }
+      return 0;
+    } )[0].i;
+  }
 
-    private prevState(): void {
-        this.state.times[this.i] = this.time;
-    }
+  try(): boolean {
+    const midiNote = this.picker.pickAndRemove();
+
+    console.log(`try: ${this.state} ${midiNote} remainingPossibilities=${this.picker.possibilities.map(String)}`);
+
+    if (!midiNote)
+      return false;
+
+    this.node = nodeFrom( {
+      note: midiNote,
+      at: this.time,
+    } );
+
+    this.state.voices[this.state.i].notesSequence.add(this.node);
+    this.state.lasts[this.state.i] = midiNote;
+
+    return true;
+  }
+
+  untry(): void {
+    this.state.voices[this.state.i].notesSequence.remove(<Node> this.node);
+    this.node = undefined;
+    this.state.lasts[this.state.i] = this.last;
+    console.log("untry");
+  }
+
+  undo(): void {
+    this.prevState();
+  }
+
+  private prevState(): void {
+    this.state.times[this.i] = this.time;
+  }
 }

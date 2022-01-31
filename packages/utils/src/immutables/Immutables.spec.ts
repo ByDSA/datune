@@ -21,7 +21,7 @@ function objTest() {
 }
 
 describe("immutable recursive (lockr)", () => {
-  test("change privateVar", () => {
+  it("change privateVar", () => {
     const obj = objTest();
 
     lockr(obj);
@@ -33,7 +33,7 @@ describe("immutable recursive (lockr)", () => {
     expect(t).toThrow(TypeError);
   } );
 
-  test("new key", () => {
+  it("new key", () => {
     const obj = objTest();
 
     lockr(obj);
@@ -45,7 +45,7 @@ describe("immutable recursive (lockr)", () => {
     expect(t).toThrow(TypeError);
   } );
 
-  test("change static obj", () => {
+  it("change static obj", () => {
     const obj = classTest();
 
     lockr(obj);
@@ -57,7 +57,7 @@ describe("immutable recursive (lockr)", () => {
     expect(t).toThrow(TypeError);
   } );
 
-  test("change static", () => {
+  it("change static", () => {
     const obj = classTest();
 
     lockr(obj);

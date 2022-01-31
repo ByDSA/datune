@@ -1,7 +1,8 @@
-import { newAddEvent1, newNode1 } from "datastructures/timelayer/TemporalNode/spec/utils";
-import SimpleTime from "../../../../../time/SimpleTime";
-import TemporalNode from "../../../TemporalNode";
-import EventTest from "../../../TemporalNode/spec/EventTest";
+import { intervalOf } from "math";
+import { add } from "time";
+import { from as temporalNode } from "../../../temporal-node";
+import EventTest from "../../../temporal-node/spec/EventTest";
+import { newNode1 } from "../../../temporal-node/spec/utils";
 import ParalelSequenceTest from "./ParallelSequenceTest";
 
 describe("initial state", () => {
@@ -14,7 +15,7 @@ describe("initial state", () => {
   } );
 
   it("initial state - duration", () => {
-    const expected = new SimpleTime(0);
+    const expected = 0;
     const seq = new ParalelSequenceTest();
     const actual = seq.duration;
 
@@ -26,17 +27,17 @@ describe("add", () => {
   describe("event", () => {
     it("returns node", () => {
       const seq = new ParalelSequenceTest();
-      const node = seq.add(newAddEvent1())[0];
+      const node = seq.add(newNode1())[0];
 
       expect(node).toBeDefined();
     } );
     it("node info", () => {
       const seq = new ParalelSequenceTest();
-      const obj = newAddEvent1();
+      const obj = newNode1();
       const node = seq.add(obj)[0];
 
-      expect(node.from).toStrictEqual(obj.from);
-      expect(node.to).toStrictEqual(obj.to);
+      expect(node.interval.from).toStrictEqual(obj.interval.from);
+      expect(node.interval.to).toStrictEqual(obj.interval.to);
       expect(node.event).toBe(obj.event);
     } );
 
@@ -44,22 +45,22 @@ describe("add", () => {
       const expected = 2;
       const seq = new ParalelSequenceTest();
 
-      seq.add(newAddEvent1());
-      seq.add(newAddEvent1());
+      seq.add(newNode1());
+      seq.add(newNode1());
       const actual = seq.nodes.length;
 
       expect(actual).toBe(expected);
     } );
 
     it("duration", () => {
-      const expected = new SimpleTime(2);
+      const expected = 2;
       const seq = new ParalelSequenceTest();
 
-      seq.add(newAddEvent1());
+      seq.add(newNode1());
       seq.add( {
         event: new EventTest(),
         from: seq.duration,
-        to: seq.duration.withAdd(new SimpleTime(1)),
+        to: add(seq.duration, 1),
       } );
       const actual = seq.duration;
 
@@ -71,16 +72,16 @@ describe("add", () => {
     it("node info", () => {
       const seq = new ParalelSequenceTest();
       const ev = new EventTest();
-      const node = new TemporalNode( {
-        from: new SimpleTime(5),
-        to: new SimpleTime(10),
+      const node = temporalNode( {
+        from: 5,
+        to: 10,
         event: ev,
       } );
 
       seq.add(node);
 
-      expect(node.from).toStrictEqual(new SimpleTime(5));
-      expect(node.to).toStrictEqual(new SimpleTime(10));
+      expect(node.interval.from).toStrictEqual(5);
+      expect(node.interval.to).toStrictEqual(10);
       expect(node.event).toBe(ev);
     } );
 
@@ -95,13 +96,59 @@ describe("add", () => {
       expect(actual).toBe(expected);
     } );
   } );
+
+  describe("layer", () => {
+    it("ok", () => {
+      const seq1 = new ParalelSequenceTest();
+      const node = {
+        event: new EventTest(),
+        interval: intervalOf(0, 1),
+      };
+
+      seq1.add(node);
+
+      const seq2 = new ParalelSequenceTest();
+
+      seq2.add( {
+        layer: seq1,
+      } );
+
+      expect(seq2.nodes.length).toBe(1);
+      expect(seq2.nodes[0]).toBe(node);
+    } );
+
+    it("at 1", () => {
+      const seq1 = new ParalelSequenceTest();
+      const node = {
+        event: new EventTest(),
+        interval: intervalOf(0, 1),
+      };
+
+      seq1.add(node);
+
+      const seq2 = new ParalelSequenceTest();
+
+      seq2.add( {
+        layer: seq1,
+        at: 1,
+      } );
+
+      const expectedNode = {
+        event: new EventTest(),
+        interval: intervalOf(1, 2),
+      };
+
+      expect(seq2.nodes.length).toBe(1);
+      expect(seq2.nodes[0]).toEqual(expectedNode);
+    } );
+  } );
 } );
 
 describe("remove", () => {
   it("length nodes", () => {
     const expected = 0;
     const seq = new ParalelSequenceTest();
-    const node = seq.add(newAddEvent1())[0];
+    const node = seq.add(newNode1())[0];
 
     seq.remove(node);
     const actual = seq.nodes.length;
@@ -112,7 +159,7 @@ describe("remove", () => {
   it("length nodes", () => {
     const expected = 0;
     const seq = new ParalelSequenceTest();
-    const node = seq.add(newAddEvent1())[0];
+    const node = seq.add(newNode1())[0];
 
     seq.remove(node);
     const actual = seq.nodes.length;
@@ -123,7 +170,7 @@ describe("remove", () => {
   it("re-add in same time layer", () => {
     const expected = 1;
     const seq = new ParalelSequenceTest();
-    const node = seq.add(newAddEvent1())[0];
+    const node = seq.add(newNode1())[0];
 
     seq.remove(node);
     seq.add(node);
@@ -136,7 +183,7 @@ describe("remove", () => {
     const expected = 1;
     const seq = new ParalelSequenceTest();
     const seq2 = new ParalelSequenceTest();
-    const node = seq.add(newAddEvent1())[0];
+    const node = seq.add(newNode1())[0];
 
     seq.remove(node);
     seq2.add(node);
@@ -146,7 +193,7 @@ describe("remove", () => {
   } );
   it("returns old node", () => {
     const seq = new ParalelSequenceTest();
-    const expected = seq.add(newAddEvent1());
+    const expected = seq.add(newNode1());
     const actual = seq.remove(expected);
 
     expect(actual).toEqual(expected);
@@ -183,8 +230,8 @@ describe("onremove", () => {
       let count = 0;
       const seq = new ParalelSequenceTest();
 
-      seq.add(newAddEvent1());
-      seq.add(newAddEvent1());
+      seq.add(newNode1());
+      seq.add(newNode1());
       seq.onRemove(() => count++);
       seq.clear();
 
@@ -196,8 +243,8 @@ describe("onremove", () => {
       let count = 0;
       const seq = new ParalelSequenceTest();
 
-      seq.add(newAddEvent1());
-      seq.add(newAddEvent1());
+      seq.add(newNode1());
+      seq.add(newNode1());
       seq.onRemove(() => {
         count += seq.nodes.length;
 
@@ -215,7 +262,7 @@ describe("clear", () => {
     const expected = 0;
     const seq = new ParalelSequenceTest();
 
-    seq.add(newAddEvent1());
+    seq.add(newNode1());
     seq.clear();
     const actual = seq.nodes.length;
 
@@ -224,33 +271,85 @@ describe("clear", () => {
 } );
 
 it("move node begin", () => {
-  const expectedFrom = new SimpleTime(3);
-  const expectedTo = new SimpleTime(5);
+  const expectedInterval = intervalOf(3, 4);
   const seq = new ParalelSequenceTest();
-  const oldNode = seq.add(newAddEvent1())[0];
+  const oldNode = newNode1();
 
-  oldNode.to = expectedTo;
-  const newNode = seq.moveNodeBeginTo(oldNode, new SimpleTime(3));
-  const actualFrom = newNode.from;
-  const actualTo = newNode.to;
+  seq.add(oldNode);
+  const actualNode = seq.moveNode(oldNode, 3);
 
-  expect(actualFrom).toStrictEqual(expectedFrom);
-  expect(actualTo).toBe(expectedTo);
+  expect(actualNode.interval).toEqual(expectedInterval);
 } );
 
 it("move node end", () => {
-  const expectedFrom = new SimpleTime(3);
-  const expectedTo = new SimpleTime(5);
+  const expectedFrom = 4;
+  const expectedTo = 5;
   const seq = new ParalelSequenceTest();
-  const oldNode = seq.add(newAddEvent1())[0];
+  const oldNode = newNode1();
 
-  oldNode.from = expectedFrom;
-  const newNode = seq.moveNodeEndTo(oldNode, new SimpleTime(5));
-  const actualFrom = newNode.from;
-  const actualTo = newNode.to;
+  seq.add(oldNode);
+  const newNode = seq.moveNodeEndTo(oldNode, 5);
+  const actualFrom = newNode.interval.from;
+  const actualTo = newNode.interval.to;
 
   expect(actualTo).toStrictEqual(expectedTo);
   expect(actualFrom).toBe(expectedFrom);
+} );
+
+describe("get", () => {
+  let seq: ParalelSequenceTest;
+
+  beforeEach(() => {
+    seq = new ParalelSequenceTest();
+  } );
+
+  describe("at", () => {
+    beforeEach(() => {
+      seq.add(newNode1());
+      seq.add( {
+        interval: intervalOf(10, 11, {
+          fromInclusive: false,
+          toInclusive: true,
+        } ),
+        event: new EventTest(),
+      } );
+    } );
+    it("0 (left included)", () => {
+      const got = seq.get( {
+        at: 0,
+      } );
+
+      expect(got.length).toBe(1);
+    } );
+    it("0.5 (middle)", () => {
+      const got = seq.get( {
+        at: 0.5,
+      } );
+
+      expect(got.length).toBe(1);
+    } );
+    it("1 (right not included)", () => {
+      const got = seq.get( {
+        at: 1,
+      } );
+
+      expect(got.length).toBe(0);
+    } );
+    it("10 (left not included)", () => {
+      const got = seq.get( {
+        at: 10,
+      } );
+
+      expect(got.length).toBe(0);
+    } );
+    it("11 (right included)", () => {
+      const got = seq.get( {
+        at: 11,
+      } );
+
+      expect(got.length).toBe(1);
+    } );
+  } );
 } );
 
 it("onchange", () => {
@@ -261,9 +360,9 @@ it("onchange", () => {
   seq.onChange(() => {
     actual++;
   } );
-  const node = seq.add(newAddEvent1())[0];
+  const node = seq.add(newNode1())[0];
 
-  seq.moveNodeBeginTo(node, new SimpleTime(3));
+  seq.moveNode(node, 3);
 
   expect(actual).toBe(expected);
 } );

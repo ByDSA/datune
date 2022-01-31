@@ -1,19 +1,19 @@
-import { ImmutableTime } from "index";
-import TemporalNode from "../TemporalNode";
+import { Time } from "time";
+import { TemporalNode } from "../temporal-node";
 
-export type NodeType<E, T extends ImmutableTime> = TemporalNode<E, T>;
+export type NodeType<E> = TemporalNode<E>;
 
-export type NodesType<E, T extends ImmutableTime> = TemporalNode<E, T>[];
+export type NodesType<E> = TemporalNode<E>[];
 
-export function isNodeType(obj: any): boolean {
-  return obj instanceof TemporalNode;
+export function isNodeType<E>(obj: any): obj is NodeType<E> {
+  return obj.interval !== undefined && obj.event !== undefined;
 }
 
-export function isNodesType(obj: any): boolean {
+export function isNodesType<E>(obj: any): obj is NodesType<E> {
   return obj instanceof Array;
 }
 
-export type TimeLayerConstructorObject<T extends ImmutableTime> = {
-  startTime: T;
-  cellSize: T;
+export type TimeLayerConstructorObject = {
+  startTime: Time;
+  cellSize: Time;
 };

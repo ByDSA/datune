@@ -1,41 +1,41 @@
+import { Time } from "time";
 import Interval from "../../../math/interval/Interval";
-import { ImmutableTime } from "../../../time/ImmutableTime";
-import TemporalNode from "../TemporalNode/TemporalNode";
+import { TemporalNode } from "../temporal-node";
 import { NodesType, NodeType } from "./types";
 
-export type RemoveNodesAtType<T extends ImmutableTime> = {
-  at: T;
+export type RemoveNodesAtType = {
+  at: Time;
 };
 
-export type RemoveNodesAtIntervalType<T extends ImmutableTime> = {
-  interval: Interval<T>;
+export type RemoveNodesAtIntervalType = {
+  interval: Interval<Time>;
 };
 
-export type RemoveNodesFromToType<T extends ImmutableTime> = {
-  from: T;
-  to: T;
+export type RemoveNodesFromToType = {
+  from: Time;
+  to: Time;
 };
 
-export type RemoveNodeType<E, T extends ImmutableTime> = {
-  node: TemporalNode<E, T>;
+export type RemoveNodeType<E> = {
+  node: TemporalNode<E>;
 };
 
-export type RemoveType<E, T extends ImmutableTime> =
-NodesType<E, T> | NodeType<E, T> | RemoveNodesAtIntervalType<T>
-| RemoveNodesAtType<T> | RemoveNodesFromToType<T>;
+export type RemoveType<E> =
+NodesType<E> | NodeType<E> | RemoveNodesAtIntervalType
+| RemoveNodesAtType | RemoveNodesFromToType;
 
-export function isRemoveNodesAtIntervalType<T extends ImmutableTime>(
-  obj: RemoveType<any, T>,
+export function isRemoveNodesAtIntervalType(
+  obj: RemoveType<any>,
 ): boolean {
   return "interval" in obj;
 }
 
-export function isRemoveNodesAtType<T extends ImmutableTime>(
-  obj: RemoveType<any, T>,
+export function isRemoveNodesAtType(
+  obj: RemoveType<any>,
 ): boolean {
   return "at" in obj && !(obj instanceof Array);
 }
 
-export function isRemoveNodesFromToType(obj: RemoveType<any, any>): boolean {
+export function isRemoveNodesFromToType(obj: RemoveType<any>): boolean {
   return "from" in obj && "to" in obj;
 }

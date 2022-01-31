@@ -1,39 +1,36 @@
-import { MusicalDuration } from "../musicalduration/MusicalDuration";
-import { Tempo } from "../tempo/Tempo";
+import { lockr } from "@datune/utils/immutables";
+import { MusicalDuration } from "../musical-duration";
+import Tempo from "../tempo/Tempo";
 
-export class BPM extends Tempo {
-    private constructor(private _bpm: number, private _beat: MusicalDuration) {
-        super();
-    }
+export default class BPM extends Tempo {
+  bpm: number;
 
-    static from(bpm: number, beat: MusicalDuration = MusicalDuration.QUARTER): BPM {
-        return new BPM(bpm, beat);
-    }
+  beat: MusicalDuration;
 
-    getMillis(musicalDuration: MusicalDuration): number {
-        let msPerMin = 1000 * 60;
-        let baseDuration = msPerMin / this._bpm;
-        let wholeDuration = baseDuration / this._beat.value;
+  private wholeMillisDuration;
 
-        return musicalDuration.value * wholeDuration;
-    }
+  private constructor(bpm: number, beat: MusicalDuration) {
+    super();
 
-    get bpm(): number {
-        return this._bpm;
-    }
+    this.bpm = bpm;
+    this.beat = beat;
+    this.wholeMillisDuration = calcWholeMillisDuration(this.bpm, this.beat);
 
-    get beat(): MusicalDuration {
-        return this._beat;
-    }
+    lockr(this);
+  }
 
-    // SETS
+  private static create(bpm: number, beat: MusicalDuration): BPM {
+    return new BPM(bpm, beat);
+  }
 
-    static get QUARTER_120(): BPM {
-        if (!_QUARTER_120)
-            _QUARTER_120 = BPM.from(120, MusicalDuration.QUARTER);
-
-        return _QUARTER_120;
-    }
+  getMillis(musicalDuration: MusicalDuration): number {
+    return +musicalDuration * this.wholeMillisDuration;
+  }
 }
 
-let _QUARTER_120: BPM;
+function calcWholeMillisDuration(bpm: number, beat: MusicalDuration): number {
+  const msPerMin = 1000 * 60;
+  const baseDuration = msPerMin / bpm;
+
+  return baseDuration / +beat;
+}

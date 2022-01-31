@@ -1,40 +1,42 @@
-import { AddLayerType, AddType, GetNodesAtType, GetType, isAddLayerType, isGetNodesAtType, isGetNodesFromToType, isNodeType, NodeType, RemoveType, SequenceAddListener, SequenceChangeListener, SequenceRemoveListener } from "datastructures/timelayer/types";
-import { GetNodesAtIntervalType, GetNodesFromToType, isGetNodesAtIntervalType } from "datastructures/timelayer/types/GetTypes";
-import { isRemoveNodesAtIntervalType, isRemoveNodesAtType, isRemoveNodesFromToType, RemoveNodesAtIntervalType, RemoveNodesAtType, RemoveNodesFromToType } from "datastructures/timelayer/types/RemoveTypes";
-import { isNodesType, NodesType, TimeLayerConstructorObject } from "datastructures/timelayer/types/types";
+import { intervalContains, intervalIntersects, intervalOf } from "math";
+import { contains } from "math/interval";
+import { add, divCell, mult, sub } from "time";
+import Time from "time/Time";
 import TreeMap from "ts-treemap";
 import Interval from "../../../../math/interval/Interval";
-import { ImmutableTime } from "../../../../time/ImmutableTime";
-import TemporalNode, { isTemporalNodeConstructorType, TemporalNodeConstructorType } from "../../TemporalNode";
+import { Constructor as TemporalNodeConstructorType, from as temporalNode, isTemporalNodeConstructorType, TemporalNode } from "../../temporal-node";
 import TimeLayer from "../../TimeLayer";
+import { AddType, GetType, isAddLayerType, isGetNodesAtType, isGetNodesFromToType, isNodeType, NodeType, RemoveType, SequenceAddListener, SequenceChangeListener, SequenceRemoveListener } from "../../types";
+import { isGetNodesAtIntervalType } from "../../types/GetTypes";
+import { isRemoveNodesAtIntervalType, isRemoveNodesAtType, isRemoveNodesFromToType, RemoveNodesAtIntervalType, RemoveNodesAtType, RemoveNodesFromToType } from "../../types/RemoveTypes";
+import { isNodesType, NodesType, TimeLayerConstructorObject } from "../../types/types";
 
-type FunctionEach<E, T extends ImmutableTime> = (
-    node: TemporalNode<E, T>,
-    cell: TemporalNode<E, T>[]
+type FunctionEach<E> = (
+    node: TemporalNode<E>,
+    cell: TemporalNode<E>[]
     )=> boolean;
 
-type FEach<E, T extends ImmutableTime> = (
-    node: TemporalNode<E, T>,
-    cell: TemporalNode<E, T>[]
+type FEach<E> = (
+    node: TemporalNode<E>,
+    cell: TemporalNode<E>[]
     )=> void;
 
-export default class ParallelSequence<E, T extends ImmutableTime>
-implements TimeLayer<E, T> {
-  private _cells: TreeMap<number, TemporalNode<E, T>[]>;
+export default class ParallelSequence<E> implements TimeLayer<E> {
+  private _cells: TreeMap<number, TemporalNode<E>[]>;
 
-  private _nodes: TemporalNode<E, T>[];
+  private _nodes: TemporalNode<E>[];
 
-  private _onChangeListeners: SequenceChangeListener<E, T>[];
+  private _onChangeListeners: SequenceChangeListener<E>[];
 
-  private _onAddListeners: SequenceAddListener<E, T>[];
+  private _onAddListeners: SequenceAddListener<E>[];
 
-  private _onRemoveListeners: SequenceRemoveListener<E, T>[];
+  private _onRemoveListeners: SequenceRemoveListener<E>[];
 
-  private _startTime: T;
+  private _startTime: Time;
 
-  private _cellSize: T;
+  private _cellSize: Time;
 
-  constructor(obj: TimeLayerConstructorObject<T>) {
+  constructor(obj: TimeLayerConstructorObject) {
     this._cells = new TreeMap();
     this._nodes = [];
 
@@ -45,17 +47,22 @@ implements TimeLayer<E, T> {
     this._onRemoveListeners = [];
   }
 
-  private _getCellIndexFromTime(time: T): number {
-    return time.withDivCell(this._cellSize);
+  // eslint-disable-next-line accessor-pairs
+  get startTime(): Time {
+    return this._startTime;
   }
 
-  private _getCellFromTime(time: T): TemporalNode<E, T>[] {
+  private _getCellIndexFromTime(time: Time): number {
+    return divCell(time, this._cellSize as Time);
+  }
+
+  private _getCellFromTime(time: Time): TemporalNode<E>[] {
     const index: number = this._getCellIndexFromTime(time);
 
     return this._getCellFromIndex(index);
   }
 
-  private _getCellFromIndex(index: number): TemporalNode<E, T>[] {
+  private _getCellFromIndex(index: number): TemporalNode<E>[] {
     let cell = this._cells.get(index);
 
     if (!cell) {
@@ -66,54 +73,54 @@ implements TimeLayer<E, T> {
     return cell;
   }
 
-  onChange(listener: SequenceChangeListener<E, T>) {
+  onChange(listener: SequenceChangeListener<E>) {
     this._onChangeListeners.push(listener);
   }
 
-  private _callOnChangeListeners(oldNode: TemporalNode<E, T>, newNode: TemporalNode<E, T>) {
+  private _callOnChangeListeners(oldNode: TemporalNode<E>, newNode: TemporalNode<E>) {
     for (const f of this._onChangeListeners)
       f(oldNode, newNode);
   }
 
-  private _callOnAddListeners(node: TemporalNode<E, T>) {
+  private _callOnAddListeners(node: TemporalNode<E>) {
     for (const f of this._onAddListeners)
       f(node);
   }
 
-  private _callOnRemoveListeners(node: TemporalNode<E, T>) {
+  private _callOnRemoveListeners(node: TemporalNode<E>) {
     for (const f of this._onRemoveListeners)
       f(node);
   }
 
-  onAdd(listener: SequenceAddListener<E, T>) {
+  onAdd(listener: SequenceAddListener<E>) {
     this._onAddListeners.push(listener);
   }
 
-  onRemove(listener: SequenceRemoveListener<E, T>) {
+  onRemove(listener: SequenceRemoveListener<E>) {
     this._onRemoveListeners.push(listener);
   }
 
-  add(obj: AddType<E, T>): TemporalNode<E, T>[] {
+  add(obj: AddType<E>): TemporalNode<E>[] {
     if (isTemporalNodeConstructorType(obj)) {
-      const node = new TemporalNode<E, T>(obj as TemporalNodeConstructorType<E, T>);
+      const node = temporalNode<E>(obj as TemporalNodeConstructorType<E>);
 
       return [this.addNode(node)];
     }
 
     if (isNodeType(obj)) {
-      const node = obj as NodeType<E, T>;
+      const node = obj as NodeType<E>;
 
       return [this.addNode(node)];
     }
 
     if (isNodesType(obj)) {
-      const nodes = obj as NodesType<E, T>;
+      const nodes = obj as NodesType<E>;
 
       return this.addNodes(...nodes);
     }
 
     if (isAddLayerType(obj)) {
-      const { layer, at } = obj as AddLayerType<E, T>;
+      const { layer, at } = obj;
 
       return this.addTimeLayer(layer, at);
     }
@@ -121,7 +128,7 @@ implements TimeLayer<E, T> {
     return [];
   }
 
-  private addNode(node: TemporalNode<E, T>): TemporalNode<E, T> {
+  private addNode(node: TemporalNode<E>): TemporalNode<E> {
     this._forEachCellsAtInterval(node.interval, (cell) => cell.push(node));
 
     this._nodes.push(node);
@@ -131,7 +138,7 @@ implements TimeLayer<E, T> {
     return node;
   }
 
-  private addNodes(...nodes: TemporalNode<E, T>[]): TemporalNode<E, T>[] {
+  private addNodes(...nodes: TemporalNode<E>[]): TemporalNode<E>[] {
     const ret = [];
 
     for (const n of nodes) {
@@ -139,7 +146,7 @@ implements TimeLayer<E, T> {
         interval: n.interval,
         event: n.event,
       };
-      const node: TemporalNode<E, T> = new TemporalNode<E, T>(obj);
+      const node: TemporalNode<E> = temporalNode<E>(obj);
 
       this.addNode(node);
       ret.push(node);
@@ -148,16 +155,22 @@ implements TimeLayer<E, T> {
     return ret;
   }
 
-  private addTimeLayer(layer: TimeLayer<E, T>, time: T = this.duration): TemporalNode<E, T>[] {
+  private addTimeLayer(layer: TimeLayer<E>, time: Time = this.duration): TemporalNode<E>[] {
     const ret = [];
 
     for (const n of layer.nodes) {
-      const obj = {
-        from: <T>time.withAdd(n.from),
-        to: <T>time.withAdd(n.to),
-        event: n.event,
-      };
-      const node: TemporalNode<E, T> = new TemporalNode<E, T>(obj);
+      let node: TemporalNode<E>;
+
+      if (time !== 0) {
+        const obj = {
+          from: add(time, n.interval.from),
+          to: add(time, n.interval.to),
+          event: n.event,
+        };
+
+        node = temporalNode<E>(obj);
+      } else
+        node = n;
 
       this.addNode(node);
       ret.push(node);
@@ -166,83 +179,88 @@ implements TimeLayer<E, T> {
     return ret;
   }
 
-  private addEvent(event: E, from: T = this.duration, to: T = this.duration): TemporalNode<E, T> {
+  private addEvent(
+    event: E,
+    from: Time = this.duration as Time,
+    to: Time = this.duration as Time,
+  ): TemporalNode<E> {
     const obj = {
       from,
       to,
       event,
     };
-    const node = new TemporalNode(obj);
+    const node = temporalNode<E>(obj);
 
     this.addNode(node);
 
     return node;
   }
 
-  moveNodeBeginTo(node: TemporalNode<E, T>, time: T): TemporalNode<E, T> {
+  moveNode(node: TemporalNode<E>, time: Time): TemporalNode<E> {
     this.removeNode(node);
-    const { to } = node;
-    const ret = this.addEvent(node.event, time, to);
+    const { to } = node.interval;
+    const ret = this.addEvent(node.event, time, add(to, time));
 
     this._callOnChangeListeners(node, ret);
 
     return ret;
   }
 
-  moveNodeEndTo(node: TemporalNode<E, T>, time: T): TemporalNode<E, T> {
+  moveNodeEndTo(node: TemporalNode<E>, time: Time): TemporalNode<E> {
     this.removeNode(node);
-    const ret = this.addEvent(node.event, node.from, time);
+    const { to } = node.interval;
+    const ret = this.addEvent(node.event, sub(time, to), time);
 
     this._callOnChangeListeners(node, ret);
 
     return ret;
   }
 
-  private _forEachCellsAtInterval(interval: Interval<T>, f: (cell: TemporalNode<E, T>[])=> void) {
+  private _forEachCellsAtInterval(interval: Interval<Time>, f: (cell: TemporalNode<E>[])=> void) {
     const iniCell: number = this._getCellIndexFromTime(interval.from);
     let endCell: number = this._getCellIndexFromTime(interval.to);
 
     // Fix open Interval
-    if (interval.to === this.cellSize.withMult(endCell))
+    if (interval.to === mult(this.getCellSize() as Time, endCell))
       endCell--;
 
     for (let i: number = iniCell; i <= endCell; i++) {
-      const cell: TemporalNode<E, T>[] = this._getCellFromIndex(i);
+      const cell: TemporalNode<E>[] = this._getCellFromIndex(i);
 
       f(cell);
     }
   }
 
-  private _forEachCellNodesAtInterval(interval: Interval<T>, f: FEach<E, T>): void {
+  private _forEachCellNodesAtInterval(interval: Interval<Time>, f: FEach<E>): void {
     const iniCell: number = this._getCellIndexFromTime(interval.from);
     const endCell: number = this._getCellIndexFromTime(interval.to);
 
     for (let i: number = iniCell; i <= endCell; i++) {
-      const cell: TemporalNode<E, T>[] = this._getCellFromIndex(i);
+      const cell: TemporalNode<E>[] = this._getCellFromIndex(i);
 
       for (const node of cell) {
-        if (interval.intersects(node.interval))
+        if (intervalIntersects(interval, node.interval))
           f(node, cell);
       }
     }
   }
 
-  get(obj: GetType<T>): TemporalNode<E, T>[] {
+  get(obj: GetType): TemporalNode<E>[] {
     if (isGetNodesAtType(obj)) {
-      const { at } = <GetNodesAtType<T>>obj;
+      const { at } = obj;
 
       return this.getNodesAt(at);
     }
 
     if (isGetNodesFromToType(obj)) {
-      const { from, to } = <GetNodesFromToType<T>>obj;
-      const interval = Interval.of(from, to);
+      const { from, to } = obj;
+      const interval = intervalOf(from, to);
 
       return this.getNodesAtInterval(interval);
     }
 
     if (isGetNodesAtIntervalType(obj)) {
-      const { interval } = <GetNodesAtIntervalType<T>>obj;
+      const { interval } = obj;
 
       return this.getNodesAtInterval(interval);
     }
@@ -250,46 +268,47 @@ implements TimeLayer<E, T> {
     return [];
   }
 
-  private getNodesAtInterval(interval: Interval<T>): TemporalNode<E, T>[] {
-    const ret: TemporalNode<E, T>[] = [];
+  private getNodesAtInterval(interval: Interval<Time>): TemporalNode<E>[] {
+    const ret: TemporalNode<E>[] = [];
 
     this._forEachCellNodesAtInterval(interval, (node) => ret.push(node));
 
     return ret;
   }
 
-  private getNodesAt(time: T): TemporalNode<E, T>[] {
-    const ret: TemporalNode<E, T>[] = [];
-    const cell: TemporalNode<E, T>[] = this._getCellFromTime(time);
+  private getNodesAt(time: Time): TemporalNode<E>[] {
+    const ret: TemporalNode<E>[] = [];
+    const cell: TemporalNode<E>[] = this._getCellFromTime(time);
 
     for (const musicalEvent of cell) {
-      if (time >= musicalEvent.from && time < musicalEvent.to)
+      if (contains(musicalEvent.interval, time))
         ret.push(musicalEvent);
     }
 
     return ret;
   }
 
-  get duration(): T {
+  // eslint-disable-next-line accessor-pairs
+  get duration(): Time {
     const lastEntry = this._lastEntryWithNodes();
 
     if (!lastEntry)
-      return this._startTime;
+      return this.startTime;
 
-    const lastCell: TemporalNode<E, T>[] = lastEntry[1];
-    let max: T = lastCell[0].to;
+    const lastCell: TemporalNode<E>[] = lastEntry[1];
+    let max: Time = lastCell[0].interval.to;
 
     for (let i: number = 1; i < lastCell.length; i++) {
-      const c: TemporalNode<E, T> = lastCell[i];
+      const c: TemporalNode<E> = lastCell[i];
 
-      if (c.to > max)
-        max = c.to;
+      if (c.interval.to > max)
+        max = c.interval.to;
     }
 
     return max;
   }
 
-  private _lastEntryWithNodes(): [number, TemporalNode<E, T>[]] | undefined {
+  private _lastEntryWithNodes(): [number, TemporalNode<E>[]] | undefined {
     do {
       const lastEntry = this._cells.lastEntry();
 
@@ -303,21 +322,22 @@ implements TimeLayer<E, T> {
     } while (true);
   }
 
-  get nodes(): TemporalNode<E, T>[] {
+  // eslint-disable-next-line accessor-pairs
+  get nodes(): TemporalNode<E>[] {
     return this._nodes;
   }
 
-  remove(obj: RemoveType<E, T>): TemporalNode<E, T>[] {
+  remove(obj: RemoveType<E>): TemporalNode<E>[] {
     if (isNodeType(obj)) {
-      const node = obj as NodeType<E, T>;
+      const node = obj as NodeType<E>;
       const removedNode = this.removeNode(node);
 
       return removedNode ? [removedNode] : [];
     }
 
     if (isNodesType(obj)) {
-      const nodes = obj as NodesType<E, T>;
-      const ret: NodesType<E, T> = [];
+      const nodes = obj as NodesType<E>;
+      const ret: NodesType<E> = [];
 
       for (const n of nodes) {
         const removedNode = this.removeNode(n);
@@ -330,20 +350,20 @@ implements TimeLayer<E, T> {
     }
 
     if (isRemoveNodesAtType(obj)) {
-      const { at } = obj as RemoveNodesAtType<T>;
+      const { at } = obj as RemoveNodesAtType;
 
       return this.removeNodesAt(at);
     }
 
     if (isRemoveNodesFromToType(obj)) {
-      const { from, to } = obj as RemoveNodesFromToType<T>;
-      const interval = Interval.of(from, to);
+      const { from, to } = obj as RemoveNodesFromToType;
+      const interval = intervalOf(from, to);
 
       return this.removeNodesAtInterval(interval);
     }
 
     if (isRemoveNodesAtIntervalType(obj)) {
-      const { interval } = <RemoveNodesAtIntervalType<T>>obj;
+      const { interval } = <RemoveNodesAtIntervalType>obj;
 
       return this.removeNodesAtInterval(interval);
     }
@@ -351,16 +371,16 @@ implements TimeLayer<E, T> {
     return [];
   }
 
-  private removeNodesAt(time: T): TemporalNode<E, T>[] {
-    const cell: TemporalNode<E, T>[] = this._getCellFromTime(time);
-    const f = (node: TemporalNode<E, T>) => !node.interval.contains(time);
+  private removeNodesAt(time: Time): TemporalNode<E>[] {
+    const cell: TemporalNode<E>[] = this._getCellFromTime(time);
+    const f = (node: TemporalNode<E>) => !intervalContains(node.interval, time);
     const removedNodes = this._cellRemoveNodesIf(cell, f);
 
     return removedNodes;
   }
 
-  private removeNodesAtInterval(intervalTime: Interval<T>): TemporalNode<E, T>[] {
-    const removedNodes: TemporalNode<E, T>[] = [];
+  private removeNodesAtInterval(intervalTime: Interval<Time>): TemporalNode<E>[] {
+    const removedNodes: TemporalNode<E>[] = [];
 
     this._forEachCellNodesAtInterval(intervalTime, (node, cell) => {
       removeNodeFromCell(node, cell);
@@ -371,13 +391,13 @@ implements TimeLayer<E, T> {
   }
 
   private _cellRemoveNodesIf(
-    cell: TemporalNode<E, T>[],
-    f: FunctionEach<E, T>,
-  ): TemporalNode<E, T>[] {
-    const removedNodes: TemporalNode<E, T>[] = [];
+    cell: TemporalNode<E>[],
+    f: FunctionEach<E>,
+  ): TemporalNode<E>[] {
+    const removedNodes: TemporalNode<E>[] = [];
 
     for (let i = 0; i < cell.length; i++) {
-      const node: TemporalNode<E, T> = cell[i];
+      const node: TemporalNode<E> = cell[i];
 
       if (!f(node, cell)) {
         this.removeNode(node);
@@ -389,7 +409,7 @@ implements TimeLayer<E, T> {
     return removedNodes;
   }
 
-  private removeNode(node: TemporalNode<E, T>): TemporalNode<E, T> | null {
+  private removeNode(node: TemporalNode<E>): TemporalNode<E> | null {
     const index = this._nodes.indexOf(node);
 
     if (index === -1)
@@ -413,14 +433,14 @@ implements TimeLayer<E, T> {
       this._callOnRemoveListeners(oldNode);
   }
 
-  protected get cellSize(): T {
+  protected getCellSize(): Time {
     return this._cellSize;
   }
 }
 
-function removeNodeFromCell<E, T extends ImmutableTime>(
-  node: TemporalNode<E, T>,
-  cell: TemporalNode<E, T>[],
+function removeNodeFromCell<E>(
+  node: TemporalNode<E>,
+  cell: TemporalNode<E>[],
 ): void {
   const index = cell.indexOf(node);
 

@@ -1,37 +1,41 @@
-import { ParsingProcess } from "./ParsingProcess";
+import ParsingProcess from "./ParsingProcess";
 
-type F = (str: string) => any;
+type F = (str: string)=> any;
 type Table = { [key: string]: F };
-export class ParserBottomUp {
-    table: Table = {};
-    expectedTypes: string[] = [];
-    fromString: string = "";
+export default class ParserBottomUp {
+  table: Table = {
+  };
 
-    add(name: string, f: F): ParserBottomUp {
-        this.table[name] = f;
+  expectedTypes: string[] = [];
 
-        return this;
-    }
+  fromString: string = "";
 
-    expected(expectedTypes: string[]): ParserBottomUp {
-        this.expectedTypes = expectedTypes;
+  add(name: string, f: F): ParserBottomUp {
+    this.table[name] = f;
 
-        return this;
-    }
+    return this;
+  }
 
-    from(str: string): ParserBottomUp {
-        this.fromString = str;
+  expected(expectedTypes: string[]): ParserBottomUp {
+    this.expectedTypes = expectedTypes;
 
-        return this;
-    }
+    return this;
+  }
 
-    parse(): any[] | null {
-        let process = new ParsingProcess();
-        process.start(this);
+  from(str: string): ParserBottomUp {
+    this.fromString = str;
 
-        if (!process.result)
-            return null;
+    return this;
+  }
 
-        return process.result.objects;
-    }
+  parse(): any[] | null {
+    const process = new ParsingProcess();
+
+    process.start(this);
+
+    if (!process.result)
+      return null;
+
+    return process.result.objects;
+  }
 }

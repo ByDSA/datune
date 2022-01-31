@@ -1,309 +1,410 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-continue */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable camelcase */
 import { ChordSequence, TonalApproach } from "@datune/analyzer";
-import { BPM, Key, MusicalDuration, Note, SPN, TimeSignature } from "@datune/core";
-import { SPNArray, SPNChord } from "@datune/core/chords";
-import { ChromaticInterval } from "@datune/core/intervals";
-import { Instrument, MidiFile, MidiNode, MidiNote, MidiPitch, Track } from "@datune/midi";
-import { NonEmptyArray, random } from "@datune/utils";
-import { ActionGen, ActionGenState } from "./actions/ActionGen";
-import { ActionManager } from "./actions/ActionManager";
-import { ConstraintSPN } from "./constraints/pitch/ConstraintSPN";
-import { PitchDistanceConstraint } from "./constraints/pitch/DistanceConstraint";
-import { PitchMaxConstraint } from "./constraints/pitch/PitchMaxConstraint";
-import { PitchMinConstraint } from "./constraints/pitch/PitchMinConstraint";
-import { LowerVoiceConstraint } from "./constraints/voice/LowerVoiceConstraint";
-import { GenChordSeq } from "./GenChordSeq";
-import { GenFuncSeq } from "./GenFuncSeq";
-import { GenKeySeq } from "./GenKeySeq";
-import { GenMainFuncSeq } from "./GenMainFuncSeq";
-import { Voice } from "./voice/Voice";
+import { init as initCore, MusicalDuration } from "@datune/core";
+import { fromRootVoicing } from "@datune/core/chords/absolute/chromatic/building";
+import SPNChord from "@datune/core/chords/absolute/chromatic/Chord";
+import { A as T_A, AA as T_AA, AAm as T_AAm, Am as T_Am, B as T_B, Bm as T_Bm, C as T_C, CC as T_CC, CCm as T_CCm, Cm as T_Cm, D as T_D, DD as T_DD, DDm as T_DDm, Dm as T_Dm, E as T_E, Em as T_Em, F as T_F, FF as T_FF, FFm as T_FFm, Fm as T_Fm, G as T_G, GG as T_GG, GGm as T_GGm, Gm as T_Gm, Key } from "@datune/core/keys/chromatic";
+import { Pitch } from "@datune/core/pitches/chromatic";
+import { A2, add, Array as SPNArray, B3, C4, C7, fromPitchOctave as spnFrom, G4, SPN, sub } from "@datune/core/spns/chromatic";
+import { BPMFrom, EIGHTH, HALF, LONGA, QUARTER, SIXTEENTH } from "@datune/core/time";
+import { initialize as initMidi, Instrument, MidiFile, MidiNode, MidiNote, nodeFrom, noteFrom } from "@datune/midi";
+import Channel from "@datune/midi/files/track/Channel";
+import Track from "@datune/midi/files/track/Track";
+import { from as midiPitchFrom } from "@datune/midi/pitch/building";
+import { Arrays, random } from "@datune/utils";
+import { Array as IntervalArray, betweenSPN } from "intervals/chromatic";
+import { fromRootIntervals } from "voicings/chromatic";
+import ActionGen from "./actions/ActionGen";
+import ActionGenState from "./actions/ActionGenState";
+import ActionManager from "./actions/ActionManager";
+import ConstraintSPN from "./constraints/pitch/ConstraintSPN";
+import PitchDistanceConstraint from "./constraints/pitch/DistanceConstraint";
+import PitchMaxConstraint from "./constraints/pitch/PitchMaxConstraint";
+import PitchMinConstraint from "./constraints/pitch/PitchMinConstraint";
+import LowerVoiceConstraint from "./constraints/voice/LowerVoiceConstraint";
+import GenChordSeq from "./GenChordSeq";
+import GenFuncSeq from "./GenFuncSeq";
+import GenKeySeq from "./GenKeySeq";
+import GenMainFuncSeq from "./GenMainFuncSeq";
+import Voice from "./voice/Voice";
 
 const voicesNumber = 3;
 let voices: Voice[];
 
 function initializeVoices() {
-    voices = [];
-    for (let i = 0; i < voicesNumber; i++) {
-        voices.push(new Voice())
-        if (i == 0) {
-            voices[i].addPitchConstraint(new PitchMaxConstraint(SPN.G4));
-            voices[i].addPitchConstraint(new PitchMinConstraint(SPN.C4));
-        } else {
-            voices[i].addPitchConstraint(new PitchMaxConstraint(SPN.C7));
-            voices[i].addPitchConstraint(new PitchMinConstraint(SPN.C4));
+  voices = [];
 
-            voices[i].addVoiceConstraint(new LowerVoiceConstraint(voices[i - 1]));
-        }
+  for (let i = 0; i < voicesNumber; i++) {
+    voices.push(new Voice());
+
+    if (i === 0) {
+      voices[i].addPitchConstraint(new PitchMaxConstraint(G4));
+      voices[i].addPitchConstraint(new PitchMinConstraint(C4));
+    } else {
+      voices[i].addPitchConstraint(new PitchMaxConstraint(C7));
+      voices[i].addPitchConstraint(new PitchMinConstraint(C4));
+
+      voices[i].addVoiceConstraint(new LowerVoiceConstraint(voices[i - 1]));
     }
+  }
 }
 
 function filterPitchesByLastSPNConstraint(spns: SPN[], lastSPN: SPN | null, voice: Voice): SPN[] {
-    if (lastSPN)
-        return spns.filter(spn => {
-            const i = voices.indexOf(voice);
-            if (i == 0)
-                return new PitchDistanceConstraint(2).check(lastSPN, spn);
-            else
-                return new PitchDistanceConstraint(4).check(lastSPN, spn);
-        });
+  if (lastSPN) {
+    return spns.filter((spn) => {
+      const i = voices.indexOf(voice);
 
-    return spns;
+      if (i === 0)
+        return new PitchDistanceConstraint(2).check(lastSPN, spn);
+
+      return new PitchDistanceConstraint(4).check(lastSPN, spn);
+    } );
+  }
+
+  return spns;
 }
 
-function filterPitchesByPitchConstraint(spns: SPN[], voice: Voice, from: MusicalDuration, to: MusicalDuration): SPN[] {
-    return spns.filter(spn => {
-        return voice.checkPitchConstraints(spn, from, to);
-    });
+function filterPitchesByPitchConstraint(
+  spns: SPN[],
+  voice: Voice,
+  from: MusicalDuration,
+  to: MusicalDuration,
+): SPN[] {
+  return spns.filter((spn) => voice.checkPitchConstraints(spn, from, to));
 }
 
-function filterPitchesByVoiceConstraint(midiPitches: MidiPitch[], voice: Voice, from: MusicalDuration, to: MusicalDuration): SPN[] {
-    return spns.filter(spn => {
-        return voice.checkVoiceConstraintsPitch(spn, from, to);
-    });
+function filterPitchesByVoiceConstraint(
+  spns: SPN[],
+  voice: Voice,
+  from: MusicalDuration,
+  to: MusicalDuration,
+): SPN[] {
+  return spns.filter((spn) => voice.checkVoiceConstraintsPitch(spn, from, to));
 }
 
-function getAvailableNotess(time: MusicalDuration, chordSequence: ChordSequence, key: Key): Note[] {
-    let currentChordNode = chordSequence.getNodeAt(time);
-    if (!currentChordNode) {
-        return [];
+function getAvailablePitches(
+  time: MusicalDuration,
+  chordSequence: ChordSequence,
+  key: Key,
+): Pitch[] {
+  const currentChordNode = chordSequence.get( {
+    at: time,
+  } )[0];
+
+  if (!currentChordNode)
+    return [];
+
+  let currentChordPitches: Arrays.NonEmpty<Pitch>;
+  const isNewChord = chordSequence.get( {
+    at: time,
+  } )[0]?.interval.from === time;
+
+  if (isNewChord)
+    currentChordPitches = currentChordNode.event.pitches;
+  else
+    currentChordPitches = key.pitches;
+
+  return currentChordPitches;
+}
+
+function getAvailableNotes(
+  time: MusicalDuration,
+  chordSequence: ChordSequence,
+  key: Key,
+  lastNote: MidiNote | null,
+  voice: Voice,
+  from: MusicalDuration,
+  to: MusicalDuration,
+): MidiNote[] {
+  const currentChordNotes = getAvailablePitches(time, chordSequence, key);
+  let availableSPNs: SPN[] = [];
+
+  for (const n of currentChordNotes) {
+    for (let o = -1; o < 9; o++) {
+      const spn = spnFrom(n, o);
+
+      if (spn)
+        availableSPNs.push(spn);
     }
+  }
 
-    let currentChordNotes: NonEmptyArray<Note>;
-    const isNewChord = chordSequence.getNodeAt(time)?.from == time;
-    if (isNewChord)
-        currentChordNotes = currentChordNode.event.notes;
-    else
-        currentChordNotes = key.notes;
+  availableSPNs = filterPitchesByVoiceConstraint(availableSPNs, voice, from, to);
+  availableSPNs = filterPitchesByPitchConstraint(availableSPNs, voice, from, to);
+  availableSPNs = filterPitchesByLastSPNConstraint(
+    availableSPNs,
+    lastNote?.pitch.spn ?? null,
+    voice,
+  );
 
-    return currentChordNotes;
+  const notes = availableSPNs.map((spn) => noteFrom( {
+    pitch: midiPitchFrom(spn),
+    duration: QUARTER,
+  } ));
+
+  return notes;
 }
-
-function getAvailableNotes(time: MusicalDuration, chordSequence: ChordSequence, key: Key, lastNote: MidiNote | null, voice: Voice, from: MusicalDuration): MidiNote[] {
-    let currentChordNotes = getAvailableNotess(time, chordSequence, key);
-    let availablePitches: SPN[] = [];
-    for (const n of currentChordNotes)
-        for (let o = -1; o < 9; o++) {
-            const spn = SPN.from(n, o);
-            if (spn) {
-                availablePitches.push(spn);
-            }
-        }
-    availablePitches = filterPitchesByVoiceConstraint(availablePitches, voice, from, to);
-    availablePitches = filterPitchesByPitchConstraint(availablePitches, voice, from, to);
-    availablePitches = filterPitchesByLastSPNConstraint(availablePitches, lastNote?.pitch.spn, voice);
-
-    return availablePitches;
-}
-
-const possibleKeysInitial = [
-    Key.C,
-    Key.CC,
-    Key.D,
-    Key.DD,
-    Key.E,
-    Key.F,
-    Key.FF,
-    Key.G,
-    Key.GG,
-    Key.A,
-    Key.AA,
-    Key.B,
-    Key.Cm,
-    Key.CCm,
-    Key.Dm,
-    Key.DDm,
-    Key.Em,
-    Key.Fm,
-    Key.FFm,
-    Key.Gm,
-    Key.GGm,
-    Key.Am,
-    Key.AAm,
-    Key.Bm,
-];
 
 export function sample4(): MidiFile {
-    initializeVoices();
+  initCore();
+  initMidi();
+  initializeVoices();
 
-    const midiFile = MidiFile.create();
-    midiFile.addBPM(BPM.from(100, MusicalDuration.QUARTER));
+  const possibleKeysInitial = [
+    T_C,
+    T_CC,
+    T_D,
+    T_DD,
+    T_E,
+    T_F,
+    T_FF,
+    T_G,
+    T_GG,
+    T_A,
+    T_AA,
+    T_B,
+    T_Cm,
+    T_CCm,
+    T_Dm,
+    T_DDm,
+    T_Em,
+    T_Fm,
+    T_FFm,
+    T_Gm,
+    T_GGm,
+    T_Am,
+    T_AAm,
+    T_Bm,
+  ];
+  const midiFile = MidiFile.create();
 
-    let tonalApproach = TonalApproach.create(TimeSignature._4_4);
-    tonalApproach.maxDuration = MusicalDuration.LONGA.withMult(10);
-    new GenKeySeq(tonalApproach, possibleKeysInitial).generate();
-    new GenMainFuncSeq(tonalApproach).generate();
-    new GenFuncSeq(tonalApproach).generate();
-    new GenChordSeq(tonalApproach).generate();
-    const tracks: Track[] = [];
-    for (let j = 0; j < voicesNumber; j++) {
-        const track = new Track();
-        track.name = `Track ${j}`;
-        midiFile.addTrack(track);
-        tracks.push(track);
-    }
+  midiFile.addBPM(BPMFrom(100, QUARTER));
 
-    let actionManager = new ActionManager<ActionGen, MidiNote>();
-    let state = new ActionGenState(voices);
+  const tonalApproach = new TonalApproach();
 
-    let cond = () => {
-        return state.times[0] < tonalApproach.keySequence.duration
+  tonalApproach.maxDuration = LONGA * (1);
+  new GenKeySeq(tonalApproach, possibleKeysInitial).generate();
+  new GenMainFuncSeq(tonalApproach).generate();
+  new GenFuncSeq(tonalApproach).generate();
+  new GenChordSeq(tonalApproach).generate();
+  const tracks: Track[] = [];
+
+  for (let j = 0; j < voicesNumber; j++) {
+    const track: Track = {
+      name: `Track ${j}`,
+      channel: j as Channel,
+      instrument: Instrument.ACOUSTIC_PIANO,
+      nodes: [],
+    };
+
+    midiFile.addTrack(track);
+    tracks.push(track);
+  }
+
+  const actionManager = new ActionManager<ActionGen, MidiNote>();
+  const state = new ActionGenState(voices);
+  const cond = () => state.times[0] < tonalApproach.keySequence.duration
             && state.times[1] < tonalApproach.keySequence.duration
-            && state.times[2] < tonalApproach.keySequence.duration
+            && state.times[2] < tonalApproach.keySequence.duration;
+
+  while (cond() && !actionManager.end) {
+    const time = state.times[state.i];
+    const availableNotes: MidiNote[] = [];
+    const keyChordNode = tonalApproach.keyChordSequence.get( {
+      at: time,
+    } )[0];
+
+    if (!keyChordNode)
+      throw new Error(`${time} ${tonalApproach.keyChordSequence.duration}`);
+
+    const keyChord = keyChordNode.event;
+
+    for (const d of [EIGHTH, QUARTER, SIXTEENTH]) {
+      const notes = getAvailableNotes(
+        time,
+        tonalApproach.chordSequence,
+        keyChord,
+        state.lasts[state.i],
+        voices[state.i],
+        time,
+        time + d, // ???
+      );
+
+      availableNotes.push(...notes);
     }
 
-    while (cond() && !actionManager.end) {
-        const time = state.times[state.i];
-        let availablenotes: MidiNote[] = [];
+    const action = new ActionGen(availableNotes, state);
 
-        const keyChordNode = tonalApproach.keyChordSequence.getNodeAt(time);
-        if (!keyChordNode)
-            throw new Error(time + " " + tonalApproach.keyChordSequence.duration);
-        const keyChord = keyChordNode.event;
-        availablenotes = getAvailableNotes(time, tonalApproach.chordSequence, keyChord, state.lasts[state.i], voices[state.i], time);
+    actionManager.addAndDo(action);
+  }
 
-        const action = new ActionGen(availablenotes, state);
+  for (let i = 0; i < tracks.length; i++) {
+    const track = tracks[i];
 
-        actionManager.addAndDo(action);
-    }
+    for (const node of state.voices[i].notesSequence.nodes)
+      track.nodes.push(node);
+  }
 
-    for (let i = 0; i < tracks.length; i++) {
-        const track = tracks[i];
-        for (let node of state.voices[i].notesSequence.nodes) {
-            const note = node.event;
-            track.addNotes([note]);
-        }
-    }
+  const accompTrack: Track = {
+    name: "Track Chords",
+    channel: 1,
+    instrument: Instrument.STRING_ENSEMBLE_1,
+    nodes: [],
+  };
 
-    const accompTrack = new Track();
-    accompTrack.name = `Track Chords`;
-    accompTrack.channel = 1;
-    accompTrack.instrument = Instrument.STRING_ENSEMBLE_1;
-    midiFile.addTrack(accompTrack);
-    let prevNotes: SPNArray | undefined;
-    const chordConstraints = [
-        new PitchMaxConstraint(SPN.B3),
-        new PitchMinConstraint(SPN.A2),
-    ];
-    tonalApproach.chordSequence.nodes.forEach(node => {
-        const chord = node.event;
-        const time = node.from;
-        const timeTo = node.to;
+  midiFile.addTrack(accompTrack);
+  let prevNotes: SPNArray | undefined;
+  const chordConstraints = [
+    new PitchMaxConstraint(B3),
+    new PitchMinConstraint(A2),
+  ];
 
-        const root = <SPN>SPN.from(chord.root, 3);
-        const spnChord = <SPNChord>SPNChord.fromRootPattern(root, chord.pattern);
-        let notes = spnChord.notes;
-        const constraints: ConstraintSPN[] = chordConstraints;
-        if (prevNotes)
-            notes = minimizeDistance(notes, prevNotes, constraints);
-        prevNotes = notes;
-        const midiNotes = notes.map((spn: SPN) => {
-            const pitch = MidiPitch.from(spn);
-            return MidiNote.builder()
-                .duration(timeTo.withSub(time))
-                .pitch(pitch)
-                .from(time)
-                .create();
-        }).filter((midiNote: MidiNote) => midiNote);
+  tonalApproach.chordSequence.nodes.forEach((node) => {
+    const chord = node.event;
+    const time = node.interval.from;
+    const timeTo = node.interval.to;
+    const root = <SPN>spnFrom(chord.root, 3);
+    const rootIntervalsVoicing = chord.pitches.map(
+      (spn, i, array) => +spn - +array[i],
+    ) as IntervalArray;
+    const voicing = fromRootIntervals(...rootIntervalsVoicing);
+    const spnChord = <SPNChord>fromRootVoicing(root, voicing);
+    let { pitches } = spnChord;
+    const constraints: ConstraintSPN[] = chordConstraints;
 
-        accompTrack.addNotes(midiNotes);
-    });
+    if (prevNotes)
+      pitches = minimizeDistance(pitches, prevNotes, constraints);
 
-    return midiFile;
+    prevNotes = pitches;
+    const midiNodes = pitches.map((spn: SPN) => {
+      const pitch = midiPitchFrom(spn);
+      const note = noteFrom( {
+        pitch,
+        duration: (timeTo - (time)),
+      } );
+      const node2 = nodeFrom( {
+        note,
+        at: time,
+      } );
+
+      return node2;
+    } ).filter((midiNote: MidiNode) => midiNote) as MidiNode[];
+
+    accompTrack.nodes.push(...midiNodes);
+  } );
+
+  return midiFile;
 }
 
 function spnCheckConstraints(spn: SPN, constraints: ConstraintSPN[] = []): SPN | null {
-    for (let c of constraints) {
-        if (!c.check(spn)) {
-            return null;
-        }
-    }
+  for (const c of constraints) {
+    if (!c.check(spn))
+      return null;
+  }
 
-    return spn;
+  return spn;
 }
 
-function minimizeDistance(from: SPNArray, to: SPNArray, constraints: ConstraintSPN[] = []): SPNArray {
-    const result: SPNArray = [...from];
-    for (let i = 0; i < from.length; i++) {
-        const originalDistance_i = distanceToNotes(from[i], to);
-        let minDist = 9999;
+function minimizeDistance(
+  from: SPNArray,
+  to: SPNArray,
+  constraints: ConstraintSPN[] = [],
+): SPNArray {
+  const result: SPNArray = [...from];
 
-        let original_i = spnCheckConstraints(from[i], constraints);
-        if (original_i) {
-            minDist = originalDistance_i;
-            result[i] = original_i;
-        }
-        let lower_i: SPN | null = from[i];
-        do {
-            lower_i = lower_i.withShift(-12);
-            if (!lower_i) {
-                break;
-            }
-            let lower_i2 = spnCheckConstraints(lower_i, constraints);
-            if (!lower_i2)
-                continue;
-            lower_i = lower_i2;
+  for (let i = 0; i < from.length; i++) {
+    const originalDistance_i = distanceToNotes(from[i], to);
+    let minDist = 9999;
+    const original_i = spnCheckConstraints(from[i], constraints);
 
-            let d = distanceToNotes(lower_i, to);
-            if (d < minDist) {
-                minDist = d;
-                result[i] = lower_i;
-            } else {
-                break;
-            }
-        } while (true);
-
-        let upper_i: SPN | null = from[i];
-        do {
-            upper_i = upper_i.withShift(12);
-            if (!upper_i) {
-                break;
-            }
-
-            let upper_i2 = spnCheckConstraints(upper_i, constraints);
-            if (!upper_i2)
-                continue;
-            upper_i = upper_i2;
-
-            let d = distanceToNotes(upper_i, to);
-            if (d < minDist) {
-                minDist = d;
-                result[i] = upper_i;
-            } else {
-                break;
-            }
-        } while (true);
+    if (original_i) {
+      minDist = originalDistance_i;
+      result[i] = original_i;
     }
 
-    return result;
+    let lower_i: SPN | null = from[i];
+
+    do {
+      lower_i = sub(lower_i, 12);
+
+      if (!lower_i)
+        break;
+
+      const lower_i2 = spnCheckConstraints(lower_i, constraints);
+
+      if (!lower_i2)
+        continue;
+
+      lower_i = lower_i2;
+
+      const d = distanceToNotes(lower_i, to);
+
+      if (d < minDist) {
+        minDist = d;
+        result[i] = lower_i;
+      } else
+        break;
+    } while (true);
+
+    let upper_i: SPN | null = from[i];
+
+    do {
+      upper_i = add(upper_i, 12);
+
+      if (!upper_i)
+        break;
+
+      const upper_i2 = spnCheckConstraints(upper_i, constraints);
+
+      if (!upper_i2)
+        continue;
+
+      upper_i = upper_i2;
+
+      const d = distanceToNotes(upper_i, to);
+
+      if (d < minDist) {
+        minDist = d;
+        result[i] = upper_i;
+      } else
+        break;
+    } while (true);
+  }
+
+  return result;
 }
 
 function distanceToNotes(from: SPN, toNotes: SPNArray): number {
-    let dist = 0;
-    toNotes.forEach((spn: SPN) => {
-        dist += Math.abs(ChromaticInterval.betweenSPN(from, spn));
-    });
+  let dist = 0;
 
-    return dist;
+  toNotes.forEach((spn: SPN) => {
+    dist += Math.abs(betweenSPN(from, spn));
+  } );
+
+  return dist;
 }
 
 function getDuration(time: MusicalDuration, tonalApproach: TonalApproach): MusicalDuration {
-    let duration;
-    let durations: MusicalDuration[];
-    durations = [
-        MusicalDuration.HALF,
-        MusicalDuration.QUARTER,
-        MusicalDuration.EIGHTH,
-    ];
+  let duration;
+  let durations: MusicalDuration[];
 
-    durations = durations.filter(m => {
-        return time.value - Math.floor(time.value) + m.value <= 1;
-    });
+  durations = [
+    HALF,
+    QUARTER,
+    EIGHTH,
+  ];
 
-    if (durations.length == 1)
-        return durations[0];
-    else if (durations.length > 1) {
-        duration = durations[random(durations.length)];
-    } else
-        duration = MusicalDuration.from(1 - (time.value - Math.floor(time.value)));
+  durations = durations.filter((m) => time - Math.floor(time) + m <= 1);
 
-    return duration;
+  if (durations.length === 1)
+    return durations[0];
+
+  if (durations.length > 1)
+    duration = durations[random(durations.length)];
+  else
+    duration = (1 - (time - Math.floor(time)));
+
+  return duration;
 }

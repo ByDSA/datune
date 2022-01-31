@@ -1,32 +1,42 @@
-import { ParserBottomUp } from "./ParserBottomUp";
+import ParserBottomUp from "./ParserBottomUp";
 
-export class ParserNode {
-    private _objects: any[] | undefined;
+export default class ParserNode {
+  private _objects: any[] | undefined;
 
-    delimiters: number[];
+  delimiters: number[];
 
-    constructor(private parser: ParserBottomUp) {
-        this.delimiters = [];
-    }
+  constructor(private parser: ParserBottomUp) {
+    this.delimiters = [];
+  }
 
-    get objects(): any[] {
-        if (!this._objects) {
-            this._objects = [];
-            for (let delimiterNumber = 0; delimiterNumber < this.delimiters.length - 1; delimiterNumber++) {
-                let delimiterLeft = this.delimiters[delimiterNumber];
-                let delimiterRight = this.delimiters[delimiterNumber + 1];
+  // eslint-disable-next-line accessor-pairs
+  get objects(): any[] {
+    if (!this._objects) {
+      this._objects = [];
 
-                let obj = null;
-                try {
-                    const str = this.parser.expectedTypes[delimiterNumber];
-                    obj = this.parser.table[str](this.parser.fromString.substr(delimiterLeft, delimiterRight - delimiterLeft));
-                } catch (e) {
-                }
+      for (
+        let delimiterNumber = 0;
+        delimiterNumber < this.delimiters.length - 1;
+        delimiterNumber++
+      ) {
+        const delimiterLeft = this.delimiters[delimiterNumber];
+        const delimiterRight = this.delimiters[delimiterNumber + 1];
+        let obj = null;
 
-                this._objects.push(obj);
-            }
+        try {
+          const str = this.parser.expectedTypes[delimiterNumber];
+
+          obj = this.parser.table[str](
+            this.parser.fromString.substr(delimiterLeft, delimiterRight - delimiterLeft),
+          );
+        } catch (e) {
+          // ignore
         }
 
-        return this._objects;
+        this._objects.push(obj);
+      }
     }
+
+    return this._objects;
+  }
 }
