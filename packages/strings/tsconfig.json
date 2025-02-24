@@ -1,28 +1,28 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "strict": true,
+    "baseUrl": "./src/",
     "declaration": true,
-    "outDir": "./dist",
-    "sourceMap": true,
-    "inlineSources": true,
     "downlevelIteration": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
+    "importHelpers": true,
+    "inlineSources": true,
+    "lib": ["es2021", "dom"],
     "module": "CommonJS",
     "moduleResolution": "node",
-    "esModuleInterop": true,
-    "importHelpers": true,
-    "target": "es2021",
-    "typeRoots": ["../node_modules/@types"],
-    "lib": ["es2021", "dom"],
-    "baseUrl": "./src/",
+    "outDir": "./dist",
     "paths": {
       "tests": ["../tests"],
       "tests/*": ["../tests/*"]
-    }
+    },
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2021",
+    "typeRoots": ["../node_modules/@types"]
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts"],
   "exclude": ["dist", "node_modules"],
   "filesGlob": ["src/**/*.ts", "tests/**/*.ts"],
+  "include": ["src/**/*.ts", "tests/**/*.ts"],
   "types": ["node"]
 }

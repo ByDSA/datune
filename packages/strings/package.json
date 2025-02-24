@@ -1,36 +1,36 @@
 {
+  "private": true,
   "name": "@datune/strings",
   "version": "0.0.1",
   "description": "Datune - strings",
-  "author": "Daniel Sales Álvarez <danisales.es@gmail.com>",
   "license": "UNLICENSED",
-  "private": true,
+  "author": "Daniel Sales Álvarez <danisales.es@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/ByDSA/datune.git",
     "directory": "packages/strings"
   },
   "scripts": {
-    "test": "jest --runInBand",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
     "prebuild": "pnpm build:clean && pnpm rebuild && pnpm test",
     "build": "pnpm build:raw",
+    "build:clean": "rm -rf dist",
     "build:raw": "tsc -p tsconfig-build.json",
     "postbuild:raw": "tsc-alias -p tsconfig-build.json",
-    "build:clean": "rm -rf dist",
-    "prepublishOnly": "pnpm test:coverage && pnpm lint:fix && pnpm build",
-    "postpublish": "pnpm build:clean",
     "docs": "pnpm lint:fix && pnpm docs:clean && typedoc",
-    "postdocs": ".scripts/docs-footer.sh",
     "docs:clean": ".scripts/docs-clean.sh",
     "docs:push": ".scripts/docs-push.sh",
+    "postdocs": ".scripts/docs-footer.sh",
     "lint:eslint": "eslint ./src/*.ts ./tests/*.ts",
     "lint:fix": "eslint ./src/*.ts --fix",
+    "prepublishOnly": "pnpm test:coverage && pnpm lint:fix && pnpm build",
+    "postpublish": "pnpm build:clean",
+    "readme": "pnpm readme:clean && pnpm exec readme-md-generator -p .readme/template.md -y",
+    "readme:clean": "rm -f README.md",
     "release": "standard-version",
     "release:push": "git push && git push --tags && pnpm docs:push",
-    "readme": "pnpm readme:clean && pnpm exec readme-md-generator -p .readme/template.md -y",
-    "readme:clean": "rm -f README.md"
+    "test": "jest --runInBand",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@datune/core": "file:../core/dist",
@@ -42,6 +42,9 @@
   "devDependencies": {
     "@chevrotain/types": "11.0.3"
   },
+  "imports": {
+    "#tests/*$": "./tests/*"
+  },
   "lint-staged": {
     "*.{js,json,yml,yaml,css,scss,ts,tsx,md}": [
       "eslint --fix"
@@ -51,8 +54,5 @@
     "scripts": {
       "postcommit": "pnpm docs && pnpm release:push"
     }
-  },
-  "imports": {
-    "#tests/*$": "./tests/*"
   }
 }

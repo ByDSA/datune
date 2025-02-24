@@ -1,28 +1,28 @@
 {
+  "private": true,
   "name": "@datune",
   "version": "0.0.1",
   "description": "Datune",
-  "author": "Daniel Sales Álvarez <danisales.es@gmail.com>",
   "license": "UNLICENSED",
-  "private": true,
+  "author": "Daniel Sales Álvarez <danisales.es@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/ByDSA/datune.git",
     "directory": "packages"
   },
   "scripts": {
-    "lint:eslint": "eslint **/src/**/*.ts **/tests/**/*.ts",
-    "lint:fix": "eslint **/src/**/*.ts --fix"
+    "lint": "bin/lint.mjs",
+    "lint:all": "bin/lint-all.mjs"
   },
   "dependencies": {},
   "devDependencies": {
-    "daproj": "github:ByDSA/daproj",
     "@commitlint/cli": "19.7.1",
     "@commitlint/config-conventional": "19.7.1",
     "@types/jest": "29.5.14",
     "@types/node": "22.13.5",
     "@typescript-eslint/eslint-plugin": "8.25.0",
     "@typescript-eslint/parser": "8.25.0",
+    "daproj": "github:ByDSA/daproj",
     "eslint": "9.21.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-import-resolver-alias": "1.1.2",
@@ -32,6 +32,9 @@
     "husky": "9.1.7",
     "jest": "29.7.0",
     "lint-staged": "15.4.3",
+    "prettier": "3.5.2",
+    "prettier-plugin-packagejson": "2.5.8",
+    "prettier-plugin-sort-json": "4.1.1",
     "standard-version": "9.5.0",
     "ts-jest": "29.2.6",
     "tsc-alias": "1.8.10",

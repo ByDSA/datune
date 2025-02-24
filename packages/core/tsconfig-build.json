@@ -1,21 +1,18 @@
 {
-  "extends": "./tsconfig.json",
-  "exclude": [
-    "**/*.spec.ts",
-    "spec"
-  ],
   "compilerOptions": {
-    "sourceMap": false,
-    "inlineSources": false
+    "inlineSources": false,
+    "sourceMap": false
   },
+  "exclude": ["**/*.spec.ts", "spec"],
+  "extends": "./tsconfig.json",
   "tsc-alias": {
-    "verbose": false,
-    "resolveFullPaths": true,
     "replacers": {
       "replacer": {
         "enabled": true,
         "file": "../../utilities/replacer/dist/index.js"
       }
-    }
+    },
+    "resolveFullPaths": true,
+    "verbose": false
   }
 }
