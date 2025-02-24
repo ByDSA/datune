@@ -28,6 +28,9 @@ function build {
 	echo "=====$1====="
 	cd $1
 	pwd
+    if [ "$1" == "strings" ]; then
+        lib/install_chevrotain.sh
+    fi
 	dependencies
 	building
 	cd ..

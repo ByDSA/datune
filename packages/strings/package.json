@@ -36,10 +36,12 @@
     "@datune/core": "file:../core/dist",
     "@datune/midi": "file:../midi/dist",
     "@datune/utils": "file:../utils/dist",
-    "chevrotain": "9.1.0",
-    "immutable": "4.0.0-rc.12"
+    "chevrotain": "workspace:./lib/chevrotain",
+    "immutable": "5.0.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@chevrotain/types": "11.0.3"
+  },
   "lint-staged": {
     "*.{js,json,yml,yaml,css,scss,ts,tsx,md}": [
       "eslint --fix"

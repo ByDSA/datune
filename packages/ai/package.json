@@ -38,9 +38,7 @@
     "@datune/midi": "file:../midi/dist",
     "@datune/utils": "file:../utils/dist"
   },
-  "devDependencies": {
-    "ts-loader": "9.5.2"
-  },
+  "devDependencies": {},
   "lint-staged": {
     "*.{js,json,yml,yaml,css,scss,ts,tsx,md}": [
       "eslint --fix"
