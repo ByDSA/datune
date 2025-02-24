@@ -44,9 +44,5 @@
     "scripts": {
       "postcommit": "pnpm docs && pnpm release:push"
     }
-  },
-  "_moduleAliases": {
-    "@time": "dist/src/time",
-    "@tests": "dist/tests"
   }
 }

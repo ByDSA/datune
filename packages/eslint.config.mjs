@@ -25,7 +25,7 @@ const infrastructureConfig = [
     ignores: subprojects.map(s=>"**/" + s),
   },
   {
-    files: ["**/*.ts"],
+    files: ["src/**/*.ts"],
     rules: {
       "import/no-default-export": "off",
     },
