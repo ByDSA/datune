@@ -23,13 +23,13 @@ export default class GenFuncSeq extends GenSeq {
     let toTime: MusicalDuration;
 
     for (let time = ZERO; time < this.tonalApporach.maxDuration; time = toTime) {
-      const duration = this._pickDuration(prevNode, time);
+      const duration = this.#pickDuration(prevNode, time);
 
       toTime = time + duration;
       toTime = this.limitMaxDuration(toTime);
       toTime = limitTime(toTime, this.getNextMeasureTime(time));
 
-      const func: HarmonicFunction | null = this._pickFunc(prevNode, time, toTime);
+      const func: HarmonicFunction | null = this.#pickFunc(prevNode, time, toTime);
 
       if (func) {
         [prevNode] = this.funcSeq.add( {
@@ -40,7 +40,7 @@ export default class GenFuncSeq extends GenSeq {
     }
   }
 
-  private _pickDuration(prevNode: Node | undefined, time: MusicalDuration): MusicalDuration {
+  #pickDuration(_prevNode: Node | undefined, time: MusicalDuration): MusicalDuration {
     const ret = HALF * (1 + random(2));
     const nextMainFuncChange = <MusicalDuration> this.tonalApporach.mainFuncSequence.get( {
       at: time,
@@ -49,15 +49,16 @@ export default class GenFuncSeq extends GenSeq {
     return limitTime(ret, nextMainFuncChange);
   }
 
-  private _pickFunc(
+  #pickFunc(
     prevNode: Node | undefined,
     time: MusicalDuration,
     toTime: MusicalDuration,
   ): HarmonicFunction | null {
-    const keyAtTime = this.tonalApporach.keySequence.get( {
+    const [keyAtTime] = this.tonalApporach.keySequence.get( {
       at: time,
-    } )[0];
+    } );
     const currentScale = keyAtTime?.event.scale;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     const funcIDegrees = <Arrays.NonEmpty<Degree>>I.degrees;
     const includesAll = (
       superArray: any[],

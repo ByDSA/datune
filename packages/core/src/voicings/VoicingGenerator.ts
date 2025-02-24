@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-param-reassign */
 /* eslint-disable no-use-before-define */
-/* eslint-disable max-classes-per-file */
+
 import { Arrays } from "@datune/utils";
 import OctavePitch from "pitches/OctavePitch";
 import RelativePitch from "./¿¿/RelativePitch";
@@ -21,7 +19,7 @@ export default abstract class VoicingGenerator<D extends OctavePitch> {
         let octave: number = 0;
 
         for (const current of degrees) {
-          if (previous != null && current < previous)
+          if (previous !== null && current < previous)
             octave++;
 
           const relativeVoice: RelativePitch<D> = RelativePitch.from(current, octave);
@@ -45,7 +43,7 @@ export default abstract class VoicingGenerator<D extends OctavePitch> {
         let octave: number = 0;
 
         for (const current of degrees) {
-          if (previous != null && current < previous)
+          if (previous !== null && current < previous)
             octave++;
 
           const relativeVoice: RelativePitch<D> = RelativePitch.from(current, octave);
@@ -62,7 +60,7 @@ export default abstract class VoicingGenerator<D extends OctavePitch> {
     abstract apply(...degrees: NonEmptyArray<D>): Voicing<D>;
 }
 
-export function sort<T extends Object>(degrees: NonEmptyArray<T>): NonEmptyArray<T> {
+export function sort<T extends object>(degrees: NonEmptyArray<T>): NonEmptyArray<T> {
   return degrees.sort((a: T, b: T) => +a.valueOf() - +b.valueOf());
 }
 

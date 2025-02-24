@@ -25,6 +25,6 @@ describe("cyclicMod", () => {
   it("with NaN", () => {
     const actual = cyclicMod(3, NaN);
 
-    expect(actual).toBe(NaN);
+    expect(actual).toBeNaN();
   } );
 } );

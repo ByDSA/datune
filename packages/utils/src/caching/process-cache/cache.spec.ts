@@ -10,7 +10,7 @@ describe("functions", () => {
   } );
 
   describe("initial status", () => {
-    it("Cache should not contain", () => {
+    it("cache should not contain", () => {
       const get = cache.get(2);
 
       expect(get).toBeUndefined();
@@ -66,6 +66,7 @@ describe("functions", () => {
 
       expect(got).toBeUndefined();
     } );
+
     it("getOrProcess", () => {
       const got1 = cache.getOrProcess(2);
 

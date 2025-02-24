@@ -2,37 +2,37 @@ import AfterProcess from "./AfterProcess";
 import Process from "./Process";
 
 export default class ProcessCache<I, O> {
-  private _map: Map<I, O>;
+  #map: Map<I, O>;
 
-  private _process: Process<I, O>;
+  #process: Process<I, O>;
 
-  private _afterProcess?: AfterProcess<I, O>;
+  #afterProcess?: AfterProcess<I, O>;
 
   constructor(process: Process<I, O>, afterProcess?: AfterProcess<I, O>) {
-    this._process = process;
-    this._map = new Map<I, O>();
-    this._afterProcess = afterProcess;
+    this.#process = process;
+    this.#map = new Map<I, O>();
+    this.#afterProcess = afterProcess;
   }
 
   put(input: I, output: O): ProcessCache<I, O> {
-    this._map.set(input, output);
+    this.#map.set(input, output);
 
     return this;
   }
 
   get(obj: I): O | undefined {
-    return this._map.get(obj);
+    return this.#map.get(obj);
   }
 
   getOrProcess(obj: I, afterProcess?: AfterProcess<I, O>): O {
     let result = this.get(obj);
 
     if (result === undefined) {
-      result = this._process(obj);
-      this._map.set(obj, result);
+      result = this.#process(obj);
+      this.#map.set(obj, result);
 
-      if (this._afterProcess)
-        this._afterProcess(obj, result);
+      if (this.#afterProcess)
+        this.#afterProcess(obj, result);
 
       if (afterProcess)
         afterProcess(obj, result);
@@ -42,11 +42,11 @@ export default class ProcessCache<I, O> {
   }
 
   clear() {
-    this._map.clear();
+    this.#map.clear();
   }
 
   serialize() {
-    return [...this._map.entries()];
+    return [...this.#map.entries()];
   }
 
   putAll(entries: [I, O][]) {
@@ -54,6 +54,6 @@ export default class ProcessCache<I, O> {
   }
 
   initialize(entries: [I, O][]) {
-    this._map = new Map(entries);
+    this.#map = new Map(entries);
   }
 }

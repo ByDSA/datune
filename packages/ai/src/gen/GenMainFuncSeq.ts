@@ -9,7 +9,6 @@ import { limitTime } from "./utils";
 
 type Node = TemporalNode<MainFunc>;
 export default class GenMainFuncSeq extends GenSeq {
-  // eslint-disable-next-line no-useless-constructor
   constructor(tonalApporach: TonalApproach) {
     super(tonalApporach);
   }
@@ -24,11 +23,11 @@ export default class GenMainFuncSeq extends GenSeq {
     let toTime: MusicalDuration;
 
     for (let time = ZERO; time < this.tonalApporach.maxDuration; time = toTime) {
-      const duration = this._pickDuration(prevMainFunc, time);
+      const duration = this.#pickDuration(prevMainFunc, time);
 
       toTime = time + (duration);
-      toTime = this._limitTime(toTime);
-      const mainFunc = this._pickMainFunc(prevMainFunc, time, toTime);
+      toTime = this.#limitTime(toTime);
+      const mainFunc = this.#pickMainFunc(prevMainFunc, time, toTime);
 
       [prevMainFunc] = mainFuncSeq.add( {
         event: mainFunc,
@@ -37,11 +36,11 @@ export default class GenMainFuncSeq extends GenSeq {
     }
   }
 
-  private _limitTime(m: MusicalDuration): MusicalDuration {
+  #limitTime(m: MusicalDuration): MusicalDuration {
     return limitTime(m, this.tonalApporach.maxDuration);
   }
 
-  private _pickDuration(
+  #pickDuration(
     prevMainFunc: Node | undefined,
     currentTime: MusicalDuration,
   ): MusicalDuration {
@@ -50,7 +49,7 @@ export default class GenMainFuncSeq extends GenSeq {
     return this.limitNextMeasure(duration, currentTime);
   }
 
-  private _pickMainFunc(
+  #pickMainFunc(
     prevMainFunc: Node | undefined,
     time: MusicalDuration,
     toTime: MusicalDuration,

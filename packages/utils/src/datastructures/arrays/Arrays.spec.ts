@@ -21,7 +21,7 @@ describe("isValidArray", () => {
 } );
 
 describe("hasSameContent", () => {
-  it("Different array reference", () => {
+  it("different array reference", () => {
     const expected = [1, 2, 3, 4];
     const actual = [1, 2, 3, 4];
     const b = Arrays.hasSameContent(actual, expected);
@@ -29,7 +29,7 @@ describe("hasSameContent", () => {
     expect(b).toBeTruthy();
   } );
 
-  it("Same array reference", () => {
+  it("same array reference", () => {
     const expected = [1, 2, 3, 4];
     const actual = expected;
     const b = Arrays.hasSameContent(actual, expected);
@@ -37,7 +37,7 @@ describe("hasSameContent", () => {
     expect(b).toBeTruthy();
   } );
 
-  it("Different length", () => {
+  it("different length", () => {
     const array1 = [1, 2, 3, 4];
     const array2 = [1, 2, 3];
     const b = Arrays.hasSameContent(array1, array2);
@@ -45,7 +45,7 @@ describe("hasSameContent", () => {
     expect(b).toBeFalsy();
   } );
 
-  it("Different content", () => {
+  it("different content", () => {
     const array1 = [1, 2, 3, 4];
     const array2 = [1, 2, 3, 5];
     const b = Arrays.hasSameContent(array1, array2);

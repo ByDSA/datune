@@ -1,7 +1,6 @@
-/* eslint-disable import/prefer-default-export */
+import EventTest from "./EventTest";
 import { TemporalNode } from "index";
 import { intervalOf } from "math";
-import EventTest from "./EventTest";
 
 export function newNode1(): TemporalNode<EventTest> {
   return {

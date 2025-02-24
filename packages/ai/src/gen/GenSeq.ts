@@ -69,9 +69,9 @@ export default abstract class GenSeq {
   }
 
   protected hasNewKeyAt(time: MusicalDuration): boolean {
-    const currentKeyNode = this.tonalApporach.keySequence.get( {
+    const [currentKeyNode] = this.tonalApporach.keySequence.get( {
       at: time,
-    } )[0];
+    } );
 
     return currentKeyNode?.interval.from === time;
   }

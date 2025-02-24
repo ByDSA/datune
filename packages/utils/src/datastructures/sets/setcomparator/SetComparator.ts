@@ -1,36 +1,35 @@
 /* eslint-disable no-continue */
-/* eslint-disable no-labels */
 /* eslint-disable no-restricted-syntax */
 export default class SetComparator<T> {
-  private _common = new Set<T>();
+  #common = new Set<T>();
 
-  private _different = new Set<T>();
+  #different = new Set<T>();
 
-  private calculated: boolean;
+  #calculated: boolean;
 
   constructor(private sets: Set<T>[]) {
-    this.calculated = false;
+    this.#calculated = false;
   }
 
   compare(): void {
     this.addAllValuesToCommon();
     this.removeNonCommonValues();
-    this.calculated = true;
+    this.#calculated = true;
   }
 
   private addAllValuesToCommon(): void {
     for (const set of this.sets) {
       for (const value of set)
-        this._common.add(value);
+        this.#common.add(value);
     }
   }
 
   private removeNonCommonValues(): void {
-    mainFor: for (const value of this._common) {
+    mainFor: for (const value of this.#common) {
       for (const set of this.sets) {
         if (!set.has(value)) {
-          this._common.delete(value);
-          this._different.add(value);
+          this.#common.delete(value);
+          this.#different.add(value);
           continue mainFor;
         }
       }
@@ -40,17 +39,17 @@ export default class SetComparator<T> {
   getCommon(): Set<T> {
     this.errorIfNotCalculated();
 
-    return this._common;
+    return this.#common;
   }
 
   getDifferent(): Set<T> {
     this.errorIfNotCalculated();
 
-    return this._different;
+    return this.#different;
   }
 
   private errorIfNotCalculated() {
-    if (!this.calculated)
+    if (!this.#calculated)
       throw new Error("Not calculated yet");
   }
 }

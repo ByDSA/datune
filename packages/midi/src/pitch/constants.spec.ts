@@ -11,10 +11,12 @@ describe.each([
   [A0, SPN_A_S1],
   [A5, SPN_A4],
   [C10, SPN_C9],
-])("PRECALC SPN", (midiPitch, expectedSPN) => {
+])("precalc SPN", (midiPitch, expectedSPN) => {
   const { spn } = midiPitch;
 
-  expect(spn).toBe(expectedSPN);
+  it("precalc spn", () => {
+    expect(spn).toBe(expectedSPN);
+  } );
 } );
 
 describe.each([

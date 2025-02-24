@@ -8,6 +8,7 @@ import { from as noteFrom } from "./note";
 import MidiNote from "./note/MidiNote";
 
 TestInit.initAll();
+
 it("from - cellSize=EIGHTH", () => {
   const cellSize: MusicalDuration = EIGHTH;
   const midiSequence: MidiSequence = new MidiSequence( {
@@ -34,7 +35,7 @@ it("add - ZERO [C5 QUARTER]", () => {
     at: ZERO,
   } );
 
-  expect(durableEvents.length).toEqual(1);
+  expect(durableEvents).toHaveLength(1);
   expect(durableEvents[0]).toEqual(node);
 } );
 
@@ -46,7 +47,7 @@ describe("removeNodesAt", () => {
       midiSequence = generateSample();
     } );
 
-    it("EIGHT = nothing at ZERO", () => {
+    it("eIGHT = nothing at ZERO", () => {
       midiSequence.remove( {
         at: EIGHTH,
       } );
@@ -54,7 +55,7 @@ describe("removeNodesAt", () => {
         at: ZERO,
       } );
 
-      expect(nodes.length).toEqual(0);
+      expect(nodes).toHaveLength(0);
     } );
   } );
 
@@ -68,7 +69,7 @@ describe("removeNodesAt", () => {
         at: EIGHTH,
       } );
 
-      expect(midiSequence.nodes.length).toEqual(2);
+      expect(midiSequence.nodes).toHaveLength(2);
     } );
 
     it("remove QUARTER , 1 at ZERO", () => {
@@ -79,7 +80,7 @@ describe("removeNodesAt", () => {
         at: ZERO,
       } );
 
-      expect(durableEvents.length).toEqual(1);
+      expect(durableEvents).toHaveLength(1);
     } );
 
     it("remove QUARTER, nothing at QUARTER", () => {
@@ -90,7 +91,7 @@ describe("removeNodesAt", () => {
         at: QUARTER,
       } );
 
-      expect(durableEvents.length).toEqual(0);
+      expect(durableEvents).toHaveLength(0);
     } );
 
     it("remove QUARTER, 1 element at HALF", () => {
@@ -101,7 +102,7 @@ describe("removeNodesAt", () => {
         at: HALF,
       } );
 
-      expect(durableEvents.length).toEqual(1);
+      expect(durableEvents).toHaveLength(1);
     } );
 
     it("remove EIGHT -> 0 element at HALF.dotted", () => {
@@ -112,7 +113,7 @@ describe("removeNodesAt", () => {
         at: dotted(HALF),
       } );
 
-      expect(durableEvents.length).toEqual(0);
+      expect(durableEvents).toHaveLength(0);
     } );
   } );
 } );
@@ -123,21 +124,21 @@ it("getNodesAt - sampleArp - WHOLE = nothing", () => {
     at: WHOLE,
   } );
 
-  expect(durableEvents.length).toEqual(0);
+  expect(durableEvents).toHaveLength(0);
 } );
 
 it("events - sampleArp - length = 3", () => {
   const midiSequence: MidiSequence = generateSampleArp();
   const { length } = midiSequence.nodes;
 
-  expect(length).toEqual(3);
+  expect(length).toBe(3);
 } );
 
 it("events - sample - length = 3", () => {
   const midiSequence: MidiSequence = generateSample();
   const { length } = midiSequence.nodes;
 
-  expect(length).toEqual(3);
+  expect(length).toBe(3);
 } );
 
 it("duration - sample - duration = QUARTER", () => {

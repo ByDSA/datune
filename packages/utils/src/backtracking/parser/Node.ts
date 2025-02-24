@@ -1,7 +1,7 @@
 import ParserBottomUp from "./ParserBottomUp";
 
 export default class ParserNode {
-  private _objects: any[] | undefined;
+  #objects: unknown[] | undefined;
 
   delimiters: number[];
 
@@ -10,9 +10,9 @@ export default class ParserNode {
   }
 
   // eslint-disable-next-line accessor-pairs
-  get objects(): any[] {
-    if (!this._objects) {
-      this._objects = [];
+  get objects(): unknown[] {
+    if (!this.#objects) {
+      this.#objects = [];
 
       for (
         let delimiterNumber = 0;
@@ -29,14 +29,14 @@ export default class ParserNode {
           obj = this.parser.table[str](
             this.parser.fromString.substr(delimiterLeft, delimiterRight - delimiterLeft),
           );
-        } catch (e) {
+        } catch {
           // ignore
         }
 
-        this._objects.push(obj);
+        this.#objects.push(obj);
       }
     }
 
-    return this._objects;
+    return this.#objects;
   }
 }

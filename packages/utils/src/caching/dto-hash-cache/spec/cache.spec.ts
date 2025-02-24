@@ -18,13 +18,14 @@ beforeAll(() => {
 
   TestClass.cache = new DtoHashCache<TestClass, H, string>(funcs);
 } );
+
 describe("functions", () => {
   beforeEach(() => {
     TestClass.cache.clear();
   } );
 
   describe("initial status", () => {
-    it("Cache should not contain", () => {
+    it("cache should not contain", () => {
       const get = TestClass.cache.get(value1);
 
       expect(get).toBeUndefined();
@@ -32,7 +33,7 @@ describe("functions", () => {
   } );
 
   describe("add", () => {
-    it("New value with constructor", () => {
+    it("new value with constructor", () => {
       const hashingObject = value1;
       const instance = new TestClass(hashingObject);
 
@@ -42,7 +43,7 @@ describe("functions", () => {
       expect(get).toBeDefined();
     } );
 
-    it("New value with from", () => {
+    it("new value with from", () => {
       const hashingObject = value1;
 
       from(hashingObject);
@@ -51,8 +52,8 @@ describe("functions", () => {
       expect(got).toBeDefined();
     } );
 
-    describe("Re-add", () => {
-      it("Same reference", () => {
+    describe("re-add", () => {
+      it("same reference", () => {
         const hashingObject = value1;
         const instance = new TestClass(hashingObject);
         const ret = TestClass.cache.add(instance);
@@ -61,8 +62,8 @@ describe("functions", () => {
         expect(ret).toBe(ret2);
       } );
 
-      describe("Not same reference", () => {
-        it("Same hashing object reference. Second ignored one, returns old one", () => {
+      describe("not same reference", () => {
+        it("same hashing object reference. Second ignored one, returns old one", () => {
           const hashingObject = value1;
           const instance = new TestClass(hashingObject);
           const instance2 = new TestClass(hashingObject);
@@ -74,7 +75,7 @@ describe("functions", () => {
           expect((<any>TestClass.cache)._hashMap.size).toBe(1);
         } );
 
-        it("Not same hashing object reference. Second one ignored, returns old one", () => {
+        it("not same hashing object reference. Second one ignored, returns old one", () => {
           const hashingObject = value1;
           const hashingObjectCopy = {
             ...value1,

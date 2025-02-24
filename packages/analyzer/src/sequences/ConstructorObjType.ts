@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { WHOLE, ZERO } from "@datune/core/time";
 import { TimeLayerConstructorObject } from "@datune/utils/datastructures/timelayer/types";
 

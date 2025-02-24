@@ -10,20 +10,20 @@ import ChordSequence from "./chordsequence/ChordSequence";
 import RhythmSequence from "./rhythmsequence/RhythmSequence";
 
 export default class ChordSequenceCalculator {
-  private notesTimeSequence: NotesSequence;
+  #notesTimeSequence: NotesSequence;
 
-  private _rhythmSequence: RhythmSequence;
+  #rhythmSequence: RhythmSequence;
 
   constructor(notesTimeSequence: NotesSequence, rhythmSequence: RhythmSequence) {
-    this.notesTimeSequence = notesTimeSequence;
-    this._rhythmSequence = rhythmSequence;
+    this.#notesTimeSequence = notesTimeSequence;
+    this.#rhythmSequence = rhythmSequence;
   }
 
   calculate(): ChordSequence {
     const chordSequence = new ChordSequence();
 
-    this._forEachPart((interval) => {
-      const nodes = this.notesTimeSequence.get( {
+    this.#forEachPart((interval) => {
+      const nodes = this.#notesTimeSequence.get( {
         interval,
       } );
       const nodesSorted = sortNodesByPitch(nodes);
@@ -44,10 +44,10 @@ export default class ChordSequenceCalculator {
     return chordSequence;
   }
 
-  private _forEachPart(f: (interval: Interval<MusicalDuration>)=> void) {
-    const timeSignatureAtBegin = this._rhythmSequence.get( {
+  #forEachPart(f: (interval: Interval<MusicalDuration>)=> void) {
+    const [timeSignatureAtBegin] = this.#rhythmSequence.get( {
       at: ZERO,
-    } )[0];
+    } );
 
     if (!timeSignatureAtBegin)
       throw new Error("RhythmSequence has no time signature at begin.");
@@ -55,7 +55,7 @@ export default class ChordSequenceCalculator {
     const compasDuration = timeSignatureAtBegin.event.denominatorBeat
     * timeSignatureAtBegin.event.numerator;
     const intervalIni = intervalOf(ZERO, compasDuration);
-    const ceilDuration = getCeilDuration(this.notesTimeSequence.duration, compasDuration);
+    const ceilDuration = getCeilDuration(this.#notesTimeSequence.duration, compasDuration);
 
     for (let interval = intervalIni;
       interval.from < ceilDuration;
