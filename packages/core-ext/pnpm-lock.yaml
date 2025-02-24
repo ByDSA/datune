@@ -1,50 +1,43 @@
-lockfileVersion: '9.0'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-importers:
-
-  .:
-    dependencies:
-      '@datune/core':
-        specifier: file:../core/dist
-        version: file:../core/dist
-      '@datune/utils':
-        specifier: file:../utils/dist
-        version: file:../utils/dist
+dependencies:
+  '@datune/core':
+    specifier: file:../core/dist
+    version: file:../core/dist
+  '@datune/utils':
+    specifier: file:../utils/dist
+    version: file:../utils/dist
 
 packages:
 
-  '@datune/core@file:../core/dist':
-    resolution: {directory: ../core/dist, type: directory}
-
-  '@datune/utils@file:../utils/dist':
-    resolution: {directory: ../utils/dist, type: directory}
-
-  hashids@2.3.0:
+  /hashids@2.3.0:
     resolution: {integrity: sha512-ljM73TE/avEhNnazxaj0Dw3BbEUuLC5yYCQ9RSkSUcT4ZSU6ZebdKCIBJ+xT/DnSYW36E9k82GH1Q6MydSIosQ==}
+    dev: false
 
-  immutable@5.0.3:
+  /immutable@5.0.3:
     resolution: {integrity: sha512-P8IdPQHq3lA1xVeBRi5VPqUm5HDgKnx0Ru51wZz5mjxHr5n3RWhjIpOFU7ybkUxfB+5IToy+OLaHYDBIWsv+uw==}
+    dev: false
 
-  ts-treemap@1.1.0:
+  /ts-treemap@1.1.0:
     resolution: {integrity: sha512-0rWi12x7Y3vLG0bsgPZxeb/GClCcK0JE2L3O00VUhhxP8z+5rVBtUyeCdHcIUl8bEANdCT/D5bjKMW+CnfUZlw==}
+    dev: false
 
-snapshots:
-
-  '@datune/core@file:../core/dist':
+  file:../core/dist:
+    resolution: {directory: ../core/dist, type: directory}
+    name: '@datune/core'
     dependencies:
+      '@datune/utils': file:../utils/dist
       immutable: 5.0.3
+    dev: false
 
-  '@datune/utils@file:../utils/dist':
+  file:../utils/dist:
+    resolution: {directory: ../utils/dist, type: directory}
+    name: '@datune/utils'
     dependencies:
       hashids: 2.3.0
       ts-treemap: 1.1.0
-
-  hashids@2.3.0: {}
-
-  immutable@5.0.3: {}
-
-  ts-treemap@1.1.0: {}
+    dev: false

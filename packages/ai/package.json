@@ -39,11 +39,6 @@
     "@datune/utils": "file:../utils/dist"
   },
   "devDependencies": {},
-  "lint-staged": {
-    "*.{js,json,yml,yaml,css,scss,ts,tsx,md}": [
-      "eslint --fix"
-    ]
-  },
   "standard-version": {
     "scripts": {
       "postcommit": "pnpm docs && pnpm release:push"

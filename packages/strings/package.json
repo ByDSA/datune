@@ -11,21 +11,11 @@
     "directory": "packages/strings"
   },
   "scripts": {
-    "prebuild": "pnpm build:clean && pnpm rebuild && pnpm test",
-    "build": "pnpm build:raw",
+    "build": "pnpm build:clean && pnpm build:raw",
     "build:clean": "rm -rf dist",
-    "build:raw": "tsc -p tsconfig-build.json",
-    "postbuild:raw": "tsc-alias -p tsconfig-build.json",
-    "docs": "pnpm lint:fix && pnpm docs:clean && typedoc",
-    "docs:clean": ".scripts/docs-clean.sh",
-    "docs:push": ".scripts/docs-push.sh",
-    "postdocs": ".scripts/docs-footer.sh",
-    "lint:eslint": "eslint ./src/*.ts ./tests/*.ts",
-    "lint:fix": "eslint ./src/*.ts --fix",
+    "build:raw": "tsc -p tsconfig-build.json && tsc-alias -p tsconfig-build.json",
     "prepublishOnly": "pnpm test:coverage && pnpm lint:fix && pnpm build",
     "postpublish": "pnpm build:clean",
-    "readme": "pnpm readme:clean && pnpm exec readme-md-generator -p .readme/template.md -y",
-    "readme:clean": "rm -f README.md",
     "release": "standard-version",
     "release:push": "git push && git push --tags && pnpm docs:push",
     "test": "jest --runInBand",
@@ -41,14 +31,6 @@
   },
   "devDependencies": {
     "@chevrotain/types": "11.0.3"
-  },
-  "imports": {
-    "#tests/*$": "./tests/*"
-  },
-  "lint-staged": {
-    "*.{js,json,yml,yaml,css,scss,ts,tsx,md}": [
-      "eslint --fix"
-    ]
   },
   "standard-version": {
     "scripts": {
