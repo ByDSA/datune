@@ -39,7 +39,7 @@
     "@datune/utils": "file:../utils/dist"
   },
   "devDependencies": {
-    "ts-loader": "9.2.6"
+    "ts-loader": "9.5.2"
   },
   "lint-staged": {
     "*.{js,json,yml,yaml,css,scss,ts,tsx,md}": [

@@ -34,12 +34,9 @@
     "@datune/analyzer": "file:../analyzer/dist",
     "@datune/core": "file:../core/dist",
     "@datune/utils": "file:../utils/dist",
-    "@tonejs/midi": "2.0.27",
-    "node-fetch": "3.2.0"
+    "@tonejs/midi": "2.0.28"
   },
-  "devDependencies": {
-    "tsconfig-paths": "3.12.0"
-  },
+  "devDependencies": {},
   "lint-staged": {
     "*.{js,json,yml,yaml,css,scss,ts,tsx,md}": [
       "eslint --fix"

@@ -15,8 +15,8 @@ importers:
         specifier: 9.1.0
         version: 9.1.0
       immutable:
-        specifier: 4.0.0-rc.12
-        version: 4.0.0-rc.12
+        specifier: 5.0.3
+        version: 5.0.3
 
 packages:
 
@@ -32,11 +32,11 @@ packages:
   chevrotain@9.1.0:
     resolution: {integrity: sha512-A86/55so63HCfu0dgGg3j9u8uuuBOrSqly1OhBZxRu2x6sAKILLzfVjbGMw45kgier6lz45EzcjjWtTRgoT84Q==}
 
-  hashids@2.2.10:
-    resolution: {integrity: sha512-nXnYums7F8B5Y+GSThutLPlKMaamW1yjWNZVt0WModiJfdjaDZHnhYTWblS+h1OoBx3yjwiBwxldPP3nIbFSSA==}
+  hashids@2.3.0:
+    resolution: {integrity: sha512-ljM73TE/avEhNnazxaj0Dw3BbEUuLC5yYCQ9RSkSUcT4ZSU6ZebdKCIBJ+xT/DnSYW36E9k82GH1Q6MydSIosQ==}
 
-  immutable@4.0.0-rc.12:
-    resolution: {integrity: sha512-0M2XxkZLx/mi3t8NVwIm1g8nHoEmM9p9UBl/G9k4+hm0kBgOVdMV/B3CY5dQ8qG8qc80NN4gDV4HQv6FTJ5q7A==}
+  immutable@5.0.3:
+    resolution: {integrity: sha512-P8IdPQHq3lA1xVeBRi5VPqUm5HDgKnx0Ru51wZz5mjxHr5n3RWhjIpOFU7ybkUxfB+5IToy+OLaHYDBIWsv+uw==}
 
   regexp-to-ast@0.5.0:
     resolution: {integrity: sha512-tlbJqcMHnPKI9zSrystikWKwHkBqu2a/Sgw01h3zFjvYrMxEDYHzzoMZnUrbIfpTFEsoRnnviOXNCzFiSc54Qw==}
@@ -52,7 +52,7 @@ snapshots:
 
   '@datune/utils@file:../utils/dist':
     dependencies:
-      hashids: 2.2.10
+      hashids: 2.3.0
       ts-treemap: 1.1.0
 
   chevrotain@9.1.0:
@@ -61,9 +61,9 @@ snapshots:
       '@chevrotain/utils': 9.1.0
       regexp-to-ast: 0.5.0
 
-  hashids@2.2.10: {}
+  hashids@2.3.0: {}
 
-  immutable@4.0.0-rc.12: {}
+  immutable@5.0.3: {}
 
   regexp-to-ast@0.5.0: {}
 

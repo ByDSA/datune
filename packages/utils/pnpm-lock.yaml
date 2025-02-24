@@ -9,22 +9,22 @@ importers:
   .:
     dependencies:
       hashids:
-        specifier: 2.2.10
-        version: 2.2.10
+        specifier: 2.3.0
+        version: 2.3.0
       ts-treemap:
         specifier: 1.1.0
         version: 1.1.0
 
 packages:
 
-  hashids@2.2.10:
-    resolution: {integrity: sha512-nXnYums7F8B5Y+GSThutLPlKMaamW1yjWNZVt0WModiJfdjaDZHnhYTWblS+h1OoBx3yjwiBwxldPP3nIbFSSA==}
+  hashids@2.3.0:
+    resolution: {integrity: sha512-ljM73TE/avEhNnazxaj0Dw3BbEUuLC5yYCQ9RSkSUcT4ZSU6ZebdKCIBJ+xT/DnSYW36E9k82GH1Q6MydSIosQ==}
 
   ts-treemap@1.1.0:
     resolution: {integrity: sha512-0rWi12x7Y3vLG0bsgPZxeb/GClCcK0JE2L3O00VUhhxP8z+5rVBtUyeCdHcIUl8bEANdCT/D5bjKMW+CnfUZlw==}
 
 snapshots:
 
-  hashids@2.2.10: {}
+  hashids@2.3.0: {}
 
   ts-treemap@1.1.0: {}

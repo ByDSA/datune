@@ -31,7 +31,7 @@
     "readme:clean": "rm -f README.md"
   },
   "dependencies": {
-    "hashids": "2.2.10",
+    "hashids": "2.3.0",
     "ts-treemap": "1.1.0"
   },
   "devDependencies": {},

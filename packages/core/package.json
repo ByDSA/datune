@@ -33,7 +33,7 @@
   "dependencies": {
     "@datune/utils": "file:../utils/dist",
     "chevrotain": "9.1.0",
-    "immutable": "4.0.0-rc.12"
+    "immutable": "5.0.3"
   },
   "devDependencies": {},
   "lint-staged": {
