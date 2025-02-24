@@ -13,7 +13,7 @@
     "esModuleInterop": true,
     "importHelpers": true,
     "target": "es2021",
-    "typeRoots": ["node_modules/@types"],
+    "typeRoots": ["../node_modules/@types"],
     "lib": ["es2021", "dom"],
     "baseUrl": "./src/",
     "paths": {
@@ -24,6 +24,5 @@
   "include": ["src/**/*.ts", "tests/**/*.ts"],
   "exclude": ["dist", "node_modules"],
   "filesGlob": ["src/**/*.ts", "tests/**/*.ts"],
-  "types": ["node"],
-  "typeRoots": ["../node_modules/@types"]
+  "types": ["node"]
 }

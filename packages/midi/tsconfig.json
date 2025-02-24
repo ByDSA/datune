@@ -14,7 +14,7 @@
     "esModuleInterop": true,
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": ["@types", "node_modules/@types"],
+    "typeRoots": ["@types", "../node_modules/@types"],
     "lib": ["es2018", "dom"],
     "paths": {
       "tests": ["../tests"],
@@ -25,6 +25,5 @@
   "files": ["src/index.ts"],
   "exclude": ["dist", "node_modules"],
   "filesGlob": ["src/**/*.ts", "tests/**/*.ts"],
-  "types": ["node"],
-  "typeRoots": ["../node_modules/@types"]
+  "types": ["node"]
 }

@@ -13,34 +13,16 @@
     "esModuleInterop": true,
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2021",
-      "dom"
-    ],
+    "typeRoots": ["../node_modules/@types"],
+    "lib": ["es2021", "dom"],
     "paths": {
       "tests/*": ["../tests/*"],
       "tests": ["../tests"]
     },
     "baseUrl": "./src/"
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "dist",
-    "node_modules"
-  ],
-  "filesGlob": [
-    "src/**/*.ts",
-    "tests/**/*.ts"
-  ],
-  "types": [
-    "node"
-  ],
-  "typeRoots": [
-    "../node_modules/@types"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["dist", "node_modules"],
+  "filesGlob": ["src/**/*.ts", "tests/**/*.ts"],
+  "types": ["node"]
 }

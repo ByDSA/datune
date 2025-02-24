@@ -1,0 +1,8 @@
+packages:
+  - "ai"
+  - "analyzer"
+  - "core"
+  - "core-ext"
+  - "midi"
+  - "strings"
+  - "utils"

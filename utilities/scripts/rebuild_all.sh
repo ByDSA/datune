@@ -5,7 +5,7 @@ set -e
 function dependencies {
 	echo "Installing dependencies..."
     rm -rf node_modules
-	pnpm i
+	pnpm i --ignore-workspace
 }
 
 function building {
@@ -34,6 +34,11 @@ function build {
 }
 
 cd ../../packages
+
+# global dependencies
+rm -rf node_modules
+pnpm i --ignore-workspace
+
 build utils
 build core
 build core-ext

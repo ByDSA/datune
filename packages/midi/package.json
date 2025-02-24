@@ -25,8 +25,6 @@
     "postdocs": ".scripts/docs-footer.sh",
     "docs:clean": ".scripts/docs-clean.sh",
     "docs:push": ".scripts/docs-push.sh",
-    "lint:eslint": "eslint ./src/*.ts ./tests/*.ts",
-    "lint:fix": "eslint ./src/*.ts --fix",
     "release": "standard-version",
     "release:push": "git push && git push --tags && pnpm docs:push",
     "readme": "pnpm readme:clean && pnpm exec readme-md-generator -p .readme/template.md -y",
@@ -40,27 +38,7 @@
     "node-fetch": "3.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "15.0.0",
-    "@commitlint/config-conventional": "15.0.0",
-    "@types/jest": "27.4.0",
-    "@types/node": "17.0.0",
-    "@typescript-eslint/eslint-plugin": "5.7.0",
-    "@typescript-eslint/parser": "5.7.0",
-    "eslint": "8.4.1",
-    "eslint-config-airbnb-base": "15.0.0",
-    "eslint-import-resolver-alias": "1.1.2",
-    "eslint-import-resolver-typescript": "2.5.0",
-    "eslint-plugin-import": "2.25.3",
-    "eslint-plugin-jest": "25.3.0",
-    "husky": "7.0.4",
-    "jest": "27.4.7",
-    "lint-staged": "12.1.2",
-    "standard-version": "9.3.2",
-    "ts-jest": "27.1.3",
-    "tsc-alias": "1.5.0",
-    "tsconfig-paths": "3.12.0",
-    "tslib": "2.3.1",
-    "typescript": "4.5.5"
+    "tsconfig-paths": "3.12.0"
   },
   "lint-staged": {
     "*.{js,json,yml,yaml,css,scss,ts,tsx,md}": [
