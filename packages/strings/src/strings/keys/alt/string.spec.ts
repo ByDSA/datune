@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { C } from "keys/alt";
+import { C } from "@datune/core/keys/alt";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
 import stringify from ".";

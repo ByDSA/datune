@@ -1,6 +1,6 @@
-import { C as T_C } from "keys/chromatic";
-import { Array as ChromaticArray } from "pitches/chromatic";
-import { A5, AA5, Array as SPNArray, B4, C5, CC5, D5, DD5, E5, F5, FF5, G5 } from "spns/chromatic";
+import { C as T_C } from "@datune/core/keys/chromatic";
+import { Array as ChromaticArray } from "@datune/core/pitches/chromatic";
+import { A5, AA5, Array as SPNArray, B4, C5, CC5, D5, DD5, E5, F5, FF5, G5 } from "@datune/core/spns/chromatic";
 import { TestInit } from "tests";
 import { CompositeStep } from "../composite/CompositeStep";
 import { expandStepsArray } from "../forward/multi/Utils";

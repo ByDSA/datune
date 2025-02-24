@@ -1,10 +1,10 @@
 import { ParserBottomUp } from "@datune/utils";
-import { bass, Chord, fromRootVoicing } from "chords/chromatic";
+import { bass, Chord, fromRootVoicing } from "@datune/core/chords/chromatic";
 import { Options } from "lang";
 import parsePitch from "parsing/pitches/chromatic";
 import parseVoicing from "parsing/voicings/chromatic";
-import { Pitch } from "pitches/chromatic";
-import { Voicing } from "voicings/chromatic";
+import { Pitch } from "@datune/core/pitches/chromatic";
+import { Voicing } from "@datune/core/voicings/chromatic";
 import ChordStringAbstract from "../ChordStringAbstract";
 import normalizeInput from "../normalizeInput";
 

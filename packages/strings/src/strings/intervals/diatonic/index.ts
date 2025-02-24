@@ -1,4 +1,4 @@
-import { Direction, ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH, FOURTH, Interval as IntervalDiatonic, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH, TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } from "intervals/diatonic";
+import { Direction, ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH, FOURTH, Interval as IntervalDiatonic, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH, TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } from "@datune/core/intervals/diatonic";
 
 export default function toString(obj: IntervalDiatonic): string {
   if (obj.direction === Direction.DESCENDENT)

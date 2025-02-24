@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
-import { A7, AA, B, B7, BMaj7, C, C7, Chord, CMaj7, Dm7, fromPitches } from "chords/chromatic";
+import { A7, AA, B, B7, BMaj7, C, C7, Chord, CMaj7, Dm7, fromPitches } from "@datune/core/chords/chromatic";
 import { LangId } from "lang";
-import { Ab as P_Ab, Bb as P_Bb, D as P_D, F as P_F } from "pitches/chromatic";
+import { Ab as P_Ab, Bb as P_Bb, D as P_D, F as P_F } from "@datune/core/pitches/chromatic";
 import stringify from "strings/chords/chromatic";
 import { TestInit, TestLang } from "tests";
 import parseChord from ".";

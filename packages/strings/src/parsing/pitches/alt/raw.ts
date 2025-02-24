@@ -1,5 +1,5 @@
 import { Options } from "parsing";
-import { A, AA, AAA, AAAA, Ab, Abb, Abbb, B, BB, Bb, BBB, Bbb, BBBB, Bbbb, C, Cb, Cbb, Cbbb, CC, CCC, CCCC, D, Db, Dbb, Dbbb, DD, DDD, DDDD, E, Eb, Ebb, Ebbb, EE, EEE, EEEE, F, Fb, Fbb, Fbbb, FF, FFF, FFFF, G, Gb, Gbb, Gbbb, GG, GGG, GGGG, Pitch } from "pitches/alt";
+import { A, AA, AAA, AAAA, Ab, Abb, Abbb, B, BB, Bb, BBB, Bbb, BBBB, Bbbb, C, Cb, Cbb, Cbbb, CC, CCC, CCCC, D, Db, Dbb, Dbbb, DD, DDD, DDDD, E, Eb, Ebb, Ebbb, EE, EEE, EEEE, F, Fb, Fbb, Fbbb, FF, FFF, FFFF, G, Gb, Gbb, Gbbb, GG, GGG, GGGG, Pitch } from "@datune/core/pitches/alt";
 import stringify from "strings/pitches/alt";
 import normalizeInput from "../normalizeInput";
 

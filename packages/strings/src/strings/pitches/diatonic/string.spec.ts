@@ -1,5 +1,5 @@
 import { LangId } from "lang";
-import { A, B, C, D, E, F, G } from "pitches/diatonic";
+import { A, B, C, D, E, F, G } from "@datune/core/pitches/diatonic";
 import { TestLang } from "tests";
 import stringify from ".";
 

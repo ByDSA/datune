@@ -1,4 +1,4 @@
-import { COMMON, DORIAN, MAJOR, MINOR, Scale } from "scales/alt";
+import { COMMON, DORIAN, MAJOR, MINOR, Scale } from "@datune/core/scales/alt";
 import { TestInit } from "tests";
 import getFromScale from ".";
 import { initialize } from "./set";

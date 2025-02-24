@@ -1,5 +1,5 @@
 import { Options } from "parsing";
-import { Pitch } from "pitches/chromatic";
+import { Pitch } from "@datune/core/pitches/chromatic";
 import normalizeInput from "../normalizeInput";
 import parseRaw from "./raw";
 

@@ -1,5 +1,5 @@
 import { LangId } from "lang";
-import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } from "pitches/chromatic";
+import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } from "@datune/core/pitches/chromatic";
 import { TestLang } from "tests";
 import stringify from ".";
 

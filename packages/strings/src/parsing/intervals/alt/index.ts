@@ -1,6 +1,6 @@
-import { fromIntervalQuality, Interval as IntervalDiatonicAlt } from "intervals/alt";
-import { fromInt as intervalDiatonicFromInt } from "intervals/diatonic";
-import { Quality } from "intervals/quality";
+import { fromIntervalQuality, Interval as IntervalDiatonicAlt } from "@datune/core/intervals/alt";
+import { fromInt as intervalDiatonicFromInt } from "@datune/core/intervals/diatonic";
+import { Quality } from "@datune/core/intervals/quality";
 import qualityFromShortName from "parsing/intervals/quality/shortName";
 
 export default function fromString(str: string): IntervalDiatonicAlt | null {

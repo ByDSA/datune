@@ -1,6 +1,6 @@
 import { getLangFromOptions } from "lang/Options";
 import { Options } from "parsing";
-import { A, B, C, D, E, F, G, Pitch as Diatonic } from "pitches/diatonic";
+import { A, B, C, D, E, F, G, Pitch as Diatonic } from "@datune/core/pitches/diatonic";
 
 export default function toString(pitch: Diatonic, options?: Options): string {
   const lang = getLangFromOptions(options);

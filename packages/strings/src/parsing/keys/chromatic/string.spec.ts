@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import { C, Cm, from } from "keys/chromatic";
+import { C, Cm, from } from "@datune/core/keys/chromatic";
 import { LangId } from "lang";
 import fromString from "parsing/keys/chromatic";
-import { A as P_A, Ab as P_Ab } from "pitches/chromatic";
-import { BLUES_b5 } from "scales/chromatic";
+import { A as P_A, Ab as P_Ab } from "@datune/core/pitches/chromatic";
+import { BLUES_b5 } from "@datune/core/scales/chromatic";
 import { TestInit, TestLang } from "tests";
 
 TestInit.chromaticKey();

@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import { C, C7, CC7, Chord, CMaj7, CmMaj7, Csus4, fromRootVoicing, Fsus2, inv } from "chords/chromatic";
+import { C, C7, CC7, Chord, CMaj7, CmMaj7, Csus4, fromRootVoicing, Fsus2, inv } from "@datune/core/chords/chromatic";
 import { LangId } from "lang";
-import { C as P_C } from "pitches/chromatic";
+import { C as P_C } from "@datune/core/pitches/chromatic";
 import { TestInit, TestLang } from "tests/index";
-import { THIRTEENTH_b5a9, TRIAD_AUGMENTED } from "voicings/chromatic";
+import { THIRTEENTH_b5a9, TRIAD_AUGMENTED } from "@datune/core/voicings/chromatic";
 import stringify from ".";
 import pitchesStringify from "../../pitches/chromatic/array";
 

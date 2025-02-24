@@ -1,4 +1,4 @@
-import { Degree, I, II, III, IV, V, VI, VII } from "degrees/diatonic";
+import { Degree, I, II, III, IV, V, VI, VII } from "@datune/core/degrees/diatonic";
 
 export default function stringify(obj: Degree): string {
   switch (obj) {

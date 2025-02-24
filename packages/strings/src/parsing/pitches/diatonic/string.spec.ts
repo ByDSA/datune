@@ -1,5 +1,5 @@
 import { LangId } from "lang";
-import { A, C } from "pitches/diatonic";
+import { A, C } from "@datune/core/pitches/diatonic";
 import { TestLang } from "tests";
 import parse from ".";
 

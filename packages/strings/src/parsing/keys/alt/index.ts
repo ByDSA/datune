@@ -1,10 +1,10 @@
-import { from as fromRootScale } from "keys/alt";
+import { from as fromRootScale } from "@datune/core/keys/alt";
 import { getLangIdFromOptions, Options } from "lang";
 import { getLangTokens, tokenize } from "parsing";
 import parsePitch from "parsing/pitches/alt";
 import parseScale from "parsing/scales/alt";
 import tokensParse from "parsing/utils/tokens-parser/key";
-import { MAJOR } from "scales/alt";
+import { MAJOR } from "@datune/core/scales/alt";
 
 export default function parseKey(input: string, options?: Options) {
   const langId = getLangIdFromOptions(options);

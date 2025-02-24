@@ -1,4 +1,4 @@
-import { Voicing } from "voicings/diatonic";
+import { Voicing } from "@datune/core/voicings/diatonic";
 
 export function shortNameStringify(obj: Voicing): string {
   return stringify(obj);

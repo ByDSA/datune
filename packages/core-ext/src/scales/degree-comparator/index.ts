@@ -1,5 +1,5 @@
 import { SetComparator } from "@datune/utils";
-import Scale from "scales/Scale";
+import Scale from "@datune/core/scales/Scale";
 
 type Result<D> = {
   common: Set<D>;

@@ -1,9 +1,9 @@
 import { Arrays } from "@datune/utils";
-import { betweenSPN, Interval as ChromaticInterval } from "intervals/chromatic";
-import { Array as KeyArray } from "keys/chromatic";
-import { Array as ChromaticArray } from "pitches/chromatic";
-import { Array as SPNArray, SPN } from "spns/chromatic";
-import { Array as VoicingArray, fromRootIntervals as voicingFromRootIntervals } from "voicings/chromatic";
+import { betweenSPN, Interval as ChromaticInterval } from "@datune/core/intervals/chromatic";
+import { Array as KeyArray } from "@datune/core/keys/chromatic";
+import { Array as ChromaticArray } from "@datune/core/pitches/chromatic";
+import { Array as SPNArray, SPN } from "@datune/core/spns/chromatic";
+import { Array as VoicingArray, fromRootIntervals as voicingFromRootIntervals } from "@datune/core/voicings/chromatic";
 import { CombinationResult, StepCombinationsApplier } from "../../applier/StepCombinationsApplier";
 import { StepCombiner } from "../../combiner/StepCombiner";
 import { ReasonStepMap } from "../../reason/ReasonStepMap";

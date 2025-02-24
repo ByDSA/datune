@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
-import { POWER_CHORD, SEVENTH, SEVENTH_b5, SEVENTH_MAJ7_b5, SIXTH, THIRTEENTH_a5b9, THIRTEENTH_MAJ13_b5a9, THIRTEENTH_MINOR, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_QUARTAL } from "voicings/chromatic";
+import { POWER_CHORD, SEVENTH, SEVENTH_b5, SEVENTH_MAJ7_b5, SIXTH, THIRTEENTH_a5b9, THIRTEENTH_MAJ13_b5a9, THIRTEENTH_MINOR, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_QUARTAL } from "@datune/core/voicings/chromatic";
 import fromString from ".";
 
 TestInit.chromaticVoicing();

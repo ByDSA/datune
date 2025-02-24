@@ -1,5 +1,5 @@
 import { Arrays } from "@datune/utils";
-import { SPN } from "spns/chromatic";
+import { SPN } from "@datune/core/spns/chromatic";
 
 export type SPNOrNullArray = Arrays.NonEmpty<(SPN | null)>;
 

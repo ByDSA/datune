@@ -1,6 +1,6 @@
-import { A5 as SPN_A5, B1 as SPN_B1, E5 as SPN_E5, FF5 as SPN_FF5, SPN } from "spns/chromatic";
+import { A5 as SPN_A5, B1 as SPN_B1, E5 as SPN_E5, FF5 as SPN_FF5, SPN } from "@datune/core/spns/chromatic";
 import { TestInit } from "tests";
-import { calcFrequency as tuningCalcFrequency, LIMIT_5_SYMMETRIC_N1_440 } from "tunings/chromatic";
+import { calcFrequency as tuningCalcFrequency, LIMIT_5_SYMMETRIC_N1_440 } from "@datune/core/tunings/chromatic";
 import { from, fromCode, fromFrequency } from ".";
 import { calcFrequency } from "../calcs";
 import { A4, A5, B0, B9, C0, C1, C10, C5, C6, C8, C9, MAX, MIN } from "../constants";

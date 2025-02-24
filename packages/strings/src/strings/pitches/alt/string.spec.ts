@@ -1,5 +1,5 @@
 import { LangId } from "lang";
-import { Ab, BB, Bb, BBB, C, Eb, Pitch } from "pitches/alt";
+import { Ab, BB, Bb, BBB, C, Eb, Pitch } from "@datune/core/pitches/alt";
 import { TestInit, TestLang } from "tests";
 import stringify from ".";
 

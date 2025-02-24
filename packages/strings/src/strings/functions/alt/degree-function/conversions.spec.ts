@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { I, I5, Im, VISUS4 } from "functions/alt";
+import { I, I5, Im, VISUS4 } from "@datune/core/functions/alt";
 import { TestInit, TestLang } from "tests";
 import stringify from ".";
 

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
-import { SEVENTH_MAJ7_b5, SEVENTH_SUS4_b9, TRIAD_MAJOR } from "voicings/alt";
+import { SEVENTH_MAJ7_b5, SEVENTH_SUS4_b9, TRIAD_MAJOR } from "@datune/core/voicings/alt";
 import stringify from ".";
 
 TestInit.diatonicAltVoicing();

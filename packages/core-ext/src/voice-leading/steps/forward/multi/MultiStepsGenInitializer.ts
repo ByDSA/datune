@@ -1,8 +1,8 @@
 /* eslint-disable no-continue */
 import { Arrays } from "@datune/utils";
-import { Interval as ChromaticInterval } from "intervals/chromatic";
-import { Array as SPNArray } from "spns/chromatic";
-import { Array as ChromaticVoicingArray, fromRootIntervals, TRIAD_AUGMENTED } from "voicings/chromatic";
+import { Interval as ChromaticInterval } from "@datune/core/intervals/chromatic";
+import { Array as SPNArray } from "@datune/core/spns/chromatic";
+import { Array as ChromaticVoicingArray, fromRootIntervals, TRIAD_AUGMENTED } from "@datune/core/voicings/chromatic";
 import { StepCombiner } from "../../combiner/StepCombiner";
 import { NearStepsGen } from "../../generators/others/near/NearStepsGenerator";
 import { IntervalResults as VoicingResults, IntervalStepsGen, RestingNotesStepsGen } from "../../generators/resolution";

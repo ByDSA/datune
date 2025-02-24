@@ -1,5 +1,5 @@
 import { MusicalDuration } from "@datune/core";
-import { SPN } from "spns/chromatic";
+import { SPN } from "@datune/core/spns/chromatic";
 import Voice from "../../voice/Voice";
 import Constraint from "../Constraint";
 

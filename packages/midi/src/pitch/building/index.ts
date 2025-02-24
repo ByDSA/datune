@@ -1,5 +1,5 @@
-import { fromInt as pitchFromInt, NUMBER, Pitch as Note } from "pitches/chromatic";
-import { fromPitchOctave as spnFrom, SPN } from "spns/chromatic";
+import { fromInt as pitchFromInt, NUMBER, Pitch as Note } from "@datune/core/pitches/chromatic";
+import { fromPitchOctave as spnFrom, SPN } from "@datune/core/spns/chromatic";
 import { cache } from "../caching";
 import MidiCode from "../MidiCode";
 import Pitch from "../MidiPitch";

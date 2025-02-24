@@ -5,7 +5,7 @@ import { from as keyFrom, Key } from "@datune/core/keys/chromatic";
 import { ZERO } from "@datune/core/time";
 import { random } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
-import { CHROMATIC, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN } from "scales/chromatic";
+import { CHROMATIC, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN } from "@datune/core/scales/chromatic";
 import GenSeq from "./GenSeq";
 
 export default class GenChordSeq extends GenSeq {

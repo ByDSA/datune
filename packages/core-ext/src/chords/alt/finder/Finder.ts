@@ -1,6 +1,6 @@
-import { ALL, ALL_NON_INVERSIONS, Array as ChordArray, Chord } from "chords/alt";
-import { Array as KeyArray } from "keys/alt";
-import { Array as PitchArray, Pitch } from "pitches/alt";
+import { ALL, ALL_NON_INVERSIONS, Array as ChordArray, Chord } from "@datune/core/chords/alt";
+import { Array as KeyArray } from "@datune/core/keys/alt";
+import { Array as PitchArray, Pitch } from "@datune/core/pitches/alt";
 
 export default class Finder {
   private _tonalities?: KeyArray;

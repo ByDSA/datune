@@ -1,5 +1,5 @@
 import { LangId } from "lang";
-import { A4, SPN } from "spns/chromatic";
+import { A4, SPN } from "@datune/core/spns/chromatic";
 import { TestInit, TestLang } from "tests";
 import stringify from ".";
 

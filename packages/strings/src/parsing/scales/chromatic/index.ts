@@ -1,5 +1,5 @@
 import { Options } from "parsing";
-import { Scale } from "scales/chromatic";
+import { Scale } from "@datune/core/scales/chromatic";
 import fromName from "./fromName";
 import fromIntervals from "./intervals";
 

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { Options } from "parsing";
-import { Scale } from "scales/chromatic";
+import { Scale } from "@datune/core/scales/chromatic";
 import arrayStringify from "../../intervals/chromatic/array";
 import toStringName from "./name";
 

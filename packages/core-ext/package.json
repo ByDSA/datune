@@ -14,22 +14,22 @@
     "test": "jest --runInBand",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "prebuild": "npm run build:clean && npm rebuild && npm test",
-    "build": "npm run build:raw",
+    "prebuild": "pnpm build:clean && pnpm rebuild && pnpm test",
+    "build": "pnpm build:raw",
     "build:clean": "rm -rf dist",
     "build:raw": "tsc -p tsconfig-build.json",
     "postbuild:raw": "tsc-alias -p tsconfig-build.json",
-    "prepublishOnly": "npm run test:coverage && npm run lint:fix && npm run build",
-    "postpublish": "npm run build:clean",
-    "docs": "npm run lint:fix && npm run docs:clean && typedoc",
+    "prepublishOnly": "pnpm test:coverage && pnpm lint:fix && pnpm build",
+    "postpublish": "pnpm build:clean",
+    "docs": "pnpm lint:fix && pnpm docs:clean && typedoc",
     "postdocs": ".scripts/docs-footer.sh",
     "docs:clean": ".scripts/docs-clean.sh",
     "docs:push": ".scripts/docs-push.sh",
     "lint:eslint": "eslint ./src/*.ts ./tests/*.ts",
     "lint:fix": "eslint ./src/*.ts --fix",
     "release": "standard-version",
-    "release:push": "git push && git push --tags && npm run docs:push",
-    "readme": "npm run readme:clean && npx readme-md-generator -p .readme/template.md -y",
+    "release:push": "git push && git push --tags && pnpm docs:push",
+    "readme": "pnpm readme:clean && pnpm exec readme-md-generator -p .readme/template.md -y",
     "readme:clean": "rm -f README.md"
   },
   "dependencies": {
@@ -37,26 +37,26 @@
     "@datune/utils": "file:../utils/dist"
   },
   "devDependencies": {
-    "@commitlint/cli": "^15.0.0",
-    "@commitlint/config-conventional": "^15.0.0",
-    "@types/jest": "^27.0.3",
-    "@types/jest-expect-message": "^1.0.3",
-    "@typescript-eslint/eslint-plugin": "^5.7.0",
-    "@typescript-eslint/parser": "^5.7.0",
-    "eslint": "^8.4.1",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-import-resolver-typescript": "^2.5.0",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-jest": "^25.3.0",
-    "husky": "^7.0.4",
-    "jest": "^27.4.5",
-    "lint-staged": "^12.1.2",
-    "standard-version": "^9.3.2",
-    "ts-jest": "^27.1.1",
-    "tsc-alias": "^1.5.0",
-    "tslib": "^2.3.1",
-    "typescript": "^4.5.4"
+    "@commitlint/cli": "15.0.0",
+    "@commitlint/config-conventional": "15.0.0",
+    "@types/jest": "27.0.3",
+    "@types/jest-expect-message": "1.0.3",
+    "@typescript-eslint/eslint-plugin": "5.7.0",
+    "@typescript-eslint/parser": "5.7.0",
+    "eslint": "8.4.1",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-import-resolver-alias": "1.1.2",
+    "eslint-import-resolver-typescript": "2.5.0",
+    "eslint-plugin-import": "2.25.3",
+    "eslint-plugin-jest": "25.3.0",
+    "husky": "7.0.4",
+    "jest": "27.4.5",
+    "lint-staged": "12.1.2",
+    "standard-version": "9.3.2",
+    "ts-jest": "27.1.1",
+    "tsc-alias": "1.5.0",
+    "tslib": "2.3.1",
+    "typescript": "4.5.4"
   },
   "lint-staged": {
     "*.{js,json,yml,yaml,css,scss,ts,tsx,md}": [
@@ -65,7 +65,7 @@
   },
   "standard-version": {
     "scripts": {
-      "postcommit": "npm run docs && npm run release:push"
+      "postcommit": "pnpm docs && pnpm release:push"
     }
   }
 }

@@ -1,10 +1,10 @@
 import { ParserBottomUp } from "@datune/utils";
-import { bass, Chord, fromRootVoicing } from "chords/alt";
+import { bass, Chord, fromRootVoicing } from "@datune/core/chords/alt";
 import Options from "lang/Options";
 import parsePitch from "parsing/pitches/alt";
 import parseVoicing from "parsing/voicings/alt";
-import { Pitch } from "pitches/alt";
-import { Voicing } from "voicings/alt";
+import { Pitch } from "@datune/core/pitches/alt";
+import { Voicing } from "@datune/core/voicings/alt";
 import ChordStringAbstract from "../ChordStringAbstract";
 import normalizeInput from "../normalizeInput";
 

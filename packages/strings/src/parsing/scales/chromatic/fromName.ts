@@ -1,5 +1,5 @@
 import { Options } from "lang";
-import { COMMON, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN, Scale } from "scales/chromatic";
+import { COMMON, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN, Scale } from "@datune/core/scales/chromatic";
 import stringify from "strings/scales/chromatic";
 import normalizeInputName from "../normalizeNameInput";
 

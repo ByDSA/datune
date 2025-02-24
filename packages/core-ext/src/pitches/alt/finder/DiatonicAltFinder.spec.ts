@@ -1,6 +1,6 @@
-import { BB, C, Cb, Cbb, CC, CCC, Dbb, Eb, fromDiatonicAlts as from } from "pitches/alt";
-import { C as C_C, DD as C_DD } from "pitches/chromatic";
-import { A as D_A, B as D_B, C as D_C, D as D_D, E as D_E } from "pitches/diatonic";
+import { BB, C, Cb, Cbb, CC, CCC, Dbb, Eb, fromDiatonicAlts as from } from "@datune/core/pitches/alt";
+import { C as C_C, DD as C_DD } from "@datune/core/pitches/chromatic";
+import { A as D_A, B as D_B, C as D_C, D as D_D, E as D_E } from "@datune/core/pitches/diatonic";
 import { TestInit } from "tests";
 import DiatonicAltFinder from "./DiatonicAltFinder";
 

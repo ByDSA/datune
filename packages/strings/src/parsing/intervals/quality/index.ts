@@ -1,4 +1,4 @@
-import { Quality } from "intervals/quality";
+import { Quality } from "@datune/core/intervals/quality";
 import { Options } from "lang";
 import longName from "./longName";
 import shortName from "./shortName";

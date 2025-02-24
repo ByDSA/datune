@@ -4,8 +4,8 @@
 /* eslint-disable no-empty-function */
 /* eslint-disable no-useless-constructor */
 import { Arrays } from "@datune/utils";
-import { add, Array as SPNArray } from "spns/chromatic";
-import { Array as ChromaticVoicingArray, Voicing as ChromaticVoicing } from "voicings/chromatic";
+import { add, Array as SPNArray } from "@datune/core/spns/chromatic";
+import { Array as ChromaticVoicingArray, Voicing as ChromaticVoicing } from "@datune/core/voicings/chromatic";
 
 export type IntraVoicing = { notesIndex: Arrays.Number; voicing: ChromaticVoicing };
 

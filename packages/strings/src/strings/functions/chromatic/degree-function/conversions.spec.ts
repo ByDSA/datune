@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { I, I5, Im, VISUS4 } from "functions/chromatic/degree-function";
+import { I, I5, Im, VISUS4 } from "@datune/core/functions/chromatic/degree-function";
 import { TestInit, TestLang } from "tests";
 import stringify from ".";
 

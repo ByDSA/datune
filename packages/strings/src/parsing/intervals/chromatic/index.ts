@@ -1,4 +1,4 @@
-import { Interval } from "intervals/chromatic";
+import { Interval } from "@datune/core/intervals/chromatic";
 import fromName from "./name";
 import fromNumber from "./number";
 

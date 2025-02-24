@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
-import { A7, B, B7, BMaj7, C, C7, Chord, CMaj7, Dm7, fromPitches } from "chords/alt";
+import { A7, B, B7, BMaj7, C, C7, Chord, CMaj7, Dm7, fromPitches } from "@datune/core/chords/alt";
 import { LangId } from "lang";
-import { Ab as DA_Ab, Bb as DA_Bb, D as DA_D, F as DA_F } from "pitches/alt";
+import { Ab as DA_Ab, Bb as DA_Bb, D as DA_D, F as DA_F } from "@datune/core/pitches/alt";
 import stringify from "strings/chords/alt";
 import { TestInit, TestLang } from "tests";
 import parseChord from ".";

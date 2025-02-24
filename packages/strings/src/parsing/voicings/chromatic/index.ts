@@ -1,5 +1,5 @@
 import { Options } from "parsing";
-import { Voicing } from "voicings/chromatic";
+import { Voicing } from "@datune/core/voicings/chromatic";
 import fromIntervals from "./intervals";
 import fromName from "./name";
 

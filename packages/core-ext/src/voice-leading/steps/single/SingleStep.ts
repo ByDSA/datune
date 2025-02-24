@@ -1,5 +1,5 @@
-import { Interval } from "intervals/chromatic";
-import { add as SPNAdd } from "spns/chromatic";
+import { Interval } from "@datune/core/intervals/chromatic";
+import { add as SPNAdd } from "@datune/core/spns/chromatic";
 import { SPNOrNullArray, Step } from "../Step";
 
 export default class SingleStep implements Step {

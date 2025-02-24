@@ -1,10 +1,10 @@
 import { cyclicMod } from "@datune/utils";
-import { Chord, toVoicing } from "chords/alt";
+import { Chord, toVoicing } from "@datune/core/chords/alt";
 import Options from "lang/Options";
-import { Pitch } from "pitches/alt";
+import { Pitch } from "@datune/core/pitches/alt";
 import pitchStringify from "strings/pitches/alt";
 import getVoicingShortName from "strings/voicings/alt/shortName";
-import { getInversionOf, inv } from "voicings/alt";
+import { getInversionOf, inv } from "@datune/core/voicings/alt";
 
 export default function stringify(chord: Chord, options?: Options): string {
   const voicing = toVoicing(chord);

@@ -1,5 +1,5 @@
 import { ProcessCache } from "@datune/utils/caching";
-import { modes, Scale } from "scales/alt";
+import { modes, Scale } from "@datune/core/scales/alt";
 import SourceScaleNode from "./SourceScaleNode";
 
 const cache = new ProcessCache<Scale, SourceScaleNode>((scale) => ( {

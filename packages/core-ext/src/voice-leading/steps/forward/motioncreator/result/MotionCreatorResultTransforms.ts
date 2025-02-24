@@ -1,6 +1,6 @@
-import { Chord, fromPitches, inv } from "chords/chromatic";
-import { Array as ChromaticArray, Pitch as Chromatic } from "pitches/chromatic";
-import { SPN } from "spns/chromatic";
+import { Chord, fromPitches, inv } from "@datune/core/chords/chromatic";
+import { Array as ChromaticArray, Pitch as Chromatic } from "@datune/core/pitches/chromatic";
+import { SPN } from "@datune/core/spns/chromatic";
 import { CombinationResult } from "../../../applier/StepCombinationsApplier";
 import { Target } from "../../../Step";
 import { MotionCreatorResult } from "./MotionCreatorResult";

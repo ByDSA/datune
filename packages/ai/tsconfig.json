@@ -14,50 +14,17 @@
     "esModuleInterop": true,
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
     "paths": {
       "tests": ["../tests"],
-      "tests/*": ["../tests/*"],
-      "chords": ["../../core/dist/chords"],
-      "chords/*": ["../../core/dist/chords/*"],
-      "concert-pitches/*": ["../../core/dist/concert-pitches/*"],
-      "degrees/*": ["../../core/dist/degrees/*"],
-      "functions/*": ["../../core/dist/functions/*"],
-      "intervals/*": ["../../core/dist/intervals/*"],
-      "keys/*": ["../../core/dist/keys/*"],
-      "pitches": ["../../core/dist/pitches"],
-      "pitches/*": ["../../core/dist/pitches/*"],
-      "scales/*": ["../../core/dist/scales/*"],
-      "spns/*": ["../../core/dist/spns/*"],
-      "temperaments/*": ["../../core/dist/temperaments/*"],
-      "tunings/*": ["../../core/dist/tunings/*"],
-      "voicings/*": ["../../core/dist/voicings/*"]
+      "tests/*": ["../tests/*"]
     }
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "files": [
-    "src/index.ts"
-  ],
-  "exclude": [
-    "dist",
-    "node_modules"
-  ],
-  "filesGlob": [
-    "src/**/*.ts",
-    "tests/**/*.ts"
-  ],
-  "types": [
-    "node"
-  ],
-  "typeRoots": [
-    "../node_modules/@types"
-  ]
+  "include": ["src/**/*.ts"],
+  "files": ["src/index.ts"],
+  "exclude": ["dist", "node_modules"],
+  "filesGlob": ["src/**/*.ts", "tests/**/*.ts"],
+  "types": ["node"],
+  "typeRoots": ["../node_modules/@types"]
 }

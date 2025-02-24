@@ -1,4 +1,4 @@
-import { Degree } from "degrees/alt";
+import { Degree } from "@datune/core/degrees/alt";
 import { alts } from "lang/generation/utils";
 import DDstringify from "strings/degrees/diatonic";
 

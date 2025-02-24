@@ -1,4 +1,4 @@
-import { Voicing } from "voicings/chromatic";
+import { Voicing } from "@datune/core/voicings/chromatic";
 import { StepType } from "./StepType";
 
 export type StepReason = {

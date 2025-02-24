@@ -1,4 +1,4 @@
-import { HarmonicFunction, V7ALT } from "functions/chromatic";
+import { HarmonicFunction, V7ALT } from "@datune/core/functions/chromatic";
 
 export default function stringify(obj: HarmonicFunction): string {
   switch (obj) {

@@ -1,8 +1,8 @@
 import { Arrays } from "@datune/utils";
-import { fromDiatonicAlts as pitchFrom, Pitch as DiatonicAlt, toChromatic } from "pitches/alt";
-import DiatonicAltBuilder from "pitches/alt/building/builders/DiatonicAltBuilder";
-import { Pitch as Chromatic } from "pitches/chromatic";
-import { ALL as D_ALL, Array as DiatonicArray, Pitch as Diatonic } from "pitches/diatonic";
+import { fromDiatonicAlts as pitchFrom, Pitch as DiatonicAlt, toChromatic } from "@datune/core/pitches/alt";
+import DiatonicAltBuilder from "@datune/core/pitches/alt/building/builders/DiatonicAltBuilder";
+import { Pitch as Chromatic } from "@datune/core/pitches/chromatic";
+import { ALL as D_ALL, Array as DiatonicArray, Pitch as Diatonic } from "@datune/core/pitches/diatonic";
 
 export default class DiatonicAltFinder {
   private _maxSharps: number;

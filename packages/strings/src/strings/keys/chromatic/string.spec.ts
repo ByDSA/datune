@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { C, Cm } from "keys/chromatic";
+import { C, Cm } from "@datune/core/keys/chromatic";
 import { LangId } from "lang";
 import arrayPitchStringify from "strings/pitches/chromatic/array";
 import { TestInit, TestLang } from "tests";

@@ -3,24 +3,25 @@
 set -e
 
 function dependencies {
-	echo "Removing 'node_modules' folder..."
-	rm -rf node_modules
 	echo "Installing dependencies..."
-	npm i
+    rm -rf node_modules
+	pnpm i
 }
 
 function building {
 	echo "Removing 'dist' folder..."
 	rm -rf dist
 	echo "Building..."
-	npm run build
-	#echo "Fixing package.json..."
-	#sed -i 's/file:/file:\.\.\//g' dist/package.json
+	pnpm build
+    cp package.json pnpm-lock.yaml ./dist
+    base_dir=$(realpath .)
+    dist_dir=$(realpath ./dist)
+    sed -i -E "s|\"file:([^\"]+)\"|\"file:$(realpath --relative-to=\"$dist_dir\" \"$base_dir/\1\")\"|g" ./dist/package.json
 }
 
 function testing {
 	echo "Testing..."
-	npm run test
+	pnpm test
 }
 
 function build {
