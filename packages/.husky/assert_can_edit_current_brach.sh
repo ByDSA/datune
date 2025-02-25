@@ -18,8 +18,8 @@ main() {
 }
 
 # check GITHOOKS_NO_CHECK_BRANCH value
-if [ -f "$(dirname -- "$0")/../.env" ]; then
-  . "$(dirname -- "$0")/../.env"
+if [ -f "$(dirname -- "$0")/../../.env" ]; then
+  . "$(dirname -- "$0")/../../.env"
 else
   GITHOOKS_NO_CHECK_BRANCH=0
 fi
