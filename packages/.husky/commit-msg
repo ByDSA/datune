@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+. "$(dirname -- "$0")/shared-imports.sh"
+
+main() {
+  # if [ "$(is_pr_branch)" = "0" ]; then
+  cd packages && npx --no -- commitlint --edit "$1"
+  # fi
+}
+main "$@"

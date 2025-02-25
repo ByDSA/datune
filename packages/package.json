@@ -13,7 +13,8 @@
   "scripts": {
     "build:all": "bin/build-all.sh",
     "lint": "bin/lint.mjs",
-    "lint:all": "bin/lint-all.mjs"
+    "lint:all": "bin/lint-all.mjs",
+    "prepare": "cd .. && husky packages/.husky"
   },
   "devDependencies": {
     "@commitlint/cli": "19.7.1",

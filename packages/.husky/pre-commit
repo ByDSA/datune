@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+. "$(dirname -- "$0")/assert_can_edit_current_brach.sh"
+
+main() {
+  changed_files=$(git diff --cached --name-only HEAD --diff-filter=d)
+  eslint_files=$(echo "$changed_files" | grep -E "(.*).(js|ts|jsx|tsx)$" | xargs)
+  prettier_files=$(echo "$changed_files" | grep -E "(.*).(json|jsonc|scss|yml)$" | xargs)
+
+  # Los binarios de node_modules se tienen que ejecutar desde el mismo directorio que el package.json:
+  cd packages || exit
+
+  if [ -n "$eslint_files" ]; then
+    eslint_files=$(echo "$eslint_files" | sed 's|^|../|' | xargs)
+    pnpm exec eslint --fix "$eslint_files" >/dev/null
+    git add "$eslint_files"
+  fi
+  if [ -n "$prettier_files" ]; then
+    prettier_files=$(echo "$prettier_files" | sed 's|^|../|' | xargs)
+    pnpm exec prettier --write "$prettier_files" >/dev/null
+    git add "$prettier_files"
+  fi
+
+  # El sed 's|^|../|' es para hacer las rutas de archivos relativas a /packages/ en vez de a /
+}
+
+main
