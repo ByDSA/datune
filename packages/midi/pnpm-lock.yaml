@@ -1,72 +1,83 @@
-lockfileVersion: '6.0'
+lockfileVersion: '9.0'
 
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  '@datune/analyzer':
-    specifier: file:../analyzer/dist
-    version: file:../analyzer/dist
-  '@datune/core':
-    specifier: file:../core/dist
-    version: file:../core/dist
-  '@datune/utils':
-    specifier: file:../utils/dist
-    version: file:../utils/dist
-  '@tonejs/midi':
-    specifier: 2.0.28
-    version: 2.0.28
+importers:
+
+  .:
+    dependencies:
+      '@datune/analyzer':
+        specifier: file:../analyzer/dist
+        version: file:../analyzer/dist
+      '@datune/core':
+        specifier: file:../core/dist
+        version: file:../core/dist
+      '@datune/utils':
+        specifier: file:../utils/dist
+        version: file:../utils/dist
+      '@tonejs/midi':
+        specifier: 2.0.28
+        version: 2.0.28
 
 packages:
 
-  /@tonejs/midi@2.0.28:
-    resolution: {integrity: sha512-RII6YpInPsOZ5t3Si/20QKpNqB1lZ2OCFJSOzJxz38YdY/3zqDr3uaml4JuCWkdixuPqP1/TBnXzhQ39csyoVg==}
-    dependencies:
-      array-flatten: 3.0.0
-      midi-file: 1.2.4
-    dev: false
-
-  /array-flatten@3.0.0:
-    resolution: {integrity: sha512-zPMVc3ZYlGLNk4mpK1NzP2wg0ml9t7fUgDsayR5Y5rSzxQilzR9FGu/EH2jQOcKSAeAfWeylyW8juy3OkWRvNA==}
-    dev: false
-
-  /hashids@2.3.0:
-    resolution: {integrity: sha512-ljM73TE/avEhNnazxaj0Dw3BbEUuLC5yYCQ9RSkSUcT4ZSU6ZebdKCIBJ+xT/DnSYW36E9k82GH1Q6MydSIosQ==}
-    dev: false
-
-  /immutable@5.0.3:
-    resolution: {integrity: sha512-P8IdPQHq3lA1xVeBRi5VPqUm5HDgKnx0Ru51wZz5mjxHr5n3RWhjIpOFU7ybkUxfB+5IToy+OLaHYDBIWsv+uw==}
-    dev: false
-
-  /midi-file@1.2.4:
-    resolution: {integrity: sha512-B5SnBC6i2bwJIXTY9MElIydJwAmnKx+r5eJ1jknTLetzLflEl0GWveuBB6ACrQpecSRkOB6fhTx1PwXk2BVxnA==}
-    dev: false
-
-  /ts-treemap@1.1.0:
-    resolution: {integrity: sha512-0rWi12x7Y3vLG0bsgPZxeb/GClCcK0JE2L3O00VUhhxP8z+5rVBtUyeCdHcIUl8bEANdCT/D5bjKMW+CnfUZlw==}
-    dev: false
-
-  file:../analyzer/dist:
+  '@datune/analyzer@file:../analyzer/dist':
     resolution: {directory: ../analyzer/dist, type: directory}
-    name: '@datune/analyzer'
+
+  '@datune/core@file:../core/dist':
+    resolution: {directory: ../core/dist, type: directory}
+
+  '@datune/utils@file:../utils/dist':
+    resolution: {directory: ../utils/dist, type: directory}
+
+  '@tonejs/midi@2.0.28':
+    resolution: {integrity: sha512-RII6YpInPsOZ5t3Si/20QKpNqB1lZ2OCFJSOzJxz38YdY/3zqDr3uaml4JuCWkdixuPqP1/TBnXzhQ39csyoVg==}
+
+  array-flatten@3.0.0:
+    resolution: {integrity: sha512-zPMVc3ZYlGLNk4mpK1NzP2wg0ml9t7fUgDsayR5Y5rSzxQilzR9FGu/EH2jQOcKSAeAfWeylyW8juy3OkWRvNA==}
+
+  hashids@2.3.0:
+    resolution: {integrity: sha512-ljM73TE/avEhNnazxaj0Dw3BbEUuLC5yYCQ9RSkSUcT4ZSU6ZebdKCIBJ+xT/DnSYW36E9k82GH1Q6MydSIosQ==}
+
+  immutable@5.0.3:
+    resolution: {integrity: sha512-P8IdPQHq3lA1xVeBRi5VPqUm5HDgKnx0Ru51wZz5mjxHr5n3RWhjIpOFU7ybkUxfB+5IToy+OLaHYDBIWsv+uw==}
+
+  midi-file@1.2.4:
+    resolution: {integrity: sha512-B5SnBC6i2bwJIXTY9MElIydJwAmnKx+r5eJ1jknTLetzLflEl0GWveuBB6ACrQpecSRkOB6fhTx1PwXk2BVxnA==}
+
+  ts-treemap@1.1.0:
+    resolution: {integrity: sha512-0rWi12x7Y3vLG0bsgPZxeb/GClCcK0JE2L3O00VUhhxP8z+5rVBtUyeCdHcIUl8bEANdCT/D5bjKMW+CnfUZlw==}
+
+snapshots:
+
+  '@datune/analyzer@file:../analyzer/dist':
     dependencies:
       '@datune/core': file:../core/dist
       '@datune/utils': file:../utils/dist
-    dev: false
 
-  file:../core/dist:
-    resolution: {directory: ../core/dist, type: directory}
-    name: '@datune/core'
+  '@datune/core@file:../core/dist':
     dependencies:
       '@datune/utils': file:../utils/dist
       immutable: 5.0.3
-    dev: false
 
-  file:../utils/dist:
-    resolution: {directory: ../utils/dist, type: directory}
-    name: '@datune/utils'
+  '@datune/utils@file:../utils/dist':
     dependencies:
       hashids: 2.3.0
       ts-treemap: 1.1.0
-    dev: false
+
+  '@tonejs/midi@2.0.28':
+    dependencies:
+      array-flatten: 3.0.0
+      midi-file: 1.2.4
+
+  array-flatten@3.0.0: {}
+
+  hashids@2.3.0: {}
+
+  immutable@5.0.3: {}
+
+  midi-file@1.2.4: {}
+
+  ts-treemap@1.1.0: {}

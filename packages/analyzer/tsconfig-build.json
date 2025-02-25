@@ -4,15 +4,5 @@
     "sourceMap": false
   },
   "exclude": ["**/*.spec.ts", "spec"],
-  "extends": "./tsconfig.json",
-  "tsc-alias": {
-    "replacers": {
-      "replacer": {
-        "enabled": true,
-        "file": "../../utilities/replacer/dist/index.js"
-      }
-    },
-    "resolveFullPaths": true,
-    "verbose": false
-  }
+  "extends": "./tsconfig.json"
 }
