@@ -1,4 +1,4 @@
-import { B, C, D, E, F, G } from "pitches/chromatic";
+import { B, C, D, E, F, G } from "@datune/core/pitches/chromatic";
 import { TestInit } from "tests";
 import { minDistanceBetweenArraysOfNotes } from "./Distances";
 

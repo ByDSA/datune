@@ -1,4 +1,4 @@
-import { UNISON } from "intervals/diatonic";
+import { UNISON } from "@datune/core/intervals/diatonic";
 import { TestInit, TestLang } from "tests/index";
 import stringify from ".";
 

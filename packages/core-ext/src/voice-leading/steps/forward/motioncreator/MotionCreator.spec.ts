@@ -1,16 +1,16 @@
-/* eslint-disable camelcase */
-import { A as CC_A, AA as CC_AA, AAm as CC_AAm, Am as CC_Am, Am7 as CC_Am7, Asus4 as CC_Asus4, B as CC_B, B0 as CC_B0, Bm as CC_Bm, C as CC_C, CC as CC_CC, CCm as CC_CCm, Chord, Cm as CC_Cm, CMaj7 as CC_CMaj7, Csus2 as CC_Csus2, Csus4 as CC_Csus4, D as CC_D, DD as CC_DD, DDm as CC_DDm, Dm as CC_Dm, Dsus2 as CC_Dsus2, Dsus4 as CC_Dsus4, E as CC_E, Em as CC_Em, Em7 as CC_Em7, F as CC_F, FF as CC_FF, FFm as CC_FFm, Fm as CC_Fm, FMaj7 as CC_FMaj7, fromRootVoicing as CCFromRootVoicing, G as CC_G, G7 as CC_G7, GG as CC_GG, GGm as CC_GGm, Gm as CC_Gm, Gsus2 as CC_Gsus2, inv } from "chords/chromatic";
-import { C as T_C, rootChord3, rootChord4 } from "keys/chromatic";
-import { A as C_A, Array as ChromaticArray, B as C_B, D as C_D, E as C_E, F as C_F, G as C_G } from "pitches/chromatic";
-import { A5, Array as SPNArray, B4, C5, C6, D5, E5, F5, G5, GG5, SPN } from "spns/chromatic";
 import { TestInit } from "tests";
-import { Array as VoicingArray, COMMON_TRIADS, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_MINOR_a5, SEVENTH_MINOR_b5, SEVENTH_SUS4, SIXTH_MINOR, TRIADS_MAJOR_MINOR, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } from "voicings/chromatic";
-import { getAllInversions } from "voicings/relative/chromatic/utils";
-import MotionCreator from "./MotionCreator";
+
+/* eslint-disable camelcase */
+import { C as T_C, rootChord3, rootChord4 } from "@datune/core/keys/chromatic";
+import { A as C_A, Array as ChromaticArray, B as C_B, D as C_D, E as C_E, F as C_F, G as C_G } from "@datune/core/pitches/chromatic";
+import { A as CC_A, AA as CC_AA, AAm as CC_AAm, Am as CC_Am, Am7 as CC_Am7, Asus4 as CC_Asus4, B as CC_B, B0 as CC_B0, Bm as CC_Bm, C as CC_C, CC as CC_CC, CCm as CC_CCm, Chord, Cm as CC_Cm, CMaj7 as CC_CMaj7, Csus2 as CC_Csus2, Csus4 as CC_Csus4, D as CC_D, DD as CC_DD, DDm as CC_DDm, Dm as CC_Dm, Dsus2 as CC_Dsus2, Dsus4 as CC_Dsus4, E as CC_E, Em as CC_Em, Em7 as CC_Em7, F as CC_F, FF as CC_FF, FFm as CC_FFm, Fm as CC_Fm, FMaj7 as CC_FMaj7, fromRootVoicing as CCFromRootVoicing, G as CC_G, G7 as CC_G7, GG as CC_GG, GGm as CC_GGm, Gm as CC_Gm, Gsus2 as CC_Gsus2, inv } from "@datune/core/chords/chromatic";
+import { A5, Array as SPNArray, B4, C5, C6, D5, E5, F5, G5, GG5, SPN } from "@datune/core/spns/chromatic";
+import { Array as VoicingArray, COMMON_TRIADS, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_MINOR_a5, SEVENTH_MINOR_b5, SEVENTH_SUS4, SIXTH_MINOR, TRIADS_MAJOR_MINOR, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } from "@datune/core/voicings/chromatic";
+import { getAllInversions } from "@datune/core/voicings/relative/chromatic/utils";
 import { transformToChordsRootPosition, transformToSPNArray } from "./result/MotionCreatorResultTransforms";
+import MotionCreator from "./MotionCreator";
 
 TestInit.loadAll();
-
 const TRIADS_MAJOR_MINOR_ARRAY = [...TRIADS_MAJOR_MINOR] as VoicingArray;
 const COMMON_TRIADS_ARRAY = [...COMMON_TRIADS] as VoicingArray;
 

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { bIII, bV, bVII, I, II, III, IV, V, VI, VII } from "degrees/chromatic";
-import { BLUES_a4, BLUES_b5, LOCRIAN, LYDIAN, MAJOR } from "scales/chromatic";
+import { bIII, bV, bVII, I, II, III, IV, V, VI, VII } from "@datune/core/degrees/chromatic";
+import { BLUES_a4, BLUES_b5, LOCRIAN, LYDIAN, MAJOR } from "@datune/core/scales/chromatic";
 import { TestInit } from "tests";
 import compare from ".";
 

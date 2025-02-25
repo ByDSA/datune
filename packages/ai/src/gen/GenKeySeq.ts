@@ -22,7 +22,7 @@ export default class GenKeySeq extends GenSeq {
 
     while (time < this.tonalApporach.maxDuration) {
       time = keySeq.duration;
-      const key = this._pickKey(prevKey, time);
+      const key = this.#pickKey(prevKey, time);
       const duration = pickDuration(prevDuration, time);
       let toTime = time + duration;
 
@@ -34,7 +34,7 @@ export default class GenKeySeq extends GenSeq {
     }
   }
 
-  private _pickKey(prevKey: Key | undefined, time: MusicalDuration): Key {
+  #pickKey(_prevKey: Key | undefined, _time: MusicalDuration): Key {
     return this.keys[random(this.keys.length)];
   }
 }

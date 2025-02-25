@@ -1,4 +1,4 @@
-import { Scale } from "scales/alt";
+import { Scale } from "@datune/core/scales/alt";
 
 type SourceScaleNode = {
   sourceScale: Scale;

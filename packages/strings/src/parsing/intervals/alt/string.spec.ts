@@ -1,6 +1,6 @@
-import { fromIntervalQuality, MAJOR_TENTH, MAJOR_THIRD } from "intervals/alt";
-import { fromInt as intervalDiatonicFromInt } from "intervals/diatonic";
-import { MAJOR } from "intervals/symbolic/quality";
+import { fromIntervalQuality, MAJOR_TENTH, MAJOR_THIRD } from "@datune/core/intervals/alt";
+import { fromInt as intervalDiatonicFromInt } from "@datune/core/intervals/diatonic";
+import { MAJOR } from "@datune/core/intervals/symbolic/quality";
 import { TestInit } from "tests";
 import fromString from ".";
 

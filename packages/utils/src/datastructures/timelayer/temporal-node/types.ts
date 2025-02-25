@@ -1,6 +1,6 @@
+import TemporalNode from "./TemporalNode";
 import { Interval } from "math/interval";
 import { Time } from "time";
-import TemporalNode from "./TemporalNode";
 
 export type NodeCopyType<E> = {
   node: TemporalNode<E>;

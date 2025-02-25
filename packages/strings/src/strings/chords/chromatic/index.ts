@@ -1,9 +1,9 @@
 import { cyclicMod } from "@datune/utils";
-import { Chord, toVoicing } from "chords/chromatic";
-import { Pitch } from "pitches/chromatic";
+import { Chord, toVoicing } from "@datune/core/chords/chromatic";
+import { Pitch } from "@datune/core/pitches/chromatic";
 import pitchStringify from "strings/pitches/chromatic";
 import getVoicingShortName from "strings/voicings/chromatic/shortName";
-import { getInversionOf, inv } from "voicings/chromatic";
+import { getInversionOf, inv } from "@datune/core/voicings/chromatic";
 
 export default function stringify(chord: Chord): string {
   const voicing = toVoicing(chord);

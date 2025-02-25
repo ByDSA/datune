@@ -1,4 +1,4 @@
-import { Array } from "degrees/alt";
+import { Array } from "@datune/core/degrees/alt";
 import stringify from ".";
 
 export default function stringifyArray(degrees: Array): string {

@@ -126,6 +126,7 @@ describe("from > to", () => {
     expect(actual.from).toBe(expected.from);
     expect(actual.to).toBe(expected.to);
   } );
+
   it("inclusive values", () => {
     expect(actual.fromInclusive).not.toBe(expected.fromInclusive);
     expect(actual.toInclusive).not.toBe(expected.toInclusive);

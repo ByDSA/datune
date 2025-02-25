@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-continue */
-/* eslint-disable import/prefer-default-export */
 /* eslint-disable camelcase */
+
 import { ChordSequence, TonalApproach } from "@datune/analyzer";
 import { init as initCore, MusicalDuration } from "@datune/core";
 import { fromRootVoicing } from "@datune/core/chords/absolute/chromatic/building";
@@ -15,8 +15,8 @@ import Channel from "@datune/midi/files/track/Channel";
 import Track from "@datune/midi/files/track/Track";
 import { from as midiPitchFrom } from "@datune/midi/pitch/building";
 import { Arrays, random } from "@datune/utils";
-import { Array as IntervalArray, betweenSPN } from "intervals/chromatic";
-import { fromRootIntervals } from "voicings/chromatic";
+import { Array as IntervalArray, betweenSPN } from "@datune/core/intervals/chromatic";
+import { fromRootIntervals } from "@datune/core/voicings/chromatic";
 import ActionGen from "./actions/ActionGen";
 import ActionGenState from "./actions/ActionGenState";
 import ActionManager from "./actions/ActionManager";
@@ -90,9 +90,9 @@ function getAvailablePitches(
   chordSequence: ChordSequence,
   key: Key,
 ): Pitch[] {
-  const currentChordNode = chordSequence.get( {
+  const [currentChordNode] = chordSequence.get( {
     at: time,
-  } )[0];
+  } );
 
   if (!currentChordNode)
     return [];
@@ -212,9 +212,9 @@ export function sample4(): MidiFile {
   while (cond() && !actionManager.end) {
     const time = state.times[state.i];
     const availableNotes: MidiNote[] = [];
-    const keyChordNode = tonalApproach.keyChordSequence.get( {
+    const [keyChordNode] = tonalApproach.keyChordSequence.get( {
       at: time,
-    } )[0];
+    } );
 
     if (!keyChordNode)
       throw new Error(`${time} ${tonalApproach.keyChordSequence.duration}`);
@@ -315,8 +315,10 @@ function minimizeDistance(
   const result: SPNArray = [...from];
 
   for (let i = 0; i < from.length; i++) {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     const originalDistance_i = distanceToNotes(from[i], to);
     let minDist = 9999;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     const original_i = spnCheckConstraints(from[i], constraints);
 
     if (original_i) {
@@ -332,6 +334,7 @@ function minimizeDistance(
       if (!lower_i)
         break;
 
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       const lower_i2 = spnCheckConstraints(lower_i, constraints);
 
       if (!lower_i2)
@@ -346,6 +349,7 @@ function minimizeDistance(
         result[i] = lower_i;
       } else
         break;
+    // eslint-disable-next-line no-constant-condition
     } while (true);
 
     let upper_i: SPN | null = from[i];
@@ -356,6 +360,7 @@ function minimizeDistance(
       if (!upper_i)
         break;
 
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       const upper_i2 = spnCheckConstraints(upper_i, constraints);
 
       if (!upper_i2)
@@ -370,6 +375,7 @@ function minimizeDistance(
         result[i] = upper_i;
       } else
         break;
+    // eslint-disable-next-line no-constant-condition
     } while (true);
   }
 

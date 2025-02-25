@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { Interval } from "intervals/chromatic";
+import { Interval } from "@datune/core/intervals/chromatic";
 import cache from "./cache";
 import SingleStep from "./SingleStep";
 

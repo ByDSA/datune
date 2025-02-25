@@ -2,7 +2,7 @@
 import { ProcessCache } from "@datune/utils";
 import { createToken, TokenType } from "chevrotain";
 import { LangId } from "lang";
-import { COMMON } from "scales/chromatic";
+import { COMMON } from "@datune/core/scales/chromatic";
 import getName from "strings/scales/chromatic/name";
 import normalizeInput from "./normalizeNameInput";
 

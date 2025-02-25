@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
-import { COMMON, fromRootIntervals, THIRTEENTH_MAJ13_b5a9, TRIAD_MAJOR, Voicing } from "voicings/chromatic";
+import { COMMON, fromRootIntervals, THIRTEENTH_MAJ13_b5a9, TRIAD_MAJOR, Voicing } from "@datune/core/voicings/chromatic";
 import stringify from ".";
 import shortName from "./shortName";
 

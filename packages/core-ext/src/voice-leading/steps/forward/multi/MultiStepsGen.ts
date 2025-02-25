@@ -1,6 +1,6 @@
-import { Interval as ChromaticInterval } from "intervals/chromatic";
-import { Array as ChromaticArray } from "pitches/chromatic";
-import { Array as SPNArray } from "spns/chromatic";
+import { Interval as ChromaticInterval } from "@datune/core/intervals/chromatic";
+import { Array as ChromaticArray } from "@datune/core/pitches/chromatic";
+import { Array as SPNArray } from "@datune/core/spns/chromatic";
 import { NearStepsGen } from "../../generators/others/near/NearStepsGenerator";
 import { RestingNotesStepsGen } from "../../generators/resolution";
 import { FilterStepFunction } from "../../generators/StepsGenerator";

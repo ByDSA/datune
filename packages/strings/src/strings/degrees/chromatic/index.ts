@@ -1,4 +1,4 @@
-import { bII, bIII, bV, bVI, bVII, Degree, I, II, III, IV, V, VI, VII } from "degrees/chromatic";
+import { bII, bIII, bV, bVI, bVII, Degree, I, II, III, IV, V, VI, VII } from "@datune/core/degrees/chromatic";
 
 export default function stringify(obj: Degree): string {
   switch (obj) {

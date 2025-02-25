@@ -1,4 +1,4 @@
-import { CompoundFunction, DegreeFunction, HarmonicFunction } from "functions/chromatic";
+import { CompoundFunction, DegreeFunction, HarmonicFunction } from "@datune/core/functions/chromatic";
 import stringifyCompoundFunction from "./compound-function";
 import stringifyDegreeFunction from "./degree-function";
 import stringifyOtherFunction from "./others";

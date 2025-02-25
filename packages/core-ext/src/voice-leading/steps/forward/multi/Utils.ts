@@ -1,5 +1,5 @@
 import { Arrays } from "@datune/utils";
-import { SPN } from "spns/chromatic";
+import { SPN } from "@datune/core/spns/chromatic";
 import { StepCombiner } from "../../combiner/StepCombiner";
 import { CompositeStep } from "../../composite/CompositeStep";
 import { ReasonStepMap } from "../../reason/ReasonStepMap";

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { LangId } from "lang";
-import { AEOLIAN_b1, BLUES_b5, LYDIAN_b7, MAJOR, MINOR, Scale, SUPERLOCRIAN_bb7 } from "scales/alt";
+import { AEOLIAN_b1, BLUES_b5, LYDIAN_b7, MAJOR, MINOR, Scale, SUPERLOCRIAN_bb7 } from "@datune/core/scales/alt";
 import stringify from "strings/scales/alt";
 import { TestInit, TestLang } from "tests";
 import parseScale from ".";

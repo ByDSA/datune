@@ -1,4 +1,4 @@
-import { Array as SPNArray, SPN } from "spns/chromatic";
+import { Array as SPNArray, SPN } from "@datune/core/spns/chromatic";
 import { StepCombination } from "../combiner/StepCombination";
 import { StepCombiner } from "../combiner/StepCombiner";
 import SingleStep from "../single/SingleStep";

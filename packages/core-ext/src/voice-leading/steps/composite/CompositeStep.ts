@@ -1,6 +1,6 @@
 import { Arrays } from "@datune/utils";
-import { Interval as ChromaticInterval } from "intervals/chromatic";
-import { add } from "spns/chromatic";
+import { Interval as ChromaticInterval } from "@datune/core/intervals/chromatic";
+import { add } from "@datune/core/spns/chromatic";
 import { Array as SingleStepArray, from } from "../single";
 import { SPNOrNullArray, Step } from "../Step";
 import cache from "./cache";
@@ -55,7 +55,8 @@ export class CompositeStep implements Step {
         continue;
       else {
         const retIndex = ret[index];
-        ret[index] = retIndex ? (add(retIndex ,sm.interval) || null) : null;
+
+        ret[index] = retIndex ? (add(retIndex, sm.interval) || null) : null;
       }
     }
 

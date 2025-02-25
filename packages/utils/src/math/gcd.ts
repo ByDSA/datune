@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 export default (a: number, b: number) => {
   let tmp: number;
 

@@ -1,4 +1,4 @@
-import { HarmonicFunction, V7ALT } from "functions/alt";
+import { HarmonicFunction, V7ALT } from "@datune/core/functions/alt";
 
 export default function stringify(obj: HarmonicFunction): string {
   switch (obj) {

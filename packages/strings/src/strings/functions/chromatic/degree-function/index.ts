@@ -1,4 +1,4 @@
-import { DegreeFunction } from "functions/chromatic";
+import { DegreeFunction } from "@datune/core/functions/chromatic";
 import degreeStringify from "strings/degrees/chromatic";
 import voicingShortName from "strings/voicings/chromatic/shortName";
 

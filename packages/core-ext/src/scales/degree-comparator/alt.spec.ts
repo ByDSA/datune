@@ -1,5 +1,5 @@
-import { I, II, III, IV, V, VI, VII } from "degrees/alt";
-import { LOCRIAN, LYDIAN, MAJOR, MINOR } from "scales/alt";
+import { I, II, III, IV, V, VI, VII } from "@datune/core/degrees/alt";
+import { LOCRIAN, LYDIAN, MAJOR, MINOR } from "@datune/core/scales/alt";
 import { TestInit } from "tests";
 import compare from ".";
 

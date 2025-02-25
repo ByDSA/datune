@@ -1,12 +1,12 @@
 /* eslint-disable camelcase */
-import { A as CC_A, A7 as CC_A7, B as CC_B, B7 as CC_B7, C as CC_C, C7 as CC_C7, D as CC_D, D7 as CC_D7, E as CC_E, E7 as CC_E7, fromRootVoicing as CCFromRootVoicing } from "chords/chromatic";
-import { V as C_V } from "degrees/chromatic";
-import { from, SUBV7_II, SUBV7_III, SUBV7_IV, SUBV7_V, SUBV7_VI, V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI } from "functions/chromatic/compound-function";
-import { V7 } from "functions/chromatic/degree-function";
-import { C as T_C } from "keys/chromatic";
-import { Ab as C_Ab, Bb as C_Bb, Eb as C_Eb, F as C_F, Gb as C_Gb } from "pitches/chromatic";
+import { A as CC_A, A7 as CC_A7, B as CC_B, B7 as CC_B7, C as CC_C, C7 as CC_C7, D as CC_D, D7 as CC_D7, E as CC_E, E7 as CC_E7, fromRootVoicing as CCFromRootVoicing } from "@datune/core/chords/chromatic";
+import { V as C_V } from "@datune/core/degrees/chromatic";
+import { from, SUBV7_II, SUBV7_III, SUBV7_IV, SUBV7_V, SUBV7_VI, V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI } from "@datune/core/functions/chromatic/compound-function";
+import { V7 } from "@datune/core/functions/chromatic/degree-function";
+import { C as T_C } from "@datune/core/keys/chromatic";
+import { Ab as C_Ab, Bb as C_Bb, Eb as C_Eb, F as C_F, Gb as C_Gb } from "@datune/core/pitches/chromatic";
 import { TestInit, TestLang } from "tests";
-import { SEVENTH } from "voicings/chromatic";
+import { SEVENTH } from "@datune/core/voicings/chromatic";
 import stringify from ".";
 
 TestInit.chromaticFunction();

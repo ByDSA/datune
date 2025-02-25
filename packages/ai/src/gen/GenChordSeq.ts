@@ -5,7 +5,7 @@ import { from as keyFrom, Key } from "@datune/core/keys/chromatic";
 import { ZERO } from "@datune/core/time";
 import { random } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
-import { CHROMATIC, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN } from "scales/chromatic";
+import { CHROMATIC, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN } from "@datune/core/scales/chromatic";
 import GenSeq from "./GenSeq";
 
 export default class GenChordSeq extends GenSeq {
@@ -13,13 +13,13 @@ export default class GenChordSeq extends GenSeq {
     const tonalApproach = this.tonalApporach;
 
     for (let time = ZERO, toTime = time; time < tonalApproach.keySequence.duration; time = toTime) {
-      const keyNode = tonalApproach.keySequence.get( {
+      const [keyNode] = tonalApproach.keySequence.get( {
         at: time,
-      } )[0];
+      } );
       const key: Key = <Key>keyNode?.event;
-      const fNode = tonalApproach.funcSequence.get( {
+      const [fNode] = tonalApproach.funcSequence.get( {
         at: time,
-      } )[0];
+      } );
 
       if (!fNode)
         throw new Error(`${time} ${tonalApproach.funcSequence.duration}`);
@@ -46,7 +46,7 @@ export default class GenChordSeq extends GenSeq {
 }
 
 function pickKeyChord(originalKey: Key, f: HarmonicFunction, chord: Chord): Key {
-  const root = f.getChord(originalKey).pitches[0];
+  const [root] = f.getChord(originalKey).pitches;
   const available: Key[] = [];
 
   switch (f) {

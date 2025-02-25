@@ -1,6 +1,6 @@
-import { betweenNext, betweenSPN } from "intervals/chromatic";
-import { Pitch as Chromatic } from "pitches/chromatic";
-import { SPN } from "spns/chromatic";
+import { betweenNext, betweenSPN } from "@datune/core/intervals/chromatic";
+import { Pitch as Chromatic } from "@datune/core/pitches/chromatic";
+import { SPN } from "@datune/core/spns/chromatic";
 
 export function minDistanceBetweenArraysOfNotes(a1: Chromatic[], a2: Chromatic[]) {
   const minDistances = [];

@@ -1,5 +1,5 @@
 import { StringHashCache } from "@datune/utils";
-import { Interval as ChromaticInterval } from "intervals/chromatic";
+import { Interval as ChromaticInterval } from "@datune/core/intervals/chromatic";
 import SingleStep from "./SingleStep";
 
 type HashingObjectType = { index: number; interval: ChromaticInterval | null };

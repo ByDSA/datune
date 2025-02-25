@@ -41,6 +41,7 @@ describe("initialize", () => {
 
         expect(got).toBeDefined();
       } );
+
       it("pitches", () => {
         const dto = [CP_C, CP_E, CP_G].map((p) => +p) as Arrays.Number;
         const got = chromaticChordCache.get(dto) as ChromaticChord;

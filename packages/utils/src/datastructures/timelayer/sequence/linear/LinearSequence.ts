@@ -1,8 +1,8 @@
-import { Time } from "time";
 import { from as temporalNode, isTemporalNodeConstructorType, TemporalNode } from "../../temporal-node";
 import TimeLayer from "../../TimeLayer";
 import { AddType, GetType, isAddLayerType, isNodesType, isNodeType, RemoveType, SequenceAddListener, SequenceChangeListener, SequenceRemoveListener, TimeLayerConstructorObject } from "../../types";
 import ParallelSequence from "../parallel/ParallelSequence";
+import { Time } from "time";
 
 export default class LinearSequence<E> implements TimeLayer<E> {
   private parallelSequence: ParallelSequence<E>;
@@ -62,7 +62,7 @@ export default class LinearSequence<E> implements TimeLayer<E> {
     if (isTemporalNodeConstructorType(obj)) {
       const node = temporalNode(obj);
 
-      this._fixOverlappingNode(node);
+      this.#fixOverlappingNode(node);
 
       return this.parallelSequence.add(node);
     }
@@ -70,21 +70,21 @@ export default class LinearSequence<E> implements TimeLayer<E> {
     if (isAddLayerType(obj)) {
       const { nodes } = obj.layer;
 
-      this._fixOverlappingNodes(...nodes);
+      this.#fixOverlappingNodes(...nodes);
     } else if (isNodesType(obj))
-      this._fixOverlappingNodes(...obj);
+      this.#fixOverlappingNodes(...obj);
     else if (isNodeType(obj))
-      this._fixOverlappingNode(obj);
+      this.#fixOverlappingNode(obj);
 
     return this.parallelSequence.add(obj);
   }
 
-  private _fixOverlappingNodes(...newNodes: TemporalNode<E>[]) {
+  #fixOverlappingNodes(...newNodes: TemporalNode<E>[]) {
     for (const n of newNodes)
-      this._fixOverlappingNode(n);
+      this.#fixOverlappingNode(n);
   }
 
-  private _fixOverlappingNode(newNode: TemporalNode<E>) {
+  #fixOverlappingNode(newNode: TemporalNode<E>) {
     const oldNodes = this.get( {
       interval: newNode.interval,
     } );

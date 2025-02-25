@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { TestInit, TestLang } from "tests";
-import { SEVENTH, SEVENTH_MAJ7_b5, SEVENTH_SUS4_b9, TRIAD_MAJOR } from "voicings/alt";
+import { SEVENTH, SEVENTH_MAJ7_b5, SEVENTH_SUS4_b9, TRIAD_MAJOR } from "@datune/core/voicings/alt";
 import shortName from "./shortName";
 
 beforeAll(() => {

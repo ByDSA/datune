@@ -1,10 +1,10 @@
-import { from as fromRootScale } from "keys/chromatic";
+import { from as fromRootScale } from "@datune/core/keys/chromatic";
 import { getLangIdFromOptions, Options } from "lang";
 import { getLangTokens, tokenize } from "parsing";
 import parsePitch from "parsing/pitches/chromatic";
 import parseScale from "parsing/scales/chromatic";
 import tokensParse from "parsing/utils/tokens-parser/key";
-import { MAJOR } from "scales/chromatic";
+import { MAJOR } from "@datune/core/scales/chromatic";
 
 export default function parseKey(input: string, options?: Options) {
   const langId = getLangIdFromOptions(options);

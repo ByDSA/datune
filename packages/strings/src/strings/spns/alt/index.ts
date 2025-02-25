@@ -1,5 +1,5 @@
 import { Options } from "lang";
-import { SPN } from "spns/alt";
+import { SPN } from "@datune/core/spns/alt";
 import stringify from "strings/pitches/alt";
 
 export default function toString(obj: SPN, options?: Options): string {

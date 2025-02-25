@@ -1,8 +1,8 @@
 /* eslint-disable no-empty-function */
 /* eslint-disable no-useless-constructor */
 import { Arrays } from "@datune/utils";
-import { Array as SPNArray, SPN } from "spns/chromatic";
-import { fromRootIntervals, inv, MAJOR_SECOND, TRIAD_AUGMENTED, TRITONE, Voicing as ChromaticVoicing } from "voicings/chromatic";
+import { Array as SPNArray, SPN } from "@datune/core/spns/chromatic";
+import { fromRootIntervals, inv, MAJOR_SECOND, TRIAD_AUGMENTED, TRITONE, Voicing as ChromaticVoicing } from "@datune/core/voicings/chromatic";
 import { CompositeStep } from "../../../composite/CompositeStep";
 import { compactStepsArray } from "../../../forward/multi/Utils";
 import { Array as SingleStepArray, index, SingleStep } from "../../../single";

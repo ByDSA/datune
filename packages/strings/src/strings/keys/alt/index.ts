@@ -1,4 +1,4 @@
-import { Key } from "keys/alt";
+import { Key } from "@datune/core/keys/alt";
 import { Options } from "lang";
 import pitchStringify from "strings/pitches/alt";
 import scaleStringify from "strings/scales/alt";

@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import Backtracking from "../Backtracking";
 import ParserNode from "./Node";
 import ParserBottomUp from "./ParserBottomUp";
@@ -61,7 +60,7 @@ export default class ParsingProcess extends Backtracking<ParserBottomUp, ParserN
     return newNode;
   }
 
-  protected output(P: ParserBottomUp, c: ParserNode): void {
+  protected output(_P: ParserBottomUp, c: ParserNode): void {
     this._result = c;
   }
 

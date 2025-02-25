@@ -1,4 +1,4 @@
-import { Array as SPNArray, B3, C4, F4, G4 } from "spns/chromatic";
+import { Array as SPNArray, B3, C4, F4, G4 } from "@datune/core/spns/chromatic";
 import { TestInit } from "tests";
 import { CompositeStep } from "../../../composite/CompositeStep";
 import { Step } from "../../../Step";

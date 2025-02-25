@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { CreateFunc, DtoFunc, Funcs, HashFunc, OnCreateFunc } from "./funcs";
 
 export default class DtoHashCache<T, Dto, HashCode> {
@@ -7,9 +8,9 @@ export default class DtoHashCache<T, Dto, HashCode> {
 
   toDto: DtoFunc<T, Dto>;
 
-  private _create: CreateFunc<T, Dto>;
+  #create: CreateFunc<T, Dto>;
 
-  private onCreate?: OnCreateFunc<T, Dto, HashCode>;
+  #onCreate?: OnCreateFunc<T, Dto, HashCode>;
 
   constructor(
     { hash, toDto, create }: Funcs<T, Dto, HashCode>,
@@ -17,10 +18,10 @@ export default class DtoHashCache<T, Dto, HashCode> {
   ) {
     this.hash = hash;
     this.toDto = toDto;
-    this._create = create;
+    this.#create = create;
     this._hashMap = new Map<HashCode, T>();
 
-    this.onCreate = onCreate;
+    this.#onCreate = onCreate;
   }
 
   add(object: T): T {
@@ -51,11 +52,11 @@ export default class DtoHashCache<T, Dto, HashCode> {
     let obj: T | undefined = this.getByHashCode(hashCode);
 
     if (obj === undefined) {
-      obj = this._create(dto);
+      obj = this.#create(dto);
       this._hashMap.set(hashCode, obj);
 
-      if (this.onCreate)
-        this.onCreate(obj, dto, hashCode);
+      if (this.#onCreate)
+        this.#onCreate(obj, dto, hashCode);
 
       if (onCreate)
         onCreate(obj, dto, hashCode);

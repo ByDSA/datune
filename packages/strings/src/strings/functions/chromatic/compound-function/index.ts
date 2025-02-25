@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { CompoundFunction, V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI } from "functions/chromatic";
+import { CompoundFunction, V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI } from "@datune/core/functions/chromatic";
 import degreeStringify from "strings/degrees/chromatic";
 import degreeFunctionStringify from "strings/functions/chromatic/degree-function";
 

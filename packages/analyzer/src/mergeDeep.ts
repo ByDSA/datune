@@ -26,8 +26,7 @@ export default function mergeDeep(target: any, ...sources: any): any {
       if (isObject(source[key])) {
         if (!target[key]) {
           Object.assign(target, {
-            [key]: {
-            },
+            [key]: {},
           } );
         }
 

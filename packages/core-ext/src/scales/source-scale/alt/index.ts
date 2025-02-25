@@ -1,4 +1,4 @@
-import { Scale } from "scales/alt";
+import { Scale } from "@datune/core/scales/alt";
 import cache from "./cache";
 import SourceScaleNode from "./SourceScaleNode";
 

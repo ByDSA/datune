@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { BLUES_a4, toChromatic } from "scales/alt";
+import { BLUES_a4, toChromatic } from "@datune/core/scales/alt";
 import chromaticStringify from "strings/scales/chromatic";
 import { TestInit, TestLang } from "tests";
 import stringify from "..";

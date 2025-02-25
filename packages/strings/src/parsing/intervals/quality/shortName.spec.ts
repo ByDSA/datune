@@ -1,4 +1,4 @@
-import { MAJOR, MINOR } from "intervals/quality";
+import { MAJOR, MINOR } from "@datune/core/intervals/quality";
 import fromShortName from "./shortName";
 
 it("M", () => {

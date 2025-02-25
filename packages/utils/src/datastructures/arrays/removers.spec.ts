@@ -7,7 +7,7 @@ describe("remove", () => {
     const initialSize = array.length;
 
     expect(Arrays.removeItem(array, item)).toBe(true);
-    expect(array.length).toBe(initialSize - 1);
+    expect(array).toHaveLength(initialSize - 1);
     expect(array).toStrictEqual([2, 3, 2, 1]);
   } );
 
@@ -17,7 +17,7 @@ describe("remove", () => {
     const initialSize = array.length;
 
     expect(Arrays.removeItem(array, item)).toBe(true);
-    expect(array.length).toBe(initialSize - 1);
+    expect(array).toHaveLength(initialSize - 1);
     expect(array).toStrictEqual([2, 3, 4]);
   } );
 
@@ -27,7 +27,7 @@ describe("remove", () => {
     const initialSize = array.length;
 
     expect(Arrays.removeItem(array, item)).toBe(false);
-    expect(array.length).toBe(initialSize);
+    expect(array).toHaveLength(initialSize);
     expect(array).toStrictEqual([1, 2, 3, 4]);
   } );
 } );

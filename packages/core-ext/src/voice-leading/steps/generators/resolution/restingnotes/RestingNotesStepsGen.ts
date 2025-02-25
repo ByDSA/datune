@@ -1,7 +1,7 @@
 import { Arrays } from "@datune/utils";
-import { Interval as ChromaticInterval } from "intervals/chromatic";
-import { Array as PitchArray } from "pitches/chromatic";
-import { add as SPNAdd, Array as SPNArray } from "spns/chromatic";
+import { Interval as ChromaticInterval } from "@datune/core/intervals/chromatic";
+import { Array as PitchArray } from "@datune/core/pitches/chromatic";
+import { add as SPNAdd, Array as SPNArray } from "@datune/core/spns/chromatic";
 import { StepCombiner } from "../../../combiner/StepCombiner";
 import { compactStepsArray } from "../../../forward/multi/Utils";
 import { from, SingleStep } from "../../../single";

@@ -1,5 +1,5 @@
 import { SPN } from "@datune/core/spns/chromatic";
-import { betweenSPN } from "intervals/chromatic";
+import { betweenSPN } from "@datune/core/intervals/chromatic";
 import Constraint from "../Constraint";
 
 export default class PitchDistanceConstraint extends Constraint {

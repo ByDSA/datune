@@ -1,4 +1,4 @@
-import { Key } from "keys/chromatic";
+import { Key } from "@datune/core/keys/chromatic";
 import { Options } from "lang";
 import pitchStringify from "../../pitches/chromatic";
 import scaleStringify from "../../scales/chromatic";

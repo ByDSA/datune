@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { LangId } from "lang";
-import { AEOLIAN_b1, COMMON, MAJOR, MINOR, Scale } from "scales/alt";
+import { AEOLIAN_b1, COMMON, MAJOR, MINOR, Scale } from "@datune/core/scales/alt";
 import stringify from "..";
 
 type Case = [LangId, Scale, string];

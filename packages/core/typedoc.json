@@ -1,20 +1,18 @@
 {
-    "entryPoints": [
-        "./src/index.ts"
-    ],
-    "out": "docs",
-    "readme": "none",
-    "exclude": [
-        "**/__tests__/**/*",
-        "**/__test_utils__/**/*",
-        "**/__fixtures__/**/*",
-        "**/testsuite/**/*"
-    ],
-    "theme": "./node_modules/typedoc-github-wiki-theme/dist",
-    "excludeExternals": true,
-    "excludeInternal": true,
-    "excludePrivate": true,
-    "excludeProtected": true,
-    "includeVersion": true,
-    "disableOutputCheck": true
+  "disableOutputCheck": true,
+  "entryPoints": ["./src/index.ts"],
+  "exclude": [
+    "**/__tests__/**/*",
+    "**/__test_utils__/**/*",
+    "**/__fixtures__/**/*",
+    "**/testsuite/**/*"
+  ],
+  "excludeExternals": true,
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "includeVersion": true,
+  "out": "docs",
+  "readme": "none",
+  "theme": "./node_modules/typedoc-github-wiki-theme/dist"
 }

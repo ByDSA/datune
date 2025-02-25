@@ -1,7 +1,7 @@
-import { C, C5, Cm, Csus2, Csus4, fromRootVoicing, Fsus2, Gsus4, inv } from "chords/alt";
-import { C as C_C, D as C_D, G as C_G } from "pitches/alt";
+import { C, C5, Cm, Csus2, Csus4, fromRootVoicing, Fsus2, Gsus4, inv } from "@datune/core/chords/alt";
+import { C as C_C, D as C_D, G as C_G } from "@datune/core/pitches/alt";
 import { TestInit } from "tests";
-import { TRIAD_QUARTAL } from "voicings/alt";
+import { TRIAD_QUARTAL } from "@datune/core/voicings/alt";
 import Finder from "./Finder";
 
 TestInit.loadAll();

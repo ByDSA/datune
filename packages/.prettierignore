@@ -1,0 +1,12 @@
+lib/chevrotain
+*-lock.yaml
+**/node_modules
+**/coverage
+build/
+dist/
+docs/
+
+deprecated/
+cache.json
+
+strings/tests/lang/*.json

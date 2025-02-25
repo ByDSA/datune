@@ -1,5 +1,5 @@
 import { Options } from "lang";
-import { A, B, C, D, E, F, G, Pitch } from "pitches/diatonic";
+import { A, B, C, D, E, F, G, Pitch } from "@datune/core/pitches/diatonic";
 import stringify from "strings/pitches/diatonic";
 
 export default function parse(strValue: string, options?: Options): Pitch | null {

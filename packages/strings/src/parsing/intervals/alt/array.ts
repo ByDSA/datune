@@ -1,4 +1,4 @@
-import { Interval } from "intervals/alt";
+import { Interval } from "@datune/core/intervals/alt";
 import parseInterval from ".";
 import splitArray from "../../utils/splitArray";
 import normalizeIntervalsInput from "../normalizeIntervalsInput";

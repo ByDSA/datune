@@ -1,4 +1,3 @@
-
 import { lockr } from ".";
 
 function classTest() {

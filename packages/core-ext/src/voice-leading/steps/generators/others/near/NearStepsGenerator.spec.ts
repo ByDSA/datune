@@ -1,4 +1,4 @@
-import { C5, E5, G5 } from "spns/chromatic";
+import { C5, E5, G5 } from "@datune/core/spns/chromatic";
 import { TestInit } from "tests";
 import { NearStepsGen } from "./NearStepsGenerator";
 

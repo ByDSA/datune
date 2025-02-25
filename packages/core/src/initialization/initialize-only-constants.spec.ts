@@ -27,54 +27,70 @@ describe("initialize all constants", () => {
   beforeAll(() => {
     initialize();
   } );
+
   describe("chromatic", () => {
     it("pitch", () => {
       expect(CP_C).toBeDefined();
     } );
+
     it("concert pitch", () => {
       expect(C_A440).toBeDefined();
     } );
+
     it("spn", () => {
       expect(CSPN_C4).toBeDefined();
     } );
+
     it("interval", () => {
       expect(CI_PERFECT_FIFTH).toBeDefined();
     } );
+
     it("voicing", () => {
       expect(CV_TRIAD_MAJOR).toBeDefined();
     } );
+
     it("pitch set", () => {
       expect(CPS_C5).toBeDefined();
     } );
+
     it("chord", () => {
       expect(CC_C).toBeDefined();
     } );
+
     it("degree", () => {
       expect(C_I).toBeDefined();
     } );
+
     it("scale", () => {
       expect(CS_MAJOR).toBeDefined();
     } );
+
     it("function", () => {
       expect(C_I5).toBeDefined();
     } );
+
     it("key", () => {
       expect(CK_C).toBeDefined();
     } );
+
     it("temperament", () => {
       expect(CTE_ET12).toBeDefined();
     } );
+
     it("tuning", () => {
       expect(CTU_EQUAL_440).toBeDefined();
     } );
   } );
+
   it("diatonic", () => {
     expect(DP_C).toBeDefined();
   } );
+
   describe("alt", () => {
     it("pitch", () => {
       expect(DAP_C).toBeDefined();
     } );
+
     // TODO
     /* it("concert pitch", () => {
       expect(DACP_A440).toBeDefined();
@@ -82,12 +98,15 @@ describe("initialize all constants", () => {
     it("spn", () => {
       expect(DASPN_C4).toBeDefined();
     } );
+
     it("interval", () => {
       expect(DAI_PERFECT_FIFTH).toBeDefined();
     } );
+
     it("voicing", () => {
       expect(DAV_TRIAD_MAJOR).toBeDefined();
     } );
+
     // TODO
     /* it("pitch set", () => {
       expect(DAPS_C5).toBeDefined();
@@ -95,15 +114,19 @@ describe("initialize all constants", () => {
     it("chord", () => {
       expect(DAC_C).toBeDefined();
     } );
+
     it("degree", () => {
       expect(DA_I).toBeDefined();
     } );
+
     it("scale", () => {
       expect(DAS_MAJOR).toBeDefined();
     } );
+
     it("function", () => {
       expect(DAF_I5).toBeDefined();
     } );
+
     it("key", () => {
       expect(DAK_C).toBeDefined();
     } );

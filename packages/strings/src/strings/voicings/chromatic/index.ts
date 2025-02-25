@@ -2,7 +2,7 @@
 import { Options } from "parsing";
 import { toPascalCase } from "parsing/utils";
 import arrayStringify from "strings/intervals/chromatic/array";
-import { Voicing } from "voicings/chromatic";
+import { Voicing } from "@datune/core/voicings/chromatic";
 import getName from "./longName";
 
 export default function stringify(obj: Voicing, options?: Options): string {

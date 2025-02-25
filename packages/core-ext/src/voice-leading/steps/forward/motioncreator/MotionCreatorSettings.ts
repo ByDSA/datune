@@ -1,8 +1,8 @@
-import { Interval as ChromaticInterval } from "intervals/chromatic";
-import { Array as KeyArray } from "keys/chromatic";
-import { Array as ChromaticArray } from "pitches/chromatic";
-import { Array as SPNArray } from "spns/chromatic";
-import { Array as ChromaticVoicingArray } from "voicings/chromatic";
+import { Interval as ChromaticInterval } from "@datune/core/intervals/chromatic";
+import { Array as KeyArray } from "@datune/core/keys/chromatic";
+import { Array as ChromaticArray } from "@datune/core/pitches/chromatic";
+import { Array as SPNArray } from "@datune/core/spns/chromatic";
+import { Array as ChromaticVoicingArray } from "@datune/core/voicings/chromatic";
 
 export default class MotionCreatorSettings {
   minLength: number | undefined;

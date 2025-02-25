@@ -1,7 +1,7 @@
 import { getLangFromOptions } from "lang";
 import { alts } from "lang/generation/utils";
 import { Options } from "parsing";
-import { A, AA, Ab, B, Bb, C, Cb, CC, D, Db, DD, E, Eb, F, Fb, FF, G, Gb, GG, Pitch } from "pitches/chromatic";
+import { A, AA, Ab, B, Bb, C, Cb, CC, D, Db, DD, E, Eb, F, Fb, FF, G, Gb, GG, Pitch } from "@datune/core/pitches/chromatic";
 import stringify from "strings/pitches/chromatic";
 import normalizeInput from "../normalizeInput";
 

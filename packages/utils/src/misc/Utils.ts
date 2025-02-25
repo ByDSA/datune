@@ -1,4 +1,4 @@
-export function cloneString(str: String): string {
+export function cloneString(str: string): string {
   return (` ${str}`).slice(1);
 }
 

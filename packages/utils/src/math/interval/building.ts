@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import Interval from "./Interval";
 
 type Inclusion = Partial<{

@@ -1,5 +1,5 @@
 import { Options } from "parsing";
-import { Scale } from "scales/alt";
+import { Scale } from "@datune/core/scales/alt";
 import fromIntervals from "./intervals";
 import fromName from "./name";
 

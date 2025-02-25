@@ -1,5 +1,5 @@
 import { Options } from "parsing";
-import { Array } from "pitches/alt";
+import { Array } from "@datune/core/pitches/alt";
 import stringify from ".";
 
 export default function arrayStringify(pitches: Array, options?: Options): string {

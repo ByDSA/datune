@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import { C, Cm, from } from "keys/alt";
+import { C, Cm, from } from "@datune/core/keys/alt";
 import { LangId } from "lang";
 import fromString from "parsing/keys/alt";
-import { Bbb as DA_Bbb } from "pitches/alt";
-import { BLUES_b5 } from "scales/alt";
+import { Bbb as DA_Bbb } from "@datune/core/pitches/alt";
+import { BLUES_b5 } from "@datune/core/scales/alt";
 import { TestInit, TestLang } from "tests";
 
 TestLang.loadAll();

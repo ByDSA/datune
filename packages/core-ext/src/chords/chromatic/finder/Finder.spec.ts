@@ -1,7 +1,7 @@
-import { C, C5, Cm, Csus2, Csus4, fromRootVoicing, Fsus2, Gsus4, inv } from "chords/chromatic";
-import { C as C_C, D as C_D, G as C_G } from "pitches/chromatic";
+import { C, C5, Cm, Csus2, Csus4, fromRootVoicing, Fsus2, Gsus4, inv } from "@datune/core/chords/chromatic";
+import { C as C_C, D as C_D, G as C_G } from "@datune/core/pitches/chromatic";
 import { TestInit } from "tests";
-import { TRIAD_QUARTAL } from "voicings/chromatic";
+import { TRIAD_QUARTAL } from "@datune/core/voicings/chromatic";
 import Finder from "./Finder";
 
 TestInit.loadAll();

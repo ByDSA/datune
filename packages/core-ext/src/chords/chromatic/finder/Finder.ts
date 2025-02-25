@@ -1,6 +1,6 @@
-import { ALL, ALL_NON_INVERSIONS, Array as ChordArray, Chord } from "chords/chromatic";
-import { Array as KeyArray } from "keys/chromatic";
-import { Array as PitchArray, Pitch } from "pitches/chromatic";
+import { ALL, ALL_NON_INVERSIONS, Array as ChordArray, Chord } from "@datune/core/chords/chromatic";
+import { Array as KeyArray } from "@datune/core/keys/chromatic";
+import { Array as PitchArray, Pitch } from "@datune/core/pitches/chromatic";
 
 export default class Finder {
   private _tonalities?: KeyArray;

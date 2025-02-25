@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import { C, C7, CMaj7, CmMaj7, Csus4, Dm7, fromRootVoicing, Fsus2, inv } from "chords/alt";
+import { C, C7, CMaj7, CmMaj7, Csus4, Dm7, fromRootVoicing, Fsus2, inv } from "@datune/core/chords/alt";
 import { LangId } from "lang";
-import { BBB as P_BBB, C as P_C } from "pitches/alt";
+import { BBB as P_BBB, C as P_C } from "@datune/core/pitches/alt";
 import pitchesStringify from "strings/pitches/alt/array";
 import { TestInit, TestLang } from "tests";
-import { SEVENTH, THIRTEENTH_b5a9, TRIAD_AUGMENTED } from "voicings/alt";
+import { SEVENTH, THIRTEENTH_b5a9, TRIAD_AUGMENTED } from "@datune/core/voicings/alt";
 import stringify from ".";
 
 TestInit.diatonicAltChord();

@@ -1,4 +1,5 @@
-import { init, loadSync } from "@datune/core";
+import { loadSync } from "@datune/core/initialization";
+import init from "@datune/core/initialization/initialize";
 
 export default class TestInit {
   static loadAll() {

@@ -1,6 +1,6 @@
 import { LangId } from "lang";
-import { AA, AAA, Ab, B, Bb, Bbb, BBB, C, fromDiatonicAlts, Pitch } from "pitches/alt";
-import { C as D_C } from "pitches/diatonic";
+import { AA, AAA, Ab, B, Bb, Bbb, BBB, C, fromDiatonicAlts, Pitch } from "@datune/core/pitches/alt";
+import { C as D_C } from "@datune/core/pitches/diatonic";
 import stringify from "strings/pitches/alt";
 import { TestInit, TestLang } from "tests";
 import parse from ".";

@@ -1,6 +1,6 @@
-import { C as T_C, rootChord3, rootChord4 } from "keys/chromatic";
-import { Array as PitchArray } from "pitches/chromatic";
-import { Array as SPNArray, B4, C5, D5 } from "spns/chromatic";
+import { C as T_C, rootChord3, rootChord4 } from "@datune/core/keys/chromatic";
+import { Array as PitchArray } from "@datune/core/pitches/chromatic";
+import { Array as SPNArray, B4, C5, D5 } from "@datune/core/spns/chromatic";
 import { TestInit } from "tests";
 import { from } from "../../../single";
 import RestingNotesStepsGen from "./RestingNotesStepsGen";

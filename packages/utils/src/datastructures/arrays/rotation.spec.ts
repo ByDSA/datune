@@ -18,6 +18,7 @@ describe("right rotate", () => {
 
     expect(actual).toStrictEqual(expected);
   } );
+
   it("normal", () => {
     const expected = [3, 4, 0, 1, 2];
     const actual = [0, 1, 2, 3, 4];
@@ -26,6 +27,7 @@ describe("right rotate", () => {
 
     expect(actual).toStrictEqual(expected);
   } );
+
   it("negative", () => {
     const expected = [2, 3, 4, 0, 1];
     const actual = [0, 1, 2, 3, 4];
