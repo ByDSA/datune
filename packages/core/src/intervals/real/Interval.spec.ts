@@ -1,10 +1,11 @@
-import { TestInit } from "tests";
 import { ET12_PERFECT_FIFTH, OCTAVE, PT_COMMA, PT_PERFECT_FIFTH, UNISON } from "./constants";
-import { mult, sub } from "./modifiers";
+import { sub } from "./modifiers/independentModifiers";
+import { mult } from "./modifiers/mult";
+import { TestInit } from "tests";
 
 TestInit.realInterval();
 
-it("Pythagorean Comma", () => {
+it("pythagorean Comma", () => {
   const expected = PT_COMMA;
   const sevenOctaves = mult(OCTAVE, 7);
   const twelveFifths = mult(PT_PERFECT_FIFTH, 12);
@@ -13,7 +14,7 @@ it("Pythagorean Comma", () => {
   expect(actual).toBe(expected);
 } );
 
-it("In ET12, Comma = UNISON", () => {
+it("in ET12, Comma = UNISON", () => {
   const expected = UNISON;
   const sevenOctaves = mult(OCTAVE, 7);
   const twelveFifths = mult(ET12_PERFECT_FIFTH, 12);

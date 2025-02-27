@@ -1,9 +1,11 @@
 import { cyclicMod } from "@datune/utils";
-import { add, Array as IntervalArray, Interval, PERFECT_OCTAVE, sub, toChromaticInterval } from "intervals/symbolic/alt";
-import { fromRootIntervals } from "../building";
+import { fromRootIntervals } from "../building/rootIntervals";
 import Voicing from "../Voicing";
+import { IntervalArray, Interval, Intervals } from "intervals/symbolic/alt";
 
-export default function inv(obj: Voicing, n: number = 1): Voicing {
+export function inv(obj: Voicing, n: number = 1): Voicing {
+  const { add, PERFECT_OCTAVE, sub, toChromaticInterval } = Intervals;
+
   if (obj.rootIntervals.length < 2)
     return obj;
 

@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { Interval } from "intervals/chromatic";
-import { add as pitchAdd, Array as PitchArray, Pitch } from "pitches/chromatic";
+import { Pitches, PitchArray, Pitch } from "pitches/chromatic";
 import { from } from "../building";
 import NoteSet from "../NoteSet";
 
@@ -9,7 +9,7 @@ export function add(self: NoteSet, interval: Interval): NoteSet {
   const newPitches: Pitch[] = [];
 
   selfPitches.forEach((pitch) => {
-    const newPitch = pitchAdd(pitch, interval);
+    const newPitch = Pitches.add(pitch, interval);
 
     newPitches.push(newPitch);
   } );

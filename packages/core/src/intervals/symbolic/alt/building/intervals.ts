@@ -1,27 +1,27 @@
-import { Interval as Chromatic } from "intervals/chromatic";
-import { fromInt as DIFromInt, Interval as DiatonicInterval, isMainInterval } from "intervals/diatonic";
-import { fromInt as qualityFromInt } from "intervals/quality";
-import { calcAlts, fixAlts } from "pitches/alt";
-import { NUMBER as D_NUMBER } from "pitches/diatonic";
 import Interval from "../Interval";
-import fromIntervalQuality from "./intervalQuality";
+import { fromIntervalQuality } from "./intervalQuality";
+import { Interval as Chromatic } from "intervals/chromatic";
+import { Interval as DInterval, Intervals as DIntervals } from "intervals/diatonic";
+import { fromInt as qualityFromInt } from "intervals/quality";
+import { Pitches } from "pitches/alt";
+import { Pitches as DPitches } from "pitches/diatonic";
 
 type Input = {
   chromaticInterval: Chromatic;
-  diatonicInterval: DiatonicInterval;
+  diatonicInterval: DInterval;
 };
-export default function fromIntervals(
+export function fromIntervals(
   { chromaticInterval,
     diatonicInterval }: Input,
 ): Interval | null {
-  const simplePositiveInterval: DiatonicInterval = DIFromInt(
-    Math.abs(+diatonicInterval % D_NUMBER),
+  const simplePositiveInterval: DInterval = DIntervals.fromInt(
+    Math.abs(+diatonicInterval % DPitches.NUMBER),
   );
   const simplePositiveChromaticInterval = Math.abs(+chromaticInterval);
-  const alts = fixAlts(
-    calcAlts(simplePositiveChromaticInterval, simplePositiveInterval),
+  const alts = Pitches.fixAlts(
+    Pitches.calcAlts(simplePositiveChromaticInterval, simplePositiveInterval),
   );
-  const isMain = isMainInterval(diatonicInterval);
+  const isMain = DIntervals.isMainInterval(diatonicInterval);
   const quality = qualityFromInt(alts, isMain);
 
   if (!quality)

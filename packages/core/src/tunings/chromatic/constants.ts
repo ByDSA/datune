@@ -1,17 +1,18 @@
-/* eslint-disable import/no-mutable-exports */
-import { A440 } from "concert-pitches/chromatic";
-import { ET12, LIMIT_5_SYMMETRIC_N1 } from "temperaments/chromatic";
-import { from } from "./building";
-import Tuning from "./Tuning";
+import { from } from "./building/from";
+import type { Tuning } from "./Tuning";
+import { ConcertPitches } from "concert-pitches/chromatic";
+import { Temperaments } from "temperaments/chromatic";
 
 export function initialize() {
+  const { ET12, LIMIT_5_SYMMETRIC_N1 } = Temperaments;
+
   EQUAL_440 = from( {
-    concertPitch: A440,
+    concertPitch: ConcertPitches.A440,
     temperament: ET12,
   } );
 
   LIMIT_5_SYMMETRIC_N1_440 = from( {
-    concertPitch: A440,
+    concertPitch: ConcertPitches.A440,
     temperament: LIMIT_5_SYMMETRIC_N1,
   } );
 }

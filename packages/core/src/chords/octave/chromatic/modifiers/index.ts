@@ -1,7 +1,7 @@
 import { Arrays } from "@datune/utils";
-import { add as pitchAdd, Array as PitchArray, Pitch, sub as pitchSub } from "pitches/chromatic";
-import { fromPitches } from "../building";
+import { fromPitches } from "../building/pitches";
 import Chord from "../Chord";
+import { Pitches, PitchArray, Pitch } from "pitches/chromatic";
 
 export function inv(obj: Chord, n: number = 1): Chord {
   const notes: PitchArray = [...obj.pitches] as PitchArray;
@@ -13,7 +13,7 @@ export function inv(obj: Chord, n: number = 1): Chord {
 
 export function add(obj: Chord, interval: number): Chord {
   const notes: PitchArray = <PitchArray> obj.pitches.map(
-    (chromatic: Pitch) => pitchAdd(chromatic, interval),
+    (chromatic: Pitch) => Pitches.add(chromatic, interval),
   );
 
   return fromPitches(...notes);
@@ -21,7 +21,7 @@ export function add(obj: Chord, interval: number): Chord {
 
 export function sub(obj: Chord, interval: number): Chord {
   const notes: PitchArray = <PitchArray> obj.pitches.map(
-    (chromatic: Pitch) => pitchSub(chromatic, interval),
+    (chromatic: Pitch) => Pitches.sub(chromatic, interval),
   );
 
   return fromPitches(...notes);

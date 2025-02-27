@@ -1,5 +1,5 @@
 import { StringHashCache } from "@datune/utils";
-import { Array as IntervalArray } from "intervals/alt";
+import { IntervalArray } from "intervals/alt";
 import Voicing from "../Voicing";
 import hash from "./hash";
 import toDto from "./toDto";

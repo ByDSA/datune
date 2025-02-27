@@ -1,7 +1,9 @@
 import { Interval } from "intervals/chromatic";
-import { A, B, C, FF, Pitch } from "pitches/chromatic";
+import { Pitches, Pitch } from "pitches/chromatic";
 import { between, betweenNext } from ".";
 import { DIMINISHED_FIFTH, MAJOR_SEVENTH, MAJOR_SIXTH, MINOR_SECOND, MINOR_THIRD, PERFECT_OCTAVE, PERFECT_UNISON } from "../constants";
+
+const {A, B, C, FF} = Pitches;
 
 describe.each([
   [C, A, MAJOR_SIXTH],

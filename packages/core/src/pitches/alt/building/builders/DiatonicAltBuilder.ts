@@ -1,12 +1,11 @@
-/* eslint-disable no-empty-function */
-import { A as C_A, AA as C_AA, B as C_B, C as C_C, CC as C_CC, D as C_D, DD as C_DD, E as C_E, F as C_F, FF as C_FF, G as C_G, GG as C_GG, Pitch as Chromatic } from "pitches/chromatic";
-import { Pitch as Diatonic, toChromatic as diatonicToChromatic } from "pitches/diatonic";
-import { fromDiatonicAlts } from "..";
+import { fromDiatonicAlts } from "../diatonicAlts";
 import Array from "../../Array";
 import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } from "../../constants";
 import { toChromatic } from "../../conversions";
 import Pitch from "../../Pitch";
-import { fixAlts } from "../../utils";
+import { fixAlts } from "../../fixAlts";
+import { Pitch as Diatonic, Pitches as DPitches } from "pitches/diatonic";
+import { Pitches as CPitches, Pitch as Chromatic } from "pitches/chromatic";
 
 export default class DiatonicAltBuilder {
   private _note: Chromatic | undefined;
@@ -15,7 +14,6 @@ export default class DiatonicAltBuilder {
 
   private _diatonicAltList: Array | undefined;
 
-  // eslint-disable-next-line no-useless-constructor
   private constructor() {
   }
 
@@ -74,24 +72,24 @@ function getDiatonicAltInListFromNote(
 
 function getDiatonicAltFromNote(c: Chromatic): Pitch {
   switch (c) {
-    case C_C: return C;
-    case C_CC: return CC;
-    case C_D: return D;
-    case C_DD: return DD;
-    case C_E: return E;
-    case C_F: return F;
-    case C_FF: return FF;
-    case C_G: return G;
-    case C_GG: return GG;
-    case C_A: return A;
-    case C_AA: return AA;
-    case C_B: return B;
+    case CPitches.C: return C;
+    case CPitches.CC: return CC;
+    case CPitches.D: return D;
+    case CPitches.DD: return DD;
+    case CPitches.E: return E;
+    case CPitches.F: return F;
+    case CPitches.FF: return FF;
+    case CPitches.G: return G;
+    case CPitches.GG: return GG;
+    case CPitches.A: return A;
+    case CPitches.AA: return AA;
+    case CPitches.B: return B;
     default: throw new Error();
   }
 }
 
 function getAltsFromNoteAndDiatonic(chromatic: Chromatic, diatonic: Diatonic): number {
-  let alts = +chromatic - +diatonicToChromatic(diatonic);
+  let alts = +chromatic - +DPitches.toChromatic(diatonic);
 
   alts = fixAlts(alts);
 

@@ -1,5 +1,5 @@
-import { Array } from "intervals/chromatic";
+import { IntervalArray } from "intervals/chromatic";
 
-type Dto = Array;
+type Dto = IntervalArray;
 
 export default Dto;

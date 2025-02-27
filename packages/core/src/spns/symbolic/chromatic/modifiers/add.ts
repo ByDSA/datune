@@ -1,12 +1,12 @@
-import { Interval } from "intervals/chromatic";
-import { fromInt as pitchFromInt, NUMBER as C_NUMBER } from "pitches/chromatic";
-import { fromPitchOctave } from "../building";
-import SPN from "../SPN";
+import { fromPitchOctave } from "../building/pitch-octave";
+import type { SPN } from "../SPN";
+import type { Interval } from "intervals/chromatic";
+import { Pitches as CPitches } from "pitches/chromatic";
 
-export default function add(obj: SPN, interval: Interval): SPN | null {
+export function add(obj: SPN, interval: Interval): SPN | null {
   const newIntValue = +obj + +interval;
-  const chromatic = pitchFromInt(newIntValue);
-  const octave = Math.floor(newIntValue / C_NUMBER);
+  const chromatic = CPitches.fromInt(newIntValue);
+  const octave = Math.floor(newIntValue / CPitches.NUMBER);
 
   return fromPitchOctave(chromatic, octave);
 }

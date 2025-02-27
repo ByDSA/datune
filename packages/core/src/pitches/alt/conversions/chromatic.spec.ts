@@ -1,22 +1,22 @@
-import { A as C_A, AA as C_AA, B as C_B, C as C_C, CC as C_CC, E as C_E, Pitch as Chromatic } from "pitches/chromatic";
-import { C as D_C, E as D_E } from "pitches/diatonic";
-import { TestInit } from "tests";
-import { fromDiatonicAlts } from "../building";
+import { fromDiatonicAlts } from "../building/diatonicAlts";
 import { BB, BBB, C, Cb, Cbb, E } from "../constants";
 import Pitch from "../Pitch";
 import toChromatic from "./chromatic";
+import { TestInit } from "tests";
+import { Pitches as DPitches } from "pitches/diatonic";
+import { Pitches as CPitches, Pitch as Chromatic } from "pitches/chromatic";
 
 TestInit.diatonicAlt();
 
 describe.each([
-  [C, C_C],
-  [E, C_E],
-  [Cb, C_B],
-  [BBB, C_CC],
-  [BB, C_C],
-  [Cbb, C_AA],
-  [fromDiatonicAlts(D_C, -3), C_A],
-  [fromDiatonicAlts(D_E, -4), C_C],
+  [C, CPitches.C],
+  [E, CPitches.E],
+  [Cb, CPitches.B],
+  [BBB, CPitches.CC],
+  [BB, CPitches.C],
+  [Cbb, CPitches.AA],
+  [fromDiatonicAlts(DPitches.C, -3), CPitches.A],
+  [fromDiatonicAlts(DPitches.E, -4), CPitches.C],
 ])("toChromatic", (diatonicAlt: Pitch, expectedChromatic: Chromatic) => {
   it(`${diatonicAlt} -> ${expectedChromatic}`, () => {
     const actual = toChromatic(diatonicAlt);

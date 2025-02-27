@@ -1,6 +1,6 @@
-import { Array as IntervalArray, cyclic, Interval, serie, sub, toChromaticInterval } from "intervals/alt";
-import { fromRootIntervals } from "../..";
-import Scale from "../../Scale";
+import { Scales } from "../..";
+import { Scale } from "../../Scale";
+import { IntervalArray, Interval, Intervals } from "intervals/alt";
 
 class Generator {
   private interval: Interval;
@@ -23,6 +23,7 @@ class Generator {
   }
 
   private calculateUnorderedIntervals(): IntervalArray {
+    const { cyclic, serie } = Intervals;
     const serieIntervals = serie( {
       interval: this.interval,
       startIndex: this.startIndex,
@@ -34,18 +35,20 @@ class Generator {
   }
 
   generate(): Scale {
+    const { sub } = Intervals;
     const unorderedIntervals = this.calculateUnorderedIntervals();
     const sortedIntervals = sortIntervals(unorderedIntervals);
-    const firstInterval = sortedIntervals[0];
+    const [firstInterval] = sortedIntervals;
     const rootIntervals = sortedIntervals.map(
       (value) => sub(value, firstInterval),
     ) as IntervalArray;
 
-    return fromRootIntervals(...rootIntervals);
+    return Scales.fromRootIntervals(...rootIntervals);
   }
 }
 
 function sortIntervals(unorderedIntervals: IntervalArray): IntervalArray {
+  const { toChromaticInterval } = Intervals;
   const rootIntervals = [...unorderedIntervals];
 
   rootIntervals.sort((a, b) => toChromaticInterval(a) - toChromaticInterval(b));
@@ -58,6 +61,6 @@ type Input = {
   length: number;
   startIndex?: number;
 };
-export default function generate( { interval, length, startIndex = 0 }: Input): Scale {
+export function generateByIntervals( { interval, length, startIndex = 0 }: Input): Scale {
   return Generator.from(interval, length, startIndex).generate();
 }

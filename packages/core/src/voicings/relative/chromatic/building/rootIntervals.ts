@@ -1,8 +1,8 @@
-import { Array as IntervalArray, Interval } from "intervals/chromatic";
 import Voicing from "../Voicing";
 import cache from "./cache";
+import { IntervalArray, Interval } from "intervals/chromatic";
 
-export default function fromRootIntervals(
+export function fromRootIntervals(
   ...rootIntervals: IntervalArray
 ): Voicing {
   let fixedRootIntervals = rootIntervals;
@@ -15,6 +15,6 @@ export default function fromRootIntervals(
 
 function getStartFromZero(array: IntervalArray): IntervalArray {
   return array.map(
-    (ic: Interval, i: number, a: Interval[]) => ic - a[0],
+    (ic: Interval, _i: number, a: Interval[]) => ic - a[0],
   ) as IntervalArray;
 }

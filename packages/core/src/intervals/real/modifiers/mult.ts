@@ -1,9 +1,9 @@
 import { UNISON } from "../constants";
 import Interval from "../Interval";
 import add from "./add";
-import neg from "./neg";
+import { neg } from "./neg";
 
-export default function mult(self: Interval, factor: number): Interval {
+export function mult(self: Interval, factor: number): Interval {
   if (factor === 0)
     return UNISON;
 

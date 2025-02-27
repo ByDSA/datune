@@ -1,12 +1,12 @@
-import { Array as DegreeArray, Degree } from "degrees/chromatic";
-import { Array, Interval } from "intervals/real";
+import { DegreeArray, Degree } from "degrees/chromatic";
+import { IntervalArray, Interval } from "intervals/real";
 import Scale from "../Scale";
 import { Dto } from "./building/dto";
 
 export default class ScalePitch implements Scale<Interval, Degree> {
-  intraIntervals: Array;
+  intraIntervals: IntervalArray;
 
-  rootIntervals: Array;
+  rootIntervals: IntervalArray;
 
   degrees: DegreeArray;
 

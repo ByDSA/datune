@@ -1,7 +1,7 @@
 import { lockr } from "@datune/utils/immutables";
-import OctavePitch from "pitches/OctavePitch";
+import type OctavePitch from "pitches/OctavePitch";
 
-export default class RelativePitch<P extends OctavePitch> {
+export class RelativePitch<P extends OctavePitch> {
   private constructor(public pitch: P, public octaveRelative: number) {
     lockr(this);
   }

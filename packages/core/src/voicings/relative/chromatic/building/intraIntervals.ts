@@ -1,8 +1,8 @@
-import { Array as IntervalArray } from "intervals/symbolic/chromatic";
 import Voicing from "../Voicing";
-import fromRootIntervals from "./rootIntervals";
+import { fromRootIntervals } from "./rootIntervals";
+import { IntervalArray } from "intervals/symbolic/chromatic";
 
-export default function fromIntraIntervals(
+export function fromIntraIntervals(
   ...intraIntervals: IntervalArray
 ): Voicing {
   const baseIntervals: IntervalArray = [0];

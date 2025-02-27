@@ -1,5 +1,4 @@
-import OctavePitch from "pitches/OctavePitch";
-import RelativePitch from "./RelativePitch";
+import type { RelativePitch } from "./RelativePitch";
+import type OctavePitch from "pitches/OctavePitch";
 
-type Voicing<D extends OctavePitch> = RelativePitch<D>[];
-export default Voicing;
+export type Voicing<D extends OctavePitch> = RelativePitch<D>[];

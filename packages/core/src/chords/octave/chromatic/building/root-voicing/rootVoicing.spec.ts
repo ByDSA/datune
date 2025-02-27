@@ -1,34 +1,38 @@
-import { A as P_A, C as P_C, Pitch } from "pitches/chromatic";
-import { TestInit } from "tests";
-import { NINTH, SEVENTH, SEVENTH_MAJ7, TRIAD_MAJOR, TRIAD_MINOR, Voicing } from "voicings/chromatic";
-import fromRootVoicing from ".";
 import Chord from "../../Chord";
 import { Am, C, C7, C9, CMaj7 } from "../../constants";
 import { toVoicing } from "../../conversions";
+import { fromRootVoicing } from ".";
+import { Pitches, Pitch } from "pitches/chromatic";
+import { TestInit } from "tests";
+import { Voicings, Voicing } from "voicings/chromatic";
 
 TestInit.chromaticChord();
 
-describe.each([
-  [P_C, TRIAD_MAJOR, C],
-  [P_C, SEVENTH, C7],
-  [P_A, TRIAD_MINOR, Am],
-  [P_C, SEVENTH_MAJ7, CMaj7],
-  [P_C, NINTH, C9],
-])("from Root + Voicing", (pitch: Pitch, voicing: Voicing, expectedChord: Chord) => {
-  const pitchName = String(pitch);
-  const chordName = "expectedChord.pitches";
-  const voicingName = String(voicing);
+describe("tests", () => {
+  const { NINTH, SEVENTH, SEVENTH_MAJ7, TRIAD_MAJOR, TRIAD_MINOR } = Voicings;
 
-  it(`(${pitchName}, ${voicingName}) => ${chordName}`, () => {
-    const diatonicAltChord = fromRootVoicing(pitch, voicing);
+  describe.each([
+    [Pitches.C, TRIAD_MAJOR, C],
+    [Pitches.C, SEVENTH, C7],
+    [Pitches.A, TRIAD_MINOR, Am],
+    [Pitches.C, SEVENTH_MAJ7, CMaj7],
+    [Pitches.C, NINTH, C9],
+  ])("from Root + Voicing", (pitch: Pitch, voicing: Voicing, expectedChord: Chord) => {
+    const pitchName = String(pitch);
+    const chordName = "expectedChord.pitches";
+    const voicingName = String(voicing);
 
-    expect(diatonicAltChord).toBe(expectedChord);
-  } );
+    it(`(${pitchName}, ${voicingName}) => ${chordName}`, () => {
+      const diatonicAltChord = fromRootVoicing(pitch, voicing);
 
-  it(`Reversible: root=${pitchName}, voicing=${voicingName}`, () => {
-    const chord = fromRootVoicing(pitch, voicing);
+      expect(diatonicAltChord).toBe(expectedChord);
+    } );
 
-    expect(chord.pitches[0]).toBe(pitch);
-    expect(toVoicing(chord)).toBe(voicing);
+    it(`Reversible: root=${pitchName}, voicing=${voicingName}`, () => {
+      const chord = fromRootVoicing(pitch, voicing);
+
+      expect(chord.pitches[0]).toBe(pitch);
+      expect(toVoicing(chord)).toBe(voicing);
+    } );
   } );
 } );

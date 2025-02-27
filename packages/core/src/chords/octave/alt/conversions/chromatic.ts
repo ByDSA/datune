@@ -1,10 +1,10 @@
-import { Chord as ChromaticChord, fromPitches as CCFromNotes } from "chords/chromatic";
-import { toChromatic } from "pitches/alt";
-import { Array as CArray } from "pitches/chromatic";
 import Chord from "../Chord";
+import { Chord as ChromaticChord, Chords as ChromaticChords } from "chords/chromatic";
+import { Pitches } from "pitches/alt";
+import { PitchArray as CArray } from "pitches/chromatic";
 
 export default function toChromaticChord(obj: Chord): ChromaticChord {
-  const notes = <CArray> obj.pitches.map(toChromatic);
+  const pitches = <CArray> obj.pitches.map(Pitches.toChromatic);
 
-  return CCFromNotes(...notes);
+  return ChromaticChords.fromPitches(...pitches);
 }

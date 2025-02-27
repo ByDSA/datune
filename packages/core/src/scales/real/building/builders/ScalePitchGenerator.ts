@@ -1,14 +1,14 @@
 import { frac, FracExp, mult } from "@datune/utils/math";
-import { Array as IntervalArray, from, Interval as IntervalPitch, UNISON } from "intervals/real";
+import { IntervalArray, Intervals, Interval } from "intervals/real";
 import ScalePitch from "../../ScalePitch";
 import scaleFromIntervals from "../intervals";
 
 class ScalePitchGenerator {
-  private _interval: IntervalPitch;
+  private _interval: Interval;
 
   private _length: number;
 
-  constructor(_interval: IntervalPitch, _length: number) {
+  constructor(_interval: Interval, _length: number) {
     this._interval = _interval;
     this._length = _length;
   }
@@ -19,7 +19,7 @@ class ScalePitchGenerator {
 
   private _orderedIntervals: IntervalArray | undefined;
 
-  static from(interval: IntervalPitch, length: number): ScalePitchGenerator {
+  static from(interval: Interval, length: number): ScalePitchGenerator {
     if (length < 2)
       throw new Error("Length cannot be lower than 2");
 
@@ -27,13 +27,13 @@ class ScalePitchGenerator {
   }
 
   private calculateUnreductedIntervals(): IntervalArray {
-    this._unreductedIntervals = [UNISON, this._interval];
-    let lastInterval: IntervalPitch = this._unreductedIntervals[1];
+    this._unreductedIntervals = [Intervals.UNISON, this._interval];
+    let lastInterval: Interval = this._unreductedIntervals[1];
 
     for (let i = 2; i < this._length; i++) {
       const newRatio = mult(lastInterval.ratio, this._interval.ratio);
 
-      lastInterval = from(newRatio);
+      lastInterval = Intervals.from(newRatio);
       this._unreductedIntervals.push(lastInterval);
     }
 
@@ -57,7 +57,7 @@ class ScalePitchGenerator {
           newRatio = +newRatio / 2;
       }
 
-      const newInterval: IntervalPitch = from(newRatio);
+      const newInterval: Interval = Intervals.from(newRatio);
 
       unorderedIntervals.push(newInterval);
     }
@@ -82,6 +82,6 @@ function sortIntervals(unorderedIntervals: IntervalArray): IntervalArray {
   return orderedIntervals;
 }
 
-export default function gen(interval: IntervalPitch, length: number): ScalePitch {
+export default function gen(interval: Interval, length: number): ScalePitch {
   return new ScalePitchGenerator(interval, length).generate();
 }

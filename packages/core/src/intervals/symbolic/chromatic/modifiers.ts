@@ -1,5 +1,5 @@
-import { NUMBER } from "pitches/chromatic";
 import Interval from "./Interval";
+import { NUMBER as CNUMBER } from "pitches/chromatic/constants";
 
 export function add(obj: Interval, interval: Interval): Interval {
   return obj + interval;
@@ -14,11 +14,11 @@ export function neg(obj: Interval): Interval {
 }
 
 export function simplify(obj: Interval): Interval {
-  return obj % NUMBER;
+  return obj % CNUMBER;
 }
 
 export function octaves(obj: Interval): Interval {
-  return Math.trunc(obj / NUMBER);
+  return Math.trunc(obj / CNUMBER);
 }
 
 export function abs(obj: Interval): Interval {

@@ -1,5 +1,4 @@
-/* eslint-disable import/no-mutable-exports */
-import { QUARTER } from "../musical-duration";
+import { QUARTER } from "../musical-duration/constants";
 import BPM from "./BPM";
 import { from } from "./building";
 

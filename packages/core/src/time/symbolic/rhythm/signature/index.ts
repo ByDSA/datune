@@ -1,7 +1,25 @@
-export * from "./building";
+import type * as BuildingType from "./building";
 
-export * from "./constants";
+import * as Constants from "./constants";
+
+import { default as TimeSignature } from "./TimeSignature";
+import { createProxyBarrel } from "lazy-load";
+
+const staticModule = {
+  ...Constants,
+};
+
+type LazyType = typeof BuildingType;
+
+const mod = createProxyBarrel<LazyType & typeof staticModule>( {
+  staticModule,
+  paths: [
+    "building",
+  // eslint-disable-next-line no-undef
+  ].map(p=>`${__dirname}/${p}`),
+} );
 
 export {
-  default as TimeSignature,
-} from "./TimeSignature";
+  mod as TimeSignatures,
+  TimeSignature,
+};

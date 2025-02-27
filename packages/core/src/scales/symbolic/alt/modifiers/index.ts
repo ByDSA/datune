@@ -3,17 +3,17 @@ export {
 } from "./degreeFunctions";
 
 export {
-  default as calcIntraIntervals,
+  calcIntraIntervals,
 } from "./intraIntervals";
 
 export {
-  default as mode,
+  mode,
 } from "./mode";
 
 export {
-  default as getModeIntraIntervals,
+  getModeIntraIntervals,
 } from "./modeIntraIntervals";
 
 export {
-  default as modes,
+  modes,
 } from "./modes";

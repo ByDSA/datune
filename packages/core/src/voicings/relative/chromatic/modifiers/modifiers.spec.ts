@@ -1,9 +1,8 @@
-/* eslint-disable camelcase */
-import { TestInit } from "tests";
-import { inv } from ".";
-import { fromRootIntervals } from "../building";
+import { fromRootIntervals } from "../building/rootIntervals";
 import { MAJOR_SECOND, TRITONE } from "../constants";
 import Voicing from "../Voicing";
+import { inv } from ".";
+import { TestInit } from "tests";
 
 TestInit.chromaticVoicing();
 

@@ -1,4 +1,4 @@
-import { Array as IntervalArray } from "intervals/chromatic";
+import { IntervalArray } from "intervals/chromatic";
 
 type Dto = IntervalArray;
 

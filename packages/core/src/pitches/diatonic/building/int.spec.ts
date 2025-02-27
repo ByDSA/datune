@@ -1,5 +1,5 @@
-import { fromInt } from ".";
 import { A, B, C, D, E, F, G } from "../constants";
+import { fromInt } from ".";
 
 describe("fromInt", () => {
   describe.each([

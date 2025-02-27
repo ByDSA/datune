@@ -1,33 +1,33 @@
-import { initialize as altChordInit } from "chords/alt";
-import { initialize as cChordInit } from "chords/chromatic";
-import { initialize as cConcertPitchInit } from "concert-pitches/chromatic";
-import { initialize as altDegreeInit } from "degrees/alt";
-import { initialize as altFunctionInit } from "functions/alt";
-import { initialize as cFunctionInit } from "functions/chromatic";
-import { initialize as altIntervalInit } from "intervals/alt";
-import { initialize as dIntervalInit } from "intervals/diatonic";
-import { initialize as rIntervalInit } from "intervals/real";
-import { initialize as altKeyInit } from "keys/alt";
-import { initialize as cKeyInit } from "keys/chromatic";
-import { initialize as altPitchInit } from "pitches/alt";
-import { initialize as altScaleInit } from "scales/alt";
-import { initialize as cScaleInit } from "scales/chromatic";
-import { initialize as cPitchSetInit } from "sets/pitch-set/chromatic";
-import { initialize as altSPNInit } from "spns/alt";
-import { initialize as cSPNInit } from "spns/chromatic";
-import { initialize as cTemperamentInit } from "temperaments/chromatic";
-import { initialize as bpmInit } from "time/symbolic/bpm";
-import { initialize as musicalDurationInit } from "time/symbolic/musical-duration";
-import { initialize as patternInit } from "time/symbolic/rhythm/pattern";
-import { initialize as signatureInit } from "time/symbolic/rhythm/signature";
-import { initialize as cTuningInit } from "tunings/chromatic";
-import { initialize as altVoicingInit } from "voicings/alt";
-import { initialize as cVoicingInit } from "voicings/chromatic";
-import { initialize as dVoicingInit } from "voicings/diatonic";
 import { initialize as chromaticChordInitialize } from "./chords/chromatic";
 import { initialize as chromaticKeyInitialize } from "./keys/chromatic";
 import { initialize as chromaticScaleInitialize } from "./scales/chromatic";
 import { Data } from "./types";
+import { initCFunctions } from "./initializeCommon";
+import { Chords as ALtChords } from "chords/alt";
+import { Chords as CChords } from "chords/chromatic";
+import { ConcertPitches as CConcertPitches } from "concert-pitches/chromatic";
+import { Degrees as DegreesAlt } from "degrees/alt";
+import { initialize as initAltFunctions } from "functions/alt/constants";
+import { initialize as initDIntervals } from "intervals/symbolic/diatonic/constants";
+import { Intervals as IntervalsAlt } from "intervals/alt";
+import { Intervals as RIntervals } from "intervals/real";
+import { Keys as KeysAlt } from "keys/alt";
+import { Keys as CKeys } from "keys/chromatic";
+import { Pitches as PitchesAlt } from "pitches/alt";
+import { Scales as ScalesAlt } from "scales/alt";
+import { Scales as CScales } from "scales/chromatic";
+import { PitchSets as CPitchSets } from "sets/pitch-set/chromatic";
+import { SPNs as SPNsAlt } from "spns/alt";
+import { SPNs as CSPNs } from "spns/chromatic";
+import { Temperaments as CTemperaments } from "temperaments/chromatic";
+import { initialize as initBPMs } from "time/symbolic/bpm/constants";
+import { initialize as initMusicalDurations } from "time/symbolic/musical-duration/constants";
+import { Patterns } from "time/symbolic/rhythm/pattern";
+import { TimeSignatures } from "time/symbolic/rhythm/signature";
+import { Tunings as CTunings } from "tunings/chromatic";
+import { Voicings as VoicingsAlt } from "voicings/alt";
+import { Voicings as CVoicings } from "voicings/chromatic";
+import { Voicings as DVoicings } from "voicings/diatonic";
 
 export default function initialize(data?: Data): void {
   if (data) {
@@ -41,44 +41,44 @@ export default function initialize(data?: Data): void {
 
 function initializeConstants() {
   // Real
-  rIntervalInit();
+  RIntervals.initialize();
 
   // Chromatic
-  cVoicingInit();
-  cChordInit();
+  CVoicings.initialize();
+  CChords.initialize();
 
-  cSPNInit();
-  cPitchSetInit();
+  CSPNs.initialize();
+  CPitchSets.initialize();
 
-  cScaleInit();
-  cFunctionInit();
-  cKeyInit();
+  CScales.initialize();
+  initCFunctions();
+  CKeys.initialize();
 
-  cConcertPitchInit();
-  cTemperamentInit();
-  cTuningInit();
+  CConcertPitches.initialize();
+  CTemperaments.initialize();
+  CTunings.initialize();
 
   // Diatonic
-  dIntervalInit();
-  dVoicingInit();
+  DVoicings.initialize();
+  initDIntervals();
 
   // Alt
-  altPitchInit();
+  PitchesAlt.initialize();
 
-  altSPNInit();
+  SPNsAlt.initialize();
 
-  altIntervalInit();
-  altVoicingInit();
-  altChordInit();
+  IntervalsAlt.initialize();
+  VoicingsAlt.initialize();
+  ALtChords.initialize();
 
-  altDegreeInit();
-  altScaleInit();
-  altFunctionInit();
-  altKeyInit();
+  DegreesAlt.initialize();
+  ScalesAlt.initialize();
+  initAltFunctions();
+  KeysAlt.initialize();
 
   // Time
-  musicalDurationInit();
-  bpmInit();
-  patternInit();
-  signatureInit();
+  initMusicalDurations();
+  initBPMs();
+  Patterns.initialize();
+  TimeSignatures.initialize();
 }

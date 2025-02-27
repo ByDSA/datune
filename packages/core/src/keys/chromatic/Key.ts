@@ -1,13 +1,13 @@
 import { Arrays } from "@datune/utils";
+import { IKey } from "../Key";
+import { Dto } from "./caching/Dto";
 import { Chord } from "chords/chromatic";
 import { Interval } from "intervals/chromatic";
-import { Array as PitchArray, fromInt as pitchFromInt, Pitch, rootIntervals as pitchesRootIntervals } from "pitches/chromatic";
-import { fromRootIntervals as scaleFromIntervals, Scale } from "scales/chromatic";
-import KeyInterface from "../Key";
-import { Dto } from "./caching";
+import { PitchArray, Pitch, Pitches } from "pitches/chromatic";
+import { Scales, Scale } from "scales/chromatic";
 
-export default class Key implements
-  KeyInterface<Interval, Pitch, Scale, Chord> {
+export class Key implements
+  IKey<Interval, Pitch, Scale, Chord> {
   pitches: Arrays.NonEmpty<Pitch>;
 
   root: Pitch;
@@ -17,10 +17,10 @@ export default class Key implements
   length: number;
 
   private constructor(dto: Dto) {
-    this.root = pitchFromInt(dto[0]);
-    this.scale = scaleFromIntervals(...dto[1]);
+    this.root = Pitches.fromInt(dto[0]);
+    this.scale = Scales.fromRootIntervals(...dto[1]);
     this.length = this.scale.length;
-    this.pitches = pitchesRootIntervals(this.root, this.scale.rootIntervals);
+    this.pitches = Pitches.rootIntervals(this.root, this.scale.rootIntervals);
   }
 
   private static create(dto: Dto): Key {

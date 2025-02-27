@@ -1,8 +1,8 @@
-import { from as CTFrom, Key as ChromaticKey } from "keys/chromatic";
-import { toChromatic } from "pitches/alt";
-import { toChromatic as toChromaticScale } from "scales/alt";
-import Key from "../Key";
+import { Key } from "../Key";
+import { Keys as CKeys, Key as CKey } from "keys/chromatic";
+import { Pitches } from "pitches/alt";
+import { Scales } from "scales/alt";
 
-export default function toChromaticKey(obj: Key): ChromaticKey {
-  return CTFrom(toChromatic(obj.root), toChromaticScale(obj.scale));
+export function toChromatic(obj: Key): CKey {
+  return CKeys.fromRootScale(Pitches.toChromatic(obj.root), Scales.toChromatic(obj.scale));
 }

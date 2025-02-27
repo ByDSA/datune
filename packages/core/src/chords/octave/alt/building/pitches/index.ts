@@ -1,4 +1,4 @@
-import { Array as PitchArray } from "pitches/alt";
+import { PitchArray } from "pitches/alt";
 import cache from "../../caching/cache";
 import Chord from "../../Chord";
 

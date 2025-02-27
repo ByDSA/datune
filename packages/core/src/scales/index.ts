@@ -1,6 +1,7 @@
 export {
-  Array as PitchArray,
-  Scale as Pitch,
+Scale as RealScale,
+ScaleArray as RealScaleArray,
+Scales as RealScales,
 } from "./real";
 
 export {

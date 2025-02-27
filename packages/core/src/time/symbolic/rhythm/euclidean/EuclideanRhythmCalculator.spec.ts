@@ -1,6 +1,6 @@
 import { Arrays } from "@datune/utils";
 import { Array } from "../array";
-import { from as patternFrom, fromArray as patternFromArray } from "../pattern";
+import { Patterns } from "../pattern";
 import calculate from "./EuclideanRhythmCalculator";
 
 describe.each([
@@ -19,7 +19,7 @@ describe.each([
   expect(params.length > 0).toBeTruthy();
   it(`calculate ${params[0]}_${params[1]}`, () => {
     const rhythm = calculate(params[0], params[1]);
-    const expected = patternFromArray(...expectedArray as Array);
+    const expected = Patterns.fromArray(...expectedArray as Array);
 
     expect(expected).toEqual(rhythm);
   } );
@@ -49,7 +49,7 @@ describe.each([
   expect(params.length > 0).toBeTruthy();
   it(`calculate ${params[0]}_${params[1]}`, () => {
     const rhythm = calculate(params[0], params[1]);
-    const expected = patternFrom(...<Arrays.Number>expectedPattern);
+    const expected = Patterns.from(...<Arrays.Number>expectedPattern);
 
     expect(expected).toEqual(rhythm);
   } );

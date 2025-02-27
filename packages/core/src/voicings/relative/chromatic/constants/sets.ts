@@ -1,4 +1,3 @@
-/* eslint-disable import/no-mutable-exports */
 /* eslint-disable camelcase */
 import { lockr } from "@datune/utils/immutables";
 import { getAllInversions } from "../utils";

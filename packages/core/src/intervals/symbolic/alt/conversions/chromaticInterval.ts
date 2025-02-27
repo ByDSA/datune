@@ -1,11 +1,11 @@
+import Interval from "../Interval";
 import { Interval as Chromatic } from "intervals/chromatic";
-import { FIFTH, FOURTH, SECOND, SEVENTH, SIXTH, THIRD, UNISON } from "intervals/diatonic";
+import { Intervals as DIntervals } from "intervals/diatonic";
 import Direction from "intervals/symbolic/diatonic/Direction";
 import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MINOR } from "intervals/symbolic/quality";
-import { NUMBER as C_NUMBER } from "pitches/chromatic";
-import { NUMBER as D_NUMBER } from "pitches/diatonic";
-import { MAJOR_SCALE_DEGREES } from "scales/chromatic";
-import Interval from "../Interval";
+import { Pitches as CPitches } from "pitches/chromatic";
+import { Pitches as DPitches } from "pitches/diatonic";
+import { Scales as CScales } from "scales/chromatic";
 
 export default function semisCalculate(obj: Interval): Chromatic {
   return new SemisPrecalculator(obj).calc();
@@ -22,9 +22,9 @@ class SemisPrecalculator {
     this.rootInterval = 0;
 
     this.positiveDiatonicIntValue = Math.abs(+this.self.diatonicInterval);
-    this.positiveDiatonicIntValueMod7 = this.positiveDiatonicIntValue % D_NUMBER;
+    this.positiveDiatonicIntValueMod7 = this.positiveDiatonicIntValue % DPitches.NUMBER;
 
-    this.rootInterval = MAJOR_SCALE_DEGREES[this.positiveDiatonicIntValueMod7];
+    this.rootInterval = CScales.MAJOR_SCALE_DEGREES[this.positiveDiatonicIntValueMod7];
   }
 
   calc(): number {
@@ -39,6 +39,8 @@ class SemisPrecalculator {
   }
 
   private qualityFixer() {
+    const { FIFTH, FOURTH, SECOND, SEVENTH, SIXTH, THIRD, UNISON } = DIntervals;
+
     switch (this.positiveDiatonicIntValueMod7) {
       case +UNISON:
       case +FOURTH:
@@ -81,8 +83,8 @@ class SemisPrecalculator {
   }
 
   private octaveFixer() {
-    const octaves: number = Math.floor(this.positiveDiatonicIntValue / D_NUMBER);
+    const octaves: number = Math.floor(this.positiveDiatonicIntValue / DPitches.NUMBER);
 
-    this.rootInterval += C_NUMBER * octaves;
+    this.rootInterval += CPitches.NUMBER * octaves;
   }
 }

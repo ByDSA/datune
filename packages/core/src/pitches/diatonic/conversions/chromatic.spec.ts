@@ -1,23 +1,26 @@
-import { A as C_A, B as C_B, C as C_C } from "../../chromatic";
+import { Pitches as CP } from "../../chromatic";
 import { A, B, C } from "../constants";
-import toChromatic from "./chromatic";
+import { toChromatic } from "./chromatic";
 
 describe("chromatic", () => {
-  it("B ", () => {
+  it("b", () => {
     const chromatic = toChromatic(B);
 
-    expect(chromatic).toBe(C_B);
+    expect(chromatic).toBeDefined();
+    expect(chromatic).toBe(CP.B);
   } );
 
-  it("C ", () => {
+  it("c", () => {
     const chromatic = toChromatic(C);
 
-    expect(chromatic).toBe(C_C);
+    expect(chromatic).toBeDefined();
+    expect(chromatic).toBe(CP.C);
   } );
 
-  it("A ", () => {
+  it("a", () => {
     const chromatic = toChromatic(A);
 
-    expect(chromatic).toBe(C_A);
+    expect(chromatic).toBeDefined();
+    expect(chromatic).toBe(CP.A);
   } );
 } );

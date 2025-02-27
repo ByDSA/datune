@@ -1,11 +1,12 @@
 import { Chord } from "chords/chromatic";
-import { hash as keyHash, Key } from "keys/chromatic";
+import { Key } from "keys/chromatic";
+import { hash as hashKey } from "keys/chromatic/caching/hash";
 
 const functionCache = new Map<string, Chord>();
 
-export default abstract class HarmonicFunction {
+export abstract class HarmonicFunction {
   getChord(key: Key): Chord {
-    const fullHashCode = `(${keyHash(key)})|(${this.hashCode()})`;
+    const fullHashCode = `(${hashKey(key)})|(${this.hashCode()})`;
     let chord = functionCache.get(fullHashCode);
 
     if (chord === undefined) {

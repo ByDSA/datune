@@ -1,42 +1,33 @@
-import { initialize as initializeMD, MusicalDuration, QUARTER, WHOLE } from "../musical-duration";
+import { MusicalDuration, MusicalDurations } from "../musical-duration";
 import { from } from "./building";
-import { initialize, QUARTER_120 } from "./constants";
+import { QUARTER_120 } from "./constants";
+import { TestInit } from "tests";
 
-beforeAll(() => {
-  initializeMD();
-  initialize();
-} );
+TestInit.bpm();
 
 it("from - 120 QUARTER", () => {
   const n = 120;
-  const beat: MusicalDuration = QUARTER;
+  const beat: MusicalDuration = MusicalDurations.QUARTER;
   const bpm = from(n, beat);
 
   expect(bpm.bpm).toEqual(n);
+  expect(beat).toBeDefined();
   expect(bpm.beat).toEqual(beat);
 } );
 
 it("from - 120", () => {
   const n = 120;
   const bpm = from(n);
-  const expectedBeat: MusicalDuration = QUARTER;
+  const expectedBeat: MusicalDuration = MusicalDurations.QUARTER;
 
   expect(bpm.bpm).toEqual(n);
-  expect(bpm.beat).toEqual(expectedBeat);
-} );
-
-it("precalc - QUARTER_120", () => {
-  const bpm = QUARTER_120;
-  const expectedBeat: MusicalDuration = QUARTER;
-  const expectedNum: number = 120;
-
-  expect(bpm.bpm).toEqual(expectedNum);
+  expect(expectedBeat).toBeDefined();
   expect(bpm.beat).toEqual(expectedBeat);
 } );
 
 it("getMillis - QUARTER_120 - WHOLE = 2s", () => {
   const bpm = QUARTER_120;
-  const actualDuration = bpm.getMillis(WHOLE);
+  const actualDuration = bpm.getMillis(MusicalDurations.WHOLE);
   const expectedDuration: number = 2000;
 
   expect(actualDuration).toEqual(expectedDuration);
@@ -44,7 +35,7 @@ it("getMillis - QUARTER_120 - WHOLE = 2s", () => {
 
 it("getMillis - QUARTER_120 - QUARTER = 0.5s", () => {
   const bpm = QUARTER_120;
-  const actualDuration = bpm.getMillis(QUARTER);
+  const actualDuration = bpm.getMillis(MusicalDurations.QUARTER);
   const expectedDuration: number = 500;
 
   expect(actualDuration).toEqual(expectedDuration);

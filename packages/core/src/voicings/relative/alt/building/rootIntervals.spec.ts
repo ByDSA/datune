@@ -1,27 +1,31 @@
 /* eslint-disable camelcase */
-import { Array as IntervalArray, AUGMENTED_NINTH, DIMINISHED_FIFTH, MAJOR_THIRD, MAJOR_THIRTEENTH, MINOR_SECOND, MINOR_SEVENTH, PERFECT_ELEVENTH, PERFECT_FIFTH, PERFECT_UNISON } from "intervals/alt";
-import { TestInit } from "tests";
 import { SEVENTH, THIRTEENTH_b5a9, TRIAD_MAJOR } from "../constants";
-import fromRootIntervals from "./rootIntervals";
+import { fromRootIntervals } from "./rootIntervals";
+import { IntervalArray, Intervals } from "intervals/alt";
+import { TestInit } from "tests";
 
 beforeAll(() => {
-  TestInit.diatonicAltInterval();
   TestInit.diatonicAltVoicing();
 } );
+
 it("immutable: 0, 4, 7", () => {
+  const { MAJOR_THIRD, PERFECT_FIFTH, PERFECT_UNISON } = Intervals;
   const diatonicAltVoicing = fromRootIntervals(PERFECT_UNISON, MAJOR_THIRD, PERFECT_FIFTH);
 
   expect(diatonicAltVoicing).toBe(TRIAD_MAJOR);
 } );
 
 it("immutable new voicing: 0, 1", () => {
+  const { MINOR_SECOND, PERFECT_UNISON } = Intervals;
   const diatonicAltVoicing = fromRootIntervals(PERFECT_UNISON, MINOR_SECOND);
   const diatonicAltVoicing2 = fromRootIntervals(PERFECT_UNISON, MINOR_SECOND);
 
   expect(diatonicAltVoicing2).toBe(diatonicAltVoicing);
 } );
 
-it("P1, M3, d5, m7, a9, P11, M13", () => {
+it("p1, M3, d5, m7, a9, P11, M13", () => {
+  // eslint-disable-next-line max-len
+  const { AUGMENTED_NINTH, DIMINISHED_FIFTH, MAJOR_THIRD, MAJOR_THIRTEENTH, MINOR_SEVENTH, PERFECT_ELEVENTH, PERFECT_UNISON } = Intervals;
   const actual = fromRootIntervals(
     PERFECT_UNISON,
     MAJOR_THIRD,
@@ -36,7 +40,8 @@ it("P1, M3, d5, m7, a9, P11, M13", () => {
   expect(actual).toBe(expected);
 } );
 
-it("P1-M3-P5-m7 = SEVENTH", () => {
+it("p1-M3-P5-m7 = SEVENTH", () => {
+  const { MAJOR_THIRD, MINOR_SEVENTH, PERFECT_FIFTH, PERFECT_UNISON } = Intervals;
   const rootIntervals: IntervalArray = [
     PERFECT_UNISON,
     MAJOR_THIRD,

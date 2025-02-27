@@ -1,5 +1,11 @@
 import { Pitch } from "pitches/chromatic";
+import { Pitches } from "pitches/chromatic";
 
-type Dto = { pitch: Pitch; octave: number };
+export type Dto = {
+  pitch: Pitch;
+  octave: number;
+ };
 
-export default Dto;
+export function hashDto(dto: Dto): string {
+  return `(${Pitches.hash(dto.pitch)})|${dto.octave}`;
+}

@@ -1,18 +1,17 @@
-/* eslint-disable import/no-mutable-exports */
 import { lockr } from "@datune/utils/immutables";
-import { A4 } from "spns/chromatic";
-import fromFrequency from "../building/frequencySPN";
+import { fromFrequencySPN } from "../building/frequencySPN";
 import ConcertPitch from "../ConcertPitch";
+import { SPNs } from "spns/chromatic";
 
 export function initialize(): void {
   if (A440)
     throw new TypeError("A440 is already initialized");
 
-  A440 = fromFrequency(440, A4);
+  A440 = fromFrequencySPN(440, SPNs.A4);
   lockr(A440);
-  A432 = fromFrequency(432, A4);
+  A432 = fromFrequencySPN(432, SPNs.A4);
   lockr(A432);
-  A444 = fromFrequency(444, A4);
+  A444 = fromFrequencySPN(444, SPNs.A4);
   lockr(A444);
 }
 

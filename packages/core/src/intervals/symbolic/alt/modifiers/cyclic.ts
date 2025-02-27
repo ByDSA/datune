@@ -1,10 +1,10 @@
-import Direction from "intervals/symbolic/diatonic/Direction";
 import { PERFECT_OCTAVE } from "../constants";
 import Interval from "../Interval";
-import add from "./add";
-import simple from "./simple";
+import { add } from "./add";
+import { simple } from "./simple";
+import Direction from "intervals/symbolic/diatonic/Direction";
 
-export default function cyclic(interval: Interval): Interval {
+export function cyclic(interval: Interval): Interval {
   let ret = simple(interval);
 
   if (ret.diatonicInterval.direction === Direction.DESCENDENT)

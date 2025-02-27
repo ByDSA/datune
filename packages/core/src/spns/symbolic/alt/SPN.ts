@@ -1,7 +1,7 @@
 import { lockr } from "@datune/utils/immutables";
-import { Pitch } from "pitches/alt";
 import ISPN from "../SPN";
 import { Dto } from "./building";
+import { Pitch } from "pitches/alt";
 
 export default class SPN implements ISPN<Pitch> {
   pitch: Pitch;

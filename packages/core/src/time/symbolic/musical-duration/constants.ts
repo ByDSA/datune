@@ -1,6 +1,5 @@
-/* eslint-disable import/no-mutable-exports */
 import { lock } from "@datune/utils/immutables";
-import { from } from "./building";
+import { from } from "./building/from";
 import MusicalDuration from "./MusicalDuration";
 
 export function initialize() {

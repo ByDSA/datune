@@ -1,5 +1,5 @@
-import { Array as DegreeArray, Degree } from "degrees/chromatic";
-import { Array as IntervalArray, Interval } from "intervals/chromatic";
+import { DegreeArray, Degree } from "degrees/chromatic";
+import { IntervalArray, Interval } from "intervals/chromatic";
 import IScale from "../../Scale";
 import { Dto } from "./caching";
 

@@ -1,3 +1,3 @@
-import dtoHash from "./hash";
+import { hash } from "./hash";
 
-export default dtoHash;
+export default hash;

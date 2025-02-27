@@ -1,14 +1,14 @@
 import { lockr } from "@datune/utils/immutables";
-import { Chord as ChromaticChord, fromRootVoicing as chordFromRootVoicing } from "chords/chromatic";
-import { add as degreeAdd, Array as DegreeArray, Degree } from "degrees/chromatic";
+import { HarmonicFunction } from "../HarmonicFunction";
+import { Dto, hashDto } from "./caching/Dto";
+import { Chord, Chords } from "chords/chromatic";
+import { Degrees, DegreeArray, Degree } from "degrees/chromatic";
 import { Interval } from "intervals/chromatic";
 import { Key } from "keys/chromatic";
-import { add as pitchAdd, Pitch } from "pitches/chromatic";
+import { Pitches, Pitch } from "pitches/chromatic";
 import { Voicing } from "voicings/chromatic";
-import HarmonicFunction from "../HarmonicFunction";
-import { Dto, hash } from "./caching";
 
-export default class DegreeFunction extends HarmonicFunction {
+export class DegreeFunction extends HarmonicFunction {
   degree: Degree;
 
   voicing: Voicing;
@@ -28,15 +28,15 @@ export default class DegreeFunction extends HarmonicFunction {
     return new DegreeFunction(dto);
   }
 
-  protected calculateChord(key: Key): ChromaticChord {
+  protected calculateChord(key: Key): Chord {
     const rootInterval = this.degree as Interval;
-    const noteBase: Pitch = pitchAdd(key.root, rootInterval);
+    const noteBase: Pitch = Pitches.add(key.root, rootInterval);
 
-    return chordFromRootVoicing(noteBase, this.voicing);
+    return Chords.fromRootVoicing(noteBase, this.voicing);
   }
 
   hashCode(): string {
-    return hash(this);
+    return hashDto(this);
   }
 }
 
@@ -45,7 +45,7 @@ function calcDegrees(obj: DegreeFunction): DegreeArray {
   const initialDegree = obj.degree;
 
   for (const rootIntervalVoicing of obj.voicing) {
-    const degree = degreeAdd(initialDegree, rootIntervalVoicing);
+    const degree = Degrees.add(initialDegree, rootIntervalVoicing);
 
     degrees.push(degree);
   }

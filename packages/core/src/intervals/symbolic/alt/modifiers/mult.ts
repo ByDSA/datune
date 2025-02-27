@@ -1,9 +1,9 @@
 import { PERFECT_UNISON } from "../constants";
 import Interval from "../Interval";
-import add from "./add";
-import neg from "./neg";
+import { add } from "./add";
+import { neg } from "./neg";
 
-export default function mult(self: Interval, num: number): Interval | null {
+export function mult(self: Interval, num: number): Interval | null {
   const intNum = Math.trunc(num);
 
   if (intNum < 0)

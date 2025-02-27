@@ -1,5 +1,5 @@
 export {
-  BPM, from as BPMFrom,
+  BPM, BPMs,
 } from "./bpm";
 
 export * from "./musical-duration";

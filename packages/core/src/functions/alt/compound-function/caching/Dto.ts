@@ -1,5 +1,5 @@
-import { Array as DegreeArray } from "degrees/alt";
-import { DegreeFunction } from "../../degree-function";
+import { DegreeArray } from "degrees/alt";
+import { DegreeFunction } from "../../degree-function/DegreeFunction";
 
 type Dto = {
   degreeFunction: DegreeFunction;

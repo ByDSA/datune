@@ -1,6 +1,5 @@
-/* eslint-disable import/no-mutable-exports */
 /* eslint-disable camelcase */
-/* eslint-disable import/prefer-default-export */
+
 import { lockr } from "@datune/utils/immutables";
 import { getAllInversions } from "../utils";
 import Voicing from "../Voicing";
@@ -138,7 +137,7 @@ export function initializeSets() {
     ELEVENTH_MAJ11,
     ELEVENTH_MINOR_MAJ11,
     THIRTEENTH_SUS4,
-    THIRTEENTH_b5,
+    THIRTEENTH_b5, // ! "P1-M3-d5-m7-M9-P11-M13"
     THIRTEENTH_a5,
     THIRTEENTH_b9,
     THIRTEENTH_a9,
@@ -148,7 +147,7 @@ export function initializeSets() {
     THIRTEENTH_MAJ13,
     THIRTEENTH_MINOR_MAJ13,
     THIRTEENTH_MAJ13_b5,
-    THIRTEENTH_MAJ13_a5,
+    THIRTEENTH_MAJ13_a5, // "P1-M3-P5-M7-m9-P11-M13"
     THIRTEENTH_MAJ13_b5a9,
     THIRTEENTH_MAJ13_b5b9,
     THIRTEENTH_MAJ13_a5b9,

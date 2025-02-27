@@ -1,23 +1,23 @@
-import { add, Array as IntervalArray, Interval, PERFECT_OCTAVE, PERFECT_UNISON } from "intervals/alt";
-import { cache } from "../caching";
-import Scale from "../Scale";
+import { cache } from "../caching/cache";
+import { Scale } from "../Scale";
+import { IntervalArray, Interval, Intervals } from "intervals/alt";
 
-export default function fromIntraIntervals(...intervals: IntervalArray): Scale {
+export function fromIntraIntervals(...intervals: IntervalArray): Scale {
   checkSumOctave(intervals);
 
   return cache.getOrCreate(intervals);
 }
 
 function checkSumOctave(intervals: IntervalArray): void {
-  let sum: Interval | null = PERFECT_UNISON;
+  let sum: Interval | null = Intervals.PERFECT_UNISON;
 
   for (let i = 0; i < intervals.length; i++) {
     if (sum === null)
       break;
 
-    sum = add(sum, intervals[i]);
+    sum = Intervals.add(sum, intervals[i]);
   }
 
-  if (sum !== PERFECT_OCTAVE)
+  if (sum !== Intervals.PERFECT_OCTAVE)
     throw new Error(`Intervals doesn't sum up to a perfect octave: ${intervals} sums up to ${sum}`);
 }

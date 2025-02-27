@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Array as IntervalArray } from "intervals/chromatic";
+import { IntervalArray } from "intervals/chromatic";
 import { TestInit } from "tests";
 import { calcIntraIntervals, mode } from ".";
 import { fromIntraIntervals } from "../building";

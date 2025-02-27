@@ -1,5 +1,5 @@
 import { Arrays } from "@datune/utils";
-import { Array as IntervalArray } from "intervals/chromatic";
+import { IntervalArray } from "intervals/chromatic";
 import { fromIntraIntervals } from "../building";
 import Scale from "../Scale";
 import getIntraIntervals from "./intraIntervals";

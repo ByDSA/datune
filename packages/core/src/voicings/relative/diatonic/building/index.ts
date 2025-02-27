@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 import { Arrays } from "@datune/utils";
 import DiatonicVoicing from "../DiatonicVoicing";
 

@@ -1,6 +1,6 @@
-import { Array as IntervalArray } from "intervals/alt";
-import Scale from "../Scale";
+import type { Scale } from "../Scale";
+import { IntervalArray } from "intervals/alt";
 
-export default function intraIntervals(obj: Scale): IntervalArray {
+export function calcIntraIntervals(obj: Scale): IntervalArray {
   return (obj as any).intraIntervals;
 }

@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-/* eslint-disable import/no-mutable-exports */
+
 import { lockr } from "@datune/utils/immutables";
-import { Degree } from "degrees/chromatic";
 import { fromIntraIntervals, fromRootIntervals } from "../building";
 import { mode } from "../modifiers";
 import Scale from "../Scale";
+import { Degree } from "degrees/chromatic";
 
 export function initialize() {
   if (MAJOR)

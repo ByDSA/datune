@@ -1,16 +1,19 @@
-/* eslint-disable import/no-mutable-exports */
 /* eslint-disable camelcase */
-import { bV, bVI, bVII, from as degreeFrom, I, II, III, initialize as initializeDegrees, IV, V, VI, VII } from "degrees/alt";
-import { I as D_I, II as D_II, III as D_III, IV as D_IV, V as D_V, VI as D_VI } from "degrees/diatonic";
-import { AUGMENTED_FIFTH, AUGMENTED_UNISON, DIMINISHED_FIFTH, DIMINISHED_SEVENTH, MAJOR_SECOND, MAJOR_THIRD, MINOR_SECOND, MINOR_THIRD, PERFECT_UNISON } from "intervals/alt";
-import { DOUBLE_HARMONIC as C_DOUBLE_HARMONIC, HALF_DIMINISHED as C_HALF_DIMINISHED, HARMONIC_MAJOR as C_HARMONIC_MAJOR, HARMONIC_MINOR as C_HARMONIC_MINOR, MELODIC_MINOR as C_MELODIC_MINOR, MESSIAEN_III_INV as C_MESSIAEN_III_INV, MESSIAEN_II_TRUNCATED_n3 as C_MESSIAEN_II_TRUNCATED_n3, MESSIAEN_INV_III_V_TRUNCATED_n2 as C_MESSIAEN_INV_III_V_TRUNCATED_n2, MESSIAEN_IV as C_MESSIAEN_IV, MESSIAEN_V as C_MESSIAEN_V, MESSIAEN_VI as C_MESSIAEN_VI, MESSIAEN_VII as C_MESSIAEN_VII, MESSIAEN_V_TRUNCATED as C_MESSIAEN_V_TRUNCATED, NEAPOLITAN_MAJOR as C_NEAPOLITAN_MAJOR, NEAPOLITAN_MINOR as C_NEAPOLITAN_MINOR, RAGA_INDRUPRIYA_INDIA as C_RAGA_INDRUPRIYA_INDIA, toAlt } from "scales/chromatic";
 import { fromDegrees, fromIntraIntervals, fromRootIntervals } from "../building";
 import { mode } from "../modifiers";
-import Scale from "../Scale";
+import { Scale } from "../Scale";
+import { Degrees } from "degrees/alt";
+import { Degrees as D } from "degrees/diatonic";
+import { Intervals } from "intervals/alt";
+import { Scales as CScales } from "scales/chromatic";
 
 export function initializeConstants() {
   if (MAJOR)
     throw new Error("MAJOR already defined");
+
+  const { bV, bVI, bVII, from: degreeFrom, I, II, III, initialize: initializeDegrees, IV, V, VI, VII } = Degrees;
+  const { AUGMENTED_FIFTH, AUGMENTED_UNISON, DIMINISHED_FIFTH, DIMINISHED_SEVENTH, MAJOR_SECOND, MAJOR_THIRD, MINOR_SECOND, MINOR_THIRD, PERFECT_UNISON } = Intervals;
+  const { DOUBLE_HARMONIC: C_DOUBLE_HARMONIC, HALF_DIMINISHED: C_HALF_DIMINISHED, HARMONIC_MAJOR: C_HARMONIC_MAJOR, HARMONIC_MINOR: C_HARMONIC_MINOR, MELODIC_MINOR: C_MELODIC_MINOR, MESSIAEN_III_INV: C_MESSIAEN_III_INV, MESSIAEN_II_TRUNCATED_n3: C_MESSIAEN_II_TRUNCATED_n3, MESSIAEN_INV_III_V_TRUNCATED_n2: C_MESSIAEN_INV_III_V_TRUNCATED_n2, MESSIAEN_IV: C_MESSIAEN_IV, MESSIAEN_V: C_MESSIAEN_V, MESSIAEN_VI: C_MESSIAEN_VI, MESSIAEN_VII: C_MESSIAEN_VII, MESSIAEN_V_TRUNCATED: C_MESSIAEN_V_TRUNCATED, NEAPOLITAN_MAJOR: C_NEAPOLITAN_MAJOR, NEAPOLITAN_MINOR: C_NEAPOLITAN_MINOR, RAGA_INDRUPRIYA_INDIA: C_RAGA_INDRUPRIYA_INDIA, toAlt } = CScales;
 
   if (!I)
     initializeDegrees();
@@ -136,31 +139,31 @@ export function initializeConstants() {
   // Symmetric
   CHROMATIC = fromDegrees(
     I,
-    degreeFrom(D_I, 1),
+    degreeFrom(D.I, 1),
     II,
-    degreeFrom(D_II, 1),
+    degreeFrom(D.II, 1),
     III,
     IV,
-    degreeFrom(D_IV, 1),
+    degreeFrom(D.IV, 1),
     V,
-    degreeFrom(D_V, 1),
+    degreeFrom(D.V, 1),
     VI,
-    degreeFrom(D_VI, 1),
+    degreeFrom(D.VI, 1),
     VII,
   );
 
   CHROMATIC_BY_FIFTHS = fromDegrees(
     I,
-    degreeFrom(D_I, 1),
+    degreeFrom(D.I, 1),
     II,
-    degreeFrom(D_II, 1),
+    degreeFrom(D.II, 1),
     III,
-    degreeFrom(D_III, 1),
-    degreeFrom(D_IV, 1),
+    degreeFrom(D.III, 1),
+    degreeFrom(D.IV, 1),
     V,
-    degreeFrom(D_V, 1),
+    degreeFrom(D.V, 1),
     VI,
-    degreeFrom(D_VI, 1),
+    degreeFrom(D.VI, 1),
     VII,
   );
 

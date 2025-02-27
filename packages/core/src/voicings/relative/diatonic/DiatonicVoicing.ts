@@ -1,6 +1,6 @@
 import { Arrays } from "@datune/utils";
 import { lockr } from "@datune/utils/immutables";
-import { Array as IntervalArray, fromInt as intervalDiatonicFromInt, Interval } from "intervals/diatonic";
+import { IntervalArray, Intervals, Interval } from "intervals/diatonic";
 import Voicing from "../Voicing";
 
 export default class DiatonicVoicing implements Voicing<Interval> {
@@ -21,10 +21,10 @@ export default class DiatonicVoicing implements Voicing<Interval> {
 
     this.rootIndex = 0;
     this.rootIntervals = this.rootIntervalInts.map(
-      (ic) => intervalDiatonicFromInt(ic),
+      (ic) => Intervals.fromInt(ic),
     ) as IntervalArray;
     this.intraIntervals = this.rootIntervalInts.map(
-      (ic, i, a) => intervalDiatonicFromInt(ic - i > 0 ? a[i - 1] : 0),
+      (ic, i, a) => Intervals.fromInt(ic - i > 0 ? a[i - 1] : 0),
     ) as IntervalArray;
     this.inversionNumber = (this.rootIntervalInts.length - this.rootIndex)
     % this.rootIntervalInts.length;

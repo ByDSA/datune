@@ -3,5 +3,5 @@ export {
 } from "./dto";
 
 export {
-  default as fromPitchOctave,
+  from as fromPitchOctave,
 } from "./pitch-octave";

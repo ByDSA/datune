@@ -26,7 +26,10 @@
     "@datune/utils": "file:../utils/dist",
     "immutable": "5.0.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "file:../node_modules/jest",
+    "ts-jest": "file:../node_modules/ts-jest"
+  },
   "standard-version": {
     "scripts": {
       "postcommit": "pnpm docs && pnpm release:push"

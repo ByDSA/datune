@@ -1,4 +1,3 @@
-/* eslint-disable import/no-mutable-exports */
 import { NumExp } from "@datune/utils/math";
 
 export default class Interval {

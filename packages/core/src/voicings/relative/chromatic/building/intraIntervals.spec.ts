@@ -1,9 +1,8 @@
-/* eslint-disable camelcase */
 import { Arrays } from "@datune/utils";
-import { TestInit } from "tests";
 import { TRIAD_MAJOR } from "../constants";
 import Voicing from "../Voicing";
-import fromIntraIntervals from "./intraIntervals";
+import { fromIntraIntervals } from "./intraIntervals";
+import { TestInit } from "tests";
 
 TestInit.chromaticVoicing();
 

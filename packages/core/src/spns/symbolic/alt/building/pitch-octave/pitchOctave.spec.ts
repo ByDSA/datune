@@ -1,31 +1,32 @@
-import { B, BB, C, Cb, Gb } from "pitches/alt";
-import { TestInit } from "tests";
 import { fromPitchOctave } from "..";
 import { B4, C4, FF4 } from "../../constants";
+import { Pitches as P } from "pitches/alt";
+import { TestInit } from "tests";
 
 TestInit.diatonicAltSPN();
 
 describe("range", () => {
   describe("below limit", () => {
     it("min value -1 from below", () => {
-      const actual = fromPitchOctave(B, -2);
+      const actual = fromPitchOctave(P.B, -2);
 
       expect(actual).toBeNull();
     } );
+
     it("min value -1 from above", () => {
-      const actual = fromPitchOctave(Cb, -1);
+      const actual = fromPitchOctave(P.Cb, -1);
 
       expect(actual).toBeDefined();
     } );
 
     it("min value from above", () => {
-      const actual = fromPitchOctave(C, -1);
+      const actual = fromPitchOctave(P.C, -1);
 
       expect(actual).toBeDefined();
     } );
 
     it("min value from below", () => {
-      const actual = fromPitchOctave(BB, -2);
+      const actual = fromPitchOctave(P.BB, -2);
 
       expect(actual).toBeNull();
     } );
@@ -33,23 +34,25 @@ describe("range", () => {
 
   describe("above limit", () => {
     it("max value from below", () => {
-      const actual = fromPitchOctave(B, 10);
+      const actual = fromPitchOctave(P.B, 10);
 
       expect(actual).toBeDefined();
     } );
 
     it("max value from above", () => {
-      const actual = fromPitchOctave(Cb, 11);
+      const actual = fromPitchOctave(P.Cb, 11);
 
       expect(actual).toBeNull();
     } );
+
     it("max value +1 from below", () => {
-      const actual = fromPitchOctave(BB, 10);
+      const actual = fromPitchOctave(P.BB, 10);
 
       expect(actual).toBeDefined();
     } );
+
     it("max value +1 from above", () => {
-      const actual = fromPitchOctave(C, 11);
+      const actual = fromPitchOctave(P.C, 11);
 
       expect(actual).toBeNull();
     } );
@@ -57,35 +60,36 @@ describe("range", () => {
 
   it("in range", () => {
     const expected = C4;
-    const actual = fromPitchOctave(C, 4);
+    const actual = fromPitchOctave(P.C, 4);
 
     expect(actual).toBe(expected);
   } );
 
   it("out of range", () => {
-    const actual = fromPitchOctave(C, 15);
+    const actual = fromPitchOctave(P.C, 15);
 
     expect(actual).toBeNull();
   } );
 } );
 
 describe("enharmonic", () => {
-  it("FF, 4 === Gb, 4", () => {
+  it("fF, 4 === Gb, 4", () => {
     const expected = FF4;
-    const actual = fromPitchOctave(Gb, 4);
+    const actual = fromPitchOctave(P.Gb, 4);
 
     expect(actual).not.toBe(expected);
   } );
-  it("BB, 4 === C, 4", () => {
+
+  it("bB, 4 === C, 4", () => {
     const expected = C4;
-    const actual = fromPitchOctave(BB, 4);
+    const actual = fromPitchOctave(P.BB, 4);
 
     expect(actual).not.toBe(expected);
   } );
 
-  it("Cb, 4 === B, 4", () => {
+  it("cb, 4 === B, 4", () => {
     const expected = B4;
-    const actual = fromPitchOctave(Cb, 4);
+    const actual = fromPitchOctave(P.Cb, 4);
 
     expect(actual).not.toBe(expected);
   } );

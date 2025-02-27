@@ -1,13 +1,14 @@
+import * as C from "../constants";
+import { neg } from "./neg";
+import { cyclic } from "./cyclic";
 import { TestInit } from "tests";
-import { cyclic, neg } from ".";
-import { PERFECT_ELEVENTH, PERFECT_FIFTH, PERFECT_FOURTH } from "../constants";
 
 TestInit.diatonicAltInterval();
 
 describe.each([
-  [neg(PERFECT_FIFTH), PERFECT_FOURTH],
-  [PERFECT_FIFTH, PERFECT_FIFTH],
-  [PERFECT_ELEVENTH, PERFECT_FOURTH],
+  [neg(C.PERFECT_FIFTH), C.PERFECT_FOURTH],
+  [C.PERFECT_FIFTH, C.PERFECT_FIFTH],
+  [C.PERFECT_ELEVENTH, C.PERFECT_FOURTH],
 ])("tests", (interval, expected) => {
   it(`${String(interval)} => ${String(expected)}`, () => {
     const actual = cyclic(interval);

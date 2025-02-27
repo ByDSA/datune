@@ -1,9 +1,11 @@
-import { TestInit } from "tests";
-import { inv } from "../modifiers";
+import { inv } from "../modifiers/inv";
 import getInversionOf from "./inversionMap";
 import { TRIAD_MAJOR, TRIAD_MINOR } from "./n3";
+import { COMMON_NON_INVERSIONS } from "./sets";
+import { TestInit } from "tests";
 
 TestInit.diatonicAltVoicing();
+
 describe.each([
   [TRIAD_MAJOR, 0],
   [inv(TRIAD_MAJOR), 1],
@@ -21,4 +23,21 @@ describe.each([
 
     expect(actual).toBe(expected);
   } );
+} );
+
+it("allNonInversions is fine", () => {
+  const voicings = COMMON_NON_INVERSIONS;
+
+  for (const v of voicings) {
+    let pInv = v;
+
+    for (let i = 1; i < v.length; i++) {
+      pInv = inv(pInv);
+
+      if (pInv === v) // simétrico
+        break;
+
+      expect(voicings).not.toContain(pInv);
+    }
+  }
 } );

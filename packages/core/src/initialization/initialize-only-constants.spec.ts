@@ -1,27 +1,27 @@
-import { C as DAC_C } from "chords/alt";
-import { C as CC_C } from "chords/chromatic";
-import { A440 as C_A440 } from "concert-pitches/chromatic";
-import { I as DA_I } from "degrees/alt";
-import { I as C_I } from "degrees/chromatic";
-import { I5 as DAF_I5 } from "functions/alt";
-import { I5 as C_I5 } from "functions/chromatic";
-import { PERFECT_FIFTH as DAI_PERFECT_FIFTH } from "intervals/alt";
-import { PERFECT_FIFTH as CI_PERFECT_FIFTH } from "intervals/chromatic";
-import { C as DAK_C } from "keys/alt";
-import { C as CK_C } from "keys/chromatic";
-import { C as DAP_C } from "pitches/alt";
-import { C as CP_C } from "pitches/chromatic";
-import { C as DP_C } from "pitches/diatonic";
-import { MAJOR as DAS_MAJOR } from "scales/alt";
-import { MAJOR as CS_MAJOR } from "scales/chromatic";
-import { C5 as CPS_C5 } from "sets/pitch-set/chromatic";
-import { C4 as DASPN_C4 } from "spns/alt";
-import { C4 as CSPN_C4 } from "spns/chromatic";
-import { ET12 as CTE_ET12 } from "temperaments/chromatic";
-import { EQUAL_440 as CTU_EQUAL_440 } from "tunings/chromatic";
-import { TRIAD_MAJOR as DAV_TRIAD_MAJOR } from "voicings/alt";
-import { TRIAD_MAJOR as CV_TRIAD_MAJOR } from "voicings/chromatic";
 import initialize from "./initialize";
+import { Chords as DAC } from "chords/alt";
+import { Chords as CC } from "chords/chromatic";
+import { ConcertPitches as CCP } from "concert-pitches/chromatic";
+import { Degrees as DA } from "degrees/alt";
+import { Degrees as C } from "degrees/chromatic";
+import { Functions as DAF } from "functions/alt";
+import { Functions as CF } from "functions/chromatic";
+import { Intervals as DAI } from "intervals/alt";
+import { Intervals as CI } from "intervals/chromatic";
+import { Keys as DAK } from "keys/alt";
+import { Keys as CK } from "keys/chromatic";
+import { Pitches as DAP } from "pitches/alt";
+import { Pitches as CP } from "pitches/chromatic";
+import { Pitches as DP } from "pitches/diatonic";
+import { Scales as DAS } from "scales/alt";
+import { Scales as CS } from "scales/chromatic";
+import { PitchSets as CPS } from "sets/pitch-set/chromatic";
+import { SPNs as DASPN } from "spns/alt";
+import { SPNs as CSPN } from "spns/chromatic";
+import { Temperaments as CTE } from "temperaments/chromatic";
+import { Tunings as CTU } from "tunings/chromatic";
+import { Voicings as DAV } from "voicings/alt";
+import { Voicings as CV } from "voicings/chromatic";
 
 describe("initialize all constants", () => {
   beforeAll(() => {
@@ -30,65 +30,65 @@ describe("initialize all constants", () => {
 
   describe("chromatic", () => {
     it("pitch", () => {
-      expect(CP_C).toBeDefined();
+      expect(CP.C).toBeDefined();
     } );
 
     it("concert pitch", () => {
-      expect(C_A440).toBeDefined();
+      expect(CCP.A440).toBeDefined();
     } );
 
     it("spn", () => {
-      expect(CSPN_C4).toBeDefined();
+      expect(CSPN.C4).toBeDefined();
     } );
 
     it("interval", () => {
-      expect(CI_PERFECT_FIFTH).toBeDefined();
+      expect(CI.PERFECT_FIFTH).toBeDefined();
     } );
 
     it("voicing", () => {
-      expect(CV_TRIAD_MAJOR).toBeDefined();
+      expect(CV.TRIAD_MAJOR).toBeDefined();
     } );
 
     it("pitch set", () => {
-      expect(CPS_C5).toBeDefined();
+      expect(CPS.C5).toBeDefined();
     } );
 
     it("chord", () => {
-      expect(CC_C).toBeDefined();
+      expect(CC.C).toBeDefined();
     } );
 
     it("degree", () => {
-      expect(C_I).toBeDefined();
+      expect(C.I).toBeDefined();
     } );
 
     it("scale", () => {
-      expect(CS_MAJOR).toBeDefined();
+      expect(CS.MAJOR).toBeDefined();
     } );
 
     it("function", () => {
-      expect(C_I5).toBeDefined();
+      expect(CF.I5).toBeDefined();
     } );
 
     it("key", () => {
-      expect(CK_C).toBeDefined();
+      expect(CK.C).toBeDefined();
     } );
 
     it("temperament", () => {
-      expect(CTE_ET12).toBeDefined();
+      expect(CTE.ET12).toBeDefined();
     } );
 
     it("tuning", () => {
-      expect(CTU_EQUAL_440).toBeDefined();
+      expect(CTU.EQUAL_440).toBeDefined();
     } );
   } );
 
   it("diatonic", () => {
-    expect(DP_C).toBeDefined();
+    expect(DP.C).toBeDefined();
   } );
 
   describe("alt", () => {
     it("pitch", () => {
-      expect(DAP_C).toBeDefined();
+      expect(DAP.C).toBeDefined();
     } );
 
     // TODO
@@ -96,15 +96,15 @@ describe("initialize all constants", () => {
       expect(DACP_A440).toBeDefined();
     } ); */
     it("spn", () => {
-      expect(DASPN_C4).toBeDefined();
+      expect(DASPN.C4).toBeDefined();
     } );
 
     it("interval", () => {
-      expect(DAI_PERFECT_FIFTH).toBeDefined();
+      expect(DAI.PERFECT_FIFTH).toBeDefined();
     } );
 
     it("voicing", () => {
-      expect(DAV_TRIAD_MAJOR).toBeDefined();
+      expect(DAV.TRIAD_MAJOR).toBeDefined();
     } );
 
     // TODO
@@ -112,23 +112,23 @@ describe("initialize all constants", () => {
       expect(DAPS_C5).toBeDefined();
     } ); */
     it("chord", () => {
-      expect(DAC_C).toBeDefined();
+      expect(DAC.C).toBeDefined();
     } );
 
     it("degree", () => {
-      expect(DA_I).toBeDefined();
+      expect(DA.I).toBeDefined();
     } );
 
     it("scale", () => {
-      expect(DAS_MAJOR).toBeDefined();
+      expect(DAS.MAJOR).toBeDefined();
     } );
 
     it("function", () => {
-      expect(DAF_I5).toBeDefined();
+      expect(DAF.I5).toBeDefined();
     } );
 
     it("key", () => {
-      expect(DAK_C).toBeDefined();
+      expect(DAK.C).toBeDefined();
     } );
     // TODO
     /*

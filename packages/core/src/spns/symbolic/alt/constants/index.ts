@@ -1,13 +1,13 @@
-/* eslint-disable import/no-mutable-exports */
-
 import { lockr } from "@datune/utils/immutables";
-import { A, AA, B, C, CC, D, DD, E, F, FF, fromDiatonicAlts, G, GG } from "pitches/alt";
-import { ALL as D_ALL } from "pitches/diatonic";
 import Array from "../Array";
 import { fromPitchOctave } from "../building";
 import SPN from "../SPN";
+import { Pitches as DPitches } from "pitches/diatonic";
+import { Pitches as OctavePitches } from "pitches/alt";
 
 export function initialize() {
+  const { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } = OctavePitches;
+
   // El negativo es por compatibilidad con MidiPitch
   C_S1 = fromPitchOctave(C, -1) as SPN;
   CC_S1 = fromPitchOctave(CC, -1) as SPN;
@@ -148,10 +148,11 @@ export function initialize() {
 }
 
 function calcCommon(): Array {
+  const { fromDiatonicAlts } = OctavePitches;
   const ret = [];
 
   for (let octave = -1; octave <= 9; octave++) {
-    for (const diatonic of D_ALL) {
+    for (const diatonic of DPitches.ALL) {
       for (let alt = -1; alt <= -1; alt++) {
         const pitch = fromDiatonicAlts(diatonic, alt);
         const spn = fromPitchOctave(pitch, octave) as SPN;

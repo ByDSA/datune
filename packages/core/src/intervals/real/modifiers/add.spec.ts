@@ -1,10 +1,11 @@
-import { TestInit } from "tests";
-import { add } from ".";
 import { fromCents } from "../building";
 import { ET12_PERFECT_FIFTH, ET12_SEMITONE, OCTAVE, UNISON } from "../constants";
 import Interval from "../Interval";
+import { add } from "./independentModifiers";
+import { TestInit } from "tests";
 
 TestInit.realInterval();
+
 describe.each([
   [ET12_SEMITONE, ET12_SEMITONE, fromCents(200)],
   [ET12_SEMITONE, UNISON, ET12_SEMITONE],
@@ -17,6 +18,7 @@ describe.each([
 
       expect(actual).toBe(+expected);
     } );
+
     it(`${a} adds ${b} => ${expected}`, (): void => {
       const actual = add(a, b);
 

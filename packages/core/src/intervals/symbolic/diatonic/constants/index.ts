@@ -1,4 +1,3 @@
-/* eslint-disable import/no-mutable-exports */
 import { lockr } from "@datune/utils/immutables";
 import { fromInt } from "../building";
 import Interval from "../Interval";

@@ -6,8 +6,6 @@ import { initialize as et12Initialize } from "./ET12";
 import { initialize as justInitialize } from "./Just";
 import { initialize as ptInitialize } from "./Pythagorean";
 
-/* eslint-disable import/no-mutable-exports */
-
 export function initialize() {
   if (UNISON)
     throw new TypeError("UNISON is already initialized");

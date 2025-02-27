@@ -1,4 +1,4 @@
-import { Array as IntervalArray } from "intervals/real";
+import { IntervalArray } from "intervals/real";
 import ScalePitch from "../ScalePitch";
 import cache from "./cache";
 

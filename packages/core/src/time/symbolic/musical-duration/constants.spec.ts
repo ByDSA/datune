@@ -1,8 +1,9 @@
-import { TestInit } from "tests/init";
-import { from } from ".";
+import { from } from "./building/from";
 import { DOUBLE, EIGHTH, HALF, LONGA, MAXIMA, QUARTER, SIXTEENTH, SIXTYFOURTH, THIRTYSECOND, WHOLE, ZERO } from "./constants";
+import { TestInit } from "tests/init";
 
 TestInit.musicalDuration();
+
 it("precalc - QUARTER", () => {
   const value = +QUARTER;
   const expected = 0.25;

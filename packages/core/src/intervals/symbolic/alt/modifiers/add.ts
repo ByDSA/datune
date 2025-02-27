@@ -1,14 +1,14 @@
-import { add as diatonicAdd } from "intervals/diatonic";
-import { fromIntervalQuality } from "../building";
+import { fromIntervalQuality } from "../building/intervalQuality";
 import Interval from "../Interval";
 import calcFixedQualityDifferentDirection from "./calcQuality/differentDirection";
 import calcFixedQualitySameDirection from "./calcQuality/sameDirection";
+import { Intervals as DIntervals } from "intervals/diatonic";
 
-export default function add(
+export function add(
   self: Interval,
   other: Interval,
 ): Interval | null {
-  const diatonicInterval = diatonicAdd(self.diatonicInterval, other.diatonicInterval);
+  const diatonicInterval = DIntervals.add(self.diatonicInterval, other.diatonicInterval);
   const quality = self.diatonicInterval.direction === other.diatonicInterval.direction
     ? calcFixedQualitySameDirection(self, other, diatonicInterval)
     : calcFixedQualityDifferentDirection(self, other, diatonicInterval);

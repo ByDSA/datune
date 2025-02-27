@@ -1,5 +1,5 @@
 import { lockr } from "@datune/utils/immutables";
-import { Array as PitchArray, Pitch } from "pitches/alt";
+import { PitchArray, Pitch } from "pitches/alt";
 import SymbolicChord from "../SymbolicChord";
 import { Dto } from "./caching";
 

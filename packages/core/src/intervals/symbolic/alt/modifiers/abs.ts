@@ -1,10 +1,10 @@
-import { abs as diatonicAbs } from "intervals/diatonic";
-import { fromIntervalQuality } from "../building";
+import { fromIntervalQuality } from "../building/intervalQuality";
 import Interval from "../Interval";
+import { Intervals as DIntervals } from "intervals/diatonic";
 
-export default function abs(obj: Interval): Interval {
+export function abs(obj: Interval): Interval {
   return fromIntervalQuality(
-    diatonicAbs(obj.diatonicInterval),
+    DIntervals.abs(obj.diatonicInterval),
     obj.quality,
   ) as Interval;
 }

@@ -1,5 +1,9 @@
-import { Array } from "intervals/alt";
+import { IntervalArray } from "intervals/alt";
 
-type Dto = Array;
+export type Dto = IntervalArray;
 
-export default Dto;
+import { Intervals } from "intervals/alt";
+
+export function hashDto(dto: Dto): string {
+  return dto.map(Intervals.hash).join("|");
+}

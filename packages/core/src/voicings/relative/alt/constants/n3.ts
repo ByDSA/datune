@@ -1,22 +1,22 @@
-/* eslint-disable import/no-mutable-exports */
-
-import { CV_TRIAD_AUGMENTED, CV_TRIAD_DIMINISHED, CV_TRIAD_MAJOR, CV_TRIAD_MINOR, CV_TRIAD_SUS4 } from "voicings";
-import { SUS4, TRIAD } from "voicings/relative/diatonic";
-import { fromVoicings } from "../building";
-import { inv } from "../modifiers";
+import { fromVoicings } from "../building/voicings";
+import { inv } from "../modifiers/inv";
 import Voicing from "../Voicing";
 import { map } from "./inversionMap";
+import { Voicings as DV } from "voicings/relative/diatonic";
+import { Voicings as CV } from "voicings/chromatic";
 
 export function initializeN3() {
-  TRIAD_MAJOR = fromVoicings(CV_TRIAD_MAJOR, TRIAD) as Voicing;
+  const { SUS4, TRIAD } = DV;
 
-  TRIAD_MINOR = fromVoicings(CV_TRIAD_MINOR, TRIAD) as Voicing;
+  TRIAD_MAJOR = fromVoicings(CV.TRIAD_MAJOR, TRIAD) as Voicing;
 
-  TRIAD_DIMINISHED = fromVoicings(CV_TRIAD_DIMINISHED, TRIAD) as Voicing;
+  TRIAD_MINOR = fromVoicings(CV.TRIAD_MINOR, TRIAD) as Voicing;
 
-  TRIAD_AUGMENTED = fromVoicings(CV_TRIAD_AUGMENTED, TRIAD) as Voicing;
+  TRIAD_DIMINISHED = fromVoicings(CV.TRIAD_DIMINISHED, TRIAD) as Voicing;
 
-  TRIAD_SUS4 = fromVoicings(CV_TRIAD_SUS4, SUS4) as Voicing;
+  TRIAD_AUGMENTED = fromVoicings(CV.TRIAD_AUGMENTED, TRIAD) as Voicing;
+
+  TRIAD_SUS4 = fromVoicings(CV.TRIAD_SUS4, SUS4) as Voicing;
 
   TRIAD_SUS2 = inv(TRIAD_SUS4) as Voicing;
 

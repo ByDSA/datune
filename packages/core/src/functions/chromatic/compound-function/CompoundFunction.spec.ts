@@ -1,83 +1,89 @@
-/* eslint-disable camelcase */
-import { A, A7, B, B7, C, C7, D, D7, E, E7, fromRootVoicing as CCFromRootVoicing } from "chords/chromatic";
-import { V as C_V } from "degrees/chromatic";
-import { C as T_C } from "keys/chromatic";
-import { Ab as C_Ab, Bb as C_Bb, Db as C_Db, Eb as C_Eb, F as C_F, Gb as C_Gb } from "pitches/chromatic";
-import { TestInit } from "tests";
-import { SEVENTH } from "voicings/chromatic";
-import { SUBV7, V, V7 } from "../degree-function";
-import { from } from "./building";
+import * as DegreeFunctions from "../degree-function/constants";
+import { compose } from "./building/compose";
 import { SUBV7_II, SUBV7_III, SUBV7_IV, SUBV7_V, SUBV7_VI, V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI } from "./constants";
+import { Chords } from "chords/chromatic";
+import { Degrees } from "degrees/chromatic";
+import { Keys as K } from "keys/chromatic";
+import { Pitches } from "pitches/chromatic";
+import { TestInit } from "tests";
+import { Voicings } from "voicings/chromatic";
 
 TestInit.chromaticFunction();
 TestInit.chromaticKey();
 TestInit.chromaticChord();
-describe.each([
-  [V_V, V, [C_V]],
-  [V7_V, V7, [C_V]],
-])("constants", (func, expectedDegreeFunction, expectedDegreeChain) => {
-  it(`${String(func)} degreeFunction => ${String(expectedDegreeFunction)}`, () => {
-    const actual = func.degreeFunction;
 
-    expect(actual).toBe(expectedDegreeFunction);
+describe("tests", () => {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+  const { A, A7, B, C, B7, C7, D, D7, E, E7, fromRootVoicing: CCFromRootVoicing } = Chords;
+  const { SUBV7, V, V7 } = DegreeFunctions;
+
+  describe.each([
+    [V_V, V, [Degrees.V]],
+    [V7_V, V7, [Degrees.V]],
+  ])("constants", (func, expectedDegreeFunction, expectedDegreeChain) => {
+    it(`${String(func)} degreeFunction => ${String(expectedDegreeFunction)}`, () => {
+      const actual = func.degreeFunction;
+
+      expect(actual).toBe(expectedDegreeFunction);
+    } );
+
+    it(`${String(func)} degreeChain => ${expectedDegreeChain.map(String).join("-")}`, () => {
+      const actual = func.degreeChain;
+
+      expect(actual).toStrictEqual(expectedDegreeChain);
+    } );
   } );
 
-  it(`${String(func)} degreeChain => ${expectedDegreeChain.map(String).join("-")}`, () => {
-    const actual = func.degreeChain;
-
-    expect(actual).toStrictEqual(expectedDegreeChain);
-  } );
-} );
-
-describe.each([
-  [from(V, C_V), V_V],
-  [from(V7, C_V), V7_V],
-])("from => constants", (func, expectedCompoundFunction) => {
-  it(`${String(func)} => ${String(expectedCompoundFunction)}`, () => {
-    expect(func).toBe(expectedCompoundFunction);
-  } );
-} );
-
-describe.each([
-  [from(V7, C_V, C_V), V7, [C_V, C_V]],
-])("from", (func, expectedDegreeFunction, expectedDegreeChain) => {
-  it(`${String(func)} degreeFunction => ${String(expectedDegreeFunction)}`, () => {
-    const actual = func.degreeFunction;
-
-    expect(actual).toBe(expectedDegreeFunction);
+  describe.each([
+    [compose(V, Degrees.V), V_V],
+    [compose(V7, Degrees.V), V7_V],
+  ])("from => constants", (func, expectedCompoundFunction) => {
+    it(`${String(func)} => ${String(expectedCompoundFunction)}`, () => {
+      expect(func).toBe(expectedCompoundFunction);
+    } );
   } );
 
-  it(`${String(func)} degreeChain => ${expectedDegreeChain.map(String).join("-")}`, () => {
-    const actual = func.degreeChain;
+  describe.each([
+    [compose(V7, Degrees.V, Degrees.V), V7, [Degrees.V, Degrees.V]],
+  ])("from", (func, expectedDegreeFunction, expectedDegreeChain) => {
+    it(`${String(func)} degreeFunction => ${String(expectedDegreeFunction)}`, () => {
+      const actual = func.degreeFunction;
 
-    expect(actual).toStrictEqual(expectedDegreeChain);
+      expect(actual).toBe(expectedDegreeFunction);
+    } );
+
+    it(`${String(func)} degreeChain => ${expectedDegreeChain.map(String).join("-")}`, () => {
+      const actual = func.degreeChain;
+
+      expect(actual).toStrictEqual(expectedDegreeChain);
+    } );
   } );
-} );
 
-describe.each([
-  [V_V, T_C, D],
-  [V7_V, T_C, D7],
-  [from(V7, C_V, C_V), T_C, A7],
-  [V_II, T_C, A],
-  [V_III, T_C, B],
-  [V_IV, T_C, C],
-  [V_V, T_C, D],
-  [V_VI, T_C, E],
-  [V7_II, T_C, A7],
-  [V7_III, T_C, B7],
-  [V7_IV, T_C, C7],
-  [V7_V, T_C, D7],
-  [V7_VI, T_C, E7],
-  [SUBV7, T_C, CCFromRootVoicing(C_Db, SEVENTH)],
-  [SUBV7_II, T_C, CCFromRootVoicing(C_Eb, SEVENTH)],
-  [SUBV7_III, T_C, CCFromRootVoicing(C_F, SEVENTH)],
-  [SUBV7_IV, T_C, CCFromRootVoicing(C_Gb, SEVENTH)],
-  [SUBV7_V, T_C, CCFromRootVoicing(C_Ab, SEVENTH)],
-  [SUBV7_VI, T_C, CCFromRootVoicing(C_Bb, SEVENTH)],
-])("getChord", (func, key, expectedChord) => {
-  it(`${String(func)} of ${key} = ${expectedChord}`, () => {
-    const actual = func.getChord(key);
+  describe.each([
+    [V_V, K.C, D],
+    [V7_V, K.C, D7],
+    [compose(V7, Degrees.V, Degrees.V), K.C, A7],
+    [V_II, K.C, A],
+    [V_III, K.C, B],
+    [V_IV, K.C, C],
+    [V_V, K.C, D],
+    [V_VI, K.C, E],
+    [V7_II, K.C, A7],
+    [V7_III, K.C, B7],
+    [V7_IV, K.C, C7],
+    [V7_V, K.C, D7],
+    [V7_VI, K.C, E7],
+    [SUBV7, K.C, CCFromRootVoicing(Pitches.Db, Voicings.SEVENTH)],
+    [SUBV7_II, K.C, CCFromRootVoicing(Pitches.Eb, Voicings.SEVENTH)],
+    [SUBV7_III, K.C, CCFromRootVoicing(Pitches.F, Voicings.SEVENTH)],
+    [SUBV7_IV, K.C, CCFromRootVoicing(Pitches.Gb, Voicings.SEVENTH)],
+    [SUBV7_V, K.C, CCFromRootVoicing(Pitches.Ab, Voicings.SEVENTH)],
+    [SUBV7_VI, K.C, CCFromRootVoicing(Pitches.Bb, Voicings.SEVENTH)],
+  ])("getChord", (func, key, expectedChord) => {
+    it(`${String(func)} of ${key} = ${expectedChord}`, () => {
+      const actual = func.getChord(key);
 
-    expect(actual).toBe(expectedChord);
+      expect(actual).toBe(expectedChord);
+    } );
   } );
 } );

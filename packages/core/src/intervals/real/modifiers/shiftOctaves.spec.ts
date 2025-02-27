@@ -1,12 +1,13 @@
-import { TestInit } from "tests";
-import { mult } from ".";
 import { from, fromCents } from "../building";
 import { ET12_PERFECT_FIFTH, ET12_SEMITONE, OCTAVE, UNISON } from "../constants";
 import Interval from "../Interval";
-import neg from "./neg";
-import shiftOctaves from "./shiftOctaves";
+import { neg } from "./neg";
+import { shiftOctaves } from "./shiftOctaves";
+import { mult } from "./mult";
+import { TestInit } from "tests";
 
 TestInit.realInterval();
+
 describe.each([
   [UNISON, 0, UNISON],
   [UNISON, 1, OCTAVE],
@@ -27,6 +28,7 @@ describe.each([
 
       expect(+actual).toBe(+expected);
     } );
+
     it(`${interval} + ${octaves} octaves => ${expected}`, () => {
       const actual = shiftOctaves(interval, octaves);
 

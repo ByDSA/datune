@@ -1,6 +1,6 @@
 export {
-  Array as RealArray,
-  Interval as Real,
+  IntervalArray as RealIntervalArray,
+  Interval as RealInterval,
 } from "./real";
 
 export * from "./symbolic";

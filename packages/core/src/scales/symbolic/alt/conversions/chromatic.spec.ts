@@ -1,14 +1,13 @@
-/* eslint-disable camelcase */
-import { C_MAJOR } from "scales";
-import { TestInit } from "tests";
 import { MAJOR } from "../constants";
-import toChromatic from "./chromatic";
+import { toChromatic } from "./chromatic";
+import { Scales as CScales } from "scales/chromatic";
+import { TestInit } from "tests";
 
 TestInit.diatonicAltScale();
 
 it("chromatic", () => {
   const actual = toChromatic(MAJOR);
-  const expected = C_MAJOR;
+  const expected = CScales.MAJOR;
 
   expect(actual).toBe(expected);
 } );

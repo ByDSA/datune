@@ -1,9 +1,32 @@
-export * from "./building";
+import type * as fromType from "./building/from";
 
-export * from "./constants";
+import type * as fromMillisAndBPMType from "./building/fromMillisAndBPM";
 
-export * from "./modifiers";
+import type * as ConstantsType from "./constants";
+
+import * as Modifiers from "./modifiers";
+
+import MusicalDuration from "./MusicalDuration";
+
+import { createProxyBarrel } from "lazy-load";
+
+const staticModule = {
+  ...Modifiers,
+};
+
+type LazyType = Omit<typeof ConstantsType, "initialize"> & typeof fromMillisAndBPMType & typeof fromType;
+
+const mod = createProxyBarrel<LazyType & typeof staticModule>( {
+  staticModule,
+  paths: [
+    "building/from",
+    "building/fromMillisAndBPM",
+    "constants",
+  // eslint-disable-next-line no-undef
+  ].map(p=>`${__dirname}/${p}`),
+} );
 
 export {
-  default as MusicalDuration,
-} from "./MusicalDuration";
+  MusicalDuration,
+  mod as MusicalDurations,
+};

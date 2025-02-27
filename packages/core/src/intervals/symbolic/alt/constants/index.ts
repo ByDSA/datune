@@ -1,13 +1,15 @@
-/* eslint-disable import/no-mutable-exports */
 import { lock } from "@datune/utils/immutables";
-import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "intervals/quality";
-import { ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH, FOURTH, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH, TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } from "../../diatonic";
-import { fromIntervalQuality } from "../building";
+import * as DIntervals from "../../diatonic/constants";
+import { fromIntervalQuality } from "../building/intervalQuality";
 import Interval from "../Interval";
+import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "intervals/quality";
 
 export function initialize() {
   if (PERFECT_UNISON)
     throw new TypeError("PERFECT_UNISON is already initialized");
+
+  // eslint-disable-next-line max-len
+  const { ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH, FOURTH, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH, TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } = DIntervals;
 
   DIMINISHED_UNISON = fromIntervalQuality(
     UNISON,

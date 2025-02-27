@@ -1,9 +1,10 @@
-import { TestInit } from "tests";
 import { A, AA, B, BBB, C, Cb, Cbb, CC, D, DD, E, F, FF, G, GG, initialize } from ".";
+import { TestInit } from "tests";
 
 beforeAll(() => {
   TestInit.diatonicAlt();
 } );
+
 describe("values", () => {
   it("are defined", () => {
     expect(C).toBeDefined();
@@ -20,7 +21,7 @@ describe("values", () => {
     expect(B).toBeDefined();
   } );
 
-  it("alts ", () => {
+  it("alts", () => {
     expect(Cbb.alts).toBe(-2);
     expect(Cb.alts).toBe(-1);
     expect(C.alts).toBe(0);

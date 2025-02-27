@@ -1,30 +1,30 @@
 /* eslint-disable accessor-pairs */
-import { C as DAC_C, Chord as DAChord } from "chords/alt";
-import { C as CC_C, Chord as CChord } from "chords/chromatic";
-import { A440, ConcertPitch } from "concert-pitches/chromatic";
-import { C as AT_C, Key as DiatonicAltKey } from "keys/alt";
-import { C as T_C, Key } from "keys/chromatic";
-import { C as DA_C, Pitch as DiatonicAlt } from "pitches/alt";
-import { C as C_C, Pitch as Chromatic } from "pitches/chromatic";
-import { MAJOR as DA_MAJOR, Scale as ScaleAlt } from "scales/alt";
-import { ET12, Temperament } from "temperaments/chromatic";
-import { EQUAL_440, Tuning } from "tunings/chromatic";
-import { TRIAD_MAJOR as DAV_TRIAD_MAJOR, Voicing as DiatonicAltVoicing } from "voicings/alt";
 import { SettingsInterface } from "./types";
+import { Chords as DAC, Chord as DAChord } from "chords/alt";
+import { Chords as CC, Chord as CChord } from "chords/chromatic";
+import { ConcertPitches, ConcertPitch } from "concert-pitches/chromatic";
+import { Keys as AK, Key as DiatonicAltKey } from "keys/alt";
+import { Keys as CK, Key } from "keys/chromatic";
+import { Pitches as DA, Pitch as DiatonicAlt } from "pitches/alt";
+import { Pitches as C, Pitch as Chromatic } from "pitches/chromatic";
+import { Scales as DAS, Scale as ScaleAlt } from "scales/alt";
+import { Temperaments, Temperament } from "temperaments/chromatic";
+import { Tunings, Tuning } from "tunings/chromatic";
+import { Voicings as DAV, Voicing as DiatonicAltVoicing } from "voicings/alt";
 
 const DefaultSettings: SettingsInterface = {
   default: {
-    get note(): Chromatic { return C_C; },
-    get diatonicAlt(): DiatonicAlt { return DA_C; },
-    get scale(): ScaleAlt { return DA_MAJOR; },
-    get key(): Key { return T_C; },
-    get keyAlt(): DiatonicAltKey { return AT_C; },
-    get chord(): CChord { return CC_C; },
-    get chordAlt(): DAChord { return DAC_C; },
-    get voicingAlt(): DiatonicAltVoicing { return DAV_TRIAD_MAJOR; },
-    get temperament(): Temperament { return ET12; },
-    get tuning(): Tuning { return EQUAL_440; },
-    get concertPitch(): ConcertPitch { return A440; },
+    get note(): Chromatic { return C.C; },
+    get diatonicAlt(): DiatonicAlt { return DA.C; },
+    get scale(): ScaleAlt { return DAS.MAJOR; },
+    get key(): Key { return CK.C; },
+    get keyAlt(): DiatonicAltKey { return AK.C; },
+    get chord(): CChord { return CC.C; },
+    get chordAlt(): DAChord { return DAC.C; },
+    get voicingAlt(): DiatonicAltVoicing { return DAV.TRIAD_MAJOR; },
+    get temperament(): Temperament { return Temperaments.ET12; },
+    get tuning(): Tuning { return Tunings.EQUAL_440; },
+    get concertPitch(): ConcertPitch { return ConcertPitches.A440; },
   },
 };
 

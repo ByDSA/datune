@@ -1,6 +1,8 @@
-import { Interval, MAJOR_SECOND, MAJOR_SEVENTH, MAJOR_SIXTH, MAJOR_THIRD, MINOR_SECOND, MINOR_SEVENTH, MINOR_SIXTH, MINOR_THIRD, PERFECT_FIFTH, PERFECT_FOURTH, PERFECT_UNISON, TRITONE } from "intervals/chromatic";
 import { bII, bIII, bV, bVI, bVII, I, II, III, IV, V, VI, VII } from "./constants";
 import Degree from "./Degree";
+import { Interval, Intervals } from "intervals/chromatic";
+
+const { MAJOR_SECOND, MAJOR_SEVENTH, MAJOR_SIXTH, MAJOR_THIRD, MINOR_SECOND, MINOR_SEVENTH, MINOR_SIXTH, MINOR_THIRD, PERFECT_FIFTH, PERFECT_FOURTH, PERFECT_UNISON, TRITONE } = Intervals;
 
 export function hash(obj: Degree): string {
   return String(+obj);

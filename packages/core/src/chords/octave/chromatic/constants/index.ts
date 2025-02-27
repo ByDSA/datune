@@ -1,14 +1,18 @@
 /* eslint-disable camelcase */
-/* eslint-disable import/no-mutable-exports */
-/* eslint-disable import/prefer-default-export */
-import { A as P_A, AA as P_AA, ALL as P_ALL, B as P_B, C as P_C, CC as P_CC, D as P_D, DD as P_DD, E as P_E, F as P_F, FF as P_FF, G as P_G, GG as P_GG } from "pitches/chromatic";
-import { COMMON_NON_INVERSIONS as VOICINGS_ALL_NON_INVERSIONS, NINTH, POWER_CHORD, SEVENTH, SEVENTH_MAJ7, SEVENTH_MINOR, SEVENTH_MINOR_MAJ7, THIRTEENTH_MAJ13_b5a9, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_SUS2, TRIAD_SUS4 } from "voicings/chromatic";
-import ChordArray from "../Array";
-import { fromRootVoicing } from "../building";
+
+import { Array as ChordArray } from "../Array";
+import { fromRootVoicing } from "../building/root-voicing";
 import Chord from "../Chord";
 import { inv } from "../modifiers";
+import { Voicings } from "voicings/chromatic";
+import { Pitches } from "pitches/chromatic";
 
 export function initialize() {
+  // eslint-disable-next-line max-len
+  const { A: P_A, AA: P_AA, B: P_B, C: P_C, CC: P_CC, D: P_D, DD: P_DD, E: P_E, F: P_F, FF: P_FF, G: P_G, GG: P_GG } = Pitches;
+  // eslint-disable-next-line max-len, @typescript-eslint/naming-convention
+  const { NINTH, POWER_CHORD, SEVENTH, SEVENTH_MAJ7, SEVENTH_MINOR, SEVENTH_MINOR_MAJ7, THIRTEENTH_MAJ13_b5a9, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_SUS2, TRIAD_SUS4 } = Voicings;
+
   C = fromRootVoicing(P_C, TRIAD_MAJOR);
   CC = fromRootVoicing(P_CC, TRIAD_MAJOR);
   D = fromRootVoicing(P_D, TRIAD_MAJOR);
@@ -159,6 +163,8 @@ export function initialize() {
 }
 
 function calculateAllNonInversions(): ChordArray {
+  const { ALL: P_ALL } = Pitches;
+  const { COMMON_NON_INVERSIONS: VOICINGS_ALL_NON_INVERSIONS } = Voicings;
   const ret: ChordArray = [] as any;
 
   for (const voicing of VOICINGS_ALL_NON_INVERSIONS) {
@@ -173,6 +179,8 @@ function calculateAllNonInversions(): ChordArray {
 }
 
 function calcAll(): ChordArray {
+  const { ALL: P_ALL } = Pitches;
+  const { COMMON_NON_INVERSIONS: VOICINGS_ALL_NON_INVERSIONS } = Voicings;
   const set = new Set<Chord>();
 
   for (const voicing of VOICINGS_ALL_NON_INVERSIONS) {

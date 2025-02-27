@@ -1,10 +1,11 @@
-import { TestInit } from "tests";
 import { DIMINISHED_FIFTEENTH, MAJOR_THIRD, MINOR_SEVENTH, PERFECT_FIFTH, PERFECT_UNISON } from "../constants";
 import Interval from "../Interval";
-import { neg } from "../modifiers";
-import hash from "./hash";
+import { neg } from "../modifiers/neg";
+import { hash } from "./hash";
+import { TestInit } from "tests";
 
 TestInit.diatonicAltInterval();
+
 describe.each([
   [PERFECT_FIFTH, "+4P"],
   [PERFECT_UNISON, "+0P"],

@@ -1,5 +1,4 @@
-import Dto from "./Dto";
+import { Key } from "../Key";
+import { Scales } from "scales/chromatic";
 
-export default function hash(obj: Dto): string {
-  return `${obj[1].join("-")}:${obj[0]}`;
-}
+export const hash = (obj: Key): string => `${Scales.hash(obj.scale)}:${+obj.root}`;

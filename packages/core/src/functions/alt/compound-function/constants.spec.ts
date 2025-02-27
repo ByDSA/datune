@@ -1,27 +1,31 @@
-/* eslint-disable camelcase */
-import { V as C_V } from "degrees/alt";
+import * as DegreeFunctions from "../degree-function/constants";
+import * as Constants from "./constants";
+import { Degrees } from "degrees/alt";
 import { TestInit } from "tests";
-import { V, V7 } from "../degree-function";
-import { V7_V, V_V } from "./constants";
 
+TestInit.diatonicAltDegree();
 TestInit.diatonicAltFunction();
-TestInit.diatonicAltKey();
-TestInit.diatonicAltChord();
-describe.each([
-  [V_V, V, [C_V]],
-  [V7_V, V7, [C_V]],
-])("constants", (func, expectedDegreeFunction, expectedDegreeChain) => {
-  describe(`${String(func)}`, () => {
-    it(`degreeFunction => ${String(expectedDegreeFunction)}`, () => {
-      const actual = func.degreeFunction;
 
-      expect(actual).toBe(expectedDegreeFunction);
-    } );
+describe("tests", () => {
+  const { V, V7 } = DegreeFunctions;
+  const { V7_V, V_V } = Constants;
 
-    it(`degreeChain => ${expectedDegreeChain.map(String).join("-")}`, () => {
-      const actual = func.degreeChain;
+  describe.each([
+    [V_V, V, [Degrees.V]],
+    [V7_V, V7, [Degrees.V]],
+  ])("constants", (func, expectedDegreeFunction, expectedDegreeChain) => {
+    describe(`${String(func)}`, () => {
+      it(`degreeFunction => ${String(expectedDegreeFunction)}`, () => {
+        const actual = func.degreeFunction;
 
-      expect(actual).toStrictEqual(expectedDegreeChain);
+        expect(actual).toBe(expectedDegreeFunction);
+      } );
+
+      it(`degreeChain => ${expectedDegreeChain.map(String).join("-")}`, () => {
+        const actual = func.degreeChain;
+
+        expect(actual).toStrictEqual(expectedDegreeChain);
+      } );
     } );
   } );
 } );

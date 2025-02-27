@@ -1,84 +1,44 @@
-export {
-  default as Array,
-} from "./Array";
+/* eslint-disable no-undef */
+import { default as Interval } from "./Interval";
 
-export * from "./building";
+import { default as IntervalArray } from "./Array";
 
-export {
-  CENT,
-  ET12_MAJOR_SECOND,
-  ET12_MAJOR_SEVENTH,
-  ET12_MAJOR_SIXTH,
-  ET12_MAJOR_THIRD,
-  ET12_MINOR_SECOND,
-  ET12_MINOR_SEVENTH,
-  ET12_MINOR_SIXTH,
-  ET12_MINOR_THIRD,
-  ET12_PERFECT_FIFTH,
-  ET12_PERFECT_FOURTH,
-  ET12_QUARTER_TONE,
-  ET12_SEMITONE,
-  ET12_TRITONE,
-  initialize,
-  J_AUGMENTED_FIFTH,
-  J_AUGMENTED_FOURTH,
-  J_AUGMENTED_FOURTH_EXT,
-  J_AUGMENTED_SECOND,
-  J_AUGMENTED_SEVENTH,
-  J_AUGMENTED_SIXTH,
-  J_AUGMENTED_THIRD,
-  J_DIMINISHED_FIFTH,
-  J_DIMINISHED_FIFTH_EXT,
-  J_DIMINISHED_SEVENTH,
-  J_DIMINISHED_THIRD,
-  J_GREATER_SEPTIMAL_TRITONE,
-  J_LESSER_SEPTIMAL_TRITONE,
-  J_MAJOR_SEVENTH,
-  J_MAJOR_SIXTH,
-  J_MAJOR_THIRD,
-  J_MAJOR_TONE,
-  J_MINOR_SECOND,
-  J_MINOR_SEVENTH_GREATER,
-  J_MINOR_SEVENTH_SMALL,
-  J_MINOR_SIXTH,
-  J_MINOR_THIRD,
-  J_MINOR_TONE,
-  J_PERFECT_FIFTH,
-  J_PERFECT_FOURTH,
-  J_QUARTER_TONE,
-  OCTAVE,
-  PT_AUGMENTED_FIFTH,
-  PT_AUGMENTED_FOURTH,
-  PT_AUGMENTED_SECOND,
-  PT_AUGMENTED_SEVENTH,
-  PT_AUGMENTED_SIXTH,
-  PT_AUGMENTED_THIRD,
-  PT_AUGMENTED_UNISON,
-  PT_COMMA,
-  PT_DIMINISHED_FIFTH,
-  PT_DIMINISHED_FOURTH,
-  PT_DIMINISHED_OCTAVE,
-  PT_DIMINISHED_SECOND,
-  PT_DIMINISHED_SEVENTH,
-  PT_DIMINISHED_SIXTH,
-  PT_DIMINISHED_THIRD,
-  PT_MAJOR_SECOND,
-  PT_MAJOR_SEVENTH,
-  PT_MAJOR_SIXTH,
-  PT_MAJOR_THIRD,
-  PT_MINOR_SECOND,
-  PT_MINOR_SEVENTH,
-  PT_MINOR_SIXTH,
-  PT_MINOR_THIRD,
-  PT_PERFECT_FIFTH,
-  PT_PERFECT_FOURTH,
-  UNISON,
-} from "./constants";
+import * as Building from "./building";
 
-export * from "./conversions";
+import type * as ConstantsType from "./constants";
+
+import type * as ConversionsType from "./conversions";
+
+import * as IndependentModifiers from "./modifiers/independentModifiers";
+import type * as ModifierShiftOctaves from "./modifiers/shiftOctaves";
+import type * as ModifierNeg from "./modifiers/neg";
+import type * as ModifierMult from "./modifiers/mult";
+import { createProxyBarrel } from "lazy-load";
+
+const staticModule = {
+  ...Building,
+  ...IndependentModifiers,
+};
+
+type LazyType = Omit<typeof ConstantsType, "intialize">
+  & typeof ConversionsType
+  & typeof ModifierMult
+  & typeof ModifierNeg
+  & typeof ModifierShiftOctaves;
+
+const mod = createProxyBarrel<LazyType & typeof staticModule>( {
+  staticModule,
+  paths: [
+    "modifiers/shiftOctaves",
+    "modifiers/mult",
+    "modifiers/neg",
+    "conversions",
+    "constants",
+  ].map(p=>`${__dirname}/${p}`),
+} );
 
 export {
-  default as Interval,
-} from "./Interval";
-
-export * from "./modifiers";
+  Interval,
+  IntervalArray,
+  mod as Intervals,
+};

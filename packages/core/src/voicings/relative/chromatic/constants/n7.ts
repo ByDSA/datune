@@ -1,8 +1,7 @@
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
-/* eslint-disable import/no-mutable-exports */
-import { inv } from "..";
-import fromRootIntervals from "../building/rootIntervals";
+
+import { Voicings } from "..";
+import { fromRootIntervals } from "../building/rootIntervals";
 import Voicing from "../Voicing";
 import { map } from "./inversionMap";
 
@@ -52,9 +51,9 @@ export function initializeN7() {
 
 function initializeInversions() {
   for (let i = 1; i < 7; i++) {
-    map.set(inv(THIRTEENTH_MAJ13, i), i);
-    map.set(inv(THIRTEENTH_MINOR, i), i);
-    map.set(inv(THIRTEENTH_b5a9, i), i);
+    map.set(Voicings.inv(THIRTEENTH_MAJ13, i), i);
+    map.set(Voicings.inv(THIRTEENTH_MINOR, i), i);
+    map.set(Voicings.inv(THIRTEENTH_b5a9, i), i);
   }
 }
 

@@ -1,4 +1,3 @@
-
 export {
   default as fromKeyFunction,
 } from "./key-function";

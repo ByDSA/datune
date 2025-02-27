@@ -1,13 +1,14 @@
-import { Interval as IntervalDiatonic, isMainInterval, UNISON } from "intervals/diatonic";
-import { PERFECT, Quality, toInt as qualityToInt } from "intervals/quality";
 import Interval from "../Interval";
 import cache from "../caching/cache";
+import { Interval as DInterval, Intervals } from "intervals/diatonic";
+import { UNISON } from "intervals/symbolic/diatonic/constants";
+import { PERFECT, Quality, toInt as qualityToInt } from "intervals/quality";
 
-export default function from(
-  diatonicInterval: IntervalDiatonic,
+export function fromIntervalQuality(
+  diatonicInterval: DInterval,
   quality: Quality,
 ): Interval | null {
-  const isMainValue = isMainInterval(diatonicInterval);
+  const isMainValue = Intervals.isMainInterval(diatonicInterval);
   const qualityInt = qualityToInt(quality, isMainValue);
 
   if (qualityInt === null)
@@ -23,9 +24,9 @@ export default function from(
 
 // P1 === -P1
 function fixDiatonicInterval(
-  diatonicInterval: IntervalDiatonic,
+  diatonicInterval: DInterval,
   quality: Quality,
-): IntervalDiatonic {
+): DInterval {
   if (diatonicInterval.magnitude === 0 && quality === PERFECT)
     return UNISON;
 

@@ -2,7 +2,7 @@ import { cyclicMod } from "@datune/utils";
 import { A, B, C, D, E, F, G, NUMBER } from "../constants";
 import Diatonic from "../Diatonic";
 
-export default function fromInt(intValue: number): Diatonic {
+export function fromInt(intValue: number): Diatonic {
   const fixedIntValue = cyclicMod(intValue, NUMBER);
 
   switch (fixedIntValue) {

@@ -1,15 +1,32 @@
+/* eslint-disable no-undef */
+import { Key } from "./Key";
+
+import { KeyArray } from "./Array";
+
+import type * as BuildingType from "./building";
+
+import type * as Constants from "./constants";
+import type * as Conversions from "./conversions";
+
+import * as Modifiers from "./modifiers";
+import { createProxyBarrel } from "lazy-load";
+
+const staticModule = {
+  ...Modifiers,
+};
+
+type LazyType = typeof BuildingType & typeof Constants & typeof Conversions;
+const mod = createProxyBarrel<LazyType & typeof staticModule>( {
+  staticModule,
+  paths: [
+    "building",
+    "conversions",
+    "constants",
+  ].map(p=>`${__dirname}/${p}`),
+} );
+
 export {
-  default as Array,
-} from "./Array";
-
-export * from "./building";
-
-export * from "./constants";
-
-export * from "./conversions";
-
-export {
-  default as Key,
-} from "./Key";
-
-export * from "./modifiers";
+  Key,
+  KeyArray,
+  mod as Keys,
+};

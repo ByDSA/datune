@@ -1,9 +1,28 @@
-export * from "./building";
+import { default as NoteSet } from "./NoteSet";
 
-export * from "./constants";
+import * as Building from "./building";
 
-export * from "./modifiers";
+import type * as Constants from "./constants";
+
+import * as Modifiers from "./modifiers";
+import { createProxyBarrel } from "lazy-load";
+
+const staticModule = {
+  ...Building,
+  ...Modifiers,
+};
+
+type LazyType = typeof Constants ;
+
+const mod = createProxyBarrel<LazyType & typeof staticModule>( {
+  staticModule,
+  paths: [
+    "constants",
+  // eslint-disable-next-line no-undef
+  ].map(p=>`${__dirname}/${p}`),
+} );
 
 export {
-  default as NoteSet,
-} from "./NoteSet";
+  NoteSet,
+  mod as PitchSets,
+};

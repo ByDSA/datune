@@ -1,40 +1,42 @@
-/* eslint-disable camelcase */
-import { bIII as C_bIII, bV as C_bV, Degree, I as C_I, II as C_II, III as C_III, IV as C_IV, V as C_V, VI as C_VI, VII as C_VII } from "degrees/alt";
-import { TestInit } from "tests";
-import { SEVENTH_MAJ7, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, Voicing } from "voicings/alt";
 import calcDegrees from "./calcs/degrees";
 import { I, I0, Im, IVMaj7, VII0 } from "./constants";
-import DegreeFunction from "./DegreeFunction";
+import { DegreeFunction } from "./DegreeFunction";
+import { Degrees, Degree } from "degrees/alt";
+import { TestInit } from "tests";
+import { Voicings, Voicing } from "voicings/alt";
 
 TestInit.diatonicAltFunction();
-TestInit.diatonicAltVoicing();
-TestInit.diatonicAltDegree();
-describe.each([
-  [I, C_I, TRIAD_MAJOR, [C_I, C_III, C_V]],
-  [I0, C_I, TRIAD_DIMINISHED, [C_I, C_bIII, C_bV]],
-  [Im, C_I, TRIAD_MINOR, [C_I, C_bIII, C_V]],
-  [VII0, C_VII, TRIAD_DIMINISHED, [C_VII, C_II, C_IV]],
-  [IVMaj7, C_IV, SEVENTH_MAJ7, [C_IV, C_VI, C_I, C_III]],
-])("constants", (
-  degreeFunction: DegreeFunction,
-  expectedDegree: Degree,
-  expectedVoicing: Voicing,
-  expectedDegrees: Degree[],
-) => {
-  describe(`${String(degreeFunction)}`, () => {
-    it(`degree => ${String(expectedDegree)}`, () => {
-      expect(degreeFunction.degree).toBe(expectedDegree);
-    } );
 
-    it(`voicing => ${expectedVoicing}`, () => {
-      expect(degreeFunction.voicing).toBe(expectedVoicing);
-    } );
+describe("tests", () => {
+  const { SEVENTH_MAJ7, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = Voicings;
 
-    it(`degrees => ${expectedDegrees.map(String).join("-")}`, () => {
-      const degrees = calcDegrees(degreeFunction);
-      const expected = expectedDegrees;
+  describe.each([
+    [I, Degrees.I, TRIAD_MAJOR, [Degrees.I, Degrees.III, Degrees.V]],
+    [I0, Degrees.I, TRIAD_DIMINISHED, [Degrees.I, Degrees.bIII, Degrees.bV]],
+    [Im, Degrees.I, TRIAD_MINOR, [Degrees.I, Degrees.bIII, Degrees.V]],
+    [VII0, Degrees.VII, TRIAD_DIMINISHED, [Degrees.VII, Degrees.II, Degrees.IV]],
+    [IVMaj7, Degrees.IV, SEVENTH_MAJ7, [Degrees.IV, Degrees.VI, Degrees.I, Degrees.III]],
+  ])("constants", (
+    degreeFunction: DegreeFunction,
+    expectedDegree: Degree,
+    expectedVoicing: Voicing,
+    expectedDegrees: Degree[],
+  ) => {
+    describe(`${String(degreeFunction)}`, () => {
+      it(`degree => ${String(expectedDegree)}`, () => {
+        expect(degreeFunction.degree).toBe(expectedDegree);
+      } );
 
-      expect(degrees).toStrictEqual(expected);
+      it(`voicing => ${expectedVoicing}`, () => {
+        expect(degreeFunction.voicing).toBe(expectedVoicing);
+      } );
+
+      it(`degrees => ${expectedDegrees.map(String).join("-")}`, () => {
+        const degrees = calcDegrees(degreeFunction);
+        const expected = expectedDegrees;
+
+        expect(degrees).toStrictEqual(expected);
+      } );
     } );
   } );
 } );

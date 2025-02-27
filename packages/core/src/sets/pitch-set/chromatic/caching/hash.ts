@@ -1,7 +1,9 @@
-import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } from "pitches/chromatic";
+/* eslint-disable @typescript-eslint/naming-convention */
 import Dto from "./Dto";
+import { Pitches } from "pitches/chromatic";
 
 export default (dto: Dto): string => {
+  const { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } = Pitches;
   const hasC = dto.has(C) ? 1 : 0;
   const hasCC = dto.has(CC) ? 1 : 0;
   const hasD = dto.has(D) ? 1 : 0;

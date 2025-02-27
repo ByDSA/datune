@@ -1,6 +1,5 @@
-/* eslint-disable import/prefer-default-export */
 import Array from "./Array";
-import { inv } from "./modifiers";
+import { inv } from "./modifiers/inv";
 import Voicing from "./Voicing";
 
 export function getAllInversions(obj: Voicing): Array {

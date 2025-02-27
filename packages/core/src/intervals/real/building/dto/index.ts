@@ -3,5 +3,5 @@ export {
 } from "./Dto";
 
 export {
-  default as hash,
+  default as dtoHash,
 } from "./hash";

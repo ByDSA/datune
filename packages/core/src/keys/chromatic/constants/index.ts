@@ -1,34 +1,35 @@
-/* eslint-disable import/no-mutable-exports */
-import { A as C_A, AA as C_AA, B as C_B, C as C_C, CC as C_CC, D as C_D, DD as C_DD, E as C_E, F as C_F, FF as C_FF, G as C_G, GG as C_GG } from "pitches/chromatic";
-import { MAJOR, MINOR } from "scales/chromatic";
-import { from } from "../building";
-import Key from "../Key";
+import { fromRootScale as from } from "../building";
+import { Key } from "../Key";
+import { Pitches } from "pitches/chromatic";
+import { Scales } from "scales/chromatic";
 
 export function initialize() {
-  C = from(C_C, MAJOR);
-  CC = from(C_CC, MAJOR);
-  D = from(C_CC, MAJOR);
-  DD = from(C_DD, MAJOR);
-  E = from(C_E, MAJOR);
-  F = from(C_F, MAJOR);
-  FF = from(C_FF, MAJOR);
-  G = from(C_G, MAJOR);
-  GG = from(C_GG, MAJOR);
-  A = from(C_A, MAJOR);
-  AA = from(C_AA, MAJOR);
-  B = from(C_B, MAJOR);
-  Cm = from(C_C, MINOR);
-  CCm = from(C_CC, MINOR);
-  Dm = from(C_D, MINOR);
-  DDm = from(C_DD, MINOR);
-  Em = from(C_E, MINOR);
-  Fm = from(C_F, MINOR);
-  FFm = from(C_FF, MINOR);
-  Gm = from(C_G, MINOR);
-  GGm = from(C_GG, MINOR);
-  Am = from(C_A, MINOR);
-  AAm = from(C_AA, MINOR);
-  Bm = from(C_B, MINOR);
+  const { MAJOR, MINOR } = Scales;
+
+  C = from(Pitches.C, MAJOR);
+  CC = from(Pitches.CC, MAJOR);
+  D = from(Pitches.CC, MAJOR);
+  DD = from(Pitches.DD, MAJOR);
+  E = from(Pitches.E, MAJOR);
+  F = from(Pitches.F, MAJOR);
+  FF = from(Pitches.FF, MAJOR);
+  G = from(Pitches.G, MAJOR);
+  GG = from(Pitches.GG, MAJOR);
+  A = from(Pitches.A, MAJOR);
+  AA = from(Pitches.AA, MAJOR);
+  B = from(Pitches.B, MAJOR);
+  Cm = from(Pitches.C, MINOR);
+  CCm = from(Pitches.CC, MINOR);
+  Dm = from(Pitches.D, MINOR);
+  DDm = from(Pitches.DD, MINOR);
+  Em = from(Pitches.E, MINOR);
+  Fm = from(Pitches.F, MINOR);
+  FFm = from(Pitches.FF, MINOR);
+  Gm = from(Pitches.G, MINOR);
+  GGm = from(Pitches.GG, MINOR);
+  Am = from(Pitches.A, MINOR);
+  AAm = from(Pitches.AA, MINOR);
+  Bm = from(Pitches.B, MINOR);
 }
 
 export let C: Key;

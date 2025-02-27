@@ -1,9 +1,9 @@
-import fs from "fs";
-import { from as keyFrom } from "keys/chromatic";
-import { ALL } from "pitches/chromatic";
-import { COMMON } from "scales/chromatic";
-import { TestInit } from "tests/init";
+import fs from "node:fs";
 import save from "./save";
+import { Keys } from "keys/chromatic";
+import { Pitches } from "pitches/chromatic";
+import { Scales } from "scales/chromatic";
+import { TestInit } from "tests/init";
 
 describe("save constants", () => {
   beforeAll(() => {
@@ -31,9 +31,9 @@ describe("save full", () => {
     TestInit.chromaticScale();
     TestInit.chromaticKey();
 
-    for (const scale of COMMON) {
-      for (const pitch of ALL)
-        keyFrom(pitch, scale);
+    for (const scale of Scales.COMMON) {
+      for (const pitch of Pitches.ALL)
+        Keys.fromRootScale(pitch, scale);
     }
   } );
 

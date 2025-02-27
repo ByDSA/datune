@@ -1,10 +1,12 @@
-import { TestInit } from "tests";
-import { Array, neg } from "../..";
+import IntervalArray from "../../Array";
 import { MAJOR_NINTH, MAJOR_THIRTEENTH, PERFECT_FIFTH, PERFECT_UNISON } from "../../constants";
 import Interval from "../../Interval";
-import serie from "./index";
+import { neg } from "../neg";
+import { serie } from "./index";
+import { TestInit } from "tests";
 
 TestInit.diatonicAltInterval();
+
 describe.each([
   [{
     interval: PERFECT_FIFTH,
@@ -45,7 +47,9 @@ describe.each([
     interval: neg(PERFECT_FIFTH),
     startIndex: 0,
     length: 4,
-  }, [PERFECT_UNISON, neg(PERFECT_FIFTH), neg(MAJOR_NINTH), neg(MAJOR_THIRTEENTH)]],
+  }, [PERFECT_UNISON,
+    neg(PERFECT_FIFTH),
+    neg(MAJOR_NINTH), neg(MAJOR_THIRTEENTH)]],
 ])("tests", (args: any, expected: Interval[]) => {
   let argsStr = `interval: ${String(args.interval)}`;
 
@@ -55,7 +59,7 @@ describe.each([
   if (args.length !== undefined)
     argsStr += `, length: ${args.length}`;
 
-  it(`${argsStr} => ${String(expected as Array)}`, () => {
+  it(`${argsStr} => ${String(expected as IntervalArray)}`, () => {
     const actual = serie(args);
 
     expect(actual).toEqual(expected);

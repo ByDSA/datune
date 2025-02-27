@@ -1,13 +1,13 @@
-import { betweenNext } from "intervals/alt";
-import { fromChromatic as pitchFromChromatic, Pitch as DiatonicAlt } from "pitches/alt";
+import { Intervals } from "intervals/alt";
+import { Pitches, Pitch as P } from "pitches/alt";
 import { Pitch as Chromatic } from "pitches/chromatic";
 import { SPN } from "spns/alt";
 import { Tuning } from "tunings/chromatic";
 
 export default class FrequencyCalculatorDiatonicAlt {
-  private _degree: DiatonicAlt | undefined;
+  private _degree: P | undefined;
 
-  private _degreeRoot: DiatonicAlt | undefined;
+  private _degreeRoot: P | undefined;
 
   private _tuning: Tuning;
 
@@ -18,7 +18,7 @@ export default class FrequencyCalculatorDiatonicAlt {
     this.spn = spn;
   }
 
-  private getDistOctave(degreeRoot: DiatonicAlt, degree: DiatonicAlt): number {
+  private getDistOctave(degreeRoot: P, degree: P): number {
     let distOctave = this.spn.octave - this._tuning.concertPitch.spn.octave;
 
     if (degree.diatonic < degreeRoot.diatonic)
@@ -29,14 +29,14 @@ export default class FrequencyCalculatorDiatonicAlt {
 
   calc(): number {
     this._degree = this.spn.pitch;
-    let degreeRoot = this._tuning.concertPitch.spn.pitch as Chromatic | DiatonicAlt;
+    let degreeRoot = this._tuning.concertPitch.spn.pitch as Chromatic | P;
 
     if (degreeRoot instanceof Chromatic)
-      degreeRoot = pitchFromChromatic(degreeRoot);
+      degreeRoot = Pitches.fromChromatic(degreeRoot);
 
-    this._degreeRoot = degreeRoot as DiatonicAlt;
+    this._degreeRoot = degreeRoot as P;
 
-    const interval = betweenNext(this._degreeRoot, this._degree);
+    const interval = Intervals.betweenNext(this._degreeRoot, this._degree);
     // TODO
     const ratioNumber = 1;// this._tuning.temperament(interval).ratio.value;
     const distOctave = this.getDistOctave(this._degreeRoot, this._degree);

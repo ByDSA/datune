@@ -1,15 +1,34 @@
+import { default as SPN } from "./SPN";
+
+import { default as SPNArray } from "./Array";
+
+import * as Building from "./building";
+
+import type * as Constants from "./constants";
+
+import type * as ConversionsType from "./conversions";
+
+import * as Modifiers from "./modifiers";
+import { createProxyBarrel } from "lazy-load";
+
+const staticModule = {
+  ...Building,
+  ...Modifiers,
+};
+
+type LazyType = typeof Constants & typeof ConversionsType;
+
+const mod = createProxyBarrel<LazyType & typeof staticModule>( {
+  staticModule,
+  paths: [
+    "constants",
+    "conversions",
+  // eslint-disable-next-line no-undef
+  ].map(p=>`${__dirname}/${p}`),
+} );
+
 export {
-  default as Array,
-} from "./Array";
-
-export * from "./building";
-
-export * from "./constants";
-
-export * from "./conversions";
-
-export * from "./modifiers";
-
-export {
-  default as SPN,
-} from "./SPN";
+  SPN,
+  SPNArray,
+  mod as SPNs,
+};

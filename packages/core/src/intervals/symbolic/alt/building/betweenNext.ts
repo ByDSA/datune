@@ -1,21 +1,21 @@
 import { cyclicMod } from "@datune/utils";
-import { Interval as ChromaticInterval } from "intervals/chromatic";
-import { fromInt as DIFromInt, Interval as DiatonicInterval } from "intervals/diatonic";
-import { Pitch } from "pitches/alt";
-import { NUMBER as C_NUMBER } from "pitches/chromatic";
-import { NUMBER as D_NUMBER } from "pitches/diatonic";
-import { MAJOR_SCALE_DEGREES } from "scales/chromatic";
 import Interval from "../Interval";
-import fromIntervals from "./intervals";
+import { fromIntervals } from "./intervals";
+import { Interval as ChromaticInterval } from "intervals/chromatic";
+import { Intervals as DIntervals, Interval as DInterval } from "intervals/diatonic";
+import { Pitch } from "pitches/alt";
+import { Pitches as CPitches } from "pitches/chromatic";
+import { Pitches as DPitches } from "pitches/diatonic";
+import { Scales as CScales } from "scales/chromatic";
 
-export default function betweenNext(pitch1: Pitch, pitch2: Pitch): Interval | null {
+export function betweenNext(pitch1: Pitch, pitch2: Pitch): Interval | null {
   const intervalDiatonicInt = +pitch2.diatonic - +pitch1.diatonic;
-  const diatonicInterval: DiatonicInterval = DIFromInt(
-    cyclicMod(intervalDiatonicInt, D_NUMBER),
+  const diatonicInterval: DInterval = DIntervals.fromInt(
+    cyclicMod(intervalDiatonicInt, DPitches.NUMBER),
   );
-  const intervalChromaticInt = MAJOR_SCALE_DEGREES[+pitch2.diatonic] + pitch2.alts
-  - (MAJOR_SCALE_DEGREES[+pitch1.diatonic] + pitch1.alts);
-  const chromaticInterval: ChromaticInterval = cyclicMod(intervalChromaticInt, C_NUMBER);
+  const intervalChromaticInt = CScales.MAJOR_SCALE_DEGREES[+pitch2.diatonic] + pitch2.alts
+  - (CScales.MAJOR_SCALE_DEGREES[+pitch1.diatonic] + pitch1.alts);
+  const chromaticInterval: ChromaticInterval = cyclicMod(intervalChromaticInt, CPitches.NUMBER);
 
   return fromIntervals( {
     chromaticInterval,

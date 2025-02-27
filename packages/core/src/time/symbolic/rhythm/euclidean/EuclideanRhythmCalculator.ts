@@ -1,6 +1,6 @@
 import { Arrays } from "@datune/utils";
 import { Array } from "../array";
-import { fromArray as patternFromArray, Pattern, reverse } from "../pattern";
+import { Patterns, Pattern } from "../pattern";
 
 type Group = Arrays.NonEmpty<0 | 1>;
 type Groups = Arrays.NonEmpty<Group>;
@@ -131,10 +131,10 @@ class EuclideanRhythmCalculator {
   private getRythm(): Pattern {
     const ret = EuclideanRhythmCalculator.concatenateGroups(this.groups);
     const a: Array = [...<Array>ret];
-    let retRythm = patternFromArray(...a);
+    let retRythm = Patterns.fromArray(...a);
 
     if (this.onNotes === this.totalNotes - 1)
-      retRythm = reverse(retRythm);
+      retRythm = Patterns.reverse(retRythm);
 
     return retRythm;
   }

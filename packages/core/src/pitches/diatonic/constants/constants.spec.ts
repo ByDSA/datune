@@ -1,5 +1,5 @@
-import { A, ALL, B, C, D, E, F, G, NUMBER } from ".";
 import Diatonic from "../Diatonic";
+import { A, ALL, B, C, D, E, F, G, NUMBER } from ".";
 
 it("valueOf()", () => {
   expect(C.valueOf()).toBe(0);
@@ -27,7 +27,7 @@ describe("sets", () => {
       expect(B).toBe(B);
     } );
 
-    it("defined ", () => {
+    it("defined", () => {
       expect(C).toBeDefined();
       expect(D).toBeDefined();
       expect(E).toBeDefined();
@@ -38,7 +38,7 @@ describe("sets", () => {
     } );
 
     it("all length=12", () => {
-      expect(ALL.length).toBe(7);
+      expect(ALL).toHaveLength(7);
     } );
 
     it("all values (unordered)", () => {

@@ -1,11 +1,12 @@
 import { Arrays } from "@datune/utils";
-import { Array as PitchArray, C, E, G } from "pitches/chromatic";
-import { TestInit } from "tests";
 import cache from "./cache";
+import { PitchArray, Pitches } from "pitches/chromatic";
+import { TestInit } from "tests";
 
 TestInit.chromaticChord();
+
 it("same instance", () => {
-  const pitches = [C, E, G] as PitchArray;
+  const pitches = [Pitches.C, Pitches.E, Pitches.G] as PitchArray;
   const pitchesDto = pitches.map((p) => +p) as Arrays.Number;
   const actual1 = cache.getOrCreate(pitchesDto);
   const actual2 = cache.getOrCreate(pitchesDto);

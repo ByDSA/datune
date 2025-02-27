@@ -1,6 +1,7 @@
-import { TestInit } from "tests";
-import { neg, sub } from ".";
 import { ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH, FOURTH, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH, TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } from "../constants";
+import { sub } from "./sub";
+import { neg } from "./neg";
+import { TestInit } from "tests";
 
 TestInit.diatonicInterval();
 
@@ -216,7 +217,7 @@ describe.each([
   } );
 } );
 
-describe("UNISON", () => {
+describe("uNISON", () => {
   it(`${UNISON} - ${UNISON} = ${UNISON}`, () => {
     const actual = sub(UNISON, UNISON);
 

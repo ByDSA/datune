@@ -3,7 +3,7 @@ export {
 } from "./cents";
 
 export {
-  Dto, hash as dtoHash,
+  Dto, dtoHash,
 } from "./dto";
 
 export {

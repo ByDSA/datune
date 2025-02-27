@@ -1,7 +1,7 @@
-import { neg as DNeg } from "intervals/diatonic";
-import from from "../building/intervalQuality";
+import { fromIntervalQuality } from "../building/intervalQuality";
 import Interval from "../Interval";
+import { Intervals as DIntervals } from "intervals/diatonic";
 
-export default function neg(obj: Interval): Interval {
-  return from(DNeg(obj.diatonicInterval), obj.quality) as Interval;
+export function neg(obj: Interval): Interval {
+  return fromIntervalQuality(DIntervals.neg(obj.diatonicInterval), obj.quality) as Interval;
 }

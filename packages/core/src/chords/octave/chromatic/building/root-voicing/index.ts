@@ -1,10 +1,10 @@
-import { Pitch, rootIntervals as pitchesRootIntervals } from "pitches/chromatic";
-import { Voicing } from "voicings/chromatic";
 import Chord from "../../Chord";
-import fromPitches from "../pitches";
+import { fromPitches } from "../pitches";
+import { Pitch, Pitches } from "pitches/chromatic";
+import { Voicing } from "voicings/chromatic";
 
-export default function fromRootVoicing(root: Pitch, voicing: Voicing): Chord {
-  const pitches = pitchesRootIntervals(root, voicing.rootIntervals);
+export function fromRootVoicing(root: Pitch, voicing: Voicing): Chord {
+  const pitches = Pitches.rootIntervals(root, voicing.rootIntervals);
 
   return fromPitches(...pitches);
 }

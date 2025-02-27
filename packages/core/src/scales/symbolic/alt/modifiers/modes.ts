@@ -1,7 +1,7 @@
-import Scale from "../Scale";
-import mode from "./mode";
+import { Scale } from "../Scale";
+import { mode } from "./mode";
 
-export default function modes(
+export function modes(
   obj: Scale,
 ): Scale[] {
   let scaleTmp: Scale = obj;

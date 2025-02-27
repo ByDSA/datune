@@ -1,8 +1,8 @@
-import { SPN } from "spns/chromatic";
-import cache from "../caching/cache";
-import ConcertPitch from "../ConcertPitch";
+import { cache } from "../caching/cache";
+import type ConcertPitch from "../ConcertPitch";
+import type { SPN } from "spns/chromatic";
 
-export default function fromFrequencySPN(
+export function fromFrequencySPN(
   frequency: number,
   spn: SPN,
 ): ConcertPitch {

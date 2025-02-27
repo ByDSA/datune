@@ -1,14 +1,15 @@
-/* eslint-disable camelcase */
-import { A as P_A, AA as P_AA, B as P_B, C as P_C, D as P_D, DD as P_DD, E as P_E, F as P_F, G as P_G, GG as P_GG } from "pitches/chromatic";
-import { BLUES_MINOR, MAJOR, ORIENTAL } from "scales/chromatic";
-import { TestInit } from "tests";
+import { fromRootScale } from "../building";
 import { C } from ".";
-import { from } from "../building";
+import { Pitches as P } from "pitches/chromatic";
+import { Scales } from "scales/chromatic";
+import { TestInit } from "tests";
 
 TestInit.chromaticKey();
+const { BLUES_MINOR, MAJOR, ORIENTAL } = Scales;
+
 describe.each([
-  [C, P_C, MAJOR],
-  [from(P_C, ORIENTAL), P_C, ORIENTAL],
+  [C, P.C, MAJOR],
+  [fromRootScale(P.C, ORIENTAL), P.C, ORIENTAL],
 ])("scales & root", (key, root, scale) => {
   const scaleName = String(scale);
   const rootName = String(root);
@@ -21,8 +22,8 @@ describe.each([
 } );
 
 describe.each([
-  [C, [P_C, P_D, P_E, P_F, P_G, P_A, P_B]],
-  [from(P_C, BLUES_MINOR), [P_C, P_DD, P_F, P_GG, P_AA],
+  [C, [P.C, P.D, P.E, P.F, P.G, P.A, P.B]],
+  [fromRootScale(P.C, BLUES_MINOR), [P.C, P.DD, P.F, P.GG, P.AA],
   ],
 ])("pitches", (key, expectedPitches) => {
   const keyName = String(key);
@@ -31,9 +32,9 @@ describe.each([
   it(`${keyName} => ${pitchesName}`, () => {
     const { pitches: actualPitches } = key;
 
-    expect(actualPitches.length).toBe(expectedPitches.length);
+    expect(actualPitches).toHaveLength(expectedPitches.length);
 
-    actualPitches.forEach((n, i) => {
+    actualPitches.forEach((_n, i) => {
       expect(actualPitches[i]).toBe(expectedPitches[i]);
     } );
   } );

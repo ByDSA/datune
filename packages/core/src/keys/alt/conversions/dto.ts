@@ -1,7 +1,7 @@
-import { Dto } from "../building";
-import Key from "../Key";
+import { Dto } from "../building/dto/Dto";
+import { Key } from "../Key";
 
-export default function toDto(obj: Key): Dto {
+export function toDto(obj: Key): Dto {
   return {
     root: obj.root,
     scale: obj.scale,

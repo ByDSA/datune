@@ -1,13 +1,13 @@
 import { StringHashCache } from "@datune/utils";
-import { hash as cpHash } from "concert-pitches/chromatic";
-import { hashCode as tHashCode } from "temperaments/chromatic";
-import Dto from "../building/Dto";
-import Tuning from "../Tuning";
+import type { Dto } from "../building/Dto";
+import { Tuning } from "../Tuning";
+import { hash as hashConcertPitches } from "concert-pitches/chromatic/caching/Dto";
+import { Temperaments } from "temperaments/chromatic";
 
-const cache = new StringHashCache<Tuning, Dto>( {
+export const cache = new StringHashCache<Tuning, Dto>( {
   hash(dto: Dto): string {
-    const concertPitchHashCode = cpHash(dto.concertPitch);
-    const temperamentHashCode = tHashCode(dto.temperament);
+    const concertPitchHashCode = hashConcertPitches(dto.concertPitch);
+    const temperamentHashCode = Temperaments.hashCode(dto.temperament);
 
     if (!concertPitchHashCode || !temperamentHashCode)
       throw new Error();
@@ -22,5 +22,3 @@ const cache = new StringHashCache<Tuning, Dto>( {
   },
   create: (Tuning as any).create,
 } );
-
-export default cache;

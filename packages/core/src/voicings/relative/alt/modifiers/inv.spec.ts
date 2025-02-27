@@ -1,9 +1,10 @@
-import { TestInit } from "tests";
 import { TRIAD_MAJOR } from "../constants";
 import Voicing from "../Voicing";
-import inv from "./inv";
+import { inv } from "./inv";
+import { TestInit } from "tests";
 
 TestInit.diatonicAltVoicing();
+
 describe.each([
   [TRIAD_MAJOR, 0, TRIAD_MAJOR],
   [TRIAD_MAJOR, 1, inv(TRIAD_MAJOR)],

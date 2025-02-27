@@ -1,4 +1,4 @@
-import { Array as IntervalArray } from "intervals/alt";
+import { IntervalArray } from "intervals/alt";
 
 type Dto = IntervalArray;
 

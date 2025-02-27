@@ -1,14 +1,14 @@
-import { Interval as DAInterval, toChromaticInterval } from "intervals/alt";
-import { Pitch as Chromatic, sub as Csub } from "pitches/chromatic";
-import { Pitch as Diatonic, sub as Dsub } from "pitches/diatonic";
 import DiatonicAltBuilder from "../building/builders/DiatonicAltBuilder";
 import toChromatic from "../conversions/chromatic";
 import Pitch from "../Pitch";
+import { Interval, Intervals } from "intervals/alt";
+import { Pitch as Chromatic, Pitches as CPitches } from "pitches/chromatic";
+import { Pitch as Diatonic, Pitches as DPitches } from "pitches/diatonic";
 
-export default function sub(obj: Pitch, interval: DAInterval): Pitch {
-  const diatonic: Diatonic = Dsub(obj.diatonic, interval.diatonicInterval);
-  const intervalChromaticInterval = toChromaticInterval(interval);
-  const chromatic: Chromatic = Csub(toChromatic(obj), intervalChromaticInterval);
+export function sub(obj: Pitch, interval: Interval): Pitch {
+  const diatonic: Diatonic = DPitches.sub(obj.diatonic, interval.diatonicInterval);
+  const intervalChromaticInterval = Intervals.toChromaticInterval(interval);
+  const chromatic: Chromatic = CPitches.sub(toChromatic(obj), intervalChromaticInterval);
 
   return <Pitch>DiatonicAltBuilder.create().setNote(chromatic)
     .setDiatonic(diatonic)

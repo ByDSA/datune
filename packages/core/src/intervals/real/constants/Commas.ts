@@ -1,8 +1,7 @@
-/* eslint-disable import/no-mutable-exports */
 import { lockr } from "@datune/utils/immutables";
 import { frac } from "@datune/utils/math";
 import { from } from "../building";
-import IntervalPitch from "../Interval";
+import Interval from "../Interval";
 
 export function initialize() {
   SYNTONIC_COMMA = from(frac(81, 80));
@@ -11,6 +10,6 @@ export function initialize() {
   lockr(PYTHAGOREAN_COMMA);
 }
 
-export let SYNTONIC_COMMA: IntervalPitch;
+export let SYNTONIC_COMMA: Interval;
 
-export let PYTHAGOREAN_COMMA: IntervalPitch;
+export let PYTHAGOREAN_COMMA: Interval;

@@ -1,6 +1,8 @@
 import PitchDto from "pitches/chromatic/caching/Dto";
 import ScaleDto from "scales/symbolic/chromatic/caching/Dto";
 
-type Dto = [PitchDto, ScaleDto];
+export type Dto = [PitchDto, ScaleDto];
 
-export default Dto;
+export function hashDto(obj: Dto): string {
+  return `${obj[1].join("-")}:${obj[0]}`;
+}

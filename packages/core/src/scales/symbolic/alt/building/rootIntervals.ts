@@ -1,12 +1,12 @@
-import { Array as IntervalArray, Interval, PERFECT_OCTAVE, sub } from "intervals/alt";
-import Scale from "../Scale";
-import fromIntraIntervals from "./intraIntervals";
+import { Scale } from "../Scale";
+import { fromIntraIntervals } from "./intraIntervals";
+import { IntervalArray, Interval, Intervals } from "intervals/alt";
 
-export default function fromRootIntervals(...rootIntervals: IntervalArray): Scale {
+export function fromRootIntervals(...rootIntervals: IntervalArray): Scale {
   const intraIntervals: Interval[] = [];
 
   for (let i = 1; i < rootIntervals.length; i++) {
-    const intraIntervalsI = sub(rootIntervals[i], rootIntervals[i - 1]) as Interval;
+    const intraIntervalsI = Intervals.sub(rootIntervals[i], rootIntervals[i - 1]) as Interval;
 
     intraIntervals.push(intraIntervalsI);
   }
@@ -19,5 +19,8 @@ export default function fromRootIntervals(...rootIntervals: IntervalArray): Scal
 }
 
 function getLastIntraInterval(rootIntervals: IntervalArray): Interval {
-  return sub(PERFECT_OCTAVE, rootIntervals[rootIntervals.length - 1]) as Interval;
+  return Intervals.sub(
+    Intervals.PERFECT_OCTAVE,
+    rootIntervals[rootIntervals.length - 1],
+  ) as Interval;
 }

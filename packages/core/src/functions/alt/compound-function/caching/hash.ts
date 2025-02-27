@@ -1,10 +1,10 @@
-import { hash as degreeHash } from "degrees/alt";
-import { hash as degreeFunctionHashCode } from "../../degree-function";
+import { hash as degreeFunctionHash } from "../../degree-function/caching";
 import Dto from "./Dto";
+import { Degrees } from "degrees/alt";
 
 export default function hash(obj: Dto): string {
-  const degreeFunction = degreeFunctionHashCode(obj.degreeFunction);
-  const degreeChain = obj.degreeChain.map(degreeHash).join("-");
+  const degreeFunction = degreeFunctionHash(obj.degreeFunction);
+  const degreeChain = obj.degreeChain.map(Degrees.hash).join("-");
 
   return `(${degreeFunction}|${degreeChain})`;
 }

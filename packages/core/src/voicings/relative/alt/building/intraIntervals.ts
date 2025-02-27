@@ -1,14 +1,14 @@
-import { add, Array as IntervalArray, PERFECT_UNISON } from "intervals/alt";
-import { Voicing } from "voicings/relative/alt";
-import fromRootIntervals from "./rootIntervals";
+import Voicing from "../Voicing";
+import { fromRootIntervals } from "./rootIntervals";
+import { IntervalArray, Intervals } from "intervals/alt";
 
-export default function fromIntraIntervals(
+export function fromIntraIntervals(
   ...intraIntervals: IntervalArray
 ): Voicing | null {
-  const baseIntervals: IntervalArray = [PERFECT_UNISON];
+  const baseIntervals: IntervalArray = [Intervals.PERFECT_UNISON];
 
   for (let i = 0; i < intraIntervals.length - 1; i++) {
-    const baseIntervalI = add(baseIntervals[baseIntervals.length - 1], intraIntervals[i]);
+    const baseIntervalI = Intervals.add(baseIntervals[baseIntervals.length - 1], intraIntervals[i]);
 
     if (baseIntervalI === null)
       return null;

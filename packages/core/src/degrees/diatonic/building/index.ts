@@ -1,12 +1,10 @@
-/* eslint-disable import/prefer-default-export */
-
 import { cyclicMod } from "@datune/utils";
-import { NUMBER as D_NUMBER } from "pitches/diatonic";
 import { I, II, III, IV, V, VI, VII } from "../constants";
 import Degree from "../Degree";
+import { Pitches } from "pitches/diatonic";
 
 export function fromInt(n: number): Degree {
-  const fixedInt = cyclicMod(n, D_NUMBER);
+  const fixedInt = cyclicMod(n, Pitches.NUMBER);
 
   switch (fixedInt) {
     case 0: return I;

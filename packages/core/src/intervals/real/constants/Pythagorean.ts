@@ -1,4 +1,3 @@
-/* eslint-disable import/no-mutable-exports */
 import { frac } from "@datune/utils/math";
 import { from } from "../building";
 import Interval from "../Interval";
@@ -55,7 +54,6 @@ export let MAJOR_SEVENTH: Interval;
 
 export let AUGMENTED_SEVENTH: Interval;
 
-// eslint-disable-next-line import/prefer-default-export
 export function initialize() {
   COMMA = from(frac(531441, 524288));
   AUGMENTED_UNISON = from(frac(2187, 2048));

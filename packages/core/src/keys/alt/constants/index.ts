@@ -1,37 +1,38 @@
-/* eslint-disable import/no-mutable-exports */
-import { A as P_A, AA as P_AA, B as P_B, C as P_C, CC as P_CC, D as P_D, DD as P_DD, E as P_E, F as P_F, FF as P_FF, G as P_G, GG as P_GG } from "pitches/alt";
-import { MAJOR, MINOR } from "scales/alt";
 import { from } from "../building";
-import Key from "../Key";
+import { Key } from "../Key";
+import { Pitches as P } from "pitches/alt";
+import { Scales } from "scales/alt";
 
 export function initialize() {
   if (C)
     throw new Error("Cannot initialize twice");
 
-  C = from(P_C, MAJOR);
-  CC = from(P_CC, MAJOR);
-  D = from(P_D, MAJOR);
-  DD = from(P_DD, MAJOR);
-  E = from(P_E, MAJOR);
-  F = from(P_F, MAJOR);
-  FF = from(P_FF, MAJOR);
-  G = from(P_G, MAJOR);
-  GG = from(P_GG, MAJOR);
-  A = from(P_A, MAJOR);
-  AA = from(P_AA, MAJOR);
-  B = from(P_B, MAJOR);
-  Cm = from(P_C, MINOR);
-  CCm = from(P_CC, MINOR);
-  Dm = from(P_D, MINOR);
-  DDm = from(P_DD, MINOR);
-  Em = from(P_E, MINOR);
-  Fm = from(P_F, MINOR);
-  FFm = from(P_FF, MINOR);
-  Gm = from(P_G, MINOR);
-  GGm = from(P_GG, MINOR);
-  Am = from(P_A, MINOR);
-  AAm = from(P_AA, MINOR);
-  Bm = from(P_B, MINOR);
+  const { MAJOR, MINOR } = Scales;
+
+  C = from(P.C, MAJOR);
+  CC = from(P.CC, MAJOR);
+  D = from(P.D, MAJOR);
+  DD = from(P.DD, MAJOR);
+  E = from(P.E, MAJOR);
+  F = from(P.F, MAJOR);
+  FF = from(P.FF, MAJOR);
+  G = from(P.G, MAJOR);
+  GG = from(P.GG, MAJOR);
+  A = from(P.A, MAJOR);
+  AA = from(P.AA, MAJOR);
+  B = from(P.B, MAJOR);
+  Cm = from(P.C, MINOR);
+  CCm = from(P.CC, MINOR);
+  Dm = from(P.D, MINOR);
+  DDm = from(P.DD, MINOR);
+  Em = from(P.E, MINOR);
+  Fm = from(P.F, MINOR);
+  FFm = from(P.FF, MINOR);
+  Gm = from(P.G, MINOR);
+  GGm = from(P.GG, MINOR);
+  Am = from(P.A, MINOR);
+  AAm = from(P.AA, MINOR);
+  Bm = from(P.B, MINOR);
 }
 
 export let C: Key;

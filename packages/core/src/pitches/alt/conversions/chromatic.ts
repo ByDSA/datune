@@ -1,9 +1,9 @@
-import { fromInt as chromaticFromInt } from "pitches/chromatic";
-import { toChromatic as diatonicToChromatic } from "pitches/diatonic";
 import Pitch from "../Pitch";
+import { Pitches as CPitches } from "pitches/chromatic";
+import { Pitches as DPitches } from "pitches/diatonic";
 
 export default function toChromatic(obj: Pitch) {
-  const intValue = +diatonicToChromatic(obj.diatonic) + obj.alts;
+  const intValue = +DPitches.toChromatic(obj.diatonic) + obj.alts;
 
-  return chromaticFromInt(intValue);
+  return CPitches.fromInt(intValue);
 }

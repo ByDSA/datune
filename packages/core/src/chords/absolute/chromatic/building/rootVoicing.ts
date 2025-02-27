@@ -1,13 +1,13 @@
-import { add as shift, Array as SPNArray, SPN } from "spns/chromatic";
+import { SPNs, SPNArray, SPN } from "spns/chromatic";
 import { Voicing } from "voicings/chromatic";
-import SPNChord from "../Chord";
+import { SPNChord } from "../Chord";
 import fromSPNs from "./spns";
 
 export default (base: SPN, voicing: Voicing): SPNChord | null => {
   const notes: SPN[] = [];
 
   for (const rootInterval of voicing) {
-    const shiftedSPN = shift(base, rootInterval);
+    const shiftedSPN = SPNs.add(base, rootInterval);
 
     if (!shiftedSPN)
       return null;

@@ -1,10 +1,10 @@
-import { hash as degreeHash } from "degrees/alt";
-import { hash as voicingHash } from "voicings/alt";
+import { Degrees } from "degrees/alt";
+import { Voicings } from "voicings/alt";
 import Dto from "./Dto";
 
 export default function hash(obj: Dto): string {
-  const voicingHashCode = voicingHash(obj.voicing);
-  const degreeHashCode = degreeHash(obj.degree);
+  const voicingHashCode = Voicings.hash(obj.voicing);
+  const degreeHashCode = Degrees.hash(obj.degree);
 
   return `(${degreeHashCode})|(${voicingHashCode})`;
 }

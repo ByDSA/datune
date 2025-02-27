@@ -1,9 +1,18 @@
-export * from "./building";
+import * as Building from "./building";
 
-export * from "./constants";
+import * as Constants from "./constants";
 
-export * from "./modifiers";
+import * as Modifiers from "./modifiers";
+
+import { default as Pattern } from "./Pattern";
+
+const Patterns = {
+  ...Building,
+  ...Constants,
+  ...Modifiers,
+};
 
 export {
-  default as Pattern,
-} from "./Pattern";
+  Pattern,
+  Patterns,
+};

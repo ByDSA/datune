@@ -1,6 +1,6 @@
-import { SPN } from "spns/chromatic";
 import RealPitch from "../../spns/real/RealPitch";
-import { Dto } from "./caching";
+import type { Dto } from "./caching/Dto";
+import { SPN } from "spns/chromatic";
 
 export default class ConcertPitch implements RealPitch {
   frequency: number;

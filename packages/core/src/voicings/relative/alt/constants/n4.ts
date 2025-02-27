@@ -1,39 +1,40 @@
 /* eslint-disable camelcase */
-/* eslint-disable import/no-mutable-exports */
-import { CV_SEVENTH, CV_SEVENTH_a5, CV_SEVENTH_b5, CV_SEVENTH_MAJ7, CV_SEVENTH_MAJ7_b5, CV_SEVENTH_MINOR, CV_SEVENTH_MINOR_a5, CV_SEVENTH_MINOR_b5, CV_SEVENTH_MINOR_MAJ7, CV_SEVENTH_SUS4, CV_SEVENTH_SUS4_b9, CV_SIXTH, CV_SIXTH_MINOR, CV_SIXTH_SUS4, DV_NINTH_SUS4, DV_SEVENTH, DV_SEVENTH_SUS4, DV_SIXTH } from "voicings";
-import { fromVoicings } from "../building";
-import { inv } from "../modifiers";
+
+import { fromVoicings } from "../building/voicings";
+import { inv } from "../modifiers/inv";
 import Voicing from "../Voicing";
 import { map } from "./inversionMap";
+import { Voicings as DV } from "voicings/diatonic";
+import { Voicings as CV } from "voicings/chromatic";
 
 export function initializeN4() {
-  SEVENTH = fromVoicings(CV_SEVENTH, DV_SEVENTH) as Voicing;
+  SEVENTH = fromVoicings(CV.SEVENTH, DV.SEVENTH) as Voicing;
 
-  SEVENTH_b5 = fromVoicings(CV_SEVENTH_b5, DV_SEVENTH) as Voicing;
+  SEVENTH_b5 = fromVoicings(CV.SEVENTH_b5, DV.SEVENTH) as Voicing;
 
-  SEVENTH_MAJ7_b5 = fromVoicings(CV_SEVENTH_MAJ7_b5, DV_SEVENTH) as Voicing;
+  SEVENTH_MAJ7_b5 = fromVoicings(CV.SEVENTH_MAJ7_b5, DV.SEVENTH) as Voicing;
 
-  SEVENTH_a5 = fromVoicings(CV_SEVENTH_a5, DV_SEVENTH) as Voicing;
+  SEVENTH_a5 = fromVoicings(CV.SEVENTH_a5, DV.SEVENTH) as Voicing;
 
-  SEVENTH_SUS4 = fromVoicings(CV_SEVENTH_SUS4, DV_SEVENTH_SUS4) as Voicing;
+  SEVENTH_SUS4 = fromVoicings(CV.SEVENTH_SUS4, DV.SEVENTH_SUS4) as Voicing;
 
-  SEVENTH_SUS4_b9 = fromVoicings(CV_SEVENTH_SUS4_b9, DV_NINTH_SUS4) as Voicing;
+  SEVENTH_SUS4_b9 = fromVoicings(CV.SEVENTH_SUS4_b9, DV.NINTH_SUS4) as Voicing;
 
-  SEVENTH_MINOR = fromVoicings(CV_SEVENTH_MINOR, DV_SEVENTH) as Voicing;
+  SEVENTH_MINOR = fromVoicings(CV.SEVENTH_MINOR, DV.SEVENTH) as Voicing;
 
-  SIXTH = fromVoicings(CV_SIXTH, DV_SIXTH) as Voicing;
+  SIXTH = fromVoicings(CV.SIXTH, DV.SIXTH) as Voicing;
 
-  SEVENTH_MINOR_b5 = fromVoicings(CV_SEVENTH_MINOR_b5, DV_SEVENTH) as Voicing;
+  SEVENTH_MINOR_b5 = fromVoicings(CV.SEVENTH_MINOR_b5, DV.SEVENTH) as Voicing;
 
-  SIXTH_MINOR = fromVoicings(CV_SIXTH_MINOR, DV_SIXTH) as Voicing;
+  SIXTH_MINOR = fromVoicings(CV.SIXTH_MINOR, DV.SIXTH) as Voicing;
 
-  SEVENTH_MINOR_a5 = fromVoicings(CV_SEVENTH_MINOR_a5, DV_SEVENTH) as Voicing;
+  SEVENTH_MINOR_a5 = fromVoicings(CV.SEVENTH_MINOR_a5, DV.SEVENTH) as Voicing;
 
-  SIXTH_SUS4 = fromVoicings(CV_SIXTH_SUS4, DV_SIXTH) as Voicing;
+  SIXTH_SUS4 = fromVoicings(CV.SIXTH_SUS4, DV.SIXTH) as Voicing;
 
-  SEVENTH_MAJ7 = fromVoicings(CV_SEVENTH_MAJ7, DV_SEVENTH) as Voicing;
+  SEVENTH_MAJ7 = fromVoicings(CV.SEVENTH_MAJ7, DV.SEVENTH) as Voicing;
 
-  SEVENTH_MINOR_MAJ7 = fromVoicings(CV_SEVENTH_MINOR_MAJ7, DV_SEVENTH) as Voicing;
+  SEVENTH_MINOR_MAJ7 = fromVoicings(CV.SEVENTH_MINOR_MAJ7, DV.SEVENTH) as Voicing;
 
   initializeInversions();
 }

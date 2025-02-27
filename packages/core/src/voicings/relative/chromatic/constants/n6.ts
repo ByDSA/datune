@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-/* eslint-disable import/no-mutable-exports */
-import fromRootIntervals from "../building/rootIntervals";
+
+import { fromRootIntervals } from "../building/rootIntervals";
 import Voicing from "../Voicing";
 
 export function initializeN6() {

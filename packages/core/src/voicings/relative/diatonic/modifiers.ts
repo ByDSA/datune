@@ -1,18 +1,16 @@
-/* eslint-disable import/prefer-default-export */
-
 import { Arrays } from "@datune/utils";
-import { NUMBER } from "pitches/diatonic";
 import { fromRootIntervalInts } from "./building";
 import Voicing from "./DiatonicVoicing";
+import { Pitches } from "pitches/diatonic";
 
 export function inv(obj: Voicing, n: number = 1): Voicing {
   let { rootIntervalInts } = obj;
 
   for (let i = 0; i < n; i++) {
     const firstValueBeforeShift = <number>rootIntervalInts.shift();
-    const firstValueAfterShift = rootIntervalInts[0];
+    const [firstValueAfterShift] = rootIntervalInts;
 
-    rootIntervalInts.push(firstValueBeforeShift + NUMBER);
+    rootIntervalInts.push(firstValueBeforeShift + Pitches.NUMBER);
     rootIntervalInts = <Arrays.Number>rootIntervalInts.map(
       (value: number) => value - firstValueAfterShift,
     );

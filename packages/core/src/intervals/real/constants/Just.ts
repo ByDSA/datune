@@ -1,4 +1,3 @@
-/* eslint-disable import/no-mutable-exports */
 import { frac } from "@datune/utils/math";
 import { from } from "../building";
 import Interval from "../Interval";

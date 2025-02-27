@@ -1,10 +1,11 @@
-import { TestInit } from "tests";
 import { AUGMENTED_FOURTH, AUGMENTED_SEVENTH, DIMINISHED_FIFTH, DIMINISHED_NINTH, DIMINISHED_SEVENTH, MINOR_THIRD, PERFECT_UNISON } from "../constants";
 import Interval from "../Interval";
-import mult from "./mult";
-import neg from "./neg";
+import { mult } from "./mult";
+import { neg } from "./neg";
+import { TestInit } from "tests";
 
 TestInit.diatonicAltInterval();
+
 describe.each([
   [MINOR_THIRD, 1, MINOR_THIRD],
   [MINOR_THIRD, 2, DIMINISHED_FIFTH],

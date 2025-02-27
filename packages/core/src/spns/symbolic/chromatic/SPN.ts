@@ -1,8 +1,8 @@
-import { NUMBER, Pitch as OctavePitch, Pitch } from "pitches/chromatic";
 import ISPN from "../SPN";
-import { Dto } from "./building";
+import { Dto } from "./building/dto/Dto";
+import { Pitches, Pitch } from "pitches/chromatic";
 
-export default class SPN implements ISPN<OctavePitch> {
+export class SPN implements ISPN<Pitch> {
   pitch: Pitch;
 
   octave: number;
@@ -13,7 +13,7 @@ export default class SPN implements ISPN<OctavePitch> {
   }
 
   valueOf(): number {
-    return +this.pitch + this.octave * NUMBER;
+    return +this.pitch + (this.octave * Pitches.NUMBER);
   }
 
   toString(): string {

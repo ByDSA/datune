@@ -1,53 +1,53 @@
 /* eslint-disable camelcase */
-import { CV_THIRTEENTH_a5, CV_THIRTEENTH_a5a9, CV_THIRTEENTH_a5b9, CV_THIRTEENTH_a9, CV_THIRTEENTH_b5, CV_THIRTEENTH_b5a9, CV_THIRTEENTH_b5b9, CV_THIRTEENTH_b9, CV_THIRTEENTH_MAJ13, CV_THIRTEENTH_MAJ13_a5, CV_THIRTEENTH_MAJ13_a5a9, CV_THIRTEENTH_MAJ13_a5b9, CV_THIRTEENTH_MAJ13_a9, CV_THIRTEENTH_MAJ13_b5, CV_THIRTEENTH_MAJ13_b5a9, CV_THIRTEENTH_MAJ13_b5b9, CV_THIRTEENTH_MAJ13_b9, CV_THIRTEENTH_MINOR, CV_THIRTEENTH_MINOR_MAJ13, CV_THIRTEENTH_SUS4, DV_THIRTEENTH, DV_THIRTEENTH_SUS4 } from "voicings";
-import { fromVoicings } from "../building";
-import { inv } from "../modifiers";
+import { fromVoicings } from "../building/voicings";
+import { inv } from "../modifiers/inv";
 import Voicing from "../Voicing";
 import { map } from "./inversionMap";
+import { Voicings as DV } from "voicings/diatonic";
+import { Voicings as CV } from "voicings/chromatic";
 
-/* eslint-disable import/no-mutable-exports */
 export function initializeN7() {
-  THIRTEENTH_MAJ13 = fromVoicings(CV_THIRTEENTH_MAJ13, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_MAJ13 = fromVoicings(CV.THIRTEENTH_MAJ13, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_MINOR = fromVoicings(CV_THIRTEENTH_MINOR, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_MINOR = fromVoicings(CV.THIRTEENTH_MINOR, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_SUS4 = fromVoicings(CV_THIRTEENTH_SUS4, DV_THIRTEENTH_SUS4) as Voicing;
+  THIRTEENTH_SUS4 = fromVoicings(CV.THIRTEENTH_SUS4, DV.THIRTEENTH_SUS4) as Voicing;
 
-  THIRTEENTH_b5 = fromVoicings(CV_THIRTEENTH_b5, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_b5 = fromVoicings(CV.THIRTEENTH_b5, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_a5 = fromVoicings(CV_THIRTEENTH_a5, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_a5 = fromVoicings(CV.THIRTEENTH_a5, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_MAJ13_b9 = fromVoicings(CV_THIRTEENTH_MAJ13_b9, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_MAJ13_b9 = fromVoicings(CV.THIRTEENTH_MAJ13_b9, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_MAJ13_a9 = fromVoicings(CV_THIRTEENTH_MAJ13_a9, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_MAJ13_a9 = fromVoicings(CV.THIRTEENTH_MAJ13_a9, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_b9 = fromVoicings(CV_THIRTEENTH_b9, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_b9 = fromVoicings(CV.THIRTEENTH_b9, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_a9 = fromVoicings(CV_THIRTEENTH_a9, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_a9 = fromVoicings(CV.THIRTEENTH_a9, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_MAJ13_a5a9 = fromVoicings(CV_THIRTEENTH_MAJ13_a5a9, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_MAJ13_a5a9 = fromVoicings(CV.THIRTEENTH_MAJ13_a5a9, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_b5b9 = fromVoicings(CV_THIRTEENTH_b5b9, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_b5b9 = fromVoicings(CV.THIRTEENTH_b5b9, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_b5a9 = fromVoicings(CV_THIRTEENTH_b5a9, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_b5a9 = fromVoicings(CV.THIRTEENTH_b5a9, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_a5b9 = fromVoicings(CV_THIRTEENTH_a5b9, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_a5b9 = fromVoicings(CV.THIRTEENTH_a5b9, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_a5a9 = fromVoicings(CV_THIRTEENTH_a5a9, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_a5a9 = fromVoicings(CV.THIRTEENTH_a5a9, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_MINOR_MAJ13 = fromVoicings(CV_THIRTEENTH_MINOR_MAJ13, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_MINOR_MAJ13 = fromVoicings(CV.THIRTEENTH_MINOR_MAJ13, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_MAJ13_b5 = fromVoicings(CV_THIRTEENTH_MAJ13_b5, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_MAJ13_b5 = fromVoicings(CV.THIRTEENTH_MAJ13_b5, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_MAJ13_a5 = fromVoicings(CV_THIRTEENTH_MAJ13_a5, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_MAJ13_a5 = fromVoicings(CV.THIRTEENTH_MAJ13_a5, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_MAJ13_a5 = fromVoicings(CV_THIRTEENTH_MAJ13_b9, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_MAJ13_b9 = fromVoicings(CV.THIRTEENTH_MAJ13_b9, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_MAJ13_b5b9 = fromVoicings(CV_THIRTEENTH_MAJ13_b5b9, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_MAJ13_b5b9 = fromVoicings(CV.THIRTEENTH_MAJ13_b5b9, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_MAJ13_b5a9 = fromVoicings(CV_THIRTEENTH_MAJ13_b5a9, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_MAJ13_b5a9 = fromVoicings(CV.THIRTEENTH_MAJ13_b5a9, DV.THIRTEENTH) as Voicing;
 
-  THIRTEENTH_MAJ13_a5b9 = fromVoicings(CV_THIRTEENTH_MAJ13_a5b9, DV_THIRTEENTH) as Voicing;
+  THIRTEENTH_MAJ13_a5b9 = fromVoicings(CV.THIRTEENTH_MAJ13_a5b9, DV.THIRTEENTH) as Voicing;
 
   initializeInversions();
 }

@@ -1,7 +1,7 @@
-import { betweenNext, simplify } from "intervals/chromatic";
-import { Pitch } from "pitches/chromatic";
-import { SPN } from "spns/chromatic";
-import Tuning from "../Tuning";
+import type { Tuning } from "../Tuning";
+import { Intervals } from "intervals/chromatic";
+import type { Pitch } from "pitches/chromatic";
+import type { SPN } from "spns/chromatic";
 
 class FrequencyCalculator {
   private pitch?: Pitch;
@@ -29,8 +29,8 @@ class FrequencyCalculator {
   calc(): number {
     this.pitch = this.spn.pitch;
     this.root = this.tuning.concertPitch.spn.pitch;
-    const interval = betweenNext(this.root, this.pitch);
-    const intervalSimple = simplify(interval);
+    const interval = Intervals.betweenNext(this.root, this.pitch);
+    const intervalSimple = Intervals.simplify(interval);
     const ratioNumber = +this.tuning.temperament(intervalSimple).ratio;
     const distOctave = this.getDistOctave(this.root, this.pitch);
 
@@ -38,6 +38,6 @@ class FrequencyCalculator {
   }
 }
 
-export default function calculate(tuning: Tuning, spn: SPN): number {
+export function calcFrequency(tuning: Tuning, spn: SPN): number {
   return new FrequencyCalculator(tuning, spn).calc();
 }

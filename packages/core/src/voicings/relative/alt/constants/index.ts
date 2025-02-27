@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable import/no-mutable-exports */
 import { initializeN2 } from "./n2";
 import { initializeN3 } from "./n3";
 import { initializeN4 } from "./n4";

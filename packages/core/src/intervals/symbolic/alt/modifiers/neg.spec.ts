@@ -1,31 +1,33 @@
-import { neg as DNeg } from "intervals/diatonic";
-import { TestInit } from "tests";
-import { AUGMENTED_FIFTH, AUGMENTED_FOURTH, DIMINISHED_FIFTH, MAJOR_SECOND, MAJOR_SEVENTH, MAJOR_SIXTH, MAJOR_THIRD, MINOR_SECOND, MINOR_SEVENTH, MINOR_SIXTH, MINOR_THIRD, PERFECT_FOURTH, PERFECT_OCTAVE, PERFECT_UNISON } from "../constants";
+import * as C from "../constants";
 import Interval from "../Interval";
-import neg from "./neg";
-
+import { neg } from "./neg";
+import { TestInit } from "tests";
+import { neg as DIntervalsNeg } from "intervals/symbolic/diatonic/modifiers/neg";
 TestInit.diatonicAltInterval();
+
 describe.each([
-  MINOR_SECOND,
-  MAJOR_SECOND,
-  MINOR_THIRD,
-  MAJOR_THIRD,
-  PERFECT_FOURTH,
-  AUGMENTED_FOURTH,
-  DIMINISHED_FIFTH,
-  AUGMENTED_FIFTH,
-  MINOR_SIXTH,
-  MAJOR_SIXTH,
-  MINOR_SEVENTH,
-  MAJOR_SEVENTH,
-  PERFECT_OCTAVE,
-])("tests", (interval: Interval) => {
+  ()=>C.MINOR_SECOND,
+  ()=>C.MAJOR_SECOND,
+  ()=>C.MINOR_THIRD,
+  ()=>C.MAJOR_THIRD,
+  ()=>C.PERFECT_FOURTH,
+  ()=>C.AUGMENTED_FOURTH,
+  ()=>C.DIMINISHED_FIFTH,
+  ()=>C.AUGMENTED_FIFTH,
+  ()=>C.MINOR_SIXTH,
+  ()=>C.MAJOR_SIXTH,
+  ()=>C.MINOR_SEVENTH,
+  ()=>C.MAJOR_SEVENTH,
+  ()=>C.PERFECT_OCTAVE,
+])("tests", (getInterval: ()=> Interval) => {
+  const interval = getInterval();
+
   it(`same diatonicInterval but negative: ${String(interval)}`, () => {
     const negative = neg(interval);
     const negativeDiatonicInterval = negative.diatonicInterval;
     const positiveDiatonicInterval = interval.diatonicInterval;
 
-    expect(DNeg(negativeDiatonicInterval)).toBe(positiveDiatonicInterval);
+    expect(DIntervalsNeg(negativeDiatonicInterval)).toBe(positiveDiatonicInterval);
   } );
 
   it(`same quality: ${String(interval)}`, () => {
@@ -35,6 +37,7 @@ describe.each([
 
     expect(negativeQuality).toBe(positiveQuality);
   } );
+
   it(`reversible ${String(interval)}`, () => {
     const negative = neg(interval);
     const doubleNegative = neg(negative);
@@ -43,16 +46,20 @@ describe.each([
   } );
 } );
 
-describe("P1", () => {
-  const interval = PERFECT_UNISON;
+describe("p1", () => {
+  it(`same diatonicInterval: ${String(C.PERFECT_UNISON)}`, () => {
+    const interval = C.PERFECT_UNISON;
 
-  it(`same diatonicInterval: ${String(interval)}`, () => {
+    expect(interval).toBeDefined();
+
     const negative = neg(interval);
     const negativeDiatonicInterval = negative.diatonicInterval;
     const positiveDiatonicInterval = interval.diatonicInterval;
 
     expect(negativeDiatonicInterval).toBe(positiveDiatonicInterval);
   } );
+
+  const interval = C.PERFECT_UNISON;
 
   it(`same quality: ${String(interval)}`, () => {
     const negative = neg(interval);
@@ -61,6 +68,7 @@ describe("P1", () => {
 
     expect(negativeQuality).toBe(positiveQuality);
   } );
+
   it(`reversible ${String(interval)}`, () => {
     const negative = neg(interval);
     const doubleNegative = neg(negative);

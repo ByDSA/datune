@@ -1,8 +1,6 @@
-/* eslint-disable import/no-mutable-exports */
-import fromRootIntervals from "../building/rootIntervals";
+import { fromRootIntervals } from "../building/rootIntervals";
 import Voicing from "../Voicing";
 
-/* eslint-disable import/prefer-default-export */
 export function initializeN2() {
   MINOR_SECOND = fromRootIntervals(0, 1);
   MAJOR_SECOND = fromRootIntervals(0, 2);

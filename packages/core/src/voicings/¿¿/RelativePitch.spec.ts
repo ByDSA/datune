@@ -1,22 +1,24 @@
-/* eslint-disable camelcase */
-import { Bb as DA_Bb } from "pitches/alt";
-import { C as C_C } from "pitches/chromatic";
-import RelativePitch from "./RelativePitch";
+import { RelativePitch } from "./RelativePitch";
+import { Pitches as DAP } from "pitches/alt";
+import { Pitches as CP } from "pitches/chromatic";
+import { TestInit } from "tests";
+
+TestInit.diatonicAlt();
 
 it("from - C 0", () => {
-  const degree = C_C;
+  const pitch = CP.C;
   const octaveRelative = 0;
-  const actual = RelativePitch.from(degree, octaveRelative);
+  const actual = RelativePitch.from(pitch, octaveRelative);
 
   expect(actual.octaveRelative).toEqual(octaveRelative);
-  expect(actual.pitch).toEqual(degree);
+  expect(actual.pitch).toEqual(pitch);
 } );
 
 it("from - Bb 2", () => {
-  const degree = DA_Bb;
+  const pitch = DAP.Bb;
   const octaveRelative = 2;
-  const actual = RelativePitch.from(degree, octaveRelative);
+  const actual = RelativePitch.from(pitch, octaveRelative);
 
   expect(actual.octaveRelative).toEqual(octaveRelative);
-  expect(actual.pitch).toEqual(degree);
+  expect(actual.pitch).toEqual(pitch);
 } );

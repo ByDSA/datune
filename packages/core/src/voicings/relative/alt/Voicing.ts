@@ -1,6 +1,6 @@
 import { lockr } from "@datune/utils/immutables";
-import { Array as IntervalArray, Interval } from "intervals/alt";
 import Voicing from "../Voicing";
+import { IntervalArray, Interval } from "intervals/alt";
 
 export default class DiatonicAltVoicing implements Voicing<Interval> {
   rootIntervals: IntervalArray;

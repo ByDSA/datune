@@ -1,12 +1,10 @@
-/* eslint-disable camelcase */
 export {
-  Array as DiatonicAltArray,
-  Chord as DiatonicAlt,
+  ChordArray as DiatonicAltChordArray,
+  Chord as DiatonicAltChord,
 } from "./alt";
 
 export {
-  Array as ChromaticArray,
-  Chord as Chromatic,
+  Chord as ChromaticChord,
 } from "./chromatic";
 
 export {

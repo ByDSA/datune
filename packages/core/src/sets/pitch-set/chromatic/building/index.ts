@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { Array as PitchArray, Pitch } from "pitches/chromatic";
+import { PitchArray as PitchArray, Pitch } from "pitches/chromatic";
 import cache from "../caching/cache";
 import NoteSet from "../NoteSet";
 

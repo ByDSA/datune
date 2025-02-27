@@ -1,14 +1,14 @@
 import { ProcessCache } from "@datune/utils";
-import { Pitch as Chromatic } from "pitches/chromatic";
 import Pitch from "../Pitch";
 import Builder from "./builders/DiatonicAltBuilder";
+import { Pitch as CPitch } from "pitches/chromatic";
 
-export default function fromNote(c: Chromatic): Pitch {
+export function fromChromatic(c: CPitch): Pitch {
   return cache.getOrProcess(c);
 }
 
-const cache = new ProcessCache<Chromatic, Pitch>(
-  (c: Chromatic) => Builder.create()
+const cache = new ProcessCache<CPitch, Pitch>(
+  (c: CPitch) => Builder.create()
     .setNote(c)
     .build() as Pitch,
 );

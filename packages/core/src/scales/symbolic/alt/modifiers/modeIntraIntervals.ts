@@ -1,9 +1,9 @@
 import { Arrays } from "@datune/utils";
-import { Array as IntervalArray } from "intervals/alt";
-import Scale from "../Scale";
-import calcIntraIntervals from "./intraIntervals";
+import { Scale } from "../Scale";
+import { calcIntraIntervals } from "./intraIntervals";
+import { IntervalArray } from "intervals/alt";
 
-export default function getModeIntraIntervals(
+export function getModeIntraIntervals(
   obj: Scale,
   n: number,
 ): IntervalArray {

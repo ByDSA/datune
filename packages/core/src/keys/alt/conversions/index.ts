@@ -1,14 +1,14 @@
-import { dtoHash } from "../building";
-import Key from "../Key";
+import { hash as dtoHash } from "../building/dto/Dto";
+import { Key } from "../Key";
 
-export function hashCode(obj: Key): string {
+export function hash(obj: Key): string {
   return dtoHash(obj);
 }
 
 export {
-  default as toChromatic,
+  toChromatic,
 } from "./chromatic";
 
 export {
-  default as toDto,
+  toDto,
 } from "./dto";

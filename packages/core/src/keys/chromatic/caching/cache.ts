@@ -1,13 +1,11 @@
 import { StringHashCache } from "@datune/utils";
-import Key from "../Key";
-import Dto from "./Dto";
-import hash from "./hash";
-import toDto from "./toDto";
+import { Key } from "../Key";
+import { Dto } from "./Dto";
+import { hashDto } from "./Dto";
+import { toDto } from "./toDto";
 
-const cache = new StringHashCache<Key, Dto>( {
-  hash,
+export const cache = new StringHashCache<Key, Dto>( {
+  hash: hashDto,
   toDto,
   create: (dto: Dto) => new (Key as any)(dto),
 } );
-
-export default cache;

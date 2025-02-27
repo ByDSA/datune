@@ -1,13 +1,11 @@
-/* eslint-disable import/prefer-default-export */
-
 import { cyclicMod } from "@datune/utils";
-import { Array as ChromaticIntervalArray, Interval as ChromaticInterval, Interval } from "intervals/chromatic";
-import { NUMBER } from "pitches/chromatic";
-import { fromRootIntervals } from "../building";
+import { fromRootIntervals } from "../building/rootIntervals";
 import Voicing from "../Voicing";
+import { IntervalArray, Interval } from "intervals/chromatic";
+import { Pitches } from "pitches/chromatic";
 
 export function inv(obj: Voicing, n: number = 1): Voicing {
-  let values: ChromaticIntervalArray = [...obj.rootIntervals] as ChromaticIntervalArray;
+  let values: IntervalArray = [...obj.rootIntervals] as IntervalArray;
   const nFixed = cyclicMod(n, obj.length);
 
   for (let i = 0; i < nFixed; i++) {
@@ -16,9 +14,9 @@ export function inv(obj: Voicing, n: number = 1): Voicing {
 
     firstRootInterval = getFixedOctaveRootInterval(lastRootInterval, firstRootInterval);
     values.push(firstRootInterval);
-    values = <ChromaticIntervalArray>values.map(
-      // eslint-disable-next-line no-loop-func
-      (value: ChromaticInterval) => value - values[0],
+    values = <IntervalArray>values.map(
+
+      (value: Interval) => value - values[0],
     );
   }
 
@@ -26,12 +24,12 @@ export function inv(obj: Voicing, n: number = 1): Voicing {
 }
 
 function getFixedOctaveRootInterval(lastRootInterval: Interval, rootInterval: Interval): number {
-  const rootIntervalInOneOctave = rootInterval % NUMBER;
-  const lastRootIntervalOctave = Math.floor(lastRootInterval / NUMBER);
-  let ret = lastRootIntervalOctave * NUMBER + rootIntervalInOneOctave;
+  const rootIntervalInOneOctave = rootInterval % Pitches.NUMBER;
+  const lastRootIntervalOctave = Math.floor(lastRootInterval / Pitches.NUMBER);
+  let ret = lastRootIntervalOctave * Pitches.NUMBER + rootIntervalInOneOctave;
 
   if (ret < lastRootInterval)
-    ret += NUMBER;
+    ret += Pitches.NUMBER;
 
   return ret;
 }

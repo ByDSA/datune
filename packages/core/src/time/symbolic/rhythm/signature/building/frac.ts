@@ -1,4 +1,4 @@
-import { from as musicalDurationFrom } from "../../../musical-duration";
+import { from as musicalDurationFrom } from "../../../musical-duration/building/from";
 import cache from "../caching/cache";
 
 export default function fromFrac(n: number, d: number = 4) {

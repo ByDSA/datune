@@ -1,23 +1,24 @@
 import { cyclicMod } from "@datune/utils";
-import { NUMBER, Pitch } from "pitches/chromatic";
-import { SPN } from "spns/chromatic";
 import { PERFECT_OCTAVE } from "../constants";
 import Interval from "../Interval";
+import { default as Pitch } from "pitches/chromatic/Pitch";
+import { NUMBER as CNUMBER } from "pitches/chromatic/constants";
+import type { SPN } from "spns/symbolic/chromatic/SPN";
 
 export function between(n1: Pitch, n2: Pitch): Interval {
   const ret = +n2 - +n1;
 
   if (ret > 6)
-    return ret - NUMBER;
+    return ret - CNUMBER;
 
   if (ret <= -6)
-    return ret + NUMBER;
+    return ret + CNUMBER;
 
   return ret;
 }
 
 export function betweenNext(n1: Pitch, n2: Pitch): Interval {
-  const ret = cyclicMod(+n2 - +n1, NUMBER);
+  const ret = cyclicMod(+n2 - +n1, CNUMBER);
 
   if (ret === 0)
     return PERFECT_OCTAVE;

@@ -1,9 +1,9 @@
-import { Array as IntervalArray } from "intervals/alt";
 import Array from "../Array";
 import Pitch from "../Pitch";
-import add from "./add";
+import { add } from "./add";
+import { IntervalArray } from "intervals/alt";
 
-export default function rootIntervals(root: Pitch, intervals: IntervalArray): Array {
+export function rootIntervals(root: Pitch, intervals: IntervalArray): Array {
   return intervals.map(
     (interval) => add(root, interval),
   ) as Array;

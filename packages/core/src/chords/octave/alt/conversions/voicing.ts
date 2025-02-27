@@ -1,7 +1,7 @@
-import { add as Iadd, Array as IntervalArray, betweenNext, PERFECT_OCTAVE, PERFECT_UNISON, toChromaticInterval } from "intervals/alt";
-import { Array as PitchArray } from "pitches/alt";
-import { fromRootIntervals as voicingFromRootIntervals, Voicing } from "voicings/alt";
 import Chord from "../Chord";
+import { Intervals, IntervalArray } from "intervals/alt";
+import { PitchArray } from "pitches/alt";
+import { Voicings, Voicing } from "voicings/alt";
 
 export default function voicing(obj: Chord): Voicing | null {
   const rootIntervals: IntervalArray | null = getRootIntervalsFromNotes(obj.pitches);
@@ -9,10 +9,11 @@ export default function voicing(obj: Chord): Voicing | null {
   if (!rootIntervals)
     return null;
 
-  return voicingFromRootIntervals(...rootIntervals);
+  return Voicings.fromRootIntervals(...rootIntervals);
 }
 
 function getRootIntervalsFromNotes(notes: PitchArray): IntervalArray | null {
+  const { add: Iadd, betweenNext, PERFECT_OCTAVE, PERFECT_UNISON, toChromaticInterval } = Intervals;
   const rootIntervals: IntervalArray = [PERFECT_UNISON];
 
   for (let i = 1; i < notes.length; i++) {

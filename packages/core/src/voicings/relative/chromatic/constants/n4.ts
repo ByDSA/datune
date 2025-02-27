@@ -1,12 +1,10 @@
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
-/* eslint-disable import/no-mutable-exports */
-import { inv } from "..";
-import fromRootIntervals from "../building/rootIntervals";
+
+import { Voicings } from "..";
+import { fromRootIntervals } from "../building/rootIntervals";
 import Voicing from "../Voicing";
 import { map } from "./inversionMap";
 
-/* eslint-disable import/prefer-default-export */
 export function initializeN4() {
   SEVENTH = fromRootIntervals(0, 4, 7, 10);
 
@@ -41,9 +39,9 @@ export function initializeN4() {
 
 function initializeInversions() {
   for (let i = 1; i < 4; i++) {
-    map.set(inv(SEVENTH, i), i);
-    map.set(inv(SEVENTH_MAJ7, i), i);
-    map.set(inv(SEVENTH_MINOR_MAJ7, i), i);
+    map.set(Voicings.inv(SEVENTH, i), i);
+    map.set(Voicings.inv(SEVENTH_MAJ7, i), i);
+    map.set(Voicings.inv(SEVENTH_MINOR_MAJ7, i), i);
   }
 }
 

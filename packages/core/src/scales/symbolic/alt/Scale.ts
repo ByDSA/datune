@@ -1,12 +1,12 @@
 import { lockr } from "@datune/utils/immutables";
-import { add, Array as DegreeArray, Degree, I, toChromaticDegree } from "degrees/alt";
-import { Interval } from "intervals/alt";
-import { fromIntraIntervals as DAVFromIntraIntervals } from "voicings/alt";
 import IScale from "../../Scale";
-import { Dto } from "./caching";
-import { calcIntraIntervals } from "./modifiers";
+import { Dto } from "./caching/Dto";
+import { calcIntraIntervals } from "./modifiers/intraIntervals";
+import { DegreeArray, Degree, Degrees } from "degrees/alt";
+import { Interval } from "intervals/alt";
+import { Voicings } from "voicings/alt";
 
-export default class Scale implements IScale<Interval, Degree> {
+export class Scale implements IScale<Interval, Degree> {
   private intraIntervals: Dto;
 
   rootIntervals: Dto;
@@ -18,7 +18,7 @@ export default class Scale implements IScale<Interval, Degree> {
   private constructor(dto: Dto) {
     this.intraIntervals = dto;
     this.length = this.intraIntervals.length;
-    const voicing = DAVFromIntraIntervals(...this.intraIntervals) as any;
+    const voicing = Voicings.fromIntraIntervals(...this.intraIntervals) as any;
 
     this.rootIntervals = voicing.rootIntervals;
     this.degrees = calcDegrees(this);
@@ -35,7 +35,7 @@ export default class Scale implements IScale<Interval, Degree> {
       let found = false;
 
       for (const scaleDegree of this.degrees) {
-        if (toChromaticDegree(scaleDegree) === toChromaticDegree(degree)) {
+        if (Degrees.toChromaticDegree(scaleDegree) === Degrees.toChromaticDegree(degree)) {
           found = true;
           break;
         }
@@ -54,12 +54,12 @@ export default class Scale implements IScale<Interval, Degree> {
 }
 
 function calcDegrees(obj: Scale): DegreeArray {
-  const ret: DegreeArray = [I];
+  const ret: DegreeArray = [Degrees.I];
   const intraIntervals = calcIntraIntervals(obj);
 
   for (let i = 0; i < intraIntervals.length - 1; i++) {
     const interval = intraIntervals[i];
-    const diatonicAltDegree = add(ret[ret.length - 1], interval);
+    const diatonicAltDegree = Degrees.add(ret[ret.length - 1], interval);
 
     ret.push(diatonicAltDegree);
   }

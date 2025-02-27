@@ -1,6 +1,6 @@
-import { hash as dtoHash } from "pitches/alt";
 import Dto from "./Dto";
+import { Pitches } from "pitches/alt";
 
 export default function hash(dto: Dto): string {
-  return `(${dtoHash(dto.pitch)})|${dto.octave}`;
+  return `(${Pitches.hash(dto.pitch)})|${dto.octave}`;
 }

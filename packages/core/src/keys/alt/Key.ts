@@ -1,12 +1,12 @@
+import { IKey } from "../Key";
+import { Dto } from "./building/dto/Dto";
 import { Chord } from "chords/alt";
 import { Interval } from "intervals/alt";
-import { Array as PitchArray, Pitch, rootIntervals as pitchesRootIntervals } from "pitches/alt";
+import { PitchArray, Pitch, Pitches } from "pitches/alt";
 import { Scale } from "scales/alt";
-import KeyInterface from "../Key";
-import { Dto } from "./building";
 
-export default class Key implements
-  KeyInterface<Interval, Pitch, Scale, Chord> {
+export class Key implements
+  IKey<Interval, Pitch, Scale, Chord> {
   pitches: PitchArray;
 
   root: Pitch;
@@ -19,7 +19,7 @@ export default class Key implements
     this.root = dto.root;
     this.scale = dto.scale;
     this.length = this.scale.length;
-    this.pitches = pitchesRootIntervals(this.root, this.scale.rootIntervals);
+    this.pitches = Pitches.rootIntervals(this.root, this.scale.rootIntervals);
   }
 
   private static create(dto: Dto): Key {

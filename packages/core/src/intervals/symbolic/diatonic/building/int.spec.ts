@@ -1,11 +1,12 @@
-import { TestInit } from "tests";
 import { FIFTH } from "../constants";
 import Direction from "../Direction";
 import Interval from "../Interval";
-import { neg } from "../modifiers";
+import { neg } from "../modifiers/neg";
 import fromInt from "./int";
+import { TestInit } from "tests";
 
 TestInit.diatonicInterval();
+
 it("uncached", () => {
   const actual: Interval = fromInt(1234);
   const expected = fromInt(1234);

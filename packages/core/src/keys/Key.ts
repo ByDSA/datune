@@ -1,13 +1,13 @@
 import { Arrays } from "@datune/utils";
 import OctavePitch from "pitches/OctavePitch";
 import { Scale } from "scales";
-import { SymbolicChord } from "../chords";
+import { Chord } from "../chords/Chord";
 
-export default interface Key<
+export interface IKey<
 INTERVAL,
 P extends OctavePitch,
 S extends Scale<INTERVAL, any>,
-C extends SymbolicChord<P>> {
+C extends Chord<P>> {
   pitches: Arrays.NonEmpty<P>;
 
   root: P;

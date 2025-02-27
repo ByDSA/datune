@@ -1,11 +1,10 @@
-/* eslint-disable import/prefer-default-export */
 import { cyclicMod } from "@datune/utils";
-import { Interval } from "intervals/chromatic";
-import { NUMBER } from "pitches/chromatic";
 import Degree from "./Degree";
+import { Interval } from "intervals/chromatic";
+import { Pitches } from "pitches/chromatic";
 
 export function add(obj: Degree, interval: Interval): Degree {
-  const fixedNumber = cyclicMod(obj + interval, NUMBER);
+  const fixedNumber = cyclicMod(obj + interval, Pitches.NUMBER);
 
   return fixedNumber as Degree;
 }

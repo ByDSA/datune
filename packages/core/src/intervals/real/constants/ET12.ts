@@ -1,11 +1,10 @@
-/* eslint-disable import/no-mutable-exports */
 import { frac, pow2 } from "@datune/utils/math";
-import { NUMBER } from "pitches/chromatic";
 import { from, fromCents } from "../building";
 import Interval from "../Interval";
+import { NUMBER as CNUMBER } from "pitches/chromatic/constants";
 
 export function initialize() {
-  QUARTER_TONE = from(pow2(frac(0.5, NUMBER)));
+  QUARTER_TONE = from(pow2(frac(0.5, CNUMBER)));
   SEMITONE = fromCents(100);
   MINOR_SECOND = SEMITONE;
   MAJOR_SECOND = fromCents(200);

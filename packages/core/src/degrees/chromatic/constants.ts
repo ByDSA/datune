@@ -1,8 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import Degree from "./Degree";
-
-export function initialize() {
-
-}
 
 export const I: Degree = 0;
 

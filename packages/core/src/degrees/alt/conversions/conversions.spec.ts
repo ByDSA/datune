@@ -1,6 +1,6 @@
 import { TestInit } from "tests";
 import { hash, toChromaticDegree } from ".";
-import { I as D_I } from "../../diatonic";
+import { Degrees } from "../../diatonic";
 import { from } from "../building";
 import { I, II, III, IV, V, VI, VII } from "../constants";
 
@@ -35,7 +35,7 @@ describe.each([
 } );
 
 it("toChromaticDegree", () => {
-  const diatonicAltDegree1 = from(D_I, -1);
+  const diatonicAltDegree1 = from(Degrees.I, -1);
   const diatonicAltDegree2 = VII;
 
   expect(toChromaticDegree(diatonicAltDegree1)).toBe(toChromaticDegree(diatonicAltDegree2));

@@ -1,6 +1,6 @@
-import { hash as intervalHash } from "intervals/alt";
-import Dto from "./Dto";
+import { Scale } from "../Scale";
+import { hashDto as dtoHash } from "./Dto";
 
-export default function hash(dto: Dto): string {
-  return dto.map(intervalHash).join("|");
+export function hash(obj: Scale): string {
+  return dtoHash(obj.rootIntervals);
 }

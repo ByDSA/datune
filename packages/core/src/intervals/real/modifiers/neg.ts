@@ -3,7 +3,7 @@ import { from } from "../building";
 import { UNISON } from "../constants";
 import Interval from "../Interval";
 
-export default function neg(self: Interval): Interval {
+export function neg(self: Interval): Interval {
   if (self === UNISON)
     return UNISON;
 

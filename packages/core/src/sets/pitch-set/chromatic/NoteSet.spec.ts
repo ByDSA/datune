@@ -1,9 +1,11 @@
-import { C, E, G } from "pitches/chromatic";
+import { Pitches } from "pitches/chromatic";
 import { TestInit } from "tests";
 import { from } from "./building";
 import { C5 } from "./constants";
 
 TestInit.chromaticPitchSet();
+
+const {C, E, G} = Pitches;
 it("constants", () => {
   const noteSet1 = C5;
   const noteSet2 = from(C, G);

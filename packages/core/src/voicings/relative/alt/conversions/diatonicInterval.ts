@@ -1,5 +1,5 @@
 import { Arrays } from "@datune/utils";
-import { fromRootIntervalInts as diatonicVoicingFromRootIntervalInts } from "../../diatonic";
+import { Voicings as DVoicings } from "../../diatonic";
 import Voicing from "../Voicing";
 
 export default function toDiatonic(obj: Voicing) {
@@ -8,5 +8,5 @@ export default function toDiatonic(obj: Voicing) {
   for (const value of obj.rootIntervals)
     arrayDiatonicChordVoicing.push(+value.diatonicInterval);
 
-  return diatonicVoicingFromRootIntervalInts(...arrayDiatonicChordVoicing);
+  return DVoicings.fromRootIntervalInts(...arrayDiatonicChordVoicing);
 }

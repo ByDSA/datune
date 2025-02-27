@@ -1,9 +1,7 @@
-/* eslint-disable no-empty-function */
-/* eslint-disable accessor-pairs */
-import { add as intervalAdd, Array as IntervalArray, Interval, PERFECT_OCTAVE, PERFECT_UNISON, sub as intervalSub } from "intervals/chromatic";
-import { NUMBER } from "pitches/chromatic";
-import { fromIntraIntervals } from "../..";
+import { Scales } from "../..";
 import Scale from "../../Scale";
+import { IntervalArray, Interval, Intervals } from "intervals/chromatic";
+import { Pitches } from "pitches/chromatic";
 
 class Generator {
   private interval: Interval;
@@ -36,7 +34,7 @@ class Generator {
     const unorderedIntervals: IntervalArray = [lastInterval];
 
     for (let i = 1; i < this.length; i++) {
-      lastInterval = intervalAdd(lastInterval, this.interval);
+      lastInterval = Intervals.add(lastInterval, this.interval);
       lastInterval = toSimpleInterval(lastInterval);
 
       if (unorderedIntervals.includes(lastInterval))
@@ -49,14 +47,14 @@ class Generator {
   }
 
   private fixInitialInterval(): Interval {
-    let initialInterval = PERFECT_UNISON;
+    let initialInterval = Intervals.PERFECT_UNISON;
 
     if (this.startIndex > 0) {
       for (let i = 0; i < this.startIndex; i++)
-        initialInterval = intervalAdd(initialInterval, this.interval);
+        initialInterval = Intervals.add(initialInterval, this.interval);
     } else if (this.startIndex < 0) {
       for (let i = this.startIndex; i < 0; i++)
-        initialInterval = intervalSub(initialInterval, this.interval);
+        initialInterval = Intervals.sub(initialInterval, this.interval);
     }
 
     return toSimpleInterval(initialInterval);
@@ -67,24 +65,24 @@ class Generator {
     this.rootIntervals = sortIntervals(this.unorderedIntervals);
     this.intraIntervals = calculateIntraIntervals(this.rootIntervals);
 
-    return fromIntraIntervals(...this.intraIntervals);
+    return Scales.fromIntraIntervals(...this.intraIntervals);
   }
 }
 
 function calculateIntraIntervals(rootIntervals: IntervalArray): IntervalArray {
   const intraIntervals = [];
-  let accumulated = PERFECT_UNISON;
+  let accumulated = Intervals.PERFECT_UNISON;
 
   for (let i = 1; i < rootIntervals.length; i++) {
     const lastRootInterval = rootIntervals[i - 1];
     const currentRootInterval = rootIntervals[i];
-    const interval = intervalSub(currentRootInterval, lastRootInterval);
+    const interval = Intervals.sub(currentRootInterval, lastRootInterval);
 
-    accumulated = intervalAdd(accumulated, interval);
+    accumulated = Intervals.add(accumulated, interval);
     intraIntervals.push(interval);
   }
 
-  const remainingInterval = intervalSub(PERFECT_OCTAVE, accumulated);
+  const remainingInterval = Intervals.sub(Intervals.PERFECT_OCTAVE, accumulated);
 
   intraIntervals.push(remainingInterval);
 
@@ -94,11 +92,11 @@ function calculateIntraIntervals(rootIntervals: IntervalArray): IntervalArray {
 function toSimpleInterval(input: Interval): Interval {
   let interval = input;
 
-  while (interval >= NUMBER)
-    interval = intervalSub(interval, PERFECT_OCTAVE);
+  while (interval >= Pitches.NUMBER)
+    interval = Intervals.sub(interval, Intervals.PERFECT_OCTAVE);
 
   while (interval < 0)
-    interval = intervalAdd(interval, PERFECT_OCTAVE);
+    interval = Intervals.add(interval, Intervals.PERFECT_OCTAVE);
 
   return interval;
 }

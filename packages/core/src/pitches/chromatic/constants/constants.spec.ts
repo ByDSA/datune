@@ -1,5 +1,5 @@
-import { A, AA, ALL, B, C, CC, D, DD, E, F, FF, G, GG, NUMBER } from ".";
 import Chromatic from "../Pitch";
+import { A, AA, ALL, B, C, CC, D, DD, E, F, FF, G, GG, NUMBER } from ".";
 
 describe("sets", () => {
   it("number", () => {
@@ -7,11 +7,11 @@ describe("sets", () => {
   } );
 
   it("all length=12", () => {
-    expect(ALL.length).toBe(12);
+    expect(ALL).toHaveLength(12);
   } );
 
   describe("values", () => {
-    it("are defined ", () => {
+    it("are defined", () => {
       expect(C).toBeDefined();
       expect(CC).toBeDefined();
       expect(D).toBeDefined();
@@ -41,7 +41,7 @@ describe("sets", () => {
       expect(B instanceof Chromatic).toBeTruthy();
     } );
 
-    it("ALL contains all values (unordered)", () => {
+    it("aLL contains all values (unordered)", () => {
       const notes: Chromatic[] = [
         C,
         CC,
@@ -69,7 +69,7 @@ describe("sets", () => {
       expect(t).toThrow(TypeError);
     } );
 
-    it("ALL addition error", () => {
+    it("aLL addition error", () => {
       const t = () => {
         ALL.push(C);
       };

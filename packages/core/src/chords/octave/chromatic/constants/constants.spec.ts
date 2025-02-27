@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { D as P_D } from "pitches/chromatic";
+import { Pitches } from "pitches/chromatic";
 import { TestInit } from "tests";
 import { ALL, ALL_NON_INVERSIONS, C } from ".";
 
@@ -8,7 +8,7 @@ TestInit.chromaticChord();
 it("Trying edit property notes", () => {
   const { pitches } = C;
   const t = () => {
-    pitches[0] = P_D;
+    pitches[0] = Pitches.D;
   };
 
   expect(t).toThrow(TypeError);

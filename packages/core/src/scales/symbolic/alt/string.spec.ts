@@ -1,8 +1,9 @@
-import { TestInit } from "tests";
 import { MAJOR, MINOR } from "./constants";
-import Scale from "./Scale";
+import { Scale } from "./Scale";
+import { TestInit } from "tests";
 
 TestInit.diatonicAltScale();
+
 describe.each([
   [MAJOR, "P1-M2-M3-P4-P5-M6-M7"],
   [MINOR, "P1-M2-m3-P4-P5-m6-m7"],

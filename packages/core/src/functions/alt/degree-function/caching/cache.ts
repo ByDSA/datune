@@ -1,5 +1,5 @@
 import { StringHashCache } from "@datune/utils";
-import DegreeFunction from "../DegreeFunction";
+import { DegreeFunction } from "../DegreeFunction";
 import Dto from "./Dto";
 import hash from "./hash";
 import toDto from "./toDto";

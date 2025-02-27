@@ -1,7 +1,7 @@
-import { MusicalDuration, QUARTER } from "../musical-duration";
+import { MusicalDuration } from "../musical-duration";
+import { QUARTER } from "../musical-duration/constants";
 import BPM from "./BPM";
 
-/* eslint-disable import/prefer-default-export */
 export function from(bpm: number, beat: MusicalDuration = QUARTER): BPM {
   return (BPM as any).create(bpm, beat);
 }

@@ -1,10 +1,8 @@
-/* eslint-disable import/no-mutable-exports */
-import { inv } from "..";
-import fromRootIntervals from "../building/rootIntervals";
+import { Voicings } from "..";
+import { fromRootIntervals } from "../building/rootIntervals";
 import Voicing from "../Voicing";
 import { map } from "./inversionMap";
 
-/* eslint-disable import/prefer-default-export */
 export function initializeN3() {
   TRIAD_MAJOR = fromRootIntervals(0, 4, 7);
 
@@ -25,9 +23,9 @@ export function initializeN3() {
 
 function initializeInversions() {
   for (let i = 1; i < 3; i++) {
-    map.set(inv(TRIAD_MAJOR, i), i);
-    map.set(inv(TRIAD_MINOR, i), i);
-    map.set(inv(TRIAD_DIMINISHED, i), i);
+    map.set(Voicings.inv(TRIAD_MAJOR, i), i);
+    map.set(Voicings.inv(TRIAD_MINOR, i), i);
+    map.set(Voicings.inv(TRIAD_DIMINISHED, i), i);
   }
 }
 

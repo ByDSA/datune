@@ -1,7 +1,7 @@
 import { lockr } from "@datune/utils/immutables";
-import { Array as IntervalArray, Interval } from "intervals/symbolic/chromatic";
 import IVoicing from "../Voicing";
 import Dto from "./building/Dto";
+import { IntervalArray, Interval } from "intervals/symbolic/chromatic";
 
 export default class Voicing implements IVoicing<Interval> {
   rootIntervals: IntervalArray;

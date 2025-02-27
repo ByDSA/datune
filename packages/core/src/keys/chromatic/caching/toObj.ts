@@ -1,5 +1,5 @@
-import Obj from "../Key";
-import cache from "./cache";
-import Dto from "./Dto";
+import { Key } from "../Key";
+import { cache } from "./cache";
+import { Dto } from "./Dto";
 
-export default (dto: Dto): Obj => cache.getOrCreate(dto);
+export const toObj = (dto: Dto): Key => cache.getOrCreate(dto);

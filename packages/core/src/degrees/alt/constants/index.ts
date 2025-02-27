@@ -1,31 +1,30 @@
-/* eslint-disable import/no-mutable-exports */
-import { I as D_I, II as D_II, III as D_III, IV as D_IV, V as D_V, VI as D_VI, VII as D_VII } from "degrees/diatonic";
 import { from } from "../building";
 import Degree from "../Degree";
+import { Degrees as DDegrees } from "degrees/diatonic";
 
 export function initialize() {
   if (I)
     throw new Error("Already initialized");
 
-  I = from(D_I, 0);
-  aI = from(D_I, 1);
-  bII = from(D_II, -1);
-  II = from(D_II, 0);
-  aII = from(D_II, 1);
-  bIII = from(D_III, -1);
-  III = from(D_III, 0);
-  aIII = from(D_III, 1);
-  IV = from(D_IV, 0);
-  aIV = from(D_IV, 1);
-  bV = from(D_V, -1);
-  V = from(D_V, 0);
-  aV = from(D_V, 1);
-  bVI = from(D_VI, -1);
-  VI = from(D_VI, 0);
-  aVI = from(D_VI, 1);
-  bVII = from(D_VII, -1);
-  VII = from(D_VII, 0);
-  aVII = from(D_VII, 1);
+  I = from(DDegrees.I, 0);
+  aI = from(DDegrees.I, 1);
+  bII = from(DDegrees.II, -1);
+  II = from(DDegrees.II, 0);
+  aII = from(DDegrees.II, 1);
+  bIII = from(DDegrees.III, -1);
+  III = from(DDegrees.III, 0);
+  aIII = from(DDegrees.III, 1);
+  IV = from(DDegrees.IV, 0);
+  aIV = from(DDegrees.IV, 1);
+  bV = from(DDegrees.V, -1);
+  V = from(DDegrees.V, 0);
+  aV = from(DDegrees.V, 1);
+  bVI = from(DDegrees.VI, -1);
+  VI = from(DDegrees.VI, 0);
+  aVI = from(DDegrees.VI, 1);
+  bVII = from(DDegrees.VII, -1);
+  VII = from(DDegrees.VII, 0);
+  aVII = from(DDegrees.VII, 1);
 }
 
 export let I: Degree;

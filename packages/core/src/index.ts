@@ -1,17 +1,17 @@
 export {
-  Chord as DiatonicAltChord,
+  Chord as ChordAlt,
 } from "chords/alt";
 
 export {
-  Chord as ChromaticChord,
+  Chord,
 } from "chords/chromatic";
 
 export {
-  Interval as DiatonicAltInterval,
+  Interval as IntervalAlt,
 } from "intervals/alt";
 
 export {
-  Interval as ChromaticInterval,
+  Interval,
 } from "intervals/chromatic";
 
 export {
@@ -23,23 +23,18 @@ export {
 } from "intervals/quality";
 
 export {
-  Pitch as DiatonicAltPitch,
+  Pitch as PitchAlt,
 } from "pitches/alt";
 
 export {
-  Pitch as ChromaticPitch,
+  Pitch,
 } from "pitches/chromatic";
 
 export {
   Pitch as DiatonicPitch,
 } from "pitches/diatonic";
 
-export {
-  Chromatic as ChromaticVoicing,
-  Diatonic as DiatonicVoicing,
-  DiatonicAlt as DiatonicAltVoicing,
-  Voicing,
-} from "voicings";
+export * from "voicings";
 
 export {
   initialize as init, load, loadSync,
@@ -51,3 +46,14 @@ export {
   RhythmPattern,
   TimeSignature,
 } from "./time";
+
+export * from "./keys/chromatic";
+
+export {
+  Key as KeyAlt,
+  KeyArray as KeyAltArray,
+} from "./keys/alt";
+
+export {
+  IKey,
+} from "./keys/Key";
