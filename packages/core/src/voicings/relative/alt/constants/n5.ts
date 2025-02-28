@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 import { fromVoicings } from "../building/voicings";
-import Voicing from "../Voicing";
+import type { Voicing } from "../Voicing";
 import { Voicings as CV } from "voicings/chromatic";
 import { Voicings as DV } from "voicings/diatonic";
 

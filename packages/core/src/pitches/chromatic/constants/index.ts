@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { lock, lockr } from "@datune/utils/immutables";
-import Pitch from "../Pitch";
+import { Pitch } from "../Pitch";
 
 export const NUMBER = 12;
 

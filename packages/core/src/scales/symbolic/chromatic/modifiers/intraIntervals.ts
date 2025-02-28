@@ -1,7 +1,7 @@
+import { Scale } from "../Scale";
 import { IntervalArray, Interval, Intervals } from "intervals/chromatic";
-import Scale from "../Scale";
 
-export default function intraIntervals(obj: Scale): IntervalArray {
+export function calcIntraIntervals(obj: Scale): IntervalArray {
   const ret: IntervalArray = [] as any;
   const rootIntervals = [...obj.rootIntervals, Intervals.PERFECT_OCTAVE];
 

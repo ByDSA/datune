@@ -12,7 +12,7 @@ import { Temperaments, Temperament } from "temperaments/chromatic";
 import { Tunings, Tuning } from "tunings/chromatic";
 import { Voicings as DAV, Voicing as DiatonicAltVoicing } from "voicings/alt";
 
-const DefaultSettings: SettingsInterface = {
+export const DEFAULT_SETTINGS: SettingsInterface = {
   default: {
     get note(): Chromatic { return C.C; },
     get diatonicAlt(): DiatonicAlt { return DA.C; },
@@ -27,5 +27,3 @@ const DefaultSettings: SettingsInterface = {
     get concertPitch(): ConcertPitch { return ConcertPitches.A440; },
   },
 };
-
-export default DefaultSettings;

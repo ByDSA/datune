@@ -1,4 +1,4 @@
-import type ConcertPitch from "../ConcertPitch";
+import type { ConcertPitch } from "../ConcertPitch";
 import type { SPN } from "spns/chromatic";
 import { hashDto as hashSPNDto } from "spns/symbolic/chromatic/building/dto/Dto";
 

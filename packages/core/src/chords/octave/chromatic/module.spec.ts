@@ -1,5 +1,5 @@
-import { TestInit } from "tests";
 import { Chords } from ".";
+import { TestInit } from "tests";
 
 TestInit.chromaticChord();
 

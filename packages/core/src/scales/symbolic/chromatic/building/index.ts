@@ -1,11 +1,11 @@
 export {
-  default as generateByIntervals,
+  generateByIntervals,
 } from "./generate-by-intervals";
 
 export {
-  default as fromIntraIntervals,
+  fromIntraIntervals,
 } from "./intraIntervals";
 
 export {
-  default as fromRootIntervals,
+  fromRootIntervals,
 } from "./rootIntervals";

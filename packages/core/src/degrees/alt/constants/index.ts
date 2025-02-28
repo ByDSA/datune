@@ -1,5 +1,5 @@
 import { from } from "../building";
-import Degree from "../Degree";
+import type { Degree } from "../Degree";
 import { Degrees as DDegrees } from "degrees/diatonic";
 
 export function initialize() {

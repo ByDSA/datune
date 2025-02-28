@@ -1,5 +1,5 @@
-import { TestInit } from "tests";
 import { Scales } from ".";
+import { TestInit } from "tests";
 
 TestInit.diatonicAltScale();
 

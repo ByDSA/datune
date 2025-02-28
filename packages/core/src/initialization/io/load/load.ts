@@ -1,8 +1,8 @@
-import fs from "fs";
+import fs from "node:fs";
 import { checkDto, Data, deserialize, Dto } from "../../types";
 import { DEFAULT_SETTINGS as LOAD_DEFAULT_SETTINGS } from "./LoadSettings";
 
-export default async function load(loadSettings = LOAD_DEFAULT_SETTINGS): Promise<Data | null> {
+export async function load(loadSettings = LOAD_DEFAULT_SETTINGS): Promise<Data | null> {
   const json = await getJson(loadSettings);
   const dto: Dto | null = checkDto(json);
 

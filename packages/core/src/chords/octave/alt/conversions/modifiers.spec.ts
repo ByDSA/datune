@@ -1,11 +1,10 @@
-/* eslint-disable camelcase */
+import { fromRootVoicing } from "../building";
+import { C, C7, CMaj7 } from "../constants";
+import { add, bass, inv, sub } from "../modifiers";
 import { Intervals } from "intervals/alt";
 import { Pitches as DA } from "pitches/alt";
 import { TestInit } from "tests";
 import { Voicings as DVoicings } from "voicings/alt";
-import { fromRootVoicing } from "../building";
-import { C, C7, CMaj7 } from "../constants";
-import { add, bass, inv, sub } from "../modifiers";
 
 TestInit.diatonicAltVoicing();
 TestInit.diatonicAlt();

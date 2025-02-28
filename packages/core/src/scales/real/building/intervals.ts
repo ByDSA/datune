@@ -1,7 +1,7 @@
+import { Scale } from "../Scale";
+import { cache } from "./cache";
 import { IntervalArray } from "intervals/real";
-import ScalePitch from "../ScalePitch";
-import cache from "./cache";
 
-export default function fromIntervals(...intervals: IntervalArray): ScalePitch {
+export function fromIntervals(...intervals: IntervalArray): Scale {
   return cache.getOrCreate(intervals);
 }

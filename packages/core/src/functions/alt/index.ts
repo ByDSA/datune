@@ -1,6 +1,6 @@
-import { DegreeFunction } from "./degree-function/DegreeFunction";
+import type { DegreeFunction } from "./degree-function/DegreeFunction";
 import { degrees as calcDegrees } from "./degree-function/calcs";
-import HarmonicFunction from "./HarmonicFunction";
+import type { HarmonicFunction } from "./HarmonicFunction";
 import type * as DegreeFunctionConstants from "./degree-function/constants";
 import type * as CompoundFunctionConstants from "./compound-function/constants";
 import type * as OthersFunctionConstants from "./others/constants";

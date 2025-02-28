@@ -1,7 +1,7 @@
 import { Arrays } from "@datune/utils";
-import { Array } from "../array";
-import cache from "./cache";
-import Pattern from "./Pattern";
+import type { Array } from "../array";
+import { cache } from "./cache";
+import type { Pattern } from "./Pattern";
 
 export function fromArray(...ints: Array): Pattern {
   const values = rhythmArray2Values(ints);

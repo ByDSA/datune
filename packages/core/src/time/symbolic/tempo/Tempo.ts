@@ -1,5 +1,5 @@
-import SymbolicDuration from "../SymbolicDuration";
+import type { SymbolicDuration } from "../SymbolicDuration";
 
-export default abstract class Tempo {
+export abstract class Tempo {
     abstract getMillis(musicalDuration: SymbolicDuration): number;
 }

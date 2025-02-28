@@ -1,7 +1,7 @@
-import { TestInit } from "tests";
-import { Intervals } from "intervals/alt";
 import { C, Db } from "../constants";
 import { add } from "./add";
+import { TestInit } from "tests";
+import { Intervals } from "intervals/alt";
 
 TestInit.diatonicAlt();
 TestInit.diatonicAltInterval();

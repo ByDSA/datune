@@ -1,9 +1,16 @@
-import { Degree } from "degrees/alt";
-import { Voicing } from "voicings/alt";
+import type { Degree } from "degrees/alt";
+import { hash as hashVoicing } from "voicings/relative/alt/caching/hashObj";
+import type { Voicing } from "voicings/alt";
+import { hash as hashDegree } from "degrees/alt/caching/hash";
 
-type Dto = {
+export type Dto = {
   degree: Degree;
   voicing: Voicing;
 };
 
-export default Dto;
+export function hashDto(obj: Dto): string {
+  const voicingHashCode = hashVoicing(obj.voicing);
+  const degreeHashCode = hashDegree(obj.degree);
+
+  return `(${degreeHashCode})|(${voicingHashCode})`;
+}

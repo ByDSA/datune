@@ -1,3 +1,3 @@
 export {
-  default as toVoicing,
+  toVoicing,
 } from "./voicing";

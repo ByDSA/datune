@@ -1,5 +1,5 @@
 import { inv } from "../modifiers/inv";
-import getInversionOf from "./inversionMap";
+import { getInversionOf } from "./inversionMap";
 import { TRIAD_MAJOR, TRIAD_MINOR } from "./n3";
 import { COMMON_NON_INVERSIONS } from "./sets";
 import { TestInit } from "tests";

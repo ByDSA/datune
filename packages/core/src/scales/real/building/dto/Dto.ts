@@ -1,5 +1,9 @@
 import { Arrays } from "@datune/utils";
-import { Interval as IntervalPitch } from "intervals/real";
+import type { Interval as IntervalPitch } from "intervals/real";
+import { hash as hashIntervals } from "intervals/real/conversions/hash";
 
-type Dto = Arrays.NonEmpty<IntervalPitch>;
-export default Dto;
+export type Dto = Arrays.NonEmpty<IntervalPitch>;
+
+export function hashDto(dto: Dto): string {
+  return dto.map(hashIntervals).join("-");
+}

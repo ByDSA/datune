@@ -1,5 +1,5 @@
-import PitchDto from "pitches/chromatic/caching/Dto";
-import ScaleDto from "scales/symbolic/chromatic/caching/Dto";
+import { Dto as PitchDto } from "pitches/chromatic/caching/Dto";
+import { Dto as ScaleDto } from "scales/symbolic/chromatic/caching/Dto";
 
 export type Dto = [PitchDto, ScaleDto];
 

@@ -1,15 +1,11 @@
-/* eslint-disable no-undef */
-import { default as IntervalArray } from "./Array";
+import type { Interval } from "./Interval";
+import type { IntervalArray } from "./Array";
 
 import { fromInt } from "./building";
 
-import * as Caching from "./caching";
-
 import type * as Constants from "./constants";
 
-import IntervalDirection from "./Direction";
-
-import Interval from "./Interval";
+import { Direction } from "./Direction";
 
 import type { isMainInterval } from "./isMainInterval"; // deps: modifiers
 
@@ -22,7 +18,6 @@ import type { sub } from "./modifiers/sub";
 import { createProxyBarrel } from "lazy-load";
 
 const staticModule = {
-  ...Caching,
   fromInt,
 };
 
@@ -38,19 +33,20 @@ type LazyType = Omit<typeof Constants, "initialize"> & {
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    __dirname + "/modifiers/abs",
-    __dirname + "/modifiers/add",
-    __dirname + "/modifiers/neg",
-    __dirname + "/modifiers/simple",
-    __dirname + "/modifiers/sub",
-    __dirname + "/isMainInterval",
-    __dirname + "/constants",
-  ],
+    "modifiers/abs",
+    "modifiers/add",
+    "modifiers/neg",
+    "modifiers/simple",
+    "modifiers/sub",
+    "isMainInterval",
+    "constants",
+  // eslint-disable-next-line no-undef
+  ].map(p=>`${__dirname}/${p}`),
 } );
 
 export {
   Interval,
   IntervalArray,
   mod as Intervals,
-  IntervalDirection,
+  Direction as IntervalDirection,
 };

@@ -1,4 +1,4 @@
-import { cache } from "chords/octave/chromatic/caching";
-import Data from "./Data";
+import type { Data } from "./Data";
+import { cache } from "chords/octave/chromatic/caching/cache";
 
 export default (): Data => cache.serialize();

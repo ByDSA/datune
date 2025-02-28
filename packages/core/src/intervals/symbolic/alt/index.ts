@@ -1,14 +1,11 @@
-/* eslint-disable no-undef */
-import Interval from "./Interval";
+import type { Interval } from "./Interval";
 
-import IntervalArray from "./Array";
+import type { IntervalArray } from "./Array";
 
 import type { betweenMin } from "./building/betweenMin";
 import type { betweenNext } from "./building/betweenNext";
 import type { fromIntervalQuality } from "./building/intervalQuality";
 import type { fromIntervals } from "./building/intervals";
-
-import type { hash } from "./caching/hash"; // intervals/diatonic, intervals/quality
 
 import type * as Constants from "./constants";
 
@@ -31,7 +28,6 @@ type LazyType = typeof Constants & typeof ConversionsType & {
   betweenNext: typeof betweenNext;
   fromIntervalQuality: typeof fromIntervalQuality;
   fromIntervals: typeof fromIntervals;
-  hash: typeof hash;
   abs: typeof abs;
   add: typeof add;
   cyclic: typeof cyclic;
@@ -50,7 +46,6 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "building/intervalQuality",
     "building/intervals",
     "constants",
-    "caching/hash",
     "modifiers/calcSerie",
     "modifiers/abs",
     "modifiers/add",
@@ -60,6 +55,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "modifiers/simple",
     "modifiers/sub",
     "conversions",
+  // eslint-disable-next-line no-undef
   ].map(p=>`${__dirname}/${p}`),
 } );
 

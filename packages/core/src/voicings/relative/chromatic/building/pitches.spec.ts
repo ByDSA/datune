@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import * as Voicings from "../constants";
-import Voicing from "../Voicing";
+import type { Voicing } from "../Voicing";
 import { fromPitches } from "./pitches";
 import { Pitches, PitchArray } from "pitches/chromatic";
 import { TestInit } from "tests";

@@ -1,10 +1,10 @@
-import { Scale } from "../Scale";
-import { DegreeArray } from "degrees/alt";
+import type { Scale } from "../Scale";
+import type { DegreeArray } from "degrees/alt";
 import { Functions, DegreeFunction } from "functions/alt";
 import { from } from "functions/alt/degree-function/building";
 import { Voicings } from "voicings/relative/alt";
 
-export default function getDegreeFunctions(obj: Scale): DegreeFunction[] {
+export function getDegreeFunctions(obj: Scale): DegreeFunction[] {
   const ret: DegreeFunction[] = [];
   const voicings = Voicings.COMMON;
 

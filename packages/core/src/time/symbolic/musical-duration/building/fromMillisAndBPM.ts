@@ -1,5 +1,5 @@
-import BPM from "../../bpm/BPM";
-import MusicalDuration from "../MusicalDuration";
+import type { BPM } from "../../bpm/BPM";
+import type { MusicalDuration } from "../MusicalDuration";
 import { from } from "./from";
 
 export function fromMillisAndBPM(millis: number, bpm: BPM): MusicalDuration {

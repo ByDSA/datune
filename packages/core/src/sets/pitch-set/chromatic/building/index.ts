@@ -1,7 +1,6 @@
-/* eslint-disable import/prefer-default-export */
-import { PitchArray as PitchArray, Pitch } from "pitches/chromatic";
-import cache from "../caching/cache";
-import NoteSet from "../NoteSet";
+import { cache } from "../caching/cache";
+import type { NoteSet } from "../NoteSet";
+import { PitchArray, Pitch } from "pitches/chromatic";
 
 export function from(...pitches: PitchArray): NoteSet {
   const set = pitches2Set(...pitches);

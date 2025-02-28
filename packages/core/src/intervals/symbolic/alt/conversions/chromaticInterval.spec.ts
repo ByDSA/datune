@@ -1,6 +1,6 @@
 import { AUGMENTED_OCTAVE, AUGMENTED_SEVENTH, AUGMENTED_UNISON, DIMINISHED_OCTAVE, DIMINISHED_UNISON, PERFECT_FIFTH, PERFECT_OCTAVE } from "../constants";
 import { neg } from "../modifiers/neg";
-import toChromaticInterval from "./chromaticInterval";
+import { toChromaticInterval } from "./chromaticInterval";
 import { TestInit } from "tests";
 import { Intervals as CIntervals } from "intervals/chromatic";
 

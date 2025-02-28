@@ -1,4 +1,4 @@
-import Chord from "../Chord";
+import { Chord } from "../Chord";
 import { C, C5, C7 } from "../constants";
 import { toVoicing } from ".";
 import { TestInit } from "tests";

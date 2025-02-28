@@ -1,12 +1,17 @@
 /* eslint-disable accessor-pairs */
-/* eslint-disable no-empty-function */
-/* eslint-disable no-useless-constructor */
+
 import { Chord } from "chords/alt";
 import { HarmonicFunction } from "functions/alt";
 import { Key } from "keys/alt";
 
 class Builder {
-  private constructor(private _key: Key, private _harmonicFunction: HarmonicFunction) {
+  #key: Key;
+
+  #harmonicFunction: HarmonicFunction;
+
+  private constructor(key: Key, harmonicFunction: HarmonicFunction) {
+    this.#key = key;
+    this.#harmonicFunction = harmonicFunction;
   }
 
   static from(
@@ -21,15 +26,15 @@ class Builder {
   }
 
   get key(): Key {
-    return this._key;
+    return this.#key;
   }
 
   get function(): HarmonicFunction {
-    return this._harmonicFunction;
+    return this.#harmonicFunction;
   }
 }
 
-export default function fromKeyFunction(
+export function fromKeyFunction(
   key: Key,
   harmonicFunction: HarmonicFunction,
 ): Chord | null {

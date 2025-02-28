@@ -1,9 +1,9 @@
 import { cyclicMod } from "@datune/utils";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { fromIntervals } from "./intervals";
-import { Interval as ChromaticInterval } from "intervals/chromatic";
+import type { Interval as ChromaticInterval } from "intervals/chromatic";
 import { Intervals as DIntervals, Interval as DInterval } from "intervals/diatonic";
-import { Pitch } from "pitches/alt";
+import type { Pitch } from "pitches/alt";
 import { Pitches as CPitches } from "pitches/chromatic";
 import { Pitches as DPitches } from "pitches/diatonic";
 import { Scales as CScales } from "scales/chromatic";

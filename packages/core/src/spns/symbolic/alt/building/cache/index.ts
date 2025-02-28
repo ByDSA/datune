@@ -1,12 +1,11 @@
 import { StringHashCache } from "@datune/utils";
-import { toDto } from "../../conversions";
-import SPN from "../../SPN";
-import { Dto, hash } from "../dto";
+import { toDto } from "../../conversions/dto";
+import { SPN } from "../../SPN";
+import type { Dto } from "../dto/Dto";
+import { hashDto } from "../dto/Dto";
 
-const cache = new StringHashCache<SPN, Dto>( {
-  hash,
+export const cache = new StringHashCache<SPN, Dto>( {
+  hash: hashDto,
   toDto,
   create: (SPN as any).create,
 } );
-
-export default cache;

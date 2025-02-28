@@ -1,7 +1,7 @@
 import cache from "./cache/toData";
-import Data from "./Data";
-import Dto from "./Dto";
+import type { Data } from "./Data";
+import type { Dto } from "./Dto";
 
-export default (dto: Dto): Data => ( {
+export const toData = (dto: Dto): Data => ( {
   cache: cache(dto.cache),
 } );

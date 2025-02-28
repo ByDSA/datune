@@ -1,5 +1,5 @@
 import { MAJOR, MINOR } from "../constants";
-import getDegreeFunctions from "./degreeFunctions";
+import { getDegreeFunctions } from "./degreeFunctions";
 import { Functions as F } from "functions/alt";
 import { TestInit } from "tests";
 

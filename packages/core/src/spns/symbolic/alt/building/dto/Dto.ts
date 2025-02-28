@@ -1,5 +1,9 @@
-import { Pitch } from "pitches/alt";
+import type { Pitch } from "pitches/alt";
+import { hash as hashPitch } from "pitches/alt/conversions/hash";
 
-type Dto = { pitch: Pitch; octave: number };
+export type Dto = { pitch: Pitch;
+octave: number; };
 
-export default Dto;
+export function hashDto(dto: Dto): string {
+  return `(${hashPitch(dto.pitch)})|${dto.octave}`;
+}

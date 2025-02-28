@@ -1,8 +1,8 @@
 import { lockr } from "@datune/utils/immutables";
-import { MusicalDuration } from "../../musical-duration";
-import { Dto } from "./caching";
+import type { MusicalDuration } from "../../musical-duration";
+import type { Dto } from "./caching/Dto";
 
-export default class TimeSignature {
+export class TimeSignature {
   numerators: number[];
 
   numerator: number;

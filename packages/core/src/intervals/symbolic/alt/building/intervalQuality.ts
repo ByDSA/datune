@@ -1,8 +1,10 @@
-import Interval from "../Interval";
-import cache from "../caching/cache";
-import { Interval as DInterval, Intervals } from "intervals/diatonic";
+import type { Interval } from "../Interval";
+import { cache } from "../caching/cache";
+import type { Interval as DInterval } from "intervals/diatonic";
+import { Intervals } from "intervals/diatonic";
 import { UNISON } from "intervals/symbolic/diatonic/constants";
-import { PERFECT, Quality, toInt as qualityToInt } from "intervals/quality";
+import type { Quality } from "intervals/quality";
+import { PERFECT, toInt as qualityToInt } from "intervals/quality";
 
 export function fromIntervalQuality(
   diatonicInterval: DInterval,

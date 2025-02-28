@@ -1,6 +1,6 @@
 import { from, fromCents } from "../building";
 import { ET12_PERFECT_FIFTH, ET12_SEMITONE, OCTAVE, UNISON } from "../constants";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { neg } from "./neg";
 import { shiftOctaves } from "./shiftOctaves";
 import { mult } from "./mult";

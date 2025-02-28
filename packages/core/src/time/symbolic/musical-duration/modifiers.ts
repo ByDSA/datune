@@ -1,5 +1,5 @@
 import { div, mult } from "@datune/utils/time";
-import MusicalDuration from "./MusicalDuration";
+import type { MusicalDuration } from "./MusicalDuration";
 
 export function dotted(obj: MusicalDuration) {
   return mult(obj, 1.5);

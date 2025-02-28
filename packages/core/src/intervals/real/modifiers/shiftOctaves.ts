@@ -1,8 +1,8 @@
 import { OCTAVE } from "../constants";
-import Interval from "../Interval";
-import add from "./add";
+import type { Interval } from "../Interval";
+import { add } from "./add";
 import { mult } from "./mult";
-import sub from "./sub";
+import { sub } from "./sub";
 
 export function shiftOctaves(self: Interval, octaves: number): Interval {
   const octavesInterval = mult(OCTAVE, Math.abs(octaves));

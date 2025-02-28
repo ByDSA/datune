@@ -1,12 +1,15 @@
-import { DegreeFunction } from "../degree-function/DegreeFunction";
-import HarmonicFunction from "../HarmonicFunction";
-import { Dto } from "./caching";
-import { Chords, Chord } from "chords/alt";
-import { DegreeArray, Degrees } from "degrees/alt";
-import { Intervals, Interval } from "intervals/alt";
-import { Key } from "keys/alt";
+import type { DegreeFunction } from "../degree-function/DegreeFunction";
+import { HarmonicFunction } from "../HarmonicFunction";
+import type { Dto } from "./caching/Dto";
+import type { Chord } from "chords/alt";
+import { Chords } from "chords/alt";
+import type { DegreeArray } from "degrees/alt";
+import { Degrees } from "degrees/alt";
+import type { Interval } from "intervals/alt";
+import { Intervals } from "intervals/alt";
+import type { Key } from "keys/alt";
 
-export default class CompoundFunction extends HarmonicFunction {
+export class CompoundFunction extends HarmonicFunction {
   degreeFunction: DegreeFunction;
 
   degreeChain: DegreeArray;

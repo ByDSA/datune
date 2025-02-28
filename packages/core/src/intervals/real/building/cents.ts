@@ -1,11 +1,11 @@
 import { frac, Pow2Exp } from "@datune/utils/math";
-import Interval from "../Interval";
-import fromRatio from "./ratio";
+import type { Interval } from "../Interval";
+import { from } from "./ratio";
 
-export default function fromCents(cents: number): Interval {
+export function fromCents(cents: number): Interval {
   const ratio = cents2ratio(cents);
 
-  return fromRatio(ratio);
+  return from(ratio);
 }
 
 function cents2ratio(cents: number): Pow2Exp {

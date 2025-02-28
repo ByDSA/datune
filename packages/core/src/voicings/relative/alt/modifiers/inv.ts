@@ -1,6 +1,6 @@
 import { cyclicMod } from "@datune/utils";
 import { fromRootIntervals } from "../building/rootIntervals";
-import Voicing from "../Voicing";
+import type { Voicing } from "../Voicing";
 import { IntervalArray, Interval, Intervals } from "intervals/symbolic/alt";
 
 export function inv(obj: Voicing, n: number = 1): Voicing {

@@ -1,6 +1,6 @@
 import { ET12_SEMITONE, OCTAVE, UNISON } from "../constants";
-import Interval from "../Interval";
-import add from "./add";
+import type { Interval } from "../Interval";
+import { add } from "./add";
 import { mult } from "./mult";
 import { neg } from "./neg";
 import { TestInit } from "tests";

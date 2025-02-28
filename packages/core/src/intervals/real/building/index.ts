@@ -1,11 +1,7 @@
 export {
-  default as fromCents,
+  fromCents,
 } from "./cents";
 
 export {
-  Dto, dtoHash,
-} from "./dto";
-
-export {
-  default as from,
+  from,
 } from "./ratio";

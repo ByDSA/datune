@@ -1,4 +1,4 @@
-import { default as BPM } from "./BPM";
+import { BPM } from "./BPM";
 
 import type * as BuildingType from "./building";
 

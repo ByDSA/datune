@@ -1,5 +1,5 @@
 import { Scale } from "../Scale";
-import { Dto } from "./Dto";
+import type { Dto } from "./Dto";
 
 export function toDto(obj: Scale): Dto {
   return obj.rootIntervals;

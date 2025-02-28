@@ -1,7 +1,5 @@
-/* eslint-disable no-undef */
-import { default as Pitch } from "./Pitch";
-
-import { default as PitchArray } from "./Array";
+import type { Pitch } from "./Pitch";
+import type { PitchArray } from "./Array";
 import { fixAlts } from "./fixAlts";
 import type { fromChromatic } from "./building/chromatic";
 import type { fromDiatonicAlts } from "./building/diatonicAlts";
@@ -28,6 +26,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "constants",
     "building/chromatic",
     "building/diatonicAlts",
+  // eslint-disable-next-line no-undef
   ].map(p=>`${__dirname}/${p}`),
 } );
 

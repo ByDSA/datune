@@ -1,6 +1,6 @@
 import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "../constants";
-import Quality from "../Quality";
-import hash from "./hash";
+import type { Quality } from "../Quality";
+import { hash } from "./hash";
 
 describe.each([
   [PERFECT, "P"],

@@ -1,6 +1,6 @@
-import calcDegrees from "./calcs/degrees";
+import { calcDegrees } from "./calcs/degrees";
 import { I, I0, Im, IVMaj7, VII0 } from "./constants";
-import { DegreeFunction } from "./DegreeFunction";
+import type { DegreeFunction } from "./DegreeFunction";
 import { Degrees, Degree } from "degrees/alt";
 import { TestInit } from "tests";
 import { Voicings, Voicing } from "voicings/alt";

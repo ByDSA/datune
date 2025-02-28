@@ -3,7 +3,8 @@ import { C4, C5, CC5, FF4, G4 } from "../constants";
 import type { SPN } from "../SPN";
 import { add } from "./add";
 import { sub } from "./sub";
-import { Interval as CInterval, Intervals } from "intervals/chromatic";
+import type { Interval as CInterval } from "intervals/chromatic";
+import { Intervals } from "intervals/chromatic";
 import { Pitches } from "pitches/chromatic";
 import { TestInit } from "tests";
 

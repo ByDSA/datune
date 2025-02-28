@@ -6,7 +6,7 @@ import type * as ConstantsType from "./constants";
 
 import * as Modifiers from "./modifiers";
 
-import MusicalDuration from "./MusicalDuration";
+import type { MusicalDuration } from "./MusicalDuration";
 
 import { createProxyBarrel } from "lazy-load";
 

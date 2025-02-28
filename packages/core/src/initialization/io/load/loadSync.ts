@@ -1,8 +1,8 @@
-import fs from "fs";
+import fs from "node:fs";
 import { checkDto, Data, deserialize, Dto } from "../../types";
 import { DEFAULT_SETTINGS as LOAD_DEFAULT_SETTINGS } from "./LoadSettings";
 
-export default function loadSync(loadSettings = LOAD_DEFAULT_SETTINGS): Data | null {
+export function loadSync(loadSettings = LOAD_DEFAULT_SETTINGS): Data | null {
   const json = getJson(loadSettings);
   const dto: Dto | null = checkDto(json);
 
@@ -20,7 +20,7 @@ function getJson(loadSettings = LOAD_DEFAULT_SETTINGS): Data | null {
 
     try {
       return JSON.parse(str);
-    } catch (e) {
+    } catch {
       return null;
     }
   }

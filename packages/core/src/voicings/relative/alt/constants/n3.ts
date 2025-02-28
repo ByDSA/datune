@@ -1,6 +1,6 @@
 import { fromVoicings } from "../building/voicings";
 import { inv } from "../modifiers/inv";
-import Voicing from "../Voicing";
+import type { Voicing } from "../Voicing";
 import { map } from "./inversionMap";
 import { Voicings as DV } from "voicings/relative/diatonic";
 import { Voicings as CV } from "voicings/chromatic";

@@ -1,8 +1,8 @@
+import { SEVENTH } from "../constants";
+import { fromVoicings } from "./voicings";
 import { Voicings as DVoicings } from "voicings/diatonic";
 import { Voicings as CVoicings } from "voicings/chromatic";
 import { TestInit } from "tests";
-import { SEVENTH } from "../constants";
-import { fromVoicings } from "./voicings";
 
 beforeAll(() => {
   TestInit.diatonicAltVoicing();

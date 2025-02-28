@@ -1,6 +1,7 @@
-import { cache, Dto } from "../caching";
-import { DegreeFunction } from "../DegreeFunction";
+import type { Dto } from "../caching/Dto";
+import { cache } from "../caching/cache";
+import type { DegreeFunction } from "../DegreeFunction";
 
-export default function from(dto: Dto): DegreeFunction {
+export function from(dto: Dto): DegreeFunction {
   return cache.getOrCreate(dto);
 }

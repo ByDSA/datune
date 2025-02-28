@@ -1,5 +1,5 @@
 import { QUARTER } from "../musical-duration/constants";
-import BPM from "./BPM";
+import type { BPM } from "./BPM";
 import { from } from "./building";
 
 export function initialize() {

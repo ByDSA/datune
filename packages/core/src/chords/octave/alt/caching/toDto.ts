@@ -1,6 +1,6 @@
-import { Dto } from ".";
-import Chord from "../Chord";
+import { type Chord } from "../Chord";
+import { type Dto } from "./Dto";
 
-export default function dto(self: Chord): Dto {
+export function toDto(self: Chord): Dto {
   return self.pitches;
 }

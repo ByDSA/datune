@@ -1,8 +1,8 @@
 import { lockr } from "@datune/utils/immutables";
-import { MusicalDuration } from "../musical-duration";
-import Tempo from "../tempo/Tempo";
+import type { MusicalDuration } from "../musical-duration";
+import { Tempo } from "../tempo/Tempo";
 
-export default class BPM extends Tempo {
+export class BPM extends Tempo {
   bpm: number;
 
   beat: MusicalDuration;

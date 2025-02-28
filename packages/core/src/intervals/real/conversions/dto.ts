@@ -1,6 +1,6 @@
-import { Dto } from "../building/dto";
-import Interval from "../Interval";
+import type { Dto } from "../building/dto/Dto";
+import type { Interval } from "../Interval";
 
-export default function dto(obj: Interval): Dto {
+export function toDto(obj: Interval): Dto {
   return obj.ratio;
 }

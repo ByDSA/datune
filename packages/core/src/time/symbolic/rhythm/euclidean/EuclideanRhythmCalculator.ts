@@ -1,5 +1,5 @@
 import { Arrays } from "@datune/utils";
-import { Array } from "../array";
+import type { Array } from "../array";
 import { Patterns, Pattern } from "../pattern";
 
 type Group = Arrays.NonEmpty<0 | 1>;
@@ -104,7 +104,7 @@ class EuclideanRhythmCalculator {
 
   private calculateStartIndex(): number {
     let start = 0;
-    const firstGroup = this.groups[0];
+    const [firstGroup] = this.groups;
 
     while (start < this.lastIndexOfGroups && Arrays.hasSameContent(firstGroup, this.groups[start]))
       start++;
@@ -144,6 +144,6 @@ class EuclideanRhythmCalculator {
   }
 }
 
-export default function calculate(onNotes: number, totalNotes: number): Pattern {
+export function calculate(onNotes: number, totalNotes: number): Pattern {
   return EuclideanRhythmCalculator.calculate(onNotes, totalNotes);
 }

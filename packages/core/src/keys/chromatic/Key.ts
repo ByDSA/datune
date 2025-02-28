@@ -1,8 +1,8 @@
 import { Arrays } from "@datune/utils";
 import { IKey } from "../Key";
-import { Dto } from "./caching/Dto";
+import type { Dto } from "./caching/Dto";
 import { Chord } from "chords/chromatic";
-import { Interval } from "intervals/chromatic";
+import type { Interval } from "intervals/chromatic";
 import { PitchArray, Pitch, Pitches } from "pitches/chromatic";
 import { Scales, Scale } from "scales/chromatic";
 

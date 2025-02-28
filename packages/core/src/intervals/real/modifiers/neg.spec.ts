@@ -1,7 +1,7 @@
 import { ET12_PERFECT_FIFTH, J_AUGMENTED_FIFTH, OCTAVE, PT_AUGMENTED_SEVENTH, PT_AUGMENTED_UNISON, PT_DIMINISHED_SECOND, UNISON } from "../constants";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { neg } from "./neg";
-import add from "./add";
+import { add } from "./add";
 import { TestInit } from "tests";
 
 TestInit.realInterval();

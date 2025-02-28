@@ -1,3 +1,1 @@
-type Dto = number;
-
-export default Dto;
+export type Dto = number;

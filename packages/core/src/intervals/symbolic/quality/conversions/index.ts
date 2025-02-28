@@ -1,7 +1,3 @@
 export {
-  default as hash,
-} from "./hash";
-
-export {
-  default as toInt,
+  toInt,
 } from "./int";

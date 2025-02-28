@@ -1,6 +1,6 @@
 import * as DegreeFunctions from "../degree-function/constants";
 import { compose } from "./building/compose";
-import CompoundFunction from "./CompoundFunction";
+import type { CompoundFunction } from "./CompoundFunction";
 import { Degrees as DA } from "degrees/alt";
 
 export function initialize() {

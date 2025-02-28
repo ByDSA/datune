@@ -1,3 +1,3 @@
 export {
-  default as voicing,
+  voicing,
 } from "./voicing";

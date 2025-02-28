@@ -1,10 +1,11 @@
-import { Pitches as OctavePitches } from "pitches/alt";
-import { SPNs as CSPNs, SPN as ChromaticSPN } from "spns/chromatic";
-import { TestInit } from "tests";
 import { fromPitchOctave } from "../building";
 import { A4, AA4, C4, COMMON } from "../constants";
-import SPN from "../SPN";
-import toChromaticSPN from "./chromatic";
+import type { SPN } from "../SPN";
+import { toChromatic } from "./chromatic";
+import { TestInit } from "tests";
+import type { SPN as ChromaticSPN } from "spns/chromatic";
+import { SPNs as CSPNs } from "spns/chromatic";
+import { Pitches as OctavePitches } from "pitches/alt";
 
 TestInit.diatonicAltSPN();
 TestInit.chromaticSPN();
@@ -17,7 +18,7 @@ const cases = [
 
 describe.each(cases)("specific cases", (spn: SPN, expectedChromaticSPN: ChromaticSPN) => {
   it("toChromatic", () => {
-    const actual = toChromaticSPN(spn);
+    const actual = toChromatic(spn);
 
     expect(actual).toBe(expectedChromaticSPN);
   } );
@@ -26,15 +27,15 @@ describe.each(cases)("specific cases", (spn: SPN, expectedChromaticSPN: Chromati
 describe.each(COMMON)("common toChromatic", (spn: SPN) => {
   const spnName = spn.toString();
 
-  describe(spnName, () => {
+  describe("name: " + spnName, () => {
     it("ok", () => {
-      const actual = toChromaticSPN(spn);
+      const actual = toChromatic(spn);
 
       expect(actual).toBeDefined();
     } );
 
     it("in ChromaticSPN.ALL", () => {
-      const actual = toChromaticSPN(spn);
+      const actual = toChromatic(spn);
 
       expect(CSPNs.ALL).toContain(actual);
     } );

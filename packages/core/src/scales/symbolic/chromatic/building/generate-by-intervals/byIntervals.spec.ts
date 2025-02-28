@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { Scales, Scale } from "../..";
-import generate from ".";
+import { generateByIntervals } from ".";
 import { Intervals } from "intervals/chromatic";
 import { TestInit } from "tests";
 
@@ -23,7 +23,7 @@ describe("tests", () => {
     [MINOR_THIRD, 7, -1, DIMINISHED_7th],
   ])("tests", (interval, length: number, startIndex: number, expected: Scale) => {
     it(`${interval}, length=${length}, startIndex=${startIndex} => ${String(expected)}`, () => {
-      const actual = generate( {
+      const actual = generateByIntervals( {
         interval,
         length,
         startIndex,

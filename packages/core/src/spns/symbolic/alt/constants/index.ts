@@ -1,7 +1,7 @@
 import { lockr } from "@datune/utils/immutables";
-import Array from "../Array";
+import { SPNArray } from "../Array";
 import { fromPitchOctave } from "../building";
-import SPN from "../SPN";
+import type { SPN } from "../SPN";
 import { Pitches as DPitches } from "pitches/diatonic";
 import { Pitches as OctavePitches } from "pitches/alt";
 
@@ -147,7 +147,7 @@ export function initialize() {
   lockr(COMMON);
 }
 
-function calcCommon(): Array {
+function calcCommon(): SPNArray {
   const { fromDiatonicAlts } = OctavePitches;
   const ret = [];
 
@@ -162,10 +162,10 @@ function calcCommon(): Array {
     }
   }
 
-  return ret as Array;
+  return ret as SPNArray;
 }
 
-export let COMMON: Array;
+export let COMMON: SPNArray;
 
 export let C_S1: SPN;
 

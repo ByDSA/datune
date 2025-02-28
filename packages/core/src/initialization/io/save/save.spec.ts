@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import save from "./save";
+import { save } from "./save";
 import { Keys } from "keys/chromatic";
 import { Pitches } from "pitches/chromatic";
 import { Scales } from "scales/chromatic";

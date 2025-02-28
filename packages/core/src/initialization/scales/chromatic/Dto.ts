@@ -1,7 +1,5 @@
-import Cache from "./cache/Dto";
+import { Dto as Cache } from "./cache/Dto";
 
-type Dto = {
+export type Dto = {
   cache: Cache;
 };
-
-export default Dto;

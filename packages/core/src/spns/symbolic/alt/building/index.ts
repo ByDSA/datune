@@ -1,7 +1,3 @@
 export {
-  Dto, hash as dtoHash,
-} from "./dto";
-
-export {
-  from as fromPitchOctave,
+  fromPitchOctave,
 } from "./pitch-octave";

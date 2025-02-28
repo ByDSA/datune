@@ -1,9 +1,9 @@
+import type { Voicing } from "../Voicing";
+import { fromRootIntervals } from "./rootIntervals";
 import { IntervalArray, Intervals } from "intervals/symbolic/alt";
-import { Interval as IntervalDiatonic } from "intervals/symbolic/diatonic";
+import type { Interval as IntervalDiatonic } from "intervals/symbolic/diatonic";
 import { Voicing as ChromaticVoicing } from "voicings/relative/chromatic";
 import { Voicing as DiatonicVoicing } from "voicings/relative/diatonic";
-import Voicing from "../Voicing";
-import { fromRootIntervals } from "./rootIntervals";
 
 export function fromVoicings(
   cVoicing: ChromaticVoicing,
@@ -25,5 +25,5 @@ export function fromVoicings(
     rootIntervals.push(rootInterval);
   }
 
-  return <Voicing> fromRootIntervals(...<IntervalArray>rootIntervals);
+  return fromRootIntervals(...<IntervalArray>rootIntervals);
 }

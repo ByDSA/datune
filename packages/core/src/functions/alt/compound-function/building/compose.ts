@@ -1,7 +1,7 @@
-import { DegreeFunction } from "../../degree-function/DegreeFunction";
-import { cache } from "../caching";
-import CompoundFunction from "../CompoundFunction";
-import { DegreeArray } from "degrees/alt";
+import type { DegreeFunction } from "../../degree-function/DegreeFunction";
+import { cache } from "../caching/cache";
+import type { CompoundFunction } from "../CompoundFunction";
+import type { DegreeArray } from "degrees/alt";
 
 export function compose(
   degreeFunction: DegreeFunction,

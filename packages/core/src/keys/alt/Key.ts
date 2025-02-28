@@ -1,7 +1,7 @@
 import { IKey } from "../Key";
-import { Dto } from "./building/dto/Dto";
+import type { Dto } from "./building/caching/Dto";
 import { Chord } from "chords/alt";
-import { Interval } from "intervals/alt";
+import type { Interval } from "intervals/alt";
 import { PitchArray, Pitch, Pitches } from "pitches/alt";
 import { Scale } from "scales/alt";
 

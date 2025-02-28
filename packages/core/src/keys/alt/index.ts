@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
-import { Key } from "./Key";
+import type { Key } from "./Key";
 
-import { KeyArray } from "./Array";
+import type { KeyArray } from "./Array";
 
 import type * as BuildingType from "./building";
 
@@ -22,6 +21,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "building",
     "conversions",
     "constants",
+  // eslint-disable-next-line no-undef
   ].map(p=>`${__dirname}/${p}`),
 } );
 

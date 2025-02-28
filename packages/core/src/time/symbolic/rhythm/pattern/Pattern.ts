@@ -1,8 +1,8 @@
 import { Arrays } from "@datune/utils";
 import { lockr } from "@datune/utils/immutables";
-import { Array } from "../array";
+import type { Array } from "../array";
 
-export default class Pattern implements Iterable<number> {
+export class Pattern implements Iterable<number> {
   array: Array;
 
   values: Arrays.Number;

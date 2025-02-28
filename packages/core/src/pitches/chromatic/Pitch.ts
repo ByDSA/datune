@@ -1,6 +1,6 @@
-import OctavePitch from "../OctavePitch";
+import { OctavePitch } from "../OctavePitch";
 
-export default class Chromatic implements OctavePitch {
+export class Pitch implements OctavePitch {
   private intValue;
 
   private constructor(intValue: number) {

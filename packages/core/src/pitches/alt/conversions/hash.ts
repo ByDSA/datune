@@ -1,5 +1,5 @@
-import Pitch from "../Pitch";
+import type { Pitch } from "../Pitch";
 
-export default function hash(obj: Pitch): string {
+export function hash(obj: Pitch): string {
   return `${+obj.diatonic}:${obj.alts}`;
 }

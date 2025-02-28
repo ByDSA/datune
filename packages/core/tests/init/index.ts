@@ -1,3 +1,3 @@
 export {
-  default as TestInit,
+  TestInit,
 } from "./TestInit";

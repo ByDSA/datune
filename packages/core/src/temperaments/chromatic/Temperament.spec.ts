@@ -54,16 +54,3 @@ describe.each([
     expect(actual).toBe(expected);
   } );
 } );
-
-// alt:
-/*
-it("Pythagorean - A to A#4 - AUGMENTED UNISON", () => {
-  const noteAlt = DA_AA;
-  const root = DA_A;
-  const intervalDiatonicAlt: IntervalDiatonicAlt = DAIBetween(root, noteAlt);
-  const actual: number = PYTHAGOREAN(intervalDiatonicAlt).ratio.value;
-  const expected: number = 1.06787109375;
-
-  expect(actual).toBeCloseTo(expected);
-} );
-*/

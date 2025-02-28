@@ -1,7 +1,7 @@
 import { Arrays } from "@datune/utils";
-import { Array } from "../array";
+import type { Array } from "../array";
 import { Patterns } from "../pattern";
-import calculate from "./EuclideanRhythmCalculator";
+import { calculate } from "./EuclideanRhythmCalculator";
 
 describe.each([
   [[4, 8], [1, 0, 1, 0, 1, 0, 1, 0]],
@@ -16,7 +16,10 @@ describe.each([
   // paper: neither Euclidean nor reverse Euclidean strings
   [[9, 16], [1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0]],
 ])("array", (params: number[], expectedArray: number[]) => {
-  expect(params.length > 0).toBeTruthy();
+  it("ok params", () => {
+    expect(params.length > 0).toBeTruthy();
+  } );
+
   it(`calculate ${params[0]}_${params[1]}`, () => {
     const rhythm = calculate(params[0], params[1]);
     const expected = Patterns.fromArray(...expectedArray as Array);
@@ -45,8 +48,11 @@ describe.each([
   [[13, 24], [2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2]],
 
 ])("pattern", (params: number[], expectedPattern: number[]) => {
-  expect(expectedPattern.length > 0).toBeTruthy();
-  expect(params.length > 0).toBeTruthy();
+  it("ok values", ()=> {
+    expect(expectedPattern.length > 0).toBeTruthy();
+    expect(params.length > 0).toBeTruthy();
+  } );
+
   it(`calculate ${params[0]}_${params[1]}`, () => {
     const rhythm = calculate(params[0], params[1]);
     const expected = Patterns.from(...<Arrays.Number>expectedPattern);

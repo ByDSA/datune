@@ -1,6 +1,6 @@
 import { Arrays } from "@datune/utils";
-import DiatonicVoicing from "../DiatonicVoicing";
+import { Voicing } from "../DiatonicVoicing";
 
-export function fromRootIntervalInts(...ints: Arrays.Number): DiatonicVoicing {
-  return (DiatonicVoicing as any).create(...ints);
+export function fromRootIntervalInts(...ints: Arrays.Number): Voicing {
+  return (Voicing as any).create(...ints);
 }

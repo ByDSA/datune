@@ -1,10 +1,10 @@
+import type { Data } from "./Data";
+import type { Dto } from "./Dto";
 import { toData as cChord } from "initialization/chords/chromatic";
 import { toData as cKey } from "initialization/keys/chromatic";
 import { toData as cScale } from "initialization/scales/chromatic";
-import Data from "./Data";
-import Dto from "./Dto";
 
-export default (dto: Dto): Data => ( {
+export const deserialize = (dto: Dto): Data => ( {
   version: dto.version,
   chords: {
     chromatic: cChord(dto.chords.chromatic),

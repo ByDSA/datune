@@ -1,5 +1,5 @@
 import { AUGMENTED_UNISON, MAJOR_TENTH, MAJOR_THIRD, PERFECT_FIFTH } from "../constants";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { neg } from "../modifiers/neg";
 import { fromIntervalQuality } from "./intervalQuality";
 import { TestInit } from "tests";

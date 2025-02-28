@@ -1,6 +1,6 @@
-import { default as SPN } from "./SPN";
+import { SPN } from "./SPN";
 
-import { default as SPNArray } from "./Array";
+import { SPNArray } from "./Array";
 
 import * as Building from "./building";
 

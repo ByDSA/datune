@@ -1,5 +1,3 @@
-import { Dto as ChordDto } from "chords/octave/chromatic/caching";
+import { Dto as ChordDto } from "chords/octave/chromatic/caching/Dto";
 
-type Dto = [string, ChordDto][];
-
-export default Dto;
+export type Cache = [string, ChordDto][];

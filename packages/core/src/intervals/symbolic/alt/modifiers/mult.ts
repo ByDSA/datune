@@ -1,5 +1,5 @@
 import { PERFECT_UNISON } from "../constants";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { add } from "./add";
 import { neg } from "./neg";
 

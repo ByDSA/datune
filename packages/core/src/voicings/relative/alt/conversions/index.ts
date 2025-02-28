@@ -1,7 +1,7 @@
 export {
-  default as toChromaticInterval,
+  toChromaticInterval,
 } from "./chromaticInterval";
 
 export {
-  default as toDiatonicInterval,
+  toDiatonicInterval,
 } from "./diatonicInterval";

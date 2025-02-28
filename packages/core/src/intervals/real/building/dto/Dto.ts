@@ -1,5 +1,7 @@
 import { NumExp } from "@datune/utils/math";
 
-type Dto = NumExp;
+export type Dto = NumExp;
 
-export default Dto;
+export function hashDto(dto: Dto): string {
+  return String(+dto);
+}

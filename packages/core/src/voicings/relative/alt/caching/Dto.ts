@@ -1,5 +1,8 @@
-import { IntervalArray } from "intervals/alt";
+import type { IntervalArray } from "intervals/alt";
+import { hash as hashIntervals } from "intervals/symbolic/alt/caching/hashObj";
 
-type Dto = IntervalArray;
+export type Dto = IntervalArray;
 
-export default Dto;
+export function hashDto(dto: Dto): string {
+  return dto.map(hashIntervals).join("-");
+}

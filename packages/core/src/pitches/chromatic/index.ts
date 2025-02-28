@@ -1,21 +1,17 @@
-/* eslint-disable no-undef */
-import { Array } from "./Array";
+import { Pitch } from "./Pitch";
+import type { PitchArray } from "./Array";
 
 import * as Building from "./building";
 
 import * as Constants from "./constants";
 
-import * as Conversions from "./conversions";
-
 import type * as ModifiersType from "./modifiers"; // deps: intervals/chromatic
 
-import Pitch from "./Pitch";
 import { createProxyBarrel } from "lazy-load";
 
 const staticModule = {
   ...Building,
   ...Constants,
-  ...Conversions,
 };
 
 type LazyType = typeof ModifiersType;
@@ -23,6 +19,7 @@ type LazyType = typeof ModifiersType;
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
+    // eslint-disable-next-line no-undef
     __dirname + "/modifiers",
   ],
 } );
@@ -30,5 +27,5 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
 export {
   mod as Pitches,
   Pitch,
-  Array as PitchArray,
+  PitchArray,
 };

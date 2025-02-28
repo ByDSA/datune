@@ -1,9 +1,9 @@
 import { lockr } from "@datune/utils/immutables";
-import { Pitch as Diatonic } from "../diatonic";
-import OctavePitch from "../OctavePitch";
-import { Dto } from "./caching";
+import type { Pitch as Diatonic } from "../diatonic";
+import { OctavePitch } from "../OctavePitch";
+import type { Dto } from "./caching/Dto";
 
-export default class Pitch implements OctavePitch {
+export class Pitch implements OctavePitch {
   diatonic: Diatonic;
 
   alts: number;
@@ -16,7 +16,7 @@ export default class Pitch implements OctavePitch {
   }
 
   valueOf(): number {
-    return +this.diatonic * 11 + this.alts * 17;
+    return (+this.diatonic * 11) + (this.alts * 17);
   }
 
   toString(): string {

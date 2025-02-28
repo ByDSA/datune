@@ -1,9 +1,9 @@
 import { lockr } from "@datune/utils/immutables";
-import ISPN from "../SPN";
-import { Dto } from "./building";
-import { Pitch } from "pitches/alt";
+import { SPN as ISPN } from "../SPN";
+import type { Dto } from "./building/dto/Dto";
+import type { Pitch } from "pitches/alt";
 
-export default class SPN implements ISPN<Pitch> {
+export class SPN implements ISPN<Pitch> {
   pitch: Pitch;
 
   octave: number;
@@ -19,6 +19,6 @@ export default class SPN implements ISPN<Pitch> {
   }
 
   valueOf(): number {
-    return +this.pitch * 197 + this.octave * 199;
+    return (+this.pitch * 197) + (this.octave * 199);
   }
 }

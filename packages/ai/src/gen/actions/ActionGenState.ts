@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { MusicalDuration } from "@datune/core";
 import { ZERO } from "@datune/core/time";
 import { MidiNote } from "@datune/midi";

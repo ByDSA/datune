@@ -6,7 +6,6 @@ TestInit.realInterval();
 describe("static properties should be defined", () => {
   it("building", () => {
     expect(Intervals.fromCents).toBeDefined();
-    expect(Intervals.dtoHash).toBeDefined();
     expect(Intervals.from).toBeDefined();
   } );
 
@@ -21,11 +20,6 @@ describe("lazy properties should be defined", () => {
     expect(Intervals.shiftOctaves).toBeDefined();
     expect(Intervals.mult).toBeDefined();
     expect(Intervals.neg).toBeDefined();
-  } );
-
-  it("conversions", () => {
-    expect(Intervals.hash).toBeDefined();
-    expect(Intervals.toDto).toBeDefined();
   } );
 
   it("constants (some)", () => {

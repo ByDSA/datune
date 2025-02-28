@@ -1,4 +1,4 @@
 import { Key } from "../Key";
-import { Scales } from "scales/chromatic";
+import { hash as hashScale } from "scales/symbolic/chromatic/caching/hashObj";
 
-export const hash = (obj: Key): string => `${Scales.hash(obj.scale)}:${+obj.root}`;
+export const hash = (obj: Key): string => `${hashScale(obj.scale)}:${+obj.root}`;

@@ -1,5 +1,4 @@
-
-export default class DiatonicDegree {
+export class Degree {
   private intValue: number;
 
   private constructor(intValue: number) {

@@ -1,6 +1,6 @@
 import { frac } from "@datune/utils/math";
 import { from } from "../building";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 
 export let COMMA: Interval;
 

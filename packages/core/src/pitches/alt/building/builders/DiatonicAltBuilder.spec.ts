@@ -1,4 +1,4 @@
-import DiatonicAltBuilder from "./DiatonicAltBuilder";
+import { DiatonicAltBuilder } from "./DiatonicAltBuilder";
 import { Keys as K } from "keys/alt";
 import { Pitches as DA } from "pitches/alt";
 import { Pitches as CPitches } from "pitches/chromatic";

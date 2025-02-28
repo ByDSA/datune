@@ -1,12 +1,11 @@
 import { StringHashCache } from "@datune/utils";
-import { toDto } from "../conversions";
-import Interval from "../Interval";
-import { Dto, dtoHash } from "./dto";
+import { toDto } from "../conversions/dto";
+import { Interval } from "../Interval";
+import type { Dto } from "./dto/Dto";
+import { hashDto } from "./dto/Dto";
 
-const cache = new StringHashCache<Interval, Dto>( {
-  hash: dtoHash,
+export const cache = new StringHashCache<Interval, Dto>( {
+  hash: hashDto,
   toDto,
   create: (Interval as any).create,
 } );
-
-export default cache;

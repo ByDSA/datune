@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { from } from "./building/from";
-import { DegreeFunction } from "./DegreeFunction";
+import type { DegreeFunction } from "./DegreeFunction";
 import { Degrees as D } from "degrees/chromatic";
 import { Voicings } from "voicings/chromatic";
 
@@ -8,6 +8,7 @@ export function initialize() {
   if (I5)
     throw new Error("Already initialized");
 
+  // eslint-disable-next-line max-len, @typescript-eslint/naming-convention
   const { POWER_CHORD, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_MINOR_b5, SEVENTH_SUS4, SEVENTH_SUS4_b9, SIXTH, SIXTH_MINOR, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_SUS4 } = Voicings;
 
   I5 = from( {

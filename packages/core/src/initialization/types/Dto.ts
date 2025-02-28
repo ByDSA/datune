@@ -2,7 +2,7 @@ import { Dto as CChord } from "initialization/chords/chromatic";
 import { Dto as CKey } from "initialization/keys/chromatic";
 import { Dto as CScale } from "initialization/scales/chromatic";
 
-type Data = {
+export type Dto = {
   version: string;
   chords: {
     chromatic: CChord;
@@ -14,5 +14,3 @@ type Data = {
     chromatic: CKey;
   };
 };
-
-export default Data;

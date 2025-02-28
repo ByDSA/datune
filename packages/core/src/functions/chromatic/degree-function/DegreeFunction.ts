@@ -3,10 +3,10 @@ import { HarmonicFunction } from "../HarmonicFunction";
 import { Dto, hashDto } from "./caching/Dto";
 import { Chord, Chords } from "chords/chromatic";
 import { Degrees, DegreeArray, Degree } from "degrees/chromatic";
-import { Interval } from "intervals/chromatic";
+import type { Interval } from "intervals/chromatic";
 import { Key } from "keys/chromatic";
 import { Pitches, Pitch } from "pitches/chromatic";
-import { Voicing } from "voicings/chromatic";
+import type { Voicing } from "voicings/chromatic";
 
 export class DegreeFunction extends HarmonicFunction {
   degree: Degree;

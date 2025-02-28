@@ -1,7 +1,7 @@
 import { cyclicMod } from "@datune/utils";
 import { PERFECT_OCTAVE } from "../constants";
-import Interval from "../Interval";
-import { default as Pitch } from "pitches/chromatic/Pitch";
+import type { Interval } from "../Interval";
+import type { Pitch } from "pitches/chromatic/Pitch";
 import { NUMBER as CNUMBER } from "pitches/chromatic/constants";
 import type { SPN } from "spns/symbolic/chromatic/SPN";
 

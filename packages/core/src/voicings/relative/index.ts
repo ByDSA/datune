@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 export {
   Voicing as VoicingAlt,
   VoicingArray as VoicingAltArray,
@@ -18,5 +17,5 @@ export {
 } from "./diatonic";
 
 export {
-  default as Voicing,
+  Voicing,
 } from "./Voicing";

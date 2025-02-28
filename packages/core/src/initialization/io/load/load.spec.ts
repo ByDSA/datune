@@ -1,4 +1,4 @@
-import load from "./load";
+import { load } from "./load";
 
 it("ok", async () => {
   const data = await load( {

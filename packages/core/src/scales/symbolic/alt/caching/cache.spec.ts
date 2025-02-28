@@ -8,6 +8,7 @@ import { Intervals } from "intervals/alt";
 TestInit.diatonicAltScale();
 
 describe("tests", () => {
+  // eslint-disable-next-line max-len
   const { MAJOR_SECOND, MAJOR_SEVENTH, MAJOR_SIXTH, MAJOR_THIRD, MINOR_SECOND, MINOR_SEVENTH, MINOR_SIXTH, MINOR_THIRD, PERFECT_FIFTH, PERFECT_FOURTH, PERFECT_UNISON } = Intervals;
   const P1 = PERFECT_UNISON;
   const m2 = MINOR_SECOND;

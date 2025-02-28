@@ -1,8 +1,8 @@
 import { lockr } from "@datune/utils/immutables";
-import { Pitch } from "pitches/chromatic";
-import Dto from "./caching/Dto";
+import type { Dto } from "./caching/Dto";
+import type { Pitch } from "pitches/chromatic";
 
-export default class NoteSet {
+export class NoteSet {
   pitches: Set<Pitch>;
 
   size: number;

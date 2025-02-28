@@ -1,6 +1,4 @@
-import DefaultSettings from "./DefaultSettings";
+import { DEFAULT_SETTINGS } from "./DefaultSettings";
 import { SettingsInterface } from "./types";
 
-const Settings: SettingsInterface = DefaultSettings;
-
-export default Settings;
+export const SETTINGS: SettingsInterface = DEFAULT_SETTINGS;

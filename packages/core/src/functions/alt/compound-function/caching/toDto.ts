@@ -1,8 +1,7 @@
-/* eslint-disable import/prefer-default-export */
-import { Dto } from ".";
-import CompoundFunction from "../CompoundFunction";
+import type { CompoundFunction } from "../CompoundFunction";
+import type { Dto } from "./Dto";
 
-export default function toDto(obj: CompoundFunction): Dto {
+export function toDto(obj: CompoundFunction): Dto {
   return {
     degreeFunction: obj.degreeFunction,
     degreeChain: obj.degreeChain,

@@ -1,5 +1,5 @@
 import { lockr } from "@datune/utils/immutables";
-import Degree from "./Degree";
+import { Degree } from "./Degree";
 
 export const I = new (Degree as any)(0);
 

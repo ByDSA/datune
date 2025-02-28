@@ -1,7 +1,7 @@
 import { lock } from "@datune/utils/immutables";
 import * as DIntervals from "../../diatonic/constants";
 import { fromIntervalQuality } from "../building/intervalQuality";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "intervals/quality";
 
 export function initialize() {

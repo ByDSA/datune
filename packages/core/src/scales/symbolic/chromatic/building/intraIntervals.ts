@@ -1,10 +1,10 @@
+import { Scale } from "../Scale";
+import { fromRootIntervals } from "./rootIntervals";
 import { IntervalArray, Intervals } from "intervals/chromatic";
-import Scale from "../Scale";
-import fromRootIntervals from "./rootIntervals";
 
-export default function fromIntraIntervals(...intraIntervals: IntervalArray): Scale {
+export function fromIntraIntervals(...intraIntervals: IntervalArray): Scale {
   const rootIntervals: IntervalArray = [Intervals.PERFECT_UNISON];
-  let last = rootIntervals[0];
+  let [last] = rootIntervals;
 
   for (const intraInterval of intraIntervals) {
     const newRootInterval = Intervals.add(last, intraInterval);

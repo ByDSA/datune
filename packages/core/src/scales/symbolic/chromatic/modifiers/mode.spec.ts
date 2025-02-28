@@ -1,10 +1,10 @@
-/* eslint-disable camelcase */
-import { TestInit } from "tests";
-import { mode } from ".";
 import { DORIAN, EOLIAN, IONIAN, LOCRIAN, LYDIAN, MAJOR, MIXOLYDIAN, PHRYGIAN } from "../constants";
-import Scale from "../Scale";
+import { Scale } from "../Scale";
+import { mode } from ".";
+import { TestInit } from "tests";
 
 TestInit.chromaticScale();
+
 describe.each(<[Scale, number, Scale][]>[
   [MAJOR, 1, IONIAN],
   [MAJOR, 2, DORIAN],

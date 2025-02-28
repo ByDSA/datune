@@ -1,5 +1,5 @@
 import { B7 } from "../../constants";
-import { from } from "../pitch-octave";
+import { fromPitchOctave } from "../pitch-octave";
 import { TestInit } from "tests";
 
 TestInit.diatonicAltSPN();
@@ -10,7 +10,7 @@ describe.each(cases)("cached", (spn) => {
   const spnName = spn.toString();
 
   it(`SPN: ${spnName}`, () => {
-    const actual = from(spn.pitch, spn.octave);
+    const actual = fromPitchOctave(spn.pitch, spn.octave);
 
     expect(actual).toBe(spn);
   } );

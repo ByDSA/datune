@@ -1,7 +1,7 @@
 import { fromIntervalQuality } from "../building/intervalQuality";
-import Interval from "../Interval";
-import calcFixedQualityDifferentDirection from "./calcQuality/differentDirection";
-import calcFixedQualitySameDirection from "./calcQuality/sameDirection";
+import type { Interval } from "../Interval";
+import { calcFixedQualityDifferentDirection } from "./calcQuality/differentDirection";
+import { calcFixedQualitySameDirection } from "./calcQuality/sameDirection";
 import { Intervals as DIntervals } from "intervals/diatonic";
 
 export function sub(

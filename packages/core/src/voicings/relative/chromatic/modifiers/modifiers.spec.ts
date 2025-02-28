@@ -1,6 +1,6 @@
 import { fromRootIntervals } from "../building/rootIntervals";
 import { MAJOR_SECOND, TRITONE } from "../constants";
-import Voicing from "../Voicing";
+import type { Voicing } from "../Voicing";
 import { inv } from ".";
 import { TestInit } from "tests";
 

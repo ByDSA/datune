@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import Degree from "./Degree";
+import type { Degree } from "./Degree";
 
 export const I: Degree = 0;
 

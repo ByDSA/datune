@@ -1,7 +1,7 @@
 import { from } from "./building";
 
 export function initialize() {
-
+  // Por si en un futuro hace falta
 }
 
 export const QUARTER = from(4);

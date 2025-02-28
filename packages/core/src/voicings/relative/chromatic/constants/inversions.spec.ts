@@ -1,9 +1,10 @@
-import { TestInit } from "tests";
 import { inv } from "../modifiers";
-import getInversionOf from "./inversionMap";
+import { getInversionOf } from "./inversionMap";
 import { TRIAD_MAJOR, TRIAD_MINOR } from "./n3";
+import { TestInit } from "tests";
 
 TestInit.chromaticVoicing();
+
 describe.each([
   [TRIAD_MAJOR, 0],
   [inv(TRIAD_MAJOR), 1],

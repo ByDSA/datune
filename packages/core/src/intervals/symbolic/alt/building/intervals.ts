@@ -1,7 +1,8 @@
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { fromIntervalQuality } from "./intervalQuality";
-import { Interval as Chromatic } from "intervals/chromatic";
-import { Interval as DInterval, Intervals as DIntervals } from "intervals/diatonic";
+import type { Interval as Chromatic } from "intervals/chromatic";
+import type { Interval as DInterval } from "intervals/diatonic";
+import { Intervals as DIntervals } from "intervals/diatonic";
 import { fromInt as qualityFromInt } from "intervals/quality";
 import { Pitches } from "pitches/alt";
 import { Pitches as DPitches } from "pitches/diatonic";

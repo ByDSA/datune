@@ -1,7 +1,7 @@
 export {
-  default as fromRootVoicing,
+  fromRootVoicing,
 } from "./rootVoicing";
 
 export {
-  default as fromSPNs,
+  fromSPNs,
 } from "./spns";

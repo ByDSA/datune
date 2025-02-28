@@ -1,6 +1,7 @@
 import { Chord } from "../Chord";
-import OctavePitch from "pitches/OctavePitch";
+import { OctavePitch } from "pitches/OctavePitch";
 
-export default interface SymbolicChord<
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface SymbolicChord<
 P extends OctavePitch> extends Chord<P> {
 }

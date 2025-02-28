@@ -3,8 +3,8 @@
 import { lockr } from "@datune/utils/immutables";
 import { fromIntraIntervals, fromRootIntervals } from "../building";
 import { mode } from "../modifiers";
-import Scale from "../Scale";
-import { Degree } from "degrees/chromatic";
+import { Scale } from "../Scale";
+import type { Degree } from "degrees/chromatic";
 
 export function initialize() {
   if (MAJOR)

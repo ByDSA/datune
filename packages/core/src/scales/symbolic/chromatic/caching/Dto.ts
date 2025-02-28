@@ -1,5 +1,7 @@
 import { IntervalArray } from "intervals/chromatic";
 
-type Dto = IntervalArray;
+export type Dto = IntervalArray;
 
-export default Dto;
+export function hashDto(dto: Dto): string {
+  return dto.map(String).join("-");
+}

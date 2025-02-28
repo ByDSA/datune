@@ -1,5 +1,5 @@
 export {
-  default as load,
+  load,
 } from "./load";
 
 export {
@@ -7,5 +7,5 @@ export {
 } from "./LoadSettings";
 
 export {
-  default as loadSync,
+  loadSync,
 } from "./loadSync";

@@ -1,11 +1,12 @@
 /* eslint-disable camelcase */
-import { TestInit } from "tests";
 import { BLUES_a4, COMMON, MAJOR, MINOR, MIXOLYDIAN } from ".";
+import { TestInit } from "tests";
 
 TestInit.chromaticScale();
+
 describe("sets", () => {
   describe.each([...COMMON])("tests", (scale) => {
-    describe(String(scale), () => {
+    describe("Scale: " + String(scale), () => {
       it("defined", () => {
         expect(scale).toBeDefined();
       } );

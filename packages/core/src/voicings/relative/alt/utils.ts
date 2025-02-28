@@ -1,9 +1,9 @@
-import Array from "./Array";
+import type { VoicingArray } from "./Array";
 import { inv } from "./modifiers/inv";
-import Voicing from "./Voicing";
+import type { Voicing } from "./Voicing";
 
-export function getAllInversions(obj: Voicing): Array {
-  const ret: Array = [obj];
+export function getAllInversions(obj: Voicing): VoicingArray {
+  const ret: VoicingArray = [obj];
   let last: Voicing = obj;
 
   for (let i = 1; i < obj.length; i++) {

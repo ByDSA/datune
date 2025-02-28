@@ -1,6 +1,4 @@
 import { Arrays } from "@datune/utils";
-import DiatonicVoicing from "./DiatonicVoicing";
+import type { Voicing } from "./DiatonicVoicing";
 
-type Array = Arrays.NonEmpty<DiatonicVoicing>;
-
-export default Array;
+export type VoicingArray = Arrays.NonEmpty<Voicing>;

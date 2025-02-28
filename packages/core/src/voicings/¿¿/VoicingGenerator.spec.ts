@@ -1,8 +1,8 @@
+import { VoicingGenerator } from "./VoicingGenerator";
 import { PitchArray as DiatonicAltArray, Pitches as DAP } from "pitches/alt";
 import { PitchArray as ChromaticArray, Pitches as CP } from "pitches/chromatic";
 import { PitchArray as DiatonicArray, Pitches as DP } from "pitches/diatonic";
 import { TestInit } from "tests";
-import { VoicingGenerator } from "./VoicingGenerator";
 
 beforeAll(() => {
   TestInit.diatonicAlt();

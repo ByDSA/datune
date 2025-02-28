@@ -1,9 +1,9 @@
-import { TestInit } from "tests";
 import { QUARTER_120 } from "../../bpm/constants";
-import BPM from "../../bpm/BPM";
+import { BPM } from "../../bpm/BPM";
 import { HALF } from "../constants";
-import MusicalDuration from "../MusicalDuration";
+import type { MusicalDuration } from "../MusicalDuration";
 import { fromMillisAndBPM } from "./fromMillisAndBPM";
+import { TestInit } from "tests";
 
 TestInit.bpm();
 

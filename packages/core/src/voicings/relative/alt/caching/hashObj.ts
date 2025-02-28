@@ -1,9 +1,9 @@
-import Voicing from "../Voicing";
-import hash from "./hash";
-import toDto from "./toDto";
+import type { Voicing } from "../Voicing";
+import { hashDto } from "./Dto";
+import { toDto } from "./toDto";
 
-export default function hashObj(obj: Voicing): string {
+export function hash(obj: Voicing): string {
   const dto = toDto(obj);
 
-  return hash(dto);
+  return hashDto(dto);
 }

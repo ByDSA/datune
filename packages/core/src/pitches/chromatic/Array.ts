@@ -1,4 +1,4 @@
 import { Arrays } from "@datune/utils";
-import Chromatic from "./Pitch";
+import type { Pitch } from "./Pitch";
 
-export type Array = Arrays.NonEmpty<Chromatic>;
+export type PitchArray = Arrays.NonEmpty<Pitch>;

@@ -1,7 +1,6 @@
-/* eslint-disable camelcase */
-import ChordArray from "../Array";
-import fromRootVoicing from "../building/root-voicing";
-import Chord from "../Chord";
+import { ChordArray } from "../Array";
+import { fromRootVoicing } from "../building/root-voicing";
+import { Chord } from "../Chord";
 import { inv } from "../modifiers";
 import { Voicings } from "voicings/alt";
 import { Pitches as DA } from "pitches/alt";
@@ -10,6 +9,7 @@ export function initialize() {
   if (C)
     throw new Error("Already initialized");
 
+  // eslint-disable-next-line @typescript-eslint/naming-convention, max-len, camelcase
   const { NINTH, POWER_CHORD, SEVENTH, SEVENTH_b5, SEVENTH_MAJ7, SEVENTH_MINOR, SEVENTH_MINOR_MAJ7, THIRTEENTH_MAJ13_b5a9, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_SUS2, TRIAD_SUS4 } = Voicings;
 
   C = fromRootVoicing(DA.C, TRIAD_MAJOR);

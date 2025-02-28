@@ -4,8 +4,18 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { Dependencies } from "daproj";
 import { generateConfigs } from "daproj/eslint";
-import { configs as projectConfigs } from "./lib/eslint.project.config.mjs";
 
+const projectConfigs = [
+  {
+    files: ["**/*.ts{,x}", "**/*.js{,x}"],
+    rules: {
+      "import/no-internal-modules": "off",
+      "no-underscore-dangle": ["error", {
+        allow: ["_id"],
+      }],
+    },
+  },
+];
 const generatedConfigs = generateConfigs( {
   [Dependencies.Jest]: true,
   [Dependencies.Eslint]: true,
@@ -27,7 +37,7 @@ const infrastructureConfig = [
   {
     files: ["src/**/*.ts"],
     rules: {
-      "import/no-default-export": "off",
+      // "import/no-default-export": "off",
     },
   },
 ];

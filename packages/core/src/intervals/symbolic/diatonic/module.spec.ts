@@ -5,10 +5,6 @@ import { TestInit } from "tests";
 TestInit.diatonicInterval();
 
 describe("static properties should be defined", () => {
-  it("caching", () => {
-    expect(Intervals.hash).toBeDefined();
-  } );
-
   it("others", () => {
     expect(Intervals.fromInt).toBeDefined();
   } );

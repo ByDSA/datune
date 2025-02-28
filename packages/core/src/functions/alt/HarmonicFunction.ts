@@ -1,7 +1,7 @@
-import { Chord } from "chords/alt";
-import { Key } from "keys/alt";
+import type { Chord } from "chords/alt";
+import type { Key } from "keys/alt";
 
-export default abstract class HarmonicFunction {
+export abstract class HarmonicFunction {
   private static functionCache = new Map<string, Chord | null>();
 
   getChord(key: Key): Chord | null {

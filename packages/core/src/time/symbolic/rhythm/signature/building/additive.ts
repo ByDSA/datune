@@ -1,8 +1,8 @@
-import MusicalDuration from "../../../musical-duration/MusicalDuration";
+import type { MusicalDuration } from "../../../musical-duration/MusicalDuration";
 import { QUARTER } from "../../../musical-duration/constants";
-import cache from "../caching/cache";
+import { cache } from "../caching/cache";
 
-export default function fromAdditive(
+export function fromAdditive(
   nums: number[],
   beat: MusicalDuration = QUARTER,
 ) {

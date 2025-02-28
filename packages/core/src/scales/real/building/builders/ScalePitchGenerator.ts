@@ -1,23 +1,23 @@
 import { frac, FracExp, mult } from "@datune/utils/math";
+import { Scale } from "../../Scale";
+import { fromIntervals } from "../intervals";
 import { IntervalArray, Intervals, Interval } from "intervals/real";
-import ScalePitch from "../../ScalePitch";
-import scaleFromIntervals from "../intervals";
 
 class ScalePitchGenerator {
-  private _interval: Interval;
+  #interval: Interval;
 
-  private _length: number;
+  #length: number;
 
   constructor(_interval: Interval, _length: number) {
-    this._interval = _interval;
-    this._length = _length;
+    this.#interval = _interval;
+    this.#length = _length;
   }
 
-  private _unreductedIntervals: IntervalArray | undefined;
+  #unreductedIntervals: IntervalArray | undefined;
 
-  private _unorderedIntervals: IntervalArray | undefined;
+  #unorderedIntervals: IntervalArray | undefined;
 
-  private _orderedIntervals: IntervalArray | undefined;
+  #orderedIntervals: IntervalArray | undefined;
 
   static from(interval: Interval, length: number): ScalePitchGenerator {
     if (length < 2)
@@ -27,23 +27,24 @@ class ScalePitchGenerator {
   }
 
   private calculateUnreductedIntervals(): IntervalArray {
-    this._unreductedIntervals = [Intervals.UNISON, this._interval];
-    let lastInterval: Interval = this._unreductedIntervals[1];
+    this.#unreductedIntervals = [Intervals.UNISON, this.#interval];
+    // eslint-disable-next-line prefer-destructuring
+    let lastInterval: Interval = this.#unreductedIntervals[1];
 
-    for (let i = 2; i < this._length; i++) {
-      const newRatio = mult(lastInterval.ratio, this._interval.ratio);
+    for (let i = 2; i < this.#length; i++) {
+      const newRatio = mult(lastInterval.ratio, this.#interval.ratio);
 
       lastInterval = Intervals.from(newRatio);
-      this._unreductedIntervals.push(lastInterval);
+      this.#unreductedIntervals.push(lastInterval);
     }
 
-    return this._unreductedIntervals;
+    return this.#unreductedIntervals;
   }
 
   private calculateUnorderedIntervals(unreductedIntervals: IntervalArray): IntervalArray {
     const unorderedIntervals = [];
 
-    for (let i = 0; i < this._length; i++) {
+    for (let i = 0; i < this.#length; i++) {
       const unreducted = unreductedIntervals[i];
       const oldRatio = unreducted.ratio;
       let newRatio = oldRatio;
@@ -65,12 +66,12 @@ class ScalePitchGenerator {
     return <IntervalArray>unorderedIntervals;
   }
 
-  generate(): ScalePitch {
-    this._unreductedIntervals = this.calculateUnreductedIntervals();
-    this._unorderedIntervals = this.calculateUnorderedIntervals(this._unreductedIntervals);
-    this._orderedIntervals = sortIntervals(this._unorderedIntervals);
+  generate(): Scale {
+    this.#unreductedIntervals = this.calculateUnreductedIntervals();
+    this.#unorderedIntervals = this.calculateUnorderedIntervals(this.#unreductedIntervals);
+    this.#orderedIntervals = sortIntervals(this.#unorderedIntervals);
 
-    return scaleFromIntervals(...this._orderedIntervals);
+    return fromIntervals(...this.#orderedIntervals);
   }
 }
 
@@ -82,6 +83,6 @@ function sortIntervals(unorderedIntervals: IntervalArray): IntervalArray {
   return orderedIntervals;
 }
 
-export default function gen(interval: Interval, length: number): ScalePitch {
+export function gen(interval: Interval, length: number): Scale {
   return new ScalePitchGenerator(interval, length).generate();
 }

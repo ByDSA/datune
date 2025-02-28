@@ -1,5 +1,5 @@
 export {
-  default as getDegreeFunctions,
+  getDegreeFunctions,
 } from "./degreeFunctions";
 
 export {

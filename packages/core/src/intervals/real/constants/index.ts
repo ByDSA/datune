@@ -1,6 +1,6 @@
 import { lock } from "@datune/utils/immutables";
 import { from, fromCents } from "../building";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { initialize as commasInitialize } from "./Commas";
 import { initialize as et12Initialize } from "./ET12";
 import { initialize as justInitialize } from "./Just";

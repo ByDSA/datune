@@ -1,7 +1,8 @@
-import HarmonicFunction from "../HarmonicFunction";
-import { Chord, Chords } from "chords/alt";
+import { HarmonicFunction } from "../HarmonicFunction";
+import type { Chord } from "chords/alt";
+import { Chords } from "chords/alt";
 import { Intervals } from "intervals/alt";
-import { Key } from "keys/alt";
+import type { Key } from "keys/alt";
 import { Pitches } from "pitches/alt";
 import { Voicings } from "voicings/alt";
 

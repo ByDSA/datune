@@ -1,8 +1,9 @@
-import Chord from "../../Chord";
+import { Chord } from "../../Chord";
 import { Am, C as DAC_C, C7, C9, CMaj7 } from "../../constants";
 import { toVoicing } from "../../conversions";
-import fromRootVoicing from ".";
-import { Pitches, Pitch } from "pitches/alt";
+import { fromRootVoicing } from ".";
+import { Pitches } from "pitches/alt";
+import type { Pitch } from "pitches/alt";
 import { TestInit } from "tests";
 import { Voicings, Voicing } from "voicings/alt";
 

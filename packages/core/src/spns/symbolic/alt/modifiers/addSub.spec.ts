@@ -1,8 +1,9 @@
 import { fromPitchOctave } from "../building";
 import { C4, C5, CC5, FF4, G4 } from "../constants";
-import SPN from "../SPN";
+import type { SPN } from "../SPN";
 import { add, sub } from ".";
-import { Intervals, Interval } from "intervals/alt";
+import type { Interval } from "intervals/alt";
+import { Intervals } from "intervals/alt";
 import { Pitches } from "pitches/alt";
 import { TestInit } from "tests";
 

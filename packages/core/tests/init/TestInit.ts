@@ -25,7 +25,7 @@ import { initialize as initCVoicings } from "voicings/relative/chromatic/constan
 import { initialize as initDVoicings } from "voicings/relative/diatonic/constants";
 import { initCFunctions } from "initialization/initializeCommon";
 
-export default class TestInit {
+export class TestInit {
   static realScale() {
     this.realInterval();
     try {

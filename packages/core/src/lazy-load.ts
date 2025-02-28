@@ -1,19 +1,3 @@
-import path from "node:path";
-
-/** @deprecated */
-export function lazyAssign(mod: any, files: string[], baseDir = ""): void {
-  files.forEach((file) => {
-    const resolvedPath = path.join(baseDir, file);
-
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    import(resolvedPath).then((m) => {
-      Object.assign(mod, m);
-    } );
-
-    // TODO: LO ASIGNA DE FORMA ASÍNCRONA. ENTONCES NO SIRVE. TIENE QUE INICIALIZARLO CUANDO SE LLAME
-  } );
-}
-
 type Module = Record<string, unknown>;
 const moduleCache: Record<string, Module> = {}; // Cache de módulos cargados
 

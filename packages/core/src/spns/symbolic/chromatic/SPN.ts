@@ -1,5 +1,5 @@
-import ISPN from "../SPN";
-import { Dto } from "./building/dto/Dto";
+import { SPN as ISPN } from "../SPN";
+import type { Dto } from "./building/dto/Dto";
 import { Pitches, Pitch } from "pitches/chromatic";
 
 export class SPN implements ISPN<Pitch> {

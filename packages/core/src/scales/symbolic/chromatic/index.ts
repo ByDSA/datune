@@ -1,10 +1,8 @@
-import { default as Scale } from "./Scale";
+import { Scale } from "./Scale";
 
-import { default as ScaleArray } from "./Array";
+import { ScaleArray } from "./Array";
 
 import * as Building from "./building";
-
-import * as Caching from "./caching";
 
 import type * as ConversionsType from "./conversions";
 import type * as Constants from "./constants";
@@ -12,7 +10,6 @@ import { createProxyBarrel } from "lazy-load";
 
 const staticModule = {
   ...Building,
-  ...Caching,
 };
 
 type LazyType = typeof Constants & typeof ConversionsType;

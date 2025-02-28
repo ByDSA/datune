@@ -1,7 +1,8 @@
-import { Pitch as Diatonic } from "pitches/diatonic";
+import type { Pitch as Diatonic } from "pitches/diatonic";
 
-type Dto = {
+export type Dto = {
   diatonic: Diatonic;
   alts: number;
 };
-export default Dto;
+
+export const hashDto = (dto: Dto): string => `${+dto.diatonic}:${dto.alts}`;

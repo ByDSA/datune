@@ -1,8 +1,12 @@
-import Direction from "../Direction";
+import { Direction } from "../Direction";
 
-type Dto = {
+export type Dto = {
   magnitude: number;
   direction: Direction;
 };
 
-export default Dto;
+export function hashDto(obj: Dto): string {
+  const dirStr = obj.direction === Direction.ASCENDENT ? "+" : "-";
+
+  return `${dirStr}${obj.magnitude}`;
+}

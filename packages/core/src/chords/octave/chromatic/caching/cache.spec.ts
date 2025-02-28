@@ -1,5 +1,5 @@
 import { Arrays } from "@datune/utils";
-import cache from "./cache";
+import { cache } from "./cache";
 import { PitchArray, Pitches } from "pitches/chromatic";
 import { TestInit } from "tests";
 

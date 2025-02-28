@@ -1,7 +1,7 @@
 import { Arrays } from "@datune/utils";
 import { from } from "./building";
-import cache from "./cache";
-import Pattern from "./Pattern";
+import { cache } from "./cache";
+import type { Pattern } from "./Pattern";
 
 export function rotate(obj: Pattern, n: number = 1): Pattern {
   const values = Array.from(obj.values) as Arrays.Number;

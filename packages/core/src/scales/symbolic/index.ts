@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 export {
   Scale as AltScale,
   ScaleArray as AltScaleArray,

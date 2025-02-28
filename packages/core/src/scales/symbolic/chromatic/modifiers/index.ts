@@ -1,8 +1,8 @@
 import { Arrays } from "@datune/utils";
-import { IntervalArray } from "intervals/chromatic";
 import { fromIntraIntervals } from "../building";
-import Scale from "../Scale";
-import getIntraIntervals from "./intraIntervals";
+import { Scale } from "../Scale";
+import { calcIntraIntervals } from "./intraIntervals";
+import { IntervalArray } from "intervals/chromatic";
 
 export function mode(
   obj: Scale,
@@ -35,7 +35,7 @@ export function getModeIntraIntervals(
   obj: Scale,
   n: number,
 ): IntervalArray {
-  const intervals: IntervalArray = [...getIntraIntervals(obj)];
+  const intervals: IntervalArray = [...calcIntraIntervals(obj)];
 
   if (n > 0)
     Arrays.rotateLeft(intervals, n - 1);
@@ -46,5 +46,5 @@ export function getModeIntraIntervals(
 }
 
 export {
-  default as calcIntraIntervals,
+  calcIntraIntervals,
 } from "./intraIntervals";

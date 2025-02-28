@@ -1,7 +1,7 @@
-import { TestInit } from "tests";
-import { CENT, ET12_QUARTER_TONE, J_QUARTER_TONE, OCTAVE, PT_COMMA, UNISON } from ".";
 import { calcCents } from "../calcs";
-import RealInterval from "../Interval";
+import type { Interval } from "../Interval";
+import { CENT, ET12_QUARTER_TONE, J_QUARTER_TONE, OCTAVE, PT_COMMA, UNISON } from ".";
+import { TestInit } from "tests";
 
 TestInit.realInterval();
 
@@ -12,27 +12,29 @@ describe.each([
   [ET12_QUARTER_TONE, 50, 1.029302236643492],
   [PT_COMMA, 23.46, 1.0136432647705078],
   [J_QUARTER_TONE, 49.98, 1.0292887029288702],
-])("constants", (interval: RealInterval, cents: number, ratio: number) => {
+])("constants", (interval: Interval, cents: number, ratio: number) => {
   describe(`${cents}`, () => {
     it("defined", () => {
       expect(interval).toBeDefined();
     } );
+
     it(`cents = ${cents}`, () => {
       const actual = calcCents(interval);
 
-      if (cents % 1 === 0)
-        expect(actual).toBe(cents);
-      else
-        expect(actual).toBeCloseTo(cents);
+      expectNumber(actual, cents);
     } );
 
     it(`ratio = ${ratio}`, () => {
       const actual = +interval.ratio;
 
-      if (ratio % 1 === 0)
-        expect(actual).toBe(ratio);
-      else
-        expect(actual).toBeCloseTo(ratio);
+      expectNumber(actual, ratio);
     } );
   } );
 } );
+
+function expectNumber(actual: number, expected: number) {
+  if (expected % 1 === 0)
+    expect(actual).toBe(expected);
+  else
+    expect(actual).toBeCloseTo(expected);
+}

@@ -1,7 +1,7 @@
-import { Degree } from "degrees/chromatic";
-import { Voicing } from "voicings/chromatic";
-import { Degrees } from "degrees/chromatic";
-import { Voicings } from "voicings/chromatic";
+import type { Degree } from "degrees/chromatic";
+import type { Voicing } from "voicings/chromatic";
+import { hash as hashDegree } from "degrees/chromatic/caching";
+import { hash as hashVoicing } from "voicings/relative/chromatic/caching/hash";
 
 export type Dto = {
   degree: Degree;
@@ -9,5 +9,5 @@ export type Dto = {
 };
 
 export function hashDto(obj: Dto): string {
-  return `(${Degrees.hash(obj.degree)}|${Voicings.hash(obj.voicing)})`;
+  return `(${hashDegree(obj.degree)}|${hashVoicing(obj.voicing)})`;
 }

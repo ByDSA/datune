@@ -1,11 +1,11 @@
 export {
-  default as fromKeyFunction,
+  fromKeyFunction,
 } from "./key-function";
 
 export {
-  default as fromPitches,
+  fromPitches,
 } from "./pitches";
 
 export {
-  default as fromRootVoicing,
+  fromRootVoicing,
 } from "./root-voicing";

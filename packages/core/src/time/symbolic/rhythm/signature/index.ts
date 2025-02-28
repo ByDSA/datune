@@ -2,7 +2,7 @@ import type * as BuildingType from "./building";
 
 import * as Constants from "./constants";
 
-import { default as TimeSignature } from "./TimeSignature";
+import { TimeSignature } from "./TimeSignature";
 import { createProxyBarrel } from "lazy-load";
 
 const staticModule = {

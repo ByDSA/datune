@@ -1,4 +1,4 @@
-import Interval from "./Interval";
+import type { Interval } from "./Interval";
 import { NUMBER as CNUMBER } from "pitches/chromatic/constants";
 
 export function add(obj: Interval, interval: Interval): Interval {

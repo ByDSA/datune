@@ -1,7 +1,7 @@
-import { SPNArray } from "spns/chromatic";
 import { SPNChord } from "../Chord";
-import cache from "./cache";
+import { cache } from "./cache";
+import { SPNArray } from "spns/chromatic";
 
-export default function fromSPNs(...spns: SPNArray): SPNChord {
+export function fromSPNs(...spns: SPNArray): SPNChord {
   return cache.getOrCreate(spns);
 }

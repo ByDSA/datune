@@ -1,5 +1,5 @@
-import { Pitch } from "pitches/chromatic";
-import { Pitches } from "pitches/chromatic";
+import type { Pitch } from "pitches/chromatic";
+import { hash as hashPitch } from "pitches/chromatic/caching/hash";
 
 export type Dto = {
   pitch: Pitch;
@@ -7,5 +7,5 @@ export type Dto = {
  };
 
 export function hashDto(dto: Dto): string {
-  return `(${Pitches.hash(dto.pitch)})|${dto.octave}`;
+  return `(${hashPitch(dto.pitch)})|${dto.octave}`;
 }

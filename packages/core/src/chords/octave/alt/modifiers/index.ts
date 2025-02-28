@@ -1,7 +1,7 @@
 import { Arrays } from "@datune/utils";
 import { fromPitches } from "../building";
-import Chord from "../Chord";
-import { Interval } from "intervals/alt";
+import { Chord } from "../Chord";
+import type { Interval } from "intervals/alt";
 import { PitchArray, Pitch, Pitches } from "pitches/alt";
 
 export function inv(obj: Chord, n: number = 1): Chord {

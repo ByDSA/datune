@@ -1,5 +1,3 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable max-classes-per-file */
 import { MusicalDuration } from "@datune/core";
 import { MidiNode, MidiNote, nodeFrom } from "@datune/midi";
 import { TemporalNode } from "@datune/utils";

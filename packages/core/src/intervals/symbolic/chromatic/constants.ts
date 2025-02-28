@@ -1,4 +1,4 @@
-import Interval from "./Interval";
+import type { Interval } from "./Interval";
 
 export const PERFECT_UNISON: Interval = 0;
 

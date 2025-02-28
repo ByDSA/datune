@@ -1,5 +1,3 @@
-import Scale from "scales/symbolic/chromatic/caching/Dto";
+import { Dto as Scale } from "scales/symbolic/chromatic/caching/Dto";
 
-type Dto = [string, Scale][];
-
-export default Dto;
+export type Dto = [string, Scale][];

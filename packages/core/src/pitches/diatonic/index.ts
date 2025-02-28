@@ -1,7 +1,5 @@
-/* eslint-disable no-undef */
-import { default as Array } from "./Array";
-
-import { default as Pitch } from "./Diatonic";
+import type { Pitch } from "./Pitch";
+import type { PitchArray } from "./Array";
 
 import type * as BuildingType from "./building";
 
@@ -20,14 +18,15 @@ type LazyType = typeof BuildingType & typeof ConversionsType & typeof ModifiersT
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    __dirname + "/building",
-    __dirname + "/conversions",
-    __dirname + "/modifiers",
-  ],
+    "building",
+    "conversions",
+    "modifiers",
+  // eslint-disable-next-line no-undef
+  ].map(p=>`${__dirname}/${p}`),
 } );
 
 export {
   mod as Pitches,
   Pitch,
-  Array as PitchArray,
+  PitchArray,
 };

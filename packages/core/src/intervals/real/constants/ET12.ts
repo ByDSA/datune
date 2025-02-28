@@ -1,6 +1,6 @@
 import { frac, pow2 } from "@datune/utils/math";
 import { from, fromCents } from "../building";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { NUMBER as CNUMBER } from "pitches/chromatic/constants";
 
 export function initialize() {

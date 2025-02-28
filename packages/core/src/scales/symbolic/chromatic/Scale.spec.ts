@@ -1,8 +1,7 @@
-/* eslint-disable camelcase */
-import { TestInit } from "tests";
 import { fromRootIntervals } from "./building";
 import { MAJOR } from "./constants";
 import { getModeIntraIntervals } from "./modifiers";
+import { TestInit } from "tests";
 
 TestInit.chromaticScale();
 
@@ -14,7 +13,7 @@ describe("getModeIntraIntervals", () => {
     expect(actual).toStrictEqual(expected);
   } );
 
-  it("VI  = MINOR.intervals", () => {
+  it("vI  = MINOR.intervals", () => {
     const actual: number[] = getModeIntraIntervals(MAJOR, 6);
     const expected: number[] = [2, 1, 2, 2, 1, 2, 2];
 

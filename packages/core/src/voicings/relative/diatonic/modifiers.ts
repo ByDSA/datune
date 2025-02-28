@@ -1,6 +1,6 @@
 import { Arrays } from "@datune/utils";
 import { fromRootIntervalInts } from "./building";
-import Voicing from "./DiatonicVoicing";
+import type { Voicing } from "./DiatonicVoicing";
 import { Pitches } from "pitches/diatonic";
 
 export function inv(obj: Voicing, n: number = 1): Voicing {

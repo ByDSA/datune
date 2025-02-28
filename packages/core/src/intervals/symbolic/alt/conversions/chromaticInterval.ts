@@ -1,13 +1,13 @@
-import Interval from "../Interval";
-import { Interval as Chromatic } from "intervals/chromatic";
+import type { Interval } from "../Interval";
+import type { Interval as Chromatic } from "intervals/chromatic";
 import { Intervals as DIntervals } from "intervals/diatonic";
-import Direction from "intervals/symbolic/diatonic/Direction";
+import { Direction } from "intervals/symbolic/diatonic/Direction";
 import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MINOR } from "intervals/symbolic/quality";
 import { Pitches as CPitches } from "pitches/chromatic";
 import { Pitches as DPitches } from "pitches/diatonic";
 import { Scales as CScales } from "scales/chromatic";
 
-export default function semisCalculate(obj: Interval): Chromatic {
+export function toChromaticInterval(obj: Interval): Chromatic {
   return new SemisPrecalculator(obj).calc();
 }
 

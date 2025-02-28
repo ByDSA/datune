@@ -1,8 +1,8 @@
 import { Arrays } from "@datune/utils";
 import { Voicings as DVoicings } from "../../diatonic";
-import Voicing from "../Voicing";
+import type { Voicing } from "../Voicing";
 
-export default function toDiatonic(obj: Voicing) {
+export function toDiatonicInterval(obj: Voicing) {
   const arrayDiatonicChordVoicing: Arrays.Number = [] as any;
 
   for (const value of obj.rootIntervals)

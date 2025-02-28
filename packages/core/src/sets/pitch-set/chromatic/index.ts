@@ -1,4 +1,4 @@
-import { default as NoteSet } from "./NoteSet";
+import { NoteSet } from "./NoteSet";
 
 import * as Building from "./building";
 

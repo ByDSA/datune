@@ -1,5 +1,5 @@
 import { AUGMENTED_FOURTH, AUGMENTED_SEVENTH, DIMINISHED_FIFTH, DIMINISHED_NINTH, DIMINISHED_SEVENTH, MINOR_THIRD, PERFECT_UNISON } from "../constants";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { mult } from "./mult";
 import { neg } from "./neg";
 import { TestInit } from "tests";

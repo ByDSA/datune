@@ -1,8 +1,9 @@
+import { Key } from "../Key";
 import { Pitches } from "pitches/alt";
-import { Chord, Chords } from "chords/alt";
+import type { Chord } from "chords/alt";
+import { Chords } from "chords/alt";
 import { Interval, Intervals } from "intervals/alt";
 import { Voicings, Voicing } from "voicings/alt";
-import { Key } from "../Key";
 
 type Choices = {
   interval: Interval;

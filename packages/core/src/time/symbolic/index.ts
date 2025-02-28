@@ -9,7 +9,7 @@ export {
 } from "./rhythm";
 
 export {
-  default as SymbolicDuration,
+  SymbolicDuration,
 } from "./SymbolicDuration";
 
 export * from "./tempo";

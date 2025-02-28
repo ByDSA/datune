@@ -1,8 +1,7 @@
-/* eslint-disable import/prefer-default-export */
-import { Dto } from ".";
-import TimeSignature from "../TimeSignature";
+import type { TimeSignature } from "../TimeSignature";
+import type { Dto } from "./Dto";
 
-export default function toDto(obj: TimeSignature): Dto {
+export function toDto(obj: TimeSignature): Dto {
   return {
     nums: obj.numerators,
     beat: obj.denominatorBeat,

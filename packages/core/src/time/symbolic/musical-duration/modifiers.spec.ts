@@ -1,11 +1,12 @@
 import { add, div, divCell, mult, sub } from "@datune/utils/time";
 import { EIGHTH, HALF, initialize, QUARTER, SIXTEENTH, WHOLE, ZERO } from "./constants";
 import { dotted, triplet } from "./modifiers";
-import MusicalDuration from "./MusicalDuration";
+import type { MusicalDuration } from "./MusicalDuration";
 
 beforeAll(() => {
   initialize();
 } );
+
 it("withAdd - QUARTER + QUARTER = HALF", () => {
   const actual: MusicalDuration = add(QUARTER, QUARTER);
   const expected = HALF;

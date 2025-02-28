@@ -1,7 +1,7 @@
-import { DegreeArray } from "degrees/chromatic";
-import { DegreeFunction } from "../../degree-function/DegreeFunction";
+import type { DegreeFunction } from "../../degree-function/DegreeFunction";
 import { cache } from "../caching/cache";
 import { CompoundFunction } from "../CompoundFunction";
+import { DegreeArray } from "degrees/chromatic";
 
 export function compose(
   degreeFunction: DegreeFunction,

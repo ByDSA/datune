@@ -1,5 +1,5 @@
 import { Scales } from "../..";
-import Scale from "../../Scale";
+import { Scale } from "../../Scale";
 import { IntervalArray, Interval, Intervals } from "intervals/chromatic";
 import { Pitches } from "pitches/chromatic";
 
@@ -114,6 +114,6 @@ type Input = {
   length: number;
   startIndex?: number;
 };
-export default function generate( { interval, length, startIndex = 0 }: Input): Scale {
+export function generateByIntervals( { interval, length, startIndex = 0 }: Input): Scale {
   return Generator.from(interval, length, startIndex).generate();
 }

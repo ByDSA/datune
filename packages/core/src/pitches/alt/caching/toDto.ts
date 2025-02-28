@@ -1,7 +1,7 @@
-import Pitch from "../Pitch";
-import Dto from "./Dto";
+import type { Pitch } from "../Pitch";
+import type { Dto } from "./Dto";
 
-export default (obj: Pitch): Dto => ( {
+export const toDto = (obj: Pitch): Dto => ( {
   diatonic: obj.diatonic,
   alts: obj.alts,
 } );

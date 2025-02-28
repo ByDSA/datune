@@ -1,4 +1,4 @@
-import { default as ConcertPitch } from "./ConcertPitch";
+import type { ConcertPitch } from "./ConcertPitch";
 
 import { fromFrequencySPN } from "./building/frequencySPN";
 

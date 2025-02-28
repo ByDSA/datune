@@ -16,9 +16,7 @@ describe("lazy properties should be defined", () => {
   } );
 
   it("conversions", () => {
-    expect(Keys.hash).toBeDefined();
     expect(Keys.toChromatic).toBeDefined();
-    expect(Keys.toDto).toBeDefined();
   } );
 
   it("constants (some)", () => {

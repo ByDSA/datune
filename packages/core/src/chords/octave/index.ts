@@ -8,5 +8,5 @@ export {
 } from "./chromatic";
 
 export {
-  default as SymbolicChord,
+  SymbolicChord,
 } from "./SymbolicChord";

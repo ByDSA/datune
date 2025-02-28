@@ -1,6 +1,6 @@
 import { NumExp } from "@datune/utils/math";
 
-export default class Interval {
+export class Interval {
   ratio: NumExp;
 
   private constructor(ratio: NumExp) {

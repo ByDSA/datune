@@ -1,13 +1,11 @@
 import { StringHashCache } from "@datune/utils";
-import Chord from "../Chord";
-import Dto from "./Dto";
-import hash from "./hash";
-import toDto from "./toDto";
+import { Chord } from "../Chord";
+import type { Dto } from "./Dto";
+import { hashDto } from "./Dto";
+import { toDto } from "./toDto";
 
-const cache = new StringHashCache<Chord, Dto>( {
-  hash,
+export const cache = new StringHashCache<Chord, Dto>( {
+  hash: hashDto,
   toDto,
   create: (Chord as any).create,
 } );
-
-export default cache;

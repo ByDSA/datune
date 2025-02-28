@@ -1,6 +1,6 @@
-import Scale from "../Scale";
-import Dto from "./Dto";
+import { Scale } from "../Scale";
+import type { Dto } from "./Dto";
 
-export default function dto(obj: Scale): Dto {
+export function toDto(obj: Scale): Dto {
   return obj.rootIntervals;
 }

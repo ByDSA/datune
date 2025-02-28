@@ -1,5 +1,5 @@
-import { DegreeFunction } from "../DegreeFunction";
-import { Dto } from "./Dto";
+import type { DegreeFunction } from "../DegreeFunction";
+import type { Dto } from "./Dto";
 
 export function toDto(obj: DegreeFunction): Dto {
   return {

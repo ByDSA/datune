@@ -1,15 +1,7 @@
 export {
-  default as toChromaticDegree,
+  toChromaticDegree,
 } from "./chromaticDegree";
 
 export {
-  default as toDto,
-} from "./dto";
-
-export {
-  default as hash,
-} from "./hash";
-
-export {
-  default as toInterval,
+  toInterval,
 } from "./interval";

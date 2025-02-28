@@ -1,5 +1,5 @@
-import Quality from "../Quality";
+import type { Quality } from "../Quality";
 
-export default function hash(obj: Quality): string {
+export function hash(obj: Quality): string {
   return String(obj);
 }

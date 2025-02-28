@@ -1,4 +1,4 @@
-import Interval from "./Interval";
+import type { Interval } from "./Interval";
 import { abs } from "./modifiers/abs";
 import { simple } from "./modifiers/simple";
 import { UNISON, FOURTH, FIFTH } from "./constants";

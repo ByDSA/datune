@@ -1,7 +1,7 @@
 import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "../constants";
-import Quality from "../Quality";
+import type { Quality } from "../Quality";
 
-export default function toInt(quality: Quality, isMain: boolean): number | null {
+export function toInt(quality: Quality, isMain: boolean): number | null {
   if (isMain) {
     switch (quality) {
       case PERFECT: return 0;

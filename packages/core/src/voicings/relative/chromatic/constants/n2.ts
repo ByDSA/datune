@@ -1,5 +1,5 @@
 import { fromRootIntervals } from "../building/rootIntervals";
-import Voicing from "../Voicing";
+import type { Voicing } from "../Voicing";
 
 export function initializeN2() {
   MINOR_SECOND = fromRootIntervals(0, 1);

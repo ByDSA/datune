@@ -1,7 +1,7 @@
-import { DegreeFunction } from "../../degree-function/DegreeFunction";
+import type { DegreeFunction } from "../../degree-function/DegreeFunction";
 import { hashDto as degreeFunctionsHash } from "../../degree-function/caching/Dto";
-import { DegreeArray } from "degrees/chromatic";
-import { Degrees } from "degrees/chromatic";
+import type { DegreeArray } from "degrees/chromatic";
+import { hash as hashDegree } from "degrees/chromatic/caching";
 
 export type Dto = {
   degreeFunction: DegreeFunction;
@@ -10,7 +10,7 @@ export type Dto = {
 
 export function hash(obj: Dto): string {
   const degreeFunction = degreeFunctionsHash(obj.degreeFunction);
-  const degreeChain = obj.degreeChain.map(Degrees.hash).join("-");
+  const degreeChain = obj.degreeChain.map(hashDegree).join("-");
 
   return `(${degreeFunction}|${degreeChain})`;
 }

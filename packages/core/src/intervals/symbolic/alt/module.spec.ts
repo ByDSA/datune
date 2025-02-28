@@ -18,10 +18,6 @@ describe("lazy properties should be defined", () => {
     expect(Intervals.DOUBLY_AUGMENTED_FIFTEENTH).toBeDefined();
   } );
 
-  it("caching", () => {
-    expect(Intervals.hash).toBeDefined();
-  } );
-
   it("modifiers", () => {
     expect(Intervals.serie).toBeDefined();
     expect(Intervals.abs).toBeDefined();

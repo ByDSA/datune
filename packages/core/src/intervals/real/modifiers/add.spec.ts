@@ -1,6 +1,6 @@
 import { fromCents } from "../building";
 import { ET12_PERFECT_FIFTH, ET12_SEMITONE, OCTAVE, UNISON } from "../constants";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { add } from "./independentModifiers";
 import { TestInit } from "tests";
 

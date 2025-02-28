@@ -1,6 +1,6 @@
 import { Arrays } from "@datune/utils";
 import { TRIAD_MAJOR } from "../constants";
-import Voicing from "../Voicing";
+import type { Voicing } from "../Voicing";
 import { fromIntraIntervals } from "./intraIntervals";
 import { TestInit } from "tests";
 

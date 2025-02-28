@@ -1,6 +1,6 @@
 export type Dto = string;
 
-export default class Quality {
+export class Quality {
   private shortName: string;
 
   private constructor(dto: Dto) {

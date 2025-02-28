@@ -1,5 +1,5 @@
+import type { Data } from "./Data";
 import { Key } from "keys/chromatic";
-import Data from "./Data";
 
 function isValidCache(cache: any): boolean {
   if (!cache)

@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
-import { Array as ChordArray } from "./Array";
+import { ChordArray } from "./Array";
 
-import { default as Chord } from "./Chord";
+import { Chord } from "./Chord";
 
 import type { fromKeyFunction } from "./building/key-function"; // chords/chromatic, functions/chromatic, keys/chromatic
 import type { fromPitches } from "./building/pitches"; // pitches/chromatic, pitches/chromatic/caching
@@ -31,6 +30,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "building/root-voicing",
     "constants",
     "conversions",
+  // eslint-disable-next-line no-undef
   ].map(p=>`${__dirname}/${p}`),
 } );
 

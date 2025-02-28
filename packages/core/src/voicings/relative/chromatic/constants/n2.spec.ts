@@ -1,8 +1,7 @@
-/* eslint-disable camelcase */
-import { Interval } from "intervals/chromatic";
-import { TestInit } from "tests";
-import Voicing from "../Voicing";
+import type { Voicing } from "../Voicing";
 import { MAJOR_SECOND, MAJOR_THIRD, MINOR_SECOND, MINOR_THIRD, POWER_CHORD, TRITONE } from "./n2";
+import type { Interval } from "intervals/chromatic";
+import { TestInit } from "tests";
 
 TestInit.chromaticVoicing();
 

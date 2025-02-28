@@ -1,5 +1,3 @@
 import { Key } from "keys/chromatic";
 
-type Data = [string, Key][];
-
-export default Data;
+export type Data = [string, Key][];

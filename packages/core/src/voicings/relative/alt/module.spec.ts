@@ -1,5 +1,5 @@
-import { TestInit } from "tests";
 import { Voicings } from ".";
+import { TestInit } from "tests";
 
 TestInit.diatonicAltVoicing();
 
@@ -8,11 +8,6 @@ describe("static properties should be defined", () => {
     expect(Voicings.fromIntraIntervals).toBeDefined();
     expect(Voicings.fromRootIntervals).toBeDefined();
     expect(Voicings.fromVoicings).toBeDefined();
-  } );
-
-  it("caching", () => {
-    expect(Voicings.hashDto).toBeDefined();
-    expect(Voicings.hash).toBeDefined();
   } );
 
   it("modifiers", () => {

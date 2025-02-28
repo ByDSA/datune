@@ -1,10 +1,10 @@
-/* eslint-disable camelcase */
+import { C as DAC_C, C7 } from "../../constants";
+import { fromPitches } from ".";
 import { PitchArray, Pitches as DA } from "pitches/alt";
 import { TestInit } from "tests";
-import fromPitches from ".";
-import { C as DAC_C, C7 } from "../../constants";
 
 TestInit.diatonicAltChord();
+
 it("get from ImmutableCache", () => {
   const chord = fromPitches(
     DA.C,

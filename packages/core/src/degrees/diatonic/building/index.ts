@@ -1,6 +1,6 @@
 import { cyclicMod } from "@datune/utils";
 import { I, II, III, IV, V, VI, VII } from "../constants";
-import Degree from "../Degree";
+import type { Degree } from "../Degree";
 import { Pitches } from "pitches/diatonic";
 
 export function fromInt(n: number): Degree {

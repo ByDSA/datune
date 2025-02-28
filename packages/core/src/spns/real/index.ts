@@ -1,7 +1,7 @@
 export * from "./calcs";
 
 export {
-  default as RealPitch,
+  RealPitch,
 } from "./RealPitch";
 
 export * from "./simple-pitch";

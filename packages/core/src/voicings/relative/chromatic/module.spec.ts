@@ -1,6 +1,6 @@
-import { TestInit } from "tests";
 import { inv } from "./modifiers";
 import { Voicings } from ".";
+import { TestInit } from "tests";
 
 TestInit.chromaticVoicing();
 

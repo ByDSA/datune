@@ -1,6 +1,6 @@
 import { UNISON } from "../constants";
-import Interval from "../Interval";
-import add from "./add";
+import type { Interval } from "../Interval";
+import { add } from "./add";
 import { neg } from "./neg";
 
 export function mult(self: Interval, factor: number): Interval {

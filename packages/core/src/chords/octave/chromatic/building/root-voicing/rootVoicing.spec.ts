@@ -1,4 +1,4 @@
-import Chord from "../../Chord";
+import { Chord } from "../../Chord";
 import { Am, C, C7, C9, CMaj7 } from "../../constants";
 import { toVoicing } from "../../conversions";
 import { fromRootVoicing } from ".";

@@ -1,8 +1,10 @@
-import { MusicalDuration } from "time/symbolic/musical-duration";
+import type { MusicalDuration } from "time/symbolic/musical-duration";
 
-type Dto = {
+export type Dto = {
   nums: number[];
   beat: MusicalDuration;
 };
 
-export default Dto;
+export function hashDto(dto: Dto): string {
+  return `${dto.nums.join("-")}|${String(+dto.beat)}`;
+}

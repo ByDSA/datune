@@ -1,4 +1,4 @@
-import { DegreeFunction } from "../degree-function/DegreeFunction";
+import type { DegreeFunction } from "../degree-function/DegreeFunction";
 import { HarmonicFunction } from "../HarmonicFunction";
 import { Dto, hash } from "./caching/Dto";
 import { Chords, Chord } from "chords/chromatic";

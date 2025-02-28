@@ -1,5 +1,5 @@
 import { fromPitches } from "../building";
-import toChromatic from "./chromatic";
+import { toChromatic } from "./chromatic";
 import { Chords } from "chords/chromatic";
 import { Pitches as DA } from "pitches/alt";
 import { TestInit } from "tests";

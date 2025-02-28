@@ -91,10 +91,6 @@ describe("initialize all constants", () => {
       expect(DAP.C).toBeDefined();
     } );
 
-    // TODO
-    /* it("concert pitch", () => {
-      expect(DACP_A440).toBeDefined();
-    } ); */
     it("spn", () => {
       expect(DASPN.C4).toBeDefined();
     } );
@@ -107,10 +103,6 @@ describe("initialize all constants", () => {
       expect(DAV.TRIAD_MAJOR).toBeDefined();
     } );
 
-    // TODO
-    /* it("pitch set", () => {
-      expect(DAPS_C5).toBeDefined();
-    } ); */
     it("chord", () => {
       expect(DAC.C).toBeDefined();
     } );
@@ -130,13 +122,5 @@ describe("initialize all constants", () => {
     it("key", () => {
       expect(DAK.C).toBeDefined();
     } );
-    // TODO
-    /*
-    it("temperament", () => {
-      expect(DATE_ET12).toBeDefined();
-    } );
-    it("tuning", () => {
-      expect(DATU_EQUAL_440).toBeDefined();
-    } ); */
   } );
 } );

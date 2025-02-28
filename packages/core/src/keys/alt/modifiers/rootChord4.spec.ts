@@ -1,7 +1,7 @@
-import { Chords } from "chords/alt";
-import { TestInit } from "tests";
 import { C } from "../constants";
 import { rootChord4 } from "./rootChord4";
+import { Chords } from "chords/alt";
+import { TestInit } from "tests";
 
 TestInit.diatonicAltChord();
 TestInit.diatonicAltKey();

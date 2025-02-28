@@ -1,7 +1,7 @@
 import { Quality } from "..";
 import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "../constants";
 import { toInt } from "../conversions";
-import fromInt from "./int";
+import { fromInt } from "./int";
 
 describe.each([
   [0, true, PERFECT],

@@ -1,9 +1,9 @@
 import { lockr } from "@datune/utils/immutables";
-import { Degree as DiatonicDegree } from "degrees/diatonic";
-import Dto from "./building/dto/Dto";
+import type { Dto } from "./caching/Dto";
 import { toChromatic as innerToChromatic } from "./utils";
+import { Degree as DiatonicDegree } from "degrees/diatonic";
 
-export default class DegreeAlt {
+export class Degree {
   diatonicDegree: DiatonicDegree;
 
   alts: number;
@@ -15,8 +15,8 @@ export default class DegreeAlt {
     lockr(this);
   }
 
-  private static create(dto: Dto): DegreeAlt {
-    return new DegreeAlt(dto);
+  private static create(dto: Dto): Degree {
+    return new Degree(dto);
   }
 
   valueOf(): number {

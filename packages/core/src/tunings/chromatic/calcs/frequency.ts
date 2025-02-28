@@ -34,7 +34,7 @@ class FrequencyCalculator {
     const ratioNumber = +this.tuning.temperament(intervalSimple).ratio;
     const distOctave = this.getDistOctave(this.root, this.pitch);
 
-    return this.tuning.concertPitch.frequency * 2 ** distOctave * ratioNumber;
+    return this.tuning.concertPitch.frequency * (2 ** distOctave) * ratioNumber;
   }
 }
 

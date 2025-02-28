@@ -1,18 +1,18 @@
-import { SPNs, SPNArray, SPN } from "spns/chromatic";
-import { Voicing } from "voicings/chromatic";
-import { SPNChord } from "../Chord";
-import fromSPNs from "./spns";
+import { type SPNChord } from "../Chord";
+import { fromSPNs } from "./spns";
+import { SPNs, type SPNArray, type SPN } from "spns/chromatic";
+import { type Voicing } from "voicings/chromatic";
 
-export default (base: SPN, voicing: Voicing): SPNChord | null => {
+export function fromRootVoicing(base: SPN, voicing: Voicing): SPNChord | null {
   const notes: SPN[] = [];
 
   for (const rootInterval of voicing) {
-    const shiftedSPN = SPNs.add(base, rootInterval);
+    const shiftedSpn = SPNs.add(base, rootInterval);
 
-    if (!shiftedSPN)
+    if (!shiftedSpn)
       return null;
 
-    notes.push(shiftedSPN);
+    notes.push(shiftedSpn);
   }
 
   if (notes.length === 0)

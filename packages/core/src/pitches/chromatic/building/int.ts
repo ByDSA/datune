@@ -1,8 +1,8 @@
 import { cyclicMod } from "@datune/utils";
 import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG, NUMBER } from "../constants";
-import Chromatic from "../Pitch";
+import type { Pitch } from "../Pitch";
 
-export default function f(intValue: number): Chromatic {
+export function fromInt(intValue: number): Pitch {
   const fixedIntValue = getValidInt(intValue);
 
   switch (fixedIntValue) {

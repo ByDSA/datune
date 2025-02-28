@@ -1,8 +1,8 @@
-import Temperament from "./Temperament";
-import ChromaticInterval from "intervals/symbolic/chromatic/Interval";
+import type { Temperament } from "./Temperament";
+import type { Interval as ChromaticInterval } from "intervals/symbolic/chromatic/Interval";
 import * as CI from "intervals/symbolic/chromatic/constants";
 import { simplify, octaves } from "intervals/symbolic/chromatic/modifiers";
-import RealInterval from "intervals/real/Interval";
+import type { Interval as RealInterval } from "intervals/real/Interval";
 import * as RI from "intervals/real/constants";
 import { shiftOctaves } from "intervals/real/modifiers/shiftOctaves";
 

@@ -1,6 +1,6 @@
 import { frac } from "@datune/utils/math";
 import { from } from "../building";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { initialize as PTinitialize, MAJOR_SECOND as PT_MAJOR_SECOND,
   MINOR_SEVENTH as PT_MINOR_SEVENTH,
   PERFECT_FIFTH as PT_PERFECT_FIFTH,

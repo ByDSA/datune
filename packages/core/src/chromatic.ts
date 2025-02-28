@@ -7,7 +7,7 @@ export {
 } from "intervals/quality";
 
 export {
-  Pitch as Pitch,
+  Pitch,
 } from "pitches/chromatic";
 
 export * from "voicings/chromatic";

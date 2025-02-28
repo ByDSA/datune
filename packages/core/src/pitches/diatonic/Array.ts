@@ -1,6 +1,4 @@
 import { Arrays } from "@datune/utils";
-import Diatonic from "./Diatonic";
+import type { Pitch } from "./Pitch";
 
-type Array = Arrays.NonEmpty<Diatonic>;
-
-export default Array;
+export type PitchArray = Arrays.NonEmpty<Pitch>;

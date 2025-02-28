@@ -1,7 +1,7 @@
-import { Dto } from "./caching";
-import Direction from "./Direction";
+import type { Dto } from "./caching/Dto";
+import { Direction } from "./Direction";
 
-export default class Interval {
+export class Interval {
   magnitude: number;
 
   direction: Direction;

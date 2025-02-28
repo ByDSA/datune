@@ -1,4 +1,4 @@
-import Pitch from "../Pitch";
-import Dto from "./Dto";
+import { type Pitch } from "../Pitch";
+import { type Dto } from "./Dto";
 
-export default (self: Pitch): Dto => +self;
+export const toDto = (self: Pitch): Dto => +self;

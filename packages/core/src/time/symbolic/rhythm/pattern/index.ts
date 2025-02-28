@@ -4,9 +4,9 @@ import * as Constants from "./constants";
 
 import * as Modifiers from "./modifiers";
 
-import { default as Pattern } from "./Pattern";
+import type { Pattern } from "./Pattern";
 
-const Patterns = {
+const staticModule = {
   ...Building,
   ...Constants,
   ...Modifiers,
@@ -14,5 +14,5 @@ const Patterns = {
 
 export {
   Pattern,
-  Patterns,
+  staticModule as Patterns,
 };

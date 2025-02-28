@@ -1,3 +1,3 @@
-export default interface RealPitch {
+export interface RealPitch {
     valueOf(): number;
 }

@@ -1,8 +1,8 @@
 import { HALF, QUARTER, ZERO } from "@datune/core/time";
 import { C5, D5, E5, nodeFrom, noteFrom } from "@datune/midi";
-import { TestInit } from "tests";
 import LowerVoiceConstraint from "../constraints/voice/LowerVoiceConstraint";
 import Voice from "./Voice";
+import { TestInit } from "tests";
 
 TestInit.initAll();
 

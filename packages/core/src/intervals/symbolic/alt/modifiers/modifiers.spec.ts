@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { Intervals } from "..";
 import { AUGMENTED_FIFTH, AUGMENTED_FOURTH, AUGMENTED_SECOND, AUGMENTED_SEVENTH, AUGMENTED_UNISON, DIMINISHED_FIFTH, DIMINISHED_NINTH, MAJOR_SECOND, MAJOR_SEVENTH, MAJOR_SIXTH, MAJOR_THIRD, MINOR_SECOND, MINOR_SEVENTH, MINOR_SIXTH, MINOR_THIRD, PERFECT_ELEVENTH, PERFECT_FIFTH, PERFECT_FOURTH, PERFECT_OCTAVE, PERFECT_TWELFTH, PERFECT_UNISON } from "../constants";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { neg } from "./neg";
 import { add } from "./add";
 import { sub } from "./sub";
@@ -10,7 +10,9 @@ import { Intervals as DIntervals } from "intervals/diatonic";
 import { TestInit } from "tests";
 
 TestInit.diatonicAltInterval();
-const { FIFTH, FOURTH, neg: DNeg } = DIntervals;
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { FIFTH, FOURTH, neg: Dneg } = DIntervals;
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const CASES_AmB = [
   [DIMINISHED_FIFTH, MINOR_THIRD, MINOR_THIRD],
   [AUGMENTED_FIFTH, MAJOR_THIRD, MAJOR_THIRD],
@@ -25,7 +27,7 @@ const CASES_AmB = [
   [DIMINISHED_NINTH, DIMINISHED_FIFTH, DIMINISHED_FIFTH],
   [AUGMENTED_SEVENTH, AUGMENTED_FOURTH, AUGMENTED_FOURTH],
   [PERFECT_UNISON, DIMINISHED_FIFTH,
-     Intervals.fromIntervalQuality(DNeg(FIFTH), DIMINISHED) as Interval],
+     Intervals.fromIntervalQuality(Dneg(FIFTH), DIMINISHED) as Interval],
   [PERFECT_UNISON, PERFECT_UNISON, PERFECT_UNISON],
   [PERFECT_OCTAVE, MINOR_SECOND, MAJOR_SEVENTH],
   [PERFECT_OCTAVE, MAJOR_SECOND, MINOR_SEVENTH],

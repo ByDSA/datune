@@ -1,5 +1,5 @@
-import Degree from "../Degree";
-import cache from "./cache";
+import type { Degree } from "../Degree";
+import { cache } from "../caching/cache";
 import { Degree as ChromaticDegree } from "degrees/chromatic";
 import { Degree as DiatonicDegree } from "degrees/diatonic";
 import { Pitches } from "pitches/alt";

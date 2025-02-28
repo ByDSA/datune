@@ -1,5 +1,5 @@
+import type { Data } from "./Data";
 import { Chord } from "chords/chromatic";
-import Data from "./Data";
 
 function isValidCache(cache: any): boolean {
   if (!cache)

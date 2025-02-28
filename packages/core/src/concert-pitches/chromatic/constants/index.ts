@@ -1,6 +1,6 @@
 import { lockr } from "@datune/utils/immutables";
 import { fromFrequencySPN } from "../building/frequencySPN";
-import ConcertPitch from "../ConcertPitch";
+import type { ConcertPitch } from "../ConcertPitch";
 import { SPNs } from "spns/chromatic";
 
 export function initialize(): void {

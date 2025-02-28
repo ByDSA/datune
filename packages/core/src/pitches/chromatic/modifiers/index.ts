@@ -1,11 +1,11 @@
 export {
-  default as add,
+  add,
 } from "./add";
 
 export {
-  default as rootIntervals,
+  rootIntervals,
 } from "./rootIntervals";
 
 export {
-  default as sub,
+  sub,
 } from "./sub";

@@ -1,6 +1,6 @@
-import RealPitch from "../RealPitch";
+import { RealPitch } from "../RealPitch";
 
-export default function overtones(realPitch: RealPitch): number[] {
+export function overtones(realPitch: RealPitch): number[] {
   const MAX_FREQUENCY = 20000;
   const base = +realPitch;
   const ret: number[] = [];

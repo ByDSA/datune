@@ -1,12 +1,13 @@
 /* eslint-disable camelcase */
-import { IntervalArray } from "intervals/chromatic";
-import { TestInit } from "tests";
-import { calcIntraIntervals, mode } from ".";
 import { fromIntraIntervals } from "../building";
 import { BEBOP_DOMINANT, BLUES_a4, BLUES_b5, BLUES_MAJOR, BLUES_MINOR, EGYPCIAN, MAJOR, PENTATONIC, PENTATONIC_MINOR } from "../constants";
-import Scale from "../Scale";
+import { Scale } from "../Scale";
+import { calcIntraIntervals, mode } from ".";
+import { TestInit } from "tests";
+import { IntervalArray } from "intervals/chromatic";
 
 TestInit.chromaticScale();
+
 describe.each(<[Scale, IntervalArray][]>[
   [mode(BLUES_b5, 2), [2, 1, 1, 3, 2, 3]],
   [mode(BLUES_b5, 3), [1, 1, 3, 2, 3, 2]],

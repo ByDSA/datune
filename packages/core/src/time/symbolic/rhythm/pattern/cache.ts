@@ -1,8 +1,8 @@
 import { Arrays, StringHashCache } from "@datune/utils";
-import Pattern from "./Pattern";
+import { Pattern } from "./Pattern";
 
 type HashingObject = Arrays.Number;
-const cache = new StringHashCache<Pattern, HashingObject>( {
+export const cache = new StringHashCache<Pattern, HashingObject>( {
   hash(hashingObject: HashingObject): string {
     return hashingObject.toString();
   },
@@ -13,5 +13,3 @@ const cache = new StringHashCache<Pattern, HashingObject>( {
     return (Pattern as any).create(...hashingObject);
   },
 } );
-
-export default cache;

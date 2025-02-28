@@ -25,8 +25,7 @@ it("get_exceed", () => {
   const rhythm = fromArray(1, 0, 0, 0);
   const { array } = rhythm;
 
-  // eslint-disable-next-line no-unused-expressions
-  array[4];
+  expect(array[4]).toBeUndefined();
 } );
 
 it("from content", () => {
@@ -47,7 +46,7 @@ it("from content", () => {
 it("fromPattern size", () => {
   const rhythm = from(2, 2, 2, 3);
 
-  expect(rhythm.array.length).toBe(9);
+  expect(rhythm.array).toHaveLength(9);
 } );
 
 it("getRotation", () => {

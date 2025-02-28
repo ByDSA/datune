@@ -1,6 +1,7 @@
 import { bIII, bVII, I, VII } from "../constants";
 import { add, sub } from ".";
-import { Intervals, Interval } from "intervals/alt";
+import type { Interval } from "intervals/alt";
+import { Intervals } from "intervals/alt";
 import { Intervals as DIntervals } from "intervals/diatonic";
 import { TestInit } from "tests";
 

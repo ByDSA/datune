@@ -1,5 +1,5 @@
-import { TestInit } from "tests";
 import { Voicings } from ".";
+import { TestInit } from "tests";
 
 TestInit.diatonicVoicing();
 

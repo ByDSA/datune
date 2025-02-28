@@ -1,6 +1,7 @@
-import { Voicings, Voicing } from "voicings/chromatic";
-import Chord from "../Chord";
+import type { Chord } from "../Chord";
+import type { Voicing } from "voicings/chromatic";
+import { Voicings } from "voicings/chromatic";
 
-export default function voicing(obj: Chord): Voicing {
+export function toVoicing(obj: Chord): Voicing {
   return Voicings.fromPitches(...obj.pitches);
 }

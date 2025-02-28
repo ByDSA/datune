@@ -1,6 +1,6 @@
 import { Chord as ChordAlt } from "chords/alt";
 import { Chord } from "chords/chromatic";
-import { ConcertPitch } from "concert-pitches/chromatic";
+import type { ConcertPitch } from "concert-pitches/chromatic";
 import { Key as KeyAlt } from "keys/alt";
 import { Key } from "keys/chromatic";
 import { Pitch as DiatonicAlt } from "pitches/alt";

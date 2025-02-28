@@ -1,12 +1,12 @@
+import type { DegreeFunction } from "../DegreeFunction";
 import { DegreeArray, Degrees } from "degrees/alt";
 import { Degrees as DDegrees } from "degrees/diatonic";
 import { Intervals } from "intervals/alt";
 import { Pitches as CPitches } from "pitches/chromatic";
 import { Pitches as DPitches } from "pitches/diatonic";
-import { DegreeFunction } from "../DegreeFunction";
 
-export default function calcDegrees(obj: DegreeFunction): DegreeArray {
-  const degrees = [];
+export function calcDegrees(obj: DegreeFunction): DegreeArray {
+  const ret: DegreeArray = [] as any;
   const chromaticDegree = Degrees.toChromaticDegree(obj.degree);
 
   for (const value of obj.voicing) {
@@ -19,8 +19,8 @@ export default function calcDegrees(obj: DegreeFunction): DegreeArray {
     alts %= CPitches.NUMBER;
     const degree = Degrees.from(diatonicDegree, alts);
 
-    degrees.push(degree);
+    ret.push(degree);
   }
 
-  return <DegreeArray>degrees;
+  return ret;
 }

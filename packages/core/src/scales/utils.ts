@@ -1,5 +1,5 @@
 import { Arrays } from "@datune/utils";
-import Scale from "./Scale";
+import { Scale } from "./Scale";
 
 export function hasDegrees<INTERVAL, DEGREE>(
   obj: Scale<INTERVAL, DEGREE>,

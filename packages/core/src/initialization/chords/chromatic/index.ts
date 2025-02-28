@@ -3,11 +3,11 @@ export {
 } from "./collectData";
 
 export {
-  default as Data,
+  Data,
 } from "./Data";
 
 export {
-  default as Dto,
+  Dto,
 } from "./Dto";
 
 export {

@@ -1,5 +1,5 @@
 import { fromPitches } from "../building";
-import Chord from "../Chord";
+import { Chord } from "../Chord";
 import { inv } from "../modifiers";
 import { C as DAC_C, C7, C9, CMaj7, CmMaj7 } from "./constants";
 import { TestInit } from "tests";
@@ -8,6 +8,7 @@ import { PitchArray, Pitches } from "pitches/alt";
 TestInit.diatonicAltChord();
 
 describe("tests", () => {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { B, Bb, C, D, E, Eb, G } = Pitches;
 
   describe.each(<[Chord, PitchArray][]>[

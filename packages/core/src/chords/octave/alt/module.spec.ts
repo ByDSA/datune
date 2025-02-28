@@ -1,5 +1,5 @@
-import { TestInit } from "tests";
 import { Chords } from ".";
+import { TestInit } from "tests";
 
 TestInit.diatonicAltChord();
 
@@ -20,7 +20,7 @@ describe("static properties should be defined", () => {
 
 describe("lazy properties should be defined", () => {
   it("conversions", () => {
-    expect(Chords.toChromaticChord).toBeDefined();
+    expect(Chords.toChromatic).toBeDefined();
     expect(Chords.toVoicing).toBeDefined();
   } );
 

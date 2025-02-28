@@ -1,10 +1,10 @@
 import { StringHashCache } from "@datune/utils";
-import { SPNArray } from "spns/chromatic";
 import { SPNChord } from "../../Chord";
+import { SPNArray } from "spns/chromatic";
 
 type HashingObjectType = SPNArray;
 
-const cache = new StringHashCache<SPNChord, HashingObjectType>( {
+export const cache = new StringHashCache<SPNChord, HashingObjectType>( {
   hash(hashingObject: HashingObjectType): string {
     return hashingObject.map(String).join("-");
   },
@@ -13,5 +13,3 @@ const cache = new StringHashCache<SPNChord, HashingObjectType>( {
   },
   create: (SPNChord as any).create,
 } );
-
-export default cache;

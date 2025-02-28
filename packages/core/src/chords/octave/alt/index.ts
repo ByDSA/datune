@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
-import { default as Chord } from "./Chord";
+import type { Chord } from "./Chord";
 
-import { default as ChordArray } from "./Array";
+import type { ChordArray } from "./Array";
 
 import * as Building from "./building";
 
@@ -23,6 +22,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   paths: [
     "conversions",
     "constants",
+  // eslint-disable-next-line no-undef
   ].map(p=>`${__dirname}/${p}`),
 } );
 

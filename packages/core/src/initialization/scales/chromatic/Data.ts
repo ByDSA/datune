@@ -1,7 +1,5 @@
-import Cache from "./cache/Data";
+import { Data as Cache } from "./cache/Data";
 
-type Data = {
+export type Data = {
   cache: Cache;
 };
-
-export default Data;

@@ -1,9 +1,10 @@
+import { serialize } from "./serialize";
 import { TestInit } from "tests/init";
-import serialize from "./serialize";
 
 TestInit.chromaticChord();
 TestInit.chromaticScale();
 TestInit.chromaticKey();
+
 describe("serialize", () => {
   const data = serialize();
 

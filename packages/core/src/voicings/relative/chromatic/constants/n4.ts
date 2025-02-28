@@ -2,7 +2,7 @@
 
 import { Voicings } from "..";
 import { fromRootIntervals } from "../building/rootIntervals";
-import Voicing from "../Voicing";
+import type { Voicing } from "../Voicing";
 import { map } from "./inversionMap";
 
 export function initializeN4() {

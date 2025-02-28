@@ -1,10 +1,6 @@
 import { I, II, III, IV, V, VI, VII } from "../constants";
-import Degree from "../Degree";
+import type { Degree } from "../Degree";
 import { Degree as ChromaticDegree, Degrees as CDegrees } from "degrees/chromatic";
-
-export function hashCode(obj: Degree): string {
-  return (+obj).toString();
-}
 
 export function toChromatic(obj: Degree): ChromaticDegree {
   switch (obj) {

@@ -5,5 +5,5 @@ export * from "./constants";
 export * from "./conversions";
 
 export {
-  default as Quality,
+  Quality,
 } from "./Quality";

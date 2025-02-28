@@ -1,4 +1,7 @@
 import { Arrays } from "@datune/utils";
 
-type Dto = Arrays.Number;
-export default Dto;
+export type Dto = Arrays.Number;
+
+export function hashDto(dto: Dto): string {
+  return dto.join("-");
+}

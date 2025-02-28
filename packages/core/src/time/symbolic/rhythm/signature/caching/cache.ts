@@ -1,13 +1,11 @@
 import { StringHashCache } from "@datune/utils";
-import TimeSignature from "../TimeSignature";
-import Dto from "./Dto";
-import hash from "./hash";
-import toDto from "./toDto";
+import { TimeSignature } from "../TimeSignature";
+import type { Dto } from "./Dto";
+import { hashDto } from "./Dto";
+import { toDto } from "./toDto";
 
-const cache = new StringHashCache<TimeSignature, Dto>( {
-  hash,
+export const cache = new StringHashCache<TimeSignature, Dto>( {
+  hash: hashDto,
   toDto,
   create: (TimeSignature as any).create,
 } );
-
-export default cache;

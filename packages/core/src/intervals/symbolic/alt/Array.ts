@@ -1,5 +1,4 @@
 import { Arrays } from "@datune/utils";
-import Interval from "./Interval";
+import type { Interval } from "./Interval";
 
-type Array = Arrays.NonEmpty<Interval>;
-export default Array;
+export type IntervalArray = Arrays.NonEmpty<Interval>;

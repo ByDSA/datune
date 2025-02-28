@@ -1,8 +1,8 @@
 import { PERFECT_OCTAVE } from "../constants";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { sub } from "../modifiers/sub";
 import { betweenNext } from "./betweenNext";
-import { Pitch } from "pitches/alt";
+import type { Pitch } from "pitches/alt";
 import { Intervals } from "intervals/diatonic";
 
 export function betweenMin(pitch1: Pitch, pitch2: Pitch): Interval | null {

@@ -1,10 +1,10 @@
-import { Dto } from "../caching/Dto";
+import type { Dto } from "../caching/Dto";
 import { cache } from "../caching/cache";
 import { Key } from "../Key";
-import { Pitch } from "pitches/chromatic";
-import pitchToDto from "pitches/chromatic/caching/toDto";
+import type { Pitch } from "pitches/chromatic";
+import { toDto as pitchToDto } from "pitches/chromatic/caching/toDto";
 import { Scale } from "scales/chromatic";
-import scaleToDto from "scales/symbolic/chromatic/caching/toDto";
+import { toDto as scaleToDto } from "scales/symbolic/chromatic/caching/toDto";
 
 export function fromRootScale(root: Pitch, scale: Scale): Key {
   if (!root || !scale)

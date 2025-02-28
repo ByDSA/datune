@@ -1,8 +1,9 @@
 import { from } from "../building";
-import toChromaticDegree from "../conversions/chromaticDegree";
-import Degree from "../Degree";
+import { toChromaticDegree } from "../conversions/chromaticDegree";
+import type { Degree } from "../Degree";
 import { Degrees } from "degrees/diatonic";
-import { Interval, Intervals } from "intervals/alt";
+import type { Interval } from "intervals/alt";
+import { Intervals } from "intervals/alt";
 import { Pitches } from "pitches/alt";
 
 export function add(obj: Degree, interval: Interval): Degree {

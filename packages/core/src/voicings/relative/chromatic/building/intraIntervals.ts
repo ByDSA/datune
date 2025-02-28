@@ -1,4 +1,4 @@
-import Voicing from "../Voicing";
+import type { Voicing } from "../Voicing";
 import { fromRootIntervals } from "./rootIntervals";
 import { IntervalArray } from "intervals/symbolic/chromatic";
 

@@ -1,9 +1,11 @@
-import Chord from "../Chord";
-import { Intervals, IntervalArray } from "intervals/alt";
-import { PitchArray } from "pitches/alt";
-import { Voicings, Voicing } from "voicings/alt";
+import type { Chord } from "../Chord";
+import type { IntervalArray } from "intervals/alt";
+import { Intervals } from "intervals/alt";
+import type { PitchArray } from "pitches/alt";
+import type { Voicing } from "voicings/alt";
+import { Voicings } from "voicings/alt";
 
-export default function voicing(obj: Chord): Voicing | null {
+export function toVoicing(obj: Chord): Voicing | null {
   const rootIntervals: IntervalArray | null = getRootIntervalsFromNotes(obj.pitches);
 
   if (!rootIntervals)
@@ -13,6 +15,7 @@ export default function voicing(obj: Chord): Voicing | null {
 }
 
 function getRootIntervalsFromNotes(notes: PitchArray): IntervalArray | null {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { add: Iadd, betweenNext, PERFECT_OCTAVE, PERFECT_UNISON, toChromaticInterval } = Intervals;
   const rootIntervals: IntervalArray = [PERFECT_UNISON];
 

@@ -1,5 +1,5 @@
-import Obj from "../Chord";
-import cache from "./cache";
-import Dto from "./Dto";
+import { Chord } from "../Chord";
+import { cache } from "./cache";
+import type { Dto } from "./Dto";
 
-export default (dto: Dto): Obj => cache.getOrCreate(dto);
+export const toObj = (dto: Dto): Chord => cache.getOrCreate(dto);

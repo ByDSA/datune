@@ -1,6 +1,6 @@
-import { default as Scale } from "./ScalePitch";
+import { Scale } from "./Scale";
 
-import { default as ScaleArray } from "./Array";
+import { ScaleArray } from "./Array";
 
 import * as Building from "./building";
 

@@ -1,5 +1,5 @@
 import * as C from "../constants";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { neg } from "./neg";
 import { TestInit } from "tests";
 import { neg as DIntervalsNeg } from "intervals/symbolic/diatonic/modifiers/neg";

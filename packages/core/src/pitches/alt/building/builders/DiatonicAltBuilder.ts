@@ -1,18 +1,20 @@
 import { fromDiatonicAlts } from "../diatonicAlts";
-import Array from "../../Array";
+import type { PitchArray } from "../../Array";
 import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } from "../../constants";
 import { toChromatic } from "../../conversions";
-import Pitch from "../../Pitch";
+import type { Pitch } from "../../Pitch";
 import { fixAlts } from "../../fixAlts";
-import { Pitch as Diatonic, Pitches as DPitches } from "pitches/diatonic";
-import { Pitches as CPitches, Pitch as Chromatic } from "pitches/chromatic";
+import type { Pitch as Diatonic } from "pitches/diatonic";
+import { Pitches as DPitches } from "pitches/diatonic";
+import type { Pitch as Chromatic } from "pitches/chromatic";
+import { Pitches as CPitches } from "pitches/chromatic";
 
-export default class DiatonicAltBuilder {
-  private _note: Chromatic | undefined;
+export class DiatonicAltBuilder {
+  #note: Chromatic | undefined;
 
-  private _diatonic: Diatonic | undefined;
+  #diatonic: Diatonic | undefined;
 
-  private _diatonicAltList: Array | undefined;
+  #diatonicAltList: PitchArray | undefined;
 
   private constructor() {
   }
@@ -22,39 +24,39 @@ export default class DiatonicAltBuilder {
   }
 
   setNote(c: Chromatic): DiatonicAltBuilder {
-    this._note = c;
+    this.#note = c;
 
     return this;
   }
 
   setDiatonic(d: Diatonic): DiatonicAltBuilder {
-    this._diatonic = d;
+    this.#diatonic = d;
 
     return this;
   }
 
-  setNoteAltList(...l: Array): DiatonicAltBuilder {
-    this._diatonicAltList = l;
+  setNoteAltList(...l: PitchArray): DiatonicAltBuilder {
+    this.#diatonicAltList = l;
 
     return this;
   }
 
   build(): Pitch | null {
-    if (!this._note)
+    if (!this.#note)
       return null;
 
-    if (!this._diatonic) {
-      if (this._diatonicAltList)
-        return getDiatonicAltInListFromNote(this._note, this._diatonicAltList);
+    if (!this.#diatonic) {
+      if (this.#diatonicAltList)
+        return getDiatonicAltInListFromNote(this.#note, this.#diatonicAltList);
 
-      const diatonicAlt = getDiatonicAltFromNote(this._note);
+      const diatonicAlt = getDiatonicAltFromNote(this.#note);
 
       return diatonicAlt;
     }
 
-    const alts = getAltsFromNoteAndDiatonic(this._note, this._diatonic);
+    const alts = getAltsFromNoteAndDiatonic(this.#note, this.#diatonic);
 
-    return fromDiatonicAlts(this._diatonic, alts);
+    return fromDiatonicAlts(this.#diatonic, alts);
   }
 }
 

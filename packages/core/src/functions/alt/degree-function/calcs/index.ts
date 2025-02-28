@@ -1,3 +1,3 @@
 export {
-  default as degrees,
+  calcDegrees as degrees,
 } from "./degrees";

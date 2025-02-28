@@ -1,8 +1,7 @@
-/* eslint-disable import/no-mutable-exports */
-import { Pitches as P } from "pitches/chromatic";
 import { from } from "../building";
 import { add } from "../modifiers";
-import NoteSet from "../NoteSet";
+import type { NoteSet } from "../NoteSet";
+import { Pitches as P } from "pitches/chromatic";
 
 export function initialize() {
   C5 = from(P.C, P.G);

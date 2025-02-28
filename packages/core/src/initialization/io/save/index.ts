@@ -1,7 +1,7 @@
 export {
-  default as save,
+  save,
 } from "./save";
 
 export {
-  default as SaveSettings,
+  SaveSettings,
 } from "./SaveSettings";

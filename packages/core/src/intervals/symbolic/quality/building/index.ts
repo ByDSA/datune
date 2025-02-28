@@ -1,3 +1,3 @@
 export {
-  default as fromInt,
+  fromInt,
 } from "./int";

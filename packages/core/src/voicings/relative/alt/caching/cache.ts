@@ -1,13 +1,11 @@
 import { StringHashCache } from "@datune/utils";
+import { Voicing } from "../Voicing";
+import { hashDto } from "./Dto";
+import { toDto } from "./toDto";
 import { IntervalArray } from "intervals/alt";
-import Voicing from "../Voicing";
-import hash from "./hash";
-import toDto from "./toDto";
 
-const cache = new StringHashCache<Voicing, IntervalArray>( {
-  hash,
+export const cache = new StringHashCache<Voicing, IntervalArray>( {
+  hash: hashDto,
   toDto,
   create: (Voicing as any).create,
 } );
-
-export default cache;

@@ -1,8 +1,8 @@
 import { PERFECT_OCTAVE } from "../constants";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { add } from "./add";
 import { simple } from "./simple";
-import Direction from "intervals/symbolic/diatonic/Direction";
+import { Direction } from "intervals/symbolic/diatonic/Direction";
 
 export function cyclic(interval: Interval): Interval {
   let ret = simple(interval);

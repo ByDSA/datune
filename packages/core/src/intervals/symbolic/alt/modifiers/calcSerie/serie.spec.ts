@@ -1,6 +1,6 @@
-import IntervalArray from "../../Array";
+import type { IntervalArray } from "../../Array";
 import { MAJOR_NINTH, MAJOR_THIRTEENTH, PERFECT_FIFTH, PERFECT_UNISON } from "../../constants";
-import Interval from "../../Interval";
+import type { Interval } from "../../Interval";
 import { neg } from "../neg";
 import { serie } from "./index";
 import { TestInit } from "tests";

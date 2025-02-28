@@ -1,7 +1,7 @@
-import Chromatic from "../Pitch";
-import add from "./add";
-import { Interval } from "intervals/chromatic";
+import type { Pitch } from "../Pitch";
+import { add } from "./add";
+import type { Interval } from "intervals/chromatic";
 
-export default function sub(obj: Chromatic, interval: Interval): Chromatic {
+export function sub(obj: Pitch, interval: Interval): Pitch {
   return add(obj, -interval);
 }

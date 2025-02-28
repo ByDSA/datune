@@ -1,7 +1,7 @@
 import { lockr } from "@datune/utils/immutables";
-import { Pitch } from "pitches/chromatic";
-import { SPNArray, SPN } from "spns/chromatic";
 import { AbsoluteChord } from "../AbsoluteChord";
+import type { Pitch } from "pitches/chromatic";
+import { SPNArray, SPN } from "spns/chromatic";
 
 export class SPNChord implements AbsoluteChord<Pitch, SPN> {
   pitches: SPNArray;

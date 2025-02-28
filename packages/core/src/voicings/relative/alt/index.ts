@@ -1,13 +1,10 @@
-/* eslint-disable no-undef */
-import { default as Voicing } from "./Voicing";
+import { Voicing } from "./Voicing";
 
-import { default as VoicingArray } from "./Array";
+import type { VoicingArray } from "./Array";
 
 import { fromVoicings } from "./building/voicings";
 import { fromIntraIntervals } from "./building/intraIntervals";
 import { fromRootIntervals } from "./building/rootIntervals";
-
-import { hash as hashDto, hashObj as hash } from "./caching";
 
 import type * as Constants from "./constants";
 
@@ -20,8 +17,6 @@ const staticModule = {
   fromIntraIntervals,
   fromRootIntervals,
   fromVoicings,
-  hashDto,
-  hash,
   inv,
 };
 
@@ -32,6 +27,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   paths: [
     "conversions",
     "constants",
+  // eslint-disable-next-line no-undef
   ].map(p=>`${__dirname}/${p}`),
 } );
 

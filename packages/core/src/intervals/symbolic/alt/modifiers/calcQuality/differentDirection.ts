@@ -1,12 +1,12 @@
 import { toChromaticInterval } from "../../conversions";
-import Interval from "../../Interval";
+import type { Interval } from "../../Interval";
 import { DiatonicInterval } from "index";
 import { Intervals as DIntervals } from "intervals/diatonic";
 import { fromInt as qualityFromInt, Quality } from "intervals/symbolic/quality";
 import { Pitches } from "pitches/alt";
 import { Pitches as DPitches } from "pitches/diatonic";
 
-export default function calcFixedQualitySub(
+export function calcFixedQualityDifferentDirection(
   self: Interval,
   other: Interval,
   diatonicInterval: DiatonicInterval,

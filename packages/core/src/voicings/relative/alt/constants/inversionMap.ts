@@ -1,6 +1,6 @@
-import Voicing from "../Voicing";
+import type { Voicing } from "../Voicing";
 
-export default function getInversionOf(voicing: Voicing) {
+export function getInversionOf(voicing: Voicing) {
   return map.get(voicing) ?? 0;
 }
 

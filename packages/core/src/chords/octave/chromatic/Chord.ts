@@ -1,9 +1,9 @@
 import { lockr } from "@datune/utils/immutables";
-import SymbolicChord from "../SymbolicChord";
-import { Dto } from "./caching";
+import { SymbolicChord } from "../SymbolicChord";
+import type { Dto } from "./caching/Dto";
 import { PitchArray, Pitches, Pitch } from "pitches/chromatic";
 
-export default class Chord implements SymbolicChord<Pitch> {
+export class Chord implements SymbolicChord<Pitch> {
   pitches: PitchArray;
 
   length: number;

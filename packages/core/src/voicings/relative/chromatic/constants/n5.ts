@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 import { fromRootIntervals } from "../building/rootIntervals";
-import Voicing from "../Voicing";
+import type { Voicing } from "../Voicing";
 
 export function initializeN5() {
   SIXTH_ADD9 = fromRootIntervals(0, 4, 7, 9, 14);

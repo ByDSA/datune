@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 export {
-  default as Settings,
+  SETTINGS as Settings,
 } from "./Settings";

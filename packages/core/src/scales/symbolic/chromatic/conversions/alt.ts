@@ -1,6 +1,6 @@
 import { cyclicMod } from "@datune/utils";
 import { calcIntraIntervals } from "../modifiers";
-import Scale from "../Scale";
+import { Scale } from "../Scale";
 import { DegreeArray as DegreeAltArray, Degree as DegreeAlt, Degrees as DegreeAlts } from "degrees/alt";
 import { Degree as ChromaticDegree } from "degrees/chromatic";
 import { Degrees as DDegrees } from "degrees/diatonic";
@@ -94,6 +94,6 @@ class ScaleAltConversor {
   }
 }
 
-export default function alt(scale: Scale): ScaleAlt {
+export function toAlt(scale: Scale): ScaleAlt {
   return ScaleAltConversor.from(scale).scaleDiatonicAlt;
 }

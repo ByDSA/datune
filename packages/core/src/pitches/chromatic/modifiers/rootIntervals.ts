@@ -1,10 +1,10 @@
-import { Array } from "../Array";
-import Pitch from "../Pitch";
-import add from "./add";
+import type { PitchArray } from "../Array";
+import type { Pitch } from "../Pitch";
+import { add } from "./add";
 import { IntervalArray } from "intervals/chromatic";
 
-export default function rootIntervals(root: Pitch, intervals: IntervalArray): Array {
+export function rootIntervals(root: Pitch, intervals: IntervalArray): PitchArray {
   return intervals.map(
     (interval) => add(root, interval),
-  ) as Array;
+  ) as PitchArray;
 }

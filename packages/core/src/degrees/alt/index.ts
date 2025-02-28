@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
-import DegreeArray from "./Array";
+import { DegreeArray } from "./Array";
 
-import Degree from "./Degree";
+import type { Degree } from "./Degree";
 
 import * as Building from "./building";
 
@@ -21,9 +20,10 @@ type LazyType = typeof Constants & typeof ConversionsType;
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    __dirname + "/conversions",
-    __dirname + "/constants",
-  ],
+    "conversions",
+    "constants",
+  // eslint-disable-next-line no-undef
+  ].map(p=>`${__dirname}/${p}`),
 } );
 
 export {

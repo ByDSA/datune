@@ -1,4 +1,4 @@
-import Interval from "../../Interval";
+import type { Interval } from "../../Interval";
 import { mult } from "../mult";
 
 type InputPartialPart = {

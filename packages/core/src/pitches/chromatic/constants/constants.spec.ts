@@ -1,4 +1,4 @@
-import Chromatic from "../Pitch";
+import { Pitch } from "../Pitch";
 import { A, AA, ALL, B, C, CC, D, DD, E, F, FF, G, GG, NUMBER } from ".";
 
 describe("sets", () => {
@@ -27,22 +27,22 @@ describe("sets", () => {
     } );
 
     it("instanceof", () => {
-      expect(C instanceof Chromatic).toBeTruthy();
-      expect(CC instanceof Chromatic).toBeTruthy();
-      expect(D instanceof Chromatic).toBeTruthy();
-      expect(DD instanceof Chromatic).toBeTruthy();
-      expect(E instanceof Chromatic).toBeTruthy();
-      expect(F instanceof Chromatic).toBeTruthy();
-      expect(FF instanceof Chromatic).toBeTruthy();
-      expect(G instanceof Chromatic).toBeTruthy();
-      expect(GG instanceof Chromatic).toBeTruthy();
-      expect(A instanceof Chromatic).toBeTruthy();
-      expect(AA instanceof Chromatic).toBeTruthy();
-      expect(B instanceof Chromatic).toBeTruthy();
+      expect(C instanceof Pitch).toBeTruthy();
+      expect(CC instanceof Pitch).toBeTruthy();
+      expect(D instanceof Pitch).toBeTruthy();
+      expect(DD instanceof Pitch).toBeTruthy();
+      expect(E instanceof Pitch).toBeTruthy();
+      expect(F instanceof Pitch).toBeTruthy();
+      expect(FF instanceof Pitch).toBeTruthy();
+      expect(G instanceof Pitch).toBeTruthy();
+      expect(GG instanceof Pitch).toBeTruthy();
+      expect(A instanceof Pitch).toBeTruthy();
+      expect(AA instanceof Pitch).toBeTruthy();
+      expect(B instanceof Pitch).toBeTruthy();
     } );
 
     it("aLL contains all values (unordered)", () => {
-      const notes: Chromatic[] = [
+      const notes: Pitch[] = [
         C,
         CC,
         D,

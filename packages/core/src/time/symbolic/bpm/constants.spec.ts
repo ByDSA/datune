@@ -1,6 +1,6 @@
-import { TestInit } from "tests";
 import { MusicalDuration, MusicalDurations } from "../musical-duration";
 import { QUARTER_120 } from "./constants";
+import { TestInit } from "tests";
 
 TestInit.bpm();
 

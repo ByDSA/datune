@@ -1,7 +1,7 @@
 export {
-  default as calcAlts,
+  calcAlts,
 } from "./alts";
 
 export {
-  default as toChromaticInterval,
+  toChromaticInterval,
 } from "./chromaticInterval";

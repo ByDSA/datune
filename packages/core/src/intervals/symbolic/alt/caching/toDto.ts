@@ -1,7 +1,7 @@
-import Interval from "../Interval";
-import { Dto } from "./Dto";
+import type { Interval } from "../Interval";
+import type { Dto } from "./Dto";
 
-export default function toDto(obj: Interval): Dto {
+export function toDto(obj: Interval): Dto {
   return {
     diatonicInterval: obj.diatonicInterval,
     quality: obj.quality,

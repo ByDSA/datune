@@ -1,8 +1,8 @@
 import { lockr } from "@datune/utils/immutables";
-import Voicing from "../Voicing";
+import type { Voicing as IVoicing } from "../Voicing";
 import { IntervalArray, Interval } from "intervals/alt";
 
-export default class DiatonicAltVoicing implements Voicing<Interval> {
+export class Voicing implements IVoicing<Interval> {
   rootIntervals: IntervalArray;
 
   length: number;
@@ -15,8 +15,8 @@ export default class DiatonicAltVoicing implements Voicing<Interval> {
     lockr(this);
   }
 
-  private static create(values: IntervalArray): DiatonicAltVoicing {
-    return new DiatonicAltVoicing(...values);
+  private static create(values: IntervalArray): Voicing {
+    return new Voicing(...values);
   }
 
   [Symbol.iterator](): Iterator<Interval> {

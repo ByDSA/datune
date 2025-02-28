@@ -1,8 +1,8 @@
-import Direction from "../Direction";
-import Interval from "../Interval";
-import cache from "../caching/cache";
+import { Direction } from "../Direction";
+import type { Interval } from "../Interval";
+import { cache } from "../caching/cache";
 
-export default function from(magnitude: number, direction = Direction.ASCENDENT): Interval {
+export function fromInt(magnitude: number, direction = Direction.ASCENDENT): Interval {
   const fixedMagnitude = Math.abs(magnitude);
   let fixedDirection = direction;
 

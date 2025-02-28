@@ -1,3 +1,3 @@
 export {
-  default as RealTime,
+  RealTime,
 } from "./RealTime";

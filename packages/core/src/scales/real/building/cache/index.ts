@@ -1,13 +1,11 @@
 import { StringHashCache } from "@datune/utils";
-import ScalePitch from "../../ScalePitch";
-import { Dto, hash } from "../dto";
+import { Scale } from "../../Scale";
+import { Dto, hashDto } from "../dto/Dto";
 
-const cache = new StringHashCache<ScalePitch, Dto>( {
-  hash,
-  toDto(scale: ScalePitch): Dto {
+export const cache = new StringHashCache<Scale, Dto>( {
+  hash: hashDto,
+  toDto(scale: Scale): Dto {
     return scale.intraIntervals;
   },
-  create: (ScalePitch as any).create,
+  create: (Scale as any).create,
 } );
-
-export default cache;

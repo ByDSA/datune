@@ -1,4 +1,4 @@
-import { DegreeFunction } from "./degree-function/DegreeFunction";
+import type { DegreeFunction } from "./degree-function/DegreeFunction";
 import { from } from "./degree-function/building/from";
 import { HarmonicFunction } from "./HarmonicFunction";
 import type * as DegreeFunctionConstants from "./degree-function/constants";

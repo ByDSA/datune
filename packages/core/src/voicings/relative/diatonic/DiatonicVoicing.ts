@@ -1,9 +1,10 @@
 import { Arrays } from "@datune/utils";
 import { lockr } from "@datune/utils/immutables";
-import { IntervalArray, Intervals, Interval } from "intervals/diatonic";
-import Voicing from "../Voicing";
+import type { Voicing as IVoicing } from "../Voicing";
+import type { IntervalArray, Interval } from "intervals/diatonic";
+import { Intervals } from "intervals/diatonic";
 
-export default class DiatonicVoicing implements Voicing<Interval> {
+export class Voicing implements IVoicing<Interval> {
   rootIndex: number;
 
   rootIntervalInts: Arrays.Number;
@@ -32,8 +33,8 @@ export default class DiatonicVoicing implements Voicing<Interval> {
     lockr(this);
   }
 
-  private static create(...ints: Arrays.Number): DiatonicVoicing {
-    return new DiatonicVoicing(...ints);
+  private static create(...ints: Arrays.Number): Voicing {
+    return new Voicing(...ints);
   }
 
   [Symbol.iterator](): Iterator<Interval> {

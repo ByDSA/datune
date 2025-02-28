@@ -1,6 +1,6 @@
 import { lock } from "@datune/utils/immutables";
 import { from } from "./building/from";
-import MusicalDuration from "./MusicalDuration";
+import type { MusicalDuration } from "./MusicalDuration";
 
 export function initialize() {
   MAXIMA = from(8);

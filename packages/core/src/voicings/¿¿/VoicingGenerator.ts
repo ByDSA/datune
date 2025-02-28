@@ -2,9 +2,9 @@
 /* eslint-disable no-use-before-define */
 
 import { Arrays } from "@datune/utils";
-import OctavePitch from "pitches/OctavePitch";
 import { RelativePitch } from "./RelativePitch";
-import { Voicing } from "./Voicing";
+import type { Voicing } from "./Voicing";
+import { OctavePitch } from "pitches/OctavePitch";
 
 type NonEmptyArray<T> = Arrays.NonEmpty<T>;
 export abstract class VoicingGenerator<D extends OctavePitch> {

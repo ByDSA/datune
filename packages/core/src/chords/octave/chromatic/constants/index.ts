@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 
-import { Array as ChordArray } from "../Array";
+import { ChordArray } from "../Array";
 import { fromRootVoicing } from "../building/root-voicing";
-import Chord from "../Chord";
+import { Chord } from "../Chord";
 import { inv } from "../modifiers";
 import { Voicings } from "voicings/chromatic";
 import { Pitches } from "pitches/chromatic";

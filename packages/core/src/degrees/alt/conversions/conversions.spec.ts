@@ -1,8 +1,9 @@
-import { TestInit } from "tests";
-import { hash, toChromaticDegree } from ".";
 import { Degrees } from "../../diatonic";
 import { from } from "../building";
 import { I, II, III, IV, V, VI, VII } from "../constants";
+import { hash } from "../caching/hash";
+import { toChromaticDegree } from ".";
+import { TestInit } from "tests";
 
 TestInit.diatonicAltDegree();
 

@@ -18,8 +18,6 @@ describe("static properties should be defined", () => {
 describe("lazy properties should be defined", () => {
   it("conversions", () => {
     expect(Degrees.toChromaticDegree).toBeDefined();
-    expect(Degrees.toDto).toBeDefined();
-    expect(Degrees.hash).toBeDefined();
     expect(Degrees.toInterval).toBeDefined();
   } );
 

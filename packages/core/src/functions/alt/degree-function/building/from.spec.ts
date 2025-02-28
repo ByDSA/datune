@@ -1,5 +1,5 @@
 import { Im } from "../constants";
-import from from "./from";
+import { from } from "./from";
 import { Degrees } from "degrees/alt";
 import { TestInit } from "tests";
 import { Voicings } from "voicings/alt";

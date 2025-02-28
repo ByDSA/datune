@@ -1,3 +1,3 @@
-import { hash } from "./hash";
-
-export default hash;
+export {
+  hashDto as hash,
+} from "./Dto";

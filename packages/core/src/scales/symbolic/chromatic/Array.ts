@@ -1,5 +1,4 @@
 import { Arrays } from "@datune/utils";
-import Scale from "./Scale";
+import { Scale } from "./Scale";
 
-type Array = Arrays.NonEmpty<Scale>;
-export default Array;
+export type ScaleArray = Arrays.NonEmpty<Scale>;

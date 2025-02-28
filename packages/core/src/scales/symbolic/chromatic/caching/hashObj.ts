@@ -1,6 +1,6 @@
-import { Intervals } from "intervals/chromatic";
-import Scale from "../Scale";
+import { Scale } from "../Scale";
+import { hash as hashInterval } from "intervals/symbolic/chromatic/caching/hash";
 
-export default function hash(obj: Scale): string {
-  return obj.rootIntervals.map(Intervals.hash).join("-");
+export function hash(obj: Scale): string {
+  return obj.rootIntervals.map(hashInterval).join("-");
 }

@@ -24,12 +24,6 @@ describe("static properties should be defined", () => {
   } );
 } );
 
-describe("lazy properties should be defined", () => {
-  it("conversions", () => {
-    expect(Intervals.hash).toBeDefined();
-  } );
-} );
-
 it("should be same ref", () => {
   expect(PERFECT_UNISON).toBe(Intervals.PERFECT_UNISON);
 } );

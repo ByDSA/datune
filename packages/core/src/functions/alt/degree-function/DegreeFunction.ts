@@ -1,11 +1,14 @@
 import { lockr } from "@datune/utils/immutables";
-import { Chord, Chords } from "chords/alt";
-import { Degree, Degrees } from "degrees/alt";
-import { Key as KeyAlt } from "keys/alt";
-import { Pitches, Pitch } from "pitches/alt";
-import { Voicing } from "voicings/alt";
-import HarmonicFunction from "../HarmonicFunction";
-import { Dto } from "./caching";
+import { HarmonicFunction } from "../HarmonicFunction";
+import type { Dto } from "./caching/Dto";
+import type { Chord } from "chords/alt";
+import { Chords } from "chords/alt";
+import type { Degree } from "degrees/alt";
+import { Degrees } from "degrees/alt";
+import type { Key as KeyAlt } from "keys/alt";
+import { Pitches } from "pitches/alt";
+import type { Pitch } from "pitches/alt";
+import type { Voicing } from "voicings/alt";
 
 export class DegreeFunction extends HarmonicFunction {
   degree: Degree;

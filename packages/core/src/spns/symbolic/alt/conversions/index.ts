@@ -1,7 +1,3 @@
 export {
-  default as toChromatic,
+  toChromatic,
 } from "./chromatic";
-
-export {
-  default as toDto,
-} from "./dto";

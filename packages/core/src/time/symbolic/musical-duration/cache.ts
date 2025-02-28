@@ -1,12 +1,11 @@
 import { StringHashCache } from "@datune/utils";
-import MusicalDuration from "./MusicalDuration";
+import type { MusicalDuration } from "./MusicalDuration";
 
 // UNUSED
-type Dto = number;
-const cache = new StringHashCache<MusicalDuration, Dto>( {
+export type Dto = number;
+
+export const cache = new StringHashCache<MusicalDuration, Dto>( {
   hash: (dto: Dto) => String(dto),
   toDto: (obj: MusicalDuration): Dto => +obj,
   create: (dto: Dto): MusicalDuration => dto,
 } );
-
-export default cache;

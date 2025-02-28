@@ -1,7 +1,7 @@
 export {
-  default as toChromaticChord,
+  toChromatic,
 } from "./chromatic";
 
 export {
-  default as toVoicing,
+  toVoicing,
 } from "./voicing";

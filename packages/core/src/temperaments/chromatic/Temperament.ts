@@ -1,6 +1,4 @@
-import { Interval } from "intervals/chromatic";
-import { Interval as RealInterval } from "intervals/real";
+import type { Interval } from "intervals/chromatic";
+import type { Interval as RealInterval } from "intervals/real";
 
-type Temperament = (interval: Interval)=> RealInterval;
-
-export default Temperament;
+export type Temperament = (interval: Interval)=> RealInterval;

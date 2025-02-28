@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
-import { default as Voicing } from "./DiatonicVoicing";
+import type { Voicing } from "./DiatonicVoicing";
 
-import { default as VoicingArray } from "./Array";
+import type { VoicingArray } from "./Array";
 
 import * as Building from "./building";
 import * as Modifiers from "./modifiers";
@@ -20,6 +19,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
     "constants",
+  // eslint-disable-next-line no-undef
   ].map(p=>`${__dirname}/${p}`),
 } );
 

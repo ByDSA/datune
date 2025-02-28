@@ -9,13 +9,6 @@ describe("static properties should be defined", () => {
     expect(Scales.fromIntraIntervals).toBeDefined();
     expect(Scales.fromRootIntervals).toBeDefined();
   } );
-
-  it("caching", () => {
-    expect(Scales.hashDto).toBeDefined();
-    expect(Scales.hash).toBeDefined();
-    expect(Scales.toDto).toBeDefined();
-    expect(Scales.toObj).toBeDefined();
-  } );
 } );
 
 describe("lazy properties should be defined", () => {

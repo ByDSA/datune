@@ -1,4 +1,4 @@
-import fromKeyFunction from ".";
+import { fromKeyFunction } from ".";
 import { Chords } from "chords/alt";
 import { Functions as F } from "functions/alt";
 import { Keys as K } from "keys/alt";

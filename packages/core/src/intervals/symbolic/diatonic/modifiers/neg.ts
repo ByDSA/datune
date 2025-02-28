@@ -1,6 +1,6 @@
-import cache from "../caching/cache";
-import Direction from "../Direction";
-import Interval from "../Interval";
+import { cache } from "../caching/cache";
+import { Direction } from "../Direction";
+import type { Interval } from "../Interval";
 
 export function neg(obj: Interval): Interval {
   return cache.getOrCreate( {

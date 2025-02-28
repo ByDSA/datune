@@ -1,15 +1,15 @@
 export {
-  default as fromAdditive,
+  fromAdditive,
 } from "./additive";
 
 export {
-  default as fromFrac,
+  fromFrac,
 } from "./frac";
 
 export {
-  default as fromPattern,
+  fromPattern,
 } from "./pattern";
 
 export {
-  default as fromRhythmArray,
+  fromRhythmArray,
 } from "./rhythmArray";

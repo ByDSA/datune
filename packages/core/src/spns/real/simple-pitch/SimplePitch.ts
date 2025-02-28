@@ -1,7 +1,7 @@
 import { lockr } from "@datune/utils/immutables";
-import RealPitch from "../RealPitch";
+import type { RealPitch } from "../RealPitch";
 
-export default class SimplePitch implements RealPitch {
+export class SimplePitch implements RealPitch {
   private frequency: number;
 
   constructor(frequency: number) {

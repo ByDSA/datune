@@ -1,5 +1,5 @@
-import { TestInit } from "tests";
 import { Functions } from ".";
+import { TestInit } from "tests";
 
 TestInit.chromaticFunction();
 

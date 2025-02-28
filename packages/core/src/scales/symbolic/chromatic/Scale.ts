@@ -1,9 +1,9 @@
+import { Scale as IScale } from "../../Scale";
+import type { Dto } from "./caching/Dto";
 import { DegreeArray, Degree } from "degrees/chromatic";
 import { IntervalArray, Interval } from "intervals/chromatic";
-import IScale from "../../Scale";
-import { Dto } from "./caching";
 
-export default class Scale implements IScale<Interval, Degree> {
+export class Scale implements IScale<Interval, Degree> {
   rootIntervals: IntervalArray;
 
   degrees: DegreeArray;

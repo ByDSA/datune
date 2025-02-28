@@ -1,7 +1,7 @@
 import { lockr } from "@datune/utils/immutables";
-import Array from "../Array";
+import type { PitchArray } from "../Array";
 import { fromDiatonicAlts } from "../building/diatonicAlts";
-import Pitch from "../Pitch";
+import type { Pitch } from "../Pitch";
 import { Pitches as DPitches } from "pitches/diatonic";
 
 export function initialize() {
@@ -166,4 +166,4 @@ export let Bbb: Pitch;
 
 export let Bbbb: Pitch;
 
-export let ALL: Array;
+export let ALL: PitchArray;

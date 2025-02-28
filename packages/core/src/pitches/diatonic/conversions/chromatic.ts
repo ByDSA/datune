@@ -1,8 +1,8 @@
 import { A, B, C, D, E, F, G } from "../constants";
-import Diatonic from "../Diatonic";
+import type { Pitch } from "../Pitch";
 import { Pitches as ChromaticPitches, Pitch as Chromatic } from "pitches/chromatic";
 
-export function toChromatic(diatonic: Diatonic): Chromatic {
+export function toChromatic(diatonic: Pitch): Chromatic {
   switch (diatonic) {
     case C: return ChromaticPitches.C;
     case D: return ChromaticPitches.D;

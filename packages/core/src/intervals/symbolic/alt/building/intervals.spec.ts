@@ -1,9 +1,9 @@
 import { AUGMENTED_UNISON, MINOR_SECOND, PERFECT_FIFTH } from "../constants";
-import Interval from "../Interval";
+import type { Interval } from "../Interval";
 import { neg } from "../modifiers/neg";
 import { fromIntervals } from "./intervals";
 import { TestInit } from "tests";
-import { Interval as DiatonicInterval } from "intervals/diatonic";
+import type { Interval as DiatonicInterval } from "intervals/diatonic";
 import * as DIntervals from "intervals/symbolic/diatonic/constants";
 import { neg as DIntervalsNeg } from "intervals/symbolic/diatonic/modifiers/neg";
 

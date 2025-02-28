@@ -1,8 +1,7 @@
-/* eslint-disable import/prefer-default-export */
-import { Interval } from "intervals/chromatic";
-import { Pitches, PitchArray, Pitch } from "pitches/chromatic";
 import { from } from "../building";
-import NoteSet from "../NoteSet";
+import type { NoteSet } from "../NoteSet";
+import type { Interval } from "intervals/chromatic";
+import { Pitches, PitchArray, Pitch } from "pitches/chromatic";
 
 export function add(self: NoteSet, interval: Interval): NoteSet {
   const selfPitches = self.pitches;

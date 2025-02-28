@@ -30,10 +30,6 @@ describe("static properties should be defined", () => {
     expect(P.ALL).toBeDefined();
     expect(P.NUMBER).toBeDefined();
   } );
-
-  it("conversions", () => {
-    expect(P.hash).toBeDefined();
-  } );
 } );
 
 describe("lazy properties should be defined", () => {

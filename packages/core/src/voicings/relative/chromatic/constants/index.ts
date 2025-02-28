@@ -17,7 +17,7 @@ export function initialize() {
 }
 
 export {
-  default as getInversionOf,
+  getInversionOf,
 } from "./inversionMap";
 
 export * from "./n2";

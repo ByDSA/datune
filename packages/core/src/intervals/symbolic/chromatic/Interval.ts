@@ -1,2 +1,1 @@
-type Interval = number;
-export default Interval;
+export type Interval = number;

@@ -1,7 +1,7 @@
 import { fromRootIntervals } from "./rootIntervals";
 import { IntervalArray, Intervals } from "intervals/chromatic";
-import { PitchArray } from "pitches/chromatic";
-import { Voicing } from "voicings/chromatic";
+import type { PitchArray } from "pitches/chromatic";
+import type { Voicing } from "voicings/chromatic";
 
 export function fromPitches(...pitches: PitchArray): Voicing {
   const rootIntervals: IntervalArray = getRootIntervalsFromNotes(pitches);

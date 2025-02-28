@@ -3,17 +3,17 @@ export {
 } from "./checkDto";
 
 export {
-  default as Data,
+  Data,
 } from "./Data";
 
 export {
-  default as Dto,
+  Dto,
 } from "./Dto";
 
 export {
-  default as serialize,
+  serialize,
 } from "./serialize";
 
 export {
-  default as deserialize,
+  deserialize,
 } from "./toData";

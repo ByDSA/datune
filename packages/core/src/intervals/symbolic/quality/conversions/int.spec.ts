@@ -1,6 +1,6 @@
 import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "../constants";
-import Quality from "../Quality";
-import toInt from "./int";
+import type { Quality } from "../Quality";
+import { toInt } from "./int";
 
 describe.each([
   [PERFECT, true, 0],

@@ -21,9 +21,7 @@ import { $ } from "/home/prog/.nvm/versions/node/v20.8.0/lib/node_modules/zx/bui
     console.log(label);
     console.log("=".repeat(30) + "\n");
 
-    await $`cd ${folder}`;
-
-    await $`eslint "**/*.{ts,js,mjs}" --no-warn-ignored --fix --color`;
+    await $`cd ${folder} && eslint "**/*.{ts,js,mjs}" --no-warn-ignored --fix --color`;
   }
 } )().catch(()=> {
   process.exit(1);

@@ -1,8 +1,7 @@
-/* eslint-disable camelcase */
-import { Keys as CKeys } from "keys/chromatic";
-import { TestInit } from "tests";
 import { C } from "../constants";
 import { toChromatic } from "./chromatic";
+import { Keys as CKeys } from "keys/chromatic";
+import { TestInit } from "tests";
 
 TestInit.diatonicAltKey();
 TestInit.chromaticKey();

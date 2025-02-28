@@ -1,4 +1,4 @@
-import Diatonic from "../Diatonic";
+import type { Pitch } from "../Pitch";
 import { A, ALL, B, C, D, E, F, G, NUMBER } from ".";
 
 it("valueOf()", () => {
@@ -42,7 +42,7 @@ describe("sets", () => {
     } );
 
     it("all values (unordered)", () => {
-      const diatonics: Diatonic[] = [
+      const diatonics: Pitch[] = [
         C,
         D,
         E,

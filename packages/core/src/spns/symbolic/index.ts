@@ -1,15 +1,15 @@
 export {
-  SPNArray as SPNAltArray,
+  type SPNArray as SPNAltArray,
   SPNs as SPNAlts,
-  SPN as SPNAlt
+  SPN as SPNAlt,
 } from "./alt";
 
 export {
   SPN as ChromaticSPN,
-  SPNArray as ChromaticSPNArray,
-  SPNs as ChromaticSPNs
+  type SPNArray as ChromaticSPNArray,
+  SPNs as ChromaticSPNs,
 } from "./chromatic";
 
 export {
-  default as SPN,
+  SPN,
 } from "./SPN";
