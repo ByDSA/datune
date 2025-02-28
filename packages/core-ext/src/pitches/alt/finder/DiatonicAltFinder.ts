@@ -1,21 +1,24 @@
 import { Arrays } from "@datune/utils";
-import { fromDiatonicAlts as pitchFrom, Pitch as DiatonicAlt, toChromatic } from "@datune/core/pitches/alt";
-import DiatonicAltBuilder from "@datune/core/pitches/alt/building/builders/DiatonicAltBuilder";
+import type { Pitch } from "@datune/core/pitches/alt";
+import { fromDiatonicAlts as pitchFrom } from "@datune/core/pitches/alt/building/diatonicAlts";
+import { toChromatic } from "@datune/core/pitches/alt/conversions";
+import { DiatonicAltBuilder } from "@datune/core/pitches/alt/building/builders/DiatonicAltBuilder";
 import { Pitch as Chromatic } from "@datune/core/pitches/chromatic";
-import { ALL as D_ALL, Array as DiatonicArray, Pitch as Diatonic } from "@datune/core/pitches/diatonic";
+import type { PitchArray as DPitchArray, Pitch as Diatonic } from "@datune/core/pitches/diatonic";
+import { ALL as D_ALL } from "@datune/core/pitches/diatonic/constants";
 
-export default class DiatonicAltFinder {
-  private _maxSharps: number;
+export class DiatonicAltFinder {
+  #maxSharps: number;
 
-  private _maxFlats: number;
+  #maxFlats: number;
 
-  private _note: Chromatic | undefined;
+  #note: Chromatic | undefined;
 
-  private _diatonics: DiatonicArray | undefined;
+  #diatonics: DPitchArray | undefined;
 
   private constructor() {
-    this._maxFlats = 2;
-    this._maxSharps = this._maxFlats;
+    this.#maxFlats = 2;
+    this.#maxSharps = this.#maxFlats;
   }
 
   static create(): DiatonicAltFinder {
@@ -23,41 +26,41 @@ export default class DiatonicAltFinder {
   }
 
   setNote(c: Chromatic): DiatonicAltFinder {
-    this._note = c;
+    this.#note = c;
 
     return this;
   }
 
-  setDiatonics(...d: DiatonicArray): DiatonicAltFinder {
-    this._diatonics = d;
+  setDiatonics(...d: DPitchArray): DiatonicAltFinder {
+    this.#diatonics = d;
 
     return this;
   }
 
   setMaxAlts(maxAlts: number): DiatonicAltFinder {
-    this._maxFlats = maxAlts;
-    this._maxSharps = maxAlts;
+    this.#maxFlats = maxAlts;
+    this.#maxSharps = maxAlts;
 
     return this;
   }
 
   setMaxSharps(maxSharps: number): DiatonicAltFinder {
-    this._maxSharps = maxSharps;
+    this.#maxSharps = maxSharps;
 
     return this;
   }
 
   setMaxFlats(maxBemols: number): DiatonicAltFinder {
-    this._maxFlats = maxBemols;
+    this.#maxFlats = maxBemols;
 
     return this;
   }
 
-  find(): DiatonicAlt[] {
-    if (this._note && this._diatonics && this._diatonics.length === 1) {
+  find(): Pitch[] {
+    if (this.#note && this.#diatonics && this.#diatonics.length === 1) {
       const builder = DiatonicAltBuilder.create()
-        .setNote(this._note)
-        .setDiatonic(this._diatonics[0]);
+        .setNote(this.#note)
+        .setDiatonic(this.#diatonics[0]);
       const diatonicAlt = builder.build();
 
       if (!diatonicAlt)
@@ -66,24 +69,24 @@ export default class DiatonicAltFinder {
       return [diatonicAlt];
     }
 
-    if (!this._note && this._diatonics && this._diatonics.length > 0 && this._validMaxAlts()) {
-      const ret: DiatonicAlt[] = [];
+    if (!this.#note && this.#diatonics && this.#diatonics.length > 0 && this.#validMaxAlts()) {
+      const ret: Pitch[] = [];
 
-      this._createDiatonicAltsFromDiatonicsAndMaxAltsIterator(
+      this.#createDiatonicAltsFromDiatonicsAndMaxAltsIterator(
         (diatonicAlt) => ret.push(diatonicAlt),
       );
 
       return ret;
     }
 
-    if (this._note && this._validMaxAlts()) {
-      const ret: DiatonicAlt[] = [];
+    if (this.#note && this.#validMaxAlts()) {
+      const ret: Pitch[] = [];
 
-      this._addAllDiatonicsIfEmpty();
+      this.#addAllDiatonicsIfEmpty();
 
-      this._createDiatonicAltsFromDiatonicsAndMaxAltsIterator(
-        (diatonicAlt: DiatonicAlt) => {
-          if (toChromatic(diatonicAlt) === this._note)
+      this.#createDiatonicAltsFromDiatonicsAndMaxAltsIterator(
+        (diatonicAlt: Pitch) => {
+          if (toChromatic(diatonicAlt) === this.#note)
             ret.push(diatonicAlt);
         },
       );
@@ -94,25 +97,25 @@ export default class DiatonicAltFinder {
     return [];
   }
 
-  private _addAllDiatonicsIfEmpty() {
-    if (!this._diatonics)
-      this._diatonics = <Arrays.NonEmpty<Diatonic>>[...D_ALL];
+  #addAllDiatonicsIfEmpty() {
+    if (!this.#diatonics)
+      this.#diatonics = <Arrays.NonEmpty<Diatonic>>[...D_ALL];
   }
 
-  private _createDiatonicAltsFromDiatonicsAndMaxAltsIterator(f: (dAlt: DiatonicAlt)=> void) {
-    if (!this._diatonics)
+  #createDiatonicAltsFromDiatonicsAndMaxAltsIterator(f: (dAlt: Pitch)=> void) {
+    if (!this.#diatonics)
       return;
 
-    for (const diatonic of this._diatonics) {
-      for (let alts = -this._maxFlats; alts <= this._maxSharps; alts++) {
-        const diatonicAlt: DiatonicAlt = pitchFrom(diatonic, alts);
+    for (const diatonic of this.#diatonics) {
+      for (let alts = -this.#maxFlats; alts <= this.#maxSharps; alts++) {
+        const diatonicAlt: Pitch = pitchFrom(diatonic, alts);
 
         f(diatonicAlt);
       }
     }
   }
 
-  private _validMaxAlts(): boolean {
-    return this._maxFlats >= 0 && this._maxSharps >= 0;
+  #validMaxAlts(): boolean {
+    return this.#maxFlats >= 0 && this.#maxSharps >= 0;
   }
 }

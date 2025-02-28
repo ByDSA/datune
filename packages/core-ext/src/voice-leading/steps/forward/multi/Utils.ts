@@ -5,9 +5,10 @@ import { CompositeStep } from "../../composite/CompositeStep";
 import { ReasonStepMap } from "../../reason/ReasonStepMap";
 import { Array as SingleStepArray, SingleStep } from "../../single";
 import { Step, StepArray } from "../../Step";
+import { CompositeSteps } from "voice-leading/steps/composite/CompositeSteps";
 
 export function checkAndFixInputSPN(notes: SPN[]) {
-  if (!notes || notes.length == 0)
+  if (!notes || notes.length === 0)
     throw new Error("No notes");
 
   notes.sort((a, b) => a.valueOf() - b.valueOf());
@@ -20,10 +21,10 @@ export type MultiStepsGenResult = {
 
 export function compactStepsArray(motions: SingleStepArray[]): StepArray {
   return <StepArray>motions.map((m) => {
-    if (m.length == 1)
+    if (m.length === 1)
       return <Step>m[0];
 
-    return <Step>CompositeStep.from(...m);
+    return <Step>CompositeSteps.from(...m);
   } );
 }
 

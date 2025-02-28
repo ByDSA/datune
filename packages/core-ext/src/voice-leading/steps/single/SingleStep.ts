@@ -1,8 +1,8 @@
 import { Interval } from "@datune/core/intervals/chromatic";
-import { add as SPNAdd } from "@datune/core/spns/chromatic";
+import { add as SPNAdd } from "@datune/core/spns/symbolic/chromatic/modifiers";
 import { SPNOrNullArray, Step } from "../Step";
 
-export default class SingleStep implements Step {
+export class SingleStep implements Step {
   index: number;
 
   interval: Interval | null;

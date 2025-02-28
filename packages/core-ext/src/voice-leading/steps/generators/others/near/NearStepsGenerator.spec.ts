@@ -1,8 +1,10 @@
-import { C5, E5, G5 } from "@datune/core/spns/chromatic";
-import { TestInit } from "tests";
+import { SPNs } from "@datune/core/spns/chromatic";
 import { NearStepsGen } from "./NearStepsGenerator";
+import { TestInit } from "tests";
 
 TestInit.loadAll();
+const { C5, E5, G5 } = SPNs;
+
 it("near motion C5-E5-G5 in C", () => {
   const fromNotes = [C5, E5, G5];
   const nearMotion = NearStepsGen.create()

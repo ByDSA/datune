@@ -6,14 +6,14 @@ import { Step, StepOrNull } from "../../../Step";
 import { FilterStepFunction, StepsGeneratorInterface } from "../../StepsGenerator";
 
 export class NearStepsGen implements StepsGeneratorInterface {
-  private _maxStep: number;
+  #maxStep: number;
 
-  private _length: number | undefined;
+  #length: number | undefined;
 
-  private _filterFunction: FilterStepFunction | undefined;
+  #filterFunction: FilterStepFunction | undefined;
 
   private constructor() {
-    this._maxStep = 2;
+    this.#maxStep = 2;
   }
 
   static create(): NearStepsGen {
@@ -21,19 +21,19 @@ export class NearStepsGen implements StepsGeneratorInterface {
   }
 
   notesLength(length: number): NearStepsGen {
-    this._length = length;
+    this.#length = length;
 
     return this;
   }
 
   maxStep(n: number): NearStepsGen {
-    this._maxStep = n;
+    this.#maxStep = n;
 
     return this;
   }
 
   generateSteps(): Step[] {
-    const combinations = this._calculateCombinations();
+    const combinations = this.#calculateCombinations();
 
     if (combinations.length === 0)
       return [];
@@ -41,20 +41,21 @@ export class NearStepsGen implements StepsGeneratorInterface {
     return compactStepsArray(<Arrays.NonEmpty<SingleStepArray>>combinations);
   }
 
-  private _calculateCombinations(): SingleStepArray[] {
-    if (!this._length)
+  #calculateCombinations(): SingleStepArray[] {
+    if (!this.#length)
       throw new Error();
 
     const combiner = StepCombiner.create();
 
-    if (this._filterFunction)
-      combiner.filter(this._filterFunction);
+    if (this.#filterFunction)
+      combiner.filter(this.#filterFunction);
 
-    for (let index = 0; index < this._length; index++) {
+    for (let index = 0; index < this.#length; index++) {
       const singleSteps: Arrays.NonEmpty<StepOrNull> = [null]; // let pivot notes
 
-      for (let j = -this._maxStep; j <= this._maxStep; j++) {
-        if (j == 0)
+      for (let j = -this.#maxStep; j <= this.#maxStep; j++) {
+        if (j === 0)
+          // eslint-disable-next-line no-continue
           continue;
 
         const singleStep = from(index, j);
@@ -69,7 +70,7 @@ export class NearStepsGen implements StepsGeneratorInterface {
   }
 
   filter(f: FilterStepFunction): NearStepsGen {
-    this._filterFunction = f;
+    this.#filterFunction = f;
 
     return this;
   }

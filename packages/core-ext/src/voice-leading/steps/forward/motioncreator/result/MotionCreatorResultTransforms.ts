@@ -1,5 +1,7 @@
-import { Chord, fromPitches, inv } from "@datune/core/chords/chromatic";
-import { Array as ChromaticArray, Pitch as Chromatic } from "@datune/core/pitches/chromatic";
+import { Chord } from "@datune/core/chords/chromatic";
+import { fromPitches } from "@datune/core/chords/octave/chromatic/building/pitches";
+import { inv } from "@datune/core/chords/octave/chromatic/modifiers";
+import { PitchArray, Pitch } from "@datune/core/pitches/chromatic";
 import { SPN } from "@datune/core/spns/chromatic";
 import { CombinationResult } from "../../../applier/StepCombinationsApplier";
 import { Target } from "../../../Step";
@@ -32,7 +34,7 @@ function getValidChordsFromCombinationResults(combinationResults: CombinationRes
     if (notes.length === 0)
       return null;
 
-    return fromPitches(...<ChromaticArray>notes);
+    return fromPitches(...<PitchArray>notes);
   } ).filter((c) => c);
 }
 
@@ -40,6 +42,6 @@ export function transformToSPNArray(result: MotionCreatorResult): SPN[][] {
   return <SPN[][]>result.combinationResults.map((mcr) => mcr.target.filter((s) => s));
 }
 
-function getValidNotesFromTarget(target: Target): Chromatic[] {
-  return <Chromatic[]>target.map((s) => s?.pitch || null).filter((s) => s);
+function getValidNotesFromTarget(target: Target): Pitch[] {
+  return <Pitch[]>target.map((s) => s?.pitch || null).filter((s) => s);
 }

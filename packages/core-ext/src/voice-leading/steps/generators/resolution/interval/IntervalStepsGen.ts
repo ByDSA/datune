@@ -1,26 +1,27 @@
-/* eslint-disable no-empty-function */
-/* eslint-disable no-useless-constructor */
 import { Arrays } from "@datune/utils";
-import { Array as SPNArray, SPN } from "@datune/core/spns/chromatic";
-import { fromRootIntervals, inv, MAJOR_SECOND, TRIAD_AUGMENTED, TRITONE, Voicing as ChromaticVoicing } from "@datune/core/voicings/chromatic";
-import { CompositeStep } from "../../../composite/CompositeStep";
+import { SPNArray, SPN } from "@datune/core/spns/chromatic";
+import { Voicing as ChromaticVoicing } from "@datune/core/voicings/chromatic";
+import { fromRootIntervals } from "@datune/core/voicings/relative/chromatic/building/rootIntervals";
+import { inv } from "@datune/core/voicings/relative/chromatic/modifiers";
+import { MAJOR_SECOND, TRIAD_AUGMENTED, TRITONE } from "@datune/core/voicings/relative/chromatic/constants";
+import { CompositeSteps } from "../../../composite";
 import { compactStepsArray } from "../../../forward/multi/Utils";
 import { Array as SingleStepArray, index, SingleStep } from "../../../single";
 import { Step } from "../../../Step";
 import { FilterStepFunction, StepsGeneratorInterface } from "../../StepsGenerator";
 import { DEFAULT_AUGMENTED_RESOLUTION, DEFAULT_TRITONE_RESOLUTION } from "./constants";
-import IntervalResults from "./IntervalResults";
+import { IntervalResults } from "./IntervalResults";
 
-export default class IntervalStepsGen implements StepsGeneratorInterface {
-  private _intervalResolutionsMap = new Map<ChromaticVoicing, SingleStep[][]>();
+export class IntervalStepsGen implements StepsGeneratorInterface {
+  #intervalResolutionsMap = new Map<ChromaticVoicing, SingleStep[][]>();
 
-  private _results: IntervalResults | undefined;
+  #results: IntervalResults | undefined;
 
-  private _notes: SPNArray | undefined;
+  #notes: SPNArray | undefined;
 
-  private _indexes: Arrays.Number | undefined;
+  #indexes: Arrays.Number | undefined;
 
-  private _filterFunction: FilterStepFunction | undefined;
+  #filterFunction: FilterStepFunction | undefined;
 
   private constructor() {
   }
@@ -30,28 +31,28 @@ export default class IntervalStepsGen implements StepsGeneratorInterface {
   }
 
   notes(...notes: SPNArray): IntervalStepsGen {
-    this._notes = notes;
+    this.#notes = notes;
 
     return this;
   }
 
   indexes(...indexes: Arrays.Number): IntervalStepsGen {
-    this._indexes = indexes;
+    this.#indexes = indexes;
 
     return this;
   }
 
   filter(f: FilterStepFunction): IntervalStepsGen {
-    this._filterFunction = f;
+    this.#filterFunction = f;
 
     return this;
   }
 
-  private _solveVoicing(voicing: ChromaticVoicing): Step[] {
-    let resolutionSteps = this._intervalResolutionsMap.get(voicing)
-            || this._getDefaultResolutionsForVoicing(voicing);
+  #solveVoicing(voicing: ChromaticVoicing): Step[] {
+    let resolutionSteps = this.#intervalResolutionsMap.get(voicing)
+            || this.#getDefaultResolutionsForVoicing(voicing);
 
-    resolutionSteps = this._getFixedIndexes(resolutionSteps);
+    resolutionSteps = this.#getFixedIndexes(resolutionSteps);
 
     if (resolutionSteps.length === 0)
       return [];
@@ -59,41 +60,41 @@ export default class IntervalStepsGen implements StepsGeneratorInterface {
     return <Step[]>compactStepsArray(<SingleStepArray[]>resolutionSteps);
   }
 
-  private _getDefaultResolutionsForVoicing(voicing: ChromaticVoicing): SingleStep[][] {
+  #getDefaultResolutionsForVoicing(voicing: ChromaticVoicing): SingleStep[][] {
     switch (voicing) {
       case MAJOR_SECOND:
         return [
-          CompositeStep.fromIntervalsKeepZero(-1, 0).singleSteps,
-          CompositeStep.fromIntervalsKeepZero(-2, 0).singleSteps,
-          CompositeStep.fromIntervalsKeepZero(0, 1).singleSteps,
-          CompositeStep.fromIntervalsKeepZero(0, 2).singleSteps,
+          CompositeSteps.fromIntervalsKeepZero(-1, 0).singleSteps,
+          CompositeSteps.fromIntervalsKeepZero(-2, 0).singleSteps,
+          CompositeSteps.fromIntervalsKeepZero(0, 1).singleSteps,
+          CompositeSteps.fromIntervalsKeepZero(0, 2).singleSteps,
         ];
       case inv(MAJOR_SECOND):
         return [
-          CompositeStep.fromIntervalsKeepZero(1, 0).singleSteps,
-          CompositeStep.fromIntervalsKeepZero(2, 0).singleSteps,
-          CompositeStep.fromIntervalsKeepZero(0, -1).singleSteps,
-          CompositeStep.fromIntervalsKeepZero(0, -2).singleSteps,
+          CompositeSteps.fromIntervalsKeepZero(1, 0).singleSteps,
+          CompositeSteps.fromIntervalsKeepZero(2, 0).singleSteps,
+          CompositeSteps.fromIntervalsKeepZero(0, -1).singleSteps,
+          CompositeSteps.fromIntervalsKeepZero(0, -2).singleSteps,
         ];
       case TRITONE:
       {
         let ret = DEFAULT_TRITONE_RESOLUTION;
 
-        if (this._filterFunction)
-          ret = ret.filter(this._filterFunction);
+        if (this.#filterFunction)
+          ret = ret.filter(this.#filterFunction);
 
         return ret;
       }
       case TRIAD_AUGMENTED:
-        if (!this._filterFunction)
+        if (!this.#filterFunction)
           return DEFAULT_AUGMENTED_RESOLUTION;
 
-        return DEFAULT_AUGMENTED_RESOLUTION.filter(this._filterFunction);
+        return DEFAULT_AUGMENTED_RESOLUTION.filter(this.#filterFunction);
       default: return [];
     }
   }
 
-  private _getFixedIndexes(motions: SingleStep[][]): SingleStep[][] {
+  #getFixedIndexes(motions: SingleStep[][]): SingleStep[][] {
     const ret = [];
 
     for (const m of motions) {
@@ -101,10 +102,10 @@ export default class IntervalStepsGen implements StepsGeneratorInterface {
 
       for (let i = 0; i < m.length; i++) {
         const sm = m[i];
-        const newIndex = (<number[]> this._indexes)[sm.index];
+        const newIndex = (<number[]> this.#indexes)[sm.index];
 
         if (newIndex === undefined)
-          throw new Error(`Invalid newIndex. indexes=${this._indexes} sm.index=${sm.index}`);
+          throw new Error(`Invalid newIndex. indexes=${this.#indexes} sm.index=${sm.index}`);
 
         retM.push(index(sm, newIndex));
       }
@@ -116,30 +117,30 @@ export default class IntervalStepsGen implements StepsGeneratorInterface {
   }
 
   generateSteps(): Step[] {
-    if (!this._notes)
+    if (!this.#notes)
       throw new Error();
 
-    if (!this._indexes)
-      this._indexes = <Arrays.Number> this._notes.map((n, i) => i);
+    if (!this.#indexes)
+      this.#indexes = <Arrays.Number> this.#notes.map((_n, i) => i);
 
-    const firstNote = this._notes[this._indexes[0]];
-    const voicingInt = <Arrays.Number> this._indexes.map((indexx) => {
-      const noteIndex = (<SPN[]> this._notes)[indexx];
+    const firstNote = this.#notes[this.#indexes[0]];
+    const voicingInt = <Arrays.Number> this.#indexes.map((indexx) => {
+      const noteIndex = (<SPN[]> this.#notes)[indexx];
 
       return noteIndex.valueOf() - firstNote.valueOf();
     } );
     const voicing = fromRootIntervals(...voicingInt);
 
-    this._results = {
+    this.#results = {
       voicing,
-      possibilities: this._solveVoicing(voicing),
+      possibilities: this.#solveVoicing(voicing),
     };
 
-    return this._results.possibilities;
+    return this.#results.possibilities;
   }
 
   // eslint-disable-next-line accessor-pairs
   get results(): IntervalResults | undefined {
-    return this._results;
+    return this.#results;
   }
 }

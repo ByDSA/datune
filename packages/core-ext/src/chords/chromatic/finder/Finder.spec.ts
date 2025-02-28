@@ -1,10 +1,15 @@
-import { C, C5, Cm, Csus2, Csus4, fromRootVoicing, Fsus2, Gsus4, inv } from "@datune/core/chords/chromatic";
-import { C as C_C, D as C_D, G as C_G } from "@datune/core/pitches/chromatic";
+/* eslint-disable @typescript-eslint/naming-convention */
+import { Chords } from "@datune/core/chords/chromatic";
+import { Pitches } from "@datune/core/pitches/chromatic";
+import { Voicings as V } from "@datune/core/voicings/chromatic";
+import { Finder } from "./Finder";
 import { TestInit } from "tests";
-import { TRIAD_QUARTAL } from "@datune/core/voicings/chromatic";
-import Finder from "./Finder";
 
 TestInit.loadAll();
+
+const { C: C_C, D: C_D, G: C_G } = Pitches;
+const { C, C5, Cm, Csus2, Csus4, fromRootVoicing, Fsus2, Gsus4, inv } = Chords;
+
 it("contains= C, G. MaxLength=3. NotInversions", () => {
   const finder = new Finder()
     .containsNote(C_C, C_G)
@@ -41,11 +46,11 @@ it("contains= C, G. MaxLength=3", () => {
 
     Csus4,
     Fsus2,
-    fromRootVoicing(C_G, TRIAD_QUARTAL),
+    fromRootVoicing(C_G, V.TRIAD_QUARTAL),
 
     Gsus4,
     Csus2,
-    fromRootVoicing(C_D, TRIAD_QUARTAL),
+    fromRootVoicing(C_D, V.TRIAD_QUARTAL),
   ];
 
   expect(actual).toEqual(expected);

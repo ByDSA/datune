@@ -1,7 +1,7 @@
-/* eslint-disable import/no-mutable-exports */
 import { lock } from "@datune/utils/immutables";
-import { DOUBLE_HARMONIC, HARMONIC_MAJOR, HARMONIC_MINOR, MAJOR, MELODIC_MINOR, PENTATONIC, Scale } from "@datune/core/scales/alt";
-import cache from "./cache";
+import { DOUBLE_HARMONIC, HARMONIC_MAJOR, HARMONIC_MINOR, MAJOR, MELODIC_MINOR, PENTATONIC } from "@datune/core/scales/symbolic/alt/constants";
+import type { Scale } from "@datune/core/scales/symbolic/alt/Scale";
+import { cache } from "./cache";
 
 export let SOURCE_SCALES: Set<Scale>;
 

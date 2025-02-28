@@ -1,33 +1,35 @@
 import { Arrays } from "@datune/utils";
-import { betweenSPN, Interval as ChromaticInterval } from "@datune/core/intervals/chromatic";
-import { Array as KeyArray } from "@datune/core/keys/chromatic";
-import { Array as ChromaticArray } from "@datune/core/pitches/chromatic";
-import { Array as SPNArray, SPN } from "@datune/core/spns/chromatic";
-import { Array as VoicingArray, fromRootIntervals as voicingFromRootIntervals } from "@datune/core/voicings/chromatic";
+import { Interval as ChromaticInterval } from "@datune/core/intervals/chromatic";
+import { betweenSPN } from "@datune/core/intervals/symbolic/chromatic/building";
+import { KeyArray } from "@datune/core/keys/chromatic";
+import { PitchArray as ChromaticArray } from "@datune/core/pitches/chromatic";
+import { SPNArray, SPN } from "@datune/core/spns/chromatic";
+import { VoicingArray } from "@datune/core/voicings/chromatic";
+import { fromRootIntervals as voicingFromRootIntervals } from "@datune/core/voicings/relative/chromatic/building/rootIntervals";
 import { CombinationResult, StepCombinationsApplier } from "../../applier/StepCombinationsApplier";
 import { StepCombiner } from "../../combiner/StepCombiner";
 import { ReasonStepMap } from "../../reason/ReasonStepMap";
 import { Array as SingleStepArray } from "../../single";
 import { MultiStepsGen } from "../multi/MultiStepsGen";
-import MotionCreatorSettings from "./MotionCreatorSettings";
+import { MotionCreatorSettings } from "./MotionCreatorSettings";
 import { MotionCreatorResult } from "./result/MotionCreatorResult";
 
 type ApplierFunction = (a: StepCombinationsApplier)=> void;
 type ConfigMultiStepFunction = (ms: MultiStepsGen)=> void;
 
-export default class MotionCreator {
-  private _settings: MotionCreatorSettings;
+export class MotionCreator {
+  #settings: MotionCreatorSettings;
 
-  private _combiner: StepCombiner | undefined;
+  #combiner: StepCombiner | undefined;
 
-  private _reasonsMap: ReasonStepMap | undefined;
+  #reasonsMap: ReasonStepMap | undefined;
 
-  private _applierFunction: ApplierFunction | undefined;
+  #applierFunction: ApplierFunction | undefined;
 
-  private _multiStepFunctions: ConfigMultiStepFunction[] | undefined;
+  #multiStepFunctions: ConfigMultiStepFunction[] | undefined;
 
   constructor() {
-    this._settings = new MotionCreatorSettings();
+    this.#settings = new MotionCreatorSettings();
   }
 
   static create(): MotionCreator {
@@ -35,13 +37,13 @@ export default class MotionCreator {
   }
 
   fromNotes(...fromNotes: SPNArray): MotionCreator {
-    this._settings.fromNotes = fromNotes;
+    this.#settings.fromNotes = fromNotes;
 
     return this;
   }
 
   configApplier(f: ApplierFunction): MotionCreator {
-    this._applierFunction = f;
+    this.#applierFunction = f;
 
     return this;
   }
@@ -55,27 +57,27 @@ export default class MotionCreator {
   }
 
   calc(): MotionCreatorResult {
-    this._initialize();
+    this.#initialize();
 
-    const targets = this._calcResults();
+    const targets = this.#calcResults();
 
-    if (!this._reasonsMap)
+    if (!this.#reasonsMap)
       throw new Error();
 
     return {
       combinationResults: targets,
-      reasonsMap: this._reasonsMap,
+      reasonsMap: this.#reasonsMap,
     };
   }
 
-  private _calcResults(): CombinationResult[] {
-    if (!this._combiner || !this._settings.fromNotes)
+  #calcResults(): CombinationResult[] {
+    if (!this.#combiner || !this.#settings.fromNotes)
       throw new Error();
 
-    let combinations = this._combiner.calcArrays();
+    let combinations = this.#combiner.calcArrays();
 
     combinations = combinations.filter((singleSteps) => {
-      if (!this._checkMaxStepConstraint(...singleSteps))
+      if (!this.#checkMaxStepConstraint(...singleSteps))
         return false;
 
       if (!checkZeroStepsConstraint(...singleSteps))
@@ -86,36 +88,36 @@ export default class MotionCreator {
 
     const applier = StepCombinationsApplier.create()
       .combinations(combinations)
-      .notes(...this._settings.fromNotes);
+      .notes(...this.#settings.fromNotes);
 
-    if (this._applierFunction)
-      this._applierFunction(applier);
+    if (this.#applierFunction)
+      this.#applierFunction(applier);
 
     const results = applier.apply();
 
-    return results.filter(this._filterResults.bind(this));
+    return results.filter(this.#filterResults.bind(this));
   }
 
-  private _filterResults(stepResult: CombinationResult): boolean {
-    const validSPN = <SPN[]>stepResult.target.filter((s: SPN | null) => s);
+  #filterResults(stepResult: CombinationResult): boolean {
+    const validSpn = <SPN[]>stepResult.target.filter((s: SPN | null) => s);
 
     // Voicing
-    if (this._settings.voicings) {
-      const voicingInt = <Arrays.Number>validSPN.map(
-        (s, i, a) => betweenSPN(<SPN>a[0], <SPN>s),
+    if (this.#settings.voicings) {
+      const voicingInt = <Arrays.Number>validSpn.map(
+        (s, _i, a) => betweenSPN(<SPN>a[0], <SPN>s),
       );
       const voicing = voicingFromRootIntervals(...voicingInt);
 
-      if (!this._settings.voicings.includes(voicing))
+      if (!this.#settings.voicings.includes(voicing))
         return false;
     }
 
     // Keys
-    if (this._settings.keysAny) {
+    if (this.#settings.keysAny) {
       let found = false;
 
-      for (const t of this._settings.keysAny) {
-        if (t.hasPitches(...<ChromaticArray>validSPN.map((s) => s.pitch))) {
+      for (const t of this.#settings.keysAny) {
+        if (t.hasPitches(...<ChromaticArray>validSpn.map((s) => s.pitch))) {
           found = true;
           break;
         }
@@ -125,9 +127,9 @@ export default class MotionCreator {
         return false;
     }
 
-    if (this._settings.keysAll) {
-      for (const key of this._settings.keysAll) {
-        if (!key.hasPitches(...<ChromaticArray>validSPN.map((spn) => spn.pitch)))
+    if (this.#settings.keysAll) {
+      for (const key of this.#settings.keysAll) {
+        if (!key.hasPitches(...<ChromaticArray>validSpn.map((spn) => spn.pitch)))
           return false;
       }
     }
@@ -135,9 +137,9 @@ export default class MotionCreator {
     return true;
   }
 
-  private _checkMaxStepConstraint(...singleSteps: SingleStepArray): boolean {
+  #checkMaxStepConstraint(...singleSteps: SingleStepArray): boolean {
     for (const ss of singleSteps) {
-      if (Math.abs(ss.interval || 0) > this._settings.maxStep)
+      if (Math.abs(ss.interval || 0) > this.#settings.maxStep)
         return false;
     }
 
@@ -145,22 +147,22 @@ export default class MotionCreator {
   }
 
   configMultiStepGen(f: ConfigMultiStepFunction): MotionCreator {
-    if (!this._multiStepFunctions)
-      this._multiStepFunctions = [];
+    if (!this.#multiStepFunctions)
+      this.#multiStepFunctions = [];
 
-    this._multiStepFunctions.push(f);
+    this.#multiStepFunctions.push(f);
 
     return this;
   }
 
   minLength(l: number): MotionCreator {
-    this._settings.minLength = l;
+    this.#settings.minLength = l;
 
     return this;
   }
 
   maxLength(l: number): MotionCreator {
-    this._settings.maxLength = l;
+    this.#settings.maxLength = l;
 
     return this;
   }
@@ -170,78 +172,78 @@ export default class MotionCreator {
   }
 
   filterByVoicings(...p: VoicingArray): MotionCreator {
-    this._settings.voicings = p;
+    this.#settings.voicings = p;
 
     return this;
   }
 
   disableResolutions(): MotionCreator {
-    this._settings.doResolution = false;
+    this.#settings.doResolution = false;
 
     return this;
   }
 
   disableNear(): MotionCreator {
-    this._settings.doNear = false;
+    this.#settings.doNear = false;
 
     return this;
   }
 
   maxStep(interval: ChromaticInterval): MotionCreator {
-    this._settings.maxStep = interval;
+    this.#settings.maxStep = interval;
 
     return this;
   }
 
   filterByAnyKeys(...t: KeyArray): MotionCreator {
-    this._settings.keysAny = t;
+    this.#settings.keysAny = t;
 
     return this;
   }
 
   keysAll(...t: KeyArray): MotionCreator {
-    this._settings.keysAll = t;
+    this.#settings.keysAll = t;
 
     return this;
   }
 
   restingNotes(...notes: ChromaticArray): MotionCreator {
-    this._settings.restingNotes = notes;
+    this.#settings.restingNotes = notes;
 
     return this;
   }
 
-  private _initialize() {
-    if (!this._settings.fromNotes)
+  #initialize() {
+    if (!this.#settings.fromNotes)
       throw new Error();
 
-    this._settings.readyForCalculate();
+    this.#settings.readyForCalculate();
 
     const solver = MultiStepsGen.create()
-      .notes(...this._settings.fromNotes);
+      .notes(...this.#settings.fromNotes);
 
-    if (this._settings.maxStep)
-      solver.maxStep(this._settings.maxStep);
+    if (this.#settings.maxStep)
+      solver.maxStep(this.#settings.maxStep);
 
-    if (!this._settings.doResolution)
+    if (!this.#settings.doResolution)
       solver.disableResolutions();
-    else if (this._settings.restingNotes)
-      solver.restingNotes(...this._settings.restingNotes);
+    else if (this.#settings.restingNotes)
+      solver.restingNotes(...this.#settings.restingNotes);
 
-    if (this._settings.doNear)
+    if (this.#settings.doNear)
       solver.enableNear();
 
-    this._callMultiStepFunctions(solver);
+    this.#callMultiStepFunctions(solver);
 
     const result = solver.initializeCombiner();
 
-    this._reasonsMap = result.reasonsMap;
-    this._combiner = result.combiner;
+    this.#reasonsMap = result.reasonsMap;
+    this.#combiner = result.combiner;
   }
 
-  private _callMultiStepFunctions(multiStepsGen: MultiStepsGen) {
-    if (this._multiStepFunctions) {
-      for (const f of this._multiStepFunctions)
+  #callMultiStepFunctions(multiStepsGen: MultiStepsGen) {
+    if (this.#multiStepFunctions) {
+      for (const f of this.#multiStepFunctions)
         f(multiStepsGen);
     }
   }

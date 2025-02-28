@@ -1,10 +1,11 @@
-import { I, II, III, IV, V, VI, VII } from "@datune/core/degrees/alt";
-import { LOCRIAN, LYDIAN, MAJOR, MINOR } from "@datune/core/scales/alt";
+import { I, II, III, IV, V, VI, VII } from "@datune/core/degrees/alt/constants";
+import { LOCRIAN, LYDIAN, MAJOR, MINOR } from "@datune/core/scales/symbolic/alt/constants";
+import { compare } from ".";
 import { TestInit } from "tests";
-import compare from ".";
 
 TestInit.loadAll();
-it("Scale.MAJOR and itself nonenharmonic", () => {
+
+it("scale.MAJOR and itself nonenharmonic", () => {
   const { common } = compare(MAJOR, MAJOR);
   const expected = [
     I,
@@ -17,10 +18,10 @@ it("Scale.MAJOR and itself nonenharmonic", () => {
   ];
 
   for (const degree of expected)
-    expect(common.has(degree)).toEqual(true);
+    expect(common.has(degree)).toBe(true);
 } );
 
-it("Scale.MAJOR and Scale.MINOR nonenharmonic", () => {
+it("scale.MAJOR and Scale.MINOR nonenharmonic", () => {
   const { common } = compare(MAJOR, MINOR);
   const expected = [
     I,
@@ -29,20 +30,20 @@ it("Scale.MAJOR and Scale.MINOR nonenharmonic", () => {
     V,
   ];
 
-  expect(common.size).toEqual(4);
+  expect(common.size).toBe(4);
 
   for (const degree of expected)
-    expect(common.has(degree)).toEqual(true);
+    expect(common.has(degree)).toBe(true);
 } );
 
-it("Scale.LYDIAN and Scale.LOCRIAN nonenharmonic", () => {
+it("scale.LYDIAN and Scale.LOCRIAN nonenharmonic", () => {
   const { common } = compare(LYDIAN, LOCRIAN);
   const expected = [
     I,
   ];
 
-  expect(common.size).toEqual(1);
+  expect(common.size).toBe(1);
 
   for (const degree of expected)
-    expect(common.has(degree)).toEqual(true);
+    expect(common.has(degree)).toBe(true);
 } );

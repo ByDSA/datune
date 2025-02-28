@@ -1,5 +1,5 @@
 export {
-  default as Array,
+  Array,
 } from "./Array";
 
 export * from "./building";
@@ -9,5 +9,5 @@ export * from "./constants";
 export * from "./modifiers";
 
 export {
-  default as SingleStep,
+  SingleStep,
 } from "./SingleStep";

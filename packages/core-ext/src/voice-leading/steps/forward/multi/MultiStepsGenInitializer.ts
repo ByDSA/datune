@@ -1,8 +1,10 @@
 /* eslint-disable no-continue */
 import { Arrays } from "@datune/utils";
 import { Interval as ChromaticInterval } from "@datune/core/intervals/chromatic";
-import { Array as SPNArray } from "@datune/core/spns/chromatic";
-import { Array as ChromaticVoicingArray, fromRootIntervals, TRIAD_AUGMENTED } from "@datune/core/voicings/chromatic";
+import { SPNArray } from "@datune/core/spns/chromatic";
+import { VoicingArray as ChromaticVoicingArray } from "@datune/core/voicings/chromatic";
+import { fromRootIntervals } from "@datune/core/voicings/relative/chromatic/building/rootIntervals";
+import { TRIAD_AUGMENTED } from "@datune/core/voicings/relative/chromatic/constants";
 import { StepCombiner } from "../../combiner/StepCombiner";
 import { NearStepsGen } from "../../generators/others/near/NearStepsGenerator";
 import { IntervalResults as VoicingResults, IntervalStepsGen, RestingNotesStepsGen } from "../../generators/resolution";
@@ -12,9 +14,9 @@ import { StepReason, StepReasonNear, StepReasonRestNotes, StepReasonVoicing } fr
 import { StepType } from "../../reason/StepType";
 import { nonNullSteps, Step, StepArray, StepOrNull } from "../../Step";
 import { IntraVoicing, IntraVoicingsFinder } from "./IntraVoicingsFinder";
-import { RequireFunction } from "./MultiStepsGen";
+import type { RequireFunction } from "./MultiStepsGen";
 
-export default class MultiStepsGenInitializer {
+export class MultiStepsGenInitializer {
   notes: SPNArray | undefined;
 
   doResolutions: boolean;
@@ -46,14 +48,14 @@ export default class MultiStepsGenInitializer {
     ];
   }
 
-  private _calculateAndGetIntraIntervals(): IntraVoicing[] {
+  #calculateAndGetIntraIntervals(): IntraVoicing[] {
     return IntraVoicingsFinder.create()
-      .notes(...this._getValidNotes())
+      .notes(...this.#getValidNotes())
       .referenceVoicings(...this.intervalsToFind)
       .find();
   }
 
-  private _calculateAndGetIntraVoicings(): IntraVoicing[] {
+  #calculateAndGetIntraVoicings(): IntraVoicing[] {
     if (!this.notes)
       throw new Error();
 
@@ -63,22 +65,21 @@ export default class MultiStepsGenInitializer {
       .find();
   }
 
-  private _genResolutions(combiner: StepCombiner, reasonsMap: ReasonStepMap) {
-    this._genIntraIntervals(combiner, reasonsMap);
+  #genResolutions(combiner: StepCombiner, reasonsMap: ReasonStepMap) {
+    this.#genIntraIntervals(combiner, reasonsMap);
 
-    this._genIntraVoicings(combiner, reasonsMap);
+    this.#genIntraVoicings(combiner, reasonsMap);
 
-    this._genRestingNotes(combiner, reasonsMap);
+    this.#genRestingNotes(combiner, reasonsMap);
   }
 
-  private _genIntraIntervals(combiner: StepCombiner, reasonsMap: ReasonStepMap) {
-    const intraIntervals = this._calculateAndGetIntraIntervals();
+  #genIntraIntervals(combiner: StepCombiner, reasonsMap: ReasonStepMap) {
+    const intraIntervals = this.#calculateAndGetIntraIntervals();
 
     for (const intraInterval of intraIntervals) {
-      const bottomIndex = intraInterval.notesIndex[0];
-      const topIndex = intraInterval.notesIndex[1];
+      const [bottomIndex, topIndex] = intraInterval.notesIndex;
       const stepsGen = IntervalStepsGen.create()
-        .notes(...this._getValidNotes())
+        .notes(...this.#getValidNotes())
         .indexes(bottomIndex, topIndex);
 
       if (this.filterFunction)
@@ -91,7 +92,7 @@ export default class MultiStepsGenInitializer {
         voicing,
       };
 
-      if (!this.requireFunctions || !this._checkRequireFunctions(reason, steps))
+      if (!this.requireFunctions || !this.#checkRequireFunctions(reason, steps))
         steps.push(null);
 
       if (steps.length === 0)
@@ -105,7 +106,7 @@ export default class MultiStepsGenInitializer {
     }
   }
 
-  private _checkRequireFunctions(reason: StepReason, steps: StepOrNull[]): boolean {
+  #checkRequireFunctions(reason: StepReason, steps: StepOrNull[]): boolean {
     if (!this.requireFunctions)
       return false;
 
@@ -117,19 +118,19 @@ export default class MultiStepsGenInitializer {
     return true;
   }
 
-  private _getValidNotes(): SPNArray {
+  #getValidNotes(): SPNArray {
     if (!this.notes)
       throw new Error();
 
     return this.notes;
   }
 
-  private _genIntraVoicings(combiner: StepCombiner, reasonsMap: ReasonStepMap) {
-    const intraVoicings = this._calculateAndGetIntraVoicings();
+  #genIntraVoicings(combiner: StepCombiner, reasonsMap: ReasonStepMap) {
+    const intraVoicings = this.#calculateAndGetIntraVoicings();
 
     for (const intraVoicing of intraVoicings) {
       const stepsGen = IntervalStepsGen.create()
-        .notes(...this._getValidNotes())
+        .notes(...this.#getValidNotes())
         .indexes(...intraVoicing.notesIndex);
 
       if (this.filterFunction)
@@ -142,7 +143,7 @@ export default class MultiStepsGenInitializer {
         voicing,
       };
 
-      if (!this._checkRequireFunctions(reason, steps))
+      if (!this.#checkRequireFunctions(reason, steps))
         steps.push(null);
 
       if (steps.length === 0)
@@ -156,12 +157,12 @@ export default class MultiStepsGenInitializer {
     }
   }
 
-  private _genRestingNotes(combiner: StepCombiner, reasonsMap: ReasonStepMap) {
+  #genRestingNotes(combiner: StepCombiner, reasonsMap: ReasonStepMap) {
     if (!this.restingNotesStepsGen)
       return;
 
     this.restingNotesStepsGen
-      .notes(...this._getValidNotes());
+      .notes(...this.#getValidNotes());
 
     if (this.maxStep)
       this.restingNotesStepsGen.maxStep(this.maxStep);
@@ -171,7 +172,7 @@ export default class MultiStepsGenInitializer {
       type: StepType.RESOLUTION_KEY,
     };
 
-    if (!this._checkRequireFunctions(reason, steps))
+    if (!this.#checkRequireFunctions(reason, steps))
       steps.push(null);
 
     if (steps.length === 0)
@@ -184,11 +185,11 @@ export default class MultiStepsGenInitializer {
       reasonsMap.add(reason, ...<StepArray>validSteps);
   }
 
-  private _genNear(combiner: StepCombiner, reasonsMap: ReasonStepMap) {
+  #genNear(combiner: StepCombiner, reasonsMap: ReasonStepMap) {
     if (!this.nearStepsGen)
       return;
 
-    this.nearStepsGen.notesLength(this._getValidNotes().length);
+    this.nearStepsGen.notesLength(this.#getValidNotes().length);
 
     if (this.filterFunction)
       this.nearStepsGen.filter(this.filterFunction);
@@ -201,7 +202,7 @@ export default class MultiStepsGenInitializer {
       type: StepType.NEAR,
     };
 
-    if (!this._checkRequireFunctions(reason, steps))
+    if (!this.#checkRequireFunctions(reason, steps))
       steps.push(null);
 
     if (steps.length === 0)
@@ -222,9 +223,9 @@ export default class MultiStepsGenInitializer {
       stepCombiner.filter(maxDistanceFilterFunction(this.maxStep));
 
     if (this.doResolutions)
-      this._genResolutions(stepCombiner, reasonsMap);
+      this.#genResolutions(stepCombiner, reasonsMap);
 
-    this._genNear(stepCombiner, reasonsMap);
+    this.#genNear(stepCombiner, reasonsMap);
 
     return {
       combiner: stepCombiner,

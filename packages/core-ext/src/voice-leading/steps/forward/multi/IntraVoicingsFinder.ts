@@ -1,18 +1,18 @@
 /* eslint-disable no-continue */
-/* eslint-disable no-labels */
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable no-empty-function */
-/* eslint-disable no-useless-constructor */
-import { Arrays } from "@datune/utils";
-import { add, Array as SPNArray } from "@datune/core/spns/chromatic";
-import { Array as ChromaticVoicingArray, Voicing as ChromaticVoicing } from "@datune/core/voicings/chromatic";
 
-export type IntraVoicing = { notesIndex: Arrays.Number; voicing: ChromaticVoicing };
+import { Arrays } from "@datune/utils";
+import { add } from "@datune/core/spns/symbolic/chromatic/modifiers";
+import type { SPNArray } from "@datune/core/spns/chromatic";
+import type { VoicingArray as ChromaticVoicingArray, Voicing as ChromaticVoicing } from "@datune/core/voicings/chromatic";
+
+export type IntraVoicing = { notesIndex: Arrays.Number;
+voicing: ChromaticVoicing; };
 
 export class IntraVoicingsFinder {
-  private _notes: SPNArray | undefined;
+  #notes: SPNArray | undefined;
 
-  private _voicings: ChromaticVoicingArray | undefined;
+  #voicings: ChromaticVoicingArray | undefined;
 
   private constructor() {
   }
@@ -22,25 +22,25 @@ export class IntraVoicingsFinder {
   }
 
   notes(...notes: SPNArray): IntraVoicingsFinder {
-    this._notes = notes;
+    this.#notes = notes;
 
     return this;
   }
 
   referenceVoicings(...voicings: ChromaticVoicingArray): IntraVoicingsFinder {
-    this._voicings = voicings;
+    this.#voicings = voicings;
 
     return this;
   }
 
   find(): IntraVoicing[] {
-    if (!this._notes || !this._voicings)
+    if (!this.#notes || !this.#voicings)
       throw new Error();
 
     const intraVoicings: IntraVoicing[] = [];
 
-    for (const voicing of this._voicings) {
-      spnFor: for (const spn of this._notes) {
+    for (const voicing of this.#voicings) {
+      spnFor: for (const spn of this.#notes) {
         const notesIndex = [];
 
         for (const interval of voicing) {
@@ -49,7 +49,7 @@ export class IntraVoicingsFinder {
           if (!shiftedNote)
             continue;
 
-          const index = this._notes.indexOf(shiftedNote);
+          const index = this.#notes.indexOf(shiftedNote);
 
           if (index < 0)
             continue spnFor;

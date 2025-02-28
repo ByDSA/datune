@@ -1,18 +1,21 @@
-import { COMMON, DORIAN, MAJOR, MINOR, Scale } from "@datune/core/scales/alt";
-import { TestInit } from "tests";
-import getFromScale from ".";
+import type { Scale } from "@datune/core/scales/alt";
+import { Scales } from "@datune/core/scales/alt";
 import { initialize } from "./set";
+import { getFromScale } from ".";
+import { TestInit } from "tests";
 
 TestInit.loadAll();
 
 initialize();
+
+const { COMMON, DORIAN, MAJOR, MINOR } = Scales;
 
 describe.each([
   [MINOR, MAJOR, 6],
   [DORIAN, MAJOR, 2],
   [MAJOR, MAJOR, 1],
 ])("getSourceScale", (scale: Scale, expectedSourceScale: Scale, expectedMode: number) => {
-  describe(String(scale), () => {
+  describe("Scale: " + String(scale), () => {
     const result = getFromScale(scale);
 
     it(`sourceScale => ${String(expectedSourceScale)}`, () => {
@@ -20,6 +23,7 @@ describe.each([
 
       expect(actual).toBe(expectedSourceScale);
     } );
+
     it(`mode => ${expectedMode}`, () => {
       const actual = result.mode;
 
@@ -27,7 +31,8 @@ describe.each([
     } );
   } );
 } );
-it("getSourceScaleFrom: ", () => {
+
+it("getSourceScaleFrom:", () => {
   for (const scale of COMMON) {
     const sourceScale = getFromScale(scale);
 

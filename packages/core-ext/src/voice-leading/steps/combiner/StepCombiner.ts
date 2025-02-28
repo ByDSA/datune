@@ -7,159 +7,189 @@ import { cartesianProduct } from "./Combiner";
 
 type Combination = Arrays.NonEmpty<StepOrNull>;
 export class StepCombiner {
-    private _stepGroups: Set<StepOrNull>[];
-    private _filterFunction: FilterStepFunction | undefined;
-    private _fillZeroIntervals: boolean;
+    #stepGroups: Set<StepOrNull>[];
+
+    #filterFunction: FilterStepFunction | undefined;
+
+    #fillZeroIntervals: boolean;
 
     private constructor() {
-        this._stepGroups = [];
+      this.#stepGroups = [];
 
-        this._fillZeroIntervals = false;
+      this.#fillZeroIntervals = false;
     }
 
     static create(): StepCombiner {
-        return new StepCombiner();
+      return new StepCombiner();
     }
 
     addGroup(...ms: Combination): StepCombiner {
-        const group = new Set<Step | null>();
+      const group = new Set<Step | null>();
 
-        if (!this._filterFunction) {
-            for (const m of ms)
-                group.add(m);
-        } else {
-            for (const m of ms)
-                if (this._filterFunction(m))
-                    group.add(m);
+      if (!this.#filterFunction) {
+        for (const m of ms)
+          group.add(m);
+      } else {
+        for (const m of ms) {
+          if (this.#filterFunction(m))
+            group.add(m);
         }
+      }
 
-        this._stepGroups.push(group);
+      this.#stepGroups.push(group);
 
-        return this;
+      return this;
     }
 
     fillZeroIntervals(): StepCombiner {
-        this._fillZeroIntervals = true;
+      this.#fillZeroIntervals = true;
 
-        return this;
+      return this;
     }
 
     addCombiner(motionCombiner: StepCombiner): StepCombiner {
-        let newGroups = motionCombiner._stepGroups;
-        if (!this._filterFunction)
-            for (const group of newGroups) {
-                this._stepGroups.push(group);
-            }
-        else
-            for (const group of newGroups) {
-                let groupFiltered = new Set<Step | null>();
-                for (const s of group)
-                    if (this._filterFunction(s))
-                        groupFiltered.add(s);
-                this._stepGroups.push(groupFiltered);
-            }
+      let newGroups = motionCombiner.#stepGroups;
 
-        return this;
+      if (!this.#filterFunction) {
+        for (const group of newGroups)
+          this.#stepGroups.push(group);
+      } else {
+        for (const group of newGroups) {
+          let groupFiltered = new Set<Step | null>();
+
+          for (const s of group) {
+            if (this.#filterFunction(s))
+              groupFiltered.add(s);
+          }
+
+          this.#stepGroups.push(groupFiltered);
+        }
+      }
+
+      return this;
     }
 
     calcSets(): Set<SingleStep>[] {
-        if (this._stepGroups.length == 0)
-            return [];
-        let allCombinations: Combination[] = this._calcAllCombinations();
-        const allExpandedCombinationSets = this._getExpandedSetsAndRemoveZerosIfNeeded(allCombinations);
-        const fixed = this._removeConflictsDuplicatesAndNull(allExpandedCombinationSets);
+      if (this.#stepGroups.length === 0)
+        return [];
 
-        return fixed;
+      let allCombinations: Combination[] = this.#calcAllCombinations();
+      const allExpandedCombinationSets = this.#getExpandedSetsAndRemoveZerosIfNeeded(
+        allCombinations,
+      );
+      const fixed = this.#removeConflictsDuplicatesAndNull(allExpandedCombinationSets);
+
+      return fixed;
     }
 
     calcArrays(): Arrays.NonEmpty<SingleStep>[] {
-        return <Arrays.NonEmpty<SingleStep>[]>this.calcSets().map(s => [...s]);
+      return <Arrays.NonEmpty<SingleStep>[]> this.calcSets().map(s => [...s]);
     }
 
-    private _calcAllCombinations() {
-        let allCombinations: Combination[];
-        if (this._stepGroups.length > 1) {
-            const groups = this._stepGroups.map(g => [...g]);
-            allCombinations = <Combination[]>cartesianProduct(groups).filter(c => c.length > 0);
-        } else
-            allCombinations = [...this._stepGroups[0]].map((m: StepOrNull) => [m]);
-        return allCombinations;
+    #calcAllCombinations() {
+      let allCombinations: Combination[];
+
+      if (this.#stepGroups.length > 1) {
+        const groups = this.#stepGroups.map(g => [...g]);
+
+        allCombinations = <Combination[]>cartesianProduct(groups).filter(c => c.length > 0);
+      } else
+        allCombinations = [...this.#stepGroups[0]].map((m: StepOrNull) => [m]);
+
+      return allCombinations;
     }
 
-    private _getExpandedSetsAndRemoveZerosIfNeeded(allCombinations: Combination[]): Set<SingleStep>[] {
-        const allExpandedCombinationSets: Set<SingleStep>[] = allCombinations.map(c => {
-            const acc = new Set<SingleStep>();
-            c.forEach(step => {
-                if (step == null)
-                    return;
-                else if (step instanceof SingleStep)
-                    acc.add(step);
-                else if (step instanceof CompositeStep)
-                    for (const singleStep of step.singleSteps)
-                        acc.add(singleStep);
-            })
+    #getExpandedSetsAndRemoveZerosIfNeeded(allCombinations: Combination[]): Set<SingleStep>[] {
+      const allExpandedCombinationSets: Set<SingleStep>[] = allCombinations.map(c => {
+        const acc = new Set<SingleStep>();
 
-            return acc;
-        });
+        c.forEach(step => {
+          if (step === null)
+            return;
+          else if (step instanceof SingleStep)
+            acc.add(step);
+          else if (step instanceof CompositeStep) {
+            for (const singleStep of step.singleSteps)
+              acc.add(singleStep);
+          }
+        } );
 
-        return allExpandedCombinationSets;
+        return acc;
+      } );
+
+      return allExpandedCombinationSets;
     }
 
-    private _removeConflictsDuplicatesAndNull(allExpandedCombinationSets: Set<SingleStep>[]): Set<SingleStep>[] {
-        let ret: Set<SingleStep>[];
-        if (this._stepGroups.length > 1) {
-            const hashesAddedSets = new Set<string>();
-            ret = allExpandedCombinationSets.filter((singleStepSet: Set<SingleStep>) => {
-                // Conflicts: differents steps with same index
-                let indexes = new Set<number>();
-                for (const singleStep of singleStepSet) {
-                    if (singleStep == null)
-                        continue;
-                    if (indexes.has(singleStep.index))
-                        return false;
-                    indexes.add(singleStep.index);
-                }
+    #removeConflictsDuplicatesAndNull(
+      allExpandedCombinationSets: Set<SingleStep>[],
+    ): Set<SingleStep>[] {
+      let ret: Set<SingleStep>[];
 
-                // Nulls
-                if (indexes.size == 0)
-                    return false;
+      if (this.#stepGroups.length > 1) {
+        const hashesAddedSets = new Set<string>();
 
-                // Fill zeros
-                if (this._fillZeroIntervals)
-                    for (let i = 0; i < singleStepSet.size; i++)
-                        if (!indexes.has(i))
-                            singleStepSet.add(from(i, 0));
+        ret = allExpandedCombinationSets.filter((singleStepSet: Set<SingleStep>) => {
+          // Conflicts: differents steps with same index
+          let indexes = new Set<number>();
 
-                // Duplicates
-                const hash = singleMotionSetHashFunction(singleStepSet);
-                if (hashesAddedSets.has(hash))
-                    return false;
-                hashesAddedSets.add(hash)
+          for (const singleStep of singleStepSet) {
+            if (singleStep === null)
+              // eslint-disable-next-line no-continue
+              continue;
 
-                return true;
-            });
-        } else
-            ret = allExpandedCombinationSets.filter((singleStepSet: Set<SingleStep>) => {
-                if (singleStepSet.size == 0)
-                    return false;
-                return true;
-            });
+            if (indexes.has(singleStep.index))
+              return false;
 
-        return ret;
+            indexes.add(singleStep.index);
+          }
+
+          // Nulls
+          if (indexes.size === 0)
+            return false;
+
+          // Fill zeros
+          if (this.#fillZeroIntervals) {
+            for (let i = 0; i < singleStepSet.size; i++) {
+              if (!indexes.has(i))
+                singleStepSet.add(from(i, 0));
+            }
+          }
+
+          // Duplicates
+          const hash = singleMotionSetHashFunction(singleStepSet);
+
+          if (hashesAddedSets.has(hash))
+            return false;
+
+          hashesAddedSets.add(hash);
+
+          return true;
+        } );
+      } else {
+        ret = allExpandedCombinationSets.filter((singleStepSet: Set<SingleStep>) => {
+          if (singleStepSet.size === 0)
+            return false;
+
+          return true;
+        } );
+      }
+
+      return ret;
     }
 
     filter(f: FilterStepFunction): StepCombiner {
-        this._filterFunction = f;
+      this.#filterFunction = f;
 
-        return this;
+      return this;
     }
 }
 
 function singleMotionSetHashFunction(s: Set<SingleStep>): string {
-    let hashArray: string[] = [];
-    s.forEach(v => {
-        hashArray.push(`${v.index}-${v.interval}|`);
-    })
+  let hashArray: string[] = [];
 
-    return hashArray.sort((a, b) => a.localeCompare(b)).reduce((acc, current) => acc + current);
+  s.forEach(v => {
+    hashArray.push(`${v.index}-${v.interval}|`);
+  } );
+
+  return hashArray.sort((a, b) => a.localeCompare(b)).reduce((acc, current) => acc + current);
 }

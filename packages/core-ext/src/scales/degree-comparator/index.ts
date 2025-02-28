@@ -1,12 +1,12 @@
+import type { Scale } from "@datune/core/scales";
 import { SetComparator } from "@datune/utils";
-import Scale from "@datune/core/scales/Scale";
 
 type Result<D> = {
   common: Set<D>;
   different: Set<D>;
 };
 
-export default function compare<D, I, S extends Scale<I, D>>(...scales: S[]): Result<D> {
+export function compare<D, I, S extends Scale<I, D>>(...scales: S[]): Result<D> {
   const sets = scales.map((scale) => {
     const set = new Set<D>();
 

@@ -1,21 +1,25 @@
-import { C as T_C } from "@datune/core/keys/chromatic";
-import { Array as ChromaticArray } from "@datune/core/pitches/chromatic";
-import { A5, AA5, Array as SPNArray, B4, C5, CC5, D5, DD5, E5, F5, FF5, G5 } from "@datune/core/spns/chromatic";
-import { TestInit } from "tests";
-import { CompositeStep } from "../composite/CompositeStep";
+import { Keys } from "@datune/core/keys/chromatic";
+import type { PitchArray as ChromaticArray } from "@datune/core/pitches/chromatic";
+import type { SPNArray } from "@datune/core/spns/chromatic";
+import { SPNs } from "@datune/core/spns/chromatic";
+import { CompositeSteps } from "../composite";
 import { expandStepsArray } from "../forward/multi/Utils";
 import { NearStepsGen } from "../generators/others/near/NearStepsGenerator";
 import { from, _0_1, _1_S1 } from "../single";
 import { StepArray, Target } from "../Step";
 import { StepCombinationsApplier } from "./StepCombinationsApplier";
+import { TestInit } from "tests";
 
 TestInit.loadAll();
+
+const { A5, AA5, B4, C5, CC5, D5, DD5, E5, F5, FF5, G5 } = SPNs;
+
 it("apply: notes and combinations", () => {
   const notes: SPNArray = [C5, E5, G5];
   const combinations = [
     [_0_1, _1_S1],
     [_0_1, from(2, 2)],
-    CompositeStep.fromIntervals(1, 2, 3).singleSteps,
+    CompositeSteps.fromIntervals(1, 2, 3).singleSteps,
   ];
   const applier = StepCombinationsApplier.create()
     .notes(...notes)
@@ -33,7 +37,7 @@ it("apply: notes and combinations", () => {
 it("overlapping discards", () => {
   const notes: SPNArray = [C5, E5, G5];
   const combinations = [
-    CompositeStep.fromIntervals(5, 2, 3).singleSteps,
+    CompositeSteps.fromIntervals(5, 2, 3).singleSteps,
   ];
   const applier = StepCombinationsApplier.create()
     .notes(...notes)
@@ -48,7 +52,7 @@ it("overlapping discards", () => {
 it("overlapping let", () => {
   const notes: SPNArray = [C5, E5, G5];
   const combinations = [
-    CompositeStep.fromIntervals(5, 2, 3).singleSteps,
+    CompositeSteps.fromIntervals(5, 2, 3).singleSteps,
   ];
   const applier = StepCombinationsApplier.create()
     .notes(...notes)
@@ -84,7 +88,7 @@ it("near (2 steps) C5-E5-G5 in C", () => {
     .filter(
       (result) => {
         const pitches = <ChromaticArray>result.target.map((s) => s?.pitch || null);
-        const ret = T_C.hasPitches(...pitches);
+        const ret = Keys.C.hasPitches(...pitches);
 
         return ret;
       },

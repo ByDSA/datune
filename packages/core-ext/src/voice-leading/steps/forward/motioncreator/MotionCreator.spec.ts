@@ -1,20 +1,26 @@
-import { TestInit } from "tests";
-
 /* eslint-disable camelcase */
-import { C as T_C, rootChord3, rootChord4 } from "@datune/core/keys/chromatic";
-import { A as C_A, Array as ChromaticArray, B as C_B, D as C_D, E as C_E, F as C_F, G as C_G } from "@datune/core/pitches/chromatic";
-import { A as CC_A, AA as CC_AA, AAm as CC_AAm, Am as CC_Am, Am7 as CC_Am7, Asus4 as CC_Asus4, B as CC_B, B0 as CC_B0, Bm as CC_Bm, C as CC_C, CC as CC_CC, CCm as CC_CCm, Chord, Cm as CC_Cm, CMaj7 as CC_CMaj7, Csus2 as CC_Csus2, Csus4 as CC_Csus4, D as CC_D, DD as CC_DD, DDm as CC_DDm, Dm as CC_Dm, Dsus2 as CC_Dsus2, Dsus4 as CC_Dsus4, E as CC_E, Em as CC_Em, Em7 as CC_Em7, F as CC_F, FF as CC_FF, FFm as CC_FFm, Fm as CC_Fm, FMaj7 as CC_FMaj7, fromRootVoicing as CCFromRootVoicing, G as CC_G, G7 as CC_G7, GG as CC_GG, GGm as CC_GGm, Gm as CC_Gm, Gsus2 as CC_Gsus2, inv } from "@datune/core/chords/chromatic";
-import { A5, Array as SPNArray, B4, C5, C6, D5, E5, F5, G5, GG5, SPN } from "@datune/core/spns/chromatic";
-import { Array as VoicingArray, COMMON_TRIADS, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_MINOR_a5, SEVENTH_MINOR_b5, SEVENTH_SUS4, SIXTH_MINOR, TRIADS_MAJOR_MINOR, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } from "@datune/core/voicings/chromatic";
+import { Keys } from "@datune/core/keys/chromatic";
+import { Pitches, PitchArray } from "@datune/core/pitches/chromatic";
+import { Chords, type Chord } from "@datune/core/chords/chromatic";
+import { SPNArray, SPN, SPNs } from "@datune/core/spns/chromatic";
+import { VoicingArray, Voicings } from "@datune/core/voicings/chromatic";
 import { getAllInversions } from "@datune/core/voicings/relative/chromatic/utils";
 import { transformToChordsRootPosition, transformToSPNArray } from "./result/MotionCreatorResultTransforms";
-import MotionCreator from "./MotionCreator";
+import { MotionCreator } from "./MotionCreator";
+import { TestInit } from "tests";
 
 TestInit.loadAll();
+const { C: T_C, rootChord3, rootChord4 } = Keys;
+const { A: C_A, B: C_B, D: C_D, E: C_E, F: C_F, G: C_G } = Pitches;
+const { A5, B4, C5, C6, D5, E5, F5, G5, GG5 } = SPNs;
+// eslint-disable-next-line max-len, @typescript-eslint/naming-convention
+const { A: CC_A, AA: CC_AA, AAm: CC_AAm, Am: CC_Am, Am7: CC_Am7, Asus4: CC_Asus4, B: CC_B, B0: CC_B0, Bm: CC_Bm, C: CC_C, CC: CC_CC, CCm: CC_CCm, Cm: CC_Cm, CMaj7: CC_CMaj7, Csus2: CC_Csus2, Csus4: CC_Csus4, D: CC_D, DD: CC_DD, DDm: CC_DDm, Dm: CC_Dm, Dsus2: CC_Dsus2, Dsus4: CC_Dsus4, E: CC_E, Em: CC_Em, Em7: CC_Em7, F: CC_F, FF: CC_FF, FFm: CC_FFm, Fm: CC_Fm, FMaj7: CC_FMaj7, fromRootVoicing: CCFromRootVoicing, G: CC_G, G7: CC_G7, GG: CC_GG, GGm: CC_GGm, Gm: CC_Gm, Gsus2: CC_Gsus2, inv } = Chords;
+// eslint-disable-next-line max-len, @typescript-eslint/naming-convention
+const { COMMON_TRIADS, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_MINOR_a5, SEVENTH_MINOR_b5, SEVENTH_SUS4, SIXTH_MINOR, TRIADS_MAJOR_MINOR, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = Voicings;
 const TRIADS_MAJOR_MINOR_ARRAY = [...TRIADS_MAJOR_MINOR] as VoicingArray;
 const COMMON_TRIADS_ARRAY = [...COMMON_TRIADS] as VoicingArray;
 
-it("C near Key.C", () => {
+it("c near Key.C", () => {
   const fromNotes: SPNArray = [C5, E5, G5];
   const voicings = <VoicingArray>[
     ...getAllInversions(TRIAD_MAJOR),
@@ -40,7 +46,7 @@ it("C near Key.C", () => {
   expect(actual.sort()).toEqual(expected.sort());
 } );
 
-it("Csus4 resolution no key", () => {
+it("csus4 resolution no key", () => {
   const fromNotes: SPNArray = [C5, F5, G5];
   const resolution = MotionCreator.create()
     .fromNotes(...fromNotes)
@@ -62,7 +68,7 @@ it("Csus4 resolution no key", () => {
   expect(actual.sort()).toEqual(expected.sort());
 } );
 
-it("Csus4 resolution in C", () => {
+it("csus4 resolution in C", () => {
   const fromNotes: SPNArray = [C5, F5, G5];
   const resolution = MotionCreator.create()
     .fromNotes(...fromNotes)
@@ -81,7 +87,7 @@ it("Csus4 resolution in C", () => {
   expect(actual.sort()).toEqual(expected.sort());
 } );
 
-it("Bº resolution", () => {
+it("bº resolution", () => {
   const fromNotes: SPNArray = [B4, D5, F5];
   const voicings: VoicingArray = <VoicingArray>[
     ...getAllInversions(TRIAD_MAJOR),
@@ -110,7 +116,7 @@ it("Bº resolution", () => {
   expect(actual.sort()).toEqual(expected.sort());
 } );
 
-it("C+ resolution", () => {
+it("c+ resolution", () => {
   const fromNotes: SPNArray = [C5, E5, GG5];
   const motionCreator = MotionCreator.create()
     .fromNotes(...fromNotes)
@@ -148,7 +154,7 @@ it("C+ resolution", () => {
   expect(actual.sort()).toEqual(expected.sort());
 } );
 
-it("Bº resolution in Key C", () => {
+it("bº resolution in Key C", () => {
   const fromNotes: SPNArray = [B4, D5, F5];
   const motionCreator = MotionCreator.create()
     .fromNotes(...fromNotes)
@@ -168,10 +174,10 @@ it("Bº resolution in Key C", () => {
   expect(actual.sort()).toEqual(expected.sort());
 } );
 
-it("Dm resolution in Key C (resting=root3) common triads", () => {
+it("dm resolution in Key C (resting=root3) common triads", () => {
   const fromNotes: SPNArray = [D5, F5, A5];
   const rootChord = rootChord3(T_C);
-  const restingNotes: ChromaticArray = rootChord?.pitches as ChromaticArray;
+  const restingNotes: PitchArray = rootChord?.pitches as PitchArray;
   const motionCreator = MotionCreator.create()
     .fromNotes(...fromNotes)
     .requireRestingResolution()
@@ -194,10 +200,10 @@ it("Dm resolution in Key C (resting=root3) common triads", () => {
   expect(actual.sort()).toEqual(expected.sort());
 } );
 
-it("D5 note resolution in Key C (resting=root3)", () => {
+it("d5 note resolution in Key C (resting=root3)", () => {
   const fromNotes: SPNArray = [D5];
   const rootChord = rootChord3(T_C);
-  const restingNotes: ChromaticArray = rootChord?.pitches as ChromaticArray;
+  const restingNotes: PitchArray = rootChord?.pitches as PitchArray;
   const motionCreator = MotionCreator.create()
     .fromNotes(...fromNotes)
     .requireRestingResolution()
@@ -213,10 +219,10 @@ it("D5 note resolution in Key C (resting=root3)", () => {
   expect(actual.sort()).toEqual(expected.sort());
 } );
 
-it("C5 note resolution in Key C (resting=root4)", () => {
+it("c5 note resolution in Key C (resting=root4)", () => {
   const fromNotes: SPNArray = [C5];
   const rootChord = rootChord4(T_C);
-  const restingNotes: ChromaticArray = rootChord?.pitches as ChromaticArray;
+  const restingNotes: PitchArray = rootChord?.pitches as PitchArray;
   const motionCreator = MotionCreator.create()
     .fromNotes(...fromNotes)
     .requireRestingResolution()
@@ -231,10 +237,10 @@ it("C5 note resolution in Key C (resting=root4)", () => {
   expect(actual.sort()).toEqual(expected.sort());
 } );
 
-it("D5 note resolution in Key C (resting=root4, maxStep=3)", () => {
+it("d5 note resolution in Key C (resting=root4, maxStep=3)", () => {
   const fromNotes: SPNArray = [D5];
   const rootChord = rootChord4(T_C);
-  const restingNotes: ChromaticArray = rootChord?.pitches as ChromaticArray;
+  const restingNotes: PitchArray = rootChord?.pitches as PitchArray;
   const motionCreator = MotionCreator.create()
     .fromNotes(...fromNotes)
     .maxStep(3)
@@ -252,10 +258,10 @@ it("D5 note resolution in Key C (resting=root4, maxStep=3)", () => {
   expect(actual.sort()).toEqual(expected.sort());
 } );
 
-it("Dm resolution in Key C (resting=root3) triads major minor", () => {
+it("dm resolution in Key C (resting=root3) triads major minor", () => {
   const fromNotes: SPNArray = [D5, F5, A5];
   const rootChord = rootChord3(T_C);
-  const restingNotes: ChromaticArray = rootChord?.pitches as ChromaticArray;
+  const restingNotes: PitchArray = rootChord?.pitches as PitchArray;
   const motionCreator = MotionCreator.create()
     .fromNotes(...fromNotes)
     .requireRestingResolution()
@@ -275,10 +281,10 @@ it("Dm resolution in Key C (resting=root3) triads major minor", () => {
   expect(actual.sort()).toEqual(expected.sort());
 } );
 
-it("Dm resolution in Key C (resting=root4)", () => {
+it("dm resolution in Key C (resting=root4)", () => {
   const fromNotes: SPNArray = [D5, F5, A5];
   const rootChord = rootChord4(T_C);
-  const restingNotes: ChromaticArray = rootChord?.pitches as ChromaticArray;
+  const restingNotes: PitchArray = rootChord?.pitches as PitchArray;
   const motionCreator = MotionCreator.create()
     .fromNotes(...fromNotes)
     .requireRestingResolution()
@@ -298,10 +304,10 @@ it("Dm resolution in Key C (resting=root4)", () => {
   expect(actual.sort()).toEqual(expected.sort());
 } );
 
-it("Dm7 resolution in Key C (resting=root4)", () => {
+it("dm7 resolution in Key C (resting=root4)", () => {
   const fromNotes: SPNArray = [D5, F5, A5, C6];
   const rootChord = rootChord4(T_C);
-  const restingNotes: ChromaticArray = rootChord?.pitches as ChromaticArray;
+  const restingNotes: PitchArray = rootChord?.pitches as PitchArray;
   const voicings: VoicingArray = <VoicingArray>[
     ...getAllInversions(SEVENTH),
     ...getAllInversions(SEVENTH_SUS4),

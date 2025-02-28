@@ -1,21 +1,27 @@
-import { Array as SPNArray, SPN } from "@datune/core/spns/chromatic";
+/* eslint-disable no-continue */
+import { SPNArray, SPN } from "@datune/core/spns/chromatic";
 import { StepCombination } from "../combiner/StepCombination";
 import { StepCombiner } from "../combiner/StepCombiner";
-import SingleStep from "../single/SingleStep";
+import { SingleStep } from "../single/SingleStep";
 import { Target } from "../Step";
 
+export type CombinationResult = {
+  target: Target;
+  steps: SingleStep[];
+};
+
 export class StepCombinationsApplier {
-  private _combinations: StepCombination[] | undefined;
+  #combinations: StepCombination[] | undefined;
 
-  private _baseNotes: SPNArray | undefined;
+  #baseNotes: SPNArray | undefined;
 
-  private _voiceCrossing: boolean;
+  #voiceCrossing: boolean;
 
-  private _voiceOverlapping: boolean;
+  #voiceOverlapping: boolean;
 
   private constructor() {
-    this._voiceOverlapping = false;
-    this._voiceCrossing = false;
+    this.#voiceOverlapping = false;
+    this.#voiceCrossing = false;
   }
 
   static create(): StepCombinationsApplier {
@@ -23,7 +29,7 @@ export class StepCombinationsApplier {
   }
 
   combinations(combinations: StepCombination[]): StepCombinationsApplier {
-    this._combinations = combinations;
+    this.#combinations = combinations;
 
     return this;
   }
@@ -33,37 +39,38 @@ export class StepCombinationsApplier {
   }
 
   notes(...notes: SPNArray): StepCombinationsApplier {
-    this._baseNotes = notes;
+    this.#baseNotes = notes;
 
     return this;
   }
 
   letVoiceOverlapping(): StepCombinationsApplier {
-    this._voiceOverlapping = true;
+    this.#voiceOverlapping = true;
 
     return this;
   }
 
   letVoiceCrossing(): StepCombinationsApplier {
-    this._voiceCrossing = true;
+    this.#voiceCrossing = true;
 
     return this;
   }
 
   apply(): CombinationResult[] {
-    if (!this._combinations)
+    if (!this.#combinations)
       throw COMBINATIONS_ERROR;
 
-    if (!this._baseNotes)
+    if (!this.#baseNotes)
       throw NOTES_ERROR;
 
     const results: CombinationResult[] = [];
 
-    for (const combination of this._combinations) {
-      const target = calcTarget(this._baseNotes, combination);
+    for (const combination of this.#combinations) {
+      const target = calcTarget(this.#baseNotes, combination);
 
-      if ((!this._voiceCrossing && checkVoiceCrossing(target))
-                || (!this._voiceOverlapping && checkVoiceOverlapping(this._baseNotes, target)))
+      if ((!this.#voiceCrossing && checkVoiceCrossing(target))
+                || (!this.#voiceOverlapping && checkVoiceOverlapping(this.#baseNotes, target)))
+
         continue;
 
       results.push( {
@@ -84,11 +91,6 @@ function calcTarget(baseNotes: SPNArray, combination: StepCombination): Target {
 
   return target;
 }
-
-export type CombinationResult = {
-    target: Target;
-    steps: SingleStep[];
-};
 
 const COMBINATIONS_ERROR = new Error("Combinations not assigned");
 const NOTES_ERROR = new Error("Notes not assigned");

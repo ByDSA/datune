@@ -1,10 +1,11 @@
 import { StringHashCache } from "@datune/utils";
 import { Interval as ChromaticInterval } from "@datune/core/intervals/chromatic";
-import SingleStep from "./SingleStep";
+import { SingleStep } from "./SingleStep";
 
-type HashingObjectType = { index: number; interval: ChromaticInterval | null };
+type HashingObjectType = { index: number;
+interval: ChromaticInterval | null; };
 
-const cache = new StringHashCache<SingleStep, HashingObjectType>( {
+export const cache = new StringHashCache<SingleStep, HashingObjectType>( {
   hash(hashingObject: HashingObjectType): string {
     return `${hashingObject.index}:${hashingObject.interval}`;
   },
@@ -18,5 +19,3 @@ const cache = new StringHashCache<SingleStep, HashingObjectType>( {
     return (SingleStep as any).create(hashingObject.index, hashingObject.interval);
   },
 } );
-
-export default cache;
