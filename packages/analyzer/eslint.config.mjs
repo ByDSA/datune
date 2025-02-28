@@ -1,0 +1,1 @@
+/home/prog/git/datune/datune/packages/eslint.config.mjs

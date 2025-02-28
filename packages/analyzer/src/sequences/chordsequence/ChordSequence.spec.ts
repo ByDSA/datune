@@ -1,14 +1,17 @@
-import { B0, C, CMaj7, Dm7, fromPitches } from "@datune/core/chords/chromatic";
-import { A as P_A, C as P_C } from "@datune/core/pitches/chromatic";
-import { A5, B4, C4, C6, D5, E4, F5, G4 } from "@datune/core/spns/chromatic";
-import { QUARTER } from "@datune/core/time";
-import { S3_4, S4_4 } from "@datune/core/time/symbolic/rhythm";
+import { Chords } from "@datune/core/chords/chromatic";
+import { Pitches } from "@datune/core/pitches/chromatic";
+import { SPNs } from "@datune/core/spns/chromatic";
+import { QUARTER } from "@datune/core/time/symbolic/musical-duration/constants";
+import { S3_4, S4_4 } from "@datune/core/time/symbolic/rhythm/signature/constants";
+import { TonalApproach } from "../../approaches/tonal/TonalApproach";
+import { NotesSequence } from "../notessequence/NotesSequence";
 import { TestInit } from "tests";
-import TonalApproach from "../../approaches/tonal/TonalApproach";
-import NotesSequence from "../notessequence/NotesSequence";
 
 TestInit.initAll();
-
+const { A5, B4, C4, C6, D5, E4, F5, G4 } = SPNs;
+const { A: P_A, C: P_C } = Pitches;
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { B0, C, CMaj7, Dm7, fromPitches } = Chords;
 const testNoteTimeSequence = () => {
   const notesTimeSequence = new NotesSequence();
   const eventDuration = QUARTER;
@@ -25,7 +28,7 @@ const testNoteTimeSequence = () => {
   return notesTimeSequence;
 };
 
-it("Chord Analyser 4/4", () => {
+it("chord Analyser 4/4", () => {
   const notesTimeSequence = testNoteTimeSequence();
   const harmonicSequence = new TonalApproach( {
     initial: {
@@ -45,7 +48,7 @@ it("Chord Analyser 4/4", () => {
   expect(chords[1]).toBe(Dm7);
 } );
 
-it("Chord Analyser 3/4", () => {
+it("chord Analyser 3/4", () => {
   const notesTimeSequence = testNoteTimeSequence();
   const harmonicSequence = new TonalApproach( {
     initial: {

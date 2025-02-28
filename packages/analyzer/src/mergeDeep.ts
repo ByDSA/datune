@@ -14,7 +14,7 @@ function isObject(item: any) {
  * @param target
  * @param ...sources
  */
-export default function mergeDeep(target: any, ...sources: any): any {
+export function mergeDeep(target: any, ...sources: any): any {
   if (!sources.length)
     return target;
 

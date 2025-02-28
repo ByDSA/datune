@@ -1,17 +1,19 @@
-import { C as T_C } from "@datune/core/keys/chromatic";
-import { add, C as P_C, D as P_D, E as P_E, F as P_F, G as P_G } from "@datune/core/pitches/chromatic";
-import { fromPitchOctave as spnFrom, SPN } from "@datune/core/spns/chromatic";
-import { QUARTER, WHOLE, ZERO } from "@datune/core/time";
+import { Keys } from "@datune/core/keys/chromatic";
+import { Pitches } from "@datune/core/pitches/chromatic";
+import { SPNs, SPN } from "@datune/core/spns/chromatic";
+import { QUARTER, WHOLE, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
 import { intervalOf } from "@datune/utils/math";
+import { NotesSequence } from "./NotesSequence";
 import { TestInit } from "tests";
-import NotesSequence from "./NotesSequence";
 
 TestInit.initAll();
+const { add, C: P_C, D: P_D, E: P_E, F: P_F, G: P_G } = Pitches;
+
 function generateCMajorTest() {
   const s = new NotesSequence();
 
-  for (const n of T_C.pitches) {
-    const spn = spnFrom(n, 4) as SPN;
+  for (const n of Keys.C.pitches) {
+    const spn = SPNs.fromPitchOctave(n, 4) as SPN;
 
     s.add( {
       event: spn,
@@ -45,11 +47,12 @@ it("musical length", () => {
 it("number of notes", () => {
   const s = generateCMajorTest();
 
-  expect(s.nodes.length).toBe(7);
+  expect(s.nodes).toHaveLength(7);
 } );
 
 it("remove", () => {
   const s = generateCMajorTest();
+  // eslint-disable-next-line prefer-destructuring
   const n2 = s.nodes[2];
 
   expect(s.nodes.includes(n2)).toBeTruthy();
@@ -58,11 +61,12 @@ it("remove", () => {
 
   expect(ok).toBeTruthy();
   expect(s.nodes.includes(n2)).toBeFalsy();
-  expect(s.nodes.length).toBe(6);
+  expect(s.nodes).toHaveLength(6);
 
   [ok] = s.remove(n2);
+
   expect(ok).toBeFalsy();
-  expect(s.nodes.length).toBe(6);
+  expect(s.nodes).toHaveLength(6);
 } );
 
 it("pick by node position", () => {

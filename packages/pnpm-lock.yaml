@@ -88,7 +88,7 @@ importers:
         version: file:analyzer/dist
       '@datune/core':
         specifier: file:../core/dist
-        version: dist@file:core/dist
+        version: file:core/dist
       '@datune/midi':
         specifier: file:../midi/dist
         version: file:midi/dist
@@ -100,7 +100,7 @@ importers:
     dependencies:
       '@datune/core':
         specifier: file:../core/dist
-        version: dist@file:core/dist
+        version: file:core/dist
       '@datune/utils':
         specifier: file:../utils/dist
         version: file:utils/dist
@@ -125,7 +125,7 @@ importers:
     dependencies:
       '@datune/core':
         specifier: file:../core/dist
-        version: dist@file:core/dist
+        version: file:core/dist
       '@datune/utils':
         specifier: file:../utils/dist
         version: file:utils/dist
@@ -137,7 +137,7 @@ importers:
         version: file:analyzer/dist
       '@datune/core':
         specifier: file:../core/dist
-        version: dist@file:core/dist
+        version: file:core/dist
       '@datune/utils':
         specifier: file:../utils/dist
         version: file:utils/dist
@@ -149,7 +149,7 @@ importers:
     dependencies:
       '@datune/core':
         specifier: file:../core/dist
-        version: dist@file:core/dist
+        version: file:core/dist
       '@datune/midi':
         specifier: file:../midi/dist
         version: file:midi/dist
@@ -421,6 +421,9 @@ packages:
 
   '@datune/analyzer@file:analyzer/dist':
     resolution: {directory: analyzer/dist, type: directory}
+
+  '@datune/core@file:core/dist':
+    resolution: {directory: core/dist, type: directory}
 
   '@datune/midi@file:midi/dist':
     resolution: {directory: midi/dist, type: directory}
@@ -1280,9 +1283,6 @@ packages:
   dir-glob@3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
-
-  dist@file:core/dist:
-    resolution: {directory: core/dist, type: directory}
 
   doctrine@2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
@@ -3504,13 +3504,18 @@ snapshots:
 
   '@datune/analyzer@file:analyzer/dist':
     dependencies:
-      '@datune/core': dist@file:core/dist
+      '@datune/core': file:core/dist
       '@datune/utils': file:utils/dist
+
+  '@datune/core@file:core/dist':
+    dependencies:
+      '@datune/utils': file:utils/dist
+      immutable: 5.0.3
 
   '@datune/midi@file:midi/dist':
     dependencies:
       '@datune/analyzer': file:analyzer/dist
-      '@datune/core': dist@file:core/dist
+      '@datune/core': file:core/dist
       '@datune/utils': file:utils/dist
       '@tonejs/midi': 2.0.28
 
@@ -4648,8 +4653,6 @@ snapshots:
   dir-glob@3.0.1:
     dependencies:
       path-type: 4.0.0
-
-  dist@file:core/dist: {}
 
   doctrine@2.1.0:
     dependencies:

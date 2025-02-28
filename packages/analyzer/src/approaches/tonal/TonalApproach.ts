@@ -1,11 +1,11 @@
 import { MusicalDuration } from "@datune/core";
-import { WHOLE, ZERO } from "@datune/core/time";
-import mergeDeep from "mergeDeep";
+import { WHOLE, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
 import { ChordSequence, FuncSequence, KeySequence, MainFuncSequence, NotesSequence, RhythmSequence } from "../../sequences";
-import ChordSequenceCalculator from "../../sequences/ChordSequenceCalculator";
-import ConstructorObjType, { DEFAULT_CONSTRUCTOR_OBJ } from "./Constructor";
+import { ChordSequenceCalculator } from "../../sequences/ChordSequenceCalculator";
+import { ConstructorObjType, DEFAULT_CONSTRUCTOR_OBJ } from "./Constructor";
+import { mergeDeep } from "mergeDeep";
 
-export default class TonalApproach {
+export class TonalApproach {
   keySequence: KeySequence;
 
   keyChordSequence: KeySequence;
@@ -23,8 +23,7 @@ export default class TonalApproach {
   maxDuration: MusicalDuration;
 
   constructor(obj?: Partial<ConstructorObjType>) {
-    const input: ConstructorObjType = {
-    } as any;
+    const input: ConstructorObjType = {} as any;
 
     mergeDeep(input, DEFAULT_CONSTRUCTOR_OBJ, obj);
 

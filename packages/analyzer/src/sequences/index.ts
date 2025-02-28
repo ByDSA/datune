@@ -1,31 +1,31 @@
 export {
-  default as ChordSequence,
+  ChordSequence,
 } from "./chordsequence/ChordSequence";
 
 export {
-  default as FuncSequence,
+  FuncSequence,
 } from "./functionssequence/FuncSequence";
 
 export {
-  default as KeySequence,
+  KeySequence,
 } from "./keysequence/KeySequence";
 
 export {
-  default as MainFunc,
+  MainFunc,
 } from "./mainfuncseq/MainFunc";
 
 export {
-  default as MainFuncSequence,
+  MainFuncSequence,
 } from "./mainfuncseq/MainFuncSequence";
 
 export {
-  default as MusicalSequence,
+  MusicalSequence,
 } from "./musicalsequence/MusicalSequence";
 
 export {
-  default as NotesSequence,
+  NotesSequence,
 } from "./notessequence/NotesSequence";
 
 export {
-  default as RhythmSequence,
+  RhythmSequence,
 } from "./rhythmsequence/RhythmSequence";

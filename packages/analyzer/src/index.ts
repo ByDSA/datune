@@ -1,4 +1,4 @@
-import TonalApproach from "./approaches/tonal/TonalApproach";
+import { TonalApproach } from "./approaches/tonal/TonalApproach";
 
 export * from "./sequences";
 

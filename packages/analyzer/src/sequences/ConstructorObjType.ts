@@ -1,4 +1,4 @@
-import { WHOLE, ZERO } from "@datune/core/time";
+import { WHOLE, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
 import { TimeLayerConstructorObject } from "@datune/utils/datastructures/timelayer/types";
 
 export function getDefaultConstructorObj(): TimeLayerConstructorObject {

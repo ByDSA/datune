@@ -1,5 +1,5 @@
-import MusicalSequence from "../musicalsequence/MusicalSequence";
-import MainFunc from "./MainFunc";
+import { MusicalSequence } from "../musicalsequence/MusicalSequence";
+import { MainFunc } from "./MainFunc";
 
-export default class MainFuncSequence extends MusicalSequence<MainFunc> {
+export class MainFuncSequence extends MusicalSequence<MainFunc> {
 }
