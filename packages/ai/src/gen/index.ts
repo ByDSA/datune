@@ -1,7 +1,7 @@
 export {
-  default as GenKeySeq,
+  GenKeySeq,
 } from "./GenKeySeq";
 
 export {
-  default as GenSeq,
+  GenSeq,
 } from "./GenSeq";

@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { MainFunc, TonalApproach } from "@datune/analyzer";
 import { MusicalDuration } from "@datune/core";
-import { WHOLE, ZERO } from "@datune/core/time";
+import { WHOLE, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
 import { random, TemporalNode } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
-import GenSeq from "./GenSeq";
+import { GenSeq } from "./GenSeq";
 import { limitTime } from "./utils";
 
 type Node = TemporalNode<MainFunc>;
-export default class GenMainFuncSeq extends GenSeq {
+export class GenMainFuncSeq extends GenSeq {
   constructor(tonalApporach: TonalApproach) {
     super(tonalApporach);
   }

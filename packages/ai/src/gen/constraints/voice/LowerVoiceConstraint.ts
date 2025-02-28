@@ -3,11 +3,11 @@ import { MidiNote } from "@datune/midi";
 import { TemporalNode } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
 import { SPN } from "@datune/core/spns/chromatic";
-import Voice from "../../voice/Voice";
-import VoiceConstraint from "./VoiceConstraint";
+import { Voice } from "../../voice/Voice";
+import { VoiceConstraint } from "./VoiceConstraint";
 
 type Node = TemporalNode<MidiNote>;
-export default class LowerVoiceConstraint extends VoiceConstraint {
+export class LowerVoiceConstraint extends VoiceConstraint {
   constructor(voiceLower: Voice, public probability: number = 100) {
     super(voiceLower, probability);
   }

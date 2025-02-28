@@ -2,10 +2,10 @@
 import { SPN } from "@datune/core/spns/chromatic";
 import { MusicalDuration } from "@datune/core/time";
 import { MidiSequence } from "@datune/midi";
-import ConstraintSPN from "../constraints/pitch/ConstraintSPN";
-import VoiceConstraint from "../constraints/voice/VoiceConstraint";
+import { ConstraintSPN } from "../constraints/pitch/ConstraintSPN";
+import type { VoiceConstraint } from "../constraints/voice/VoiceConstraint";
 
-export default class Voice {
+export class Voice {
   voiceConstraints: VoiceConstraint[];
 
   pitchConstraints: ConstraintSPN[];

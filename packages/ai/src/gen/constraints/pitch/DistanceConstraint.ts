@@ -1,8 +1,8 @@
 import { SPN } from "@datune/core/spns/chromatic";
-import { betweenSPN } from "@datune/core/intervals/chromatic";
-import Constraint from "../Constraint";
+import { betweenSPN } from "@datune/core/intervals/symbolic/chromatic/building";
+import { Constraint } from "../Constraint";
 
-export default class PitchDistanceConstraint extends Constraint {
+export class PitchDistanceConstraint extends Constraint {
   constructor(private distance: number, public probability: number = 100) {
     super(probability);
   }

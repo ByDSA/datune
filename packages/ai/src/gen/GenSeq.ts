@@ -1,10 +1,10 @@
 import { TonalApproach } from "@datune/analyzer";
 import { MusicalDuration, TimeSignature } from "@datune/core";
-import { ZERO } from "@datune/core/time";
+import { ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
 import { divCell } from "@datune/utils/time";
 import { limitTime } from "./utils";
 
-export default abstract class GenSeq {
+export abstract class GenSeq {
   protected tonalApporach: TonalApproach;
 
   constructor(tonalApporach: TonalApproach) {

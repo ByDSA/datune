@@ -1,12 +1,12 @@
 import { MusicalDuration } from "@datune/core";
 import { MidiNode, MidiNote, nodeFrom } from "@datune/midi";
 import { TemporalNode } from "@datune/utils";
-import ActionGenState from "./ActionGenState";
-import ActionNote from "./ActionNote";
+import { ActionGenState } from "./ActionGenState";
+import { ActionNote } from "./ActionNote";
 
 type Node = TemporalNode<MidiNote>;
 
-export default class ActionGen extends ActionNote {
+export class ActionGen extends ActionNote {
   private node: MidiNode | undefined;
 
   private last: MidiNote | null;
@@ -43,6 +43,7 @@ export default class ActionGen extends ActionNote {
         break;
       else
         this.untry();
+    // eslint-disable-next-line no-constant-condition
     } while (true);
 
     this.nextState();

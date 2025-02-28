@@ -1,15 +1,17 @@
 import { FuncSequence, MainFunc, TonalApproach } from "@datune/analyzer";
 import { Degree } from "@datune/core/degrees/chromatic";
-import { bIII, bIIIMaj7, bVI, bVIm7, HarmonicFunction, I, IIIm, IIIm7, IIm, IIm7, Im, Im7, IMaj7, ISUS4, IV, IVm, IVm7, IVMaj7, V, V7, VII0, VIm, VIm7, Vm, Vm7 } from "@datune/core/functions/chromatic";
-import { MAJOR, MINOR } from "@datune/core/scales/chromatic";
-import { HALF, MusicalDuration, ZERO } from "@datune/core/time";
+import { bIII, bIIIMaj7, bVI, bVIm7, I, IIIm, IIIm7, IIm, IIm7, Im, Im7, IMaj7, ISUS4, IV, IVm, IVm7, IVMaj7, V, V7, VII0, VIm, VIm7, Vm, Vm7 } from "@datune/core/functions/chromatic/degree-function/constants";
+import { HarmonicFunction } from "@datune/core/functions/chromatic";
+import { MAJOR, MINOR } from "@datune/core/scales/symbolic/chromatic/constants";
+import { HALF, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
+import { MusicalDuration } from "@datune/core/time";
 import { Arrays, random, TemporalNode } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
-import GenSeq from "./GenSeq";
+import { GenSeq } from "./GenSeq";
 import { limitTime } from "./utils";
 
 type Node = TemporalNode<HarmonicFunction>;
-export default class GenFuncSeq extends GenSeq {
+export class GenFuncSeq extends GenSeq {
   private funcSeq: FuncSequence;
 
   constructor(tonalApporach: TonalApproach) {

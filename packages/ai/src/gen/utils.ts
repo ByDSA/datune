@@ -1,4 +1,5 @@
-import { bIII, bVI, bVII, Degree as DegreeAlt, I, II, III, IV, V, VI, VII } from "@datune/core/degrees/chromatic";
+import { bIII, bVI, bVII, I, II, III, IV, V, VI, VII } from "@datune/core/degrees/chromatic/constants";
+import { Degree as DegreeAlt } from "@datune/core/degrees/chromatic";
 import { DegreeFunction } from "@datune/core/functions/chromatic";
 import { MusicalDuration } from "@datune/core/time";
 

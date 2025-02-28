@@ -1,4 +1,4 @@
-export default abstract class Constraint {
+export abstract class Constraint {
   probability: number; // 0 to 100
 
   constructor(prob: number) {

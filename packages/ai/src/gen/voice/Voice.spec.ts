@@ -1,7 +1,7 @@
-import { HALF, QUARTER, ZERO } from "@datune/core/time";
+import { HALF, QUARTER, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
 import { C5, D5, E5, nodeFrom, noteFrom } from "@datune/midi";
-import LowerVoiceConstraint from "../constraints/voice/LowerVoiceConstraint";
-import Voice from "./Voice";
+import { LowerVoiceConstraint } from "../constraints/voice/LowerVoiceConstraint";
+import { Voice } from "./Voice";
 import { TestInit } from "tests";
 
 TestInit.initAll();

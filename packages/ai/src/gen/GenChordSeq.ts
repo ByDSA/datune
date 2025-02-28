@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Chord } from "@datune/core/chords/chromatic";
-import { bIII, bVI, bVII, HarmonicFunction, I, II0, IIIm, IIm, Im, IV, IVm, V, V7, VII0, VIm } from "@datune/core/functions/chromatic";
-import { from as keyFrom, Key } from "@datune/core/keys/chromatic";
-import { ZERO } from "@datune/core/time";
+import { bIII, bVI, bVII, I, II0, IIIm, IIm, Im, IV, IVm, V, V7, VII0, VIm } from "@datune/core/functions/chromatic/degree-function/constants";
+import { HarmonicFunction } from "@datune/core/functions/chromatic";
+import { Key } from "@datune/core/keys/chromatic";
+import { fromRootScale as keyFrom } from "@datune/core/keys/chromatic/building";
+import { ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
 import { random } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
-import { CHROMATIC, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN } from "@datune/core/scales/chromatic";
-import GenSeq from "./GenSeq";
+import { CHROMATIC, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN } from "@datune/core/scales/symbolic/chromatic/constants";
+import { GenSeq } from "./GenSeq";
 
-export default class GenChordSeq extends GenSeq {
+export class GenChordSeq extends GenSeq {
   generate() {
     const tonalApproach = this.tonalApporach;
 

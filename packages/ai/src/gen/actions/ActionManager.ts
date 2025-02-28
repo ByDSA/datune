@@ -1,6 +1,7 @@
-import Action from "./Action";
+import { Action } from "./Action";
 
-export default class ActionManager<A extends Action<T>, T> {
+// eslint-disable-next-line no-use-before-define
+export class ActionManager<A extends Action<T>, T> {
   actions: A[];
 
   end: boolean;

@@ -1,6 +1,6 @@
 import { random } from "@datune/utils";
 
-export default class Picker<T> {
+export class Picker<T> {
   #possibilities: T[];
 
   constructor(possibilities: T[] = []) {

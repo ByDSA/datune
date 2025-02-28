@@ -1,7 +1,7 @@
 import { SPN } from "@datune/core/spns/chromatic";
-import Constraint from "../Constraint";
+import { Constraint } from "../Constraint";
 
-export default abstract class ConstraintSPN extends Constraint {
+export abstract class ConstraintSPN extends Constraint {
   protected constructor(public spn: SPN, prob: number) {
     super(prob);
   }

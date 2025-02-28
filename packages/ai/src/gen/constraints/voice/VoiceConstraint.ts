@@ -1,9 +1,9 @@
 import { MusicalDuration } from "@datune/core";
 import { SPN } from "@datune/core/spns/chromatic";
-import Voice from "../../voice/Voice";
-import Constraint from "../Constraint";
+import { Voice } from "../../voice/Voice";
+import { Constraint } from "../Constraint";
 
-export default abstract class VoiceConstraint extends Constraint {
+export abstract class VoiceConstraint extends Constraint {
   constructor(protected otherVoice: Voice, public probability: number = 100) {
     super(probability);
   }

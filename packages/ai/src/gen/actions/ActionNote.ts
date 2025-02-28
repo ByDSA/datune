@@ -1,5 +1,5 @@
 import { MidiNote } from "@datune/midi";
-import Action from "./Action";
+import { Action } from "./Action";
 
-export default abstract class ActionNote extends Action<MidiNote> {
+export abstract class ActionNote extends Action<MidiNote> {
 }

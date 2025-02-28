@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TonalApproach } from "@datune/analyzer";
 import { MusicalDuration } from "@datune/core";
 import { Key } from "@datune/core/keys/chromatic";
-import { LONGA, ZERO } from "@datune/core/time";
+import { LONGA, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
 import { random } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
-import GenSeq from "./GenSeq";
+import { GenSeq } from "./GenSeq";
 
-export default class GenKeySeq extends GenSeq {
+export class GenKeySeq extends GenSeq {
   constructor(tonalApporach: TonalApproach, private keys: Key[]) {
     super(tonalApporach);
   }
@@ -40,8 +39,8 @@ export default class GenKeySeq extends GenSeq {
 }
 
 function pickDuration(
-  prevDuration: MusicalDuration | undefined,
-  time: MusicalDuration,
+  _prevDuration: MusicalDuration | undefined,
+  _time: MusicalDuration,
 ): MusicalDuration {
   return LONGA * (40 * (2 + random(2)));
 }
