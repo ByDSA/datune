@@ -1,5 +1,3 @@
-import MidiNote from "./MidiNote";
+import { MidiNote } from "./MidiNote";
 
-type PartialMidiNote = Partial<MidiNote>;
-
-export default PartialMidiNote;
+export type PartialMidiNote = Partial<MidiNote>;

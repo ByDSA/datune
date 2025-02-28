@@ -1,12 +1,13 @@
 import { MusicalDuration } from "@datune/core";
-import { QUARTER } from "@datune/core/time";
-import { C5 } from "pitch/constants";
-import { TestInit } from "tests";
-import MidiPitch from "../../pitch/MidiPitch";
+import { QUARTER } from "@datune/core/time/symbolic/musical-duration/constants";
+import { MidiPitch } from "../../pitch/MidiPitch";
 import { from } from "./building";
-import Dto from "./PartialMidiNote";
+import { PartialMidiNote as Dto } from "./PartialMidiNote";
+import { TestInit } from "tests";
+import { C5 } from "pitch/constants";
 
 TestInit.initAll();
+
 it("from - C5 QUARTER 90", () => {
   const pitch: MidiPitch = C5;
   const duration: MusicalDuration = QUARTER;

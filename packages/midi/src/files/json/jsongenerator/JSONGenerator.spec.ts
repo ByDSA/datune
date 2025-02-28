@@ -1,8 +1,9 @@
-import { EIGHTH, SIXTYFOURTH, WHOLE } from "@datune/core/time";
-import { from as bpmFrom, QUARTER_120 } from "@datune/core/time/symbolic/bpm";
+import { EIGHTH, SIXTYFOURTH, WHOLE } from "@datune/core/time/symbolic/musical-duration/constants";
+import { QUARTER_120 } from "@datune/core/time/symbolic/bpm/constants";
+import { from as bpmFrom } from "@datune/core/time/symbolic/bpm/building";
+import { MidiFile } from "../../midi-file/MidiFile";
+import { JSONGenerator } from "./JSONGenerator";
 import { TestInit } from "tests";
-import MidiFile from "../../midi-file/MidiFile";
-import JSONGenerator from "./JSONGenerator";
 
 TestInit.initAll();
 
@@ -21,8 +22,7 @@ it("tempo", () => {
     .addBPM(QUARTER_120)
     .addBPM(bpmFrom(80, EIGHTH), WHOLE);
   const jsonGenerator = new JSONGenerator(midiFile);
-  // eslint-disable-next-line no-underscore-dangle
-  const actual = (<any>jsonGenerator)._tempos();
+  const actual = jsonGenerator.generate().header.tempos;
 
   expect(actual).toStrictEqual(expected);
 } );

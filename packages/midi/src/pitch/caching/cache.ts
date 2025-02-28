@@ -1,18 +1,16 @@
 import { StringHashCache } from "@datune/utils";
-import Pitch from "../MidiPitch";
-import Dto from "./Dto";
+import { MidiPitch } from "../MidiPitch";
+import { Dto } from "./Dto";
 
-const cache = new StringHashCache<Pitch, Dto>( {
+export const cache = new StringHashCache<MidiPitch, Dto>( {
   hash(dto: Dto): string {
     return `${+dto.spn}-${dto.detuned}`;
   },
-  toDto(midiNote: Pitch): Dto {
+  toDto(midiNote: MidiPitch): Dto {
     return {
       spn: midiNote.spn,
       detuned: midiNote.detuned,
     };
   },
-  create: (dto: Dto) => new (Pitch as any)(dto),
+  create: (dto: Dto) => new (MidiPitch as any)(dto),
 } );
-
-export default cache;

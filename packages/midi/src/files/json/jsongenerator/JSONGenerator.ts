@@ -1,10 +1,10 @@
 import { MidiJSON } from "@tonejs/midi";
 import { ControlChangeJSON } from "@tonejs/midi/dist/ControlChange";
 import { ControlChangesJSON } from "@tonejs/midi/dist/ControlChanges";
+import { MidiFile, getInnerTick } from "../../midi-file/MidiFile";
 import { MidiNode } from "sequence";
-import MidiFile, { getInnerTick } from "../../midi-file/MidiFile";
 
-export default class JSONGenerator {
+export class JSONGenerator {
   private mf: MidiFile;
 
   constructor(mf: MidiFile) {
@@ -17,24 +17,24 @@ export default class JSONGenerator {
         name: "name",
         ppq: <number> this.mf.ppq,
         meta: [],
-        tempos: this._tempos(),
-        timeSignatures: this._timeSignatures(),
+        tempos: this.#tempos(),
+        timeSignatures: this.#timeSignatures(),
         keySignatures: [],
       },
-      tracks: this._geneateTracks(),
+      tracks: this.#generateTracks(),
     };
 
     return json;
   }
 
-  private _tempos() {
+  #tempos() {
     return this.mf.bpmEvents.map((bpmEvent) => ( {
       ticks: getInnerTick(bpmEvent.time),
       bpm: bpmEvent.bpm.bpm,
     } ));
   }
 
-  private _timeSignatures() {
+  #timeSignatures() {
     return this.mf.timeSignatureEvents.map((timeSignatureEvent) => ( {
       ticks: timeSignatureEvent.time,
       timeSignature: [
@@ -44,7 +44,7 @@ export default class JSONGenerator {
     } ));
   }
 
-  private _geneateTracks() {
+  #generateTracks() {
     const controlChange: ControlChangeJSON = {
       number: 0,
       ticks: 0,

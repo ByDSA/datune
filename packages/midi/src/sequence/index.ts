@@ -1,5 +1,5 @@
 export {
-  default as MidiSequence,
+  MidiSequence,
 } from "./MidiSequence";
 
 export {

@@ -1,10 +1,9 @@
-import { QUARTER, ZERO } from "@datune/core/time";
+import { QUARTER } from "@datune/core/time/symbolic/musical-duration/constants";
+import { MidiNote } from "./MidiNote";
 import { C5 } from "pitch/constants";
-import RequiredNote from "./MidiNote";
 
-export default {
+export const DEFAULT: Readonly<MidiNote> = Object.freeze( {
   pitch: C5,
   duration: QUARTER,
   velocity: 100,
-  from: ZERO,
-} as RequiredNote;
+} );

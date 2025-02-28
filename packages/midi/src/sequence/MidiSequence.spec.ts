@@ -1,13 +1,15 @@
-import { dotted, EIGHTH, HALF, MusicalDuration, QUARTER, WHOLE, ZERO } from "@datune/core/time";
-import { C5, E5, G5 } from "pitch/constants";
-import { TestInit } from "tests";
-import MidiSequence from "./MidiSequence";
+import { MusicalDuration, MusicalDurations } from "@datune/core/time";
+import { MidiSequence } from "./MidiSequence";
 import { from as nodeFrom } from "./node";
-import MidiNode from "./node/MidiNode";
+import { MidiNode } from "./node/MidiNode";
 import { from as noteFrom } from "./note";
-import MidiNote from "./note/MidiNote";
+import { MidiNote } from "./note/MidiNote";
+import { TestInit } from "tests";
+import { C5, E5, G5 } from "pitch/constants";
 
 TestInit.initAll();
+
+const { dotted, EIGHTH, HALF, QUARTER, WHOLE, ZERO } = MusicalDurations;
 
 it("from - cellSize=EIGHTH", () => {
   const cellSize: MusicalDuration = EIGHTH;

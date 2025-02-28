@@ -1,8 +1,8 @@
 import { MidiNode } from "../../sequence/node";
 import { Instrument } from "../instrument";
-import Channel from "./Channel";
+import { Channel } from "./Channel";
 
-type Track = {
+export type Track = {
   name: string;
 
   nodes: MidiNode[];
@@ -11,8 +11,6 @@ type Track = {
 
   instrument: Instrument;
 };
-
-export default Track;
 
 const DEFAULT: Track = {
   name: "",

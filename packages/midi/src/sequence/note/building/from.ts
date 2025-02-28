@@ -1,9 +1,9 @@
 import { lock } from "@datune/utils";
-import DEFAULT from "../Default";
-import MidiNote from "../MidiNote";
-import PartialMidiNote from "../PartialMidiNote";
+import { DEFAULT } from "../Default";
+import { MidiNote } from "../MidiNote";
+import { PartialMidiNote } from "../PartialMidiNote";
 
-export default (dto: PartialMidiNote): MidiNote => {
+export const from = (dto: PartialMidiNote): MidiNote => {
   const note = {
     ...DEFAULT,
     ...dto,

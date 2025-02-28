@@ -1,4 +1,4 @@
-enum Instrument {
+export enum Instrument {
     ACOUSTIC_PIANO,
     BRIGHT_ACOUSTIC_PIANO,
     ELECTRIC_GRAND_PIANO,
@@ -128,5 +128,3 @@ enum Instrument {
     APPLAUSE,
     GUNSHOT
 }
-
-export default Instrument;

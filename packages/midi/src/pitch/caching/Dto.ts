@@ -1,8 +1,6 @@
 import { SPN } from "@datune/core/spns/chromatic";
 
-type Dto = {
+export type Dto = {
   spn: SPN;
   detuned: number;
 };
-
-export default Dto;

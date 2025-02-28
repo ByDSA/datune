@@ -1,7 +1,7 @@
-import { A0 as SPN_A0, A1 as SPN_A1, A2 as SPN_A2, A3 as SPN_A3, A4 as SPN_A4, A5 as SPN_A5, A6 as SPN_A6, A7 as SPN_A7, A8 as SPN_A8, AA0 as SPN_AA0, AA1 as SPN_AA1, AA2 as SPN_AA2, AA3 as SPN_AA3, AA4 as SPN_AA4, AA5 as SPN_AA5, AA6 as SPN_AA6, AA7 as SPN_AA7, AA8 as SPN_AA8, AA_S1 as SPN_AA_S1, A_S1 as SPN_A_S1, B0 as SPN_B0, B1 as SPN_B1, B2 as SPN_B2, B3 as SPN_B3, B4 as SPN_B4, B5 as SPN_B5, B6 as SPN_B6, B7 as SPN_B7, B8 as SPN_B8, B_S1 as SPN_B_S1, C0 as SPN_C0, C1 as SPN_C1, C2 as SPN_C2, C3 as SPN_C3, C4 as SPN_C4, C5 as SPN_C5, C6 as SPN_C6, C7 as SPN_C7, C8 as SPN_C8, C9 as SPN_C9, CC0 as SPN_CC0, CC1 as SPN_CC1, CC2 as SPN_CC2, CC3 as SPN_CC3, CC4 as SPN_CC4, CC5 as SPN_CC5, CC6 as SPN_CC6, CC7 as SPN_CC7, CC8 as SPN_CC8, CC9 as SPN_CC9, CC_S1 as SPN_CC_S1, C_S1 as SPN_C_S1, D0 as SPN_D0, D1 as SPN_D1, D2 as SPN_D2, D3 as SPN_D3, D4 as SPN_D4, D5 as SPN_D5, D6 as SPN_D6, D7 as SPN_D7, D8 as SPN_D8, D9 as SPN_D9, DD0 as SPN_DD0, DD1 as SPN_DD1, DD2 as SPN_DD2, DD3 as SPN_DD3, DD4 as SPN_DD4, DD5 as SPN_DD5, DD6 as SPN_DD6, DD7 as SPN_DD7, DD8 as SPN_DD8, DD9 as SPN_DD9, DD_S1 as SPN_DD_S1, D_S1 as SPN_D_S1, E0 as SPN_E0, E1 as SPN_E1, E2 as SPN_E2, E3 as SPN_E3, E4 as SPN_E4, E5 as SPN_E5, E6 as SPN_E6, E7 as SPN_E7, E8 as SPN_E8, E9 as SPN_E9, E_S1 as SPN_E_S1, F0 as SPN_F0, F1 as SPN_F1, F2 as SPN_F2, F3 as SPN_F3, F4 as SPN_F4, F5 as SPN_F5, F6 as SPN_F6, F7 as SPN_F7, F8 as SPN_F8, F9 as SPN_F9, FF0 as SPN_FF0, FF1 as SPN_FF1, FF2 as SPN_FF2, FF3 as SPN_FF3, FF4 as SPN_FF4, FF5 as SPN_FF5, FF6 as SPN_FF6, FF7 as SPN_FF7, FF8 as SPN_FF8, FF9 as SPN_FF9, FF_S1 as SPN_FF_S1, F_S1 as SPN_F_S1, G0 as SPN_G0, G1 as SPN_G1, G2 as SPN_G2, G3 as SPN_G3, G4 as SPN_G4, G5 as SPN_G5, G6 as SPN_G6, G7 as SPN_G7, G8 as SPN_G8, G9 as SPN_G9, GG0 as SPN_GG0, GG1 as SPN_GG1, GG2 as SPN_GG2, GG3 as SPN_GG3, GG4 as SPN_GG4, GG5 as SPN_GG5, GG6 as SPN_GG6, GG7 as SPN_GG7, GG8 as SPN_GG8, GG_S1 as SPN_GG_S1, G_S1 as SPN_G_S1 } from "@datune/core/spns/chromatic";
+import { A0 as SPN_A0, A1 as SPN_A1, A2 as SPN_A2, A3 as SPN_A3, A4 as SPN_A4, A5 as SPN_A5, A6 as SPN_A6, A7 as SPN_A7, A8 as SPN_A8, AA0 as SPN_AA0, AA1 as SPN_AA1, AA2 as SPN_AA2, AA3 as SPN_AA3, AA4 as SPN_AA4, AA5 as SPN_AA5, AA6 as SPN_AA6, AA7 as SPN_AA7, AA8 as SPN_AA8, AA_S1 as SPN_AA_S1, A_S1 as SPN_A_S1, B0 as SPN_B0, B1 as SPN_B1, B2 as SPN_B2, B3 as SPN_B3, B4 as SPN_B4, B5 as SPN_B5, B6 as SPN_B6, B7 as SPN_B7, B8 as SPN_B8, B_S1 as SPN_B_S1, C0 as SPN_C0, C1 as SPN_C1, C2 as SPN_C2, C3 as SPN_C3, C4 as SPN_C4, C5 as SPN_C5, C6 as SPN_C6, C7 as SPN_C7, C8 as SPN_C8, C9 as SPN_C9, CC0 as SPN_CC0, CC1 as SPN_CC1, CC2 as SPN_CC2, CC3 as SPN_CC3, CC4 as SPN_CC4, CC5 as SPN_CC5, CC6 as SPN_CC6, CC7 as SPN_CC7, CC8 as SPN_CC8, CC9 as SPN_CC9, CC_S1 as SPN_CC_S1, C_S1 as SPN_C_S1, D0 as SPN_D0, D1 as SPN_D1, D2 as SPN_D2, D3 as SPN_D3, D4 as SPN_D4, D5 as SPN_D5, D6 as SPN_D6, D7 as SPN_D7, D8 as SPN_D8, D9 as SPN_D9, DD0 as SPN_DD0, DD1 as SPN_DD1, DD2 as SPN_DD2, DD3 as SPN_DD3, DD4 as SPN_DD4, DD5 as SPN_DD5, DD6 as SPN_DD6, DD7 as SPN_DD7, DD8 as SPN_DD8, DD9 as SPN_DD9, DD_S1 as SPN_DD_S1, D_S1 as SPN_D_S1, E0 as SPN_E0, E1 as SPN_E1, E2 as SPN_E2, E3 as SPN_E3, E4 as SPN_E4, E5 as SPN_E5, E6 as SPN_E6, E7 as SPN_E7, E8 as SPN_E8, E9 as SPN_E9, E_S1 as SPN_E_S1, F0 as SPN_F0, F1 as SPN_F1, F2 as SPN_F2, F3 as SPN_F3, F4 as SPN_F4, F5 as SPN_F5, F6 as SPN_F6, F7 as SPN_F7, F8 as SPN_F8, F9 as SPN_F9, FF0 as SPN_FF0, FF1 as SPN_FF1, FF2 as SPN_FF2, FF3 as SPN_FF3, FF4 as SPN_FF4, FF5 as SPN_FF5, FF6 as SPN_FF6, FF7 as SPN_FF7, FF8 as SPN_FF8, FF9 as SPN_FF9, FF_S1 as SPN_FF_S1, F_S1 as SPN_F_S1, G0 as SPN_G0, G1 as SPN_G1, G2 as SPN_G2, G3 as SPN_G3, G4 as SPN_G4, G5 as SPN_G5, G6 as SPN_G6, G7 as SPN_G7, G8 as SPN_G8, G9 as SPN_G9, GG0 as SPN_GG0, GG1 as SPN_GG1, GG2 as SPN_GG2, GG3 as SPN_GG3, GG4 as SPN_GG4, GG5 as SPN_GG5, GG6 as SPN_GG6, GG7 as SPN_GG7, GG8 as SPN_GG8, GG_S1 as SPN_GG_S1, G_S1 as SPN_G_S1 } from "@datune/core/spns/symbolic/chromatic/constants";
 import { lock, lockr } from "@datune/utils";
 import { from } from "./building";
-import Pitch from "./MidiPitch";
+import { MidiPitch } from "./MidiPitch";
 
 export function initialize() {
   C0 = lockr(from(SPN_C_S1, 0));
@@ -137,262 +137,262 @@ export function initialize() {
   MAX = lock(G10);
 }
 
-export let C0: Readonly<Pitch>;
+export let C0: Readonly<MidiPitch>;
 
-export let CC0: Readonly<Pitch>;
+export let CC0: Readonly<MidiPitch>;
 
-export let D0: Readonly<Pitch>;
+export let D0: Readonly<MidiPitch>;
 
-export let DD0: Readonly<Pitch>;
+export let DD0: Readonly<MidiPitch>;
 
-export let E0: Readonly<Pitch>;
+export let E0: Readonly<MidiPitch>;
 
-export let F0: Readonly<Pitch>;
+export let F0: Readonly<MidiPitch>;
 
-export let FF0: Readonly<Pitch>;
+export let FF0: Readonly<MidiPitch>;
 
-export let G0: Readonly<Pitch>;
+export let G0: Readonly<MidiPitch>;
 
-export let GG0: Readonly<Pitch>;
+export let GG0: Readonly<MidiPitch>;
 
-export let A0: Readonly<Pitch>;
+export let A0: Readonly<MidiPitch>;
 
-export let AA0: Readonly<Pitch>;
+export let AA0: Readonly<MidiPitch>;
 
-export let B0: Readonly<Pitch>;
+export let B0: Readonly<MidiPitch>;
 
-export let C1: Readonly<Pitch>;
+export let C1: Readonly<MidiPitch>;
 
-export let CC1: Readonly<Pitch>;
+export let CC1: Readonly<MidiPitch>;
 
-export let D1: Readonly<Pitch>;
+export let D1: Readonly<MidiPitch>;
 
-export let DD1: Readonly<Pitch>;
+export let DD1: Readonly<MidiPitch>;
 
-export let E1: Readonly<Pitch>;
+export let E1: Readonly<MidiPitch>;
 
-export let F1: Readonly<Pitch>;
+export let F1: Readonly<MidiPitch>;
 
-export let FF1: Readonly<Pitch>;
+export let FF1: Readonly<MidiPitch>;
 
-export let G1: Readonly<Pitch>;
+export let G1: Readonly<MidiPitch>;
 
-export let GG1: Readonly<Pitch>;
+export let GG1: Readonly<MidiPitch>;
 
-export let A1: Readonly<Pitch>;
+export let A1: Readonly<MidiPitch>;
 
-export let AA1: Readonly<Pitch>;
+export let AA1: Readonly<MidiPitch>;
 
-export let B1: Readonly<Pitch>;
+export let B1: Readonly<MidiPitch>;
 
-export let C2: Readonly<Pitch>;
+export let C2: Readonly<MidiPitch>;
 
-export let CC2: Readonly<Pitch>;
+export let CC2: Readonly<MidiPitch>;
 
-export let D2: Readonly<Pitch>;
+export let D2: Readonly<MidiPitch>;
 
-export let DD2: Readonly<Pitch>;
+export let DD2: Readonly<MidiPitch>;
 
-export let E2: Readonly<Pitch>;
+export let E2: Readonly<MidiPitch>;
 
-export let F2: Readonly<Pitch>;
+export let F2: Readonly<MidiPitch>;
 
-export let FF2: Readonly<Pitch>;
+export let FF2: Readonly<MidiPitch>;
 
-export let G2: Readonly<Pitch>;
+export let G2: Readonly<MidiPitch>;
 
-export let GG2: Readonly<Pitch>;
+export let GG2: Readonly<MidiPitch>;
 
-export let A2: Readonly<Pitch>;
+export let A2: Readonly<MidiPitch>;
 
-export let AA2: Readonly<Pitch>;
+export let AA2: Readonly<MidiPitch>;
 
-export let B2: Readonly<Pitch>;
+export let B2: Readonly<MidiPitch>;
 
-export let C3: Readonly<Pitch>;
+export let C3: Readonly<MidiPitch>;
 
-export let CC3: Readonly<Pitch>;
+export let CC3: Readonly<MidiPitch>;
 
-export let D3: Readonly<Pitch>;
+export let D3: Readonly<MidiPitch>;
 
-export let DD3: Readonly<Pitch>;
+export let DD3: Readonly<MidiPitch>;
 
-export let E3: Readonly<Pitch>;
+export let E3: Readonly<MidiPitch>;
 
-export let F3: Readonly<Pitch>;
+export let F3: Readonly<MidiPitch>;
 
-export let FF3: Readonly<Pitch>;
+export let FF3: Readonly<MidiPitch>;
 
-export let G3: Readonly<Pitch>;
+export let G3: Readonly<MidiPitch>;
 
-export let GG3: Readonly<Pitch>;
+export let GG3: Readonly<MidiPitch>;
 
-export let A3: Readonly<Pitch>;
+export let A3: Readonly<MidiPitch>;
 
-export let AA3: Readonly<Pitch>;
+export let AA3: Readonly<MidiPitch>;
 
-export let B3: Readonly<Pitch>;
+export let B3: Readonly<MidiPitch>;
 
-export let C4: Readonly<Pitch>;
+export let C4: Readonly<MidiPitch>;
 
-export let CC4: Readonly<Pitch>;
+export let CC4: Readonly<MidiPitch>;
 
-export let D4: Readonly<Pitch>;
+export let D4: Readonly<MidiPitch>;
 
-export let DD4: Readonly<Pitch>;
+export let DD4: Readonly<MidiPitch>;
 
-export let E4: Readonly<Pitch>;
+export let E4: Readonly<MidiPitch>;
 
-export let F4: Readonly<Pitch>;
+export let F4: Readonly<MidiPitch>;
 
-export let FF4: Readonly<Pitch>;
+export let FF4: Readonly<MidiPitch>;
 
-export let G4: Readonly<Pitch>;
+export let G4: Readonly<MidiPitch>;
 
-export let GG4: Readonly<Pitch>;
+export let GG4: Readonly<MidiPitch>;
 
-export let A4: Readonly<Pitch>;
+export let A4: Readonly<MidiPitch>;
 
-export let AA4: Readonly<Pitch>;
+export let AA4: Readonly<MidiPitch>;
 
-export let B4: Readonly<Pitch>;
+export let B4: Readonly<MidiPitch>;
 
-export let C5: Readonly<Pitch>;
+export let C5: Readonly<MidiPitch>;
 
-export let CC5: Readonly<Pitch>;
+export let CC5: Readonly<MidiPitch>;
 
-export let D5: Readonly<Pitch>;
+export let D5: Readonly<MidiPitch>;
 
-export let DD5: Readonly<Pitch>;
+export let DD5: Readonly<MidiPitch>;
 
-export let E5: Readonly<Pitch>;
+export let E5: Readonly<MidiPitch>;
 
-export let F5: Readonly<Pitch>;
+export let F5: Readonly<MidiPitch>;
 
-export let FF5: Readonly<Pitch>;
+export let FF5: Readonly<MidiPitch>;
 
-export let G5: Readonly<Pitch>;
+export let G5: Readonly<MidiPitch>;
 
-export let GG5: Readonly<Pitch>;
+export let GG5: Readonly<MidiPitch>;
 
-export let A5: Readonly<Pitch>;
+export let A5: Readonly<MidiPitch>;
 
-export let AA5: Readonly<Pitch>;
+export let AA5: Readonly<MidiPitch>;
 
-export let B5: Readonly<Pitch>;
+export let B5: Readonly<MidiPitch>;
 
-export let C6: Readonly<Pitch>;
+export let C6: Readonly<MidiPitch>;
 
-export let CC6: Readonly<Pitch>;
+export let CC6: Readonly<MidiPitch>;
 
-export let D6: Readonly<Pitch>;
+export let D6: Readonly<MidiPitch>;
 
-export let DD6: Readonly<Pitch>;
+export let DD6: Readonly<MidiPitch>;
 
-export let E6: Readonly<Pitch>;
+export let E6: Readonly<MidiPitch>;
 
-export let F6: Readonly<Pitch>;
+export let F6: Readonly<MidiPitch>;
 
-export let FF6: Readonly<Pitch>;
+export let FF6: Readonly<MidiPitch>;
 
-export let G6: Readonly<Pitch>;
+export let G6: Readonly<MidiPitch>;
 
-export let GG6: Readonly<Pitch>;
+export let GG6: Readonly<MidiPitch>;
 
-export let A6: Readonly<Pitch>;
+export let A6: Readonly<MidiPitch>;
 
-export let AA6: Readonly<Pitch>;
+export let AA6: Readonly<MidiPitch>;
 
-export let B6: Readonly<Pitch>;
+export let B6: Readonly<MidiPitch>;
 
-export let C7: Readonly<Pitch>;
+export let C7: Readonly<MidiPitch>;
 
-export let CC7: Readonly<Pitch>;
+export let CC7: Readonly<MidiPitch>;
 
-export let D7: Readonly<Pitch>;
+export let D7: Readonly<MidiPitch>;
 
-export let DD7: Readonly<Pitch>;
+export let DD7: Readonly<MidiPitch>;
 
-export let E7: Readonly<Pitch>;
+export let E7: Readonly<MidiPitch>;
 
-export let F7: Readonly<Pitch>;
+export let F7: Readonly<MidiPitch>;
 
-export let FF7: Readonly<Pitch>;
+export let FF7: Readonly<MidiPitch>;
 
-export let G7: Readonly<Pitch>;
+export let G7: Readonly<MidiPitch>;
 
-export let GG7: Readonly<Pitch>;
+export let GG7: Readonly<MidiPitch>;
 
-export let A7: Readonly<Pitch>;
+export let A7: Readonly<MidiPitch>;
 
-export let AA7: Readonly<Pitch>;
+export let AA7: Readonly<MidiPitch>;
 
-export let B7: Readonly<Pitch>;
+export let B7: Readonly<MidiPitch>;
 
-export let C8: Readonly<Pitch>;
+export let C8: Readonly<MidiPitch>;
 
-export let CC8: Readonly<Pitch>;
+export let CC8: Readonly<MidiPitch>;
 
-export let D8: Readonly<Pitch>;
+export let D8: Readonly<MidiPitch>;
 
-export let DD8: Readonly<Pitch>;
+export let DD8: Readonly<MidiPitch>;
 
-export let E8: Readonly<Pitch>;
+export let E8: Readonly<MidiPitch>;
 
-export let F8: Readonly<Pitch>;
+export let F8: Readonly<MidiPitch>;
 
-export let FF8: Readonly<Pitch>;
+export let FF8: Readonly<MidiPitch>;
 
-export let G8: Readonly<Pitch>;
+export let G8: Readonly<MidiPitch>;
 
-export let GG8: Readonly<Pitch>;
+export let GG8: Readonly<MidiPitch>;
 
-export let A8: Readonly<Pitch>;
+export let A8: Readonly<MidiPitch>;
 
-export let AA8: Readonly<Pitch>;
+export let AA8: Readonly<MidiPitch>;
 
-export let B8: Readonly<Pitch>;
+export let B8: Readonly<MidiPitch>;
 
-export let C9: Readonly<Pitch>;
+export let C9: Readonly<MidiPitch>;
 
-export let CC9: Readonly<Pitch>;
+export let CC9: Readonly<MidiPitch>;
 
-export let D9: Readonly<Pitch>;
+export let D9: Readonly<MidiPitch>;
 
-export let DD9: Readonly<Pitch>;
+export let DD9: Readonly<MidiPitch>;
 
-export let E9: Readonly<Pitch>;
+export let E9: Readonly<MidiPitch>;
 
-export let F9: Readonly<Pitch>;
+export let F9: Readonly<MidiPitch>;
 
-export let FF9: Readonly<Pitch>;
+export let FF9: Readonly<MidiPitch>;
 
-export let G9: Readonly<Pitch>;
+export let G9: Readonly<MidiPitch>;
 
-export let GG9: Readonly<Pitch>;
+export let GG9: Readonly<MidiPitch>;
 
-export let A9: Readonly<Pitch>;
+export let A9: Readonly<MidiPitch>;
 
-export let AA9: Readonly<Pitch>;
+export let AA9: Readonly<MidiPitch>;
 
-export let B9: Readonly<Pitch>;
+export let B9: Readonly<MidiPitch>;
 
-export let C10: Readonly<Pitch>;
+export let C10: Readonly<MidiPitch>;
 
-export let CC10: Readonly<Pitch>;
+export let CC10: Readonly<MidiPitch>;
 
-export let D10: Readonly<Pitch>;
+export let D10: Readonly<MidiPitch>;
 
-export let DD10: Readonly<Pitch>;
+export let DD10: Readonly<MidiPitch>;
 
-export let E10: Readonly<Pitch>;
+export let E10: Readonly<MidiPitch>;
 
-export let F10: Readonly<Pitch>;
+export let F10: Readonly<MidiPitch>;
 
-export let FF10: Readonly<Pitch>;
+export let FF10: Readonly<MidiPitch>;
 
-export let G10: Readonly<Pitch>;
+export let G10: Readonly<MidiPitch>;
 
-export let MIN: Readonly<Pitch>;
+export let MIN: Readonly<MidiPitch>;
 
-export let MAX: Readonly<Pitch>;
+export let MAX: Readonly<MidiPitch>;

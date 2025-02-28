@@ -1,7 +1,7 @@
 export {
-  default as cache,
+  cache,
 } from "./cache";
 
 export {
-  default as Dto,
+  Dto,
 } from "./Dto";

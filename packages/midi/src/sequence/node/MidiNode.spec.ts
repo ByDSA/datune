@@ -1,8 +1,8 @@
-import { HALF, QUARTER, WHOLE, ZERO } from "@datune/core/time";
-import { TestInit } from "tests";
+import { HALF, QUARTER, WHOLE, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
 import { C5 } from "../../pitch/constants";
 import { from as noteFrom, MidiNote } from "../note";
 import { from } from "./building";
+import { TestInit } from "tests";
 
 TestInit.initAll();
 
@@ -19,9 +19,11 @@ describe("from - ZERO (C5 QUARTER 90)", () => {
   it("from", () => {
     expect(node.interval.from).toBe(ZERO);
   } );
+
   it("note", () => {
     expect(node.event).toBe(note);
   } );
+
   it("to", () => {
     expect(node.interval.to).toEqual(QUARTER);
   } );
@@ -41,9 +43,11 @@ describe("from - QUARTER (C5 QUARTER 90)", () => {
   it("from", () => {
     expect(node.interval.from).toBe(QUARTER);
   } );
+
   it("note", () => {
     expect(node.event).toBe(note);
   } );
+
   it("to", () => {
     expect(node.interval.to).toEqual(HALF);
   } );

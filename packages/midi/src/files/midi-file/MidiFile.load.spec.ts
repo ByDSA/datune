@@ -1,11 +1,13 @@
-import { dotted, EIGHTH, QUARTER, SIXTEENTH, WHOLE, ZERO } from "@datune/core/time";
-import * as fs from "fs";
+/* eslint-disable prefer-destructuring */
+import * as fs from "node:fs";
+import { EIGHTH, QUARTER, SIXTEENTH, WHOLE, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
+import { dotted } from "@datune/core/time/symbolic/musical-duration/modifiers";
+import { Instrument } from "../instrument";
+import { load } from "./load";
+import { MidiFile } from "./MidiFile";
 import { A5, B5, C5, C6, D5, E5, F5, G5 } from "pitch";
 import { nodeFrom, noteFrom } from "sequence";
 import { TestInit } from "tests";
-import { Instrument } from "../instrument";
-import load from "./load";
-import MidiFile from "./MidiFile";
 
 TestInit.initAll();
 
@@ -23,6 +25,7 @@ describe("load sample.mid", () => {
   beforeAll(() => {
     midiFile = load(LOAD_SAMPLE) as MidiFile;
   } );
+
   it("load ok", () => {
     expect(midiFile).toBeDefined();
   } );
@@ -31,11 +34,11 @@ describe("load sample.mid", () => {
     const { tracks } = midiFile;
 
     expect(tracks).toBeDefined();
-    expect(tracks.length).toBe(1);
+    expect(tracks).toHaveLength(1);
   } );
 
   it("load tacks info", () => {
-    const track = midiFile.tracks[0];
+    const [track] = midiFile.tracks;
 
     expect(track.name).toBe("MIDITrack");
     expect(track.instrument).toBe(Instrument.ACOUSTIC_PIANO);
@@ -46,7 +49,7 @@ describe("load sample.mid", () => {
     const { nodes } = midiFile.tracks[0];
 
     expect(nodes).toBeDefined();
-    expect(nodes.length).toBe(8);
+    expect(nodes).toHaveLength(8);
   } );
 
   it("load notes info", () => {
@@ -61,6 +64,7 @@ describe("load sample.mid", () => {
     } );
 
     expect(nodes[0]).toStrictEqual(node0);
+
     const node1 = nodeFrom( {
       at: QUARTER * 1.5,
       note: noteFrom( {
@@ -71,6 +75,7 @@ describe("load sample.mid", () => {
     } );
 
     expect(nodes[1]).toStrictEqual(node1);
+
     const node2 = nodeFrom( {
       at: QUARTER * 2,
       note: noteFrom( {
@@ -81,6 +86,7 @@ describe("load sample.mid", () => {
     } );
 
     expect(nodes[2]).toStrictEqual(node2);
+
     const node3 = nodeFrom( {
       at: SIXTEENTH * 11,
       note: noteFrom( {
@@ -91,6 +97,7 @@ describe("load sample.mid", () => {
     } );
 
     expect(nodes[3]).toStrictEqual(node3);
+
     const node4 = nodeFrom( {
       at: WHOLE - SIXTEENTH,
       note: noteFrom( {
@@ -101,6 +108,7 @@ describe("load sample.mid", () => {
     } );
 
     expect(nodes[4]).toStrictEqual(node4);
+
     const node5 = nodeFrom( {
       at: QUARTER * 5,
       note: noteFrom( {
@@ -111,8 +119,9 @@ describe("load sample.mid", () => {
     } );
 
     expect(nodes[5]).toStrictEqual(node5);
+
     const node6 = nodeFrom( {
-      at: QUARTER * 5 + SIXTEENTH,
+      at: (QUARTER * 5) + SIXTEENTH,
       note: noteFrom( {
         pitch: B5,
         duration: QUARTER,
@@ -121,8 +130,9 @@ describe("load sample.mid", () => {
     } );
 
     expect(nodes[6]).toStrictEqual(node6);
+
     const node7 = nodeFrom( {
-      at: QUARTER * 6 + SIXTEENTH,
+      at: (QUARTER * 6) + SIXTEENTH,
       note: noteFrom( {
         pitch: C6,
         duration: SIXTEENTH * 7,

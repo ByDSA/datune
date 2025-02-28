@@ -3,9 +3,9 @@ export * from "./building";
 export * from "./constants";
 
 export {
-  default as MidiCode,
+  MidiCode,
 } from "./MidiCode";
 
 export {
-  default as MidiPitch,
+  MidiPitch,
 } from "./MidiPitch";

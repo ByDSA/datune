@@ -1,13 +1,16 @@
-import { A5 as SPN_A5, B1 as SPN_B1, E5 as SPN_E5, FF5 as SPN_FF5, SPN } from "@datune/core/spns/chromatic";
-import { TestInit } from "tests";
-import { calcFrequency as tuningCalcFrequency, LIMIT_5_SYMMETRIC_N1_440 } from "@datune/core/tunings/chromatic";
-import { from, fromCode, fromFrequency } from ".";
+import { SPNs, SPN } from "@datune/core/spns/chromatic";
+import { Tunings } from "@datune/core/tunings/chromatic";
 import { calcFrequency } from "../calcs";
 import { A4, A5, B0, B9, C0, C1, C10, C5, C6, C8, C9, MAX, MIN } from "../constants";
-import MidiCode from "../MidiCode";
-import Pitch from "../MidiPitch";
+import { MidiCode } from "../MidiCode";
+import { MidiPitch } from "../MidiPitch";
+import { from, fromCode, fromFrequency } from ".";
+import { TestInit } from "tests";
 
 TestInit.initAll();
+
+const { A5: SPN_A5, B1: SPN_B1, E5: SPN_E5, FF5: SPN_FF5 } = SPNs;
+const { calcFrequency: tuningCalcFrequency, LIMIT_5_SYMMETRIC_N1_440 } = Tunings;
 
 describe.each([
   [C0, <MidiCode>0],
@@ -31,9 +34,9 @@ describe.each([
   } );
 } );
 
-it("MidiPitch - fromFrequency - 440 = A5", () => {
+it("midiPitch - fromFrequency - 440 = A5", () => {
   const midiNote = fromFrequency(440);
-  const expected: Pitch = A5;
+  const expected: MidiPitch = A5;
 
   expect(midiNote).toEqual(expected);
 } );
@@ -58,7 +61,7 @@ it("fromFrequency - LIMIT_5_SYMMETRIC_N1_440 FF5 = FF5 - 16 cents", () => {
   expect(midiNote.detuned).toEqual(expectedCents);
 } );
 
-it("fromFrequency - 60 ~ 60 ", () => {
+it("fromFrequency - 60 ~ 60", () => {
   const expected: number = 60;
   const midiNote = fromFrequency(expected);
   const frequency = calcFrequency(midiNote);
@@ -73,7 +76,7 @@ it("fromFrequency - 60 = SPN_B1 - 49 cents", () => {
   const { detuned } = midiNote;
 
   expect(spn).toEqual(SPN_B1);
-  expect(detuned).toEqual(-49);
+  expect(detuned).toBe(-49);
 } );
 
 it("from - A5 -1200 cents", () => {
@@ -82,5 +85,5 @@ it("from - A5 -1200 cents", () => {
   const { detuned } = midiNote;
 
   expect(spn).toEqual(SPN_A5);
-  expect(detuned).toEqual(-1200);
+  expect(detuned).toBe(-1200);
 } );

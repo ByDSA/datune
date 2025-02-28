@@ -1,10 +1,17 @@
-import { BPM, MusicalDuration, SIXTYFOURTH, TimeSignature, ZERO } from "@datune/core/time";
-import Track from "../track/Track";
+import { BPM, MusicalDuration, TimeSignature } from "@datune/core/time";
+import { SIXTYFOURTH, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
+import { Track } from "../track/Track";
 
-export default class MidiFile {
-  bpmEvents: { time: MusicalDuration; bpm: BPM }[];
+export class MidiFile {
+  bpmEvents: {
+    time: MusicalDuration;
+    bpm: BPM;
+ }[];
 
-  timeSignatureEvents: { time: MusicalDuration; timeSignaure: TimeSignature }[];
+  timeSignatureEvents: {
+    time: MusicalDuration;
+    timeSignaure: TimeSignature;
+  }[];
 
   tracks: Track[];
 
@@ -27,7 +34,7 @@ export default class MidiFile {
   }
 
   addTimeSignature(t: TimeSignature, atTime: MusicalDuration = ZERO): MidiFile {
-    this._initPPQIfNeeded(t.denominatorBeat);
+    this.#initPPQIfNeeded(t.denominatorBeat);
 
     this.timeSignatureEvents.push( {
       time: atTime,
@@ -37,13 +44,13 @@ export default class MidiFile {
     return this;
   }
 
-  private _initPPQIfNeeded(md: MusicalDuration): void {
+  #initPPQIfNeeded(md: MusicalDuration): void {
     if (!this.ppq)
       this.ppq = getInnerTick(md);
   }
 
   addBPM(bpm: BPM, atTime: MusicalDuration = ZERO): MidiFile {
-    this._initPPQIfNeeded(bpm.beat);
+    this.#initPPQIfNeeded(bpm.beat);
 
     this.bpmEvents.push( {
       bpm,

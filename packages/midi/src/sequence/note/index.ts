@@ -1,5 +1,5 @@
 export * from "./building";
 
 export {
-  default as MidiNote,
+  MidiNote,
 } from "./MidiNote";

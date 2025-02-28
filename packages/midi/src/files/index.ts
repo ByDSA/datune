@@ -1,5 +1,5 @@
 export {
-  default as Instrument,
+  Instrument,
 } from "./instrument/Instrument";
 
 export {

@@ -1,9 +1,11 @@
-import { A4 as SPN_A4, A_S1 as SPN_A_S1, C4 as SPN_C4, C9 as SPN_C9, C_S1 as SPN_C_S1 } from "@datune/core/spns/chromatic";
-import { TestInit } from "tests";
+import { SPNs } from "@datune/core/spns/chromatic";
 import { A0, A4, A5, B0, B9, C0, C1, C10, C5, C6, C8, C9, MAX, MIN } from "./constants";
-import MidiCode from "./MidiCode";
+import { MidiCode } from "./MidiCode";
+import { TestInit } from "tests";
 
 TestInit.initAll();
+
+const { A4: SPN_A4, A_S1: SPN_A_S1, C4: SPN_C4, C9: SPN_C9, C_S1: SPN_C_S1 } = SPNs;
 
 describe.each([
   [C5, SPN_C4],

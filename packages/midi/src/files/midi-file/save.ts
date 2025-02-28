@@ -1,11 +1,11 @@
-import { QUARTER_120 } from "@datune/core/time/symbolic/bpm";
-import { fromFrac } from "@datune/core/time/symbolic/rhythm";
+import * as fs from "node:fs";
+import { QUARTER_120 } from "@datune/core/time/symbolic/bpm/constants";
+import { fromFrac } from "@datune/core/time/symbolic/rhythm/signature/building";
 import { Midi } from "@tonejs/midi";
-import * as fs from "fs";
-import JSONGenerator from "../json/jsongenerator/JSONGenerator";
-import MidiFile from "./MidiFile";
+import { JSONGenerator } from "../json/jsongenerator/JSONGenerator";
+import { MidiFile } from "./MidiFile";
 
-export default (mf: MidiFile, path: string): boolean => {
+export const save = (mf: MidiFile, path: string): boolean => {
   const midi = new Midi();
 
   initializeUninitializedValues(mf);
@@ -16,7 +16,7 @@ export default (mf: MidiFile, path: string): boolean => {
 
   try {
     fs.writeFileSync(path, array);
-  } catch (err) {
+  } catch {
     return false;
   }
 

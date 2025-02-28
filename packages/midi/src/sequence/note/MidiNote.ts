@@ -1,12 +1,8 @@
 import { Time } from "@datune/utils";
-import MidiPitch from "pitch/MidiPitch";
+import { MidiPitch } from "pitch/MidiPitch";
 
-type Dto = {
+export type MidiNote = {
   pitch: MidiPitch;
   duration: Time;
   velocity: number;
 };
-
-type RDto = Readonly<Dto>;
-
-export default RDto;

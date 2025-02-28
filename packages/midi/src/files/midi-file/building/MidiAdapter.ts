@@ -2,16 +2,16 @@ import { MusicalDuration } from "@datune/core/time";
 import { Midi, Track as InnerTrack } from "@tonejs/midi";
 import { Instrument as InnerInstrument } from "@tonejs/midi/dist/Instrument";
 import { Note as InnerNote } from "@tonejs/midi/dist/Note";
+import { MidiNode } from "../../../sequence/node/MidiNode";
+import { Track } from "../../track/Track";
+import { MidiFile } from "../MidiFile";
 import { Instrument } from "files/instrument";
-import Channel from "files/track/Channel";
+import { Channel } from "files/track/Channel";
 import { fromCode } from "pitch/building";
-import MidiCode from "pitch/MidiCode";
+import { MidiCode } from "pitch/MidiCode";
 import { nodeFrom, noteFrom } from "sequence";
-import MidiNode from "../../../sequence/node/MidiNode";
-import Track from "../../track/Track";
-import MidiFile from "../MidiFile";
 
-export default class MidiAdapter {
+export class MidiAdapter {
   private innerMidi: Midi;
 
   constructor(innerMidi: Midi) {

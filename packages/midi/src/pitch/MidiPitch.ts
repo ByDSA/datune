@@ -1,7 +1,7 @@
 import { SPN } from "@datune/core/spns/chromatic";
 import { Dto } from "./caching";
 
-export default class Pitch {
+export class MidiPitch {
   spn: SPN;
 
   detuned: number;

@@ -1,12 +1,13 @@
-import { SIXTEENTH, ZERO } from "@datune/core/time";
-import Track, { DEFAULT } from "files/track/Track";
-import * as fs from "fs";
+/* eslint-disable prefer-destructuring */
+import * as fs from "node:fs";
+import { SIXTEENTH, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
+import { load } from "./load";
+import { MidiFile } from "./MidiFile";
+import { save } from "./save";
+import { Track, DEFAULT } from "files/track/Track";
 import { AA5, C5, C6, D5, DD5, F5, G5, GG5 } from "pitch";
 import { MidiNode, nodeFrom, noteFrom } from "sequence";
 import { TestInit } from "tests";
-import load from "./load";
-import MidiFile from "./MidiFile";
-import save from "./save";
 
 TestInit.initAll();
 
@@ -93,6 +94,7 @@ it("save + load info", () => {
   } );
 
   expect(nodes[5]).toStrictEqual(expectedNode5);
+
   const expectedNode6 = nodeFrom( {
     at: SIXTEENTH * 21,
     note: noteFrom( {
@@ -132,7 +134,7 @@ function sample1() {
     note: noteFrom( {
       pitch: p,
       duration: SIXTEENTH * (i + 1),
-      velocity: 80 + 5 * i,
+      velocity: 80 + (5 * i),
     } ),
   } ));
   const track: Track = {

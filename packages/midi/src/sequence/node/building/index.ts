@@ -1,10 +1,9 @@
-/* eslint-disable import/prefer-default-export */
-import { ZERO } from "@datune/core/time";
+import { ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
 import { lock } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
 import { add } from "@datune/utils/time";
-import MidiNode from "../MidiNode";
-import EventFromType from "./EventFromType";
+import { MidiNode } from "../MidiNode";
+import { EventFromType } from "./EventFromType";
 
 export function from(obj: EventFromType): Readonly<MidiNode> {
   const event = obj.note;

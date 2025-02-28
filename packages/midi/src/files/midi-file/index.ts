@@ -1,11 +1,11 @@
 export {
-  default as load,
+  load,
 } from "./load";
 
 export {
-  default as MidiFile,
+  MidiFile,
 } from "./MidiFile";
 
 export {
-  default as save,
+  save,
 } from "./save";

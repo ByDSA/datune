@@ -1,8 +1,11 @@
-import { fromInt as pitchFromInt, NUMBER, Pitch as Note } from "@datune/core/pitches/chromatic";
-import { fromPitchOctave as spnFrom, SPN } from "@datune/core/spns/chromatic";
+import { Pitch as CPitch } from "@datune/core/pitches/chromatic";
+import { fromInt as cPitchFromInt } from "@datune/core/pitches/chromatic/building";
+import { NUMBER } from "@datune/core/pitches/chromatic/constants";
+import { SPN } from "@datune/core/spns/chromatic";
+import { fromPitchOctave as spnFrom } from "@datune/core/spns/symbolic/chromatic/building/pitch-octave";
 import { cache } from "../caching";
-import MidiCode from "../MidiCode";
-import Pitch from "../MidiPitch";
+import { MidiCode } from "../MidiCode";
+import { MidiPitch } from "../MidiPitch";
 
 export function from(spn: SPN, detuned: number = 0) {
   return cache.getOrCreate( {
@@ -11,7 +14,7 @@ export function from(spn: SPN, detuned: number = 0) {
   } );
 }
 
-export function fromFrequency(f: number): Pitch {
+export function fromFrequency(f: number): MidiPitch {
   const semis = 12 * Math.log2(f / 440);
   const roundSemis = Math.round(semis);
   let code = 69 + roundSemis as MidiCode;
@@ -28,10 +31,10 @@ export function fromFrequency(f: number): Pitch {
   return fromCode(code, detuned);
 }
 
-export function fromCode(code: MidiCode, detuned: number = 0): Pitch {
+export function fromCode(code: MidiCode, detuned: number = 0): MidiPitch {
   const octave = Math.floor(code / NUMBER);
-  const noteInt = code - NUMBER * octave;
-  const note: Note = pitchFromInt(noteInt);
+  const noteInt = code - (NUMBER * octave);
+  const note: CPitch = cPitchFromInt(noteInt);
   const spn: SPN = <SPN>spnFrom(note, octave - 1);
 
   return from(spn, detuned);
