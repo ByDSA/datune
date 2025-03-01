@@ -1,14 +1,13 @@
-/* eslint-disable camelcase */
-import { Options } from "parsing";
 import { Scale } from "@datune/core/scales/chromatic";
-import arrayStringify from "../../intervals/chromatic/array";
-import toStringName from "./name";
+import { stringifyIntervals } from "../../intervals/chromatic/array";
+import { getName } from "./name";
+import { Options } from "parsing";
 
-export default function toString(scale: Scale, options?: Options): string {
-  const name = toStringName(scale, options);
+export function stringifyScale(scale: Scale, options?: Options): string {
+  const name = getName(scale, options);
 
   if (name)
     return name;
 
-  return arrayStringify(scale.rootIntervals);
+  return stringifyIntervals(scale.rootIntervals);
 }

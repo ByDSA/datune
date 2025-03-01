@@ -1,9 +1,9 @@
 import { Degree } from "@datune/core/degrees/alt";
 import { alts } from "lang/generation/utils";
-import DDstringify from "strings/degrees/diatonic";
+import { stringifyDegree as stringifyDDegree } from "strings/degrees/diatonic";
 
-export default function stringify(obj: Degree): string {
+export function stringifyDegree(obj: Degree): string {
   const altsStr = alts(obj.alts);
 
-  return altsStr + DDstringify(obj.diatonicDegree);
+  return altsStr + stringifyDDegree(obj.diatonicDegree);
 }

@@ -1,15 +1,14 @@
-/* eslint-disable camelcase */
+import { Voicing } from "@datune/core/voicings/chromatic";
+import { stringifyLongName } from "./longName";
 import { Options } from "parsing";
 import { toPascalCase } from "parsing/utils";
-import arrayStringify from "strings/intervals/chromatic/array";
-import { Voicing } from "@datune/core/voicings/chromatic";
-import getName from "./longName";
+import { stringifyIntervals } from "strings/intervals/chromatic/array";
 
-export default function stringify(obj: Voicing, options?: Options): string {
-  const name = getName(obj, options);
+export function stringifyVoicing(obj: Voicing, options?: Options): string {
+  const name = stringifyLongName(obj, options);
 
   if (name)
     return toPascalCase(name);
 
-  return arrayStringify(obj.rootIntervals);
+  return stringifyIntervals(obj.rootIntervals);
 }

@@ -1,19 +1,22 @@
+import { Voicing } from "@datune/core/voicings/chromatic";
+import { COMMON } from "@datune/core/voicings/relative/chromatic/constants";
+import { normalizeInput } from "../normalizeInput";
 import { Options } from "parsing";
-import longName from "strings/voicings/chromatic";
-import shortName from "strings/voicings/chromatic/shortName";
-import { COMMON, Voicing } from "@datune/core/voicings/chromatic";
-import normalizeInput from "../normalizeInput";
+import { stringifyLongName } from "strings/voicings/chromatic/longName";
+import { stringifyShortName } from "strings/voicings/chromatic/shortName";
 
-export default function fromName(input: string, options?: Options): Voicing | null {
+export function parseFromName(input: string, options?: Options): Voicing | null {
   const normalizedInput = normalizeInput(input);
 
   for (const voicing of COMMON) {
-    const normalizedLongName = normalizeInput(longName(voicing, options));
+    const longName = stringifyLongName(voicing, options);
+    const normalizedLongName = longName ? normalizeInput(longName) : null;
 
     if (normalizedInput === normalizedLongName)
       return voicing;
 
-    const normalizedShortName = normalizeInput(shortName(voicing, options));
+    const shortName = stringifyShortName(voicing, options);
+    const normalizedShortName = normalizeInput(shortName);
 
     if (normalizedInput === normalizedShortName)
       return voicing;

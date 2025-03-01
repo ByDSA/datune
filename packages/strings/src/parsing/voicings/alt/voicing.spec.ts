@@ -1,11 +1,15 @@
+/* eslint-disable max-len */
 /* eslint-disable camelcase */
+import { Voicings } from "@datune/core/voicings/alt";
+import { parseVoicing } from ".";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
-import { POWER_CHORD, SEVENTH, SEVENTH_b5, SEVENTH_MAJ7_b5, SIXTH, THIRTEENTH_a5b9, THIRTEENTH_MAJ13_b5a9, THIRTEENTH_MINOR, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_QUARTAL } from "@datune/core/voicings/alt";
-import fromString from ".";
 
 TestInit.diatonicAltVoicing();
 TestLang.loadAll();
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { POWER_CHORD, SEVENTH, SEVENTH_b5, SEVENTH_MAJ7_b5, SIXTH, THIRTEENTH_a5b9, THIRTEENTH_MAJ13_b5a9, THIRTEENTH_MINOR, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_QUARTAL } = Voicings;
 
 describe.each([
   [LangId.ES, "m", TRIAD_MINOR],
@@ -28,9 +32,9 @@ describe.each([
   [LangId.ES, "treceava maj13 b5#9", THIRTEENTH_MAJ13_b5a9],
   [LangId.EN, "P1 M3 d5 M7", SEVENTH_MAJ7_b5],
   [LangId.ES, "P1 M3 d5 M7", SEVENTH_MAJ7_b5],
-])("fromString", (langId, str, expectedVoicing) => {
+])("parse", (langId, str, expectedVoicing) => {
   it(`${langId} - "${str}" => ${expectedVoicing}`, () => {
-    const actual = fromString(str, {
+    const actual = parseVoicing(str, {
       langId,
     } );
 
@@ -42,7 +46,7 @@ describe.each([
   ["P1 M3 d5 M7", SEVENTH_MAJ7_b5],
 ])("intervals", (str, expected) => {
   it(`"${str}" => ${expected}`, () => {
-    const actual = fromString(str);
+    const actual = parseVoicing(str);
 
     expect(actual).toBe(expected);
   } );

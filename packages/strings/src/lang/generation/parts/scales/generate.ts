@@ -1,9 +1,10 @@
+/* eslint-disable camelcase */
 /* eslint-disable accessor-pairs */
 import { alts } from "../../utils";
-import Input from "./Input";
-import Part from "./Part";
+import { ScalesInput as Input } from "./Input";
+import { ScalesPart as Part } from "./Part";
 
-export default function generate(input: Input): Part {
+export function scalesGenerate(input: Input): Part {
   return {
     MAJOR: input.MAJOR,
     IONIAN: input.IONIAN,

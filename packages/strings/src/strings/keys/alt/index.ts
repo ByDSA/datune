@@ -1,8 +1,8 @@
 import { Key } from "@datune/core/keys/alt";
 import { Options } from "lang";
-import pitchStringify from "strings/pitches/alt";
-import scaleStringify from "strings/scales/alt";
+import { stringifyPitch } from "strings/pitches/alt";
+import { stringifyScale } from "strings/scales/alt";
 
-export default function stringify(obj: Key, options?: Options): string {
-  return `${pitchStringify(obj.root, options)} ${scaleStringify(obj.scale, options)}`;
+export function stringifyKey(obj: Key, options?: Options): string {
+  return `${stringifyPitch(obj.root, options)} ${stringifyScale(obj.scale, options)}`;
 }

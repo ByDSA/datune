@@ -1,7 +1,7 @@
-import { Options } from "lang";
 import { SPN } from "@datune/core/spns/chromatic";
-import pitchStringify from "../../pitches/chromatic";
+import { stringifyPitch } from "../../pitches/chromatic";
+import { Options } from "lang";
 
-export default function toString(obj: SPN, options?: Options): string {
-  return pitchStringify(obj.pitch, options) + obj.octave;
+export function stringifySpn(obj: SPN, options?: Options): string {
+  return stringifyPitch(obj.pitch, options) + obj.octave;
 }

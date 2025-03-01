@@ -1,9 +1,9 @@
 import { Interval } from "@datune/core/intervals/chromatic";
-import parseInterval from ".";
-import splitArray from "../../utils/splitArray";
-import normalizeIntervalsInput from "../normalizeIntervalsInput";
+import { splitArray } from "../../utils/splitArray";
+import { normalizeIntervalsInput } from "../normalizeIntervalsInput";
+import { parseInterval } from ".";
 
-export default function fromIntervals(input: string): Interval[] | null {
+export function parseIntervalArray(input: string): Interval[] | null {
   const normalizedInput = normalizeIntervalsInput(input);
   const splitedStr: string[] | null = splitArray(normalizedInput);
 

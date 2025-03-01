@@ -1,6 +1,6 @@
 import { ConcertPitch } from "@datune/core/concert-pitches/chromatic";
-import spnStringify from "strings/spns/chromatic";
+import { stringifySpn } from "strings/spns/chromatic";
 
-export default function stringify(obj: ConcertPitch): string {
-  return `${spnStringify(obj.spn)}-${obj.frequency}`;
+export function stringifyConcertPitch(obj: ConcertPitch): string {
+  return `${stringifySpn(obj.spn)}-${obj.frequency}`;
 }

@@ -1,5 +1,5 @@
-import { CstParser } from "chevrotain";
 import { ParserTokens, toArray } from "./ParserTokens";
+import { CstParser } from "chevrotain";
 
 export type ParserType = {
   keyStatement: ()=> any;
@@ -7,7 +7,7 @@ export type ParserType = {
   scaleStatement: ()=> any;
 };
 
-export default class Parser extends CstParser {
+export class Parser extends CstParser {
   constructor(tokens: ParserTokens) {
     super(toArray(tokens));
 

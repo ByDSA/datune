@@ -1,7 +1,7 @@
+import { A, B, C, D, E, F, G } from "@datune/core/pitches/diatonic/constants";
+import { stringifyPitch } from ".";
 import { LangId } from "lang";
-import { A, B, C, D, E, F, G } from "@datune/core/pitches/diatonic";
 import { TestLang } from "tests";
-import stringify from ".";
 
 TestLang.loadAll();
 
@@ -22,7 +22,7 @@ describe.each([
   [LangId.ES, B, "Si"],
 ])("stringify", (langId: LangId, chromatic: any, expected: string) => {
   it(`(${langId}, ${chromatic}) => ${expected}`, () => {
-    const actual = stringify(chromatic, {
+    const actual = stringifyPitch(chromatic, {
       langId,
     } );
 

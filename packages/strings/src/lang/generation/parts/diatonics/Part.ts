@@ -1,4 +1,4 @@
-type Part = {
+export type DiatonicsPart = {
   C: string;
   D: string;
   E: string;
@@ -7,5 +7,3 @@ type Part = {
   A: string;
   B: string;
 };
-
-export default Part;

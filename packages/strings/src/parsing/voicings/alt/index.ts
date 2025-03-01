@@ -1,15 +1,15 @@
-import { Options } from "parsing";
 import { Voicing } from "@datune/core/voicings/alt";
-import fromIntervals from "./intervals";
-import fromName from "./name";
+import { parseFromIntervals } from "./intervals";
+import { parseFromName } from "./name";
+import { Options } from "parsing";
 
-export default function parse(input: string, options?: Options): Voicing | null {
-  let voicing = fromName(input, options);
+export function parseVoicing(input: string, options?: Options): Voicing | null {
+  let voicing = parseFromName(input, options);
 
   if (voicing)
     return voicing;
 
-  voicing = fromIntervals(input);
+  voicing = parseFromIntervals(input);
 
   if (voicing)
     return voicing;

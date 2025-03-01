@@ -1,7 +1,7 @@
-import { Array } from "@datune/core/degrees/alt";
-import stringify from ".";
+import { DegreeArray } from "@datune/core/degrees/alt";
+import { stringifyDegree } from ".";
 
-export default function stringifyArray(degrees: Array): string {
+export function stringifyArray(degrees: DegreeArray): string {
   let first = true;
   let ret: string = "";
 
@@ -11,7 +11,7 @@ export default function stringifyArray(degrees: Array): string {
     else
       ret += "-";
 
-    ret += stringify(degree);
+    ret += stringifyDegree(degree);
   } );
 
   return ret;

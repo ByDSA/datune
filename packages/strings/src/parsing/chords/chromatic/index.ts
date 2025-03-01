@@ -1,12 +1,14 @@
 import { ParserBottomUp } from "@datune/utils";
-import { bass, Chord, fromRootVoicing } from "@datune/core/chords/chromatic";
-import { Options } from "lang";
-import parsePitch from "parsing/pitches/chromatic";
-import parseVoicing from "parsing/voicings/chromatic";
+import { Chord } from "@datune/core/chords/chromatic";
+import { fromRootVoicing } from "@datune/core/chords/octave/chromatic/building/root-voicing";
+import { bass } from "@datune/core/chords/octave/chromatic/modifiers";
 import { Pitch } from "@datune/core/pitches/chromatic";
 import { Voicing } from "@datune/core/voicings/chromatic";
-import ChordStringAbstract from "../ChordStringAbstract";
-import normalizeInput from "../normalizeInput";
+import { ChordStringAbstract } from "../ChordStringAbstract";
+import { normalizeInput } from "../normalizeInput";
+import { parseVoicing } from "parsing/voicings/chromatic";
+import { parsePitch } from "parsing/pitches/chromatic";
+import { Options } from "lang";
 
 class ChromaticChordString extends ChordStringAbstract<Chord> {
   static from(input: string, options?: Options): ChromaticChordString {
@@ -49,7 +51,6 @@ class ChromaticChordString extends ChordStringAbstract<Chord> {
     let baseChordStr;
     let bassStr;
 
-    // eslint-disable-next-line prefer-const
     [baseChordStr, bassStr] = strValueSplited;
 
     const baseChord: Chord | null = ChromaticChordString.from(baseChordStr).parse();
@@ -62,6 +63,6 @@ class ChromaticChordString extends ChordStringAbstract<Chord> {
   }
 }
 
-export default function fromString(str: string, options?: Options): Chord | null {
+export function parseChord(str: string, options?: Options): Chord | null {
   return ChromaticChordString.from(str, options).parse();
 }

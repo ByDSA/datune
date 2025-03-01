@@ -1,13 +1,14 @@
-import { Direction, ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH, FOURTH, Interval as IntervalDiatonic, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH, TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } from "@datune/core/intervals/diatonic";
+import { Interval, IntervalDirection } from "@datune/core/intervals/diatonic";
+import { ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH, FOURTH, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH, TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } from "@datune/core/intervals/symbolic/diatonic/constants";
 
-export default function toString(obj: IntervalDiatonic): string {
-  if (obj.direction === Direction.DESCENDENT)
+export function stringifyInterval(obj: Interval): string {
+  if (obj.direction === IntervalDirection.DESCENDENT)
     return `-${absName(obj)}`;
 
   return absName(obj);
 }
 
-function absName(obj: IntervalDiatonic): string {
+function absName(obj: Interval): string {
   const absInt = obj.magnitude;
 
   switch (absInt) {

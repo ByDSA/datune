@@ -1,7 +1,7 @@
-import fs from "fs";
+import fs from "node:fs";
+import { Language } from "../Language";
 import { LangId } from "lang";
 import { putLang } from "lang/db";
-import Language from "../Language";
 
 export type Params = {
   folder?: string;
@@ -19,12 +19,12 @@ export function loadFromFile(params: Params): Language | null {
     const lang = JSON.parse(readLang) as Language;
 
     return loadFromJSON(lang);
-  } catch (e) {
+  } catch {
     return null;
   }
 }
 
-export function loadFromJSON(json: {} ): Language | null {
+export function loadFromJSON(json: object): Language | null {
   try {
     const lang = json as Language;
 
@@ -34,7 +34,7 @@ export function loadFromJSON(json: {} ): Language | null {
     putLang(lang);
 
     return lang;
-  } catch (e) {
+  } catch {
     return null;
   }
 }

@@ -1,47 +1,47 @@
 export {
-  default as stringifyChord,
+  stringifyChord,
 } from "./chords/chromatic";
 
 export {
-  default as stringifyConcertPitch,
+  stringifyConcertPitch,
 } from "./concert-pitches/chromatic";
 
 export {
-  default as stringifyDegree,
+  stringifyDegree,
 } from "./degrees/chromatic";
 
 export {
-  default as stringifyFunction,
+  stringifyHarmonicFunction as stringifyFunction,
 } from "./functions/chromatic";
 
 export {
-  default as stringifyInterval,
+  stringifyInterval,
 } from "./intervals/chromatic";
 
 export {
-  default as stringifyIntervalArray,
+  stringifyIntervals as stringifyIntervalArray,
 } from "./intervals/chromatic/array";
 
 export {
-  default as stringifyKey,
+  stringifyKey,
 } from "./keys/chromatic";
 
 export {
-  default as stringifyPitch,
+  stringifyPitch,
 } from "./pitches/chromatic";
 
 export {
-  default as stringifyScale,
+  stringifyScale,
 } from "./scales/chromatic";
 
 export {
-  default as stringifySPN,
+  stringifySpn as stringifySPN,
 } from "./spns/chromatic";
 
 export {
-  default as stringifyTemperament,
+  stringifyTemperament,
 } from "./temperaments/chromatic";
 
 export {
-  default as stringifyDuration,
+  stringifyMusicalDuration as stringifyDuration,
 } from "./time/musical-duration";

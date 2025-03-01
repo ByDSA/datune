@@ -1,6 +1,6 @@
 import { Interval } from "@datune/core/intervals/alt";
 
-export default function f(obj: Interval): string {
+export function stringifyInterval(obj: Interval): string {
   const diatonicIntervalInt = +obj.diatonicInterval;
   const qualityShortName = String(obj.quality);
 

@@ -1,11 +1,11 @@
-import Language from "../../../Language";
-import generate from "../../generate";
-import Input from "./Input";
+import { Language } from "../../../Language";
+import { generate } from "../../generate";
+import { INPUT_EN } from "./Input";
 
-export default function generateThisLang(): Language {
+export function generateEn(): Language {
   return generate( {
     id: "en",
     name: "English",
-    base: Input,
+    base: INPUT_EN,
   } );
 }

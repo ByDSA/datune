@@ -1,6 +1,7 @@
 import type { Scale } from "../Scale";
 import type { DegreeArray } from "degrees/alt";
-import { Functions, DegreeFunction } from "functions/alt";
+import { DegreeFunction } from "functions/alt/degree-function/DegreeFunction";
+import { Functions } from "functions/alt";
 import { from } from "functions/alt/degree-function/building";
 import { Voicings } from "voicings/relative/alt";
 

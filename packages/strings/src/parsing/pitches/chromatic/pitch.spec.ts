@@ -1,8 +1,10 @@
+import { Pitch } from "@datune/core/pitches/chromatic";
+import { A, AA, Ab, B, Bb, C, CC } from "@datune/core/pitches/chromatic/constants";
+import { add } from "@datune/core/pitches/chromatic/modifiers";
+import { parsePitch } from ".";
 import { LangId } from "lang";
-import { A, AA, Ab, add, B, Bb, C, CC, Pitch } from "@datune/core/pitches/chromatic";
-import stringify from "strings/pitches/chromatic";
+import { stringifyPitch } from "strings/pitches/chromatic";
 import { TestLang } from "tests";
-import parse from ".";
 
 TestLang.loadAll();
 
@@ -28,13 +30,13 @@ describe.each([
   [LangId.EN, "Cbbbb", null],
 ])("from string", (langId: LangId, str: string, pitch: Pitch | null) => {
   const pitchName = pitch
-    ? stringify(pitch, {
+    ? stringifyPitch(pitch, {
       langId,
     } )
     : "null";
 
   it(`(${langId}, "${str}") => ${pitchName}`, () => {
-    const actual = parse(str, {
+    const actual = parsePitch(str, {
       langId,
     } );
 
@@ -49,13 +51,13 @@ describe.each([
   [LangId.EN, "A♯", AA],
 ])("reversibles", (langId: LangId, str: string, pitch: Pitch) => {
   const pitchName = pitch
-    ? stringify(pitch, {
+    ? stringifyPitch(pitch, {
       langId,
     } )
     : "null";
 
   it(`(${langId}, "${str}") => ${pitchName}`, () => {
-    const actual = parse(str, {
+    const actual = parsePitch(str, {
       langId,
     } );
 
@@ -63,7 +65,7 @@ describe.each([
   } );
 
   it(`(${langId}, ${pitchName}) => "${str}"`, () => {
-    const actual = stringify(pitch, {
+    const actual = stringifyPitch(pitch, {
       langId,
     } );
 

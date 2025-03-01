@@ -1,9 +1,10 @@
+import { Pitch } from "@datune/core/pitches/chromatic";
+import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } from "@datune/core/pitches/chromatic/constants";
 import { alts } from "lang/generation/utils";
 import { getLangFromOptions } from "lang/Options";
 import { Options } from "parsing";
-import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG, Pitch as Chromatic } from "@datune/core/pitches/chromatic";
 
-export default function f(obj: Chromatic, options?: Options): string {
+export function stringifyPitch(obj: Pitch, options?: Options): string {
   const lang = getLangFromOptions(options);
 
   switch (obj) {

@@ -1,7 +1,7 @@
-import Input from "./Input";
-import Part from "./Part";
+import { TemperamentsInput } from "./Input";
+import { TemperamentsPart } from "./Part";
 
-export default function temperamentsGenerate(basePart: Input): Part {
+export function temperamentsGenerate(basePart: TemperamentsInput): TemperamentsPart {
   return {
     ET12: basePart.ET12,
     LIMIT_5_SYMMETRIC_N1: `${basePart.LIMIT_5_SYMMETRIC}1`,

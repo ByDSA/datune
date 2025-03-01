@@ -1,8 +1,8 @@
 import { Key } from "@datune/core/keys/chromatic";
+import { stringifyPitch } from "../../pitches/chromatic";
+import { stringifyScale } from "../../scales/chromatic";
 import { Options } from "lang";
-import pitchStringify from "../../pitches/chromatic";
-import scaleStringify from "../../scales/chromatic";
 
-export default function stringify(obj: Key, options?: Options): string {
-  return `${pitchStringify(obj.root, options)} ${scaleStringify(obj.scale, options)}`;
+export function stringifyKey(obj: Key, options?: Options): string {
+  return `${stringifyPitch(obj.root, options)} ${stringifyScale(obj.scale, options)}`;
 }

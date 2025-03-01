@@ -1,14 +1,14 @@
-import { IRecognitionException } from "chevrotain";
-import { getLangIdFromOptions } from "lang";
-import TokensParserOptions from "./Options";
-import Parser, { ParserType } from "./Parser";
+import { TokensParserOptions } from "./Options";
+import { Parser, ParserType } from "./Parser";
 import { getParserTokens } from "./ParserTokens";
+import { getLangIdFromOptions } from "lang";
+import { IRecognitionException } from "chevrotain";
 
 type InnerOptions = TokensParserOptions & {
   statement: (parser: ParserType)=> any;
 };
 
-export default function innerParse(options: InnerOptions) {
+export function innerParse(options: InnerOptions) {
   const langId = getLangIdFromOptions(options);
   const parserTokens = getParserTokens(langId);
   const parser = new Parser(parserTokens);

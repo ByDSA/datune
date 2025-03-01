@@ -1,11 +1,11 @@
 export {
-  default as diatonicsGenerate,
+  diatonicsGenerate,
 } from "./generate";
 
 export {
-  default as DiatonicsInput,
+  DiatonicsInput,
 } from "./Input";
 
 export {
-  default as DiatonicsPart,
+  DiatonicsPart,
 } from "./Part";

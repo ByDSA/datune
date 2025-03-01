@@ -1,9 +1,9 @@
 export {
-  default as Options,
+  Options,
 } from "../lang/Options";
 
 export {
-  default as tokenize,
+  tokenize,
 } from "./utils/tokenize";
 
 export * from "./utils/tokens";

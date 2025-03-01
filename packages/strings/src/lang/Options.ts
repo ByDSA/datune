@@ -1,14 +1,12 @@
 import { getLang } from "./db";
-import LangId from "./LangId";
-import Language from "./Language";
+import { LangId } from "./LangId";
+import { Language } from "./Language";
 
 type PartialOptions = {
   langId: LangId;
 };
 
-type Options = Partial<PartialOptions>;
-
-export default Options;
+export type Options = Partial<PartialOptions>;
 
 export function getLangFromOptions(options?: Options): Language {
   return getLang(getLangIdFromOptions(options)) as Language;

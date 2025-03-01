@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
+import { AEOLIAN_b1, BLUES_b5, LYDIAN_b7, MAJOR, MINOR, SUPERLOCRIAN_bb7 } from "@datune/core/scales/symbolic/alt/constants";
+import { Scale } from "@datune/core/scales/alt";
+import { parseScale } from ".";
 import { LangId } from "lang";
-import { AEOLIAN_b1, BLUES_b5, LYDIAN_b7, MAJOR, MINOR, Scale, SUPERLOCRIAN_bb7 } from "@datune/core/scales/alt";
-import stringify from "strings/scales/alt";
+import { stringifyScale } from "strings/scales/alt";
 import { TestInit, TestLang } from "tests";
-import parseScale from ".";
 
 TestInit.diatonicAltScale();
 TestLang.loadAll();
@@ -28,7 +29,7 @@ describe.each([
   [LangId.EN, "SUPERLOCRIAN bb7", SUPERLOCRIAN_bb7],
   [LangId.EN, "M2:M2-m2, M2-M2:M2-m2", MAJOR],
 ])("tests", (langId: LangId, name: string, scale: Scale | null) => {
-  it(`${langId} ${scale ? stringify(scale) : "null"} name="${name}"`, () => {
+  it(`${langId} ${scale ? stringifyScale(scale) : "null"} name="${name}"`, () => {
     const actual = parseScale(name, {
       langId,
     } );

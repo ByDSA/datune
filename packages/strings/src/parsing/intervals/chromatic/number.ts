@@ -1,6 +1,6 @@
 import { Interval } from "@datune/core/intervals/chromatic";
 
-export default function fromString(str: string): Interval | null {
+export function parseFromNumber(str: string): Interval | null {
   const ret = +str;
 
   if (Number.isNaN(ret))

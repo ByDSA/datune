@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
+import { Scales } from "@datune/core/scales/chromatic";
+import { parseScale } from ".";
 import { LangId } from "lang";
-import { AEOLIAN_b1, BLUES_b5, LYDIAN_b7, MAJOR, SUPERLOCRIAN_bb7 } from "@datune/core/scales/chromatic";
-import stringify from "strings/scales/chromatic";
+import { stringifyScale } from "strings/scales/chromatic";
 import { TestInit, TestLang } from "tests";
-import parseScale from ".";
 
 TestInit.chromaticScale();
 TestLang.loadAll();
+
+const { AEOLIAN_b1, BLUES_b5, LYDIAN_b7, MAJOR, SUPERLOCRIAN_bb7 } = Scales;
 
 describe.each([
   [LangId.ES, "Mayor", MAJOR],
@@ -29,7 +32,7 @@ describe.each([
   [LangId.EN, "LuEsB5", null],
 ])("manual name", (langId, str, expected) => {
   const scaleName = expected
-    ? stringify(expected, {
+    ? stringifyScale(expected, {
       langId,
     } )
     : "null";

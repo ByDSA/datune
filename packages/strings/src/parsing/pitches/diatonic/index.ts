@@ -1,18 +1,19 @@
+import { Pitch } from "@datune/core/pitches/diatonic";
+import { A, B, C, D, E, F, G } from "@datune/core/pitches/diatonic/constants";
 import { Options } from "lang";
-import { A, B, C, D, E, F, G, Pitch } from "@datune/core/pitches/diatonic";
-import stringify from "strings/pitches/diatonic";
+import { stringifyPitch } from "strings/pitches/diatonic";
 
-export default function parse(strValue: string, options?: Options): Pitch | null {
+export function parse(strValue: string, options?: Options): Pitch | null {
   const fixedStrValue = normalizeInputString(strValue);
 
   switch (fixedStrValue) {
-    case stringify(C, options): return C;
-    case stringify(D, options): return D;
-    case stringify(E, options): return E;
-    case stringify(F, options): return F;
-    case stringify(G, options): return G;
-    case stringify(A, options): return A;
-    case stringify(B, options): return B;
+    case stringifyPitch(C, options): return C;
+    case stringifyPitch(D, options): return D;
+    case stringifyPitch(E, options): return E;
+    case stringifyPitch(F, options): return F;
+    case stringifyPitch(G, options): return G;
+    case stringifyPitch(A, options): return A;
+    case stringifyPitch(B, options): return B;
     default: return null;
   }
 }

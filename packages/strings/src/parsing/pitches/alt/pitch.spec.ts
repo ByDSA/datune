@@ -1,12 +1,15 @@
+import { Pitches, Pitch } from "@datune/core/pitches/alt";
+import { C as D_C } from "@datune/core/pitches/diatonic/constants";
+import { parsePitch } from ".";
 import { LangId } from "lang";
-import { AA, AAA, Ab, B, Bb, Bbb, BBB, C, fromDiatonicAlts, Pitch } from "@datune/core/pitches/alt";
-import { C as D_C } from "@datune/core/pitches/diatonic";
-import stringify from "strings/pitches/alt";
+import { stringifyPitch } from "strings/pitches/alt";
 import { TestInit, TestLang } from "tests";
-import parse from ".";
 
 TestInit.diatonicAlt();
 TestLang.loadAll();
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { AA, AAA, Ab, B, Bb, Bbb, BBB, C, fromDiatonicAlts } = Pitches;
 
 describe.each([
   [LangId.ES, "do", C],
@@ -29,10 +32,10 @@ describe.each([
   [LangId.EN, "C####", null],
   [LangId.EN, "Cbbbb", null],
 ])("from string", (langId: LangId, str: string, pitch: Pitch | null) => {
-  const pitchName = pitch ? stringify(pitch) : "null";
+  const pitchName = pitch ? stringifyPitch(pitch) : "null";
 
   it(`(${langId}, "${str}") => ${pitchName}`, () => {
-    const actual = parse(str, {
+    const actual = parsePitch(str, {
       langId,
     } );
 
@@ -46,10 +49,10 @@ describe.each([
   [LangId.ES, "Si", B],
   [LangId.EN, "A♯", AA],
 ])("reversibles", (langId: LangId, str: string, pitch: Pitch) => {
-  const pitchName = pitch ? stringify(pitch) : "null";
+  const pitchName = pitch ? stringifyPitch(pitch) : "null";
 
   it(`(${langId}, "${str}") => ${pitchName}`, () => {
-    const actual = parse(str, {
+    const actual = parsePitch(str, {
       langId,
     } );
 
@@ -57,7 +60,7 @@ describe.each([
   } );
 
   it(`(${langId}, ${pitchName}) => "${str}"`, () => {
-    const actual = stringify(pitch, {
+    const actual = stringifyPitch(pitch, {
       langId,
     } );
 

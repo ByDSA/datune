@@ -1,71 +1,69 @@
-import { initialize as chromaticSetInitialize } from "@datune/core/sets/pitch-set/chromatic";
-import { initialize as bpmInitialize } from "@datune/core/time/symbolic/bpm";
-import { initialize as musicalDurationInitialize } from "@datune/core/time/symbolic/musical-duration";
-import { initialize as rhythmPatternInitialize } from "@datune/core/time/symbolic/rhythm/pattern";
-import { initialize as diatonicAltChordInitialize } from "@datune/core/chords/alt";
-import { initialize as chromaticChordInitialize } from "@datune/core/chords/chromatic";
-import { initialize as chromaticConcertPitchInitialize } from "@datune/core/concert-pitches/chromatic";
-import { initialize as diatonicAltDegreeInitialize } from "@datune/core/degrees/alt";
-import { initialize as chromaticDegreeInitialize } from "@datune/core/degrees/chromatic";
-import { initialize as diatonicAltFunctionInitialize } from "@datune/core/functions/alt";
-import { initialize as chromaticFunctionInitialize } from "@datune/core/functions/chromatic";
-import { initialize as intervalPitchInitialize } from "@datune/core/intervals/real";
+import { initialize as initAltChords } from "@datune/core/chords/octave/alt/constants/constants";
+import { initialize as initCChords } from "@datune/core/chords/octave/chromatic/constants";
+import { initialize as initCConcerPitches } from "@datune/core/concert-pitches/chromatic/constants";
+import { initialize as initAltDegrees } from "@datune/core/degrees/alt/constants";
+import { initialize as initAltFunctions } from "@datune/core/functions/alt/constants";
+import { initialize as initRIntervals } from "@datune/core/intervals/real/constants";
 import { initialize as diatonicAltIntervalInitialize } from "@datune/core/intervals/symbolic/alt/constants";
-import { initialize as diatonicIntervalInitialize } from "@datune/core/intervals/symbolic/diatonic";
-import { initialize as diatonicAltKeyInitialize } from "@datune/core/keys/alt";
-import { initialize as chromaticKeyInitialize } from "@datune/core/keys/chromatic";
-import { initialize as diatonicAltInitialize } from "@datune/core/pitches/alt";
-import { initialize as realScaleInitialize } from "@datune/core/scales/real";
-import { initialize as diatonicAltScaleInitialize } from "@datune/core/scales/symbolic/alt";
-import { initialize as chromaticScaleInitialize } from "@datune/core/scales/symbolic/chromatic";
-import { initialize as diatonicAltSPNInitialize } from "@datune/core/spns/symbolic/alt";
-import { initialize as chromaticSPNInitialize } from "@datune/core/spns/symbolic/chromatic";
-import { initialize as temperamentChromaticInitialize } from "@datune/core/temperaments/chromatic";
-import { initialize as tuningInitialize } from "@datune/core/tunings/chromatic";
-import { initialize as diatonicAltVoicingInitialize } from "@datune/core/voicings/alt";
-import { initialize as chromaticVoicingInitialize } from "@datune/core/voicings/chromatic";
-import { initialize as diatonicVoicingInitialize } from "@datune/core/voicings/diatonic";
+import { initialize as initDIntervals } from "@datune/core/intervals/symbolic/diatonic/constants";
+import { initialize as initAltPitches } from "@datune/core/pitches/alt/constants";
+import { initialize as initRScales } from "@datune/core/scales/real/constants";
+import { initialize as initAltScales } from "@datune/core/scales/symbolic/alt/constants";
+import { initialize as initCScales } from "@datune/core/scales/symbolic/chromatic/constants";
+import { initialize as initAltKeys } from "@datune/core/keys/alt/constants";
+import { initialize as initCKeys } from "@datune/core/keys/chromatic/constants";
+import { initialize as initCPitchSets } from "@datune/core/sets/pitch-set/chromatic/constants";
+import { initialize as initAltSPNs } from "@datune/core/spns/symbolic/alt/constants";
+import { initialize as initCSPNs } from "@datune/core/spns/symbolic/chromatic/constants";
+import { initialize as initCTemperaments } from "@datune/core/temperaments/chromatic/constants";
+import { initialize as initBPMs } from "@datune/core/time/symbolic/bpm/constants";
+import { initialize as initMusicalDurations } from "@datune/core/time/symbolic/musical-duration/constants";
+import { initialize as initPatterns } from "@datune/core/time/symbolic/rhythm/pattern/constants";
+import { initialize as initCTunings } from "@datune/core/tunings/chromatic/constants";
+import { initialize as initAltVoicings } from "@datune/core/voicings/relative/alt/constants";
+import { initialize as initCVoicings } from "@datune/core/voicings/relative/chromatic/constants";
+import { initialize as initDVoicings } from "@datune/core/voicings/relative/diatonic/constants";
+import { initCFunctions } from "@datune/core/initialization/initializeCommon";
 
-export default class TestInit {
+export class TestInit {
   static realScale() {
     this.realInterval();
     try {
-      realScaleInitialize();
-    } catch (e) {
+      initRScales();
+    } catch {
       // ignore
     }
   }
 
-  static chromaticSet() {
+  static chromaticPitchSet() {
     try {
-      chromaticSetInitialize();
-    } catch (e) {
+      initCPitchSets();
+    } catch {
       // ignore
     }
   }
 
   static chromaticFunction() {
     this.chromaticVoicing();
-    this.chromaticDegree();
     try {
-      chromaticFunctionInitialize();
-    } catch (e) {
+      initCFunctions();
+    } catch {
       // ignore
     }
   }
 
   static diatonicAlt() {
     try {
-      diatonicAltInitialize();
-    } catch (e) {
+      initAltPitches();
+    } catch {
       // ignore
     }
   }
 
   static diatonicInterval() {
     try {
-      diatonicIntervalInitialize();
-    } catch (e) {
+      initDIntervals();
+    } catch {
       // ignore
     }
   }
@@ -75,8 +73,8 @@ export default class TestInit {
     this.diatonicAltVoicing();
     this.diatonicAltDegree();
     try {
-      diatonicAltFunctionInitialize();
-    } catch (e) {
+      initAltFunctions();
+    } catch {
       // ignore
     }
   }
@@ -84,10 +82,10 @@ export default class TestInit {
   static diatonicAltKey() {
     this.diatonicAlt();
     this.diatonicAltScale();
-    diatonicAltKeyInitialize();
+    initAltKeys();
     try {
-      diatonicAltKeyInitialize();
-    } catch (e) {
+      initAltKeys();
+    } catch {
       // ignore
     }
   }
@@ -95,16 +93,16 @@ export default class TestInit {
   static chromaticKey() {
     this.chromaticScale();
     try {
-      chromaticKeyInitialize();
-    } catch (e) {
+      initCKeys();
+    } catch {
       // ignore
     }
   }
 
   static chromaticScale() {
     try {
-      chromaticScaleInitialize();
-    } catch (e) {
+      initCScales();
+    } catch {
       // ignore
     }
   }
@@ -113,7 +111,7 @@ export default class TestInit {
     this.diatonicInterval();
     try {
       diatonicAltIntervalInitialize();
-    } catch (e) {
+    } catch {
       // ignore
     }
   }
@@ -123,24 +121,16 @@ export default class TestInit {
     this.diatonicAltInterval();
     this.chromaticScale(); // por .toAlt
     try {
-      diatonicAltScaleInitialize();
-    } catch (e) {
+      initAltScales();
+    } catch {
       // ignore
     }
   }
 
   static diatonicAltDegree() {
     try {
-      diatonicAltDegreeInitialize();
-    } catch (e) {
-      // ignore
-    }
-  }
-
-  static chromaticDegree() {
-    try {
-      chromaticDegreeInitialize();
-    } catch (e) {
+      initAltDegrees();
+    } catch {
       // ignore
     }
   }
@@ -148,58 +138,58 @@ export default class TestInit {
   static bpm() {
     this.musicalDuration();
     try {
-      bpmInitialize();
-    } catch (e) {
+      initBPMs();
+    } catch {
       // ignore
     }
   }
 
   static musicalDuration() {
     try {
-      musicalDurationInitialize();
-    } catch (e) {
+      initMusicalDurations();
+    } catch {
       // ignore
     }
   }
 
   static rhythmPattern() {
     try {
-      rhythmPatternInitialize();
-    } catch (e) {
+      initPatterns();
+    } catch {
       // ignore
     }
   }
 
   static realInterval() {
     try {
-      intervalPitchInitialize();
-    } catch (e) {
+      initRIntervals();
+    } catch {
       // ignore
     }
   }
 
   static chromaticChord() {
     this.chromaticVoicing();
-    chromaticChordInitialize();
+    initCChords();
     try {
-      chromaticChordInitialize();
-    } catch (e) {
+      initCChords();
+    } catch {
       // ignore
     }
   }
 
   static chromaticVoicing() {
     try {
-      chromaticVoicingInitialize();
-    } catch (e) {
+      initCVoicings();
+    } catch {
       // ignore
     }
   }
 
   static diatonicVoicing() {
     try {
-      diatonicVoicingInitialize();
-    } catch (e) {
+      initDVoicings();
+    } catch {
       // ignore
     }
   }
@@ -210,16 +200,16 @@ export default class TestInit {
     this.diatonicVoicing();
     this.diatonicAlt();
     try {
-      diatonicAltVoicingInitialize();
-    } catch (e) {
+      initAltVoicings();
+    } catch {
       // ignore
     }
   }
 
   static chromaticSPN() {
     try {
-      chromaticSPNInitialize();
-    } catch (e) {
+      initCSPNs();
+    } catch {
       // ignore
     }
   }
@@ -227,8 +217,8 @@ export default class TestInit {
   static diatonicAltSPN() {
     this.diatonicAlt();
     try {
-      diatonicAltSPNInitialize();
-    } catch (e) {
+      initAltSPNs();
+    } catch {
       // ignore
     }
   }
@@ -238,8 +228,8 @@ export default class TestInit {
     this.chromaticSPN();
     this.chromaticConcertPitch();
     try {
-      tuningInitialize();
-    } catch (e) {
+      initCTunings();
+    } catch {
       // ignore
     }
   }
@@ -247,8 +237,8 @@ export default class TestInit {
   static chromaticTemperament() {
     this.realInterval();
     try {
-      temperamentChromaticInitialize();
-    } catch (e) {
+      initCTemperaments();
+    } catch {
       // ignore
     }
   }
@@ -256,8 +246,8 @@ export default class TestInit {
   static chromaticConcertPitch() {
     this.chromaticSPN();
     try {
-      chromaticConcertPitchInitialize();
-    } catch (e) {
+      initCConcerPitches();
+    } catch {
       // ignore
     }
   }
@@ -265,8 +255,8 @@ export default class TestInit {
   static diatonicAltChord() {
     this.diatonicAltVoicing();
     try {
-      diatonicAltChordInitialize();
-    } catch (e) {
+      initAltChords();
+    } catch {
       // ignore
     }
   }

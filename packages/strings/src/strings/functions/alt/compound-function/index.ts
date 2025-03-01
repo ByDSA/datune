@@ -1,9 +1,9 @@
-/* eslint-disable import/prefer-default-export */
-import { CompoundFunction, V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI } from "@datune/core/functions/alt";
-import degreeStringify from "strings/degrees/alt";
-import degreeFunctionStringify from "strings/functions/alt/degree-function";
+import { V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI } from "@datune/core/functions/alt/compound-function/constants";
+import { CompoundFunction } from "@datune/core/functions/alt/compound-function/CompoundFunction";
+import { stringifyDegree } from "strings/degrees/alt";
+import { stringifyDegreeFunction } from "strings/functions/alt/degree-function";
 
-export default function stringify(obj: CompoundFunction): string {
+export function stringifyCompoundFunction(obj: CompoundFunction): string {
   switch (obj) {
     case V_II: return "V/II";
     case V_III: return "V/III";
@@ -20,8 +20,8 @@ export default function stringify(obj: CompoundFunction): string {
 }
 
 function defaultToString(func: CompoundFunction): string {
-  const degreeFunctionStr = degreeFunctionStringify(func.degreeFunction);
-  const degreeChainStr = func.degreeChain.map(degreeStringify).join("/");
+  const degreeFunctionStr = stringifyDegreeFunction(func.degreeFunction);
+  const degreeChainStr = func.degreeChain.map(stringifyDegree).join("/");
 
   return `${degreeFunctionStr}/${degreeChainStr}`;
 }

@@ -1,4 +1,4 @@
-type Input = {
+export type ScalesInput = {
   MAJOR: string;
   MINOR: string;
   DORIAN: string;
@@ -41,5 +41,3 @@ type Input = {
     AEOLIAN: string;
     AUGMENTED: string;
 };
-
-export default Input;

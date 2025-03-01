@@ -1,7 +1,7 @@
+import { PitchArray } from "@datune/core/pitches/alt";
+import { stringifyPitch } from ".";
 import { Options } from "parsing";
-import { Array } from "@datune/core/pitches/alt";
-import stringify from ".";
 
-export default function arrayStringify(pitches: Array, options?: Options): string {
-  return pitches.map((p) => stringify(p, options)).join("-");
+export function stringifyPitches(pitches: PitchArray, options?: Options): string {
+  return pitches.map((p) => stringifyPitch(p, options)).join("-");
 }

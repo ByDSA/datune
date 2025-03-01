@@ -1,17 +1,17 @@
 export * from "./fs";
 
 export {
-  generateEN, generateES,
+  generateEn as generateEN, generateEs as generateES,
 } from "./generation";
 
 export {
-  default as LangId,
+  LangId,
 } from "./LangId";
 
 export {
-  default as Language,
+  Language,
 } from "./Language";
 
 export {
-  default as Options, getLangFromOptions, getLangIdFromOptions,
+  Options, getLangFromOptions, getLangIdFromOptions,
 } from "./Options";

@@ -1,10 +1,13 @@
+import { Pitch, Pitches } from "@datune/core/pitches/alt";
+import { stringifyPitch } from ".";
 import { LangId } from "lang";
-import { Ab, BB, Bb, BBB, C, Eb, Pitch } from "@datune/core/pitches/alt";
 import { TestInit, TestLang } from "tests";
-import stringify from ".";
 
 TestInit.diatonicAlt();
 TestLang.loadAll();
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { Ab, BB, Bb, BBB, C, Eb } = Pitches;
 
 describe.each([
   [LangId.EN, C, "C"],
@@ -21,7 +24,7 @@ describe.each([
   [LangId.ES, Ab, "La♭"],
 ])("tests", (langId: LangId, pitch: Pitch, expected: string) => {
   it(`should return ${expected}`, () => {
-    const actual = stringify(pitch, {
+    const actual = stringifyPitch(pitch, {
       langId,
     } );
 

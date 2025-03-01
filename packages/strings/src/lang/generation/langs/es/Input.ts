@@ -2,7 +2,7 @@
 /* eslint-disable accessor-pairs */
 import { Input } from "../..";
 import { DiatonicsInput, ScalesInput, TemperamentsInput, VoicingsInput } from "../../parts";
-import ENG from "../en/Input";
+import { INPUT_EN } from "../en/Input";
 
 const voicings: VoicingsInput = {
   ADD: "ADD",
@@ -81,9 +81,9 @@ const scales: ScalesInput = {
 
   BEBOP_MAJOR: "MAYOR BEBOP",
 };
-const { shortVoicings } = ENG;
+const { shortVoicings } = INPUT_EN;
 const temperaments: TemperamentsInput = {
-  ...ENG.temperaments,
+  ...INPUT_EN.temperaments,
   ET12: "T. Igual 12",
   PYTHAGOREAN: "Pitagórico",
 };
@@ -112,7 +112,8 @@ const qualities = {
   doublyDiminished: "doble disminuida",
   doublyAugmented: "doble aumentada",
 };
-const fix: Input = {
+
+export const INPUT_ES: Input = {
   voicings,
   diatonics,
   shortVoicings,
@@ -121,5 +122,3 @@ const fix: Input = {
   words,
   qualities,
 };
-
-export default fix;

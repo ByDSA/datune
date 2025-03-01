@@ -1,4 +1,4 @@
-import type { Voicing } from "./Voicing";
+import { Voicing } from "./Voicing";
 
 import type { VoicingArray } from "./Array";
 

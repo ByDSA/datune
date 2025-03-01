@@ -1,6 +1,6 @@
 import { DiatonicsPart, QualitiesPart, ScalesPart, TemperamentsPart, VoicingsPart, WordsPart } from "./generation/parts";
 
-type Language = {
+export type Language = {
     id: string;
     name: string;
     diatonic: DiatonicsPart;
@@ -11,5 +11,3 @@ type Language = {
     words: WordsPart;
     quality: QualitiesPart;
 };
-
-export default Language;

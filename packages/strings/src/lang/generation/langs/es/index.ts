@@ -1,7 +1,7 @@
 export {
-  default as generateES,
+  generateEs,
 } from "./generate";
 
 export {
-  default as InputES,
+  INPUT_ES,
 } from "./Input";

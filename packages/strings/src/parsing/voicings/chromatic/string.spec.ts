@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
+import { POWER_CHORD, SEVENTH, SEVENTH_b5, SEVENTH_MAJ7_b5, SIXTH, THIRTEENTH_a5b9, THIRTEENTH_MAJ13_b5a9, THIRTEENTH_MINOR, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_QUARTAL } from "@datune/core/voicings/relative/chromatic/constants";
+import { parseVoicing } from ".";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
-import { POWER_CHORD, SEVENTH, SEVENTH_b5, SEVENTH_MAJ7_b5, SIXTH, THIRTEENTH_a5b9, THIRTEENTH_MAJ13_b5a9, THIRTEENTH_MINOR, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_QUARTAL } from "@datune/core/voicings/chromatic";
-import fromString from ".";
 
 TestInit.chromaticVoicing();
 TestLang.loadAll();
@@ -28,9 +28,9 @@ describe.each([
   [LangId.ES, "treceava maj13 b5#9", THIRTEENTH_MAJ13_b5a9],
   [LangId.EN, "0 4 6 11", SEVENTH_MAJ7_b5],
   [LangId.ES, "0 4 6 11", SEVENTH_MAJ7_b5],
-])("fromString", (langId, str, expectedVoicing) => {
+])("parse", (langId, str, expectedVoicing) => {
   it(`${langId} - "${str}" => ${expectedVoicing}`, () => {
-    const actual = fromString(str, {
+    const actual = parseVoicing(str, {
       langId,
     } );
 
@@ -42,7 +42,7 @@ describe.each([
   ["0 4 6 11", SEVENTH_MAJ7_b5],
 ])("intervals", (str, expected) => {
   it(`"${str}" => ${expected}`, () => {
-    const actual = fromString(str);
+    const actual = parseVoicing(str);
 
     expect(actual).toBe(expected);
   } );

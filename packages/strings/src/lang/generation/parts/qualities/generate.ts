@@ -1,7 +1,7 @@
-import Input from "./Input";
-import Part from "./Part";
+import { QualitiesInput } from "./Input";
+import { QualitiesPart } from "./Part";
 
-export default function qualitiesGenerate(input: Input): Part {
+export function qualitiesGenerate(input: QualitiesInput): QualitiesPart {
   return {
     perfect: input.perfect,
     major: input.major,

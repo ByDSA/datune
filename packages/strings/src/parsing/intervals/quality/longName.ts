@@ -1,22 +1,22 @@
 import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT, Quality } from "@datune/core/intervals/quality";
 import { Options } from "lang";
-import stringify from "strings/intervals/quality";
+import { stringifyQuality } from "strings/intervals/quality";
 
-export default function f(str: string, options?: Options): Quality | null {
+export function parseLongName(str: string, options?: Options): Quality | null {
   switch (str) {
-    case stringify(MAJOR, options):
+    case stringifyQuality(MAJOR, options):
       return MAJOR;
-    case stringify(MINOR, options):
+    case stringifyQuality(MINOR, options):
       return MINOR;
-    case stringify(PERFECT, options):
+    case stringifyQuality(PERFECT, options):
       return PERFECT;
-    case stringify(DIMINISHED, options):
+    case stringifyQuality(DIMINISHED, options):
       return DIMINISHED;
-    case stringify(AUGMENTED, options):
+    case stringifyQuality(AUGMENTED, options):
       return AUGMENTED;
-    case stringify(DOUBLY_AUGMENTED, options):
+    case stringifyQuality(DOUBLY_AUGMENTED, options):
       return DOUBLY_AUGMENTED;
-    case stringify(DOUBLY_DIMINISHED, options):
+    case stringifyQuality(DOUBLY_DIMINISHED, options):
       return DOUBLY_DIMINISHED;
     default: return null;
   }

@@ -1,4 +1,4 @@
-type Part = {
+export type WordsPart = {
   note: string;
   chord: string;
   scale: string;
@@ -14,5 +14,3 @@ type Part = {
   noteAlt: string;
   diatonic: string;
 };
-
-export default Part;

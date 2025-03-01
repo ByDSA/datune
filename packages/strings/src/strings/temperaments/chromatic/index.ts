@@ -1,7 +1,8 @@
-import Options, { getLangFromOptions } from "lang/Options";
-import { ET12, LIMIT_5_SYMMETRIC_N1, LIMIT_5_SYMMETRIC_N2, PYTHAGOREAN, Temperament } from "@datune/core/temperaments/chromatic";
+import { Temperament } from "@datune/core/temperaments/chromatic";
+import { ET12, LIMIT_5_SYMMETRIC_N1, LIMIT_5_SYMMETRIC_N2, PYTHAGOREAN } from "@datune/core/temperaments/chromatic/constants";
+import { Options, getLangFromOptions } from "lang/Options";
 
-export default function stringify(obj: Temperament, options?: Options): string {
+export function stringifyTemperament(obj: Temperament, options?: Options): string {
   const lang = getLangFromOptions(options);
 
   switch (obj) {

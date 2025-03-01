@@ -1,5 +1,5 @@
 export {
-  default as generator, Params as GeneratorParams,
+  generate, Params as GeneratorParams,
 } from "../generate";
 
 export {

@@ -1,11 +1,12 @@
-import { UNISON } from "@datune/core/intervals/diatonic";
+import { Intervals } from "@datune/core/intervals/diatonic";
+import { stringifyInterval } from ".";
 import { TestInit, TestLang } from "tests/index";
-import stringify from ".";
 
 TestLang.loadAll();
 TestInit.diatonicInterval();
+
 it("toString() - ENG", () => {
-  const actual: string = stringify(UNISON);
+  const actual: string = stringifyInterval(Intervals.UNISON);
   const expected = "UNISON";
 
   expect(actual).toEqual(expected);

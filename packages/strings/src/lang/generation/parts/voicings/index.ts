@@ -1,11 +1,11 @@
 export {
-  default as voicingsGenerate,
+  voicingsGenerate,
 } from "./generate";
 
 export {
-  default as VoicingsInput,
+  VoicingsInput,
 } from "./Input";
 
 export {
-  default as VoicingsPart,
+  VoicingsPart,
 } from "./Part";

@@ -2,7 +2,7 @@
 import { lockr } from "@datune/utils/immutables";
 import { LangId, Language, loadFromFile } from "lang";
 
-export default class TestLang {
+export class TestLang {
   static get ES() {
     if (!LANG_ES)
       this.loadES();
@@ -20,6 +20,7 @@ export default class TestLang {
   static loadEN() {
     LANG_EN = loadFromFile( {
       langId: "en" as LangId,
+      // eslint-disable-next-line no-undef
       folder: __dirname,
     } ) as Language;
 
@@ -32,6 +33,7 @@ export default class TestLang {
   static loadES() {
     LANG_ES = loadFromFile( {
       langId: "es" as LangId,
+      // eslint-disable-next-line no-undef
       folder: __dirname,
     } ) as Language;
 

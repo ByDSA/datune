@@ -1,9 +1,9 @@
+import { structure } from "./structureTokens";
+import { getLangTokens } from "./tokens";
 import { getLangIdFromOptions, Options } from "lang";
 import { tokenize } from "parsing";
-import structureTokens from "./structureTokens";
-import getLangTokens from "./tokens";
 
-export default function structureInput(input: string, options?: Options) {
+export function structureInput(input: string, options?: Options) {
   try {
     const langId = getLangIdFromOptions(options);
     const langTokens = getLangTokens(langId);
@@ -13,11 +13,11 @@ export default function structureInput(input: string, options?: Options) {
       ...options,
     } );
 
-    return structureTokens( {
+    return structure( {
       ...options,
       inputTokens,
     } );
-  } catch (e) {
+  } catch {
     return null;
   }
 }

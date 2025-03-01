@@ -1,18 +1,18 @@
-/* eslint-disable camelcase */
-import { I, I5, Im, VISUS4 } from "@datune/core/functions/alt";
+import { Functions as F } from "@datune/core/functions/alt";
+import { stringifyDegreeFunction } from ".";
 import { TestInit, TestLang } from "tests";
-import stringify from ".";
 
 TestInit.diatonicAltFunction();
 TestLang.loadAll();
+
 describe.each([
-  [I, "I"],
-  [I5, "I5"],
-  [Im, "Im"],
-  [VISUS4, "VIsus4"],
+  [F.I, "I"],
+  [F.I5, "I5"],
+  [F.Im, "Im"],
+  [F.VISUS4, "VIsus4"],
 ])("constants", (func, expectedString) => {
   it(`${func} => ${expectedString}`, () => {
-    const actual = stringify(func);
+    const actual = stringifyDegreeFunction(func);
 
     expect(actual).toBe(expectedString);
   } );

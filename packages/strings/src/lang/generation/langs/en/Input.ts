@@ -115,7 +115,8 @@ const qualities = {
   doublyDiminished: "doubly diminished",
   doublyAugmented: "doubly augmented",
 };
-const fix: Input = {
+
+export const INPUT_EN: Input = {
   voicings,
   diatonics,
   shortVoicings,
@@ -124,5 +125,3 @@ const fix: Input = {
   words,
   qualities,
 };
-
-export default fix;

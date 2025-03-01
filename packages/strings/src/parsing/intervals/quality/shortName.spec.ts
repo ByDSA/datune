@@ -1,15 +1,15 @@
 import { MAJOR, MINOR } from "@datune/core/intervals/quality";
-import fromShortName from "./shortName";
+import { parseShortName } from "./shortName";
 
-it("M", () => {
-  const actual = fromShortName("M");
+it("mayor", () => {
+  const actual = parseShortName("M");
   const expected = MAJOR;
 
   expect(actual).toBe(expected);
 } );
 
-it("m", () => {
-  const actual = fromShortName("m");
+it("minor", () => {
+  const actual = parseShortName("m");
   const expected = MINOR;
 
   expect(actual).toBe(expected);

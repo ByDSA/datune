@@ -1,6 +1,6 @@
 import { normalizeAlts, removeMarks, removeSpaces } from "parsing/utils";
 
-export default function normalize(input: string): string {
+export function normalizeInput(input: string): string {
   let ret = normalizeAlts(input);
 
   ret = removeMarks(ret);

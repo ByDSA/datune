@@ -1,5 +1,5 @@
-import Language from "../Language";
-import Input from "./Input";
+import { Language } from "../Language";
+import { Input } from "./Input";
 import { diatonicsGenerate } from "./parts/diatonics";
 import { qualitiesGenerate } from "./parts/qualities";
 import { scalesGenerate } from "./parts/scales";
@@ -21,7 +21,7 @@ export type Params = {
   customGenerators?: LanguagePartial;
 };
 
-export default function generate(params: Params): Language {
+export function generate(params: Params): Language {
   return {
     name: params.name,
     id: params.id,

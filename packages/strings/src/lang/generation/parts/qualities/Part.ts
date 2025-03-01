@@ -1,5 +1,3 @@
-import Input from "./Input";
+import { QualitiesInput } from "./Input";
 
-type Part = Input;
-
-export default Part;
+export type QualitiesPart = QualitiesInput;

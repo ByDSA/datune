@@ -1,9 +1,10 @@
+/* eslint-disable camelcase */
 /* eslint-disable accessor-pairs */
 import { a11, a5, a9, b5, b9 } from "../../utils";
-import Input from "./Input";
-import Part from "./Part";
+import { ShortVoicingsInput } from "./Input";
+import { ShortVoicingsPart } from "./Part";
 
-export default function generate(input: Input): Part {
+export function shortVoicingsGenerate(input: ShortVoicingsInput): ShortVoicingsPart {
   return {
     get MINOR_SECOND(): string { return `${input.MINOR}2`; },
     get MAJOR_SECOND(): string { return `${input.MAJOR}2`; },

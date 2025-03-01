@@ -1,17 +1,21 @@
 /* eslint-disable camelcase */
-import { BLUES_a4, toChromatic } from "@datune/core/scales/alt";
-import chromaticStringify from "strings/scales/chromatic";
-import { TestInit, TestLang } from "tests";
-import stringify from "..";
+import { Scales } from "@datune/core/scales/alt";
+import { stringifyScale } from "..";
 import { getAllCases, getManualCases } from "./Cases";
+import { stringifyScale as stringifyCScale } from "strings/scales/chromatic";
+import { TestInit, TestLang } from "tests";
 
 TestInit.diatonicAltScale();
 TestLang.loadAll();
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { BLUES_a4, toChromatic } = Scales;
+
 describe.each(getManualCases())("tests", (langId, scale, str) => {
   const scaleName = scale.rootIntervals.map(String).join("-");
 
   it(`(${langId}, ${scaleName}) => "${str}"`, () => {
-    const actual = stringify(scale, {
+    const actual = stringifyScale(scale, {
       langId,
     } );
 
@@ -19,7 +23,7 @@ describe.each(getManualCases())("tests", (langId, scale, str) => {
   } );
 } );
 
-describe.each(getAllCases())("ALL", (langId, scale, str) => {
+describe.each(getAllCases())("aLL", (langId, scale, str) => {
   describe(`${str}`, () => {
     it("defined string", () => {
       expect(str).toBeDefined();
@@ -28,7 +32,7 @@ describe.each(getAllCases())("ALL", (langId, scale, str) => {
     if (scale !== BLUES_a4) {
       it("same in chromatic", () => {
         const chromaticScale = toChromatic(scale);
-        const actual = chromaticStringify(chromaticScale, {
+        const actual = stringifyCScale(chromaticScale, {
           langId,
         } );
 

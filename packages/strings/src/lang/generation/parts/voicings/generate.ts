@@ -1,9 +1,10 @@
+/* eslint-disable camelcase */
 /* eslint-disable accessor-pairs */
 import { a11, a5, a9, b5, b9 } from "../../utils";
-import Input from "./Input";
-import Part from "./Part";
+import { VoicingsInput } from "./Input";
+import { VoicingsPart } from "./Part";
 
-export default function generate(input: Input): Part {
+export function voicingsGenerate(input: VoicingsInput): VoicingsPart {
   const utils = {
     get ADD6(): string { return `${input.ADD}6`; },
     get ADD9(): string { return `${input.ADD}9`; },

@@ -1,11 +1,11 @@
 export {
-  default as scalesGenerate,
+  scalesGenerate,
 } from "./generate";
 
 export {
-  default as ScalesInput,
+  ScalesInput,
 } from "./Input";
 
 export {
-  default as ScalesPart,
+  ScalesPart,
 } from "./Part";

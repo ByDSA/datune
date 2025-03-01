@@ -1,13 +1,18 @@
 /* eslint-disable camelcase */
-import { A7, B, B7, BMaj7, C, C7, Chord, CMaj7, Dm7, fromPitches } from "@datune/core/chords/alt";
+import { Chord, Chords } from "@datune/core/chords/alt";
+import { Pitches } from "@datune/core/pitches/alt";
+import { parseChord } from ".";
 import { LangId } from "lang";
-import { Ab as DA_Ab, Bb as DA_Bb, D as DA_D, F as DA_F } from "@datune/core/pitches/alt";
-import stringify from "strings/chords/alt";
+import { stringifyChord } from "strings/chords/alt";
 import { TestInit, TestLang } from "tests";
-import parseChord from ".";
 
 TestInit.diatonicAltChord();
 TestLang.loadAll();
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { A7, B, B7, BMaj7, C, C7, CMaj7, Dm7, fromPitches } = Chords;
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { Ab: DA_Ab, Bb: DA_Bb, D: DA_D, F: DA_F } = Pitches;
 
 describe.each([
   [LangId.EN, "b", B],
@@ -32,8 +37,8 @@ describe.each([
   [LangId.EN, " hsfsdfsdc  ", null],
   [LangId.EN, "bb7", fromPitches(DA_Bb, DA_D, DA_F, DA_Ab)],
   [LangId.EN, "Dm7", Dm7],
-])("fromString", (langId: LangId, str: string, expected: Chord | null) => {
-  it(`(${langId}, "${str}") => ${expected ? stringify(expected) : "null"}`, () => {
+])("parse", (langId: LangId, str: string, expected: Chord | null) => {
+  it(`(${langId}, "${str}") => ${expected ? stringifyChord(expected) : "null"}`, () => {
     const chord = parseChord(str, {
       langId,
     } );

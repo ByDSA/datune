@@ -1,14 +1,14 @@
 import { Interval } from "@datune/core/intervals/chromatic";
-import fromName from "./name";
-import fromNumber from "./number";
+import { parseFromName } from "./name";
+import { parseFromNumber } from "./number";
 
-export default function fromString(str: string): Interval | null {
-  let interval = fromName(str);
+export function parseInterval(str: string): Interval | null {
+  let interval = parseFromName(str);
 
   if (interval !== null)
     return interval;
 
-  interval = fromNumber(str);
+  interval = parseFromNumber(str);
 
   if (interval !== null)
     return interval;

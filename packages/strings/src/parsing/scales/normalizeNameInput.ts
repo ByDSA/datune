@@ -1,6 +1,6 @@
 import { normalizeAlts, removeMarks, removeSpaces } from "../utils";
 
-export default function normalize(strValue: string): string {
+export function normalizeInputName(strValue: string): string {
   let fixed = removeSpaces(strValue)
     .toLowerCase();
 

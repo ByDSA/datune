@@ -1,5 +1,5 @@
-import innerParse from "./innerTokensToTree";
-import TokensParserOptions from "./Options";
+import { innerParse } from "./innerTokensToTree";
+import { TokensParserOptions } from "./Options";
 import { ParserType } from "./Parser";
 
 export type ParsedReturnType = {
@@ -7,7 +7,7 @@ export type ParsedReturnType = {
   scale: string | undefined;
 };
 
-export default function parseKey(options: TokensParserOptions): ParsedReturnType {
+export function tokensParse(options: TokensParserOptions): ParsedReturnType {
   return innerParse( {
     ...options,
     statement: (parser: ParserType) => {

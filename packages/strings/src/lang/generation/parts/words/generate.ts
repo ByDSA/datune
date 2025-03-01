@@ -1,8 +1,8 @@
-import Input from "./Input";
+import { WordsInput } from "./Input";
 
-type Settings = Input;
+type Settings = WordsInput;
 
-export default function wordsGenerate(basePart: Input): Settings {
+export function wordsGenerate(basePart: WordsInput): Settings {
   return {
     note: basePart.note,
     chord: basePart.chord,

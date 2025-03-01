@@ -1,8 +1,9 @@
-import { Array as IntervalArray } from "@datune/core/intervals/chromatic";
-import parseIntervals from "parsing/intervals/chromatic/array";
-import { fromRootIntervals, Voicing } from "@datune/core/voicings/chromatic";
+import { IntervalArray } from "@datune/core/intervals/chromatic";
+import { Voicing } from "@datune/core/voicings/chromatic";
+import { fromRootIntervals } from "@datune/core/voicings/relative/chromatic/building/rootIntervals";
+import { parseIntervalArray as parseIntervals } from "parsing/intervals/chromatic/array";
 
-export default function fromIntervals(strValue: string): Voicing | null {
+export function parseFromIntervals(strValue: string): Voicing | null {
   const intervals = parseIntervals(strValue);
 
   if (intervals)

@@ -1,6 +1,6 @@
-import Input from "./Input";
+import { DiatonicsInput } from "./Input";
 
-export default function generate(input: Input) {
+export function diatonicsGenerate(input: DiatonicsInput) {
   return {
     C: input.C,
     D: input.D,

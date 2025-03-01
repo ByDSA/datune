@@ -1,9 +1,11 @@
-import { CompoundFunction, DegreeFunction, HarmonicFunction } from "@datune/core/functions/chromatic";
-import stringifyCompoundFunction from "./compound-function";
-import stringifyDegreeFunction from "./degree-function";
-import stringifyOtherFunction from "./others";
+import { CompoundFunction } from "@datune/core/functions/chromatic/compound-function/CompoundFunction";
+import { DegreeFunction } from "@datune/core/functions/chromatic/degree-function/DegreeFunction";
+import { HarmonicFunction } from "@datune/core/functions/chromatic";
+import { stringifyCompoundFunction } from "./compound-function";
+import { stringifyDegreeFunction } from "./degree-function";
+import { stringifyOtherFunction } from "./others";
 
-export default function stringify(harmonicFunction: HarmonicFunction): string {
+export function stringifyHarmonicFunction(harmonicFunction: HarmonicFunction): string {
   if (harmonicFunction instanceof DegreeFunction)
     return stringifyDegreeFunction(harmonicFunction);
 

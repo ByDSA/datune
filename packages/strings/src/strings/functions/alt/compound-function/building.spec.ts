@@ -1,9 +1,8 @@
-/* eslint-disable camelcase */
-import { V as C_V } from "@datune/core/degrees/alt";
-import { from } from "@datune/core/functions/alt/compound-function";
-import { V7 } from "@datune/core/functions/alt/degree-function";
+import { Degrees as D } from "@datune/core/degrees/alt";
+import { compose } from "@datune/core/functions/alt/compound-function/building/compose";
+import { V7 } from "@datune/core/functions/alt/degree-function/constants";
+import { stringifyCompoundFunction } from ".";
 import { TestInit, TestLang } from "tests";
-import stringify from ".";
 
 TestInit.diatonicAltFunction();
 TestInit.diatonicAltKey();
@@ -11,10 +10,10 @@ TestInit.diatonicAltChord();
 TestLang.loadAll();
 
 describe.each([
-  [from(V7, C_V, C_V), "V7/V/V"],
+  [compose(V7, D.V, D.V), "V7/V/V"],
 ])("tests", (func, expectedString) => {
   it(`${String(func)} => ${expectedString}`, () => {
-    const actual = stringify(func);
+    const actual = stringifyCompoundFunction(func);
 
     expect(actual).toBe(expectedString);
   } );

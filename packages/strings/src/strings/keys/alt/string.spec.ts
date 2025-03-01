@@ -1,17 +1,17 @@
-/* eslint-disable camelcase */
-import { C } from "@datune/core/keys/alt";
+import { Keys } from "@datune/core/keys/alt";
+import { stringifyKey } from ".";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
-import stringify from ".";
 
 TestLang.loadAll();
 TestInit.diatonicAltKey();
+
 describe.each([
-  [LangId.EN, C, "C Major"],
-  [LangId.ES, C, "Do Mayor"],
+  [LangId.EN, Keys.C, "C Major"],
+  [LangId.ES, Keys.C, "Do Mayor"],
 ])("toString", (langId, expectedKey, str) => {
   it(`${langId} - ${expectedKey} => "${str}"`, () => {
-    const actual = stringify(expectedKey, {
+    const actual = stringifyKey(expectedKey, {
       langId,
     } );
 

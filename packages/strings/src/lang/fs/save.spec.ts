@@ -1,9 +1,10 @@
-import { generateEN } from "lang/generation/langs/en";
-import { generateES } from "lang/generation/langs/es";
-import save from "./save";
+/* eslint-disable jest/expect-expect */
+import { save } from "./save";
+import { generateEn } from "lang/generation/langs/en";
+import { generateEs } from "lang/generation/langs/es";
 
-it("ENG", () => {
-  const lang = generateEN();
+it("eng", () => {
+  const lang = generateEn();
 
   save( {
     lang,
@@ -11,8 +12,8 @@ it("ENG", () => {
   } );
 } );
 
-it("ESP", () => {
-  const lang = generateES();
+it("esp", () => {
+  const lang = generateEs();
 
   save( {
     lang,

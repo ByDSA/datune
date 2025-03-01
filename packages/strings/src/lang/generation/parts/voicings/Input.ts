@@ -1,4 +1,4 @@
-type Input = {
+export type VoicingsInput = {
   ADD: string;
   SUS: string;
   MAJ: string;
@@ -17,5 +17,3 @@ type Input = {
   ELEVENTH: string;
   THIRTEENTH: string;
 };
-
-export default Input;

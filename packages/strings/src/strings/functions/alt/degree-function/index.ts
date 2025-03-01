@@ -1,7 +1,7 @@
-import { DegreeFunction } from "@datune/core/functions/alt";
-import degreeStringify from "strings/degrees/alt";
-import voicingShortName from "strings/voicings/alt/shortName";
+import { DegreeFunction } from "@datune/core/functions/alt/degree-function/DegreeFunction";
+import { stringifyDegree } from "strings/degrees/alt";
+import { stringifyShortName } from "strings/voicings/alt/shortName";
 
-export default function stringify(obj: DegreeFunction): string {
-  return degreeStringify(obj.degree) + voicingShortName(obj.voicing);
+export function stringifyDegreeFunction(obj: DegreeFunction): string {
+  return stringifyDegree(obj.degree) + stringifyShortName(obj.voicing);
 }

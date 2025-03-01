@@ -1,12 +1,14 @@
 import { ParserBottomUp } from "@datune/utils";
-import { bass, Chord, fromRootVoicing } from "@datune/core/chords/alt";
-import Options from "lang/Options";
-import parsePitch from "parsing/pitches/alt";
-import parseVoicing from "parsing/voicings/alt";
+import { Chord } from "@datune/core/chords/alt";
+import { fromRootVoicing } from "@datune/core/chords/octave/alt/building/root-voicing";
+import { bass } from "@datune/core/chords/octave/alt/modifiers";
 import { Pitch } from "@datune/core/pitches/alt";
 import { Voicing } from "@datune/core/voicings/alt";
-import ChordStringAbstract from "../ChordStringAbstract";
-import normalizeInput from "../normalizeInput";
+import { ChordStringAbstract } from "../ChordStringAbstract";
+import { normalizeInput } from "../normalizeInput";
+import { parseVoicing } from "parsing/voicings/alt";
+import { parsePitch } from "parsing/pitches/alt";
+import { Options } from "lang/Options";
 
 class ChordAltString extends ChordStringAbstract<Chord> {
   static from(input: string, options?: Options): ChordAltString {
@@ -52,7 +54,6 @@ class ChordAltString extends ChordStringAbstract<Chord> {
     let baseChordStr;
     let bassStr;
 
-    // eslint-disable-next-line prefer-const
     [baseChordStr, bassStr] = strValueSplited;
 
     const baseChord: Chord | null = ChordAltString.from(baseChordStr).parse();
@@ -65,6 +66,6 @@ class ChordAltString extends ChordStringAbstract<Chord> {
   }
 }
 
-export default function parseChord(input: string, options?: Options): Chord | null {
+export function parseChord(input: string, options?: Options): Chord | null {
   return ChordAltString.from(input, options).parse();
 }

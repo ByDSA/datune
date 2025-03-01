@@ -1,26 +1,27 @@
+import { Pitch } from "@datune/core/pitches/chromatic";
+import { A, AA, Ab, B, Bb, C, Cb, CC, D, Db, DD, E, Eb, F, Fb, FF, G, Gb, GG } from "@datune/core/pitches/chromatic/constants";
+import { normalizeInput } from "../normalizeInput";
 import { getLangFromOptions } from "lang";
 import { alts } from "lang/generation/utils";
 import { Options } from "parsing";
-import { A, AA, Ab, B, Bb, C, Cb, CC, D, Db, DD, E, Eb, F, Fb, FF, G, Gb, GG, Pitch } from "@datune/core/pitches/chromatic";
-import stringify from "strings/pitches/chromatic";
-import normalizeInput from "../normalizeInput";
+import { stringifyPitch } from "strings/pitches/chromatic";
 
-export default function parseRaw(input: string, options?: Options): Pitch | null {
+export function parseRaw(input: string, options?: Options): Pitch | null {
   const lang = getLangFromOptions(options);
 
   switch (input) {
-    case normalizeInput(stringify(C, options)): return C;
-    case normalizeInput(stringify(CC, options)): return CC;
-    case normalizeInput(stringify(D, options)): return D;
-    case normalizeInput(stringify(DD, options)): return DD;
-    case normalizeInput(stringify(E, options)): return E;
-    case normalizeInput(stringify(F, options)): return F;
-    case normalizeInput(stringify(FF, options)): return FF;
-    case normalizeInput(stringify(G, options)): return G;
-    case normalizeInput(stringify(GG, options)): return GG;
-    case normalizeInput(stringify(A, options)): return A;
-    case normalizeInput(stringify(AA, options)): return AA;
-    case normalizeInput(stringify(B, options)): return B;
+    case normalizeInput(stringifyPitch(C, options)): return C;
+    case normalizeInput(stringifyPitch(CC, options)): return CC;
+    case normalizeInput(stringifyPitch(D, options)): return D;
+    case normalizeInput(stringifyPitch(DD, options)): return DD;
+    case normalizeInput(stringifyPitch(E, options)): return E;
+    case normalizeInput(stringifyPitch(F, options)): return F;
+    case normalizeInput(stringifyPitch(FF, options)): return FF;
+    case normalizeInput(stringifyPitch(G, options)): return G;
+    case normalizeInput(stringifyPitch(GG, options)): return GG;
+    case normalizeInput(stringifyPitch(A, options)): return A;
+    case normalizeInput(stringifyPitch(AA, options)): return AA;
+    case normalizeInput(stringifyPitch(B, options)): return B;
     case normalizeInput(lang.diatonic.C + alts(-1)): return Cb;
     case normalizeInput(lang.diatonic.D + alts(-1)): return Db;
     case normalizeInput(lang.diatonic.E + alts(-1)): return Eb;

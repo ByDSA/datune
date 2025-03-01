@@ -1,9 +1,9 @@
-import innerParse from "../utils/tokens-parser/innerTokensToTree";
-import Options from "../utils/tokens-parser/Options";
+import { innerParse } from "../utils/tokens-parser/innerTokensToTree";
+import { TokensParserOptions } from "../utils/tokens-parser/Options";
 import { ParserType } from "../utils/tokens-parser/Parser";
-import Struct from "./Struct";
+import { Struct } from "./Struct";
 
-export default function tokensParse(options: Options): Struct {
+export function tokensParse(options: TokensParserOptions): Struct {
   return innerParse( {
     ...options,
     statement: (parser: ParserType) => {

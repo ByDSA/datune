@@ -30,7 +30,8 @@
     "immutable": "5.0.3"
   },
   "devDependencies": {
-    "@chevrotain/types": "11.0.3"
+    "@chevrotain/types": "11.0.3",
+    "@datune/coreDev": "file:../core/"
   },
   "standard-version": {
     "scripts": {

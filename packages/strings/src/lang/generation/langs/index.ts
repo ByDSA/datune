@@ -1,7 +1,7 @@
 export {
-  generateEN,
+  generateEn,
 } from "./en";
 
 export {
-  generateES,
+  generateEs,
 } from "./es";

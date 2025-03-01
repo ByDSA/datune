@@ -1,16 +1,17 @@
-import { fromIntervalQuality, Interval as IntervalDiatonicAlt } from "@datune/core/intervals/alt";
-import { fromInt as intervalDiatonicFromInt } from "@datune/core/intervals/diatonic";
+import { Interval as IntervalDiatonicAlt } from "@datune/core/intervals/symbolic/alt";
+import { fromIntervalQuality } from "@datune/core/intervals/symbolic/alt/building/intervalQuality";
+import { fromInt as intervalDiatonicFromInt } from "@datune/core/intervals/symbolic/diatonic/building";
 import { Quality } from "@datune/core/intervals/quality";
-import qualityFromShortName from "parsing/intervals/quality/shortName";
+import { parseShortName } from "parsing/intervals/quality/shortName";
 
-export default function fromString(str: string): IntervalDiatonicAlt | null {
+export function parseInterval(str: string): IntervalDiatonicAlt | null {
   const splited = splitLettersNumbers(str);
 
   if (!splited)
     return null;
 
   const intervalDiatonic = intervalDiatonicFromInt(splited.n - 1);
-  const quality: Quality | null = qualityFromShortName(splited.str);
+  const quality: Quality | null = parseShortName(splited.str);
 
   if (!quality || !intervalDiatonic)
     return null;
@@ -18,7 +19,8 @@ export default function fromString(str: string): IntervalDiatonicAlt | null {
   return fromIntervalQuality(intervalDiatonic, quality);
 }
 
-function splitLettersNumbers(str: string): { str: string; n: number } | null {
+function splitLettersNumbers(str: string): { str: string;
+n: number; } | null {
   if (str.length === 0)
     return null;
 

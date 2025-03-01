@@ -1,5 +1,3 @@
-type Struct = {
+export type Struct = {
   pitch: string;
 };
-
-export default Struct;

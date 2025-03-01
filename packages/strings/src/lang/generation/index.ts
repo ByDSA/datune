@@ -1,7 +1,7 @@
 export {
-  default as Input,
+  Input,
 } from "./Input";
 
 export {
-  generateEN, generateES,
+  generateEn, generateEs,
 } from "./langs";

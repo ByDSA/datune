@@ -1,12 +1,15 @@
 /* eslint-disable camelcase */
+import { Voicings, Voicing } from "@datune/core/voicings/chromatic";
+import { stringifyShortName } from "./shortName";
+import { stringifyVoicing } from ".";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
-import { COMMON, fromRootIntervals, THIRTEENTH_MAJ13_b5a9, TRIAD_MAJOR, Voicing } from "@datune/core/voicings/chromatic";
-import stringify from ".";
-import shortName from "./shortName";
 
 TestInit.chromaticVoicing();
 TestLang.loadAll();
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { COMMON, fromRootIntervals, THIRTEENTH_MAJ13_b5a9, TRIAD_MAJOR } = Voicings;
 
 describe.each([
   [LangId.EN, TRIAD_MAJOR, "Major"],
@@ -16,7 +19,7 @@ describe.each([
   [LangId.ES, THIRTEENTH_MAJ13_b5a9, "Treceava Maj13 ♭5 ♯9"],
 ])("manual tests", (langId, voicing, str) => {
   it(`${langId} - ${voicing} => "${str}"`, () => {
-    const actual = stringify(voicing, {
+    const actual = stringifyVoicing(voicing, {
       langId,
     } );
     const expected = str;
@@ -32,24 +35,22 @@ const voicingAllLanguages: Tuple[] = [...COMMON].map(
   (e) => <Tuple[]>allLang.map((l) => [l, e]),
 ).reduce((c, p) => p.concat(c));
 
-describe.each(voicingAllLanguages)("All voicings have name and shortName", (langId: LangId, voicing: Voicing) => {
+describe.each(voicingAllLanguages)("all voicings should have name and shortName", (langId: LangId, voicing: Voicing) => {
   it(`${langId} - Voicing ${voicing} string defined. str=${voicing.toString()}`, () => {
-    const str = stringify(voicing, {
+    const str = stringifyVoicing(voicing, {
       langId,
     } );
 
     expect(str).toBeDefined();
 
-    if (str.length > 0)
-      expect(str[0]).not.toMatch("(");
+    expect(str.length === 0 || str[0] !== "(").toBeTruthy();
   } );
 
   it(`${langId} - Voicing ${voicing} shortName defined.`, () => {
-    const str = shortName(voicing);
+    const str = stringifyShortName(voicing);
 
     expect(str).toBeDefined();
 
-    if (str.length > 0)
-      expect(str[0]).not.toMatch("(");
+    expect(str.length === 0 || str[0] !== "(").toBeTruthy();
   } );
 } );

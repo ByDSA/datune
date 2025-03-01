@@ -1,4 +1,3 @@
-/* eslint-disable import/no-mutable-exports */
 import { ProcessCache } from "@datune/utils";
 import { createToken, TokenType } from "chevrotain";
 import { LangId } from "lang";
@@ -22,7 +21,7 @@ function generateVoicing(langId: LangId): RegExp {
   }
 }
 
-export default function getLangTokens(langId: LangId = LangId.DEFAULT): TokenType[] {
+export function getLangTokens(langId: LangId = LangId.DEFAULT): TokenType[] {
   const token = cache.getOrProcess(langId);
 
   return [token];

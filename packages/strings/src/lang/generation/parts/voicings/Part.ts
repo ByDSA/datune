@@ -1,4 +1,4 @@
-type Part = {
+export type VoicingsPart = {
   MINOR_SECOND: string;
   MAJOR_SECOND: string;
   MINOR_THIRD: string;
@@ -70,5 +70,3 @@ type Part = {
   THIRTEENTH_b5b9: string;
   THIRTEENTH_b9: string;
 };
-
-export default Part;

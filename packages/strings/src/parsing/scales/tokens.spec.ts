@@ -1,6 +1,6 @@
+import { getLangTokens } from "./tokens";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
-import getTokens from "./tokens";
 
 TestLang.loadAll();
 TestInit.chromaticScale();
@@ -16,7 +16,7 @@ describe.each([
   [LangId.EN, "bLuEsB5"],
 ])("test tokens", (langId, str) => {
   it(`${langId}, "${str}"`, () => {
-    const token = getTokens(langId)[0];
+    const [token] = getLangTokens(langId);
     const voicing = token.PATTERN as RegExp;
     const exactVoicing = new RegExp(`^${voicing.source}$`, "i");
     const actual = exactVoicing.test(str);
@@ -33,7 +33,7 @@ describe.each([
   [LangId.EN, "BbLuEsB5"],
 ])("no match", (langId, str) => {
   it(`${langId}, "${str}"`, () => {
-    const token = getTokens(langId)[0];
+    const [token] = getLangTokens(langId);
     const voicing = token.PATTERN as RegExp;
     const exactVoicing = new RegExp(`^${voicing.source}$`, "i");
     const actual = exactVoicing.test(str);

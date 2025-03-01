@@ -1,6 +1,6 @@
 import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT, Quality } from "@datune/core/intervals/quality";
 
-export default function f(str: string): Quality | null {
+export const parseShortName = (str: string): Quality | null => {
   switch (str) {
     case MAJOR.toString():
       return MAJOR;
@@ -18,4 +18,4 @@ export default function f(str: string): Quality | null {
       return DOUBLY_DIMINISHED;
     default: return null;
   }
-}
+};

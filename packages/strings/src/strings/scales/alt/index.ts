@@ -1,14 +1,13 @@
-/* eslint-disable camelcase */
-import { Options } from "parsing";
 import { Scale } from "@datune/core/scales/alt";
-import arrayStringify from "../../intervals/alt/array";
-import toStringName from "./name";
+import { stringifyArray } from "../../intervals/alt/array";
+import { toStringName } from "./name";
+import { Options } from "parsing";
 
-export default function toString(scale: Scale, options?: Options): string {
+export function stringifyScale(scale: Scale, options?: Options): string {
   const name = toStringName(scale, options);
 
   if (name)
     return name;
 
-  return arrayStringify(scale.rootIntervals);
+  return stringifyArray(scale.rootIntervals);
 }

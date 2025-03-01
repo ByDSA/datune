@@ -1,4 +1,4 @@
-type Input = {
+export type DiatonicsInput = {
   C: string;
   D: string;
   E: string;
@@ -7,5 +7,3 @@ type Input = {
   A: string;
   B: string;
 };
-
-export default Input;

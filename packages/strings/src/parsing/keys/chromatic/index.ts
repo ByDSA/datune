@@ -1,12 +1,12 @@
-import { from as fromRootScale } from "@datune/core/keys/chromatic";
+import { fromRootScale } from "@datune/core/keys/chromatic/building";
+import { MAJOR } from "@datune/core/scales/symbolic/chromatic/constants";
 import { getLangIdFromOptions, Options } from "lang";
 import { getLangTokens, tokenize } from "parsing";
-import parsePitch from "parsing/pitches/chromatic";
-import parseScale from "parsing/scales/chromatic";
-import tokensParse from "parsing/utils/tokens-parser/key";
-import { MAJOR } from "@datune/core/scales/chromatic";
+import { parsePitch } from "parsing/pitches/chromatic";
+import { parseScale } from "parsing/scales/chromatic";
+import { tokensParse } from "parsing/utils/tokens-parser/key";
 
-export default function parseKey(input: string, options?: Options) {
+export function parseKey(input: string, options?: Options) {
   const langId = getLangIdFromOptions(options);
   const allLangTokens = getLangTokens(langId);
   const langTokens = [
@@ -33,7 +33,7 @@ export default function parseKey(input: string, options?: Options) {
       return fromRootScale(pitch, scale);
 
     return null;
-  } catch (e) {
+  } catch {
     return null;
   }
 }

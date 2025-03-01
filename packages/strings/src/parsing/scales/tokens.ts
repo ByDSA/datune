@@ -1,10 +1,9 @@
-/* eslint-disable import/no-mutable-exports */
 import { ProcessCache } from "@datune/utils";
+import { COMMON } from "@datune/core/scales/symbolic/chromatic/constants";
+import { normalizeInputName } from "./normalizeNameInput";
 import { createToken, TokenType } from "chevrotain";
 import { LangId } from "lang";
-import { COMMON } from "@datune/core/scales/chromatic";
-import getName from "strings/scales/chromatic/name";
-import normalizeInput from "./normalizeNameInput";
+import { getName } from "strings/scales/chromatic/name";
 
 function generateToken(langId: LangId) {
   const pattern = generateVoicing(langId);
@@ -18,7 +17,7 @@ function generateToken(langId: LangId) {
 function generateVoicing(langId: LangId): RegExp {
   const names: string[] = getAllNamesByLang(langId);
   const str = `(${names
-    .map(normalizeInput)
+    .map(normalizeInputName)
     .map((a) => `(${a})`)
     .join("|")}|(m))`;
 
@@ -40,7 +39,7 @@ function getAllNamesByLang(langId: LangId): string[] {
   return names;
 }
 
-export default function getLangTokens(langId: LangId = LangId.DEFAULT): TokenType[] {
+export function getLangTokens(langId: LangId = LangId.DEFAULT): TokenType[] {
   const token = cache.getOrProcess(langId);
 
   return [token];

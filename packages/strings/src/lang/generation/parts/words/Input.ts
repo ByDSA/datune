@@ -1,4 +1,4 @@
-type Input = {
+export type WordsInput = {
   note: string;
   chord: string;
   scale: string;
@@ -14,5 +14,3 @@ type Input = {
   noteAlt: string;
   diatonic: string;
 };
-
-export default Input;

@@ -27,6 +27,9 @@ importers:
       '@chevrotain/types':
         specifier: 11.0.3
         version: 11.0.3
+      '@datune/coreDev':
+        specifier: file:../core/
+        version: '@datune/core@file:../core'
 
 packages:
 
@@ -35,6 +38,9 @@ packages:
 
   '@datune/analyzer@file:../analyzer/dist':
     resolution: {directory: ../analyzer/dist, type: directory}
+
+  '@datune/core@file:../core':
+    resolution: {directory: ../core, type: directory}
 
   '@datune/core@file:../core/dist':
     resolution: {directory: ../core/dist, type: directory}
@@ -71,6 +77,11 @@ snapshots:
     dependencies:
       '@datune/core': file:../core/dist
       '@datune/utils': file:../utils/dist
+
+  '@datune/core@file:../core':
+    dependencies:
+      '@datune/utils': file:../utils/dist
+      immutable: 5.0.3
 
   '@datune/core@file:../core/dist':
     dependencies:

@@ -1,23 +1,22 @@
-/* eslint-disable camelcase */
-import { C, Cm, from } from "@datune/core/keys/chromatic";
+import { Keys as K } from "@datune/core/keys/chromatic";
+import { Pitches as P } from "@datune/core/pitches/chromatic";
+import { Scales } from "@datune/core/scales/chromatic";
 import { LangId } from "lang";
-import fromString from "parsing/keys/chromatic";
-import { A as P_A, Ab as P_Ab } from "@datune/core/pitches/chromatic";
-import { BLUES_b5 } from "@datune/core/scales/chromatic";
+import { parseKey } from "parsing/keys/chromatic";
 import { TestInit, TestLang } from "tests";
 
 TestInit.chromaticKey();
 TestLang.loadAll();
 
 describe.each([
-  [LangId.EN, "C Major", C],
-  [LangId.ES, "Do Mayor", C],
-  [LangId.EN, "C Minor", Cm],
-])("toString + fromString", (langId, str, key) => {
+  [LangId.EN, "C Major", K.C],
+  [LangId.ES, "Do Mayor", K.C],
+  [LangId.EN, "C Minor", K.Cm],
+])("toString + parse", (langId, str, key) => {
   const keyName = String(key);
 
-  it(`fromString: (${langId}, "${str}") => ${keyName}`, () => {
-    const t = fromString(str, {
+  it(`parse: (${langId}, "${str}") => ${keyName}`, () => {
+    const t = parseKey(str, {
       langId,
     } );
 
@@ -26,19 +25,19 @@ describe.each([
 } );
 
 describe.each([
-  [LangId.EN, "C MAJOR", C],
-  [LangId.ES, "Do MAYOR", C],
-  [LangId.ES, "Do", C],
-  [LangId.ES, "Do ", C],
-  [LangId.ES, "Do m", Cm],
-  [LangId.EN, "C ", C],
-  [LangId.ES, "lab bLuEsB5", from(P_Ab, BLUES_b5)],
-  [LangId.ES, "la bLuEsB5", from(P_A, BLUES_b5)],
-  [LangId.EN, "a bLuEsB5", from(P_A, BLUES_b5)],
-  [LangId.ES, "Do", C],
-  [LangId.EN, "C", C],
-  [LangId.EN, "C ", C],
-  [LangId.EN, "Cm", Cm],
+  [LangId.EN, "C MAJOR", K.C],
+  [LangId.ES, "Do MAYOR", K.C],
+  [LangId.ES, "Do", K.C],
+  [LangId.ES, "Do ", K.C],
+  [LangId.ES, "Do m", K.Cm],
+  [LangId.EN, "C ", K.C],
+  [LangId.ES, "lab bLuEsB5", K.fromRootScale(P.Ab, Scales.BLUES_b5)],
+  [LangId.ES, "la bLuEsB5", K.fromRootScale(P.A, Scales.BLUES_b5)],
+  [LangId.EN, "a bLuEsB5", K.fromRootScale(P.A, Scales.BLUES_b5)],
+  [LangId.ES, "Do", K.C],
+  [LangId.EN, "C", K.C],
+  [LangId.EN, "C ", K.C],
+  [LangId.EN, "Cm", K.Cm],
   // bad values
   [LangId.ES, "C", null],
   [LangId.ES, "C Mayor", null],
@@ -46,11 +45,11 @@ describe.each([
   [LangId.EN, "Do", null],
   [LangId.EN, "Do Major", null],
   [LangId.EN, "C Mayor", null],
-])("fromString", (langId, str, key) => {
+])("parse", (langId, str, key) => {
   const keyName = key ? String(key) : "null";
 
   it(`(${langId}, "${str}") => ${keyName}`, () => {
-    const actual = fromString(str, {
+    const actual = parseKey(str, {
       langId,
     } );
 

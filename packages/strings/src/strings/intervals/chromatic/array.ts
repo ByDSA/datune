@@ -1,6 +1,6 @@
-import { Array } from "@datune/core/intervals/chromatic";
-import stringify from ".";
+import { IntervalArray } from "@datune/core/intervals/chromatic";
+import { stringifyInterval } from ".";
 
-export default function stringifyArray(array: Array): string {
-  return array.map(stringify).join("-");
+export function stringifyIntervals(array: IntervalArray): string {
+  return array.map(stringifyInterval).join("-");
 }

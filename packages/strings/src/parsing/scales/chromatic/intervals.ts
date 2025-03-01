@@ -1,8 +1,9 @@
-import { Array as IntervalArray } from "@datune/core/intervals/chromatic";
-import parseIntervals from "parsing/intervals/chromatic/array";
-import { fromIntraIntervals, Scale } from "@datune/core/scales/chromatic";
+import { IntervalArray } from "@datune/core/intervals/chromatic";
+import { Scale } from "@datune/core/scales/chromatic";
+import { fromIntraIntervals } from "@datune/core/scales/symbolic/chromatic/building";
+import { parseIntervalArray as parseIntervals } from "parsing/intervals/chromatic/array";
 
-export default function fromIntervals(input: string): Scale | null {
+export function parseFromIntervals(input: string): Scale | null {
   const intervals = parseIntervals(input);
 
   if (intervals)

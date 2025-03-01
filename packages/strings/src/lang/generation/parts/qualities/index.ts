@@ -1,11 +1,11 @@
 export {
-  default as qualitiesGenerate,
+  qualitiesGenerate,
 } from "./generate";
 
 export {
-  default as QualitiesInput,
+  QualitiesInput,
 } from "./Input";
 
 export {
-  default as QualitiesPart,
+  QualitiesPart,
 } from "./Part";

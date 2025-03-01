@@ -1,4 +1,4 @@
-type Part = {
+export type ScalesPart = {
   MAJOR: string;
   IONIAN: string;
   MINOR: string;
@@ -62,5 +62,3 @@ type Part = {
   MESSIAEN_VII: string;
   BEBOP_MAJOR: string;
 };
-
-export default Part;

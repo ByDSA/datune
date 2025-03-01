@@ -1,4 +1,4 @@
-type Input = {
+export type QualitiesInput = {
   perfect: string;
   major: string;
   minor: string;
@@ -7,5 +7,3 @@ type Input = {
   doublyDiminished: string;
   doublyAugmented: string;
 };
-
-export default Input;

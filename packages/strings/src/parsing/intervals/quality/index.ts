@@ -1,17 +1,17 @@
 import { Quality } from "@datune/core/intervals/quality";
+import { parseLongName } from "./longName";
+import { parseShortName } from "./shortName";
 import { Options } from "lang";
-import longName from "./longName";
-import shortName from "./shortName";
 
-export default function f(input: string, options?: Options): Quality | null {
+export function parseQuality(input: string, options?: Options): Quality | null {
   let quality: Quality | null;
 
-  quality = longName(input, options);
+  quality = parseLongName(input, options);
 
   if (quality)
     return quality;
 
-  quality = shortName(input);
+  quality = parseShortName(input);
 
   return quality;
 }

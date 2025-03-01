@@ -1,27 +1,27 @@
 export {
-  default as parseChord,
+  parseChord,
 } from "./chords/alt";
 
 export {
-  default as parseInterval,
+  parseInterval,
 } from "./intervals/alt";
 
 export {
-  default as parseIntervalArray,
+  parseIntervalArray,
 } from "./intervals/alt/array";
 
 export {
-  default as parseKey,
+  parseKey,
 } from "./keys/alt";
 
 export {
-  default as parsePitch,
+  parsePitch,
 } from "./pitches/alt";
 
 export {
-  default as parseScale,
+  parseScale,
 } from "./scales/alt";
 
 export {
-  default as parseVoicing,
+  parseVoicing,
 } from "./voicings/alt";

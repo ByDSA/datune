@@ -1,11 +1,11 @@
 export {
-  default as temperamentsGenerate,
+  temperamentsGenerate,
 } from "./generate";
 
 export {
-  default as TemperamentsInput,
+  TemperamentsInput,
 } from "./Input";
 
 export {
-  default as TemperamentsPart,
+  TemperamentsPart,
 } from "./Part";

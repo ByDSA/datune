@@ -1,5 +1,5 @@
 import { LangId } from "lang";
-import Language from "lang/Language";
+import { Language } from "lang/Language";
 
 const map = new Map<LangId, Language>();
 

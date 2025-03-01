@@ -1,17 +1,17 @@
-import { Options } from "parsing";
 import { Scale } from "@datune/core/scales/alt";
-import fromIntervals from "./intervals";
-import fromName from "./name";
+import { parseFromIntervals } from "./intervals";
+import { parseFromName } from "./name";
+import { Options } from "parsing";
 
-export default function parse(input: string, options?: Options): Scale | null {
+export function parseScale(input: string, options?: Options): Scale | null {
   let scale: Scale | null;
 
-  scale = fromName(input, options);
+  scale = parseFromName(input, options);
 
   if (scale)
     return scale;
 
-  scale = fromIntervals(input);
+  scale = parseFromIntervals(input);
 
   if (scale)
     return scale;

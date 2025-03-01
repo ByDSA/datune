@@ -1,4 +1,4 @@
-import type { Pitch } from "./Pitch";
+import { Pitch } from "./Pitch";
 import type { PitchArray } from "./Array";
 import { fixAlts } from "./fixAlts";
 import type { fromChromatic } from "./building/chromatic";

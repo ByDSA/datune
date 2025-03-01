@@ -1,4 +1,3 @@
-import type { DegreeFunction } from "./degree-function/DegreeFunction";
 import { degrees as calcDegrees } from "./degree-function/calcs";
 import type { HarmonicFunction } from "./HarmonicFunction";
 import type * as DegreeFunctionConstants from "./degree-function/constants";
@@ -24,7 +23,6 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
 } );
 
 export {
-  DegreeFunction,
   HarmonicFunction,
   mod as Functions,
 };

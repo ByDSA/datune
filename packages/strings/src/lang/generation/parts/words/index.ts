@@ -1,11 +1,11 @@
 export {
-  default as wordsGenerate,
+  wordsGenerate,
 } from "./generate";
 
 export {
-  default as WordsInput,
+  WordsInput,
 } from "./Input";
 
 export {
-  default as WordsPart,
+  WordsPart,
 } from "./Part";

@@ -1,6 +1,6 @@
 import { DiatonicsInput, QualitiesInput, ScalesInput, ShortVoicingsInput, TemperamentsInput, VoicingsInput, WordsInput } from "./parts";
 
-type Input = {
+export type Input = {
   diatonics: DiatonicsInput;
   voicings: VoicingsInput;
   shortVoicings: ShortVoicingsInput;
@@ -9,5 +9,3 @@ type Input = {
   words: WordsInput;
   qualities: QualitiesInput;
 };
-
-export default Input;

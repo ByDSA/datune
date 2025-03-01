@@ -1,18 +1,18 @@
-import Language from "../../../Language";
-import generate from "../../generate";
-import Input from "./Input";
+import { Language } from "../../../Language";
+import { generate } from "../../generate";
+import { INPUT_ES } from "./Input";
 
-export default function generateThisLang(): Language {
+export function generateEs(): Language {
   return generate( {
     id: "es",
     name: "Castellano",
-    base: Input,
+    base: INPUT_ES,
     customGenerators: {
       voicings: {
-        MINOR_SECOND: `${Input.voicings.SECOND} ${Input.voicings.MINOR}`,
-        MAJOR_SECOND: `${Input.voicings.SECOND} ${Input.voicings.MAJOR}`,
-        MINOR_THIRD: `${Input.voicings.THIRD} ${Input.voicings.MINOR}`,
-        MAJOR_THIRD: `${Input.voicings.THIRD} ${Input.voicings.MAJOR}`,
+        MINOR_SECOND: `${INPUT_ES.voicings.SECOND} ${INPUT_ES.voicings.MINOR}`,
+        MAJOR_SECOND: `${INPUT_ES.voicings.SECOND} ${INPUT_ES.voicings.MAJOR}`,
+        MINOR_THIRD: `${INPUT_ES.voicings.THIRD} ${INPUT_ES.voicings.MINOR}`,
+        MAJOR_THIRD: `${INPUT_ES.voicings.THIRD} ${INPUT_ES.voicings.MAJOR}`,
       },
     },
   } );

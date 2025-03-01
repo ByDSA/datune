@@ -1,11 +1,11 @@
 export {
-  default as shortVoicingsGenerate,
+  shortVoicingsGenerate,
 } from "./generate";
 
 export {
-  default as ShortVoicingsInput,
+  ShortVoicingsInput,
 } from "./Input";
 
 export {
-  default as ShortVoicingsPart,
+  ShortVoicingsPart,
 } from "./Part";

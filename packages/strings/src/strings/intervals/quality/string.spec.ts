@@ -1,7 +1,7 @@
 import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "@datune/core/intervals/quality";
+import { stringifyQuality } from ".";
 import { LangId } from "lang";
 import { TestLang } from "tests";
-import stringify from ".";
 
 TestLang.loadAll();
 
@@ -22,7 +22,7 @@ describe.each([
   [LangId.ES, DIMINISHED, "Disminuida"],
 ])("manual tests", (langId, quality, str) => {
   it(`(${langId}, ${quality}) => "${str}"`, () => {
-    const actual = stringify(quality, {
+    const actual = stringifyQuality(quality, {
       langId,
     } );
 

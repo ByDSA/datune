@@ -2,7 +2,7 @@ import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINO
 import { getLangFromOptions, Options } from "lang";
 import { toPascalCase } from "parsing/utils";
 
-export default function toString(obj: Quality, options?: Options): string {
+export function stringifyQuality(obj: Quality, options?: Options): string {
   const name = getName(obj, options);
 
   if (name)

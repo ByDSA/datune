@@ -1,27 +1,27 @@
 export {
-  default as parseChord,
+  parseChord,
 } from "./chords/chromatic";
 
 export {
-  default as parseInterval,
+  parseInterval,
 } from "./intervals/chromatic";
 
 export {
-  default as parseIntervalArray,
+  parseIntervalArray,
 } from "./intervals/chromatic/array";
 
 export {
-  default as parseKey,
+  parseKey,
 } from "./keys/chromatic";
 
 export {
-  default as parsePitch,
+  parsePitch,
 } from "./pitches/chromatic";
 
 export {
-  default as parseScale,
+  parseScale,
 } from "./scales/chromatic";
 
 export {
-  default as parseVoicing,
+  parseVoicing,
 } from "./voicings/chromatic";

@@ -1,11 +1,12 @@
-import { generateES } from ".";
 import { Language } from "../../..";
+import { generateEs } from "./generate";
 
 let lang: Language;
 
 beforeAll(() => {
-  lang = generateES();
+  lang = generateEs();
 } );
+
 it("esp1", () => {
   const expected = "Do";
   const actual = lang.diatonic.C;

@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/named
 import { createToken, Lexer, TokenType } from "chevrotain";
 
 export type GlobalTokens = {
