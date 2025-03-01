@@ -1,10 +1,11 @@
 import { frac, FracExp } from "../frac";
 import { neg } from "../neg";
-import NumExp from "../NumExp";
-import mult from "./mult";
-import MultExp from "./MultExp";
+import { NumExp } from "../NumExp";
+// eslint-disable-next-line import/no-cycle
+import { mult } from "./mult";
+import { MultExp } from "./MultExp";
 
-export default function multFrac(self: FracExp, other: NumExp): NumExp {
+export function multFrac(self: FracExp, other: NumExp): NumExp {
   if (other instanceof FracExp) {
     const newN = mult(self.numerator, other.numerator);
     const newD = mult(self.denominator, other.denominator);

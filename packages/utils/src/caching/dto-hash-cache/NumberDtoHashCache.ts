@@ -1,4 +1,4 @@
-import DtoHashCache from "./DtoHashCache";
+import { DtoHashCache } from "./DtoHashCache";
 
-export default class NumberDtoHashCache<T, Dto> extends DtoHashCache<T, Dto, number> {
+export class NumberHashCache<T, Dto> extends DtoHashCache<T, Dto, number> {
 }

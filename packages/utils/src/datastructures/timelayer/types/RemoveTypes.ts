@@ -1,4 +1,4 @@
-import Interval from "../../../math/interval/Interval";
+import { Interval } from "../../../math/interval/Interval";
 import { TemporalNode } from "../temporal-node";
 import { NodesType, NodeType } from "./types";
 import { Time } from "time";

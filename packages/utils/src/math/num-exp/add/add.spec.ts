@@ -1,6 +1,6 @@
 import { frac } from "../frac";
-import NumExp from "../NumExp";
-import add from "./add";
+import { NumExp } from "../NumExp";
+import { add } from "./add";
 
 describe.each([
   [1, 2, 3],

@@ -1,6 +1,6 @@
 import { add } from "../../../time";
 import { isEventFromDurationType, isEventFromToType, isEventIntervalType, isNodeCopyType } from "./guards/constructor";
-import TemporalNode from "./TemporalNode";
+import { TemporalNode } from "./TemporalNode";
 import { Constructor } from "./types";
 import { intervalOf } from "math";
 

@@ -1,10 +1,11 @@
+/* eslint-disable accessor-pairs */
 import { from as temporalNode, isTemporalNodeConstructorType, TemporalNode } from "../../temporal-node";
-import TimeLayer from "../../TimeLayer";
+import { TimeLayer } from "../../TimeLayer";
 import { AddType, GetType, isAddLayerType, isNodesType, isNodeType, RemoveType, SequenceAddListener, SequenceChangeListener, SequenceRemoveListener, TimeLayerConstructorObject } from "../../types";
-import ParallelSequence from "../parallel/ParallelSequence";
+import { ParallelSequence } from "../parallel/ParallelSequence";
 import { Time } from "time";
 
-export default class LinearSequence<E> implements TimeLayer<E> {
+export class LinearSequence<E> implements TimeLayer<E> {
   private parallelSequence: ParallelSequence<E>;
 
   constructor(obj: TimeLayerConstructorObject) {
@@ -31,17 +32,14 @@ export default class LinearSequence<E> implements TimeLayer<E> {
     return this.parallelSequence.moveNodeEndTo(node, time);
   }
 
-  // eslint-disable-next-line accessor-pairs
   get nodes(): readonly TemporalNode<E>[] {
     return this.parallelSequence.nodes;
   }
 
-  // eslint-disable-next-line accessor-pairs
   get duration(): Time {
     return this.parallelSequence.duration;
   }
 
-  // eslint-disable-next-line accessor-pairs
   get startTime(): Time {
     return this.parallelSequence.startTime;
   }

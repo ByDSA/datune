@@ -1,6 +1,6 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-restricted-syntax */
-export default class SetComparator<T> {
+export class SetComparator<T> {
   #common = new Set<T>();
 
   #different = new Set<T>();

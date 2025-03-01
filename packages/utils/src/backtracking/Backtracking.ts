@@ -1,4 +1,4 @@
-export default abstract class Backtracking<D, T> {
+export abstract class Backtracking<D, T> {
   private bt(c: T) {
     if (this.reject(<D> this.#P, c))
       return;

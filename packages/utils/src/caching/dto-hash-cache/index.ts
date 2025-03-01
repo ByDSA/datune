@@ -1,13 +1,13 @@
 export {
-  default as DtoHashCache,
+  DtoHashCache,
 } from "./DtoHashCache";
 
 export * from "./funcs";
 
 export {
-  default as NumberHashCache,
+  NumberHashCache,
 } from "./NumberDtoHashCache";
 
 export {
-  default as StringHashCache,
+  StringHashCache,
 } from "./StringDtoHashCache";

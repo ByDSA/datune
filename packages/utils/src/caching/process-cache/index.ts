@@ -1,11 +1,11 @@
 export {
-  default as AfterProcess,
+  AfterProcess,
 } from "./AfterProcess";
 
 export {
-  default as Process,
+  Process,
 } from "./Process";
 
 export {
-  default as ProcessCache,
+  ProcessCache,
 } from "./ProcessCache";

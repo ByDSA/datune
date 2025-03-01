@@ -1,7 +1,7 @@
 export {
-  default as frac,
+  frac,
 } from "./Frac";
 
 export {
-  default as FracExp,
+  FracExp,
 } from "./FracExp";

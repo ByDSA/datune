@@ -1,7 +1,7 @@
-import AfterProcess from "./AfterProcess";
-import Process from "./Process";
+import { AfterProcess } from "./AfterProcess";
+import { Process } from "./Process";
 
-export default class ProcessCache<I, O> {
+export class ProcessCache<I, O> {
   #map: Map<I, O>;
 
   #process: Process<I, O>;

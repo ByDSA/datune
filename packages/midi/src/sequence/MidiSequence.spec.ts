@@ -16,8 +16,7 @@ it("from - cellSize=EIGHTH", () => {
   const midiSequence: MidiSequence = new MidiSequence( {
     cellSize,
   } );
-  // eslint-disable-next-line no-underscore-dangle
-  const actual = (<any>midiSequence)._cellSize;
+  const actual = midiSequence.cellSize;
 
   expect(actual).toBe(cellSize);
 } );

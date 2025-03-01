@@ -1,5 +1,5 @@
 export * from "./modifiers";
 
 export {
-  default as Time,
+  Time,
 } from "./Time";

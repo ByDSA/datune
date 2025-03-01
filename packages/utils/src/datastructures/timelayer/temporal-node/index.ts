@@ -5,7 +5,7 @@ export * from "./building";
 export * from "./guards";
 
 export {
-  default as TemporalNode,
+  TemporalNode,
 } from "./TemporalNode";
 
 export {

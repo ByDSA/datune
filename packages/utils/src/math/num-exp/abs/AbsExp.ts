@@ -1,6 +1,6 @@
-import OneOpExp from "../OneOpExp";
+import { OneOpExp } from "../OneOpExp";
 
-export default class AbsExp extends OneOpExp {
+export class AbsExp extends OneOpExp {
   toString() {
     return `|${this.arg0}|`;
   }

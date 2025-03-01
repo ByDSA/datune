@@ -1,6 +1,6 @@
 import Hashids from "hashids";
-import DtoHashCache from "../DtoHashCache";
-import TestClass, { from, H } from "./TestClass";
+import { DtoHashCache } from "../DtoHashCache";
+import { TestClass, from, H } from "./TestClass";
 import { value1 } from "./Values";
 
 beforeAll(() => {

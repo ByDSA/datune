@@ -1,6 +1,6 @@
-import NumExp from "../NumExp";
-import AbsExp from "./AbsExp";
+import { NumExp } from "../NumExp";
+import { AbsExp } from "./AbsExp";
 
-export default function abs(value: NumExp): AbsExp {
+export function abs(value: NumExp): AbsExp {
   return new (AbsExp as any)(value);
 }

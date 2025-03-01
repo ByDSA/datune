@@ -1,4 +1,4 @@
-export default (a: number, b: number) => {
+export const gcd = (a: number, b: number) => {
   let tmp: number;
 
   while (b !== 0) {

@@ -1,4 +1,4 @@
-import Time from "../Time";
+import { Time } from "../Time";
 
 export function add<T extends Time>(self: T, other: T): T {
   return +self + +other as T;

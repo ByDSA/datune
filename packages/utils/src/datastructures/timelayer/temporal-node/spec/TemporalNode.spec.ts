@@ -1,4 +1,4 @@
-import EventTest from "./EventTest";
+import { EventTest } from "./EventTest";
 import { newNode1 } from "./utils";
 import { intervalOf } from "math";
 

@@ -1,8 +1,8 @@
 import { AbsExp } from "../abs";
 import { frac, FracExp } from "../frac";
-import NumExp from "../NumExp";
+import { NumExp } from "../NumExp";
 
-export default function absSimplify(exp: AbsExp): NumExp {
+export function simplifyAbs(exp: AbsExp): NumExp {
   if (typeof exp.arg0 === "number")
     return Math.abs(exp.arg0);
 

@@ -1,15 +1,16 @@
-import { intervalContains, intervalIntersects, intervalOf } from "math";
-import { contains } from "math/interval";
-import { add, divCell, mult, sub } from "time";
-import Time from "time/Time";
+/* eslint-disable accessor-pairs */
 import TreeMap from "ts-treemap";
-import Interval from "../../../../math/interval/Interval";
+import { Interval } from "../../../../math/interval/Interval";
 import { Constructor as TemporalNodeConstructorType, from as temporalNode, isTemporalNodeConstructorType, TemporalNode } from "../../temporal-node";
-import TimeLayer from "../../TimeLayer";
+import { TimeLayer } from "../../TimeLayer";
 import { AddType, GetType, isAddLayerType, isGetNodesAtType, isGetNodesFromToType, isNodeType, NodeType, RemoveType, SequenceAddListener, SequenceChangeListener, SequenceRemoveListener } from "../../types";
 import { isGetNodesAtIntervalType } from "../../types/GetTypes";
 import { isRemoveNodesAtIntervalType, isRemoveNodesAtType, isRemoveNodesFromToType, RemoveNodesAtIntervalType, RemoveNodesAtType, RemoveNodesFromToType } from "../../types/RemoveTypes";
 import { isNodesType, NodesType, TimeLayerConstructorObject } from "../../types/types";
+import { Time } from "time/Time";
+import { add, divCell, mult, sub } from "time";
+import { contains } from "math/interval";
+import { intervalContains, intervalIntersects, intervalOf } from "math";
 
 type FunctionEach<E> = (
     node: TemporalNode<E>,
@@ -21,83 +22,82 @@ type FEach<E> = (
     cell: TemporalNode<E>[]
     )=> void;
 
-export default class ParallelSequence<E> implements TimeLayer<E> {
-  private _cells: TreeMap<number, TemporalNode<E>[]>;
+export class ParallelSequence<E> implements TimeLayer<E> {
+  #cells: TreeMap<number, TemporalNode<E>[]>;
 
-  private _nodes: TemporalNode<E>[];
+  #nodes: TemporalNode<E>[];
 
-  private _onChangeListeners: SequenceChangeListener<E>[];
+  #onChangeListeners: SequenceChangeListener<E>[];
 
-  private _onAddListeners: SequenceAddListener<E>[];
+  #onAddListeners: SequenceAddListener<E>[];
 
-  private _onRemoveListeners: SequenceRemoveListener<E>[];
+  #onRemoveListeners: SequenceRemoveListener<E>[];
 
-  private _startTime: Time;
+  #startTime: Time;
 
-  private _cellSize: Time;
+  #cellSize: Time;
 
   constructor(obj: TimeLayerConstructorObject) {
-    this._cells = new TreeMap();
-    this._nodes = [];
+    this.#cells = new TreeMap();
+    this.#nodes = [];
 
-    this._startTime = obj.startTime;
-    this._cellSize = obj.cellSize;
-    this._onChangeListeners = [];
-    this._onAddListeners = [];
-    this._onRemoveListeners = [];
+    this.#startTime = obj.startTime;
+    this.#cellSize = obj.cellSize;
+    this.#onChangeListeners = [];
+    this.#onAddListeners = [];
+    this.#onRemoveListeners = [];
   }
 
-  // eslint-disable-next-line accessor-pairs
   get startTime(): Time {
-    return this._startTime;
+    return this.#startTime;
   }
 
-  private _getCellIndexFromTime(time: Time): number {
-    return divCell(time, this._cellSize as Time);
+  #getCellIndexFromTime(time: Time): number {
+    return divCell(time, this.#cellSize as Time);
   }
 
-  private _getCellFromTime(time: Time): TemporalNode<E>[] {
-    const index: number = this._getCellIndexFromTime(time);
+  #getCellFromTime(time: Time): TemporalNode<E>[] {
+    const index: number = this.#getCellIndexFromTime(time);
 
-    return this._getCellFromIndex(index);
+    return this.#getCellFromIndex(index);
   }
 
-  private _getCellFromIndex(index: number): TemporalNode<E>[] {
-    let cell = this._cells.get(index);
+  #getCellFromIndex(index: number): TemporalNode<E>[] {
+    let cell = this.#cells.get(index);
 
     if (!cell) {
       cell = [];
-      this._cells.set(index, cell);
+      this.#cells.set(index, cell);
     }
 
     return cell;
   }
 
   onChange(listener: SequenceChangeListener<E>) {
-    this._onChangeListeners.push(listener);
+    this.#onChangeListeners.push(listener);
   }
 
-  private _callOnChangeListeners(oldNode: TemporalNode<E>, newNode: TemporalNode<E>) {
-    for (const f of this._onChangeListeners)
+  #callOnChangeListeners(oldNode: TemporalNode<E>, newNode: TemporalNode<E>) {
+    for (const f of this.#onChangeListeners)
       f(oldNode, newNode);
   }
 
-  private _callOnAddListeners(node: TemporalNode<E>) {
-    for (const f of this._onAddListeners)
+  #callOnAddListeners(node: TemporalNode<E>) {
+    for (const f of this.#onAddListeners)
       f(node);
   }
 
-  private _callOnRemoveListeners(node: TemporalNode<E>) {
-    for (const f of this._onRemoveListeners)
+  #callOnRemoveListeners(node: TemporalNode<E>) {
+    for (const f of this.#onRemoveListeners)
       f(node);
   }
 
   onAdd(listener: SequenceAddListener<E>) {
-    this._onAddListeners.push(listener);
+    this.#onAddListeners.push(listener);
   }
 
   onRemove(listener: SequenceRemoveListener<E>) {
-    this._onRemoveListeners.push(listener);
+    this.#onRemoveListeners.push(listener);
   }
 
   add(obj: AddType<E>): TemporalNode<E>[] {
@@ -129,11 +129,11 @@ export default class ParallelSequence<E> implements TimeLayer<E> {
   }
 
   private addNode(node: TemporalNode<E>): TemporalNode<E> {
-    this._forEachCellsAtInterval(node.interval, (cell) => cell.push(node));
+    this.#forEachCellsAtInterval(node.interval, (cell) => cell.push(node));
 
-    this._nodes.push(node);
+    this.#nodes.push(node);
 
-    this._callOnAddListeners(node);
+    this.#callOnAddListeners(node);
 
     return node;
   }
@@ -201,7 +201,7 @@ export default class ParallelSequence<E> implements TimeLayer<E> {
     const { to } = node.interval;
     const ret = this.addEvent(node.event, time, add(to, time));
 
-    this._callOnChangeListeners(node, ret);
+    this.#callOnChangeListeners(node, ret);
 
     return ret;
   }
@@ -211,32 +211,32 @@ export default class ParallelSequence<E> implements TimeLayer<E> {
     const { to } = node.interval;
     const ret = this.addEvent(node.event, sub(time, to), time);
 
-    this._callOnChangeListeners(node, ret);
+    this.#callOnChangeListeners(node, ret);
 
     return ret;
   }
 
-  private _forEachCellsAtInterval(interval: Interval<Time>, f: (cell: TemporalNode<E>[])=> void) {
-    const iniCell: number = this._getCellIndexFromTime(interval.from);
-    let endCell: number = this._getCellIndexFromTime(interval.to);
+  #forEachCellsAtInterval(interval: Interval<Time>, f: (cell: TemporalNode<E>[])=> void) {
+    const iniCell: number = this.#getCellIndexFromTime(interval.from);
+    let endCell: number = this.#getCellIndexFromTime(interval.to);
 
     // Fix open Interval
-    if (interval.to === mult(this.getCellSize() as Time, endCell))
+    if (interval.to === mult(this.cellSize as Time, endCell))
       endCell--;
 
     for (let i: number = iniCell; i <= endCell; i++) {
-      const cell: TemporalNode<E>[] = this._getCellFromIndex(i);
+      const cell: TemporalNode<E>[] = this.#getCellFromIndex(i);
 
       f(cell);
     }
   }
 
-  private _forEachCellNodesAtInterval(interval: Interval<Time>, f: FEach<E>): void {
-    const iniCell: number = this._getCellIndexFromTime(interval.from);
-    const endCell: number = this._getCellIndexFromTime(interval.to);
+  #forEachCellNodesAtInterval(interval: Interval<Time>, f: FEach<E>): void {
+    const iniCell: number = this.#getCellIndexFromTime(interval.from);
+    const endCell: number = this.#getCellIndexFromTime(interval.to);
 
     for (let i: number = iniCell; i <= endCell; i++) {
-      const cell: TemporalNode<E>[] = this._getCellFromIndex(i);
+      const cell: TemporalNode<E>[] = this.#getCellFromIndex(i);
 
       for (const node of cell) {
         if (intervalIntersects(interval, node.interval))
@@ -271,14 +271,14 @@ export default class ParallelSequence<E> implements TimeLayer<E> {
   private getNodesAtInterval(interval: Interval<Time>): TemporalNode<E>[] {
     const ret: TemporalNode<E>[] = [];
 
-    this._forEachCellNodesAtInterval(interval, (node) => ret.push(node));
+    this.#forEachCellNodesAtInterval(interval, (node) => ret.push(node));
 
     return ret;
   }
 
   private getNodesAt(time: Time): TemporalNode<E>[] {
     const ret: TemporalNode<E>[] = [];
-    const cell: TemporalNode<E>[] = this._getCellFromTime(time);
+    const cell: TemporalNode<E>[] = this.#getCellFromTime(time);
 
     for (const musicalEvent of cell) {
       if (contains(musicalEvent.interval, time))
@@ -288,13 +288,13 @@ export default class ParallelSequence<E> implements TimeLayer<E> {
     return ret;
   }
 
-  // eslint-disable-next-line accessor-pairs
   get duration(): Time {
-    const lastEntry = this._lastEntryWithNodes();
+    const lastEntry = this.#lastEntryWithNodes();
 
     if (!lastEntry)
       return this.startTime;
 
+    // eslint-disable-next-line prefer-destructuring
     const lastCell: TemporalNode<E>[] = lastEntry[1];
     let max: Time = lastCell[0].interval.to;
 
@@ -308,23 +308,23 @@ export default class ParallelSequence<E> implements TimeLayer<E> {
     return max;
   }
 
-  private _lastEntryWithNodes(): [number, TemporalNode<E>[]] | undefined {
+  #lastEntryWithNodes(): [number, TemporalNode<E>[]] | undefined {
     do {
-      const lastEntry = this._cells.lastEntry();
+      const lastEntry = this.#cells.lastEntry();
 
       if (!lastEntry)
         return undefined;
 
       if (lastEntry[1].length === 0)
-        this._cells.popEntry();
+        this.#cells.popEntry();
       else
         return lastEntry;
+    // eslint-disable-next-line no-constant-condition
     } while (true);
   }
 
-  // eslint-disable-next-line accessor-pairs
   get nodes(): TemporalNode<E>[] {
-    return this._nodes;
+    return this.#nodes;
   }
 
   remove(obj: RemoveType<E>): TemporalNode<E>[] {
@@ -372,9 +372,9 @@ export default class ParallelSequence<E> implements TimeLayer<E> {
   }
 
   private removeNodesAt(time: Time): TemporalNode<E>[] {
-    const cell: TemporalNode<E>[] = this._getCellFromTime(time);
+    const cell: TemporalNode<E>[] = this.#getCellFromTime(time);
     const f = (node: TemporalNode<E>) => !intervalContains(node.interval, time);
-    const removedNodes = this._cellRemoveNodesIf(cell, f);
+    const removedNodes = this.#cellRemoveNodesIf(cell, f);
 
     return removedNodes;
   }
@@ -382,7 +382,7 @@ export default class ParallelSequence<E> implements TimeLayer<E> {
   private removeNodesAtInterval(intervalTime: Interval<Time>): TemporalNode<E>[] {
     const removedNodes: TemporalNode<E>[] = [];
 
-    this._forEachCellNodesAtInterval(intervalTime, (node, cell) => {
+    this.#forEachCellNodesAtInterval(intervalTime, (node, cell) => {
       removeNodeFromCell(node, cell);
       removedNodes.push(node);
     } );
@@ -390,7 +390,7 @@ export default class ParallelSequence<E> implements TimeLayer<E> {
     return removedNodes;
   }
 
-  private _cellRemoveNodesIf(
+  #cellRemoveNodesIf(
     cell: TemporalNode<E>[],
     f: FunctionEach<E>,
   ): TemporalNode<E>[] {
@@ -410,31 +410,31 @@ export default class ParallelSequence<E> implements TimeLayer<E> {
   }
 
   private removeNode(node: TemporalNode<E>): TemporalNode<E> | null {
-    const index = this._nodes.indexOf(node);
+    const index = this.#nodes.indexOf(node);
 
     if (index === -1)
       return null;
 
-    this._forEachCellsAtInterval(node.interval, (cell) => removeNodeFromCell(node, cell));
-    this._nodes.splice(index, 1);
+    this.#forEachCellsAtInterval(node.interval, (cell) => removeNodeFromCell(node, cell));
+    this.#nodes.splice(index, 1);
 
-    this._callOnRemoveListeners(node);
+    this.#callOnRemoveListeners(node);
 
     return node;
   }
 
   clear() {
-    const oldNodes = this._nodes;
+    const oldNodes = this.#nodes;
 
-    this._nodes = [];
-    this._cells = new TreeMap();
+    this.#nodes = [];
+    this.#cells = new TreeMap();
 
     for (const oldNode of oldNodes)
-      this._callOnRemoveListeners(oldNode);
+      this.#callOnRemoveListeners(oldNode);
   }
 
-  protected getCellSize(): Time {
-    return this._cellSize;
+  get cellSize(): Time {
+    return this.#cellSize;
   }
 }
 

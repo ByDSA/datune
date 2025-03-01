@@ -1,6 +1,6 @@
-import OneOpExp from "../OneOpExp";
+import { OneOpExp } from "../OneOpExp";
 
-export default class NegExp extends OneOpExp {
+export class NegExp extends OneOpExp {
   toString() {
     return `-${this.arg0}`;
   }

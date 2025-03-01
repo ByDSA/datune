@@ -11,11 +11,7 @@
     "directory": "packages/utils"
   },
   "scripts": {
-    "build": "pnpm build:clean && pnpm build:raw",
-    "build:clean": "rm -rf dist",
-    "build:raw": "tsc -p tsconfig-build.json && tsc-alias -p tsconfig-build.json",
-    "prepublishOnly": "pnpm test:coverage && pnpm lint:fix && pnpm build",
-    "postpublish": "pnpm build:clean",
+    "build": "rm -rf dist && tsc -p tsconfig-build.json && tsc-alias -p tsconfig-build.json",
     "release": "standard-version",
     "release:push": "git push && git push --tags && pnpm docs:push",
     "test": "jest --runInBand",

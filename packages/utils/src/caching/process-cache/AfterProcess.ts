@@ -1,2 +1,1 @@
-type AfterProcess<I, O> = (input: I, output: O)=> void;
-export default AfterProcess;
+export type AfterProcess<I, O> = (input: I, output: O)=> void;

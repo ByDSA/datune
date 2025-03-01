@@ -1,7 +1,7 @@
 import { frac } from "../frac";
-import NumExp from "../NumExp";
-import pow2 from "../pow2/Pow2";
-import mult from "./mult";
+import { NumExp } from "../NumExp";
+import { pow2 } from "../pow2/Pow2";
+import { mult } from "./mult";
 
 describe.each([
   [frac(3, 2), frac(3, 2), frac(9, 4)],

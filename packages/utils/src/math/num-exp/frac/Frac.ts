@@ -1,6 +1,6 @@
-import NumExp from "../NumExp";
-import Frac from "./FracExp";
+import { NumExp } from "../NumExp";
+import { FracExp } from "./FracExp";
 
-export default function frac(numerator: NumExp, denominator: NumExp): Frac {
-  return new (Frac as any)(numerator, denominator);
+export function frac(numerator: NumExp, denominator: NumExp): FracExp {
+  return new (FracExp as any)(numerator, denominator);
 }

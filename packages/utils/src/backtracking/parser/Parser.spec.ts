@@ -1,4 +1,4 @@
-import ParserBottomUp from "./ParserBottomUp";
+import { ParserBottomUp } from "./ParserBottomUp";
 
 it("test", () => {
   const expected = ["A", 1];

@@ -1,2 +1,2 @@
-export default class EventTest {
+export class EventTest {
 }

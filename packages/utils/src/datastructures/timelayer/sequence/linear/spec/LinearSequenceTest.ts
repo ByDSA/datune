@@ -1,7 +1,7 @@
-import EventTest from "../../../temporal-node/spec/EventTest";
-import LinearSequence from "../LinearSequence";
+import { EventTest } from "../../../temporal-node/spec/EventTest";
+import { LinearSequence } from "../LinearSequence";
 
-export default class LinearSequenceTest extends LinearSequence<EventTest> {
+export class LinearSequenceTest extends LinearSequence<EventTest> {
   constructor() {
     super( {
       startTime: 0,

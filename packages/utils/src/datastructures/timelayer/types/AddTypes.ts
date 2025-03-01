@@ -1,5 +1,5 @@
 import { EventFromToType } from "../temporal-node";
-import TimeLayer from "../TimeLayer";
+import { TimeLayer } from "../TimeLayer";
 import { NodesType, NodeType } from "./types";
 import { Time } from "time";
 

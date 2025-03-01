@@ -1,4 +1,4 @@
-import Interval from "./Interval";
+import { Interval } from "./Interval";
 
 export function contains<C>(self: Interval<C>, other: C): boolean {
   const fromInclusive = self.fromInclusive || false;

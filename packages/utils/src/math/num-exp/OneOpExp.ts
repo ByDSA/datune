@@ -1,6 +1,6 @@
-import NumExp from "./NumExp";
+import { NumExp } from "./NumExp";
 
-export default abstract class TwoOp extends NumExp {
+export abstract class OneOpExp extends NumExp {
   arg0: NumExp;
 
   protected constructor(a: NumExp) {

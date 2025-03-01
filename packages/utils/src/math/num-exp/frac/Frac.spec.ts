@@ -1,5 +1,5 @@
-import frac from "./Frac";
-import FracExp from "./FracExp";
+import { frac } from "./Frac";
+import { FracExp } from "./FracExp";
 
 describe.each([
   [4, 2, 2],

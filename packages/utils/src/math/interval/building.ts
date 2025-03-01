@@ -1,4 +1,4 @@
-import Interval from "./Interval";
+import { Interval } from "./Interval";
 
 type Inclusion = Partial<{
   fromInclusive: boolean;

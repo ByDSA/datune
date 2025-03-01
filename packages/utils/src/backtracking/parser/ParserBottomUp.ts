@@ -1,9 +1,8 @@
-// eslint-disable-next-line import/no-cycle
-import ParsingProcess from "./ParsingProcess";
+import { ParsingProcess } from "./ParsingProcess";
 
 type F = (str: string)=> any;
 type Table = { [key: string]: F };
-export default class ParserBottomUp {
+export class ParserBottomUp {
   table: Table = {};
 
   expectedTypes: string[] = [];

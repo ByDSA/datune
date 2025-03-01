@@ -1,6 +1,6 @@
-import ParserBottomUp from "./ParserBottomUp";
+import { ParserBottomUp } from "./ParserBottomUp";
 
-export default class ParserNode {
+export class ParserNode {
   #objects: unknown[] | undefined;
 
   delimiters: number[];

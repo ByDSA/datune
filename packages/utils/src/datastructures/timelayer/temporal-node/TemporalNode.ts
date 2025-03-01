@@ -5,6 +5,4 @@ type Dto<E> = {
   interval: Interval<Time>;
   event: Readonly<E>;
 };
-type TemporalNode<E> = Readonly<Dto<E>>;
-
-export default TemporalNode;
+export type TemporalNode<E> = Readonly<Dto<E>>;

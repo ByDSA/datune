@@ -1,7 +1,7 @@
 export {
-  default as neg,
+  neg,
 } from "./Neg";
 
 export {
-  default as NegExp,
+  NegExp,
 } from "./NegExp";

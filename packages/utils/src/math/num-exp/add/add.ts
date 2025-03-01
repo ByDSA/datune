@@ -1,8 +1,9 @@
 import { FracExp } from "../frac";
-import NumExp from "../NumExp";
-import addFrac from "./frac";
+import { NumExp } from "../NumExp";
+// eslint-disable-next-line import/no-cycle
+import { addFrac } from "./frac";
 
-export default function add(self: NumExp, other: NumExp): NumExp {
+export function add(self: NumExp, other: NumExp): NumExp {
   if (self instanceof FracExp)
     return addFrac(self, other);
 

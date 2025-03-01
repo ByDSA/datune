@@ -17,6 +17,9 @@
       "path": "./packages/strings"
     },
     {
+      "path": "./packages/midi"
+    },
+    {
       "path": "./packages/analyzer"
     },
     {

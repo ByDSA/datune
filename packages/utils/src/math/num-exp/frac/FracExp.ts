@@ -1,10 +1,10 @@
 import { abs } from "../abs";
 import { mult } from "../mult";
-import NumExp from "../NumExp";
-import Sign from "../Sign";
-import absSimplify from "../simplify/abs";
+import { NumExp } from "../NumExp";
+import { Sign } from "../Sign";
+import { simplifyAbs } from "../simplify/abs";
 
-export default class FracExp extends NumExp {
+export class FracExp extends NumExp {
   numerator: NumExp;
 
   denominator: NumExp;
@@ -13,8 +13,8 @@ export default class FracExp extends NumExp {
 
   private constructor(numerator: NumExp, denominator: NumExp) {
     super();
-    this.numerator = absSimplify(abs(numerator));
-    this.denominator = absSimplify(abs(denominator));
+    this.numerator = simplifyAbs(abs(numerator));
+    this.denominator = simplifyAbs(abs(denominator));
 
     if (+mult(numerator, denominator) >= 0)
       this.sign = Sign.POSITIVE;

@@ -1,4 +1,4 @@
-import TemporalNode from "./TemporalNode";
+import { TemporalNode } from "./TemporalNode";
 import { Interval } from "math/interval";
 import { Time } from "time";
 

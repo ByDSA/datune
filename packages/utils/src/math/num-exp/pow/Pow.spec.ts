@@ -1,4 +1,4 @@
-import pow from "./Pow";
+import { pow } from "./Pow";
 
 describe.each([
   [2, 5, 32],

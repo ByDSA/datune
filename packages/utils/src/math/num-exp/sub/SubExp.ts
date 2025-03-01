@@ -1,6 +1,6 @@
-import TwoOpExp from "../TwoOpExp";
+import { TwoOpExp } from "../TwoOpExp";
 
-export default class SubExp extends TwoOpExp {
+export class SubExp extends TwoOpExp {
   valueOf(): number {
     return +this.arg0 - +this.arg1;
   }

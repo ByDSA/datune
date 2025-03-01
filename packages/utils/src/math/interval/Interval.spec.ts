@@ -1,5 +1,5 @@
 import { of } from "./building";
-import Interval from "./Interval";
+import { Interval } from "./Interval";
 import { contains, intersects } from "./modifiers";
 
 describe("contains", () => {

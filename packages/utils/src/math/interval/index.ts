@@ -3,7 +3,7 @@ export * from "./building";
 export * from "./guards";
 
 export {
-  default as Interval,
+  Interval,
 } from "./Interval";
 
 export * from "./modifiers";

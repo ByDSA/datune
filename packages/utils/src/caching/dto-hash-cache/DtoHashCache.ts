@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { CreateFunc, DtoFunc, Funcs, HashFunc, OnCreateFunc } from "./funcs";
 
-export default class DtoHashCache<T, Dto, HashCode> {
+export class DtoHashCache<T, Dto, HashCode> {
   private _hashMap: Map<HashCode, T>;
 
   hash: HashFunc<Dto, HashCode>;

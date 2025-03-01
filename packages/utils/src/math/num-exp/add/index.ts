@@ -1,7 +1,7 @@
 export {
-  default as add,
+  add,
 } from "./add";
 
 export {
-  default as AddExp,
+  AddExp,
 } from "./AddExp";

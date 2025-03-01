@@ -1,7 +1,7 @@
 export {
-  default as pow,
+  pow,
 } from "./Pow";
 
 export {
-  default as PowExp,
+  PowExp,
 } from "./PowExp";

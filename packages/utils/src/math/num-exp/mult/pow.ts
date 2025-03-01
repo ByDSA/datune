@@ -1,10 +1,10 @@
 import { add } from "../add";
-import NumExp from "../NumExp";
+import { NumExp } from "../NumExp";
 import { PowExp } from "../pow";
 import { pow2, Pow2Exp } from "../pow2";
-import MultExp from "./MultExp";
+import { MultExp } from "./MultExp";
 
-export default function multPow(self: PowExp, other: NumExp): NumExp {
+export function multPow(self: PowExp, other: NumExp): NumExp {
   if (other instanceof PowExp) {
     if (self.arg0 === other.arg0) {
       const exp = add(self.arg1, other.arg1);

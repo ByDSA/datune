@@ -1,6 +1,6 @@
-import LinearSequenceTest from "./LinearSequenceTest";
+import { LinearSequenceTest } from "./LinearSequenceTest";
 import { TemporalNode } from "datastructures/timelayer/temporal-node";
-import EventTest from "datastructures/timelayer/temporal-node/spec/EventTest";
+import { EventTest } from "datastructures/timelayer/temporal-node/spec/EventTest";
 import { intervalOf } from "math";
 
 describe("add", () => {

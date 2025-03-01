@@ -1,11 +1,11 @@
-import DtoHashCache from "../DtoHashCache";
+import { DtoHashCache } from "../DtoHashCache";
 
 export type H = {
   a: number;
   b: number;
 };
 
-export default class TestClass {
+export class TestClass {
   private params: H;
 
   // eslint-disable-next-line no-use-before-define

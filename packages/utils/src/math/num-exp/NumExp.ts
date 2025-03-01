@@ -1,4 +1,4 @@
-export default abstract class NumExp {
+export abstract class NumExp {
     abstract valueOf(): number;
 
     toString() {

@@ -9,7 +9,7 @@ export * from "./mult";
 export * from "./neg";
 
 export {
-  default as NumExp,
+  NumExp,
 } from "./NumExp";
 
 export * from "./pow";
@@ -17,7 +17,7 @@ export * from "./pow";
 export * from "./pow2";
 
 export {
-  default as simplify,
+  simplify,
 } from "./simplify";
 
 export * from "./sub";

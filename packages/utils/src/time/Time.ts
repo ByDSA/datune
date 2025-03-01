@@ -1,3 +1,1 @@
-type Time = number;
-
-export default Time;
+export type Time = number;

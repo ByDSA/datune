@@ -1,10 +1,10 @@
 import { add } from "../add";
 import { frac } from "../frac";
 import { mult } from "../mult";
-import NumExp from "../NumExp";
+import { NumExp } from "../NumExp";
 import { pow } from "../pow";
 import { sub } from "../sub";
-import abs from "./Abs";
+import { abs } from "./Abs";
 
 describe.each([
   [2, 2],

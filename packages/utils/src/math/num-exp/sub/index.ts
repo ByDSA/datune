@@ -1,7 +1,7 @@
 export {
-  default as sub,
+  sub,
 } from "./sub";
 
 export {
-  default as SubExp,
+  SubExp,
 } from "./SubExp";

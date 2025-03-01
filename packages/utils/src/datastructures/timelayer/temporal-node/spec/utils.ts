@@ -1,4 +1,4 @@
-import EventTest from "./EventTest";
+import { EventTest } from "./EventTest";
 import { TemporalNode } from "index";
 import { intervalOf } from "math";
 

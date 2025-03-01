@@ -1,8 +1,10 @@
-import Backtracking from "../Backtracking";
-import ParserNode from "./Node";
-import ParserBottomUp from "./ParserBottomUp";
+import { Backtracking } from "../Backtracking";
+import { ParserNode } from "./Node";
+import type { ParserBottomUp } from "./ParserBottomUp";
 
-export default class ParsingProcess extends Backtracking<ParserBottomUp, ParserNode> {
+export class ParsingProcess extends Backtracking<ParserBottomUp, ParserNode> {
+  #result: ParserNode | null = null;
+
   protected root(P: ParserBottomUp): ParserNode {
     const node = new ParserNode(P);
 
@@ -12,7 +14,7 @@ export default class ParsingProcess extends Backtracking<ParserBottomUp, ParserN
   }
 
   protected reject(P: ParserBottomUp, c: ParserNode): boolean {
-    if (this._result)
+    if (this.#result)
       return true;
 
     if (c.delimiters.length <= P.expectedTypes.length)
@@ -61,13 +63,11 @@ export default class ParsingProcess extends Backtracking<ParserBottomUp, ParserN
   }
 
   protected output(_P: ParserBottomUp, c: ParserNode): void {
-    this._result = c;
+    this.#result = c;
   }
-
-  private _result: ParserNode | null = null;
 
   // eslint-disable-next-line accessor-pairs
   get result(): ParserNode | null {
-    return this._result;
+    return this.#result;
   }
 }

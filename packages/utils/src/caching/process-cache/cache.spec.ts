@@ -1,4 +1,4 @@
-import ProcessCache from "./ProcessCache";
+import { ProcessCache } from "./ProcessCache";
 
 describe("functions", () => {
   const cache = new ProcessCache((num: number) => ( {

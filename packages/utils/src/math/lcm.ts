@@ -1,3 +1,3 @@
-import lcd from "./gcd";
+import { gcd } from "./gcd";
 
-export default (a: number, b: number) => (a * b) / lcd(a, b);
+export const lcm = (a: number, b: number) => (a * b) / gcd(a, b);

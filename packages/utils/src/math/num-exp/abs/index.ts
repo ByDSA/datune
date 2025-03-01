@@ -1,7 +1,7 @@
 export {
-  default as abs,
+  abs,
 } from "./Abs";
 
 export {
-  default as AbsExp,
+  AbsExp,
 } from "./AbsExp";

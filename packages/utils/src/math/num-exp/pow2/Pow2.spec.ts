@@ -1,5 +1,5 @@
 import { frac } from "../frac";
-import pow2 from "./Pow2";
+import { pow2 } from "./Pow2";
 
 describe.each([
   [1, 12, 2 ** (1 / 12)],

@@ -1,9 +1,10 @@
-import { intervalOf } from "math";
-import { add } from "time";
+/* eslint-disable prefer-destructuring */
 import { from as temporalNode } from "../../../temporal-node";
-import EventTest from "../../../temporal-node/spec/EventTest";
+import { EventTest } from "../../../temporal-node/spec/EventTest";
 import { newNode1 } from "../../../temporal-node/spec/utils";
-import ParalelSequenceTest from "./ParallelSequenceTest";
+import { ParalelSequenceTest } from "./ParallelSequenceTest";
+import { add } from "time";
+import { intervalOf } from "math";
 
 describe("initial state", () => {
   it("initial state - nodes", () => {
@@ -31,6 +32,7 @@ describe("add", () => {
 
       expect(node).toBeDefined();
     } );
+
     it("node info", () => {
       const seq = new ParalelSequenceTest();
       const obj = newNode1();
@@ -80,8 +82,8 @@ describe("add", () => {
 
       seq.add(node);
 
-      expect(node.interval.from).toStrictEqual(5);
-      expect(node.interval.to).toStrictEqual(10);
+      expect(node.interval.from).toBe(5);
+      expect(node.interval.to).toBe(10);
       expect(node.event).toBe(ev);
     } );
 
@@ -113,7 +115,7 @@ describe("add", () => {
         layer: seq1,
       } );
 
-      expect(seq2.nodes.length).toBe(1);
+      expect(seq2.nodes).toHaveLength(1);
       expect(seq2.nodes[0]).toBe(node);
     } );
 
@@ -138,7 +140,7 @@ describe("add", () => {
         interval: intervalOf(1, 2),
       };
 
-      expect(seq2.nodes.length).toBe(1);
+      expect(seq2.nodes).toHaveLength(1);
       expect(seq2.nodes[0]).toEqual(expectedNode);
     } );
   } );
@@ -156,7 +158,7 @@ describe("remove", () => {
     expect(actual).toBe(expected);
   } );
 
-  it("length nodes", () => {
+  it("length nodes2", () => {
     const expected = 0;
     const seq = new ParalelSequenceTest();
     const node = seq.add(newNode1())[0];
@@ -191,6 +193,7 @@ describe("remove", () => {
 
     expect(actual).toBe(expected);
   } );
+
   it("returns old node", () => {
     const seq = new ParalelSequenceTest();
     const expected = seq.add(newNode1());
@@ -214,6 +217,7 @@ describe("onremove", () => {
 
     expect(count).toBe(1);
   } );
+
   it("node not found", () => {
     let count = 0;
     const seq = new ParalelSequenceTest();
@@ -314,40 +318,45 @@ describe("get", () => {
         event: new EventTest(),
       } );
     } );
+
     it("0 (left included)", () => {
       const got = seq.get( {
         at: 0,
       } );
 
-      expect(got.length).toBe(1);
+      expect(got).toHaveLength(1);
     } );
+
     it("0.5 (middle)", () => {
       const got = seq.get( {
         at: 0.5,
       } );
 
-      expect(got.length).toBe(1);
+      expect(got).toHaveLength(1);
     } );
+
     it("1 (right not included)", () => {
       const got = seq.get( {
         at: 1,
       } );
 
-      expect(got.length).toBe(0);
+      expect(got).toHaveLength(0);
     } );
+
     it("10 (left not included)", () => {
       const got = seq.get( {
         at: 10,
       } );
 
-      expect(got.length).toBe(0);
+      expect(got).toHaveLength(0);
     } );
+
     it("11 (right included)", () => {
       const got = seq.get( {
         at: 11,
       } );
 
-      expect(got.length).toBe(1);
+      expect(got).toHaveLength(1);
     } );
   } );
 } );

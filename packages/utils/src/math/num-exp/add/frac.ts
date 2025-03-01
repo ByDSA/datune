@@ -1,12 +1,13 @@
-import lcm from "math/lcm";
 import { frac, FracExp } from "../frac";
 import { mult } from "../mult";
 import { neg } from "../neg";
-import NumExp from "../NumExp";
-import Sign from "../Sign";
-import add from "./add";
+import { NumExp } from "../NumExp";
+import { Sign } from "../Sign";
+// eslint-disable-next-line import/no-cycle
+import { add } from "./add";
+import { lcm } from "math/lcm";
 
-export default function addFrac(self: FracExp, other: NumExp): NumExp {
+export function addFrac(self: FracExp, other: NumExp): NumExp {
   if (other instanceof FracExp) {
     const denominator = lcm(+self.denominator, +other.denominator);
     let numeratorSelf = mult(denominator / +self.denominator, +self.numerator);

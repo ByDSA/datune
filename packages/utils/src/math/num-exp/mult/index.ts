@@ -1,7 +1,7 @@
 export {
-  default as mult,
+  mult,
 } from "./mult";
 
 export {
-  default as MultExp,
+  MultExp,
 } from "./MultExp";
