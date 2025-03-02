@@ -15,3 +15,7 @@ export function parseInterval(str: string): Interval | null {
 
   return null;
 }
+
+export {
+  parseIntervalArray,
+} from "./array";

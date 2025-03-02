@@ -3,7 +3,7 @@ import { A, B, C, D, E, F, G } from "@datune/core/pitches/diatonic/constants";
 import { Options } from "lang";
 import { stringifyPitch } from "strings/pitches/diatonic";
 
-export function parse(strValue: string, options?: Options): Pitch | null {
+export function parsePitch(strValue: string, options?: Options): Pitch | null {
   const fixedStrValue = normalizeInputString(strValue);
 
   switch (fixedStrValue) {

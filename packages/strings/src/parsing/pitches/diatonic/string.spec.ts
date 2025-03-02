@@ -1,5 +1,5 @@
 import { A, C } from "@datune/core/pitches/diatonic/constants";
-import { parse } from ".";
+import { parsePitch } from ".";
 import { LangId } from "lang";
 import { TestLang } from "tests";
 
@@ -19,7 +19,7 @@ describe.each([
   [LangId.EN, "Do", null],
 ])("tests", (langId, str, expected) => {
   it(`(${langId}, "${str}") => ${expected}`, () => {
-    const actual = parse(str, {
+    const actual = parsePitch(str, {
       langId,
     } );
 

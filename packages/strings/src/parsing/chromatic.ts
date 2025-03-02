@@ -1,27 +1,11 @@
-export {
-  parseChord,
-} from "./chords/chromatic";
+export * from "./chords/chromatic";
 
-export {
-  parseInterval,
-} from "./intervals/chromatic";
+export * from "./intervals/chromatic";
 
-export {
-  parseIntervalArray,
-} from "./intervals/chromatic/array";
+export * from "./keys/chromatic";
 
-export {
-  parseKey,
-} from "./keys/chromatic";
+export * from "./pitches/chromatic";
 
-export {
-  parsePitch,
-} from "./pitches/chromatic";
+export * from "./scales/chromatic";
 
-export {
-  parseScale,
-} from "./scales/chromatic";
-
-export {
-  parseVoicing,
-} from "./voicings/chromatic";
+export * from "./voicings/chromatic";

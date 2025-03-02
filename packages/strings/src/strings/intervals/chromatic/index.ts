@@ -31,3 +31,7 @@ export function stringifyInterval(obj: Interval): string {
     default: throw new Error();
   }
 }
+
+export {
+  stringifyIntervalArray,
+} from "./array";
