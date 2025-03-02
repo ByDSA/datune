@@ -2,10 +2,10 @@
 import { Intervals } from "..";
 import { AUGMENTED_FIFTH, AUGMENTED_FOURTH, AUGMENTED_SECOND, AUGMENTED_SEVENTH, AUGMENTED_UNISON, DIMINISHED_FIFTH, DIMINISHED_NINTH, MAJOR_SECOND, MAJOR_SEVENTH, MAJOR_SIXTH, MAJOR_THIRD, MINOR_SECOND, MINOR_SEVENTH, MINOR_SIXTH, MINOR_THIRD, PERFECT_ELEVENTH, PERFECT_FIFTH, PERFECT_FOURTH, PERFECT_OCTAVE, PERFECT_TWELFTH, PERFECT_UNISON } from "../constants";
 import type { Interval } from "../Interval";
+import { DIMINISHED } from "../quality/constants";
 import { neg } from "./neg";
 import { add } from "./add";
 import { sub } from "./sub";
-import { DIMINISHED } from "../quality/constants";
 import { Intervals as DIntervals } from "intervals/diatonic";
 import { TestInit } from "tests";
 

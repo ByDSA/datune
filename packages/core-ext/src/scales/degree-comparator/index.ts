@@ -1,4 +1,4 @@
-import type { Scale } from "@datune/core/scales";
+import type { Scale } from "@datune/core/scales/Scale";
 import { SetComparator } from "@datune/utils";
 
 type Result<D> = {

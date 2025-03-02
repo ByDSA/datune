@@ -1,4 +1,4 @@
-import { MAJOR, MINOR } from "@datune/core/intervals/quality";
+import { MAJOR, MINOR } from "@datune/core/intervals/symbolic/alt/quality/constants";
 import { parseShortName } from "./shortName";
 
 it("mayor", () => {

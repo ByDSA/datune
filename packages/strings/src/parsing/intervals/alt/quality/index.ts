@@ -1,4 +1,4 @@
-import { Quality } from "@datune/core/intervals/quality";
+import type { Quality } from "@datune/core/intervals/symbolic/alt/quality/Quality";
 import { parseLongName } from "./longName";
 import { parseShortName } from "./shortName";
 import { Options } from "lang";

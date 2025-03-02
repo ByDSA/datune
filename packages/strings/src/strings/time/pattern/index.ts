@@ -1,6 +1,6 @@
-import { Pattern } from "@datune/core/time/symbolic/rhythm";
+import type { RhythmPattern } from "@datune/core/time/symbolic/rhythm";
 
-export function stringifyPattern(obj: Pattern): string {
+export function stringifyPattern(obj: RhythmPattern): string {
   let stringBuilder = "";
 
   stringBuilder += "[";

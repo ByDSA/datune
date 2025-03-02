@@ -1,10 +1,10 @@
 import { AUGMENTED_UNISON, MAJOR_TENTH, MAJOR_THIRD, PERFECT_FIFTH } from "../constants";
 import type { Interval } from "../Interval";
 import { neg } from "../modifiers/neg";
-import { fromIntervalQuality } from "./intervalQuality";
-import { TestInit } from "tests";
 import { AUGMENTED, MAJOR, MINOR, PERFECT } from "../quality/constants";
 import type { Quality } from "../quality/Quality";
+import { fromIntervalQuality } from "./intervalQuality";
+import { TestInit } from "tests";
 import { Intervals as DIntervals, Interval as DInterval } from "intervals/diatonic";
 
 TestInit.diatonicAltInterval();

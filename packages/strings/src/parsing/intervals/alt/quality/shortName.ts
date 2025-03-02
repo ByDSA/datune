@@ -1,4 +1,5 @@
-import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT, Quality } from "@datune/core/intervals/quality";
+import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "@datune/core/intervals/symbolic/alt/quality/constants";
+import type { IntervalQuality as Quality } from "@datune/core/intervals/alt";
 
 export const parseShortName = (str: string): Quality | null => {
   switch (str) {

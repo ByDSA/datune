@@ -1,7 +1,7 @@
-import { Pitches } from "pitches/chromatic";
-import { TestInit } from "tests";
 import { from } from "./building";
 import { C5 } from "./constants";
+import { Pitches } from "pitches/chromatic";
+import { TestInit } from "tests";
 
 TestInit.chromaticPitchSet();
 

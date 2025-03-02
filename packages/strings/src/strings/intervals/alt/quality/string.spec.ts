@@ -1,9 +1,15 @@
-import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "@datune/core/intervals/quality";
+import { IntervalQualities } from "@datune/core/intervals/alt";
 import { stringifyQuality } from ".";
 import { LangId } from "lang";
 import { TestLang } from "tests";
 
 TestLang.loadAll();
+
+const { AUGMENTED,
+  DIMINISHED,
+  DOUBLY_AUGMENTED,
+  DOUBLY_DIMINISHED,
+  MAJOR, MINOR, PERFECT } = IntervalQualities;
 
 describe.each([
   [LangId.EN, MAJOR, "Major"],

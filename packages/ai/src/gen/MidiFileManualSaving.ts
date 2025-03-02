@@ -21,7 +21,7 @@ import { betweenSPN } from "@datune/core/intervals/symbolic/chromatic/building";
 import { fromRootIntervals } from "@datune/core/voicings/relative/chromatic/building/rootIntervals";
 import { Track } from "@datune/midi/files/track/Track";
 import { Channel } from "@datune/midi/files/track/Channel";
-import { SPNChord } from "@datune/core/chords/absolute/chromatic/Chord";
+import { Chord as SPNChord } from "@datune/core/chords/absolute/chromatic/Chord";
 import { ActionGen } from "./actions/ActionGen";
 import { ActionGenState } from "./actions/ActionGenState";
 import { ActionManager } from "./actions/ActionManager";

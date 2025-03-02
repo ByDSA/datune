@@ -1,6 +1,7 @@
-import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT, Quality } from "@datune/core/intervals/quality";
+import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "@datune/core/intervals/symbolic/alt/quality/constants";
+import type { Quality } from "@datune/core/intervals/symbolic/alt/quality/Quality";
 import { Options } from "lang";
-import { stringifyQuality } from "strings/intervals/quality";
+import { stringifyQuality } from "strings/intervals/alt/quality";
 
 export function parseLongName(str: string, options?: Options): Quality | null {
   switch (str) {
