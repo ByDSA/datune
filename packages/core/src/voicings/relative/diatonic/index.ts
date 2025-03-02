@@ -1,4 +1,4 @@
-import type { Voicing } from "./DiatonicVoicing";
+import type { Voicing } from "./Voicing";
 
 import type { VoicingArray } from "./Array";
 

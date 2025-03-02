@@ -34,6 +34,30 @@ export function initializeN4() {
 
   SEVENTH_SUS4 = fromRootIntervals(0, 5, 7, 10);
 
+  MAJOR_OVER_P4 = fromRootIntervals(0, 7, 11, 14);
+
+  MAJOR_OVER_m2 = fromRootIntervals(0, 11, 15, 18);
+
+  MAJOR_OVER_M2 = fromRootIntervals(0, 10, 14, 17);
+
+  MAJOR_OVER_m3 = fromRootIntervals(0, 9, 13, 16);
+
+  MAJOR_OVER_d5 = fromRootIntervals(0, 6, 10, 13);
+
+  MAJOR_OVER_a5 = fromRootIntervals(0, 4, 8, 11);
+
+  MINOR_OVER_m2 = fromRootIntervals(0, 11, 14, 18);
+
+  MINOR_OVER_M2 = fromRootIntervals(0, 10, 13, 17);
+
+  MINOR_OVER_M3 = fromRootIntervals(0, 8, 11, 15);
+
+  MINOR_OVER_P4 = fromRootIntervals(0, 7, 10, 14);
+
+  MINOR_OVER_d5 = fromRootIntervals(0, 6, 9, 13);
+
+  MINOR_OVER_m7 = fromRootIntervals(0, 2, 5, 9);
+
   initializeInversions();
 }
 
@@ -72,3 +96,27 @@ export let SEVENTH_MAJ7: Voicing;
 export let SEVENTH_MAJ7b5: Voicing;
 
 export let SEVENTH_SUS4: Voicing;
+
+export let MAJOR_OVER_m2: Voicing;
+
+export let MAJOR_OVER_M2: Voicing;
+
+export let MAJOR_OVER_m3: Voicing;
+
+export let MAJOR_OVER_P4: Voicing;
+
+export let MAJOR_OVER_d5: Voicing;
+
+export let MAJOR_OVER_a5: Voicing;
+
+export let MINOR_OVER_m2: Voicing;
+
+export let MINOR_OVER_M2: Voicing;
+
+export let MINOR_OVER_M3: Voicing;
+
+export let MINOR_OVER_P4: Voicing;
+
+export let MINOR_OVER_d5: Voicing;
+
+export let MINOR_OVER_m7: Voicing;

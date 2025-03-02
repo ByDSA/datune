@@ -1,11 +1,13 @@
 import { cyclicMod } from "@datune/utils";
 import { fromRootIntervals } from "../building/rootIntervals";
 import type { Voicing } from "../Voicing";
-import { IntervalArray, Interval, Intervals } from "intervals/symbolic/alt";
+import { IntervalArray, Interval } from "intervals/symbolic/alt";
+import { add } from "intervals/symbolic/alt/modifiers/add";
+import { sub } from "intervals/symbolic/alt/modifiers/sub";
+import { toChromaticInterval } from "intervals/symbolic/alt/conversions";
+import { PERFECT_OCTAVE } from "intervals/symbolic/alt/constants";
 
 export function inv(obj: Voicing, n: number = 1): Voicing {
-  const { add, PERFECT_OCTAVE, sub, toChromaticInterval } = Intervals;
-
   if (obj.rootIntervals.length < 2)
     return obj;
 
@@ -13,7 +15,7 @@ export function inv(obj: Voicing, n: number = 1): Voicing {
   let rootIntervals: IntervalArray = [...obj.rootIntervals];
 
   for (let i = 0; i < nFixed; i++) {
-    let firstValue: Interval = <Interval>rootIntervals.shift();
+    let firstValue: Interval = rootIntervals.shift() as Interval;
 
     while (toChromaticInterval(firstValue)
     < toChromaticInterval(rootIntervals[rootIntervals.length - 1]))

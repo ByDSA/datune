@@ -1,7 +1,12 @@
 import { Arrays } from "@datune/utils";
 import { fromRootIntervalInts } from "./building";
-import type { Voicing } from "./DiatonicVoicing";
+import type { Voicing } from "./Voicing";
 import { Pitches } from "pitches/diatonic";
+import type { Interval } from "diatonic";
+import { abs } from "intervals/symbolic/diatonic/modifiers/abs";
+import { OCTAVE } from "intervals/symbolic/diatonic/constants";
+import { simplify } from "intervals/symbolic/diatonic/modifiers/simplify";
+import { Direction } from "intervals/symbolic/diatonic/Direction";
 
 export function inv(obj: Voicing, n: number = 1): Voicing {
   let { rootIntervalInts } = obj;
@@ -17,4 +22,34 @@ export function inv(obj: Voicing, n: number = 1): Voicing {
   }
 
   return fromRootIntervalInts(...rootIntervalInts);
+}
+
+export function add(obj: Voicing, n: number): Voicing {
+  const rootIntervalInts = obj.rootIntervalInts.map(i=>i + n) as Arrays.Number;
+
+  return fromRootIntervalInts(...rootIntervalInts);
+}
+
+export function sub(obj: Voicing, n: number): Voicing {
+  const rootIntervalInts = obj.rootIntervalInts.map(i=>i - n) as Arrays.Number;
+
+  return fromRootIntervalInts(...rootIntervalInts);
+}
+
+export function bass(obj: Voicing, int: Interval): Voicing {
+  if (obj.rootIntervals[0] === int)
+    return obj;
+
+  if (int.direction === Direction.DESCENDENT)
+    return bass(obj, abs(int));
+
+  const octaveMagnitude = OCTAVE.magnitude;
+
+  if (int.magnitude >= octaveMagnitude)
+    return bass(obj, simplify(int));
+
+  return fromRootIntervalInts(
+    0,
+    ...add(obj, OCTAVE.magnitude - int.magnitude).rootIntervalInts,
+  );
 }

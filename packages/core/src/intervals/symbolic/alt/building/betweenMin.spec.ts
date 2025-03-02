@@ -1,4 +1,4 @@
-import { AUGMENTED_UNISON, DIMINISHED_UNISON, DOUBLY_DIMINISHED_FOURTH, MAJOR_THIRD, MINOR_SECOND } from "../constants";
+import { AUGMENTED_UNISON, DOUBLY_DIMINISHED_FOURTH, MAJOR_THIRD, MINOR_SECOND } from "../constants";
 import { betweenMin } from "./betweenMin";
 import { Pitches } from "pitches/alt";
 import { TestInit } from "tests";
@@ -66,7 +66,7 @@ describe("tests", () => {
     const a = AA;
     const b = A;
     const intervalDiatonicAlt = betweenMin(a, b);
-    const expected = DIMINISHED_UNISON;
+    const expected = AUGMENTED_UNISON;
 
     expect(intervalDiatonicAlt).toBe(expected);
   } );

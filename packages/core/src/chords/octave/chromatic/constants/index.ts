@@ -11,7 +11,7 @@ export function initialize() {
   // eslint-disable-next-line max-len
   const { A: P_A, AA: P_AA, B: P_B, C: P_C, CC: P_CC, D: P_D, DD: P_DD, E: P_E, F: P_F, FF: P_FF, G: P_G, GG: P_GG } = Pitches;
   // eslint-disable-next-line max-len, @typescript-eslint/naming-convention
-  const { NINTH, POWER_CHORD, SEVENTH, SEVENTH_MAJ7, SEVENTH_MINOR, SEVENTH_MINOR_MAJ7, THIRTEENTH_MAJ13_b5a9, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_SUS2, TRIAD_SUS4 } = Voicings;
+  const { NINTH, POWER_CHORD, SEVENTH, SEVENTH_MAJ7, SEVENTH_MINOR, SEVENTH_MINOR_MAJ7, THIRTEENTH_MAJ13_b5a9, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_SUS2, TRIAD_SUS4, THIRTEENTH_b5a9 } = Voicings;
 
   C = fromRootVoicing(P_C, TRIAD_MAJOR);
   CC = fromRootVoicing(P_CC, TRIAD_MAJOR);
@@ -133,18 +133,30 @@ export function initialize() {
   Am7 = fromRootVoicing(P_A, SEVENTH_MINOR);
   AAm7 = fromRootVoicing(P_AA, SEVENTH_MINOR);
   Bm7 = fromRootVoicing(P_B, SEVENTH_MINOR);
-  C13b5a9 = fromRootVoicing(P_C, THIRTEENTH_MAJ13_b5a9);
-  CC13b5a9 = fromRootVoicing(P_CC, THIRTEENTH_MAJ13_b5a9);
-  D13b5a9 = fromRootVoicing(P_D, THIRTEENTH_MAJ13_b5a9);
-  DD13b5a9 = fromRootVoicing(P_DD, THIRTEENTH_MAJ13_b5a9);
-  E13b5a9 = fromRootVoicing(P_E, THIRTEENTH_MAJ13_b5a9);
-  F13b5a9 = fromRootVoicing(P_F, THIRTEENTH_MAJ13_b5a9);
-  FF13b5a9 = fromRootVoicing(P_FF, THIRTEENTH_MAJ13_b5a9);
-  G13b5a9 = fromRootVoicing(P_G, THIRTEENTH_MAJ13_b5a9);
-  GG13b5a9 = fromRootVoicing(P_GG, THIRTEENTH_MAJ13_b5a9);
-  A13b5a9 = fromRootVoicing(P_A, THIRTEENTH_MAJ13_b5a9);
-  AA13b5a9 = fromRootVoicing(P_AA, THIRTEENTH_MAJ13_b5a9);
-  B13b5a9 = fromRootVoicing(P_A, THIRTEENTH_MAJ13_b5a9);
+  CMaj13b5a9 = fromRootVoicing(P_C, THIRTEENTH_MAJ13_b5a9);
+  CCMaj13b5a9 = fromRootVoicing(P_CC, THIRTEENTH_MAJ13_b5a9);
+  DMaj13b5a9 = fromRootVoicing(P_D, THIRTEENTH_MAJ13_b5a9);
+  DDMaj13b5a9 = fromRootVoicing(P_DD, THIRTEENTH_MAJ13_b5a9);
+  EMaj13b5a9 = fromRootVoicing(P_E, THIRTEENTH_MAJ13_b5a9);
+  FMaj13b5a9 = fromRootVoicing(P_F, THIRTEENTH_MAJ13_b5a9);
+  FFMaj13b5a9 = fromRootVoicing(P_FF, THIRTEENTH_MAJ13_b5a9);
+  GMaj13b5a9 = fromRootVoicing(P_G, THIRTEENTH_MAJ13_b5a9);
+  GGMaj13b5a9 = fromRootVoicing(P_GG, THIRTEENTH_MAJ13_b5a9);
+  AMaj13b5a9 = fromRootVoicing(P_A, THIRTEENTH_MAJ13_b5a9);
+  AAMaj13b5a9 = fromRootVoicing(P_AA, THIRTEENTH_MAJ13_b5a9);
+  BMaj13b5a9 = fromRootVoicing(P_A, THIRTEENTH_MAJ13_b5a9);
+  C13b5a9 = fromRootVoicing(P_C, THIRTEENTH_b5a9);
+  CC13b5a9 = fromRootVoicing(P_CC, THIRTEENTH_b5a9);
+  D13b5a9 = fromRootVoicing(P_D, THIRTEENTH_b5a9);
+  DD13b5a9 = fromRootVoicing(P_DD, THIRTEENTH_b5a9);
+  E13b5a9 = fromRootVoicing(P_E, THIRTEENTH_b5a9);
+  F13b5a9 = fromRootVoicing(P_F, THIRTEENTH_b5a9);
+  FF13b5a9 = fromRootVoicing(P_FF, THIRTEENTH_b5a9);
+  G13b5a9 = fromRootVoicing(P_G, THIRTEENTH_b5a9);
+  GG13b5a9 = fromRootVoicing(P_GG, THIRTEENTH_b5a9);
+  A13b5a9 = fromRootVoicing(P_A, THIRTEENTH_b5a9);
+  AA13b5a9 = fromRootVoicing(P_AA, THIRTEENTH_b5a9);
+  B13b5a9 = fromRootVoicing(P_A, THIRTEENTH_b5a9);
   C9 = fromRootVoicing(P_C, NINTH);
   CC9 = fromRootVoicing(P_CC, NINTH);
   D9 = fromRootVoicing(P_D, NINTH);
@@ -488,29 +500,29 @@ export let AA13b5a9: Chord;
 
 export let B13b5a9: Chord;
 
-export let Cm13b5a9: Chord;
+export let CMaj13b5a9: Chord;
 
-export let CCm13b5a9: Chord;
+export let CCMaj13b5a9: Chord;
 
-export let Dm13b5a9: Chord;
+export let DMaj13b5a9: Chord;
 
-export let DDm13b5a9: Chord;
+export let DDMaj13b5a9: Chord;
 
-export let Em13b5a9: Chord;
+export let EMaj13b5a9: Chord;
 
-export let Fm13b5a9: Chord;
+export let FMaj13b5a9: Chord;
 
-export let FFm13b5a9: Chord;
+export let FFMaj13b5a9: Chord;
 
-export let Gm13b5a9: Chord;
+export let GMaj13b5a9: Chord;
 
-export let GGm13b5a9: Chord;
+export let GGMaj13b5a9: Chord;
 
-export let Am13b5a9: Chord;
+export let AMaj13b5a9: Chord;
 
-export let AAm13b5a9: Chord;
+export let AAMaj13b5a9: Chord;
 
-export let Bm13b5a9: Chord;
+export let BMaj13b5a9: Chord;
 
 export let C9: Chord;
 

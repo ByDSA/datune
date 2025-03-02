@@ -10,12 +10,15 @@ import { Scales as CScales } from "scales/chromatic";
 
 export function betweenNext(pitch1: Pitch, pitch2: Pitch): Interval | null {
   const intervalDiatonicInt = +pitch2.diatonic - +pitch1.diatonic;
-  const diatonicInterval: DInterval = DIntervals.fromInt(
+  let diatonicInterval: DInterval = DIntervals.fromInt(
     cyclicMod(intervalDiatonicInt, DPitches.NUMBER),
   );
   const intervalChromaticInt = CScales.MAJOR_SCALE_DEGREES[+pitch2.diatonic] + pitch2.alts
   - (CScales.MAJOR_SCALE_DEGREES[+pitch1.diatonic] + pitch1.alts);
   const chromaticInterval: ChromaticInterval = cyclicMod(intervalChromaticInt, CPitches.NUMBER);
+
+  if (diatonicInterval === DIntervals.UNISON && intervalChromaticInt < 0)
+    diatonicInterval = DIntervals.add(diatonicInterval, DIntervals.OCTAVE);
 
   return fromIntervals( {
     chromaticInterval,

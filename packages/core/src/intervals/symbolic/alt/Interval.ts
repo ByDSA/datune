@@ -21,7 +21,7 @@ export class Interval {
   toString() {
     const diatonicIntervalInt = +this.diatonicInterval;
     const diatonicIntervalIntAbs = Math.abs(diatonicIntervalInt);
-    const sign = diatonicIntervalInt >= 0 ? "" : "-";
+    const sign = this.diatonicInterval.direction === 0 ? "" : "-";
 
     return `${sign}${this.quality}${diatonicIntervalIntAbs + 1}`;
   }

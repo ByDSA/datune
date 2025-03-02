@@ -3,6 +3,7 @@
 import { Chords } from "@datune/core/chords/alt";
 import { Pitches as P } from "@datune/core/pitches/alt";
 import { Voicings } from "@datune/core/voicings/alt";
+import { bass } from "@datune/core/chords/octave/alt/modifiers";
 import { stringifyChord } from ".";
 import { LangId } from "lang";
 import { stringifyPitches } from "strings/pitches/alt/array";
@@ -12,7 +13,7 @@ TestInit.diatonicAltChord();
 TestLang.loadAll();
 
 const { SEVENTH, THIRTEENTH_b5a9, TRIAD_AUGMENTED } = Voicings;
-const { C, C7, CMaj7, CmMaj7, Csus4, Dm7, fromRootVoicing, Fsus2, inv } = Chords;
+const { C, Cm, C7, CMaj7, CmMaj7, Csus4, Dm7, fromRootVoicing, Fsus2, inv } = Chords;
 
 describe.each([
   [LangId.EN, C, "C"],
@@ -28,6 +29,21 @@ describe.each([
   [LangId.EN, inv(C7), "C7/E"],
   [LangId.EN, Fsus2, "Fsus2"],
   [LangId.EN, inv(Csus4), "Fsus2"],
+  [LangId.EN, bass(C, P.Db), "C/D♭"],
+  [LangId.EN, bass(C, P.D), "C/D"],
+  [LangId.EN, bass(C, P.Eb), "C/E♭"],
+  [LangId.EN, bass(C, P.F), "C/F"],
+  [LangId.EN, bass(C, P.FF), "C/F♯"],
+  [LangId.EN, bass(C, P.Gb), "C/G♭"],
+  [LangId.EN, bass(C, P.GG), "C/G♯"],
+  [LangId.EN, bass(C, P.Ab), "C/A♭"],
+  [LangId.EN, bass(Cm, P.Db), "Cm/D♭"],
+  [LangId.EN, bass(Cm, P.D), "Cm/D"],
+  [LangId.EN, bass(Cm, P.E), "Cm/E"],
+  [LangId.EN, bass(Cm, P.F), "Cm/F"],
+  [LangId.EN, bass(Cm, P.Gb), "Cm/G♭"],
+  [LangId.EN, bass(Cm, P.FF), "Cm/F♯"],
+  [LangId.EN, bass(Cm, P.Bb), "Cm/B♭"],
   [LangId.EN, Dm7, "Dm7"],
   [LangId.EN, inv(fromRootVoicing(P.C, THIRTEENTH_b5a9), 2), "C13♭5♯9/G♭"],
 ])("toString", (langId, chord, str) => {

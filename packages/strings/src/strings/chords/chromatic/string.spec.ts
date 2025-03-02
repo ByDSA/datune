@@ -1,6 +1,8 @@
 import { Chord, Chords } from "@datune/core/chords/chromatic";
 import { Pitches as P } from "@datune/core/pitches/chromatic";
 import { Voicings as V } from "@datune/core/voicings/chromatic";
+import { bass } from "@datune/core/chords/octave/chromatic/modifiers";
+import { Cm } from "@datune/core/chords/octave/chromatic/constants";
 import { stringifyPitches } from "../../pitches/chromatic/array";
 import { stringifyChord } from ".";
 import { TestInit, TestLang } from "tests/index";
@@ -27,6 +29,18 @@ describe.each([
   [LangId.EN, inv(C7), "C7/E"],
   [LangId.EN, Fsus2, "Fsus2"],
   [LangId.EN, inv(Csus4), "Fsus2"],
+  [LangId.EN, bass(C, P.CC), "C/C♯"],
+  [LangId.EN, bass(C, P.D), "C/D"],
+  [LangId.EN, bass(C, P.DD), "C/D♯"],
+  [LangId.EN, bass(C, P.F), "C/F"],
+  [LangId.EN, bass(C, P.FF), "C/F♯"],
+  [LangId.EN, bass(C, P.GG), "C/G♯"],
+  [LangId.EN, bass(Cm, P.CC), "Cm/C♯"],
+  [LangId.EN, bass(Cm, P.D), "Cm/D"],
+  [LangId.EN, bass(Cm, P.E), "Cm/E"],
+  [LangId.EN, bass(Cm, P.F), "Cm/F"],
+  [LangId.EN, bass(Cm, P.FF), "Cm/F♯"],
+  [LangId.EN, bass(Cm, P.AA), "Cm/A♯"],
   [LangId.EN, fromRootVoicing(P.C, V.THIRTEENTH_b5a9), "C13♭5♯9"],
   [LangId.EN, inv(fromRootVoicing(P.C, V.THIRTEENTH_b5a9), 2), "C13♭5♯9/F♯"],
 ])("toString", (langId, chord: Chord, str) => {

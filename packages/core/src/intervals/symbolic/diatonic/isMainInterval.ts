@@ -1,10 +1,10 @@
 import type { Interval } from "./Interval";
 import { abs } from "./modifiers/abs";
-import { simple } from "./modifiers/simple";
+import { simplify } from "./modifiers/simplify";
 import { UNISON, FOURTH, FIFTH } from "./constants";
 
 export function isMainInterval(input: Interval): boolean {
-  const intervalSimple = abs(simple(input));
+  const intervalSimple = abs(simplify(input));
 
   switch (intervalSimple) {
     case UNISON:

@@ -141,18 +141,18 @@ export function initialize() {
   Am7 = fromRootVoicing(DA.A, SEVENTH_MINOR);
   AAm7 = fromRootVoicing(DA.AA, SEVENTH_MINOR);
   Bm7 = fromRootVoicing(DA.B, SEVENTH_MINOR);
-  C13b5a9 = fromRootVoicing(DA.C, THIRTEENTH_MAJ13_b5a9);
-  CC13b5a9 = fromRootVoicing(DA.CC, THIRTEENTH_MAJ13_b5a9);
-  D13b5a9 = fromRootVoicing(DA.D, THIRTEENTH_MAJ13_b5a9);
-  DD13b5a9 = fromRootVoicing(DA.DD, THIRTEENTH_MAJ13_b5a9);
-  E13b5a9 = fromRootVoicing(DA.E, THIRTEENTH_MAJ13_b5a9);
-  F13b5a9 = fromRootVoicing(DA.F, THIRTEENTH_MAJ13_b5a9);
-  FF13b5a9 = fromRootVoicing(DA.FF, THIRTEENTH_MAJ13_b5a9);
-  G13b5a9 = fromRootVoicing(DA.G, THIRTEENTH_MAJ13_b5a9);
-  GG13b5a9 = fromRootVoicing(DA.GG, THIRTEENTH_MAJ13_b5a9);
-  A13b5a9 = fromRootVoicing(DA.A, THIRTEENTH_MAJ13_b5a9);
-  AA13b5a9 = fromRootVoicing(DA.AA, THIRTEENTH_MAJ13_b5a9);
-  B13b5a9 = fromRootVoicing(DA.A, THIRTEENTH_MAJ13_b5a9);
+  CMaj13b5a9 = fromRootVoicing(DA.C, THIRTEENTH_MAJ13_b5a9);
+  CCMaj13b5a9 = fromRootVoicing(DA.CC, THIRTEENTH_MAJ13_b5a9);
+  DMaj13b5a9 = fromRootVoicing(DA.D, THIRTEENTH_MAJ13_b5a9);
+  DDMaj13b5a9 = fromRootVoicing(DA.DD, THIRTEENTH_MAJ13_b5a9);
+  EMaj13b5a9 = fromRootVoicing(DA.E, THIRTEENTH_MAJ13_b5a9);
+  FMaj13b5a9 = fromRootVoicing(DA.F, THIRTEENTH_MAJ13_b5a9);
+  FFMaj13b5a9 = fromRootVoicing(DA.FF, THIRTEENTH_MAJ13_b5a9);
+  GMaj13b5a9 = fromRootVoicing(DA.G, THIRTEENTH_MAJ13_b5a9);
+  GGMaj13b5a9 = fromRootVoicing(DA.GG, THIRTEENTH_MAJ13_b5a9);
+  AMaj13b5a9 = fromRootVoicing(DA.A, THIRTEENTH_MAJ13_b5a9);
+  AAMaj13b5a9 = fromRootVoicing(DA.AA, THIRTEENTH_MAJ13_b5a9);
+  BMaj13b5a9 = fromRootVoicing(DA.A, THIRTEENTH_MAJ13_b5a9);
   CAlt = fromRootVoicing(DA.C, SEVENTH_b5);
   CCAlt = fromRootVoicing(DA.CC, SEVENTH_b5);
   DAlt = fromRootVoicing(DA.D, SEVENTH_b5);
@@ -298,29 +298,29 @@ export let AAm7: Chord;
 
 export let Bm7: Chord;
 
-export let C13b5a9: Chord;
+export let CMaj13b5a9: Chord;
 
-export let CC13b5a9: Chord;
+export let CCMaj13b5a9: Chord;
 
-export let D13b5a9: Chord;
+export let DMaj13b5a9: Chord;
 
-export let DD13b5a9: Chord;
+export let DDMaj13b5a9: Chord;
 
-export let E13b5a9: Chord;
+export let EMaj13b5a9: Chord;
 
-export let F13b5a9: Chord;
+export let FMaj13b5a9: Chord;
 
-export let FF13b5a9: Chord;
+export let FFMaj13b5a9: Chord;
 
-export let G13b5a9: Chord;
+export let GMaj13b5a9: Chord;
 
-export let GG13b5a9: Chord;
+export let GGMaj13b5a9: Chord;
 
-export let A13b5a9: Chord;
+export let AMaj13b5a9: Chord;
 
-export let AA13b5a9: Chord;
+export let AAMaj13b5a9: Chord;
 
-export let B13b5a9: Chord;
+export let BMaj13b5a9: Chord;
 
 export let CAlt: Chord;
 

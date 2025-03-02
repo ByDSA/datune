@@ -1,5 +1,7 @@
 import { fromRootIntervalInts } from "../building";
-import type { Voicing } from "../DiatonicVoicing";
+import type { Voicing } from "../Voicing";
+import { bass } from "../modifiers";
+import { FIFTH, FOURTH, SECOND, THIRD, SIXTH as ISIXTH, SEVENTH as ISEVENTH } from "intervals/symbolic/diatonic/constants";
 
 export function initialize() {
   SECOND_INTERVAL = fromRootIntervalInts(0, 1);
@@ -38,6 +40,13 @@ export function initialize() {
   SUS4 = fromRootIntervalInts(0, 3, 4);
 
   SEVENTH_SUS4 = fromRootIntervalInts(0, 3, 4, 6);
+
+  TRIAD_OVER_SECOND = bass(TRIAD, SECOND);
+  TRIAD_OVER_THIRD = bass(TRIAD, THIRD);
+  TRIAD_OVER_FOURTH = bass(TRIAD, FOURTH);
+  TRIAD_OVER_FIFTH = bass(TRIAD, FIFTH);
+  TRIAD_OVER_SIXTH = bass(TRIAD, ISIXTH);
+  TRIAD_OVER_SEVENTH = bass(TRIAD, ISEVENTH);
 }
 
 export let SECOND_INTERVAL: Voicing;
@@ -81,3 +90,15 @@ export let THIRTEENTH_SUS4: Voicing;
 export let SUS4: Voicing;
 
 export let SEVENTH_SUS4: Voicing;
+
+export let TRIAD_OVER_SECOND: Voicing;
+
+export let TRIAD_OVER_THIRD: Voicing;
+
+export let TRIAD_OVER_FOURTH: Voicing;
+
+export let TRIAD_OVER_FIFTH: Voicing;
+
+export let TRIAD_OVER_SIXTH: Voicing;
+
+export let TRIAD_OVER_SEVENTH: Voicing;

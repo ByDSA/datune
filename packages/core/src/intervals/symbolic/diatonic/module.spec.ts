@@ -15,7 +15,7 @@ describe("lazy properties should be defined", () => {
     expect(Intervals.abs).toBeDefined();
     expect(Intervals.add).toBeDefined();
     expect(Intervals.neg).toBeDefined();
-    expect(Intervals.simple).toBeDefined();
+    expect(Intervals.simplify).toBeDefined();
     expect(Intervals.sub).toBeDefined();
   } );
 

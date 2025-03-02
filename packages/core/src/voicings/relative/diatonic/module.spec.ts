@@ -10,6 +10,9 @@ describe("static properties should be defined", () => {
 
   it("modifiers", () => {
     expect(Voicings.inv).toBeDefined();
+    expect(Voicings.add).toBeDefined();
+    expect(Voicings.sub).toBeDefined();
+    expect(Voicings.bass).toBeDefined();
   } );
 } );
 

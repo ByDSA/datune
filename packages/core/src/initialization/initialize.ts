@@ -59,8 +59,8 @@ function initializeConstants() {
   CTunings.initialize();
 
   // Diatonic
-  DVoicings.initialize();
   initDIntervals();
+  DVoicings.initialize();
 
   // Alt
   PitchesAlt.initialize();

@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { POWER_CHORD, SEVENTH, SEVENTH_b5, SEVENTH_MAJ7_b5, SIXTH, THIRTEENTH_a5b9, THIRTEENTH_MAJ13_b5a9, THIRTEENTH_MINOR, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_QUARTAL } from "@datune/core/voicings/relative/chromatic/constants";
+import { POWER_CHORD, SEVENTH, SEVENTH_b5, SEVENTH_MAJ7_b5, SIXTH, THIRTEENTH_a5, THIRTEENTH_a5a9, THIRTEENTH_a5b9, THIRTEENTH_a9, THIRTEENTH_b5, THIRTEENTH_b5a9, THIRTEENTH_b5b9, THIRTEENTH_b9, THIRTEENTH_MAJ13_a5b9, THIRTEENTH_MAJ13_a9, THIRTEENTH_MAJ13_b5, THIRTEENTH_MAJ13_b5a9, THIRTEENTH_MAJ13_b5b9, THIRTEENTH_MAJ13_b9, THIRTEENTH_MINOR, THIRTEENTH_MINOR_MAJ13, THIRTEENTH_SUS4, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_QUARTAL, THIRTEENTH_MAJ13_a5, THIRTEENTH_MAJ13_a5a9 } from "@datune/core/voicings/relative/chromatic/constants";
 import { parseVoicing } from ".";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
@@ -23,9 +23,26 @@ describe.each([
   [LangId.EN, "7b5", SEVENTH_b5],
   [LangId.EN, "Maj7b5", SEVENTH_MAJ7_b5],
   [LangId.EN, "m13", THIRTEENTH_MINOR],
+  [LangId.EN, "mMaj13", THIRTEENTH_MINOR_MAJ13],
   [LangId.EN, "13#5♭9", THIRTEENTH_a5b9],
-  [LangId.EN, "6", SIXTH],
+  [LangId.EN, "13b5#9", THIRTEENTH_b5a9],
+  [LangId.EN, "13sus4", THIRTEENTH_SUS4],
+  [LangId.EN, "13#5", THIRTEENTH_a5],
+  [LangId.EN, "13b5", THIRTEENTH_b5],
+  [LangId.EN, "13#9", THIRTEENTH_a9],
+  [LangId.EN, "13b9", THIRTEENTH_b9],
+  [LangId.EN, "13#5#9", THIRTEENTH_a5a9],
+  [LangId.EN, "13b5b9", THIRTEENTH_b5b9],
+  [LangId.EN, "Maj13#5", THIRTEENTH_MAJ13_a5],
+  [LangId.EN, "Maj13b5#9", THIRTEENTH_MAJ13_b5a9],
+  [LangId.EN, "Maj13#5#9", THIRTEENTH_MAJ13_a5a9],
+  [LangId.EN, "Maj13#5b9", THIRTEENTH_MAJ13_a5b9],
+  [LangId.EN, "Maj13#9", THIRTEENTH_MAJ13_a9],
+  [LangId.EN, "Maj13b5", THIRTEENTH_MAJ13_b5],
+  [LangId.EN, "Maj13b5b9", THIRTEENTH_MAJ13_b5b9],
+  [LangId.EN, "Maj13b9", THIRTEENTH_MAJ13_b9],
   [LangId.ES, "treceava maj13 b5#9", THIRTEENTH_MAJ13_b5a9],
+  [LangId.EN, "6", SIXTH],
   [LangId.EN, "0 4 6 11", SEVENTH_MAJ7_b5],
   [LangId.ES, "0 4 6 11", SEVENTH_MAJ7_b5],
 ])("parse", (langId, str, expectedVoicing) => {
@@ -35,15 +52,5 @@ describe.each([
     } );
 
     expect(actual).toBe(expectedVoicing);
-  } );
-} );
-
-describe.each([
-  ["0 4 6 11", SEVENTH_MAJ7_b5],
-])("intervals", (str, expected) => {
-  it(`"${str}" => ${expected}`, () => {
-    const actual = parseVoicing(str);
-
-    expect(actual).toBe(expected);
   } );
 } );

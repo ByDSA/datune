@@ -25,5 +25,5 @@ export function fromVoicings(
     rootIntervals.push(rootInterval);
   }
 
-  return fromRootIntervals(...<IntervalArray>rootIntervals);
+  return fromRootIntervals(...rootIntervals);
 }

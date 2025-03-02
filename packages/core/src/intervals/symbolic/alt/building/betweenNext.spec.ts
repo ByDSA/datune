@@ -8,7 +8,7 @@ TestInit.diatonicAltInterval();
 
 describe("tests", () => {
 // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { A, AA, B, C, DD, E, Gb, GG } = P;
+  const { A, AA, B, C, DD, E, Gb, G, GG } = P;
 
   it("fromRootNotes: get from ImmutableCache", () => {
     const intervalDiatonicAlt = betweenNext(C, E);
@@ -73,6 +73,15 @@ describe("tests", () => {
     const b = GG;
     const intervalDiatonicAlt = betweenNext(a, b);
     const expected = Const.MAJOR_SEVENTH;
+
+    expect(intervalDiatonicAlt).toBe(expected);
+  } );
+
+  it("g# to G:", () => {
+    const a = GG;
+    const b = G;
+    const intervalDiatonicAlt = betweenNext(a, b);
+    const expected = Const.DIMINISHED_OCTAVE;
 
     expect(intervalDiatonicAlt).toBe(expected);
   } );

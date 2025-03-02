@@ -36,6 +36,36 @@ export function initializeN4() {
 
   SEVENTH_MINOR_MAJ7 = fromVoicings(CV.SEVENTH_MINOR_MAJ7, DV.SEVENTH) as Voicing;
 
+  MAJOR_OVER_M2 = fromVoicings(CV.MAJOR_OVER_M2, DV.TRIAD_OVER_SECOND) as Voicing;
+
+  MAJOR_OVER_m2 = fromVoicings(CV.MAJOR_OVER_m2, DV.TRIAD_OVER_SECOND) as Voicing;
+
+  MAJOR_OVER_m3 = fromVoicings(CV.MAJOR_OVER_m3, DV.TRIAD_OVER_THIRD) as Voicing;
+
+  MAJOR_OVER_P4 = fromVoicings(CV.MAJOR_OVER_P4, DV.TRIAD_OVER_FOURTH) as Voicing;
+
+  MAJOR_OVER_a4 = fromVoicings(CV.MAJOR_OVER_d5, DV.TRIAD_OVER_FOURTH) as Voicing;
+
+  MAJOR_OVER_d5 = fromVoicings(CV.MAJOR_OVER_d5, DV.TRIAD_OVER_FIFTH) as Voicing;
+
+  MAJOR_OVER_a5 = fromVoicings(CV.MAJOR_OVER_a5, DV.TRIAD_OVER_FIFTH) as Voicing;
+
+  MAJOR_OVER_m6 = fromVoicings(CV.MAJOR_OVER_a5, DV.TRIAD_OVER_SIXTH) as Voicing;
+
+  MINOR_OVER_m2 = fromVoicings(CV.MINOR_OVER_m2, DV.TRIAD_OVER_SECOND) as Voicing;
+
+  MINOR_OVER_M2 = fromVoicings(CV.MINOR_OVER_M2, DV.TRIAD_OVER_SECOND) as Voicing;
+
+  MINOR_OVER_M3 = fromVoicings(CV.MINOR_OVER_M3, DV.TRIAD_OVER_THIRD) as Voicing;
+
+  MINOR_OVER_P4 = fromVoicings(CV.MINOR_OVER_P4, DV.TRIAD_OVER_FOURTH) as Voicing;
+
+  MINOR_OVER_a4 = fromVoicings(CV.MINOR_OVER_d5, DV.TRIAD_OVER_FOURTH) as Voicing;
+
+  MINOR_OVER_d5 = fromVoicings(CV.MINOR_OVER_d5, DV.TRIAD_OVER_FIFTH) as Voicing;
+
+  MINOR_OVER_m7 = fromVoicings(CV.MINOR_OVER_m7, DV.TRIAD_OVER_SEVENTH) as Voicing;
+
   initializeInversions();
 }
 
@@ -74,3 +104,33 @@ export let SIXTH_SUS4: Voicing;
 export let SEVENTH_MAJ7: Voicing;
 
 export let SEVENTH_MINOR_MAJ7: Voicing;
+
+export let MAJOR_OVER_m2: Voicing;
+
+export let MAJOR_OVER_M2: Voicing;
+
+export let MAJOR_OVER_m3: Voicing;
+
+export let MAJOR_OVER_P4: Voicing;
+
+export let MAJOR_OVER_a4: Voicing;
+
+export let MAJOR_OVER_d5: Voicing;
+
+export let MAJOR_OVER_a5: Voicing;
+
+export let MAJOR_OVER_m6: Voicing;
+
+export let MINOR_OVER_m2: Voicing;
+
+export let MINOR_OVER_M2: Voicing;
+
+export let MINOR_OVER_M3: Voicing;
+
+export let MINOR_OVER_P4: Voicing;
+
+export let MINOR_OVER_a4: Voicing;
+
+export let MINOR_OVER_d5: Voicing;
+
+export let MINOR_OVER_m7: Voicing;

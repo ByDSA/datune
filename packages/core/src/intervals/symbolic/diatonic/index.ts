@@ -12,7 +12,7 @@ import type { isMainInterval } from "./isMainInterval"; // deps: modifiers
 import type { abs } from "./modifiers/abs";
 import type { add } from "./modifiers/add";
 import type { neg } from "./modifiers/neg";
-import type { simple } from "./modifiers/simple"; // pitches/diatonic
+import type { simplify } from "./modifiers/simplify"; // pitches/diatonic
 import type { sub } from "./modifiers/sub";
 
 import { createProxyBarrel } from "lazy-load";
@@ -26,7 +26,7 @@ type LazyType = Omit<typeof Constants, "initialize"> & {
   abs: typeof abs;
   add: typeof add;
   neg: typeof neg;
-  simple: typeof simple;
+  simplify: typeof simplify;
   sub: typeof sub;
 };
 
@@ -36,7 +36,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "modifiers/abs",
     "modifiers/add",
     "modifiers/neg",
-    "modifiers/simple",
+    "modifiers/simplify",
     "modifiers/sub",
     "isMainInterval",
     "constants",
