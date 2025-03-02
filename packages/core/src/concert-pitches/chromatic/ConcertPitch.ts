@@ -1,8 +1,8 @@
-import type { RealPitch } from "../../spns/real/RealPitch";
+import type { SPN as ISPN } from "../../spns/SPN";
 import type { Dto } from "./caching/Dto";
 import type { SPN } from "spns/chromatic";
 
-export class ConcertPitch implements RealPitch {
+export class ConcertPitch implements ISPN {
   frequency: number;
 
   spn: SPN;

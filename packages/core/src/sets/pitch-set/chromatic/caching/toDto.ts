@@ -1,3 +1,3 @@
-import type { NoteSet } from "../NoteSet";
+import type { PitchSet } from "../PitchSet";
 
-export const toDto = (obj: NoteSet) => obj.pitches;
+export const toDto = (obj: PitchSet) => obj.pitches;

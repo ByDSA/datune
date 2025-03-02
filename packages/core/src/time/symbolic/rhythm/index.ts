@@ -1,9 +1,11 @@
 export * from "./array";
 
-export * from "./euclidean";
+export {
+  calculate as calculateEuclideanRhythm,
+} from "./euclidean";
 
 export {
-  Pattern,
+  Pattern as RhythmPattern, Patterns as RhythmPatterns,
 } from "./pattern";
 
 export * from "./signature";

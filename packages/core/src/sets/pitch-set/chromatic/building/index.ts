@@ -1,8 +1,8 @@
 import { cache } from "../caching/cache";
-import type { NoteSet } from "../NoteSet";
+import type { PitchSet } from "../PitchSet";
 import { PitchArray, Pitch } from "pitches/chromatic";
 
-export function from(...pitches: PitchArray): NoteSet {
+export function from(...pitches: PitchArray): PitchSet {
   const set = pitches2Set(...pitches);
 
   return cache.getOrCreate(set);

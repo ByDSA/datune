@@ -1,4 +1,4 @@
-import { NoteSet } from "./NoteSet";
+import { PitchSet } from "./PitchSet";
 
 import * as Building from "./building";
 
@@ -23,6 +23,6 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
 } );
 
 export {
-  NoteSet,
+  PitchSet as NoteSet,
   mod as PitchSets,
 };

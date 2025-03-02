@@ -1,8 +1,8 @@
 import * as DIntervals from "../../diatonic/constants";
 import { fromIntervalQuality } from "../building/intervalQuality";
+import { MAJOR } from "../quality/constants";
 import * as C from "./index";
 import { TestInit } from "tests";
-import { MAJOR } from "intervals/symbolic/quality";
 
 describe("initial state", () => {
   it("should be undefined", () => {

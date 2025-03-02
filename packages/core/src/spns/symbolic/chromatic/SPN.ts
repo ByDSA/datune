@@ -1,4 +1,4 @@
-import { SPN as ISPN } from "../SPN";
+import { SymbolicSPN as ISPN } from "../SymbolicSPN";
 import type { Dto } from "./building/dto/Dto";
 import { Pitches, Pitch } from "pitches/chromatic";
 

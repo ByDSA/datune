@@ -1,8 +1,9 @@
 import { toChromaticInterval } from "../../conversions";
 import type { Interval } from "../../Interval";
-import { DiatonicInterval } from "index";
+import type { Quality } from "../../quality/Quality";
+import { fromInt as qualityFromInt } from "../../quality/building";
+import type { Interval as DiatonicInterval } from "intervals/diatonic";
 import { Intervals as DIntervals } from "intervals/diatonic";
-import { fromInt as qualityFromInt, Quality } from "intervals/symbolic/quality";
 import { Pitches } from "pitches/alt";
 import { Pitches as CPitches } from "pitches/chromatic";
 import { Pitches as DPitches } from "pitches/diatonic";

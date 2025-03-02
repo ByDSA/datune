@@ -3,7 +3,7 @@ import { AbsoluteChord } from "../AbsoluteChord";
 import type { Pitch } from "pitches/chromatic";
 import { SPNArray, SPN } from "spns/chromatic";
 
-export class SPNChord implements AbsoluteChord<Pitch, SPN> {
+export class Chord implements AbsoluteChord<Pitch, SPN> {
   pitches: SPNArray;
 
   root: SPN;
@@ -19,8 +19,8 @@ export class SPNChord implements AbsoluteChord<Pitch, SPN> {
     lockr(this);
   }
 
-  private static create(spns: SPNArray): SPNChord {
-    return new SPNChord(spns);
+  private static create(spns: SPNArray): Chord {
+    return new Chord(spns);
   }
 
   has(note: SPN): boolean {

@@ -1,59 +1,54 @@
-export {
-  Chord as ChordAlt,
-} from "chords/alt";
-
-export {
-  Chord,
-} from "chords/chromatic";
-
-export {
-  Interval as IntervalAlt,
-} from "intervals/alt";
-
-export {
-  Interval,
-} from "intervals/chromatic";
-
-export {
-  Interval as DiatonicInterval,
-} from "intervals/diatonic";
-
-export {
-  Quality,
-} from "intervals/quality";
-
-export {
-  Pitch as PitchAlt,
-} from "pitches/alt";
-
-export {
-  Pitch,
-} from "pitches/chromatic";
-
-export {
-  Pitch as DiatonicPitch,
-} from "pitches/diatonic";
-
-export * from "voicings";
+export * from "./chromatic";
 
 export {
   initialize as init, load, loadSync,
 } from "./initialization";
 
-export {
-  BPM,
-  MusicalDuration,
-  RhythmPattern,
-  TimeSignature,
-} from "./time";
-
-export * from "./keys/chromatic";
+export * from "./time";
 
 export {
-  Key as KeyAlt,
-  KeyArray as KeyAltArray,
-} from "./keys/alt";
+  Chord as AltChord,
+  ChordArray as AltChordArray,
+  Chords as AltChords,
+  Degree as AltDegree,
+  DegreeArray as AltDegreeArray,
+  Degrees as AltDegrees,
+  Functions as AltFunctions,
+  HarmonicFunction as AltHarmonicFunction,
+  Interval as AltInterval,
+  IntervalArray as AltIntervalArray,
+  Intervals as AltIntervals,
+  Key as AltKey,
+  KeyArray as AltKeyArray,
+  Keys as AltKeys,
+  Pitch as AltPitch,
+  PitchArray as AltPitchArray,
+  Pitches as AltPitches,
+  IntervalQuality,
+  IntervalQualities,
+  SPN as AltSPN,
+  SPNArray as AltSPNArray,
+  SPNs as AltSPNs,
+  Scale as AltScale,
+  ScaleArray as AltScaleArray,
+  Scales as AltScales,
+  Voicing as AltVoicing,
+  VoicingArray as AltVoicingArray,
+  Voicings as AltVoicings,
+} from "./alt";
 
 export {
-  IKey,
-} from "./keys/Key";
+  Degree as DiatonicDegree,
+  DegreeArray as DiatonicDegreeArray,
+  Degrees as DiatonicDegrees,
+  Interval as DiatonicInterval,
+  IntervalArray as DiatonicIntervalArray,
+  IntervalDirection,
+  Intervals as DiatonicIntervals,
+  Pitch as DiatonicPitch,
+  PitchArray as DiatonicPitchArray,
+  Pitches as DiatonicPitches,
+  Voicing as DiatonicVoicing,
+  VoicingArray as DiatonicVoicingArray,
+  Voicings as DiatonicVoicings,
+} from "./diatonic";

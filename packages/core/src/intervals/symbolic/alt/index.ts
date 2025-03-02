@@ -1,16 +1,11 @@
 import type { Interval } from "./Interval";
-
 import type { IntervalArray } from "./Array";
-
 import type { betweenMin } from "./building/betweenMin";
 import type { betweenNext } from "./building/betweenNext";
 import type { fromIntervalQuality } from "./building/intervalQuality";
 import type { fromIntervals } from "./building/intervals";
-
 import type * as Constants from "./constants";
-
 import type * as ConversionsType from "./conversions";
-
 import type { abs } from "./modifiers/abs";
 import type { add } from "./modifiers/add";
 import type { cyclic } from "./modifiers/cyclic";
@@ -19,7 +14,24 @@ import type { neg } from "./modifiers/neg";
 import type { simple } from "./modifiers/simple";
 import type { serie } from "./modifiers/calcSerie";
 import type { sub } from "./modifiers/sub";
+
+import type { Quality } from "./quality/Quality";
+import * as QualityBuilding from "./quality/building";
+import * as QualityConstants from "./quality/constants";
+import * as QualityConversions from "./quality/conversions";
 import { createProxyBarrel } from "lazy-load";
+
+const qualityModStatic = {
+  ...QualityBuilding,
+  ...QualityConstants,
+  ...QualityConversions,
+};
+const qualityMod = qualityModStatic;
+
+export {
+  Quality as IntervalQuality,
+  qualityMod as IntervalQualities,
+};
 
 const staticModule = {};
 

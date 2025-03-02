@@ -1,9 +1,9 @@
 import { from } from "../building";
-import type { NoteSet } from "../NoteSet";
+import type { PitchSet } from "../PitchSet";
 import type { Interval } from "intervals/chromatic";
 import { Pitches, PitchArray, Pitch } from "pitches/chromatic";
 
-export function add(self: NoteSet, interval: Interval): NoteSet {
+export function add(self: PitchSet, interval: Interval): PitchSet {
   const selfPitches = self.pitches;
   const newPitches: Pitch[] = [];
 
@@ -16,6 +16,6 @@ export function add(self: NoteSet, interval: Interval): NoteSet {
   return from(...newPitches as PitchArray);
 }
 
-export function sub(obj: NoteSet, interval: Interval): NoteSet {
+export function sub(obj: PitchSet, interval: Interval): PitchSet {
   return add(obj, -interval);
 }

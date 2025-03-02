@@ -1,8 +1,8 @@
-import { SPNChord } from "../Chord";
+import { Chord } from "../Chord";
 import { IntervalArray, Intervals, Interval } from "intervals/chromatic";
 import { Voicings, Voicing } from "voicings/chromatic";
 
-export function voicing(obj: SPNChord): Voicing {
+export function voicing(obj: Chord): Voicing {
   const rootIntervals: IntervalArray = [Intervals.PERFECT_UNISON];
   const { root } = obj;
 

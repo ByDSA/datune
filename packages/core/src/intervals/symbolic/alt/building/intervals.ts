@@ -3,7 +3,7 @@ import { fromIntervalQuality } from "./intervalQuality";
 import type { Interval as Chromatic } from "intervals/chromatic";
 import type { Interval as DInterval } from "intervals/diatonic";
 import { Intervals as DIntervals } from "intervals/diatonic";
-import { fromInt as qualityFromInt } from "intervals/quality";
+import { fromInt as qualityFromInt } from "../quality/building";
 import { Pitches } from "pitches/alt";
 import { Pitches as DPitches } from "pitches/diatonic";
 

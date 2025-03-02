@@ -5,7 +5,7 @@ import type { Interval } from "../Interval";
 import { neg } from "./neg";
 import { add } from "./add";
 import { sub } from "./sub";
-import { DIMINISHED } from "intervals";
+import { DIMINISHED } from "../quality/constants";
 import { Intervals as DIntervals } from "intervals/diatonic";
 import { TestInit } from "tests";
 

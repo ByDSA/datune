@@ -2,6 +2,8 @@ export {
   Interval as DiatonicAltInterval,
   IntervalArray as DiatonicAltIntervalArray,
   Intervals as DiatonicAltIntervals,
+  IntervalQualities as DiatonicAltIntervalQualities,
+  IntervalQuality as DiatonicAltIntervalQuality,
 } from "./alt";
 
 export {
@@ -16,5 +18,3 @@ export {
   Intervals as DiatonicIntervals,
   IntervalDirection as DiatonicIntervalDirection,
 } from "./diatonic";
-
-export * from "./quality";

@@ -1,6 +1,6 @@
 import { from } from "../building";
 import { add } from "../modifiers";
-import type { NoteSet } from "../NoteSet";
+import type { PitchSet } from "../PitchSet";
 import { Pitches as P } from "pitches/chromatic";
 
 export function initialize() {
@@ -29,26 +29,26 @@ export function initialize() {
   B5 = add(C5, 11);
 }
 
-export let C5: NoteSet;
+export let C5: PitchSet;
 
-export let CC5: NoteSet;
+export let CC5: PitchSet;
 
-export let D5: NoteSet;
+export let D5: PitchSet;
 
-export let DD5: NoteSet;
+export let DD5: PitchSet;
 
-export let E5: NoteSet;
+export let E5: PitchSet;
 
-export let F5: NoteSet;
+export let F5: PitchSet;
 
-export let FF5: NoteSet;
+export let FF5: PitchSet;
 
-export let G5: NoteSet;
+export let G5: PitchSet;
 
-export let GG5: NoteSet;
+export let GG5: PitchSet;
 
-export let A5: NoteSet;
+export let A5: PitchSet;
 
-export let AA5: NoteSet;
+export let AA5: PitchSet;
 
-export let B5: NoteSet;
+export let B5: PitchSet;

@@ -1,4 +1,4 @@
-import { Quality } from "..";
+import { Quality } from "../Quality";
 import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "../constants";
 import { toInt } from "../conversions";
 import { fromInt } from "./int";

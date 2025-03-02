@@ -1,6 +1,6 @@
-import { RealPitch } from "../RealPitch";
+import { SPN } from "../../SPN";
 
-export function overtones(realPitch: RealPitch): number[] {
+export function overtones(realPitch: SPN): number[] {
   const MAX_FREQUENCY = 20000;
   const base = +realPitch;
   const ret: number[] = [];

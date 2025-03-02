@@ -1,3 +1,0 @@
-export {
-  SimplePitch,
-} from "./SimplePitch";

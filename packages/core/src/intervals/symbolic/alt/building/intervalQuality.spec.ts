@@ -3,7 +3,8 @@ import type { Interval } from "../Interval";
 import { neg } from "../modifiers/neg";
 import { fromIntervalQuality } from "./intervalQuality";
 import { TestInit } from "tests";
-import { AUGMENTED, MAJOR, MINOR, PERFECT, Quality } from "intervals/quality";
+import { AUGMENTED, MAJOR, MINOR, PERFECT } from "../quality/constants";
+import type { Quality } from "../quality/Quality";
 import { Intervals as DIntervals, Interval as DInterval } from "intervals/diatonic";
 
 TestInit.diatonicAltInterval();

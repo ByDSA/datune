@@ -1,7 +1,15 @@
-export * from "./calcs";
+import { Arrays } from "@datune/utils";
+import { SPN } from "../SPN";
+import { overtones } from "./calcs";
+
+type SPNArray = Arrays.NonEmpty<SPN>;
+
+const mod = {
+  overtones,
+};
 
 export {
-  RealPitch,
-} from "./RealPitch";
-
-export * from "./simple-pitch";
+  SPN,
+  SPNArray,
+  mod as SPNs,
+};

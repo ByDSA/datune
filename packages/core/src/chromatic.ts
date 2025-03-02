@@ -1,26 +1,25 @@
 export * from "./chords/chromatic";
 
+export * from "./concert-pitches/chromatic";
+
+export * from "./degrees/chromatic";
+
+export * from "./functions/chromatic";
+
 export * from "./intervals/chromatic";
 
-export {
-  Quality,
-} from "intervals/quality";
-
-export {
-  Pitch,
-} from "pitches/chromatic";
-
-export * from "voicings/chromatic";
-
-export {
-  initialize as init, load, loadSync,
-} from "./initialization";
-
-export {
-  BPM,
-  MusicalDuration,
-  RhythmPattern,
-  TimeSignature,
-} from "./time";
-
 export * from "./keys/chromatic";
+
+export * from "./pitches/chromatic";
+
+export * from "./scales/chromatic";
+
+export * from "./sets/pitch-set/chromatic";
+
+export * from "./spns/chromatic";
+
+export * from "./temperaments/chromatic";
+
+export * from "./tunings/chromatic";
+
+export * from "./voicings/chromatic";
