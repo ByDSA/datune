@@ -51,7 +51,3 @@ function getSplitLettersNumberPos(str: string): number {
 
   return splitPos;
 }
-
-export {
-  parseIntervalArray,
-} from "./array";

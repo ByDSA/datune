@@ -2,7 +2,7 @@ import { fromIntervalQuality } from "@datune/core/intervals/symbolic/alt/buildin
 import { MAJOR_TENTH, MAJOR_THIRD } from "@datune/core/intervals/symbolic/alt/constants";
 import { fromInt as intervalDiatonicFromInt } from "@datune/core/intervals/symbolic/diatonic/building";
 import { MAJOR } from "@datune/core/intervals/symbolic/alt/quality/constants";
-import { parseInterval } from ".";
+import { parseInterval } from "./interval";
 import { TestInit } from "tests";
 
 beforeAll(() => {

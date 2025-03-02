@@ -1,6 +1,6 @@
 export * from "./chords/chromatic";
 
-export * from "./intervals/chromatic";
+export * from "./intervals/chromatic/interval";
 
 export * from "./keys/chromatic";
 

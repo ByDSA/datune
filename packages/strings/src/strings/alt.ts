@@ -4,7 +4,7 @@ export * from "./degrees/alt";
 
 export * from "./functions/alt";
 
-export * from "./intervals/alt";
+export * from "./intervals/alt/interval";
 
 export * from "./keys/alt";
 

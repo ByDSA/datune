@@ -1,6 +1,6 @@
 export * from "./chords/alt";
 
-export * from "./intervals/alt";
+export * from "./intervals/alt/interval";
 
 export * from "./keys/alt";
 

@@ -94,7 +94,7 @@ importers:
         version: file:midi/dist
       '@datune/utils':
         specifier: file:../utils/dist
-        version: dist@file:utils/dist
+        version: file:utils/dist
 
   analyzer:
     dependencies:
@@ -103,13 +103,13 @@ importers:
         version: file:core/dist
       '@datune/utils':
         specifier: file:../utils/dist
-        version: dist@file:utils/dist
+        version: file:utils/dist
 
   core:
     dependencies:
       '@datune/utils':
         specifier: file:../utils/dist
-        version: dist@file:utils/dist
+        version: file:utils/dist
       immutable:
         specifier: 5.0.3
         version: 5.0.3
@@ -128,7 +128,7 @@ importers:
         version: file:core/dist
       '@datune/utils':
         specifier: file:../utils/dist
-        version: dist@file:utils/dist
+        version: file:utils/dist
 
   midi:
     dependencies:
@@ -140,7 +140,7 @@ importers:
         version: file:core/dist
       '@datune/utils':
         specifier: file:../utils/dist
-        version: dist@file:utils/dist
+        version: file:utils/dist
       '@tonejs/midi':
         specifier: 2.0.28
         version: 2.0.28
@@ -155,7 +155,7 @@ importers:
         version: file:midi/dist
       '@datune/utils':
         specifier: file:../utils/dist
-        version: dist@file:utils/dist
+        version: file:utils/dist
       chevrotain:
         specifier: workspace:./lib/chevrotain
         version: link:lib/chevrotain
@@ -430,6 +430,9 @@ packages:
 
   '@datune/midi@file:midi/dist':
     resolution: {directory: midi/dist, type: directory}
+
+  '@datune/utils@file:utils/dist':
+    resolution: {directory: utils/dist, type: directory}
 
   '@eslint-community/eslint-utils@4.4.1':
     resolution: {integrity: sha512-s3O3waFUrMV8P/XaF/+ZTp1X9XBZW1a4B97ZnjQF2KYWaFD2A8KyFBsrsfSjEmjn3RGWAIuvlneuZm3CUK3jbA==}
@@ -1283,9 +1286,6 @@ packages:
   dir-glob@3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
-
-  dist@file:utils/dist:
-    resolution: {directory: utils/dist, type: directory}
 
   doctrine@2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
@@ -3508,19 +3508,24 @@ snapshots:
   '@datune/analyzer@file:analyzer/dist':
     dependencies:
       '@datune/core': file:core/dist
-      '@datune/utils': dist@file:utils/dist
+      '@datune/utils': file:utils/dist
 
   '@datune/core@file:core/dist':
     dependencies:
-      '@datune/utils': dist@file:utils/dist
+      '@datune/utils': file:utils/dist
       immutable: 5.0.3
 
   '@datune/midi@file:midi/dist':
     dependencies:
       '@datune/analyzer': file:analyzer/dist
       '@datune/core': file:core/dist
-      '@datune/utils': dist@file:utils/dist
+      '@datune/utils': file:utils/dist
       '@tonejs/midi': 2.0.28
+
+  '@datune/utils@file:utils/dist':
+    dependencies:
+      hashids: 2.3.0
+      ts-treemap: 1.1.0
 
   '@eslint-community/eslint-utils@4.4.1(eslint@9.19.0(jiti@2.4.2))':
     dependencies:
@@ -4651,8 +4656,6 @@ snapshots:
   dir-glob@3.0.1:
     dependencies:
       path-type: 4.0.0
-
-  dist@file:utils/dist: {}
 
   doctrine@2.1.0:
     dependencies:

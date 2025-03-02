@@ -1,7 +1,7 @@
 import { Interval } from "@datune/core/intervals/chromatic";
 import { splitArray } from "../../utils/splitArray";
 import { normalizeIntervalsInput } from "../normalizeIntervalsInput";
-import { parseInterval } from ".";
+import { parseInterval } from "./interval";
 
 export function parseIntervalArray(input: string): Interval[] | null {
   const normalizedInput = normalizeIntervalsInput(input);
