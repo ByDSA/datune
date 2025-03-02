@@ -7,22 +7,20 @@ function dependencies {
 	pnpm i --ignore-workspace
 }
 
-function build {
+function install {
 	echo "=====$1====="
 	cd "$1"
 	pwd
 	dependencies
-
-	pnpm build
 	cd ..
 }
 
 dependencies
 
-build utils
-build core
-build core-ext
-build analyzer
-build midi
-build ai
-build strings
+install utils
+install core
+install core-ext
+install analyzer
+install midi
+install ai
+install strings

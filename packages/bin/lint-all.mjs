@@ -1,28 +1,22 @@
-#!/usr/bin/env node
-// @ts-check
+#!/usr/bin/env zx
 
-// eslint-disable-next-line import/no-absolute-path
-import { $ } from "/home/prog/.nvm/versions/node/v20.8.0/lib/node_modules/zx/build/index.js";
+const foldersWithLintScript = (await $`find . -maxdepth 1 -type d -exec test -e '{}/package.json' ';' -print`)
+  .toString().split("\n")
+  .map((line) => line.replace(/^\.\//, ""))
+  .filter(Boolean)
+  .filter(folder => {
+    const pkg = JSON.parse(fs.readFileSync(path.join(folder, "package.json"), "utf-8"));
 
-(async ()=> {
-  $.verbose = false;
-  const foldersWithPackage = (await $`find . -maxdepth 1 -type d -exec test -e '{}/package.json' ';' -print`).toString().split("\n")
-    .map((line) => line.replace(/^\.\//, ""))
-    .filter(Boolean);
+    return pkg.scripts && pkg.scripts.lint;
+  } );
 
-  $.verbose = true;
+$.verbose = true;
 
-  await $`prettier --write "**/*.{json,jsonc,scss,yml,yaml}" --color | grep -v "unchanged" || true`;
+for (const folder of foldersWithLintScript) {
+  const label = folder === "." ? "Infrastructure" : folder;
 
-  for (const folder of foldersWithPackage) {
-    const label = folder === "." ? "Infrastructure" : folder;
+  // eslint-disable-next-line no-undef
+  echo`\n${"=".repeat(30)}\n${label}\n${"=".repeat(30)}`;
 
-    console.log("\n" + "=".repeat(30));
-    console.log(label);
-    console.log("=".repeat(30) + "\n");
-
-    await $`cd ${folder} && eslint "**/*.{ts,js,mjs}" --no-warn-ignored --fix --color`;
-  }
-} )().catch(()=> {
-  process.exit(1);
-} );
+  await $`cd ${folder} && pnpm lint`;
+}

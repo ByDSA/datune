@@ -4,6 +4,8 @@ import type { KeyArray } from "@datune/core/keys/chromatic";
 import type { PitchArray, Pitch } from "@datune/core/pitches/chromatic";
 
 export class Finder {
+  // TODO: por qué no se usa?
+  // eslint-disable-next-line no-unused-private-class-members
   #tonalities?: KeyArray;
 
   #notes?: PitchArray;

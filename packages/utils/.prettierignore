@@ -1,0 +1,5 @@
+*-lock.yaml
+coverage/
+build/
+dist/
+docs/

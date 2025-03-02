@@ -1,7 +1,7 @@
 import { init, loadSync } from "@datune/core";
 import { initialize } from "../src/pitch/constants";
 
-export default class TestInit {
+export class TestInit {
   private static loadAll() {
     const path = "tests/cache.json";
     const data = loadSync( {

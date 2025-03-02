@@ -11,9 +11,9 @@
     "directory": "packages/utils"
   },
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig-build.json && tsc-alias -p tsconfig-build.json",
+    "build": "bin/build.mjs",
+    "lint": "bin/lint.mjs",
     "release": "standard-version",
-    "release:push": "git push && git push --tags && pnpm docs:push",
     "test": "jest --runInBand",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch"
@@ -22,10 +22,5 @@
     "hashids": "2.3.0",
     "ts-treemap": "1.1.0"
   },
-  "devDependencies": {},
-  "standard-version": {
-    "scripts": {
-      "postcommit": "pnpm docs && pnpm release:push"
-    }
-  }
+  "devDependencies": {}
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { MusicalDuration } from "@datune/core";
 import { MidiNode, MidiNote, nodeFrom } from "@datune/midi";
 import { TemporalNode } from "@datune/utils";

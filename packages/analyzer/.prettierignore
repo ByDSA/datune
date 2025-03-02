@@ -1,0 +1,7 @@
+*-lock.yaml
+coverage/
+build/
+dist/
+docs/
+
+/tests/cache.json

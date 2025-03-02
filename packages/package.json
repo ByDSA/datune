@@ -12,9 +12,12 @@
   },
   "scripts": {
     "build:all": "bin/build-all.sh",
+    "check:all": "bin/check-all.sh",
+    "install:all": "bin/install-all.sh",
     "lint": "bin/lint.mjs",
     "lint:all": "bin/lint-all.mjs",
-    "prepare": "cd .. && husky packages/.husky"
+    "prepare": "cd .. && husky packages/.husky",
+    "test:all": "bin/test-all.sh"
   },
   "devDependencies": {
     "@commitlint/cli": "19.7.1",

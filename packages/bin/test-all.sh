@@ -7,22 +7,23 @@ function dependencies {
 	pnpm i --ignore-workspace
 }
 
-function build {
+function check {
 	echo "=====$1====="
 	cd "$1"
 	pwd
 	dependencies
 
-	pnpm build
+	pnpm test
+
 	cd ..
 }
 
 dependencies
 
-build utils
-build core
-build core-ext
-build analyzer
-build midi
-build ai
-build strings
+check utils
+check core
+check core-ext
+check analyzer
+check midi
+check ai
+check strings

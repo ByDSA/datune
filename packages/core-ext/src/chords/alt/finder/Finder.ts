@@ -5,6 +5,8 @@ import { KeyArray } from "@datune/core/keys/alt";
 import { PitchArray, Pitch } from "@datune/core/pitches/alt";
 
 export class Finder {
+  // TODO: por qué no se usa?
+  // eslint-disable-next-line no-unused-private-class-members
   #tonalities?: KeyArray;
 
   #notes?: PitchArray;

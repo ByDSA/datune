@@ -51,11 +51,15 @@ export class JSONGenerator {
       time: 0,
       value: 0,
     };
+    // TODO ??
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const controlChangeArray: ControlChangeJSON[] = [
       controlChange,
     ];
+    // eslint-disable-next-line @stylistic/ts/object-curly-newline
     const controlChanges: ControlChangesJSON = {
       // 2: controlChangeArray
+    // eslint-disable-next-line @stylistic/ts/object-curly-newline
     };
 
     return this.mf.tracks.map((t) => ( {

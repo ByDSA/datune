@@ -1,0 +1,8 @@
+*-lock.yaml
+coverage/
+build/
+dist/
+docs/
+
+/deprecated
+tests/cache.json
