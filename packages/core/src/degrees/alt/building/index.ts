@@ -2,10 +2,11 @@ import type { Degree } from "../Degree";
 import { cache } from "../caching/cache";
 import { Degree as ChromaticDegree } from "degrees/chromatic";
 import { Degree as DiatonicDegree } from "degrees/diatonic";
-import { Pitches } from "pitches/alt";
+import { fixAlts } from "pitches/alt/fixAlts";
+import { calcAlts } from "pitches/alt/calcAlts";
 
 export function from(diatonicDegree: DiatonicDegree, alts: number): Degree {
-  const fixedAlts = Pitches.fixAlts(alts);
+  const fixedAlts = fixAlts(alts);
 
   return cache.getOrCreate( {
     diatonicDegree,
@@ -14,7 +15,7 @@ export function from(diatonicDegree: DiatonicDegree, alts: number): Degree {
 }
 
 export function fromDegrees(diatonicDegree: DiatonicDegree, degree: ChromaticDegree): Degree {
-  const alts = Pitches.calcAlts(degree, diatonicDegree);
+  const alts = calcAlts(degree, diatonicDegree);
 
   return from(diatonicDegree, alts);
 }

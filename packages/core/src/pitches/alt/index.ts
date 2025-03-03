@@ -1,18 +1,14 @@
 import { Pitch } from "./Pitch";
 import type { PitchArray } from "./Array";
-import { fixAlts } from "./fixAlts";
 import type { fromChromatic } from "./building/chromatic";
 import type { fromDiatonicAlts } from "./building/diatonicAlts";
 import type * as Constants from "./constants";
 import type * as ConversionsType from "./conversions";
 import * as Modifiers from "./modifiers";
-import { calcAlts } from "./calcAlts";
 import { createProxyBarrel } from "lazy-load";
 
 const staticModule = {
   ...Modifiers,
-  calcAlts,
-  fixAlts,
 };
 
 type LazyType = typeof Constants & typeof ConversionsType & {

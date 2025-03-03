@@ -4,7 +4,7 @@ import { Scale } from "../Scale";
 import { DegreeArray as DegreeAltArray, Degree as DegreeAlt, Degrees as DegreeAlts } from "degrees/alt";
 import { Degree as ChromaticDegree } from "degrees/chromatic";
 import { Degrees as DDegrees } from "degrees/diatonic";
-import { Pitches as AltPitches } from "pitches/alt";
+import { calcAlts } from "pitches/alt/calcAlts";
 import { Pitches as CPitches } from "pitches/chromatic";
 import { Scales as ScalesAlt, Scale as ScaleAlt } from "scales/alt";
 
@@ -72,7 +72,7 @@ class ScaleAltConversor {
       distancesAcc += distances[i - 2];
       const iFixed: number = reparametrizer(i, distancesAcc).diatonicDegree.valueOf();
       const diatonicDegree = DDegrees.fromInt(iFixed);
-      const alts = AltPitches.calcAlts(distancesAcc, diatonicDegree);
+      const alts = calcAlts(distancesAcc, diatonicDegree);
       const degree: DegreeAlt = DegreeAlts.from(diatonicDegree, alts);
 
       degrees.push(degree);

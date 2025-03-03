@@ -9,11 +9,6 @@ describe("static properties should be defined", () => {
     expect(P.rootIntervals).toBeDefined();
     expect(P.sub).toBeDefined();
   } );
-
-  it("others", () => {
-    expect(P.calcAlts).toBeDefined();
-    expect(P.fixAlts).toBeDefined();
-  } );
 } );
 
 describe("lazy properties should be defined", () => {

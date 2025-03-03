@@ -4,7 +4,8 @@ import type { Quality } from "../../quality/Quality";
 import { fromInt as qualityFromInt } from "../../quality/building";
 import type { Interval as DiatonicInterval } from "intervals/diatonic";
 import { Intervals as DIntervals } from "intervals/diatonic";
-import { Pitches } from "pitches/alt";
+import { calcAlts } from "pitches/alt/calcAlts";
+import { fixAlts } from "pitches/alt/fixAlts";
 import { Pitches as DPitches } from "pitches/diatonic";
 
 export function calcFixedQualityDifferentDirection(
@@ -22,12 +23,12 @@ export function calcFixedQualityDifferentDirection(
   const diatonicIntervalAbsSimpleInterval = diatonicIntervalFromInt(
     diatonicIntervalAbsSimpleIntervalInt,
   );
-  let differenceWithMajor = Pitches.calcAlts(
+  let differenceWithMajor = calcAlts(
     resultChromaticInterval,
     diatonicIntervalAbsSimpleInterval,
   );
 
-  differenceWithMajor = Pitches.fixAlts(differenceWithMajor);
+  differenceWithMajor = fixAlts(differenceWithMajor);
   const quality = qualityFromInt(differenceWithMajor, isMain);
 
   return quality;
