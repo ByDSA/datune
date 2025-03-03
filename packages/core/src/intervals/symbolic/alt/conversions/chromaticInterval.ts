@@ -12,19 +12,19 @@ export function toChromaticInterval(obj: Interval): Chromatic {
 }
 
 class SemisPrecalculator {
-  private rootInterval: number;
+  #rootInterval: number;
 
-  private positiveDiatonicIntValueMod7: number;
+  #positiveDiatonicIntValueMod7: number;
 
-  private positiveDiatonicIntValue: number;
+  #positiveDiatonicIntValue: number;
 
   constructor(private self: Interval) {
-    this.rootInterval = 0;
+    this.#rootInterval = 0;
 
-    this.positiveDiatonicIntValue = Math.abs(+this.self.diatonicInterval);
-    this.positiveDiatonicIntValueMod7 = this.positiveDiatonicIntValue % DPitches.NUMBER;
+    this.#positiveDiatonicIntValue = Math.abs(+this.self.diatonicInterval);
+    this.#positiveDiatonicIntValueMod7 = this.#positiveDiatonicIntValue % DPitches.NUMBER;
 
-    this.rootInterval = CScales.MAJOR_SCALE_DEGREES[this.positiveDiatonicIntValueMod7];
+    this.#rootInterval = CScales.MAJOR_SCALE_DEGREES[this.#positiveDiatonicIntValueMod7];
   }
 
   calc(): number {
@@ -33,30 +33,30 @@ class SemisPrecalculator {
     this.octaveFixer();
 
     if (this.self.diatonicInterval.direction === Direction.ASCENDENT)
-      return this.rootInterval;
+      return this.#rootInterval;
 
-    return -this.rootInterval;
+    return -this.#rootInterval;
   }
 
   private qualityFixer() {
     const { FIFTH, FOURTH, SECOND, SEVENTH, SIXTH, THIRD, UNISON } = DIntervals;
 
-    switch (this.positiveDiatonicIntValueMod7) {
+    switch (this.#positiveDiatonicIntValueMod7) {
       case +UNISON:
       case +FOURTH:
       case +FIFTH:
         switch (this.self.quality) {
           case DIMINISHED:
-            this.rootInterval--;
+            this.#rootInterval--;
             break;
           case AUGMENTED:
-            this.rootInterval++;
+            this.#rootInterval++;
             break;
           case DOUBLY_DIMINISHED:
-            this.rootInterval -= 2;
+            this.#rootInterval -= 2;
             break;
           case DOUBLY_AUGMENTED:
-            this.rootInterval += 2;
+            this.#rootInterval += 2;
             break;
           default: break;
         }
@@ -67,13 +67,19 @@ class SemisPrecalculator {
       case +SEVENTH:
         switch (this.self.quality) {
           case MINOR:
-            this.rootInterval--;
+            this.#rootInterval--;
             break;
           case DIMINISHED:
-            this.rootInterval -= 2;
+            this.#rootInterval -= 2;
             break;
           case AUGMENTED:
-            this.rootInterval++;
+            this.#rootInterval++;
+            break;
+          case DOUBLY_DIMINISHED:
+            this.#rootInterval -= 3;
+            break;
+          case DOUBLY_AUGMENTED:
+            this.#rootInterval += 2;
             break;
           default: break;
         }
@@ -83,8 +89,8 @@ class SemisPrecalculator {
   }
 
   private octaveFixer() {
-    const octaves: number = Math.floor(this.positiveDiatonicIntValue / DPitches.NUMBER);
+    const octaves: number = Math.floor(this.#positiveDiatonicIntValue / DPitches.NUMBER);
 
-    this.rootInterval += CPitches.NUMBER * octaves;
+    this.#rootInterval += CPitches.NUMBER * octaves;
   }
 }
