@@ -1,6 +1,6 @@
 import type { Interval } from "./Interval";
 import type { IntervalArray } from "./Array";
-import type { betweenMin } from "./building/betweenMin";
+import type { between } from "./building/between";
 import type { betweenNext } from "./building/betweenNext";
 import type { fromIntervalQuality } from "./building/intervalQuality";
 import type { fromIntervals } from "./building/intervals";
@@ -36,7 +36,7 @@ export {
 const staticModule = {};
 
 type LazyType = typeof Constants & typeof ConversionsType & {
-  betweenMin: typeof betweenMin;
+  between: typeof between;
   betweenNext: typeof betweenNext;
   fromIntervalQuality: typeof fromIntervalQuality;
   fromIntervals: typeof fromIntervals;
@@ -53,7 +53,7 @@ type LazyType = typeof Constants & typeof ConversionsType & {
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    "building/betweenMin",
+    "building/between",
     "building/betweenNext",
     "building/intervalQuality",
     "building/intervals",

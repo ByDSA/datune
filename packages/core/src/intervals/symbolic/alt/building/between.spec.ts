@@ -1,7 +1,8 @@
 import { AUGMENTED_UNISON, DOUBLY_DIMINISHED_FOURTH, MAJOR_THIRD, MINOR_SECOND } from "../constants";
-import { betweenMin } from "./betweenMin";
-import { Pitches } from "pitches/alt";
+import { neg } from "../modifiers/neg";
+import { between } from "./between";
 import { TestInit } from "tests";
+import { Pitches } from "pitches/alt";
 
 TestInit.diatonicAlt();
 TestInit.diatonicAltInterval();
@@ -11,7 +12,7 @@ describe("tests", () => {
   const { A, AA, B, C, DD, E, Gb, GG } = Pitches;
 
   it("fromRootNotes: get from ImmutableCache", () => {
-    const intervalDiatonicAlt = betweenMin(C, E);
+    const intervalDiatonicAlt = between(C, E);
     const expected = MAJOR_THIRD;
 
     expect(intervalDiatonicAlt).toBe(expected);
@@ -20,8 +21,8 @@ describe("tests", () => {
   it("gb to D#: DOUBLY DIMINISHED FOURTH", () => {
     const a = Gb;
     const b = DD;
-    const intervalDiatonicAlt = betweenMin(a, b);
-    const expected = DOUBLY_DIMINISHED_FOURTH;
+    const intervalDiatonicAlt = between(a, b);
+    const expected = neg(DOUBLY_DIMINISHED_FOURTH);
 
     expect(intervalDiatonicAlt).toBe(expected);
   } );
@@ -29,7 +30,7 @@ describe("tests", () => {
   it("b to C: MINOR SECOND", () => {
     const a = B;
     const b = C;
-    const intervalDiatonicAlt = betweenMin(a, b);
+    const intervalDiatonicAlt = between(a, b);
     const expected = MINOR_SECOND;
 
     expect(intervalDiatonicAlt).toBe(expected);
@@ -38,8 +39,8 @@ describe("tests", () => {
   it("c to B: MINOR SECOND", () => {
     const a = C;
     const b = B;
-    const intervalDiatonicAlt = betweenMin(a, b);
-    const expected = MINOR_SECOND;
+    const intervalDiatonicAlt = between(a, b);
+    const expected = neg(MINOR_SECOND);
 
     expect(intervalDiatonicAlt).toBe(expected);
   } );
@@ -47,7 +48,7 @@ describe("tests", () => {
   it("d# to Gb: DOUBLY DIMINISHED FOURTH", () => {
     const a = DD;
     const b = Gb;
-    const intervalDiatonicAlt = betweenMin(a, b);
+    const intervalDiatonicAlt = between(a, b);
     const expected = DOUBLY_DIMINISHED_FOURTH;
 
     expect(intervalDiatonicAlt).toBe(expected);
@@ -56,7 +57,7 @@ describe("tests", () => {
   it("a to A#:", () => {
     const a = A;
     const b = AA;
-    const intervalDiatonicAlt = betweenMin(a, b);
+    const intervalDiatonicAlt = between(a, b);
     const expected = AUGMENTED_UNISON;
 
     expect(intervalDiatonicAlt).toBe(expected);
@@ -65,8 +66,8 @@ describe("tests", () => {
   it("a# to A:", () => {
     const a = AA;
     const b = A;
-    const intervalDiatonicAlt = betweenMin(a, b);
-    const expected = AUGMENTED_UNISON;
+    const intervalDiatonicAlt = between(a, b);
+    const expected = neg(AUGMENTED_UNISON);
 
     expect(intervalDiatonicAlt).toBe(expected);
   } );
@@ -74,8 +75,8 @@ describe("tests", () => {
   it("a to G#:", () => {
     const a = A;
     const b = GG;
-    const intervalDiatonicAlt = betweenMin(a, b);
-    const expected = MINOR_SECOND;
+    const intervalDiatonicAlt = between(a, b);
+    const expected = neg(MINOR_SECOND);
 
     expect(intervalDiatonicAlt).toBe(expected);
   } );

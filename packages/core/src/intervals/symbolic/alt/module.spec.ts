@@ -5,7 +5,7 @@ TestInit.diatonicAltInterval();
 
 describe("lazy properties should be defined", () => {
   it("building", () => {
-    expect(Intervals.betweenMin).toBeDefined();
+    expect(Intervals.between).toBeDefined();
     expect(Intervals.betweenNext).toBeDefined();
     expect(Intervals.fromIntervalQuality).toBeDefined();
     expect(Intervals.fromIntervals).toBeDefined();
