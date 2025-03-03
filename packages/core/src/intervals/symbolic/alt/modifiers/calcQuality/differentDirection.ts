@@ -37,8 +37,8 @@ export function calcFixedQualityDifferentDirection(
 function diatonicIsMainInterval(interval: DiatonicInterval): boolean {
   const { abs: diatonicAbs,
     FIFTH, FOURTH,
-    simplify: diatonicSimple, UNISON } = DIntervals;
-  const diatonicSimpleAbsInterval = diatonicAbs(diatonicSimple(interval));
+    simplify: diatonicSimplify, UNISON } = DIntervals;
+  const diatonicSimpleAbsInterval = diatonicAbs(diatonicSimplify(interval));
 
   return diatonicSimpleAbsInterval === UNISON
   || diatonicSimpleAbsInterval === FOURTH

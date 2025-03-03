@@ -11,7 +11,7 @@ import type { add } from "./modifiers/add";
 import type { cyclic } from "./modifiers/cyclic";
 import type { mult } from "./modifiers/mult";
 import type { neg } from "./modifiers/neg";
-import type { simple } from "./modifiers/simple";
+import type { simplify } from "./modifiers/simplify";
 import type { serie } from "./modifiers/calcSerie";
 import type { sub } from "./modifiers/sub";
 
@@ -45,7 +45,7 @@ type LazyType = typeof Constants & typeof ConversionsType & {
   cyclic: typeof cyclic;
   mult: typeof mult;
   neg: typeof neg;
-  simple: typeof simple;
+  simplify: typeof simplify;
   serie: typeof serie;
   sub: typeof sub;
 };
@@ -64,7 +64,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "modifiers/cyclic",
     "modifiers/mult",
     "modifiers/neg",
-    "modifiers/simple",
+    "modifiers/simplify",
     "modifiers/sub",
     "conversions",
   // eslint-disable-next-line no-undef

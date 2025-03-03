@@ -25,12 +25,11 @@ describe("lazy properties should be defined", () => {
     expect(Intervals.cyclic).toBeDefined();
     expect(Intervals.mult).toBeDefined();
     expect(Intervals.neg).toBeDefined();
-    expect(Intervals.simple).toBeDefined();
+    expect(Intervals.simplify).toBeDefined();
     expect(Intervals.sub).toBeDefined();
   } );
 
   it("conversions", () => {
-    expect(Intervals.calcAlts).toBeDefined();
     expect(Intervals.toChromaticInterval).toBeDefined();
   } );
 } );

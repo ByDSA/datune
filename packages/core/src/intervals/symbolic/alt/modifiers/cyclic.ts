@@ -1,11 +1,11 @@
 import { PERFECT_OCTAVE } from "../constants";
 import type { Interval } from "../Interval";
 import { add } from "./add";
-import { simple } from "./simple";
+import { simplify } from "./simplify";
 import { Direction } from "intervals/symbolic/diatonic/Direction";
 
 export function cyclic(interval: Interval): Interval {
-  let ret = simple(interval);
+  let ret = simplify(interval);
 
   if (ret.diatonicInterval.direction === Direction.DESCENDENT)
     ret = add(ret, PERFECT_OCTAVE) as Interval;
