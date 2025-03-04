@@ -1,7 +1,7 @@
-import { cyclicMod } from "@datune/utils";
-import { I, II, III, IV, V, VI, VII } from "../constants";
 import type { Degree } from "../Degree";
+import { cyclicMod } from "@datune/utils";
 import { Pitches } from "pitches/diatonic";
+import { I, II, III, IV, V, VI, VII } from "../constants";
 
 export function fromInt(n: number): Degree {
   const fixedInt = cyclicMod(n, Pitches.NUMBER);

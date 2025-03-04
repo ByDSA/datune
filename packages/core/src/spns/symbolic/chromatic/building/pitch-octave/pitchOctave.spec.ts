@@ -1,7 +1,7 @@
-import { B4, C4, FF4 } from "../../constants";
-import { fromPitchOctave } from "./index";
 import { Pitches } from "pitches/chromatic";
 import { TestInit } from "tests";
+import { B4, C4, FF4 } from "../../constants";
+import { fromPitchOctave } from "./index";
 
 TestInit.chromaticSPN();
 

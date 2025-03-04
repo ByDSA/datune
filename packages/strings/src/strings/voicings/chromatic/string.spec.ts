@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import { Voicings, Voicing } from "@datune/core/voicings/chromatic";
-import { stringifyShortName } from "./shortName";
-import { stringifyVoicing } from ".";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
+import { stringifyShortName } from "./shortName";
+import { stringifyVoicing } from ".";
 
 TestInit.chromaticVoicing();
 TestLang.loadAll();

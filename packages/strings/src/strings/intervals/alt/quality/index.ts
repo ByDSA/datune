@@ -1,5 +1,5 @@
-import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "@datune/core/intervals/symbolic/alt/quality/constants";
 import type { Quality } from "@datune/core/intervals/symbolic/alt/quality/Quality";
+import { a as AUGMENTED, d as DIMINISHED, da as DOUBLY_AUGMENTED, dd as DOUBLY_DIMINISHED, M as MAJOR, m as MINOR, P as PERFECT } from "@datune/core/intervals/symbolic/alt/quality/constants";
 import { getLangFromOptions, Options } from "lang";
 import { toPascalCase } from "parsing/utils";
 

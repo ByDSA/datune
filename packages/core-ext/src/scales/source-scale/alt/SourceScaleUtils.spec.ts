@@ -1,8 +1,8 @@
 import type { Scale } from "@datune/core/scales/alt";
 import { Scales } from "@datune/core/scales/alt";
+import { TestInit } from "tests";
 import { initialize } from "./set";
 import { getFromScale } from ".";
-import { TestInit } from "tests";
 
 TestInit.loadAll();
 

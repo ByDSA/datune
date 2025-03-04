@@ -1,9 +1,9 @@
-import * as C from "../constants";
-import { bass } from "../modifiers";
-import { toVoicing } from "./voicing";
 import { expectVoicing } from "voicings/relative/alt/tests/voicing";
 import { TestInit } from "tests";
 import { Pitches, Voicings as V, type Voicing } from "alt";
+import * as C from "../constants";
+import { bass } from "../modifiers";
+import { toVoicing } from "./voicing";
 
 TestInit.diatonicAltVoicing();
 TestInit.diatonicAltChord();

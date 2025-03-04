@@ -1,22 +1,22 @@
 /* eslint-disable camelcase */
-import { fromDegrees, fromIntraIntervals, fromRootIntervals } from "../building";
+import type { Scale } from "../Scale";
+import { Degrees as D } from "degrees/alt";
+import { Degrees as DD } from "degrees/diatonic";
+import { Intervals as AI } from "intervals/alt";
+import { Scales as CS } from "scales/chromatic";
+import { initialize as initializeDegrees } from "degrees/alt/constants";
 import { mode } from "../modifiers";
-import { Scale } from "../Scale";
-import { Degrees } from "degrees/alt";
-import { Degrees as D } from "degrees/diatonic";
-import { Intervals } from "intervals/alt";
-import { Scales as CScales } from "scales/chromatic";
+import { fromDegrees, fromIntraIntervals, fromRootIntervals } from "../building";
 
 export function initializeConstants() {
   if (MAJOR)
     throw new Error("MAJOR already defined");
 
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  const { bV, bVI, bVII, from: degreeFrom, I, II, III, IV, V, VI, VII } = D;
+  const { a5, a1, d5, d7, M2, M3, m2, m3, P1 } = AI;
   // eslint-disable-next-line max-len, @typescript-eslint/naming-convention
-  const { bV, bVI, bVII, from: degreeFrom, I, II, III, initialize: initializeDegrees, IV, V, VI, VII } = Degrees;
-  // eslint-disable-next-line max-len
-  const { AUGMENTED_FIFTH, AUGMENTED_UNISON, DIMINISHED_FIFTH, DIMINISHED_SEVENTH, MAJOR_SECOND, MAJOR_THIRD, MINOR_SECOND, MINOR_THIRD, PERFECT_UNISON } = Intervals;
-  // eslint-disable-next-line max-len, @typescript-eslint/naming-convention
-  const { DOUBLE_HARMONIC: C_DOUBLE_HARMONIC, HALF_DIMINISHED: C_HALF_DIMINISHED, HARMONIC_MAJOR: C_HARMONIC_MAJOR, HARMONIC_MINOR: C_HARMONIC_MINOR, MELODIC_MINOR: C_MELODIC_MINOR, MESSIAEN_III_INV: C_MESSIAEN_III_INV, MESSIAEN_II_TRUNCATED_n3: C_MESSIAEN_II_TRUNCATED_n3, MESSIAEN_INV_III_V_TRUNCATED_n2: C_MESSIAEN_INV_III_V_TRUNCATED_n2, MESSIAEN_IV: C_MESSIAEN_IV, MESSIAEN_V: C_MESSIAEN_V, MESSIAEN_VI: C_MESSIAEN_VI, MESSIAEN_VII: C_MESSIAEN_VII, MESSIAEN_V_TRUNCATED: C_MESSIAEN_V_TRUNCATED, NEAPOLITAN_MAJOR: C_NEAPOLITAN_MAJOR, NEAPOLITAN_MINOR: C_NEAPOLITAN_MINOR, RAGA_INDRUPRIYA_INDIA: C_RAGA_INDRUPRIYA_INDIA, toAlt } = CScales;
+  const { DOUBLE_HARMONIC: C_DOUBLE_HARMONIC, HALF_DIMINISHED: C_HALF_DIMINISHED, HARMONIC_MAJOR: C_HARMONIC_MAJOR, HARMONIC_MINOR: C_HARMONIC_MINOR, MELODIC_MINOR: C_MELODIC_MINOR, MESSIAEN_III_INV: C_MESSIAEN_III_INV, MESSIAEN_II_TRUNCATED_n3: C_MESSIAEN_II_TRUNCATED_n3, MESSIAEN_INV_III_V_TRUNCATED_n2: C_MESSIAEN_INV_III_V_TRUNCATED_n2, MESSIAEN_IV: C_MESSIAEN_IV, MESSIAEN_V: C_MESSIAEN_V, MESSIAEN_VI: C_MESSIAEN_VI, MESSIAEN_VII: C_MESSIAEN_VII, MESSIAEN_V_TRUNCATED: C_MESSIAEN_V_TRUNCATED, NEAPOLITAN_MAJOR: C_NEAPOLITAN_MAJOR, NEAPOLITAN_MINOR: C_NEAPOLITAN_MINOR, RAGA_INDRUPRIYA_INDIA: C_RAGA_INDRUPRIYA_INDIA, toAlt } = CS;
 
   if (!I)
     initializeDegrees();
@@ -31,6 +31,8 @@ export function initializeConstants() {
     VII,
   );
 
+  IONIAN = MAJOR;
+
   DORIAN = mode(MAJOR, 2);
 
   PHRYGIAN = mode(MAJOR, 3);
@@ -40,6 +42,8 @@ export function initializeConstants() {
   MIXOLYDIAN = mode(MAJOR, 5);
 
   MINOR = mode(MAJOR, 6);
+
+  AEOLIAN = MINOR;
 
   LOCRIAN = mode(MAJOR, 7);
 
@@ -105,30 +109,30 @@ export function initializeConstants() {
 
   // 6
   BLUES_b5 = fromIntraIntervals(
-    MINOR_THIRD,
-    MAJOR_SECOND,
-    MINOR_SECOND,
-    AUGMENTED_UNISON,
-    MINOR_THIRD,
-    MAJOR_SECOND,
+    m3,
+    M2,
+    m2,
+    a1,
+    m3,
+    M2,
   );
 
   BLUES_a4 = fromIntraIntervals(
-    MINOR_THIRD,
-    MAJOR_SECOND,
-    AUGMENTED_UNISON,
-    MINOR_SECOND,
-    MINOR_THIRD,
-    MAJOR_SECOND,
+    m3,
+    M2,
+    a1,
+    m2,
+    m3,
+    M2,
   );
 
   // 5
   PENTATONIC_MINOR = fromIntraIntervals(
-    MINOR_THIRD,
-    MAJOR_SECOND,
-    MAJOR_SECOND,
-    MINOR_THIRD,
-    MAJOR_SECOND,
+    m3,
+    M2,
+    M2,
+    m3,
+    M2,
   );
 
   PENTATONIC = mode(PENTATONIC_MINOR, 2);
@@ -142,31 +146,31 @@ export function initializeConstants() {
   // Symmetric
   CHROMATIC = fromDegrees(
     I,
-    degreeFrom(D.I, 1),
+    degreeFrom(DD.I, 1),
     II,
-    degreeFrom(D.II, 1),
+    degreeFrom(DD.II, 1),
     III,
     IV,
-    degreeFrom(D.IV, 1),
+    degreeFrom(DD.IV, 1),
     V,
-    degreeFrom(D.V, 1),
+    degreeFrom(DD.V, 1),
     VI,
-    degreeFrom(D.VI, 1),
+    degreeFrom(DD.VI, 1),
     VII,
   );
 
   CHROMATIC_BY_FIFTHS = fromDegrees(
     I,
-    degreeFrom(D.I, 1),
+    degreeFrom(DD.I, 1),
     II,
-    degreeFrom(D.II, 1),
+    degreeFrom(DD.II, 1),
     III,
-    degreeFrom(D.III, 1),
-    degreeFrom(D.IV, 1),
+    degreeFrom(DD.III, 1),
+    degreeFrom(DD.IV, 1),
     V,
-    degreeFrom(D.V, 1),
+    degreeFrom(DD.V, 1),
     VI,
-    degreeFrom(D.VI, 1),
+    degreeFrom(DD.VI, 1),
     VII,
   );
 
@@ -180,16 +184,16 @@ export function initializeConstants() {
   );
 
   AUGMENTED_TRIAD = fromRootIntervals(
-    PERFECT_UNISON,
-    MAJOR_THIRD,
-    AUGMENTED_FIFTH,
+    P1,
+    M3,
+    a5,
   );
 
   DIMINISHED_7th = fromRootIntervals(
-    PERFECT_UNISON,
-    MINOR_THIRD,
-    DIMINISHED_FIFTH,
-    DIMINISHED_SEVENTH,
+    P1,
+    m3,
+    d5,
+    d7,
   );
 
   DOM7b5 = fromDegrees(
@@ -280,6 +284,8 @@ export function initializeConstants() {
 
 export let MAJOR: Scale;
 
+export let IONIAN: Scale;
+
 export let DORIAN: Scale;
 
 export let PHRYGIAN: Scale;
@@ -287,6 +293,8 @@ export let PHRYGIAN: Scale;
 export let LYDIAN: Scale;
 
 export let MIXOLYDIAN: Scale;
+
+export let AEOLIAN: Scale;
 
 export let MINOR: Scale;
 

@@ -1,30 +1,27 @@
-import { AUGMENTED_FOURTH, AUGMENTED_OCTAVE, AUGMENTED_SEVENTH, AUGMENTED_UNISON, DIMINISHED_OCTAVE, DIMINISHED_SEVENTH, DIMINISHED_UNISON, DOUBLY_AUGMENTED_FOURTH, DOUBLY_AUGMENTED_SEVENTH, DOUBLY_DIMINISHED_SEVENTH, MAJOR_SEVENTH, MINOR_SEVENTH, PERFECT_FIFTH, PERFECT_OCTAVE } from "../constants";
+import { TestInit } from "tests";
+import { Intervals as CI } from "intervals/chromatic";
+import { a4, a8, a7, a1, d8, d7, d1, da4, da7, dd7, M7, m7, P8, P5 } from "../constants";
 import { neg } from "../modifiers/neg";
 import { toChromaticInterval } from "./chromaticInterval";
-import { TestInit } from "tests";
-import { Intervals as CIntervals } from "intervals/chromatic";
-
-// eslint-disable-next-line max-len
-const { MAJOR_SEVENTH: C_MAJOR_SEVENTH, MINOR_NINTH: C_MINOR_NINTH, MINOR_SECOND: C_MINOR_SECOND, PERFECT_FIFTH: C_PERFECT_FIFTH, PERFECT_OCTAVE: C_PERFECT_OCTAVE } = CIntervals;
 
 TestInit.diatonicAltInterval();
 
 describe.each([
-  [AUGMENTED_UNISON, C_MINOR_SECOND],
-  [DIMINISHED_UNISON, -C_MINOR_SECOND],
-  [PERFECT_FIFTH, C_PERFECT_FIFTH],
-  [PERFECT_OCTAVE, C_PERFECT_OCTAVE],
-  [AUGMENTED_SEVENTH, C_PERFECT_OCTAVE],
-  [DIMINISHED_OCTAVE, C_MAJOR_SEVENTH],
-  [AUGMENTED_OCTAVE, C_MINOR_NINTH],
-  [MAJOR_SEVENTH, CIntervals.MAJOR_SEVENTH],
-  [AUGMENTED_SEVENTH, CIntervals.PERFECT_OCTAVE],
-  [DOUBLY_AUGMENTED_SEVENTH, CIntervals.MINOR_NINTH],
-  [MINOR_SEVENTH, CIntervals.MINOR_SEVENTH],
-  [DIMINISHED_SEVENTH, CIntervals.MAJOR_SIXTH],
-  [DOUBLY_DIMINISHED_SEVENTH, CIntervals.MINOR_SIXTH],
-  [AUGMENTED_FOURTH, CIntervals.DIMINISHED_FIFTH],
-  [DOUBLY_AUGMENTED_FOURTH, CIntervals.PERFECT_FIFTH],
+  [a1, CI.m2],
+  [d1, -CI.m2],
+  [P5, CI.P5],
+  [P8, CI.P8],
+  [a7, CI.P8],
+  [d8, CI.M7],
+  [a8, CI.m9],
+  [M7, CI.M7],
+  [a7, CI.P8],
+  [da7, CI.m9],
+  [m7, CI.m7],
+  [d7, CI.M6],
+  [dd7, CI.m6],
+  [a4, CI.d5],
+  [da4, CI.P5],
 ])("tests", (interval, expected) => {
   it(`${String(interval)} => ${expected}`, () => {
     const actual = toChromaticInterval(interval);

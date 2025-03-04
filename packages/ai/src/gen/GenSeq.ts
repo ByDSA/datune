@@ -1,6 +1,6 @@
 import { TonalApproach } from "@datune/analyzer";
 import { MusicalDuration, TimeSignature } from "@datune/core";
-import { ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
+import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { divCell } from "@datune/utils/time";
 import { limitTime } from "./utils";
 

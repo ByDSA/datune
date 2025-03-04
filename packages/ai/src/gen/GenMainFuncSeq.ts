@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { MainFunc, TonalApproach } from "@datune/analyzer";
 import { MusicalDuration } from "@datune/core";
-import { WHOLE, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
+import { WHOLE, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { random, TemporalNode } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
 import { GenSeq } from "./GenSeq";

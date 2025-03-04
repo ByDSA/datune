@@ -1,8 +1,8 @@
+import { TestInit } from "tests";
 import { inv } from "../modifiers/inv";
-import { getInversionOf } from "./inversionMap";
+import { getNumInversionOf } from "./inversionMap";
 import { TRIAD_MAJOR, TRIAD_MINOR } from "./n3";
 import { COMMON_NON_INVERSIONS } from "./sets";
-import { TestInit } from "tests";
 
 TestInit.diatonicAltVoicing();
 
@@ -19,7 +19,7 @@ describe.each([
   const voicingIntervalsName = String(voicing.rootIntervals);
 
   it(`${voicingIntervalsName} => ${expected}`, () => {
-    const actual = getInversionOf(voicing);
+    const actual = getNumInversionOf(voicing);
 
     expect(actual).toBe(expected);
   } );

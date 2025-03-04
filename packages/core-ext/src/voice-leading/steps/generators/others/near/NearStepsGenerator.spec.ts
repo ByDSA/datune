@@ -1,6 +1,6 @@
 import { SPNs } from "@datune/core/spns/chromatic";
-import { NearStepsGen } from "./NearStepsGenerator";
 import { TestInit } from "tests";
+import { NearStepsGen } from "./NearStepsGenerator";
 
 TestInit.loadAll();
 const { C5, E5, G5 } = SPNs;

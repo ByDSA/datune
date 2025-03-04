@@ -1,16 +1,16 @@
 import { lock } from "@datune/utils/immutables";
 import { Quality } from "../Quality";
 
-export const PERFECT: Quality = lock(new (Quality as any)("P"));
+export const P: Quality = lock(new (Quality as any)("P"));
 
-export const MAJOR: Quality = lock(new (Quality as any)("M"));
+export const M: Quality = lock(new (Quality as any)("M"));
 
-export const MINOR: Quality = lock(new (Quality as any)("m"));
+export const m: Quality = lock(new (Quality as any)("m"));
 
-export const AUGMENTED: Quality = lock(new (Quality as any)("a"));
+export const a: Quality = lock(new (Quality as any)("a"));
 
-export const DIMINISHED: Quality = lock(new (Quality as any)("d"));
+export const d: Quality = lock(new (Quality as any)("d"));
 
-export const DOUBLY_AUGMENTED: Quality = lock(new (Quality as any)("da"));
+export const da: Quality = lock(new (Quality as any)("da"));
 
-export const DOUBLY_DIMINISHED: Quality = lock(new (Quality as any)("dd"));
+export const dd: Quality = lock(new (Quality as any)("dd"));

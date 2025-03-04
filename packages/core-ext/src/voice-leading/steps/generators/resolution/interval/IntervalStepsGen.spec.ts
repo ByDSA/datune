@@ -1,8 +1,8 @@
 import { SPNArray, SPNs } from "@datune/core/spns/chromatic";
+import { TestInit } from "tests";
 import { CompositeSteps } from "../../../composite";
 import { Step } from "../../../Step";
 import { IntervalStepsGen } from "./IntervalStepsGen";
-import { TestInit } from "tests";
 
 TestInit.loadAll();
 

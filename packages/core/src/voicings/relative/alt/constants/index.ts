@@ -16,10 +16,6 @@ export function initialize() {
   initializeSets();
 }
 
-export {
-  getInversionOf,
-} from "./inversionMap";
-
 export * from "./n2";
 
 export * from "./n3";

@@ -1,7 +1,7 @@
-import { StringHashCache } from "@datune/utils";
-import { Voicing } from "../Voicing";
 import type { Dto } from "./Dto";
 import type { Interval } from "intervals/chromatic";
+import { StringHashCache } from "@datune/utils";
+import { Voicing } from "../Voicing";
 
 export const cache = new StringHashCache<Voicing, Dto>( {
   hash(hashingObject: Interval[]) {

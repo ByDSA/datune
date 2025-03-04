@@ -1,13 +1,14 @@
-import { Intervals } from "intervals/alt";
-import { Pitches, Pitch as P } from "pitches/alt";
-import { Pitch as Chromatic } from "pitches/chromatic";
-import { SPN } from "spns/alt";
-import { Tuning } from "tunings/chromatic";
+import type { SPN } from "spns/alt";
+import type { Tuning } from "tunings/chromatic";
+import { Intervals as I } from "intervals/alt";
+import { Pitches as P, Pitch } from "pitches/alt";
+import { Pitch as CPitch } from "pitches/chromatic";
 
+// ??
 export class FrequencyCalculatorDiatonicAlt {
-  #degree: P | undefined;
+  #degree: Pitch | undefined;
 
-  #degreeRoot: P | undefined;
+  #degreeRoot: Pitch | undefined;
 
   #tuning: Tuning;
 
@@ -18,7 +19,7 @@ export class FrequencyCalculatorDiatonicAlt {
     this.spn = spn;
   }
 
-  private getDistOctave(degreeRoot: P, degree: P): number {
+  private getDistOctave(degreeRoot: Pitch, degree: Pitch): number {
     let distOctave = this.spn.octave - this.#tuning.concertPitch.spn.octave;
 
     if (degree.diatonic < degreeRoot.diatonic)
@@ -29,16 +30,16 @@ export class FrequencyCalculatorDiatonicAlt {
 
   calc(): number {
     this.#degree = this.spn.pitch;
-    let degreeRoot = this.#tuning.concertPitch.spn.pitch as Chromatic | P;
+    let degreeRoot = this.#tuning.concertPitch.spn.pitch as CPitch | Pitch;
 
-    if (degreeRoot instanceof Chromatic)
-      degreeRoot = Pitches.fromChromatic(degreeRoot);
+    if (degreeRoot instanceof CPitch)
+      degreeRoot = P.fromChromatic(degreeRoot);
 
-    this.#degreeRoot = degreeRoot as P;
+    this.#degreeRoot = degreeRoot as Pitch;
 
     // TODO
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const interval = Intervals.betweenNext(this.#degreeRoot, this.#degree);
+    const interval = I.betweenNext(this.#degreeRoot, this.#degree);
     const ratioNumber = 1;// this._tuning.temperament(interval).ratio.value;
     const distOctave = this.getDistOctave(this.#degreeRoot, this.#degree);
 

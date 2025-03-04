@@ -1,11 +1,11 @@
-import { cyclicMod } from "@datune/utils";
-import { fromRootIntervals } from "../building/rootIntervals";
 import type { Voicing } from "../Voicing";
+import { cyclicMod } from "@datune/utils";
 import { IntervalArray, Interval } from "intervals/symbolic/alt";
 import { add } from "intervals/symbolic/alt/modifiers/add";
 import { sub } from "intervals/symbolic/alt/modifiers/sub";
 import { toChromaticInterval } from "intervals/symbolic/alt/conversions";
-import { PERFECT_OCTAVE } from "intervals/symbolic/alt/constants";
+import { P8 } from "intervals/symbolic/alt/constants";
+import { fromRootIntervals } from "../building/rootIntervals";
 
 export function inv(obj: Voicing, n: number = 1): Voicing {
   if (obj.rootIntervals.length < 2)
@@ -19,7 +19,7 @@ export function inv(obj: Voicing, n: number = 1): Voicing {
 
     while (toChromaticInterval(firstValue)
     < toChromaticInterval(rootIntervals[rootIntervals.length - 1]))
-      firstValue = add(firstValue, PERFECT_OCTAVE) as Interval;
+      firstValue = add(firstValue, P8) as Interval;
 
     rootIntervals.push(firstValue);
     // eslint-disable-next-line prefer-destructuring

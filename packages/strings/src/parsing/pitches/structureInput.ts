@@ -1,7 +1,7 @@
-import { structure } from "./structureTokens";
-import { getLangTokens } from "./tokens";
 import { getLangIdFromOptions, Options } from "lang";
 import { tokenize } from "parsing";
+import { structure } from "./structureTokens";
+import { getLangTokens } from "./tokens";
 
 export function structureInput(input: string, options?: Options) {
   try {

@@ -1,14 +1,14 @@
-import { lockr } from "@datune/utils/immutables";
-import { HarmonicFunction } from "../HarmonicFunction";
 import type { Dto } from "./caching/Dto";
 import type { Chord } from "chords/alt";
-import { Chords } from "chords/alt";
 import type { Degree } from "degrees/alt";
-import { Degrees } from "degrees/alt";
-import type { Key as KeyAlt } from "keys/alt";
-import { Pitches } from "pitches/alt";
+import type { Key } from "keys/alt";
 import type { Pitch } from "pitches/alt";
 import type { Voicing } from "voicings/alt";
+import { lockr } from "@datune/utils/immutables";
+import { Pitches as P } from "pitches/alt";
+import { Degrees as D } from "degrees/alt";
+import { Chords as C } from "chords/alt";
+import { HarmonicFunction } from "../HarmonicFunction";
 
 export class DegreeFunction extends HarmonicFunction {
   degree: Degree;
@@ -27,10 +27,10 @@ export class DegreeFunction extends HarmonicFunction {
     return new DegreeFunction(dto);
   }
 
-  protected calculateChord(key: KeyAlt): Chord {
-    const noteBase: Pitch = Pitches.add(key.root, Degrees.toInterval(this.degree));
+  protected calculateChord(key: Key): Chord {
+    const noteBase: Pitch = P.add(key.root, D.toInterval(this.degree));
 
-    return Chords.fromRootVoicing(noteBase, this.voicing);
+    return C.fromRootVoicing(noteBase, this.voicing);
   }
 
   toString() {

@@ -1,7 +1,7 @@
-import { Scales } from "../..";
-import { Scale } from "../../Scale";
 import { IntervalArray, Interval, Intervals } from "intervals/chromatic";
 import { Pitches } from "pitches/chromatic";
+import { Scales } from "../..";
+import { Scale } from "../../Scale";
 
 class Generator {
   private interval: Interval;
@@ -47,7 +47,7 @@ class Generator {
   }
 
   private fixInitialInterval(): Interval {
-    let initialInterval = Intervals.PERFECT_UNISON;
+    let initialInterval = Intervals.P1;
 
     if (this.startIndex > 0) {
       for (let i = 0; i < this.startIndex; i++)
@@ -71,7 +71,7 @@ class Generator {
 
 function calculateIntraIntervals(rootIntervals: IntervalArray): IntervalArray {
   const intraIntervals = [];
-  let accumulated = Intervals.PERFECT_UNISON;
+  let accumulated = Intervals.P1;
 
   for (let i = 1; i < rootIntervals.length; i++) {
     const lastRootInterval = rootIntervals[i - 1];
@@ -82,7 +82,7 @@ function calculateIntraIntervals(rootIntervals: IntervalArray): IntervalArray {
     intraIntervals.push(interval);
   }
 
-  const remainingInterval = Intervals.sub(Intervals.PERFECT_OCTAVE, accumulated);
+  const remainingInterval = Intervals.sub(Intervals.P8, accumulated);
 
   intraIntervals.push(remainingInterval);
 
@@ -93,10 +93,10 @@ function toSimpleInterval(input: Interval): Interval {
   let interval = input;
 
   while (interval >= Pitches.NUMBER)
-    interval = Intervals.sub(interval, Intervals.PERFECT_OCTAVE);
+    interval = Intervals.sub(interval, Intervals.P8);
 
   while (interval < 0)
-    interval = Intervals.add(interval, Intervals.PERFECT_OCTAVE);
+    interval = Intervals.add(interval, Intervals.P8);
 
   return interval;
 }

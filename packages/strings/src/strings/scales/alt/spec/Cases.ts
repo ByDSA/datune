@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
-import { Scales, Scale } from "@datune/core/scales/alt";
-import { stringifyScale } from "..";
+import type { Scale } from "@datune/core/scales/alt";
+import { Scales as S } from "@datune/core/scales/alt";
 import { LangId } from "lang";
+import { stringifyScale } from "..";
 
 type Case = [LangId, Scale, string];
 export function getManualCases(): Case[] {
-  const { AEOLIAN_b1, MAJOR, MINOR } = Scales;
+  const { AEOLIAN_b1, MAJOR, MINOR } = S;
 
   return [
     [LangId.ES, MAJOR, "Mayor"],
@@ -19,7 +20,7 @@ export function getManualCases(): Case[] {
 }
 
 export function getAllCases(): Case[] {
-  const { COMMON } = Scales;
+  const { COMMON } = S;
   const ALL_LANGS = [LangId.ES, LangId.EN];
   const cartesian = (...z: any) => z.reduce(
     (a: any, b: any) => a.flatMap((d: any) => b.map((e: any) => [d, e].flat())),

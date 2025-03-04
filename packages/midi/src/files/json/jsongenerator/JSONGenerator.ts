@@ -1,8 +1,8 @@
 import { MidiJSON } from "@tonejs/midi";
 import { ControlChangeJSON } from "@tonejs/midi/dist/ControlChange";
 import { ControlChangesJSON } from "@tonejs/midi/dist/ControlChanges";
-import { MidiFile, getInnerTick } from "../../midi-file/MidiFile";
 import { MidiNode } from "sequence";
+import { MidiFile, getInnerTick } from "../../midi-file/MidiFile";
 
 export class JSONGenerator {
   private mf: MidiFile;

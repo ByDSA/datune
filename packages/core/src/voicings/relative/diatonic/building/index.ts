@@ -1,4 +1,4 @@
-import { Arrays } from "@datune/utils";
+import type { Arrays } from "@datune/utils";
 import { Voicing } from "../Voicing";
 
 export function fromRootIntervalInts(...ints: Arrays.Number): Voicing {

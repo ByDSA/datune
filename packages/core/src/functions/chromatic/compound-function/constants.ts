@@ -1,7 +1,7 @@
+import { Degrees as C } from "degrees/chromatic";
 import * as DegreeFunctions from "../degree-function/constants";
 import { compose } from "./building/compose";
 import { CompoundFunction } from "./CompoundFunction";
-import { Degrees as C } from "degrees/chromatic";
 
 export function initialize() {
   const { SUBV7, V, V7 } = DegreeFunctions;

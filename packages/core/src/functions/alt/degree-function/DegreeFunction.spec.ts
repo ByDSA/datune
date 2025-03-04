@@ -1,7 +1,7 @@
-import { I, I0, V, VIm, Im } from "./constants";
 import { Chords } from "chords/alt";
 import { Keys as K } from "keys/alt";
 import { TestInit } from "tests";
+import { I, I0, V, VIm, Im } from "./constants";
 
 TestInit.diatonicAltFunction();
 TestInit.diatonicAltKey();

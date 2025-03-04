@@ -1,5 +1,5 @@
-import { ET12, LIMIT_5_SYMMETRIC_N1, LIMIT_5_SYMMETRIC_N2, PYTHAGOREAN } from "./constants";
 import type { Temperament } from "./Temperament";
+import { ET12, LIMIT_5_SYMMETRIC_N1, LIMIT_5_SYMMETRIC_N2, PYTHAGOREAN } from "./constants";
 
 export function hash(obj: Temperament): string {
   switch (obj) {

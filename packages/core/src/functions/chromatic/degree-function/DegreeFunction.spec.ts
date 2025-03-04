@@ -1,7 +1,7 @@
-import { I, I0, V, VIm, Im } from "./constants";
 import { Chords } from "chords/chromatic";
 import { Keys as K } from "keys/chromatic";
 import { TestInit } from "tests";
+import { I, I0, V, VIm, Im } from "./constants";
 
 TestInit.chromaticFunction();
 TestInit.chromaticKey();

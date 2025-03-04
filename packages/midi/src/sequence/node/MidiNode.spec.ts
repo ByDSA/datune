@@ -1,8 +1,8 @@
-import { HALF, QUARTER, WHOLE, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
+import { HALF, QUARTER, WHOLE, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { TestInit } from "tests";
 import { C5 } from "../../pitch/constants";
 import { from as noteFrom, MidiNote } from "../note";
 import { from } from "./building";
-import { TestInit } from "tests";
 
 TestInit.initAll();
 

@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
+import type { Voicing } from "../Voicing";
 import { lockr } from "@datune/utils/immutables";
 import { getAllInversions } from "../utils";
-import type { Voicing } from "../Voicing";
-import { MAJOR_SECOND, MAJOR_THIRD, MINOR_SECOND, MINOR_THIRD, POWER_CHORD, TRITONE } from "./n2";
+import { M2, M3, m2, m3, POWER_CHORD, TRITONE } from "./n2";
 import { TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_QUARTAL, TRIAD_SUS2, TRIAD_SUS4 } from "./n3";
 import { SEVENTH, SEVENTH_a5, SEVENTH_b5, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_MINOR_a5, SEVENTH_MINOR_b5, SEVENTH_MINOR_MAJ7, SEVENTH_SUS4, SIXTH, SIXTH_MINOR, SIXTH_SUS4 } from "./n4";
 import { NINTH, NINTH_a5, NINTH_b5, NINTH_MAJ9, NINTH_MINOR, NINTH_MINOR_MAJ9, NINTH_SUS4, SEVENTH_a9, SEVENTH_ADD13, SEVENTH_b9, SEVENTH_MINOR_b9, SEVENTH_SUS4_b9, SIXTH_ADD9, SIXTH_MINOR_ADD9 } from "./n5";
@@ -11,10 +11,10 @@ import { THIRTEENTH_a5, THIRTEENTH_a5a9, THIRTEENTH_a5b9, THIRTEENTH_a9, THIRTEE
 
 export function initializeSets() {
   COMMON = new Set([
-    MINOR_SECOND,
-    MAJOR_SECOND,
-    MINOR_THIRD,
-    MAJOR_THIRD,
+    m2,
+    M2,
+    m3,
+    M3,
     TRITONE,
     POWER_CHORD,
     TRIAD_MAJOR,

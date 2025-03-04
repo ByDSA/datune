@@ -1,6 +1,6 @@
-import { fromSPNs } from "./building";
 import { SPNArray, SPNs } from "spns/chromatic";
 import { TestInit } from "tests";
+import { fromSPNs } from "./building";
 
 TestInit.chromaticSPN();
 TestInit.chromaticVoicing();

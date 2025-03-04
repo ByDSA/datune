@@ -10,13 +10,18 @@ function loadModule(modulePath: string) {
   return moduleCache[modulePath];
 }
 
+type PathObj = {
+  path: string;
+  omit?: string[];
+};
 type Props = {
-  paths: string[];
+  paths: (PathObj | string)[];
+  dirname?: string;
   staticModule?: object;
 };
 
 export function createProxyBarrel<T>(
-  { paths: modulePaths, staticModule }: Props,
+  { paths: modulePaths, staticModule, dirname }: Props,
 ): T {
 // Cache de propiedad -> módulo que la contiene
   const propertyCache: Record<string, string> = {};
@@ -28,7 +33,23 @@ export function createProxyBarrel<T>(
       if (!(prop in target)) {
       // Si la propiedad no se ha cacheado, buscamos en los módulos disponibles
         if (!propertyCache[prop]) {
-          for (const modulePath of modulePaths) {
+          for (const modulePathObj of modulePaths) {
+            let modulePath: string;
+
+            if (typeof modulePathObj === "string")
+              modulePath = modulePathObj;
+            else {
+              modulePath = modulePathObj.path;
+
+              if (modulePathObj.omit?.includes(prop)) {
+                target[prop] = undefined;
+                break;
+              }
+            }
+
+            if (dirname)
+              modulePath = dirname + "/" + modulePath;
+
             const module = loadModule(modulePath);
 
             if (prop in module) {

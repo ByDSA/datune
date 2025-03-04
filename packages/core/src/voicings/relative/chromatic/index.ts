@@ -1,35 +1,46 @@
-import { Voicing } from "./Voicing";
-
 import type { VoicingArray } from "./Array";
-
-import type { fromIntraIntervals } from "./building/intraIntervals";
-import type { fromPitches } from "./building/pitches";
-import type { fromRootIntervals } from "./building/rootIntervals";
-
 import type * as Constants from "./constants";
-
-import * as Modifiers from "./modifiers";
 import { createProxyBarrel } from "lazy-load";
+import * as Modifiers from "./modifiers";
+import * as Building from "./building";
+import { Voicing } from "./Voicing";
 
 const staticModule = {
   ...Modifiers,
 };
 
-type LazyType = typeof Constants & {
-  fromIntraIntervals: typeof fromIntraIntervals;
-  fromPitches: typeof fromPitches;
-  fromRootIntervals: typeof fromRootIntervals;
-};
+type LazyType = Omit<
+typeof Constants,
+"initialize" |
+"initializeN2" |
+"initializeN3" |
+"initializeN4" |
+"initializeN5" |
+"initializeN6" |
+"initializeN7" |
+"initializeSets"
+> & typeof Building;
 
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    "building/intraIntervals",
-    "building/rootIntervals",
-    "building/pitches",
-    "constants",
+    "building",
+    {
+      path: "constants",
+      omit: [
+        "initialize",
+        "initializeN2",
+        "initializeN3",
+        "initializeN4",
+        "initializeN5",
+        "initializeN6",
+        "initializeN7",
+        "initializeSets",
+      ],
+    },
+  ],
   // eslint-disable-next-line no-undef
-  ].map(p=>`${__dirname}/${p}`),
+  dirname: __dirname,
 } );
 
 export {

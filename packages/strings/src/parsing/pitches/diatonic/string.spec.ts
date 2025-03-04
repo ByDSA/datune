@@ -1,7 +1,7 @@
 import { A, C } from "@datune/core/pitches/diatonic/constants";
-import { parsePitch } from ".";
 import { LangId } from "lang";
 import { TestLang } from "tests";
+import { parsePitch } from ".";
 
 TestLang.loadAll();
 

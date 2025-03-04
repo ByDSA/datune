@@ -1,19 +1,19 @@
-import * as V from "./n4";
 import * as I from "intervals/symbolic/alt/constants";
 import { expectIntervals } from "intervals/symbolic/alt/tests/intervals";
 import { TestInit } from "tests";
+import * as V from "./n4";
 
 TestInit.diatonicInterval();
 TestInit.diatonicAltVoicing();
 
 describe("tests", () => {
-  const { PERFECT_UNISON: P1, MINOR_SEVENTH: m7,
-    MAJOR_NINTH: M9, PERFECT_ELEVENTH: P11, MAJOR_SEVENTH: M7,
-    AUGMENTED_NINTH: a9, AUGMENTED_ELEVENTH: a11, MAJOR_SIXTH: M6,
-    AUGMENTED_OCTAVE: a8, MAJOR_TENTH: M10, PERFECT_FIFTH: P5,
-    MAJOR_SECOND: M2, PERFECT_FOURTH: P4, DIMINISHED_FOURTH: d4, DIMINISHED_OCTAVE: d8,
-    MINOR_SIXTH: m6, AUGMENTED_SIXTH: a6, AUGMENTED_FOURTH: a4, MINOR_TENTH: m10,
-    MINOR_NINTH: m9 } = I;
+  const { P1, m7,
+    M9, P11, M7,
+    a9, a11, M6,
+    a8, M10, P5,
+    M2, P4, d4, d8,
+    m6, a6, a4, m10,
+    m9 } = I;
 
   describe.each([
     ["M/M2", V.MAJOR_OVER_M2, [P1, m7, M9, P11]],

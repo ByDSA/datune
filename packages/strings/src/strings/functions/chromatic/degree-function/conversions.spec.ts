@@ -1,6 +1,6 @@
 import { I, I5, Im, VISUS4 } from "@datune/core/functions/chromatic/degree-function/constants";
-import { stringifyDegreeFunction } from ".";
 import { TestInit, TestLang } from "tests";
+import { stringifyDegreeFunction } from ".";
 
 TestInit.chromaticFunction();
 TestLang.loadAll();

@@ -1,7 +1,7 @@
-import { RelativePitch } from "./RelativePitch";
-import { Pitches as DAP } from "pitches/alt";
+import { Pitches as P } from "pitches/alt";
 import { Pitches as CP } from "pitches/chromatic";
 import { TestInit } from "tests";
+import { RelativePitch } from "./RelativePitch";
 
 TestInit.diatonicAlt();
 
@@ -15,7 +15,7 @@ it("from - C 0", () => {
 } );
 
 it("from - Bb 2", () => {
-  const pitch = DAP.Bb;
+  const pitch = P.Bb;
   const octaveRelative = 2;
   const actual = RelativePitch.from(pitch, octaveRelative);
 

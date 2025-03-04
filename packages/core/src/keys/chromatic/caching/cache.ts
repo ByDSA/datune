@@ -1,6 +1,6 @@
+import type { Dto } from "./Dto";
 import { StringHashCache } from "@datune/utils";
 import { Key } from "../Key";
-import type { Dto } from "./Dto";
 import { hashDto } from "./Dto";
 import { toDto } from "./toDto";
 

@@ -1,9 +1,9 @@
+import type { Interval } from "../Interval";
+import { TestInit } from "tests";
 import { FIFTH } from "../constants";
 import { Direction } from "../Direction";
-import type { Interval } from "../Interval";
 import { neg } from "../modifiers/neg";
 import { fromInt } from "./int";
-import { TestInit } from "tests";
 
 TestInit.diatonicInterval();
 

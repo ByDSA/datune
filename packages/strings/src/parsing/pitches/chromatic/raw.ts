@@ -1,10 +1,10 @@
 import { Pitch } from "@datune/core/pitches/chromatic";
 import { A, AA, Ab, B, Bb, C, Cb, CC, D, Db, DD, E, Eb, F, Fb, FF, G, Gb, GG } from "@datune/core/pitches/chromatic/constants";
-import { normalizeInput } from "../normalizeInput";
 import { getLangFromOptions } from "lang";
 import { alts } from "lang/generation/utils";
 import { Options } from "parsing";
 import { stringifyPitch } from "strings/pitches/chromatic";
+import { normalizeInput } from "../normalizeInput";
 
 export function parseRaw(input: string, options?: Options): Pitch | null {
   const lang = getLangFromOptions(options);

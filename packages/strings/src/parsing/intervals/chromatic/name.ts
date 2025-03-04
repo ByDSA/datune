@@ -1,33 +1,33 @@
 import { Interval } from "@datune/core/intervals/chromatic";
-import { DIMINISHED_FIFTH, DIMINISHED_TWELFTH, MAJOR_FOURTEENTH, MAJOR_NINTH, MAJOR_SECOND, MAJOR_SEVENTH, MAJOR_SIXTH, MAJOR_TENTH, MAJOR_THIRD, MAJOR_THIRTEENTH, MINOR_FOURTEENTH, MINOR_NINTH, MINOR_SECOND, MINOR_SEVENTH, MINOR_SIXTH, MINOR_TENTH, MINOR_THIRTEENTH, PERFECT_ELEVENTH, PERFECT_FIFTEENTH, PERFECT_FIFTH, PERFECT_FOURTH, PERFECT_OCTAVE, PERFECT_TWELFTH, PERFECT_UNISON } from "@datune/core/intervals/symbolic/chromatic/constants";
+import { d5, d12, M14, M9, M2, M7, M6, M10, M3, M13, m14, m9, m2, m7, m6, m13, P11, P15, P5, P4, P8, P12, P1, m10 } from "@datune/core/intervals/symbolic/chromatic/constants";
 
 export function parseFromName(str: string): Interval | null {
   switch (str) {
-    case "P1": return PERFECT_UNISON;
-    case "m2": return MINOR_SECOND;
-    case "M2": return MAJOR_SECOND;
-    case "m3": return MINOR_SECOND;
-    case "M3": return MAJOR_THIRD;
-    case "P4": return PERFECT_FOURTH;
-    case "d5": return DIMINISHED_FIFTH;
-    case "P5": return PERFECT_FIFTH;
-    case "m6": return MINOR_SIXTH;
-    case "M6": return MAJOR_SIXTH;
-    case "m7": return MINOR_SEVENTH;
-    case "M7": return MAJOR_SEVENTH;
-    case "P8": return PERFECT_OCTAVE;
-    case "m9": return MINOR_NINTH;
-    case "M9": return MAJOR_NINTH;
-    case "m10": return MINOR_TENTH;
-    case "M10": return MAJOR_TENTH;
-    case "P11": return PERFECT_ELEVENTH;
-    case "d12": return DIMINISHED_TWELFTH;
-    case "P12": return PERFECT_TWELFTH;
-    case "m13": return MINOR_THIRTEENTH;
-    case "M13": return MAJOR_THIRTEENTH;
-    case "m14": return MINOR_FOURTEENTH;
-    case "M14": return MAJOR_FOURTEENTH;
-    case "P15": return PERFECT_FIFTEENTH;
+    case "P1": return P1;
+    case "m2": return m2;
+    case "M2": return M2;
+    case "m3": return m2;
+    case "M3": return M3;
+    case "P4": return P4;
+    case "d5": return d5;
+    case "P5": return P5;
+    case "m6": return m6;
+    case "M6": return M6;
+    case "m7": return m7;
+    case "M7": return M7;
+    case "P8": return P8;
+    case "m9": return m9;
+    case "M9": return M9;
+    case "m10": return m10;
+    case "M10": return M10;
+    case "P11": return P11;
+    case "d12": return d12;
+    case "P12": return P12;
+    case "m13": return m13;
+    case "M13": return M13;
+    case "m14": return m14;
+    case "M14": return M14;
+    case "P15": return P15;
     default: return null;
   }
 }

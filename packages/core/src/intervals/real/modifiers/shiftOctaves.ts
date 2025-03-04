@@ -1,5 +1,5 @@
-import { OCTAVE } from "../constants";
 import type { Interval } from "../Interval";
+import { OCTAVE } from "../constants";
 import { add } from "./add";
 import { mult } from "./mult";
 import { sub } from "./sub";

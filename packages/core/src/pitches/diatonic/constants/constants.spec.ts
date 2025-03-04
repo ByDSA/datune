@@ -11,6 +11,29 @@ it("valueOf()", () => {
   expect(B.valueOf()).toBe(6);
 } );
 
+describe.each([
+  [C, 0],
+  [D, 1],
+  [E, 2],
+  [F, 3],
+  [G, 4],
+  [A, 5],
+  [B, 6],
+])("to int", (pitch, expected) => {
+  it(`${pitch} => ${expected}`, () => {
+    const actual = +pitch;
+
+    expect(actual).toBe(expected);
+  } );
+} );
+
+it("sorting", () => {
+  const expected = [C, E, G];
+  const actual = [E, G, C].sort();
+
+  expect(actual).toEqual(expected);
+} );
+
 describe("sets", () => {
   it("number", () => {
     expect(NUMBER).toBe(7);

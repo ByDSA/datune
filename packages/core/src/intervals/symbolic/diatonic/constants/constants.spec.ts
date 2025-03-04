@@ -1,5 +1,5 @@
-import { UNISON, SECOND, THIRD, OCTAVE } from ".";
 import { TestInit } from "tests";
+import { UNISON, SECOND, THIRD, OCTAVE } from ".";
 
 describe("initial state", () => {
   it("should be undefined", () => {

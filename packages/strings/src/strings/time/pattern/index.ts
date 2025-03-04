@@ -1,4 +1,4 @@
-import type { RhythmPattern } from "@datune/core/time/symbolic/rhythm";
+import type { RhythmPattern } from "@datune/core/rhythm/pattern";
 
 export function stringifyPattern(obj: RhythmPattern): string {
   let stringBuilder = "";

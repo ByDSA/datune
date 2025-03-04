@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 import { AEOLIAN_b1, BLUES_b5, LYDIAN_b7, MAJOR, MINOR, SUPERLOCRIAN_bb7 } from "@datune/core/scales/symbolic/alt/constants";
 import { Scale } from "@datune/core/scales/alt";
-import { parseScale } from ".";
 import { LangId } from "lang";
 import { stringifyScale } from "strings/scales/alt";
 import { TestInit, TestLang } from "tests";
+import { parseScale } from ".";
 
 TestInit.diatonicAltScale();
 TestLang.loadAll();

@@ -1,8 +1,7 @@
 /* eslint-disable camelcase */
-
+import type { Voicing } from "../Voicing";
 import { Voicings } from "..";
 import { fromRootIntervals } from "../building/rootIntervals";
-import type { Voicing } from "../Voicing";
 import { map } from "./inversionMap";
 
 export function initializeN4() {
@@ -29,8 +28,6 @@ export function initializeN4() {
   SEVENTH_MAJ7 = fromRootIntervals(0, 4, 7, 11);
 
   SEVENTH_MAJ7_b5 = fromRootIntervals(0, 4, 6, 11);
-
-  SEVENTH_MAJ7b5 = fromRootIntervals(0, 4, 6, 11);
 
   SEVENTH_SUS4 = fromRootIntervals(0, 5, 7, 10);
 
@@ -92,8 +89,6 @@ export let SIXTH_SUS4: Voicing;
 export let SEVENTH_MINOR_MAJ7: Voicing;
 
 export let SEVENTH_MAJ7: Voicing;
-
-export let SEVENTH_MAJ7b5: Voicing;
 
 export let SEVENTH_SUS4: Voicing;
 

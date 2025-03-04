@@ -1,7 +1,7 @@
-import { lockr } from "@datune/utils/immutables";
 import type { Dto } from "./caching/Dto";
-import { toChromatic as innerToChromatic } from "./utils";
+import { lockr } from "@datune/utils/immutables";
 import { Degree as DiatonicDegree } from "degrees/diatonic";
+import { toChromatic as innerToChromatic } from "./utils";
 
 export class Degree {
   diatonicDegree: DiatonicDegree;

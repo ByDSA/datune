@@ -1,32 +1,61 @@
+import { TestInit } from "tests";
+import { expectExportModulesAsync } from "tests/modules";
 import { UNISON } from "./constants";
 import { Intervals } from ".";
-import { TestInit } from "tests";
 
 TestInit.diatonicInterval();
 
-describe("static properties should be defined", () => {
-  it("others", () => {
-    expect(Intervals.fromInt).toBeDefined();
-  } );
-} );
+const vars: string[] = [
+  "ELEVENTH",
+  "FIFTEENTH",
+  "FIFTH",
+  "FOURTEENTH",
+  "FOURTH",
+  "NINTH",
+  "OCTAVE",
+  "SECOND",
+  "SEVENTH",
+  "SIXTH",
+  "TENTH",
+  "THIRD",
+  "THIRTEENTH",
+  "TWELFTH",
+  "UNISON",
+];
+const functions: string[] = [
+  // building
+  Intervals.fromInt.name,
 
-describe("lazy properties should be defined", () => {
-  it("modifiers", () => {
-    expect(Intervals.abs).toBeDefined();
-    expect(Intervals.add).toBeDefined();
-    expect(Intervals.neg).toBeDefined();
-    expect(Intervals.simplify).toBeDefined();
-    expect(Intervals.sub).toBeDefined();
-  } );
+  // modifiers
+  Intervals.abs.name,
+  Intervals.add.name,
+  Intervals.neg.name,
+  Intervals.simplify.name,
+  Intervals.sub.name,
 
-  it("isMainInterval", () => {
-    expect(Intervals.isMainInterval).toBeDefined();
-  } );
+  // isMainInterval
+  Intervals.isMainInterval.name,
+];
 
-  it("constants (some)", () => {
-    expect(Intervals.UNISON).toBeDefined();
-    expect(Intervals.THIRD).toBeDefined();
-    expect(Intervals.FIFTEENTH).toBeDefined();
+it("module should export functions and vars", async () => {
+  await expectExportModulesAsync( {
+    expected: {
+      functions,
+      vars,
+    },
+    barrel: Intervals,
+    modules: [
+      "building",
+      "modifiers/abs",
+      "modifiers/add",
+      "modifiers/neg",
+      "modifiers/simplify",
+      "modifiers/sub",
+      "isMainInterval",
+      "constants",
+    ],
+    // eslint-disable-next-line no-undef
+    dirname: __dirname,
   } );
 } );
 

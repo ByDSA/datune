@@ -1,7 +1,7 @@
-import { from } from "../building";
 import type { PitchSet } from "../PitchSet";
 import type { Interval } from "intervals/chromatic";
 import { Pitches, PitchArray, Pitch } from "pitches/chromatic";
+import { from } from "../building";
 
 export function add(self: PitchSet, interval: Interval): PitchSet {
   const selfPitches = self.pitches;

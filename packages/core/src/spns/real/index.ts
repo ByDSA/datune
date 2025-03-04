@@ -1,4 +1,4 @@
-import { Arrays } from "@datune/utils";
+import type { Arrays } from "@datune/utils";
 import { SPN } from "../SPN";
 import { overtones } from "./calcs";
 

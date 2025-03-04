@@ -1,7 +1,7 @@
+import { TestInit } from "tests";
 import { fromRootIntervals } from "./building";
 import { MAJOR } from "./constants";
 import { getModeIntraIntervals } from "./modifiers";
-import { TestInit } from "tests";
 
 TestInit.chromaticScale();
 

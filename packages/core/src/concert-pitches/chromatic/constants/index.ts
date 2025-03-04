@@ -1,7 +1,7 @@
-import { lockr } from "@datune/utils/immutables";
-import { fromFrequencySPN } from "../building/frequencySPN";
 import type { ConcertPitch } from "../ConcertPitch";
+import { lockr } from "@datune/utils/immutables";
 import { SPNs } from "spns/chromatic";
+import { fromFrequencySPN } from "../building/frequencySPN";
 
 export function initialize(): void {
   if (A440)

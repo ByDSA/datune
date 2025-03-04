@@ -1,22 +1,17 @@
-import { ChordArray } from "./Array";
-
-import { Chord } from "./Chord";
-
-import type { fromKeyFunction } from "./building/key-function"; // chords/chromatic, functions/chromatic, keys/chromatic
-import type { fromPitches } from "./building/pitches"; // pitches/chromatic, pitches/chromatic/caching
-import type { fromRootVoicing } from "./building/root-voicing"; // fromPitches, pitches/chromatic, voicings/chromatic
-
+import type { fromKeyFunction } from "./building/key-function";
+import type { fromPitches } from "./building/pitches";
+import type { fromRootVoicing } from "./building/root-voicing";
 import type * as Constants from "./constants";
-
-import type * as ConversionsType from "./conversions";
-
-import * as Modifiers from "./modifiers";
+import type * as Conversions from "./conversions";
 import { createProxyBarrel } from "lazy-load";
+import * as Modifiers from "./modifiers";
+import { Chord } from "./Chord";
+import { ChordArray } from "./Array";
 
 export const staticModule = {
   ...Modifiers,
 };
-type LazyType = typeof Constants & typeof ConversionsType & {
+type LazyType = Omit<typeof Constants, "initialize"> & typeof Conversions & {
   fromKeyFunction: typeof fromKeyFunction;
   fromPitches: typeof fromPitches;
   fromRootVoicing: typeof fromRootVoicing;
@@ -28,10 +23,14 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "building/key-function",
     "building/pitches",
     "building/root-voicing",
-    "constants",
+    {
+      path: "constants",
+      omit: ["initialize"],
+    },
     "conversions",
+  ],
   // eslint-disable-next-line no-undef
-  ].map(p=>`${__dirname}/${p}`),
+  dirname: __dirname,
 } );
 
 export {

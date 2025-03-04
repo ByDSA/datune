@@ -1,7 +1,7 @@
-import { inv } from "../modifiers";
-import { getInversionOf } from "./inversionMap";
-import { TRIAD_MAJOR, TRIAD_MINOR } from "./n3";
 import { TestInit } from "tests";
+import { inv } from "../modifiers";
+import { getNumInversionOf } from "./inversionMap";
+import { TRIAD_MAJOR, TRIAD_MINOR } from "./n3";
 
 TestInit.chromaticVoicing();
 
@@ -18,7 +18,7 @@ describe.each([
   const voicingIntervalsName = String(voicing.rootIntervals);
 
   it(`${voicingIntervalsName} => ${expected}`, () => {
-    const actual = getInversionOf(voicing);
+    const actual = getNumInversionOf(voicing);
 
     expect(actual).toBe(expected);
   } );

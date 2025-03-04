@@ -1,7 +1,7 @@
 /* eslint-disable jest/expect-expect */
-import { save } from "./save";
 import { generateEn } from "lang/generation/langs/en";
 import { generateEs } from "lang/generation/langs/es";
+import { save } from "./save";
 
 it("eng", () => {
   const lang = generateEn();

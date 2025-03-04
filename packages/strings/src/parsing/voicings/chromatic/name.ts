@@ -1,9 +1,9 @@
 import { Voicing } from "@datune/core/voicings/chromatic";
 import { COMMON } from "@datune/core/voicings/relative/chromatic/constants";
-import { normalizeInput } from "../normalizeInput";
 import { Options } from "parsing";
 import { stringifyLongName } from "strings/voicings/chromatic/longName";
 import { stringifyShortName } from "strings/voicings/chromatic/shortName";
+import { normalizeInput } from "../normalizeInput";
 
 export function parseFromName(input: string, options?: Options): Voicing | null {
   const normalizedInput = normalizeInput(input);

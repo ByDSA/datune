@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build": "bin/build.mjs",
+    "check": "bin/check.mjs",
     "preinstall": "lib/install_chevrotain.sh",
     "lint": "bin/lint.mjs",
     "test": "jest --runInBand",

@@ -1,6 +1,6 @@
+import { IntervalArray, Interval, Intervals } from "intervals/alt";
 import { Scales } from "../..";
 import { Scale } from "../../Scale";
-import { IntervalArray, Interval, Intervals } from "intervals/alt";
 
 class Generator {
   private interval: Interval;

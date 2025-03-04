@@ -1,8 +1,8 @@
-import { lockr } from "@datune/utils/immutables";
 import type { SPNArray } from "../Array";
-import { fromPitchOctave } from "../building/pitch-octave";
 import type { SPN } from "../SPN";
+import { lockr } from "@datune/utils/immutables";
 import { ALL as ALL_PITCHES } from "pitches/chromatic/constants";
+import { fromPitchOctave } from "../building/pitch-octave";
 
 export function initializeAll() {
   ALL = calcAll();

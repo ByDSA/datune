@@ -1,7 +1,7 @@
 import { Arrays } from "@datune/utils";
+import { Pitches, PitchArray, Pitch } from "pitches/chromatic";
 import { fromPitches } from "../building/pitches";
 import { Chord } from "../Chord";
-import { Pitches, PitchArray, Pitch } from "pitches/chromatic";
 
 export function inv(obj: Chord, n: number = 1): Chord {
   const notes: PitchArray = [...obj.pitches] as PitchArray;

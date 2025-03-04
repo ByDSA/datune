@@ -1,6 +1,6 @@
-import { cache } from "./cache";
 import { PitchArray, Pitches } from "pitches/alt";
 import { TestInit } from "tests";
+import { cache } from "./cache";
 
 TestInit.diatonicAltChord();
 

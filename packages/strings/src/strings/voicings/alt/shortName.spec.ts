@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 import { Voicings } from "@datune/core/voicings/alt";
-import { stringifyShortName } from "./shortName";
 import { TestInit, TestLang } from "tests";
+import { stringifyShortName } from "./shortName";
 
 TestInit.diatonicAltVoicing();
 TestLang.loadAll();

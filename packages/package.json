@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build:all": "bin/build-all.sh",
+    "check": "bin/check.mjs",
     "check:all": "bin/check-all.sh",
     "install:all": "bin/install-all.sh",
     "lint": "bin/lint.mjs",

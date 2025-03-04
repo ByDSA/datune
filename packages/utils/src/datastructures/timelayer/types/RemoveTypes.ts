@@ -1,7 +1,7 @@
+import { Time } from "time";
 import { Interval } from "../../../math/interval/Interval";
 import { TemporalNode } from "../temporal-node";
 import { NodesType, NodeType } from "./types";
-import { Time } from "time";
 
 export type RemoveNodesAtType = {
   at: Time;

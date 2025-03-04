@@ -1,7 +1,7 @@
-import { from } from "../building";
-import { Key } from "../Key";
 import { Pitches as P } from "pitches/alt";
 import { Scales } from "scales/alt";
+import { from } from "../building";
+import { Key } from "../Key";
 
 export function initialize() {
   if (C)

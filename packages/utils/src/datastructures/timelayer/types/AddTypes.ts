@@ -1,7 +1,7 @@
+import { Time } from "time";
 import { EventFromToType } from "../temporal-node";
 import { TimeLayer } from "../TimeLayer";
 import { NodesType, NodeType } from "./types";
-import { Time } from "time";
 
 export type AddLayerType<E> = {
   layer: TimeLayer<E>;

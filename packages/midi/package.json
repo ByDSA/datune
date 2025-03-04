@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build": "bin/build.mjs",
+    "check": "bin/check.mjs",
     "lint": "bin/lint.mjs",
     "test": "jest --runInBand",
     "test:coverage": "jest --coverage",

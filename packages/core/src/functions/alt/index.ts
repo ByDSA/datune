@@ -1,10 +1,10 @@
-import { degrees as calcDegrees } from "./degree-function/calcs";
 import type { HarmonicFunction } from "./HarmonicFunction";
 import type * as DegreeFunctionConstants from "./degree-function/constants";
 import type * as CompoundFunctionConstants from "./compound-function/constants";
 import type * as OthersFunctionConstants from "./others/constants";
-import { compose } from "./compound-function/building/compose";
 import { createProxyBarrel } from "lazy-load";
+import { compose } from "./compound-function/building/compose";
+import { calcDegrees } from "./degree-function/calcs";
 
 const staticModule = {
   calcDegrees,
@@ -15,11 +15,21 @@ type LazyType = Omit<typeof CompoundFunctionConstants, "initialize"> & Omit<type
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    "degree-function/constants",
-    "compound-function/constants",
-    "others/constants",
+    {
+      path: "degree-function/constants",
+      omit: ["initialize"],
+    },
+    {
+      path: "compound-function/constants",
+      omit: ["initialize"],
+    },
+    {
+      path: "others/constants",
+      omit: ["initialize"],
+    },
+  ],
   // eslint-disable-next-line no-undef
-  ].map(p=>`${__dirname}/${p}`),
+  dirname: __dirname,
 } );
 
 export {

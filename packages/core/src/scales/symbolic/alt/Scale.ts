@@ -1,10 +1,10 @@
-import { lockr } from "@datune/utils/immutables";
-import { Scale as IScale } from "../../Scale";
 import type { Dto } from "./caching/Dto";
-import { calcIntraIntervals } from "./modifiers/intraIntervals";
-import { DegreeArray, Degree, Degrees } from "degrees/alt";
 import type { Interval } from "intervals/alt";
+import { lockr } from "@datune/utils/immutables";
+import { DegreeArray, Degree, Degrees } from "degrees/alt";
 import { Voicings } from "voicings/alt";
+import { Scale as IScale } from "../../Scale";
+import { calcIntraIntervals } from "./modifiers/intraIntervals";
 
 export class Scale implements IScale<Interval, Degree> {
   private intraIntervals: Dto;
@@ -59,9 +59,9 @@ function calcDegrees(obj: Scale): DegreeArray {
 
   for (let i = 0; i < intraIntervals.length - 1; i++) {
     const interval = intraIntervals[i];
-    const diatonicAltDegree = Degrees.add(ret[ret.length - 1], interval);
+    const degree = Degrees.add(ret[ret.length - 1], interval);
 
-    ret.push(diatonicAltDegree);
+    ret.push(degree);
   }
 
   return ret;

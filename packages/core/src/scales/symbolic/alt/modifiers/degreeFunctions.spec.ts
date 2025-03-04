@@ -1,7 +1,7 @@
-import { MAJOR, MINOR } from "../constants";
-import { getDegreeFunctions } from "./degreeFunctions";
 import { Functions as F } from "functions/alt";
 import { TestInit } from "tests";
+import { MAJOR, MINOR } from "../constants";
+import { getDegreeFunctions } from "./degreeFunctions";
 
 TestInit.diatonicAltScale();
 TestInit.diatonicAltVoicing();

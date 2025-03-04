@@ -1,7 +1,7 @@
 import { Pitch, Pitches } from "@datune/core/pitches/alt";
-import { stringifyPitch } from ".";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
+import { stringifyPitch } from ".";
 
 TestInit.diatonicAlt();
 TestLang.loadAll();

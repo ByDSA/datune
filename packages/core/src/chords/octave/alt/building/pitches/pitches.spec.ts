@@ -1,16 +1,17 @@
-import { C as DAC_C, C7 } from "../../constants";
-import { fromPitches } from ".";
-import { PitchArray, Pitches as DA } from "pitches/alt";
+import type { PitchArray } from "pitches/alt";
+import { Pitches as P } from "pitches/alt";
 import { TestInit } from "tests";
+import { C as AC_C, C7 } from "../../constants";
+import { fromPitches } from ".";
 
 TestInit.diatonicAltChord();
 
 it("get from ImmutableCache", () => {
   const chord = fromPitches(
-    DA.C,
-    DA.E,
-    DA.G,
-    DA.Bb,
+    P.C,
+    P.E,
+    P.G,
+    P.Bb,
   );
   const expected = C7;
 
@@ -18,11 +19,11 @@ it("get from ImmutableCache", () => {
 } );
 
 it("from array const", () => {
-  const pitches: PitchArray = [DA.C, DA.E, DA.G];
-  const expected = DAC_C;
+  const pitches: PitchArray = [P.C, P.E, P.G];
+  const expected = AC_C;
   const actual = fromPitches(...pitches);
 
-  pitches[1] = DA.F;
+  pitches[1] = P.F;
 
   expect(actual).toBe(expected);
 } );

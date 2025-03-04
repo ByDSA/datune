@@ -1,52 +1,53 @@
 /* eslint-disable camelcase */
-import { Intervals } from "..";
-import { AUGMENTED_FIFTH, AUGMENTED_FOURTH, AUGMENTED_SECOND, AUGMENTED_SEVENTH, AUGMENTED_UNISON, DIMINISHED_FIFTH, DIMINISHED_NINTH, MAJOR_SECOND, MAJOR_SEVENTH, MAJOR_SIXTH, MAJOR_THIRD, MINOR_SECOND, MINOR_SEVENTH, MINOR_SIXTH, MINOR_THIRD, PERFECT_ELEVENTH, PERFECT_FIFTH, PERFECT_FOURTH, PERFECT_OCTAVE, PERFECT_TWELFTH, PERFECT_UNISON } from "../constants";
 import type { Interval } from "../Interval";
-import { DIMINISHED } from "../quality/constants";
+import { Intervals as DIntervals } from "intervals/diatonic";
+import { TestInit } from "tests";
+import { Intervals } from "..";
+import { a5, a4, a2, a7, a1, d5, d9, M2, M7, M6, M3, m2, m7, m6, m3, P11, P4, P8, P12, P1, P5 } from "../constants";
+import { d } from "../quality/constants";
+import { expectInterval } from "../tests/interval";
 import { neg } from "./neg";
 import { add } from "./add";
 import { sub } from "./sub";
-import { Intervals as DIntervals } from "intervals/diatonic";
-import { TestInit } from "tests";
 
 TestInit.diatonicAltInterval();
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const { FIFTH, FOURTH, neg: Dneg } = DIntervals;
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const CASES_AmB = [
-  [DIMINISHED_FIFTH, MINOR_THIRD, MINOR_THIRD],
-  [AUGMENTED_FIFTH, MAJOR_THIRD, MAJOR_THIRD],
-  [MAJOR_THIRD, MAJOR_SECOND, MAJOR_SECOND],
-  [MAJOR_THIRD, MINOR_SECOND, AUGMENTED_SECOND],
-  [MINOR_THIRD, MAJOR_SECOND, MINOR_SECOND],
-  [MAJOR_THIRD, MINOR_THIRD, AUGMENTED_UNISON],
-  [MAJOR_SECOND, MINOR_SECOND, AUGMENTED_UNISON],
-  [MAJOR_SIXTH, MINOR_SIXTH, AUGMENTED_UNISON],
-  [MAJOR_SEVENTH, MINOR_SEVENTH, AUGMENTED_UNISON],
-  [PERFECT_FIFTH, PERFECT_FOURTH, MAJOR_SECOND],
-  [DIMINISHED_NINTH, DIMINISHED_FIFTH, DIMINISHED_FIFTH],
-  [AUGMENTED_SEVENTH, AUGMENTED_FOURTH, AUGMENTED_FOURTH],
-  [PERFECT_UNISON, DIMINISHED_FIFTH,
-     Intervals.fromIntervalQuality(Dneg(FIFTH), DIMINISHED) as Interval],
-  [PERFECT_UNISON, PERFECT_UNISON, PERFECT_UNISON],
-  [PERFECT_OCTAVE, MINOR_SECOND, MAJOR_SEVENTH],
-  [PERFECT_OCTAVE, MAJOR_SECOND, MINOR_SEVENTH],
-  [PERFECT_OCTAVE, MINOR_THIRD, MAJOR_SIXTH],
-  [PERFECT_OCTAVE, MAJOR_THIRD, MINOR_SIXTH],
-  [PERFECT_OCTAVE, PERFECT_FOURTH, PERFECT_FIFTH],
-  [PERFECT_OCTAVE, AUGMENTED_FOURTH, DIMINISHED_FIFTH],
-  [PERFECT_OCTAVE, DIMINISHED_FIFTH, AUGMENTED_FOURTH],
-  [PERFECT_OCTAVE, AUGMENTED_FIFTH, Intervals.fromIntervalQuality(FOURTH, DIMINISHED) as Interval],
-  [MAJOR_THIRD, PERFECT_UNISON, MAJOR_THIRD],
-  [PERFECT_UNISON, MAJOR_THIRD, neg(MAJOR_THIRD)],
-  [PERFECT_UNISON, PERFECT_TWELFTH, neg(PERFECT_TWELFTH)],
-  [PERFECT_OCTAVE, PERFECT_ELEVENTH, neg(PERFECT_FOURTH)],
-  [PERFECT_ELEVENTH, PERFECT_OCTAVE, PERFECT_FOURTH],
+  [d5, m3, m3],
+  [a5, M3, M3],
+  [M3, M2, M2],
+  [M3, m2, a2],
+  [m3, M2, m2],
+  [M3, m3, a1],
+  [M2, m2, a1],
+  [M6, m6, a1],
+  [M7, m7, a1],
+  [P5, P4, M2],
+  [d9, d5, d5],
+  [a7, a4, a4],
+  [P1, d5,
+     Intervals.fromIntervalQuality(Dneg(FIFTH), d) as Interval],
+  [P1, P1, P1],
+  [P8, m2, M7],
+  [P8, M2, m7],
+  [P8, m3, M6],
+  [P8, M3, m6],
+  [P8, P4, P5],
+  [P8, a4, d5],
+  [P8, d5, a4],
+  [P8, a5, Intervals.fromIntervalQuality(FOURTH, d) as Interval],
+  [M3, P1, M3],
+  [P1, M3, neg(M3)],
+  [P1, P12, neg(P12)],
+  [P8, P11, neg(P4)],
+  [P11, P8, P4],
 ];
 const CASES_SUMA = [...CASES_AmB.map(
   (t) => [t[2], t[1], t[0]],
 ),
-[PERFECT_OCTAVE, PERFECT_FOURTH, PERFECT_ELEVENTH],
+[P8, P4, P11],
 ];
 
 describe("a + B", () => {
@@ -56,37 +57,37 @@ describe("a + B", () => {
     it(`${String(a)} + ${String(b)} = ${String(c)}`, () => {
       const actual = add(a, b);
 
-      expect(actual).toBe(c);
+      expectInterval(actual, c);
     } );
 
     it(`-${String(b)} + -${String(a)} = -${String(c)}`, () => {
       const actual = add(neg(b), neg(a));
 
-      expect(actual).toBe(neg(c));
+      expectInterval(actual, neg(c));
     } );
 
     it(`-${String(b)} + ${String(c)} = ${String(a)}`, () => {
       const actual = add(neg(b), c);
 
-      expect(actual).toBe(a);
+      expectInterval(actual, a);
     } );
 
     it(`${String(c)} + -${String(b)} = ${String(a)}`, () => {
       const actual = add(c, neg(b));
 
-      expect(actual).toBe(a);
+      expectInterval(actual, a);
     } );
 
     it(`${String(c)} - ${String(b)} = ${String(a)}`, () => {
       const actual = sub(c, b);
 
-      expect(actual).toBe(a);
+      expectInterval(actual, a);
     } );
 
     it(`${String(c)} - ${String(a)} = ${String(b)}`, () => {
       const actual = sub(c, a);
 
-      expect(actual).toBe(b);
+      expectInterval(actual, b);
     } );
   } );
 } );

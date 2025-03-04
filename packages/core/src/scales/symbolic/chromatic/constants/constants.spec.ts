@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { BLUES_a4, COMMON, MAJOR, MINOR, MIXOLYDIAN } from ".";
 import { TestInit } from "tests";
+import { BLUES_a4, COMMON, MAJOR, MINOR, MIXOLYDIAN } from ".";
 
 TestInit.chromaticScale();
 

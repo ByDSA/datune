@@ -1,8 +1,8 @@
+import type { IntervalArray } from "intervals/chromatic";
+import type { Scale } from "../Scale";
 import { Arrays } from "@datune/utils";
 import { fromIntraIntervals } from "../building";
-import { Scale } from "../Scale";
 import { calcIntraIntervals } from "./intraIntervals";
-import { IntervalArray } from "intervals/chromatic";
 
 export function mode(
   obj: Scale,
@@ -44,7 +44,3 @@ export function getModeIntraIntervals(
 
   return intervals;
 }
-
-export {
-  calcIntraIntervals,
-} from "./intraIntervals";

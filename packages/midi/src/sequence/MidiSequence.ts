@@ -1,4 +1,4 @@
-import { QUARTER, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
+import { QUARTER, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { ParallelSequence } from "@datune/utils";
 import { TimeLayerConstructorObject } from "@datune/utils/datastructures/timelayer/types";
 import { MidiNote } from "./note/MidiNote";

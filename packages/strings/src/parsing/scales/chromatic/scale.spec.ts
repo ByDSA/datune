@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 import { Scales } from "@datune/core/scales/chromatic";
-import { parseScale } from ".";
 import { LangId } from "lang";
 import { stringifyScale } from "strings/scales/chromatic";
 import { TestInit, TestLang } from "tests";
+import { parseScale } from ".";
 
 TestInit.chromaticScale();
 TestLang.loadAll();

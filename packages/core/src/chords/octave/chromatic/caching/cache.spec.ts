@@ -1,7 +1,7 @@
-import { Arrays } from "@datune/utils";
-import { cache } from "./cache";
+import type { Arrays } from "@datune/utils";
 import { PitchArray, Pitches } from "pitches/chromatic";
 import { TestInit } from "tests";
+import { cache } from "./cache";
 
 TestInit.chromaticChord();
 

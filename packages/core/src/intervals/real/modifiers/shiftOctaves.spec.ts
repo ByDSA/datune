@@ -1,10 +1,10 @@
-import { from, fromCents } from "../building";
-import { ET12_PERFECT_FIFTH, ET12_SEMITONE, OCTAVE, UNISON } from "../constants";
 import type { Interval } from "../Interval";
+import { TestInit } from "tests";
+import { from, fromCents } from "../building";
+import { ET12_P5, ET12_SEMITONE, OCTAVE, UNISON } from "../constants";
 import { neg } from "./neg";
 import { shiftOctaves } from "./shiftOctaves";
 import { mult } from "./mult";
-import { TestInit } from "tests";
 
 TestInit.realInterval();
 
@@ -18,9 +18,9 @@ describe.each([
   [from(1), 1, from(2)],
   [from(1), -1, from(0.5)],
   [ET12_SEMITONE, 1, fromCents(1300)],
-  [ET12_PERFECT_FIFTH, 1, fromCents(1900)],
+  [ET12_P5, 1, fromCents(1900)],
   [ET12_SEMITONE, -1, fromCents(-1100)],
-  [ET12_PERFECT_FIFTH, -1, fromCents(-500)],
+  [ET12_P5, -1, fromCents(-500)],
 ])("tests", (interval: Interval, octaves: number, expected: Interval): void => {
   describe(`${interval} + ${octaves} octaves => ${expected}`, () => {
     it(`num: ${+interval} + ${octaves} octaves => ${+expected}`, () => {

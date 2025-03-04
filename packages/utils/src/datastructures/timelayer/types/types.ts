@@ -1,5 +1,5 @@
-import { TemporalNode } from "../temporal-node";
 import { Time } from "time";
+import { TemporalNode } from "../temporal-node";
 
 export type NodeType<E> = TemporalNode<E>;
 

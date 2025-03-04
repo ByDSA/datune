@@ -1,5 +1,5 @@
-import { A, AA, B, BBB, C, Cb, Cbb, CC, D, DD, E, F, FF, G, GG, initialize } from ".";
 import { TestInit } from "tests";
+import { A, AA, B, BBB, C, Cb, Cbb, CC, D, DD, E, F, FF, G, GG, initialize } from ".";
 
 beforeAll(() => {
   TestInit.diatonicAlt();

@@ -1,7 +1,7 @@
-import * as DegreeFunctions from "../degree-function/constants";
-import * as Constants from "./constants";
 import { Degrees } from "degrees/alt";
 import { TestInit } from "tests";
+import * as DegreeFunctions from "../degree-function/constants";
+import * as Constants from "./constants";
 
 TestInit.diatonicAltDegree();
 TestInit.diatonicAltFunction();

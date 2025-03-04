@@ -1,6 +1,6 @@
 import type { Voicing } from "../Voicing";
-import { fromRootIntervals } from "./rootIntervals";
 import { IntervalArray } from "intervals/symbolic/chromatic";
+import { fromRootIntervals } from "./rootIntervals";
 
 export function fromIntraIntervals(
   ...intraIntervals: IntervalArray

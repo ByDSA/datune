@@ -1,35 +1,47 @@
-import { Scales } from ".";
 import { TestInit } from "tests";
+import { expectExportModulesAsync } from "tests/modules";
+import { CHROMATIC_SCALES_VARNAMES } from "../chromatic/tests/varnames";
+import { Scales as S } from ".";
 
 TestInit.diatonicAltScale();
 
-describe("lazy properties should be defined", () => {
-  it("building", () => {
-    expect(Scales.fromDegrees).toBeDefined();
-    expect(Scales.fromDiatonicAlts).toBeDefined();
-    expect(Scales.generateByIntervals).toBeDefined();
-    expect(Scales.fromIntraIntervals).toBeDefined();
-    expect(Scales.fromRootIntervals).toBeDefined();
-  } );
+const vars: string[] = [
+  ...CHROMATIC_SCALES_VARNAMES,
+  "CHROMATIC_BY_FIFTHS",
+];
+const functions: string[] = [
+  // building
+  S.fromDegrees.name,
+  S.fromDiatonicAlts.name,
+  S.generateByIntervals.name,
+  S.fromIntraIntervals.name,
+  S.fromRootIntervals.name,
 
-  it("modifiers", () => {
-    expect(Scales.getDegreeFunctions).toBeDefined();
-    expect(Scales.calcIntraIntervals).toBeDefined();
-    expect(Scales.mode).toBeDefined();
-    expect(Scales.getModeIntraIntervals).toBeDefined();
-    expect(Scales.modes).toBeDefined();
-  } );
+  // modifiers
+  S.getDegreeFunctions.name,
+  S.calcIntraIntervals.name,
+  S.mode.name,
+  S.getModeIntraIntervals.name,
+  S.modes.name,
 
-  it("conversions", () => {
-    expect(Scales.toChromatic).toBeDefined();
-  } );
+  // conversions
+  S.toChromatic.name,
+];
 
-  it("constants (some)", () => {
-    expect(Scales.MAJOR).toBeDefined();
-    expect(Scales.MINOR).toBeDefined();
-    expect(Scales.BEBOP_HARMONIC_MINOR).toBeDefined();
-    expect(Scales.DIATONIC_SCALES.size).toBe(7);
-    expect(Scales.COMMON.size).toBeGreaterThan(0);
-    expect(Scales.SYMMETRIC_SCALES.size).toBeGreaterThan(0);
+it("module should export functions and vars", async () => {
+  await expectExportModulesAsync( {
+    expected: {
+      functions,
+      vars,
+    },
+    barrel: S,
+    modules: [
+      "building",
+      "modifiers",
+      "conversions",
+      "constants",
+    ],
+    // eslint-disable-next-line no-undef
+    dirname: __dirname,
   } );
 } );

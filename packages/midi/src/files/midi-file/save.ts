@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
-import { QUARTER_120 } from "@datune/core/time/symbolic/bpm/constants";
-import { fromFrac } from "@datune/core/time/symbolic/rhythm/signature/building";
+import { QUARTER_120 } from "@datune/core/rhythm/tempo/bpm/constants";
+import { fromFrac } from "@datune/core/rhythm/tempo/time-signature/building";
 import { Midi } from "@tonejs/midi";
 import { JSONGenerator } from "../json/jsongenerator/JSONGenerator";
 import { MidiFile } from "./MidiFile";

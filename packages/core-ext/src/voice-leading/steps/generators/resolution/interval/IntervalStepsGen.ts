@@ -1,9 +1,9 @@
-import { Arrays } from "@datune/utils";
+import type { Arrays } from "@datune/utils";
 import { SPNArray, SPN } from "@datune/core/spns/chromatic";
 import { Voicing as ChromaticVoicing } from "@datune/core/voicings/chromatic";
 import { fromRootIntervals } from "@datune/core/voicings/relative/chromatic/building/rootIntervals";
 import { inv } from "@datune/core/voicings/relative/chromatic/modifiers";
-import { MAJOR_SECOND, TRIAD_AUGMENTED, TRITONE } from "@datune/core/voicings/relative/chromatic/constants";
+import { M2, TRIAD_AUGMENTED, TRITONE } from "@datune/core/voicings/relative/chromatic/constants";
 import { CompositeSteps } from "../../../composite";
 import { compactStepsArray } from "../../../forward/multi/Utils";
 import { Array as SingleStepArray, index, SingleStep } from "../../../single";
@@ -62,14 +62,14 @@ export class IntervalStepsGen implements StepsGeneratorInterface {
 
   #getDefaultResolutionsForVoicing(voicing: ChromaticVoicing): SingleStep[][] {
     switch (voicing) {
-      case MAJOR_SECOND:
+      case M2:
         return [
           CompositeSteps.fromIntervalsKeepZero(-1, 0).singleSteps,
           CompositeSteps.fromIntervalsKeepZero(-2, 0).singleSteps,
           CompositeSteps.fromIntervalsKeepZero(0, 1).singleSteps,
           CompositeSteps.fromIntervalsKeepZero(0, 2).singleSteps,
         ];
-      case inv(MAJOR_SECOND):
+      case inv(M2):
         return [
           CompositeSteps.fromIntervalsKeepZero(1, 0).singleSteps,
           CompositeSteps.fromIntervalsKeepZero(2, 0).singleSteps,

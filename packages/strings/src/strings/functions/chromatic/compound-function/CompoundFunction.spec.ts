@@ -6,8 +6,8 @@ import { V7 } from "@datune/core/functions/chromatic/degree-function/constants";
 import { Keys as K } from "@datune/core/keys/chromatic";
 import { Pitches as C } from "@datune/core/pitches/chromatic";
 import { Voicings as V } from "@datune/core/voicings/chromatic";
-import { stringifyCompoundFunction } from ".";
 import { TestInit, TestLang } from "tests";
+import { stringifyCompoundFunction } from ".";
 
 TestInit.chromaticFunction();
 TestInit.chromaticKey();

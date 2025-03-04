@@ -9,10 +9,10 @@ export function generateEs(): Language {
     base: INPUT_ES,
     customGenerators: {
       voicings: {
-        MINOR_SECOND: `${INPUT_ES.voicings.SECOND} ${INPUT_ES.voicings.MINOR}`,
-        MAJOR_SECOND: `${INPUT_ES.voicings.SECOND} ${INPUT_ES.voicings.MAJOR}`,
-        MINOR_THIRD: `${INPUT_ES.voicings.THIRD} ${INPUT_ES.voicings.MINOR}`,
-        MAJOR_THIRD: `${INPUT_ES.voicings.THIRD} ${INPUT_ES.voicings.MAJOR}`,
+        m2: `${INPUT_ES.voicings.SECOND} ${INPUT_ES.voicings.MINOR}`,
+        M2: `${INPUT_ES.voicings.SECOND} ${INPUT_ES.voicings.MAJOR}`,
+        m3: `${INPUT_ES.voicings.THIRD} ${INPUT_ES.voicings.MINOR}`,
+        M3: `${INPUT_ES.voicings.THIRD} ${INPUT_ES.voicings.MAJOR}`,
       },
     },
   } );

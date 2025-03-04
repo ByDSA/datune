@@ -1,35 +1,35 @@
-import { initialize as chromaticChordInitialize } from "./chords/chromatic";
-import { initialize as chromaticKeyInitialize } from "./keys/chromatic";
-import { initialize as chromaticScaleInitialize } from "./scales/chromatic";
-import { Data } from "./types";
-import { initCFunctions } from "./initializeCommon";
-import { Chords as ALtChords } from "chords/alt";
-import { Chords as CChords } from "chords/chromatic";
-import { ConcertPitches as CConcertPitches } from "concert-pitches/chromatic";
-import { Degrees as DegreesAlt } from "degrees/alt";
+import { initialize as initBPMs } from "rhythm/tempo/bpm/constants";
+import { initialize as initMusicalDurations } from "rhythm/tempo/musical-duration/constants";
+import { initialize as AltChordsInitialize } from "chords/octave/alt/constants";
+import { initialize as CChordsInitialize } from "chords/octave/chromatic/constants";
+import { initialize as CConcertPitchesInitialize } from "concert-pitches/chromatic/constants";
+import { initialize as AltDegreesInitialize } from "degrees/alt/constants";
 import { initialize as initAltFunctions } from "functions/alt/constants";
 import { initialize as initDIntervals } from "intervals/symbolic/diatonic/constants";
-import { Intervals as IntervalsAlt } from "intervals/alt";
-import { Intervals as RIntervals } from "intervals/real";
-import { Keys as KeysAlt } from "keys/alt";
-import { Keys as CKeys } from "keys/chromatic";
-import { Pitches as PitchesAlt } from "pitches/alt";
-import { Scales as ScalesAlt } from "scales/alt";
-import { Scales as CScales } from "scales/chromatic";
-import { PitchSets as CPitchSets } from "sets/pitch-set/chromatic";
-import { SPNs as SPNsAlt } from "spns/alt";
-import { SPNs as CSPNs } from "spns/chromatic";
-import { Temperaments as CTemperaments } from "temperaments/chromatic";
-import { initialize as initBPMs } from "time/symbolic/bpm/constants";
-import { initialize as initMusicalDurations } from "time/symbolic/musical-duration/constants";
-import { Patterns } from "time/symbolic/rhythm/pattern";
-import { TimeSignatures } from "time/symbolic/rhythm/signature";
-import { Tunings as CTunings } from "tunings/chromatic";
-import { Voicings as VoicingsAlt } from "voicings/alt";
-import { Voicings as CVoicings } from "voicings/chromatic";
-import { Voicings as DVoicings } from "voicings/diatonic";
+import { initialize as IntervalsAltInitialize } from "intervals/symbolic/alt/constants";
+import { initialize as RIntervalsInitialize } from "intervals/real/constants";
+import { initialize as KeysAltInitialize } from "keys/alt/constants";
+import { initialize as CKeysInitialize } from "keys/chromatic/constants";
+import { initialize as PitchesAltInitialize } from "pitches/alt/constants";
+import { initialize as ScalesAltInitialize } from "scales/symbolic/alt/constants";
+import { initialize as CScalesInitialize } from "scales/symbolic/chromatic/constants";
+import { initialize as CPitchSetsInitialize } from "sets/pitch-set/chromatic/constants";
+import { initialize as SPNsAltInitialize } from "spns/symbolic/alt/constants";
+import { initialize as CSPNInitialize } from "spns/symbolic/chromatic/constants";
+import { initialize as CTemperamentsInitialize } from "temperaments/chromatic/constants";
+import { initialize as PatternsInitialize } from "rhythm/pattern/constants";
+import { initialize as TimeSignaturesInitialize } from "rhythm/tempo/time-signature/constants";
+import { initialize as CTuningsInitialize } from "tunings/chromatic/constants";
+import { initialize as VoicingsAltInitialize } from "voicings/relative/alt/constants";
+import { initialize as CVoicingsInitialize } from "voicings/relative/chromatic/constants";
+import { initialize as DVoicingsInitialize } from "voicings/relative/diatonic/constants";
+import { initCFunctions } from "./initializeCommon";
+import { Data } from "./types";
+import { initialize as chromaticScaleInitialize } from "./scales/chromatic";
+import { initialize as chromaticKeyInitialize } from "./keys/chromatic";
+import { initialize as chromaticChordInitialize } from "./chords/chromatic";
 
-export default function initialize(data?: Data): void {
+export function initialize(data?: Data): void {
   if (data) {
     chromaticChordInitialize(data.chords.chromatic);
     chromaticScaleInitialize(data.scales.chromatic);
@@ -41,44 +41,44 @@ export default function initialize(data?: Data): void {
 
 function initializeConstants() {
   // Real
-  RIntervals.initialize();
+  RIntervalsInitialize();
 
   // Chromatic
-  CVoicings.initialize();
-  CChords.initialize();
+  CVoicingsInitialize();
+  CChordsInitialize();
 
-  CSPNs.initialize();
-  CPitchSets.initialize();
+  CSPNInitialize();
+  CPitchSetsInitialize();
 
-  CScales.initialize();
+  CScalesInitialize();
   initCFunctions();
-  CKeys.initialize();
+  CKeysInitialize();
 
-  CConcertPitches.initialize();
-  CTemperaments.initialize();
-  CTunings.initialize();
+  CConcertPitchesInitialize();
+  CTemperamentsInitialize();
+  CTuningsInitialize();
 
   // Diatonic
   initDIntervals();
-  DVoicings.initialize();
+  DVoicingsInitialize();
 
   // Alt
-  PitchesAlt.initialize();
+  PitchesAltInitialize();
 
-  SPNsAlt.initialize();
+  SPNsAltInitialize();
 
-  IntervalsAlt.initialize();
-  VoicingsAlt.initialize();
-  ALtChords.initialize();
+  IntervalsAltInitialize();
+  VoicingsAltInitialize();
+  AltChordsInitialize();
 
-  DegreesAlt.initialize();
-  ScalesAlt.initialize();
+  AltDegreesInitialize();
+  ScalesAltInitialize();
   initAltFunctions();
-  KeysAlt.initialize();
+  KeysAltInitialize();
 
   // Time
   initMusicalDurations();
   initBPMs();
-  Patterns.initialize();
-  TimeSignatures.initialize();
+  PatternsInitialize();
+  TimeSignaturesInitialize();
 }

@@ -3,7 +3,7 @@ import { Chord } from "@datune/core/chords/alt";
 import { toVoicing } from "@datune/core/chords/octave/alt/conversions";
 import { Pitch } from "@datune/core/pitches/alt";
 import { inv } from "@datune/core/voicings/relative/alt/modifiers/inv";
-import { getInversionOf } from "@datune/core/voicings/relative/alt/constants";
+import { getNumInversionOf } from "@datune/core/voicings/relative/alt/constants/inversionMap";
 import { Voicing, Voicings as V } from "@datune/core/alt";
 import { Options } from "lang/Options";
 import { stringifyPitch } from "strings/pitches/alt";
@@ -20,7 +20,7 @@ export function stringifyChord(chord: Chord, options?: Options): string {
   if (custom)
     return custom;
 
-  const inversion = getInversionOf(voicing);
+  const inversion = getNumInversionOf(voicing);
   const invVoicing = inv(voicing, -inversion);
   const rootPosition = cyclicMod(-inversion, chord.length);
   const rootName = stringifyPitch(chord.pitches[rootPosition], options);

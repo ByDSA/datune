@@ -1,11 +1,11 @@
 /* eslint-disable camelcase */
-import * as Keys from "../constants";
-import { from } from "../building";
-import { rootChord3 } from "./rootChord3";
 import { Chords } from "chords/alt";
 import { Pitches as P } from "pitches/alt";
 import { Scales } from "scales/alt";
 import { TestInit } from "tests";
+import { from } from "../building";
+import * as Keys from "../constants";
+import { rootChord3 } from "./rootChord3";
 
 TestInit.diatonicAltChord();
 TestInit.diatonicAltKey();

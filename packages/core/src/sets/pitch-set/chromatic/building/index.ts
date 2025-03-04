@@ -1,6 +1,6 @@
-import { cache } from "../caching/cache";
 import type { PitchSet } from "../PitchSet";
 import { PitchArray, Pitch } from "pitches/chromatic";
+import { cache } from "../caching/cache";
 
 export function from(...pitches: PitchArray): PitchSet {
   const set = pitches2Set(...pitches);

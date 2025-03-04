@@ -1,7 +1,7 @@
-import { LinearSequenceTest } from "./LinearSequenceTest";
 import { TemporalNode } from "datastructures/timelayer/temporal-node";
 import { EventTest } from "datastructures/timelayer/temporal-node/spec/EventTest";
 import { intervalOf } from "math";
+import { LinearSequenceTest } from "./LinearSequenceTest";
 
 describe("add", () => {
   let sequence: LinearSequenceTest;

@@ -1,9 +1,9 @@
-import { DiatonicAltBuilder } from "./DiatonicAltBuilder";
 import { Keys as K } from "keys/alt";
-import { Pitches as DA } from "pitches/alt";
-import { Pitches as CPitches } from "pitches/chromatic";
-import { Pitches as DPitches } from "pitches/diatonic";
+import { Pitches as P } from "pitches/alt";
+import { Pitches as CP } from "pitches/chromatic";
+import { Pitches as DP } from "pitches/diatonic";
 import { TestInit } from "tests";
+import { DiatonicAltBuilder } from "./DiatonicAltBuilder";
 
 beforeAll(() => {
   TestInit.diatonicAlt();
@@ -11,65 +11,65 @@ beforeAll(() => {
 
 it("from Chromatic and Diatonic", () => {
   expect(DiatonicAltBuilder.create()
-    .setNote(CPitches.C)
-    .setDiatonic(DPitches.B)
-    .build()).toBe(DA.BB);
+    .setNote(CP.C)
+    .setDiatonic(DP.B)
+    .build()).toBe(P.BB);
 
   expect(DiatonicAltBuilder.create()
-    .setNote(CPitches.DD)
-    .setDiatonic(DPitches.E)
-    .build()).toBe(DA.Eb);
+    .setNote(CP.DD)
+    .setDiatonic(DP.E)
+    .build()).toBe(P.Eb);
 
   expect(DiatonicAltBuilder.create()
-    .setNote(CPitches.GG)
-    .setDiatonic(DPitches.A)
-    .build()).toBe(DA.Ab);
+    .setNote(CP.GG)
+    .setDiatonic(DP.A)
+    .build()).toBe(P.Ab);
 
   expect(DiatonicAltBuilder.create()
-    .setNote(CPitches.AA)
-    .setDiatonic(DPitches.B)
-    .build()).toBe(DA.Bb);
+    .setNote(CP.AA)
+    .setDiatonic(DP.B)
+    .build()).toBe(P.Bb);
 
   expect(DiatonicAltBuilder.create()
-    .setNote(CPitches.CC)
-    .setDiatonic(DPitches.B)
-    .build()).toBe(DA.BBB);
+    .setNote(CP.CC)
+    .setDiatonic(DP.B)
+    .build()).toBe(P.BBB);
 
   expect(DiatonicAltBuilder.create()
-    .setNote(CPitches.AA)
-    .setDiatonic(DPitches.C)
-    .build()).toBe(DA.Cbb);
+    .setNote(CP.AA)
+    .setDiatonic(DP.C)
+    .build()).toBe(P.Cbb);
 
   expect(DiatonicAltBuilder.create()
-    .setNote(CPitches.C)
-    .setDiatonic(DPitches.C)
-    .build()).toBe(DA.C);
+    .setNote(CP.C)
+    .setDiatonic(DP.C)
+    .build()).toBe(P.C);
 
   expect(DiatonicAltBuilder.create()
-    .setNote(CPitches.G)
-    .setDiatonic(DPitches.G)
-    .build()).toBe(DA.G);
+    .setNote(CP.G)
+    .setDiatonic(DP.G)
+    .build()).toBe(P.G);
 
   expect(DiatonicAltBuilder.create()
-    .setNote(CPitches.E)
-    .setDiatonic(DPitches.F)
-    .build()).toBe(DA.Fb);
+    .setNote(CP.E)
+    .setDiatonic(DP.F)
+    .build()).toBe(P.Fb);
 
   expect(DiatonicAltBuilder.create()
-    .setNote(CPitches.F)
-    .setDiatonic(DPitches.E)
-    .build()).toBe(DA.EE);
+    .setNote(CP.F)
+    .setDiatonic(DP.E)
+    .build()).toBe(P.EE);
 } );
 
 describe("from Chromatic and DiatonicAlt list", () => {
   it("chromatic DD in Key Cm = Eb", () => {
     TestInit.diatonicAltKey();
     const list = K.Cm.pitches;
-    const diatonicAlt = DiatonicAltBuilder.create()
-      .setNote(CPitches.DD)
+    const pitch = DiatonicAltBuilder.create()
+      .setNote(CP.DD)
       .setNoteAltList(...list)
       .build();
 
-    expect(diatonicAlt).toBe(DA.Eb);
+    expect(pitch).toBe(P.Eb);
   } );
 } );

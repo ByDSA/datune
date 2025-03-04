@@ -1,8 +1,8 @@
 import { SPNs } from "@datune/core/spns/chromatic";
-import { from, fromFrequency, MidiPitch as Pitch } from "@datune/midi";
-import { stringifyMidiPitch } from ".";
+import { from, fromFrequency, type MidiPitch as Pitch } from "@datune/midi";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
+import { stringifyMidiPitch } from ".";
 
 TestInit.chromaticSPN();
 TestLang.loadAll();

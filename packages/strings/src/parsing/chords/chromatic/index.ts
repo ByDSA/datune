@@ -4,11 +4,11 @@ import { fromRootVoicing } from "@datune/core/chords/octave/chromatic/building/r
 import { bass } from "@datune/core/chords/octave/chromatic/modifiers";
 import { Pitch } from "@datune/core/pitches/chromatic";
 import { Voicing } from "@datune/core/voicings/chromatic";
-import { ChordStringAbstract } from "../ChordStringAbstract";
-import { normalizeInput } from "../normalizeInput";
 import { parseVoicing } from "parsing/voicings/chromatic";
 import { parsePitch } from "parsing/pitches/chromatic";
 import { Options } from "lang";
+import { normalizeInput } from "../normalizeInput";
+import { ChordStringAbstract } from "../ChordStringAbstract";
 
 class ChromaticChordString extends ChordStringAbstract<Chord> {
   static from(input: string, options?: Options): ChromaticChordString {

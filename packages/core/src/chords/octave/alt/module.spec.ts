@@ -1,34 +1,246 @@
-import { Chords } from ".";
+import { expectExportModulesAsync } from "tests/modules";
 import { TestInit } from "tests";
+import { Chords } from ".";
 
 TestInit.diatonicAltChord();
 
-describe("static properties should be defined", () => {
-  it("building", () => {
-    expect(Chords.fromKeyFunction).toBeDefined();
-    expect(Chords.fromPitches).toBeDefined();
-    expect(Chords.fromRootVoicing).toBeDefined();
-  } );
+const vars: string[] = [
+  // Constants
+  "C",
+  "CC",
+  "Db",
+  "D",
+  "DD",
+  "Eb",
+  "E",
+  "F",
+  "FF",
+  "G",
+  "GG",
+  "Ab",
+  "A",
+  "AA",
+  "Bb",
+  "B",
+  "C7",
+  "CC7",
+  "D7",
+  "DD7",
+  "E7",
+  "F7",
+  "FF7",
+  "G7",
+  "GG7",
+  "A7",
+  "AA7",
+  "B7",
+  "Cm7",
+  "CCm7",
+  "Dm7",
+  "DDm7",
+  "Em7",
+  "Fm7",
+  "FFm7",
+  "Gm7",
+  "GGm7",
+  "Am7",
+  "AAm7",
+  "Bm7",
+  "CMaj13b5a9",
+  "CCMaj13b5a9",
+  "DMaj13b5a9",
+  "DDMaj13b5a9",
+  "EMaj13b5a9",
+  "FMaj13b5a9",
+  "FFMaj13b5a9",
+  "GMaj13b5a9",
+  "GGMaj13b5a9",
+  "AMaj13b5a9",
+  "AAMaj13b5a9",
+  "BMaj13b5a9",
+  "C5",
+  "CC5",
+  "D5",
+  "DD5",
+  "E5",
+  "F5",
+  "FF5",
+  "G5",
+  "GG5",
+  "A5",
+  "AA5",
+  "B5",
+  "C7b5",
+  "CC7b5",
+  "D7b5",
+  "DD7b5",
+  "E7b5",
+  "F7b5",
+  "FF7b5",
+  "G7b5",
+  "GG7b5",
+  "A7b5",
+  "AA7b5",
+  "B7b5",
+  "C9",
+  "CC9",
+  "D9",
+  "DD9",
+  "E9",
+  "F9",
+  "FF9",
+  "G9",
+  "GG9",
+  "A9",
+  "AA9",
+  "B9",
+  "C11",
+  "CC11",
+  "D11",
+  "DD11",
+  "E11",
+  "F11",
+  "FF11",
+  "G11",
+  "GG11",
+  "A11",
+  "AA11",
+  "B11",
+  "C0",
+  "CC0",
+  "D0",
+  "DD0",
+  "E0",
+  "F0",
+  "FF0",
+  "G0",
+  "GG0",
+  "A0",
+  "AA0",
+  "B0",
+  "Csus4",
+  "CCsus4",
+  "Dsus4",
+  "DDsus4",
+  "Esus4",
+  "Fsus4",
+  "FFsus4",
+  "Gsus4",
+  "GGsus4",
+  "Asus4",
+  "AAsus4",
+  "Bsus4",
+  "Csus2",
+  "CCsus2",
+  "Dsus2",
+  "DDsus2",
+  "Esus2",
+  "Fsus2",
+  "FFsus2",
+  "Gsus2",
+  "GGsus2",
+  "Asus2",
+  "AAsus2",
+  "Bsus2",
+  "CMaj7",
+  "CCMaj7",
+  "DMaj7",
+  "DDMaj7",
+  "EMaj7",
+  "FMaj7",
+  "FFMaj7",
+  "GMaj7",
+  "GGMaj7",
+  "AMaj7",
+  "AAMaj7",
+  "BMaj7",
+  "CmMaj7",
+  "CCmMaj7",
+  "DmMaj7",
+  "DDmMaj7",
+  "EmMaj7",
+  "FmMaj7",
+  "FFmMaj7",
+  "GmMaj7",
+  "GGmMaj7",
+  "AmMaj7",
+  "AAmMaj7",
+  "BmMaj7",
+  "Cm9",
+  "CCm9",
+  "Dm9",
+  "DDm9",
+  "Em9",
+  "Fm9",
+  "FFm9",
+  "Gm9",
+  "GGm9",
+  "Am9",
+  "AAm9",
+  "Bm9",
+  "Cm11",
+  "CCm11",
+  "Dm11",
+  "DDm11",
+  "Em11",
+  "Fm11",
+  "FFm11",
+  "Gm11",
+  "GGm11",
+  "Am11",
+  "AAm11",
+  "Bm11",
+  "Cm",
+  "CCm",
+  "Dbm",
+  "Dm",
+  "DDm",
+  "Ebm",
+  "Em",
+  "Fm",
+  "FFm",
+  "Gbm",
+  "Gm",
+  "GGm",
+  "Abm",
+  "Am",
+  "AAm",
+  "Bbm",
+  "Bm",
+  "ALL",
+  "ALL_NON_INVERSIONS",
+];
+const functions: string[] = [
+  // Building
+  Chords.fromKeyFunction.name,
+  Chords.fromPitches.name,
+  Chords.fromRootVoicing.name,
 
-  it("modifiers", () => {
-    expect(Chords.inv).toBeDefined();
-    expect(Chords.add).toBeDefined();
-    expect(Chords.sub).toBeDefined();
-    expect(Chords.bass).toBeDefined();
+  // Modifiers
+  Chords.inv.name,
+  Chords.add.name,
+  Chords.sub.name,
+  Chords.bass.name,
+
+  // Conversions
+  Chords.toChromatic.name,
+  Chords.toVoicing.name,
+];
+
+it("module should export functions and vars", async () => {
+  await expectExportModulesAsync( {
+    expected: {
+      functions,
+      vars,
+    },
+    barrel: Chords,
+    modules: ["building", "modifiers", "conversions", "constants"],
+    // eslint-disable-next-line no-undef
+    dirname: __dirname,
   } );
 } );
 
-describe("lazy properties should be defined", () => {
-  it("conversions", () => {
-    expect(Chords.toChromatic).toBeDefined();
-    expect(Chords.toVoicing).toBeDefined();
-  } );
-
-  it("constants (some)", () => {
-    expect(Chords.C).toBeDefined();
-    expect(Chords.C5).toBeDefined();
-    expect(Chords.B9).toBeDefined();
-    expect(Chords.ALL.length).toBeGreaterThan(0);
-    expect(Chords.ALL_NON_INVERSIONS.length).toBeGreaterThan(0);
-  } );
+it("sets", () => {
+  expect(Chords.ALL.length).toBeGreaterThan(0);
+  expect(Chords.ALL_NON_INVERSIONS.length).toBeGreaterThan(0);
 } );

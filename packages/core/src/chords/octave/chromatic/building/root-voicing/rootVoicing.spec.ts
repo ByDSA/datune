@@ -1,10 +1,10 @@
+import { Pitches, Pitch } from "pitches/chromatic";
+import { TestInit } from "tests";
+import { Voicings, Voicing } from "voicings/chromatic";
 import { Chord } from "../../Chord";
 import { Am, C, C7, C9, CMaj7 } from "../../constants";
 import { toVoicing } from "../../conversions";
 import { fromRootVoicing } from ".";
-import { Pitches, Pitch } from "pitches/chromatic";
-import { TestInit } from "tests";
-import { Voicings, Voicing } from "voicings/chromatic";
 
 TestInit.chromaticChord();
 
@@ -23,9 +23,9 @@ describe("tests", () => {
     const voicingName = String(voicing);
 
     it(`(${pitchName}, ${voicingName}) => ${chordName}`, () => {
-      const diatonicAltChord = fromRootVoicing(pitch, voicing);
+      const chord = fromRootVoicing(pitch, voicing);
 
-      expect(diatonicAltChord).toBe(expectedChord);
+      expect(chord).toBe(expectedChord);
     } );
 
     it(`Reversible: root=${pitchName}, voicing=${voicingName}`, () => {

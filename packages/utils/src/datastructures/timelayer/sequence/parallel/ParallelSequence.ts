@@ -1,5 +1,9 @@
 /* eslint-disable accessor-pairs */
 import TreeMap from "ts-treemap";
+import { Time } from "time/Time";
+import { add, divCell, mult, sub } from "time";
+import { contains } from "math/interval";
+import { intervalContains, intervalIntersects, intervalOf } from "math";
 import { Interval } from "../../../../math/interval/Interval";
 import { Constructor as TemporalNodeConstructorType, from as temporalNode, isTemporalNodeConstructorType, TemporalNode } from "../../temporal-node";
 import { TimeLayer } from "../../TimeLayer";
@@ -7,10 +11,6 @@ import { AddType, GetType, isAddLayerType, isGetNodesAtType, isGetNodesFromToTyp
 import { isGetNodesAtIntervalType } from "../../types/GetTypes";
 import { isRemoveNodesAtIntervalType, isRemoveNodesAtType, isRemoveNodesFromToType, RemoveNodesAtIntervalType, RemoveNodesAtType, RemoveNodesFromToType } from "../../types/RemoveTypes";
 import { isNodesType, NodesType, TimeLayerConstructorObject } from "../../types/types";
-import { Time } from "time/Time";
-import { add, divCell, mult, sub } from "time";
-import { contains } from "math/interval";
-import { intervalContains, intervalIntersects, intervalOf } from "math";
 
 type FunctionEach<E> = (
     node: TemporalNode<E>,

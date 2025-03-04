@@ -1,10 +1,10 @@
-import { fromRootScale as from } from "../building";
-import { C } from "../constants";
-import { rootChord3 } from "./rootChord3";
 import { Chords } from "chords/chromatic";
 import { Pitches } from "pitches/chromatic";
 import { Scales } from "scales/chromatic";
 import { TestInit } from "tests";
+import { C } from "../constants";
+import { fromRootScale as from } from "../building";
+import { rootChord3 } from "./rootChord3";
 
 TestInit.chromaticKey();
 TestInit.chromaticVoicing();

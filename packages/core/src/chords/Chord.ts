@@ -1,4 +1,4 @@
-import { Arrays } from "@datune/utils";
+import type { Arrays } from "@datune/utils";
 
 export interface Chord<P> {
     pitches: Arrays.NonEmpty<P>;

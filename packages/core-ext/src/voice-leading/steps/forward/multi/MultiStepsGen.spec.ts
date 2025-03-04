@@ -1,8 +1,8 @@
 import { SPNArray, SPNs } from "@datune/core/spns/chromatic";
-import { from, SingleStep } from "../../single";
-import { MultiStepsGen } from "./MultiStepsGen";
 import { TestInit } from "tests";
 import { CompositeSteps } from "voice-leading/steps/composite/CompositeSteps";
+import { from, SingleStep } from "../../single";
+import { MultiStepsGen } from "./MultiStepsGen";
 
 TestInit.loadAll();
 

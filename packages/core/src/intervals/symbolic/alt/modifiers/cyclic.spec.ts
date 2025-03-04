@@ -1,18 +1,19 @@
+import { TestInit } from "tests";
 import * as C from "../constants";
+import { expectInterval } from "../tests/interval";
 import { neg } from "./neg";
 import { cyclic } from "./cyclic";
-import { TestInit } from "tests";
 
 TestInit.diatonicAltInterval();
 
 describe.each([
-  [neg(C.PERFECT_FIFTH), C.PERFECT_FOURTH],
-  [C.PERFECT_FIFTH, C.PERFECT_FIFTH],
-  [C.PERFECT_ELEVENTH, C.PERFECT_FOURTH],
+  [neg(C.P5), C.P4],
+  [C.P4, C.P4],
+  [C.P11, C.P4],
 ])("tests", (interval, expected) => {
   it(`${String(interval)} => ${String(expected)}`, () => {
     const actual = cyclic(interval);
 
-    expect(actual).toBe(expected);
+    expectInterval(actual, expected);
   } );
 } );

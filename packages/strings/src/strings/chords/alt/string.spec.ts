@@ -4,10 +4,10 @@ import { Chords } from "@datune/core/chords/alt";
 import { Pitches as P } from "@datune/core/pitches/alt";
 import { Voicings } from "@datune/core/voicings/alt";
 import { bass } from "@datune/core/chords/octave/alt/modifiers";
-import { stringifyChord } from ".";
 import { LangId } from "lang";
 import { stringifyPitches } from "strings/pitches/alt/array";
 import { TestInit, TestLang } from "tests";
+import { stringifyChord } from ".";
 
 TestInit.diatonicAltChord();
 TestLang.loadAll();

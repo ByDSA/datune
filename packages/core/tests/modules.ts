@@ -1,0 +1,69 @@
+export async function classifyModuleExports(...paths: string[]) {
+  const functions: string[] = [];
+  const vars: string[] = [];
+  const promises = paths.map(async (p)=> {
+    const module = await import(p);
+
+    Object.entries(module).forEach(([nombre, valor]) => {
+      if (typeof valor === "function")
+        functions.push(nombre);
+      else
+        vars.push(nombre);
+    } );
+  } );
+
+  await Promise.all(promises);
+
+  return {
+    functions,
+    vars,
+  };
+}
+
+type Props = {
+  expected: {
+    functions?: string[];
+    vars?: string[];
+  };
+  modules: string[];
+  dirname?: string;
+  barrel: object;
+};
+export async function expectExportModulesAsync(props: Props) {
+  let input = props.modules;
+
+  if (props.dirname)
+    input = input.map(i=>props.dirname + "/" + i);
+
+  const { functions, vars } = await classifyModuleExports(...input);
+  const actualFunctions = functions.filter(f=>(props.barrel as any)[f] !== undefined);
+  const actualVars = vars.filter(v=>(props.barrel as any)[v] !== undefined);
+
+  // Propiedades estáticas que tenga el barrel
+  // pero que no se hayan importado desde los modules
+  for (const k of Object.keys(props.barrel)) {
+    if (
+      !actualFunctions.includes(k) && !actualVars.includes(k)
+      && (props.barrel as any)[k] !== undefined // Para descartar las propiedades "omit"
+    )
+      throw new Error(`Barrel object has static property '${k}' which has not been imported from the modules.`);
+  }
+
+  if (!props.expected.functions)
+    expect(actualFunctions).toHaveLength(0);
+  else {
+    for (const f of actualFunctions)
+      expect((props.barrel as any)[f]).toBeDefined();
+
+    expect(actualFunctions.sort()).toEqual(props.expected.functions.sort());
+  }
+
+  if (!props.expected.vars)
+    expect(actualVars).toHaveLength(0);
+  else {
+    for (const v of actualVars)
+      expect((props.barrel as any)[v]).toBeDefined();
+
+    expect(actualVars.sort()).toEqual(props.expected.vars.sort());
+  }
+}

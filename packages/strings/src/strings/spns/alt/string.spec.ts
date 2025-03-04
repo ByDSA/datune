@@ -1,7 +1,7 @@
 import { SPNs, SPN } from "@datune/core/spns/alt";
-import { stringifySpn } from ".";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
+import { stringifySpn } from ".";
 
 TestInit.diatonicAltSPN();
 TestInit.diatonicAltInterval();

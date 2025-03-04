@@ -1,6 +1,6 @@
-import { from } from "../building";
 import { Pitches } from "pitches/chromatic";
 import { TestInit } from "tests";
+import { from } from "../building";
 
 TestInit.chromaticPitchSet();
 

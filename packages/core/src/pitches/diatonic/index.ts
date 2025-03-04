@@ -1,28 +1,25 @@
 import type { Pitch } from "./Pitch";
 import type { PitchArray } from "./Array";
-
-import type * as BuildingType from "./building";
-
-import * as Constants from "./constants";
-
-import type * as ConversionsType from "./conversions"; // deps: pitches/chromatic
-
-import type * as ModifiersType from "./modifiers"; // deps: intervals/diatonic
+import type * as Building from "./building";
+import type * as Conversions from "./conversions";
+import type * as Modifiers from "./modifiers";
 import { createProxyBarrel } from "lazy-load";
+import * as Constants from "./constants";
 
 const staticModule = {
   ...Constants,
 };
 
-type LazyType = typeof BuildingType & typeof ConversionsType & typeof ModifiersType;
+type LazyType = typeof Building & typeof Conversions & typeof Modifiers;
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
     "building",
     "conversions",
     "modifiers",
+  ],
   // eslint-disable-next-line no-undef
-  ].map(p=>`${__dirname}/${p}`),
+  dirname: __dirname,
 } );
 
 export {

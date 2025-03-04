@@ -1,24 +1,41 @@
+import { expectExportModulesAsync } from "tests/modules";
 import { Degrees } from ".";
 
-describe("static properties should be defined", () => {
-  it("building", () => {
-    expect(Degrees.fromInt).toBeDefined();
-  } );
+const vars: string[] = [
+  "I",
+  "II",
+  "III",
+  "IV",
+  "V",
+  "VI",
+  "VII",
+  "ALL",
+];
+const functions: string[] = [
+  // Building
+  Degrees.fromInt.name,
 
-  it("constants", () => {
-    expect(Degrees.I).toBeDefined();
-    expect(Degrees.II).toBeDefined();
-    expect(Degrees.III).toBeDefined();
-    expect(Degrees.IV).toBeDefined();
-    expect(Degrees.V).toBeDefined();
-    expect(Degrees.VI).toBeDefined();
-    expect(Degrees.VII).toBeDefined();
-    expect(Degrees.ALL).toBeDefined();
+  // Conversions
+  Degrees.toChromatic.name,
+];
+
+it("module should export functions and vars", async () => {
+  await expectExportModulesAsync( {
+    expected: {
+      functions,
+      vars,
+    },
+    barrel: Degrees,
+    modules: [
+      "building",
+      "constants",
+      "conversions",
+    ],
+    // eslint-disable-next-line no-undef
+    dirname: __dirname,
   } );
 } );
 
-describe("lazy properties should be defined", () => {
-  it("conversions", () => {
-    expect(Degrees.toChromatic).toBeDefined();
-  } );
+it("sets", () => {
+  expect(Degrees.ALL).toHaveLength(7);
 } );

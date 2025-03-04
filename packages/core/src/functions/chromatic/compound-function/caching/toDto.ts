@@ -1,5 +1,5 @@
-import { CompoundFunction } from "../CompoundFunction";
 import type { Dto } from "./Dto";
+import { CompoundFunction } from "../CompoundFunction";
 
 export function toDto(obj: CompoundFunction): Dto {
   return {

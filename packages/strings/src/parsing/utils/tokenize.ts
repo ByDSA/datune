@@ -1,6 +1,6 @@
-import { GLOBAL_TOKENS } from "./tokens";
 import { Lexer, TokenType } from "chevrotain";
 import { Options } from "lang";
+import { GLOBAL_TOKENS } from "./tokens";
 
 export type TokenizeOptions = Options & {
   input: string;

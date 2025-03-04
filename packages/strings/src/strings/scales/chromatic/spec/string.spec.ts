@@ -1,6 +1,6 @@
+import { TestInit, TestLang } from "tests";
 import { stringifyScale } from "..";
 import { getAllCases, getManualCases } from "./Cases";
-import { TestInit, TestLang } from "tests";
 
 TestInit.chromaticScale();
 TestLang.loadAll();

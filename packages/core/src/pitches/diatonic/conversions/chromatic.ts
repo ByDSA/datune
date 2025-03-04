@@ -1,16 +1,16 @@
-import { A, B, C, D, E, F, G } from "../constants";
 import type { Pitch } from "../Pitch";
-import { Pitches as ChromaticPitches, Pitch as Chromatic } from "pitches/chromatic";
+import { Pitches as CP, Pitch as CPitch } from "pitches/chromatic";
+import { A, B, C, D, E, F, G } from "../constants";
 
-export function toChromatic(diatonic: Pitch): Chromatic {
+export function toChromatic(diatonic: Pitch): CPitch {
   switch (diatonic) {
-    case C: return ChromaticPitches.C;
-    case D: return ChromaticPitches.D;
-    case E: return ChromaticPitches.E;
-    case F: return ChromaticPitches.F;
-    case G: return ChromaticPitches.G;
-    case A: return ChromaticPitches.A;
-    case B: return ChromaticPitches.B;
+    case C: return CP.C;
+    case D: return CP.D;
+    case E: return CP.E;
+    case F: return CP.F;
+    case G: return CP.G;
+    case A: return CP.A;
+    case B: return CP.B;
     default: throw new Error(String(diatonic));
   }
 }

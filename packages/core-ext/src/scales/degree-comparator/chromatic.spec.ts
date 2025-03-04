@@ -2,8 +2,8 @@
 /* eslint-disable camelcase */
 import { Degrees } from "@datune/core/degrees/chromatic";
 import { Scales } from "@datune/core/scales/chromatic";
-import { compare } from ".";
 import { TestInit } from "tests";
+import { compare } from ".";
 
 TestInit.loadAll();
 

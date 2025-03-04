@@ -1,10 +1,10 @@
-import { from } from "../building";
-import { toChromaticDegree } from "../conversions/chromaticDegree";
 import type { Degree } from "../Degree";
-import { Degrees } from "degrees/diatonic";
 import type { Interval } from "intervals/alt";
+import { Degrees } from "degrees/diatonic";
 import { Intervals } from "intervals/alt";
 import { calcAlts } from "pitches/alt/calcAlts";
+import { toChromaticDegree } from "../conversions/chromaticDegree";
+import { from } from "../building";
 
 export function add(obj: Degree, interval: Interval): Degree {
   const chromaticDegreeSum = toChromaticDegree(obj) + Intervals.toChromaticInterval(interval);

@@ -1,6 +1,6 @@
 import type { Voicing } from "../Voicing";
-import { cache } from "../caching/cache";
 import { IntervalArray, Interval } from "intervals/chromatic";
+import { cache } from "../caching/cache";
 
 export function fromRootIntervals(
   ...rootIntervals: IntervalArray

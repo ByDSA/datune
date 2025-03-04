@@ -1,10 +1,10 @@
-import { PERFECT_OCTAVE } from "../constants";
 import type { Interval } from "../Interval";
+import type { Pitch } from "pitches/alt";
+import { Intervals } from "intervals/diatonic";
+import { P8 } from "../constants";
 import { sub } from "../modifiers/sub";
 import { neg } from "../modifiers/neg";
 import { betweenNext } from "./betweenNext";
-import type { Pitch } from "pitches/alt";
-import { Intervals } from "intervals/diatonic";
 
 export function between(pitch1: Pitch, pitch2: Pitch): Interval | null {
   const init = betweenNext(pitch1, pitch2);
@@ -13,7 +13,7 @@ export function between(pitch1: Pitch, pitch2: Pitch): Interval | null {
     return null;
 
   if (init.diatonicInterval >= Intervals.FIFTH) {
-    const s = sub(PERFECT_OCTAVE, init);
+    const s = sub(P8, init);
 
     if (s === null)
       return null;

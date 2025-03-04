@@ -1,5 +1,5 @@
-import { Interval } from "../../../math/interval/Interval";
 import { Time } from "time";
+import { Interval } from "../../../math/interval/Interval";
 
 export type GetNodesAtIntervalType = {
   interval: Interval<Time>;

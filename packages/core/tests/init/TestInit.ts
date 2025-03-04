@@ -16,9 +16,9 @@ import { initialize as initCPitchSets } from "sets/pitch-set/chromatic/constants
 import { initialize as initAltSPNs } from "spns/symbolic/alt/constants";
 import { initialize as initCSPNs } from "spns/symbolic/chromatic/constants";
 import { initialize as initCTemperaments } from "temperaments/chromatic/constants";
-import { initialize as initBPMs } from "time/symbolic/bpm/constants";
-import { initialize as initMusicalDurations } from "time/symbolic/musical-duration/constants";
-import { initialize as initPatterns } from "time/symbolic/rhythm/pattern/constants";
+import { initialize as initBPMs } from "rhythm/tempo/bpm/constants";
+import { initialize as initMusicalDurations } from "rhythm/tempo/musical-duration/constants";
+import { initialize as initPatterns } from "rhythm/pattern/constants";
 import { initialize as initCTunings } from "tunings/chromatic/constants";
 import { initialize as initAltVoicings } from "voicings/relative/alt/constants";
 import { initialize as initCVoicings } from "voicings/relative/chromatic/constants";

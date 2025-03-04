@@ -1,8 +1,8 @@
-import { fromKeyFunction } from ".";
 import { Chords } from "chords/alt";
 import { Functions as F } from "functions/alt";
 import { Keys as K } from "keys/alt";
 import { TestInit } from "tests";
+import { fromKeyFunction } from ".";
 
 TestInit.diatonicAltChord();
 TestInit.diatonicAltFunction();

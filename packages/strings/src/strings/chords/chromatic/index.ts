@@ -3,7 +3,7 @@ import { Chord } from "@datune/core/chords/chromatic";
 import { toVoicing } from "@datune/core/chords/octave/chromatic/conversions";
 import { Pitch } from "@datune/core/pitches/chromatic";
 import { inv } from "@datune/core/voicings/relative/chromatic/modifiers";
-import { getInversionOf } from "@datune/core/voicings/relative/chromatic/constants";
+import { getNumInversionOf } from "@datune/core/voicings/relative/chromatic/constants/inversionMap";
 import { Voicing, Voicings as V } from "@datune/core/chromatic";
 import { stringifyPitch } from "strings/pitches/chromatic";
 import { stringifyShortName } from "strings/voicings/chromatic/shortName";
@@ -15,7 +15,7 @@ export function stringifyChord(chord: Chord): string {
   if (custom)
     return custom;
 
-  const inversion = getInversionOf(voicing);
+  const inversion = getNumInversionOf(voicing);
   const invVoicing = inv(voicing, -inversion);
   const rootPosition = cyclicMod(-inversion, chord.length);
   const rootName = stringifyPitch(chord.pitches[rootPosition]);

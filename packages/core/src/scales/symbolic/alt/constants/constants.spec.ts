@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import { Scale } from "../Scale";
-import { BEBOP_DOMINANT, BLUES_a4, BLUES_b5, BLUES_MAJOR, BLUES_MINOR, EGYPCIAN, MAJOR, MINOR, PENTATONIC, PENTATONIC_MINOR } from "./constants";
-import { COMMON } from "./sets";
 import { Degrees } from "degrees/alt";
 import { Degrees as D } from "degrees/diatonic";
 import { TestInit } from "tests";
+import { Scale } from "../Scale";
+import { BEBOP_DOMINANT, BLUES_a4, BLUES_b5, BLUES_MAJOR, BLUES_MINOR, EGYPCIAN, MAJOR, MINOR, PENTATONIC, PENTATONIC_MINOR } from "./constants";
+import { COMMON } from "./sets";
 
 TestInit.diatonicAltScale();
 

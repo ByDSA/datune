@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 import { Voicings } from "@datune/core/voicings/alt";
-import { stringifyVoicing } from ".";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
+import { stringifyVoicing } from ".";
 
 TestInit.diatonicAltVoicing();
 TestLang.loadAll();

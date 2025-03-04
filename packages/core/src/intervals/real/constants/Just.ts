@@ -1,101 +1,100 @@
+/* eslint-disable prefer-destructuring */
+/* eslint-disable camelcase */
+import type { Interval } from "../Interval";
 import { frac } from "@datune/utils/math";
 import { from } from "../building";
-import type { Interval } from "../Interval";
-import { initialize as PTinitialize, MAJOR_SECOND as PT_MAJOR_SECOND,
-  MINOR_SEVENTH as PT_MINOR_SEVENTH,
-  PERFECT_FIFTH as PT_PERFECT_FIFTH,
-  PERFECT_FOURTH as PT_PERFECT_FOURTH } from "./Pythagorean";
+import * as PT from "./Pythagorean";
 
 export function initialize() {
   if (QUARTER_TONE)
     throw new Error("Already initialized");
 
-  PTinitialize();
+  PT.initialize();
   QUARTER_TONE = from(frac(246, 239));
-  MINOR_SECOND = from(frac(16, 15));
-  SEMITONE = MINOR_SECOND;
-  DIMINISHED_THIRD = from(frac(256, 225));
-  MAJOR_TONE = PT_MAJOR_SECOND;
+  m2 = from(frac(16, 15));
+  SEMITONE = m2;
+  d3 = from(frac(256, 225));
+  MAJOR_TONE = PT.M2;
   MINOR_TONE = from(frac(10, 9));
-  AUGMENTED_SECOND = from(frac(75, 64));
-  MINOR_THIRD = from(frac(6, 5));
-  MAJOR_THIRD = from(frac(5, 4));
-  AUGMENTED_THIRD = from(frac(125, 96));
-  PERFECT_FOURTH = PT_PERFECT_FOURTH;
-  AUGMENTED_FOURTH = from(frac(45, 32));
-  AUGMENTED_FOURTH_EXT = from(frac(25, 18));
-  DIMINISHED_FIFTH = from(frac(64, 45));
-  DIMINISHED_FIFTH_EXT = from(frac(36, 25));
+  a2 = from(frac(75, 64));
+  m3 = from(frac(6, 5));
+  M3 = from(frac(5, 4));
+  a3 = from(frac(125, 96));
+  P4 = PT.P4;
+  a4 = from(frac(45, 32));
+  a4_EXT = from(frac(25, 18));
+  d5 = from(frac(64, 45));
+  d5_EXT = from(frac(36, 25));
   LESSER_SEPTIMAL_TRITONE = from(frac(7, 5));
   GREATER_SEPTIMAL_TRITONE = from(frac(10, 7));
-  PERFECT_FIFTH = PT_PERFECT_FIFTH;
-  AUGMENTED_FIFTH = from(frac(25, 16));
-  MINOR_SIXTH = from(frac(8, 5));
-  MAJOR_SIXTH = from(frac(5, 3));
-  DIMINISHED_SEVENTH = from(frac(128, 75));
-  AUGMENTED_SIXTH = from(frac(125, 72));
-  AUGMENTED_SIXTH2 = from(frac(225, 128));
-  MINOR_SEVENTH_SMALL = PT_MINOR_SEVENTH;
-  MINOR_SEVENTH_GREATER = from(frac(9, 5));
-  MAJOR_SEVENTH = from(frac(15, 8));
-  AUGMENTED_SEVENTH = from(frac(125, 64));
-  PERFECT_TWELFTH = from(frac(3, 1));
+  P5 = PT.P5;
+  a5 = from(frac(25, 16));
+  m6 = from(frac(8, 5));
+  M6 = from(frac(5, 3));
+  d7 = from(frac(128, 75));
+  a6 = from(frac(125, 72));
+  a6_2 = from(frac(225, 128));
+  m7_SMALL = PT.m7;
+  m7_GREATER = from(frac(9, 5));
+  M7 = from(frac(15, 8));
+  a7 = from(frac(125, 64));
+  P12 = from(frac(3, 1));
 }
 
 export let QUARTER_TONE: Interval;
 
-export let MINOR_SECOND: Interval;
+export let m2: Interval;
 
 export let SEMITONE: Interval;
 
-export let DIMINISHED_THIRD: Interval;
+export let d3: Interval;
 
 export let MAJOR_TONE: Interval;
 
 export let MINOR_TONE: Interval;
 
-export let AUGMENTED_SECOND: Interval;
+export let a2: Interval;
 
-export let MINOR_THIRD: Interval;
+export let m3: Interval;
 
-export let MAJOR_THIRD: Interval;
+export let M3: Interval;
 
-export let AUGMENTED_THIRD: Interval;
+export let a3: Interval;
 
-export let PERFECT_FOURTH: Interval;
+export let P4: Interval;
 
-export let AUGMENTED_FOURTH: Interval;
+export let a4: Interval;
 
-export let AUGMENTED_FOURTH_EXT: Interval;
+export let a4_EXT: Interval;
 
-export let DIMINISHED_FIFTH: Interval;
+export let d5: Interval;
 
-export let DIMINISHED_FIFTH_EXT: Interval;
+export let d5_EXT: Interval;
 
 export let LESSER_SEPTIMAL_TRITONE: Interval;
 
 export let GREATER_SEPTIMAL_TRITONE: Interval;
 
-export let PERFECT_FIFTH: Interval;
+export let P5: Interval;
 
-export let AUGMENTED_FIFTH: Interval;
+export let a5: Interval;
 
-export let MINOR_SIXTH: Interval;
+export let m6: Interval;
 
-export let MAJOR_SIXTH: Interval;
+export let M6: Interval;
 
-export let DIMINISHED_SEVENTH: Interval;
+export let d7: Interval;
 
-export let AUGMENTED_SIXTH: Interval;
+export let a6: Interval;
 
-export let AUGMENTED_SIXTH2: Interval;
+export let a6_2: Interval;
 
-export let MINOR_SEVENTH_SMALL: Interval;
+export let m7_SMALL: Interval;
 
-export let MINOR_SEVENTH_GREATER: Interval;
+export let m7_GREATER: Interval;
 
-export let MAJOR_SEVENTH: Interval;
+export let M7: Interval;
 
-export let AUGMENTED_SEVENTH: Interval;
+export let a7: Interval;
 
-export let PERFECT_TWELFTH: Interval;
+export let P12: Interval;

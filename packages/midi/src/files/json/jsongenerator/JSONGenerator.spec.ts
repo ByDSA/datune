@@ -1,9 +1,9 @@
-import { EIGHTH, SIXTYFOURTH, WHOLE } from "@datune/core/time/symbolic/musical-duration/constants";
-import { QUARTER_120 } from "@datune/core/time/symbolic/bpm/constants";
-import { from as bpmFrom } from "@datune/core/time/symbolic/bpm/building";
+import { EIGHTH, SIXTYFOURTH, WHOLE } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { QUARTER_120 } from "@datune/core/rhythm/tempo/bpm/constants";
+import { from as bpmFrom } from "@datune/core/rhythm/tempo/bpm/building";
+import { TestInit } from "tests";
 import { MidiFile } from "../../midi-file/MidiFile";
 import { JSONGenerator } from "./JSONGenerator";
-import { TestInit } from "tests";
 
 TestInit.initAll();
 

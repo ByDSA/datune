@@ -1,12 +1,12 @@
-import { Arrays } from "@datune/utils";
-import { fromRootIntervalInts } from "./building";
+import type { Arrays } from "@datune/utils";
 import type { Voicing } from "./Voicing";
-import { Pitches } from "pitches/diatonic";
 import type { Interval } from "diatonic";
+import { Pitches } from "pitches/diatonic";
 import { abs } from "intervals/symbolic/diatonic/modifiers/abs";
 import { OCTAVE } from "intervals/symbolic/diatonic/constants";
 import { simplify } from "intervals/symbolic/diatonic/modifiers/simplify";
 import { Direction } from "intervals/symbolic/diatonic/Direction";
+import { fromRootIntervalInts } from "./building";
 
 export function inv(obj: Voicing, n: number = 1): Voicing {
   let { rootIntervalInts } = obj;

@@ -1,3 +1,3 @@
 export {
-  voicing,
+  voicingOf,
 } from "./voicing";

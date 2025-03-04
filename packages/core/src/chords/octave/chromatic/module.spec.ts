@@ -1,33 +1,218 @@
-import { Chords } from ".";
+import { expectExportModulesAsync } from "tests/modules";
 import { TestInit } from "tests";
+import { Chords } from ".";
 
 TestInit.chromaticChord();
 
-describe("static properties should be defined", () => {
-  it("modifiers", () => {
-    expect(Chords.inv).toBeDefined();
-    expect(Chords.add).toBeDefined();
-    expect(Chords.sub).toBeDefined();
-    expect(Chords.bass).toBeDefined();
+const vars: string[] = [
+  "C",
+  "CC",
+  "D",
+  "DD",
+  "E",
+  "F",
+  "FF",
+  "G",
+  "GG",
+  "A",
+  "AA",
+  "B",
+  "C7",
+  "CC7",
+  "D7",
+  "DD7",
+  "E7",
+  "F7",
+  "FF7",
+  "G7",
+  "GG7",
+  "A7",
+  "AA7",
+  "B7",
+  "Cm",
+  "CCm",
+  "Dm",
+  "DDm",
+  "Em",
+  "Fm",
+  "FFm",
+  "Gm",
+  "GGm",
+  "Am",
+  "AAm",
+  "Bm",
+  "Cm7",
+  "CCm7",
+  "Dm7",
+  "DDm7",
+  "Em7",
+  "Fm7",
+  "FFm7",
+  "Gm7",
+  "GGm7",
+  "Am7",
+  "AAm7",
+  "Bm7",
+  "C5",
+  "CC5",
+  "D5",
+  "DD5",
+  "E5",
+  "F5",
+  "FF5",
+  "G5",
+  "GG5",
+  "A5",
+  "AA5",
+  "B5",
+  "C0",
+  "CC0",
+  "D0",
+  "DD0",
+  "E0",
+  "F0",
+  "FF0",
+  "G0",
+  "GG0",
+  "A0",
+  "AA0",
+  "B0",
+  "Csus4",
+  "CCsus4",
+  "Dsus4",
+  "DDsus4",
+  "Esus4",
+  "Fsus4",
+  "FFsus4",
+  "Gsus4",
+  "GGsus4",
+  "Asus4",
+  "AAsus4",
+  "Bsus4",
+  "Csus2",
+  "CCsus2",
+  "Dsus2",
+  "DDsus2",
+  "Esus2",
+  "Fsus2",
+  "FFsus2",
+  "Gsus2",
+  "GGsus2",
+  "Asus2",
+  "AAsus2",
+  "Bsus2",
+  "Caug",
+  "CCaug",
+  "Daug",
+  "DDaug",
+  "Eaug",
+  "Faug",
+  "FFaug",
+  "Gaug",
+  "GGaug",
+  "Aaug",
+  "AAaug",
+  "Baug",
+  "CMaj7",
+  "CCMaj7",
+  "DMaj7",
+  "DDMaj7",
+  "EMaj7",
+  "FMaj7",
+  "FFMaj7",
+  "GMaj7",
+  "GGMaj7",
+  "AMaj7",
+  "AAMaj7",
+  "BMaj7",
+  "CmMaj7",
+  "CCmMaj7",
+  "DmMaj7",
+  "DDmMaj7",
+  "EmMaj7",
+  "FmMaj7",
+  "FFmMaj7",
+  "GmMaj7",
+  "GGmMaj7",
+  "AmMaj7",
+  "AAmMaj7",
+  "BmMaj7",
+  "C13b5a9",
+  "CC13b5a9",
+  "D13b5a9",
+  "DD13b5a9",
+  "E13b5a9",
+  "F13b5a9",
+  "FF13b5a9",
+  "G13b5a9",
+  "GG13b5a9",
+  "A13b5a9",
+  "AA13b5a9",
+  "B13b5a9",
+  "CMaj13b5a9",
+  "CCMaj13b5a9",
+  "DMaj13b5a9",
+  "DDMaj13b5a9",
+  "EMaj13b5a9",
+  "FMaj13b5a9",
+  "FFMaj13b5a9",
+  "GMaj13b5a9",
+  "GGMaj13b5a9",
+  "AMaj13b5a9",
+  "AAMaj13b5a9",
+  "BMaj13b5a9",
+  "C9",
+  "CC9",
+  "D9",
+  "DD9",
+  "E9",
+  "F9",
+  "FF9",
+  "G9",
+  "GG9",
+  "A9",
+  "AA9",
+  "B9",
+  "ALL",
+  "ALL_NON_INVERSIONS",
+];
+const functions: string[] = [
+  // Building
+  Chords.fromKeyFunction.name,
+  Chords.fromPitches.name,
+  Chords.fromRootVoicing.name,
+
+  // Modifiers
+  Chords.inv.name,
+  Chords.add.name,
+  Chords.sub.name,
+  Chords.bass.name,
+
+  // Conversions
+  Chords.toVoicing.name,
+];
+
+it("module should export functions and vars", async () => {
+  await expectExportModulesAsync( {
+    expected: {
+      functions,
+      vars,
+    },
+    barrel: Chords,
+    modules: [
+      "modifiers",
+      "building/key-function",
+      "building/pitches",
+      "building/root-voicing",
+      "constants",
+      "conversions",
+    ],
+    // eslint-disable-next-line no-undef
+    dirname: __dirname,
   } );
 } );
 
-describe("lazy properties should be defined", () => {
-  it("building", () => {
-    expect(Chords.fromKeyFunction).toBeDefined();
-    expect(Chords.fromPitches).toBeDefined();
-    expect(Chords.fromRootVoicing).toBeDefined();
-  } );
-
-  it("constants (some)", () => {
-    expect(Chords.C).toBeDefined();
-    expect(Chords.CC5).toBeDefined();
-    expect(Chords.B9).toBeDefined();
-    expect(Chords.ALL.length).toBeGreaterThan(0);
-    expect(Chords.ALL_NON_INVERSIONS.length).toBeGreaterThan(0);
-  } );
-
-  it("conversions", () => {
-    expect(Chords.toVoicing).toBeDefined();
-  } );
+it("sets", () => {
+  expect(Chords.ALL.length).toBeGreaterThan(0);
+  expect(Chords.ALL_NON_INVERSIONS.length).toBeGreaterThan(0);
 } );

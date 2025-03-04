@@ -1,7 +1,7 @@
 import { bIII, bVI, bVII, I, II, III, IV, V, VI, VII } from "@datune/core/degrees/chromatic/constants";
 import { Degree as DegreeAlt } from "@datune/core/degrees/chromatic";
 import { DegreeFunction } from "@datune/core/functions/chromatic/degree-function/DegreeFunction";
-import { MusicalDuration } from "@datune/core/time";
+import { MusicalDuration } from "@datune/core";
 
 export const commonDegreesWith = (
   degreeFunction: DegreeFunction,

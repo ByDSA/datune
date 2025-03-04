@@ -1,6 +1,6 @@
 import { Pitches } from "@datune/core/pitches/chromatic";
-import { minDistanceBetweenArraysOfNotes } from "./Distances";
 import { TestInit } from "tests";
+import { minDistanceBetweenArraysOfNotes } from "./Distances";
 
 TestInit.loadAll();
 

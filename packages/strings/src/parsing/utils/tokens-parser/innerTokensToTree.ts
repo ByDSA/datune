@@ -1,8 +1,8 @@
+import { getLangIdFromOptions } from "lang";
+import { IRecognitionException } from "chevrotain";
 import { TokensParserOptions } from "./Options";
 import { Parser, ParserType } from "./Parser";
 import { getParserTokens } from "./ParserTokens";
-import { getLangIdFromOptions } from "lang";
-import { IRecognitionException } from "chevrotain";
 
 type InnerOptions = TokensParserOptions & {
   statement: (parser: ParserType)=> any;

@@ -1,8 +1,8 @@
-import { FIFTEENTH, SECOND, THIRD, UNISON } from "../constants";
 import type { Interval } from "../Interval";
+import { TestInit } from "tests";
+import { FIFTEENTH, SECOND, THIRD, UNISON } from "../constants";
 import { neg } from "../modifiers/neg";
 import { hash } from "./hashObj";
-import { TestInit } from "tests";
 
 TestInit.diatonicInterval();
 

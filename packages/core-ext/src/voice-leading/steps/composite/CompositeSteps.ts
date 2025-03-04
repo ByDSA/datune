@@ -1,8 +1,8 @@
-import { Arrays } from "@datune/utils";
+import type { Arrays } from "@datune/utils";
+import type { CompositeStep } from "./CompositeStep";
 import { Interval as ChromaticInterval } from "@datune/core/intervals/chromatic";
 import { Array as SingleStepArray, from as singleFrom } from "../single";
 import { cache } from "./cache";
-import type { CompositeStep } from "./CompositeStep";
 
 type IntervalArray = Arrays.NonEmpty<ChromaticInterval | null>;
 

@@ -1,11 +1,12 @@
-import { AUGMENTED_UNISON, MAJOR_TENTH, MAJOR_THIRD, PERFECT_FIFTH } from "../constants";
 import type { Interval } from "../Interval";
-import { neg } from "../modifiers/neg";
-import { AUGMENTED, MAJOR, MINOR, PERFECT } from "../quality/constants";
 import type { Quality } from "../quality/Quality";
-import { fromIntervalQuality } from "./intervalQuality";
 import { TestInit } from "tests";
 import { Intervals as DIntervals, Interval as DInterval } from "intervals/diatonic";
+import { a1, M10, M3, P5 } from "../constants";
+import { neg } from "../modifiers/neg";
+import { a, M, m, P } from "../quality/constants";
+import { expectInterval } from "../tests/interval";
+import { fromIntervalQuality } from "./intervalQuality";
 
 TestInit.diatonicAltInterval();
 
@@ -15,7 +16,7 @@ describe("tests", () => {
 
   it("should be defined", () => {
     const i = DIntervals.THIRD;
-    const q = MAJOR;
+    const q = M;
 
     expect(i).toBeDefined();
     expect(q).toBeDefined();
@@ -27,20 +28,20 @@ describe("tests", () => {
 
   describe("after initialization", () => {
     describe.each([
-      [THIRD, MAJOR, MAJOR_THIRD],
-      [DNeg(THIRD), MAJOR, neg(MAJOR_THIRD)],
-      [DNeg(FIFTH), PERFECT, neg(PERFECT_FIFTH)],
-      [DNeg(UNISON), AUGMENTED, neg(AUGMENTED_UNISON)],
-      [TENTH, MAJOR, MAJOR_TENTH],
+      [THIRD, M, M3],
+      [DNeg(THIRD), M, neg(M3)],
+      [DNeg(FIFTH), P, neg(P5)],
+      [DNeg(UNISON), a, neg(a1)],
+      [TENTH, M, M10],
       // invalids
-      [FIFTH, MAJOR, null],
-      [FIFTH, MINOR, null],
-      [THIRD, PERFECT, null],
+      [FIFTH, M, null],
+      [FIFTH, m, null],
+      [THIRD, P, null],
     ])("tests", (diatonicInterval: DInterval, quality: Quality, expected: Interval | null) => {
       it(`(${diatonicInterval}, ${quality}) => ${expected}`, () => {
         const actual = fromIntervalQuality(diatonicInterval, quality);
 
-        expect(actual).toBe(expected);
+        expectInterval(actual, expected);
       } );
     } );
   } );

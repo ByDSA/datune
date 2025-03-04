@@ -1,4 +1,4 @@
-import { Arrays } from "@datune/utils";
+import type { Arrays } from "@datune/utils";
 import { CompositeStep } from "../composite/CompositeStep";
 import { FilterStepFunction } from "../generators/StepsGenerator";
 import { from, SingleStep } from "../single";

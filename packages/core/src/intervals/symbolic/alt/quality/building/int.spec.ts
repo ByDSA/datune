@@ -1,20 +1,20 @@
 import { Quality } from "../Quality";
-import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "../constants";
+import { a, d, da, dd, M, m, P } from "../constants";
 import { toInt } from "../conversions";
 import { fromInt } from "./int";
 
 describe.each([
-  [0, true, PERFECT],
-  [1, true, AUGMENTED],
-  [-1, true, DIMINISHED],
-  [2, true, DOUBLY_AUGMENTED],
-  [-2, true, DOUBLY_DIMINISHED],
-  [0, false, MAJOR],
-  [-1, false, MINOR],
-  [1, false, AUGMENTED],
-  [-2, false, DIMINISHED],
-  [2, false, DOUBLY_AUGMENTED],
-  [-3, false, DOUBLY_DIMINISHED],
+  [0, true, P],
+  [1, true, a],
+  [-1, true, d],
+  [2, true, da],
+  [-2, true, dd],
+  [0, false, M],
+  [-1, false, m],
+  [1, false, a],
+  [-2, false, d],
+  [2, false, da],
+  [-3, false, dd],
 ])("tests", (int: number, isMain: boolean, quality: Quality) => {
   it(`int=${int} isMain=${isMain} => quality=${String(quality)} `, () => {
     const actual = fromInt(int, isMain);

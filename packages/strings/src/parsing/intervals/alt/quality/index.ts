@@ -1,7 +1,7 @@
 import type { Quality } from "@datune/core/intervals/symbolic/alt/quality/Quality";
+import { Options } from "lang";
 import { parseLongName } from "./longName";
 import { parseShortName } from "./shortName";
-import { Options } from "lang";
 
 export function parseQuality(input: string, options?: Options): Quality | null {
   let quality: Quality | null;

@@ -1,13 +1,13 @@
 import type { Scale } from "../Scale";
 import type { DegreeArray } from "degrees/alt";
-import { DegreeFunction } from "functions/alt/degree-function/DegreeFunction";
-import { Functions } from "functions/alt";
+import type { DegreeFunction } from "functions/alt/degree-function/DegreeFunction";
+import { calcDegrees } from "functions/alt/degree-function/calcs";
 import { from } from "functions/alt/degree-function/building";
-import { Voicings } from "voicings/relative/alt";
+import { Voicings as V } from "voicings/relative/alt";
 
 export function getDegreeFunctions(obj: Scale): DegreeFunction[] {
   const ret: DegreeFunction[] = [];
-  const voicings = Voicings.COMMON;
+  const voicings = V.COMMON;
 
   for (const degree of obj.degrees) {
     for (const voicing of voicings) {
@@ -15,7 +15,7 @@ export function getDegreeFunctions(obj: Scale): DegreeFunction[] {
         degree,
         voicing,
       } );
-      const degrees = Functions.calcDegrees(degreeFunction) as DegreeArray;
+      const degrees = calcDegrees(degreeFunction) as DegreeArray;
 
       if (obj.hasEnharmonicDegrees(...degrees))
         ret.push(degreeFunction);

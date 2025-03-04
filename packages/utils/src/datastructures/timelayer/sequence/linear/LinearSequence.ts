@@ -1,9 +1,9 @@
 /* eslint-disable accessor-pairs */
+import { Time } from "time";
 import { from as temporalNode, isTemporalNodeConstructorType, TemporalNode } from "../../temporal-node";
 import { TimeLayer } from "../../TimeLayer";
 import { AddType, GetType, isAddLayerType, isNodesType, isNodeType, RemoveType, SequenceAddListener, SequenceChangeListener, SequenceRemoveListener, TimeLayerConstructorObject } from "../../types";
 import { ParallelSequence } from "../parallel/ParallelSequence";
-import { Time } from "time";
 
 export class LinearSequence<E> implements TimeLayer<E> {
   private parallelSequence: ParallelSequence<E>;

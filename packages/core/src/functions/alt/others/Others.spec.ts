@@ -1,8 +1,8 @@
-import { initialize, V7ALT } from "./constants";
 import { Chords } from "chords/alt";
 import { Keys as K } from "keys/alt";
 import { Pitches as P } from "pitches/alt";
 import { TestInit } from "tests";
+import { initialize, V7ALT } from "./constants";
 
 initialize();
 TestInit.diatonicAltKey();

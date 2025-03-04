@@ -1,6 +1,6 @@
-import { Key } from "../Key";
 import { Chord, Chords } from "chords/chromatic";
 import { Voicings } from "voicings/chromatic";
+import { Key } from "../Key";
 
 export function rootChord4(obj: Key): Chord | null {
   const chordRootVoicingPriority = [

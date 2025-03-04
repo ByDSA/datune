@@ -1,22 +1,26 @@
-import { Tuning } from "./Tuning";
-
-import * as Calcs from "./calcs";
-
 import type * as Constants from "./constants";
 import { createProxyBarrel } from "lazy-load";
+import { Tuning } from "./Tuning";
+import * as Calcs from "./calcs";
+import * as Building from "./building";
 
 const staticModule = {
+  ...Building,
   ...Calcs,
 };
 
-type LazyType = typeof Constants ;
+type LazyType = Omit<typeof Constants, "initialize">;
 
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    "constants",
+    {
+      path: "constants",
+      omit: ["initialize"],
+    },
+  ],
   // eslint-disable-next-line no-undef
-  ].map(p=>`${__dirname}/${p}`),
+  dirname: __dirname,
 } );
 
 export {

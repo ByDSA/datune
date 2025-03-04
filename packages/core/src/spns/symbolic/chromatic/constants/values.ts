@@ -1,5 +1,5 @@
-import { SPN } from "../SPN";
 import { Pitches } from "pitches/chromatic";
+import { SPN } from "../SPN";
 
 export function initializeValues() {
   // El negativo es por compatibilidad con MidiPitch

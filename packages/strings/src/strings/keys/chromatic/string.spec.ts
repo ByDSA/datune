@@ -1,8 +1,8 @@
 import { Keys } from "@datune/core/keys/chromatic";
-import { stringifyKey } from ".";
 import { LangId } from "lang";
 import { stringifyPitches } from "strings/pitches/chromatic/array";
 import { TestInit, TestLang } from "tests";
+import { stringifyKey } from ".";
 
 TestInit.chromaticKey();
 TestLang.loadAll();

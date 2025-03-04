@@ -1,16 +1,16 @@
 /* eslint-disable camelcase */
-
+import type { Scale } from "../Scale";
+import type { Degree } from "degrees/chromatic";
+import type { Arrays } from "@datune/utils";
 import { lockr } from "@datune/utils/immutables";
 import { fromIntraIntervals, fromRootIntervals } from "../building";
 import { mode } from "../modifiers";
-import { Scale } from "../Scale";
-import type { Degree } from "degrees/chromatic";
 
 export function initialize() {
   if (MAJOR)
     throw new Error("Scale is already initialized");
 
-  MAJOR = fromRootIntervals(0, 2, 4, 5, 7, 9, 11);
+  MAJOR = fromRootIntervals(...MAJOR_SCALE_DEGREES as Arrays.Number);
   MAJOR.toString = (): string => "Major";
   IONIAN = MAJOR;
 
@@ -24,7 +24,7 @@ export function initialize() {
 
   MINOR = mode(MAJOR, 6);
   MINOR.toString = (): string => "Minor";
-  EOLIAN = MINOR;
+  AEOLIAN = MINOR;
 
   LOCRIAN = mode(MAJOR, 7);
 
@@ -196,7 +196,7 @@ export function initialize() {
   lockr(COMMON);
 }
 
-export const MAJOR_SCALE_DEGREES: Degree[] = [0, 2, 4, 5, 7, 9, 11];
+export const MAJOR_SCALE_DEGREES: readonly Degree[] = Object.freeze([0, 2, 4, 5, 7, 9, 11]);
 
 export let MAJOR: Scale;
 
@@ -210,7 +210,7 @@ export let LYDIAN: Scale;
 
 export let MIXOLYDIAN: Scale;
 
-export let EOLIAN: Scale;
+export let AEOLIAN: Scale;
 
 export let MINOR: Scale;
 

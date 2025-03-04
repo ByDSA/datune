@@ -1,25 +1,28 @@
-import { Scale } from "./Scale";
-
-import { ScaleArray } from "./Array";
-
-import * as Building from "./building";
-
-import type * as ConversionsType from "./conversions";
+import type * as Conversions from "./conversions";
 import type * as Constants from "./constants";
+import type { ScaleArray } from "./Array";
 import { createProxyBarrel } from "lazy-load";
+import { Scale } from "./Scale";
+import * as Building from "./building";
+import * as Modifiers from "./modifiers";
 
 const staticModule = {
   ...Building,
+  ...Modifiers,
 };
 
-type LazyType = typeof Constants & typeof ConversionsType;
+type LazyType = Omit<typeof Constants, "initialize"> & typeof Conversions;
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
     "conversions",
-    "constants",
+    {
+      path: "constants",
+      omit: ["initialize"],
+    },
+  ],
   // eslint-disable-next-line no-undef
-  ].map(p=>`${__dirname}/${p}`),
+  dirname: __dirname,
 } );
 
 export {

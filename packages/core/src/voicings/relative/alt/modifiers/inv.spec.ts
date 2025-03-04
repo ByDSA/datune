@@ -1,7 +1,7 @@
-import { TRIAD_MAJOR } from "../constants";
 import type { Voicing } from "../Voicing";
-import { inv } from "./inv";
 import { TestInit } from "tests";
+import { TRIAD_MAJOR } from "../constants";
+import { inv } from "./inv";
 
 TestInit.diatonicAltVoicing();
 

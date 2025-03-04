@@ -1,26 +1,27 @@
 import type { Voicing } from "./Voicing";
-
 import type { VoicingArray } from "./Array";
-
-import * as Building from "./building";
-import * as Modifiers from "./modifiers";
-
 import type * as Constants from "./constants";
 import { createProxyBarrel } from "lazy-load";
+import * as Building from "./building";
+import * as Modifiers from "./modifiers";
 
 const staticModule = {
   ...Building,
   ...Modifiers,
 };
 
-type LazyType = typeof Constants;
+type LazyType = Omit<typeof Constants, "initialize">;
 
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    "constants",
+    {
+      path: "constants",
+      omit: ["initialize"],
+    },
+  ],
   // eslint-disable-next-line no-undef
-  ].map(p=>`${__dirname}/${p}`),
+  dirname: __dirname,
 } );
 
 export {

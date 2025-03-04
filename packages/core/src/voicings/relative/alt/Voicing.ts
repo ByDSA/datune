@@ -1,5 +1,5 @@
-import { lockr } from "@datune/utils/immutables";
 import type { Voicing as IVoicing } from "../Voicing";
+import { lockr } from "@datune/utils/immutables";
 import { IntervalArray, Interval } from "intervals/alt";
 
 export class Voicing implements IVoicing<Interval> {

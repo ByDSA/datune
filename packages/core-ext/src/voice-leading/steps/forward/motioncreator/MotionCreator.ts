@@ -1,4 +1,4 @@
-import { Arrays } from "@datune/utils";
+import type { Arrays } from "@datune/utils";
 import { Interval as ChromaticInterval } from "@datune/core/intervals/chromatic";
 import { betweenSPN } from "@datune/core/intervals/symbolic/chromatic/building";
 import { KeyArray } from "@datune/core/keys/chromatic";

@@ -1,9 +1,9 @@
-import { CHROMATIC } from "./constants";
-import { getDegreeFunctions } from "./modifiers";
 import { DegreeArray as DegreeAltArray, Degrees } from "degrees/alt";
 import { Degrees as D } from "degrees/diatonic";
 import { Functions as F } from "functions/alt";
 import { TestInit } from "tests";
+import { getDegreeFunctions } from "./modifiers";
+import { CHROMATIC } from "./constants";
 
 TestInit.diatonicAltScale();
 TestInit.diatonicAltFunction();

@@ -1,4 +1,4 @@
-import { Arrays } from "@datune/utils";
+import type { Arrays } from "@datune/utils";
 import { StepCombiner } from "../../../combiner/StepCombiner";
 import { compactStepsArray } from "../../../forward/multi/Utils";
 import { Array as SingleStepArray, from } from "../../../single";

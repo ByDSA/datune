@@ -1,7 +1,7 @@
-import * as Const from "../constants";
-import { betweenNext } from "./betweenNext";
 import { Pitches as P } from "pitches/alt";
 import { TestInit } from "tests";
+import * as Const from "../constants";
+import { betweenNext } from "./betweenNext";
 
 TestInit.diatonicAlt();
 TestInit.diatonicAltInterval();
@@ -11,10 +11,10 @@ describe("tests", () => {
   const { A, AA, B, C, DD, E, Gb, G, GG } = P;
 
   it("fromRootNotes: get from ImmutableCache", () => {
-    const intervalDiatonicAlt = betweenNext(C, E);
-    const expected = Const.MAJOR_THIRD;
+    const interval = betweenNext(C, E);
+    const expected = Const.M3;
 
-    expect(intervalDiatonicAlt).toBe(expected);
+    expect(interval).toBe(expected);
   } );
 
   it("gb to D#: DOUBLY DIMINISHED FIFTH", () => {
@@ -24,65 +24,65 @@ describe("tests", () => {
     expect(a).toBeDefined();
     expect(b).toBeDefined();
 
-    const intervalDiatonicAlt = betweenNext(a, b);
-    const expected = Const.DOUBLY_AUGMENTED_FIFTH;
+    const interval = betweenNext(a, b);
+    const expected = Const.da5;
 
     expect(expected).toBeDefined();
 
-    expect(intervalDiatonicAlt).toBe(expected);
+    expect(interval).toBe(expected);
   } );
 
   it("b to C: MINOR SECOND", () => {
     const a = B;
     const b = C;
-    const intervalDiatonicAlt = betweenNext(a, b);
-    const expected = Const.MINOR_SECOND;
+    const interval = betweenNext(a, b);
+    const expected = Const.m2;
 
-    expect(intervalDiatonicAlt).toBe(expected);
+    expect(interval).toBe(expected);
   } );
 
   it("c to B: MAJOR SEVENTH", () => {
     const a = C;
     const b = B;
-    const intervalDiatonicAlt = betweenNext(a, b);
-    const expected = Const.MAJOR_SEVENTH;
+    const interval = betweenNext(a, b);
+    const expected = Const.M7;
 
-    expect(intervalDiatonicAlt).toBe(expected);
+    expect(interval).toBe(expected);
   } );
 
   it("d# to Gb: DOUBLY DIMINISHED FIFTH", () => {
     const a = DD;
     const b = Gb;
-    const intervalDiatonicAlt = betweenNext(a, b);
-    const expected = Const.DOUBLY_DIMINISHED_FOURTH;
+    const interval = betweenNext(a, b);
+    const expected = Const.dd4;
 
-    expect(intervalDiatonicAlt).toBe(expected);
+    expect(interval).toBe(expected);
   } );
 
   it("a to A#:", () => {
     const a = A;
     const b = AA;
-    const intervalDiatonicAlt = betweenNext(a, b);
-    const expected = Const.AUGMENTED_UNISON;
+    const interval = betweenNext(a, b);
+    const expected = Const.a1;
 
-    expect(intervalDiatonicAlt).toBe(expected);
+    expect(interval).toBe(expected);
   } );
 
   it("a to G#:", () => {
     const a = A;
     const b = GG;
-    const intervalDiatonicAlt = betweenNext(a, b);
-    const expected = Const.MAJOR_SEVENTH;
+    const interval = betweenNext(a, b);
+    const expected = Const.M7;
 
-    expect(intervalDiatonicAlt).toBe(expected);
+    expect(interval).toBe(expected);
   } );
 
   it("g# to G:", () => {
     const a = GG;
     const b = G;
-    const intervalDiatonicAlt = betweenNext(a, b);
-    const expected = Const.DIMINISHED_OCTAVE;
+    const interval = betweenNext(a, b);
+    const expected = Const.d8;
 
-    expect(intervalDiatonicAlt).toBe(expected);
+    expect(interval).toBe(expected);
   } );
 } );

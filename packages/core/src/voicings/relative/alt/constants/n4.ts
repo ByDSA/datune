@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
-
-import { fromVoicings } from "../building/voicings";
-import { inv } from "../modifiers/inv";
 import type { Voicing } from "../Voicing";
-import { map } from "./inversionMap";
 import { Voicings as DV } from "voicings/diatonic";
 import { Voicings as CV } from "voicings/chromatic";
+import { fromVoicings } from "../building/voicings";
+import { inv } from "../modifiers/inv";
+import { map } from "./inversionMap";
 
 export function initializeN4() {
   SEVENTH = fromVoicings(CV.SEVENTH, DV.SEVENTH) as Voicing;

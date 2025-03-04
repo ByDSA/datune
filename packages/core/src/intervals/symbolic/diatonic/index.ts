@@ -1,21 +1,15 @@
+import type * as Constants from "./constants";
 import type { Interval } from "./Interval";
 import type { IntervalArray } from "./Array";
-
-import { fromInt } from "./building";
-
-import type * as Constants from "./constants";
-
-import { Direction } from "./Direction";
-
-import type { isMainInterval } from "./isMainInterval"; // deps: modifiers
-
+import type { isMainInterval } from "./isMainInterval";
 import type { abs } from "./modifiers/abs";
 import type { add } from "./modifiers/add";
 import type { neg } from "./modifiers/neg";
-import type { simplify } from "./modifiers/simplify"; // pitches/diatonic
+import type { simplify } from "./modifiers/simplify";
 import type { sub } from "./modifiers/sub";
-
 import { createProxyBarrel } from "lazy-load";
+import { Direction } from "./Direction";
+import { fromInt } from "./building";
 
 const staticModule = {
   fromInt,
@@ -39,9 +33,13 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "modifiers/simplify",
     "modifiers/sub",
     "isMainInterval",
-    "constants",
+    {
+      path: "constants",
+      omit: ["initialize"],
+    },
+  ],
   // eslint-disable-next-line no-undef
-  ].map(p=>`${__dirname}/${p}`),
+  dirname: __dirname,
 } );
 
 export {

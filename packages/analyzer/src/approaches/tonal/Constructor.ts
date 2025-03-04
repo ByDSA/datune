@@ -1,5 +1,5 @@
 import { TimeSignature } from "@datune/core";
-import { S4_4 } from "@datune/core/time/symbolic/rhythm/signature/constants";
+import { S4_4 } from "@datune/core/rhythm/tempo/time-signature/constants";
 
 export type ConstructorObjType = {
   initial: {

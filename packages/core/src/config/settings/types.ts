@@ -1,25 +1,25 @@
-import { Chord as ChordAlt } from "chords/alt";
-import { Chord } from "chords/chromatic";
 import type { ConcertPitch } from "concert-pitches/chromatic";
-import { Key as KeyAlt } from "keys/alt";
-import { Key } from "keys/chromatic";
-import { Pitch as DiatonicAlt } from "pitches/alt";
-import { Pitch as Chromatic } from "pitches/chromatic";
-import { Scale as ScaleAlt } from "scales/alt";
-import { Temperament } from "temperaments/chromatic";
-import { Tuning } from "tunings/chromatic";
-import { Voicing as DiatonicAltPattern } from "voicings/alt";
+import type { Chord as AChord } from "chords/alt";
+import type { Chord } from "chords/chromatic";
+import type { Key as AKey } from "keys/alt";
+import type { Key } from "keys/chromatic";
+import type { Pitch as APitch } from "pitches/alt";
+import type { Pitch as CPitch } from "pitches/chromatic";
+import type { Scale as AScale } from "scales/alt";
+import type { Temperament } from "temperaments/chromatic";
+import type { Tuning } from "tunings/chromatic";
+import type { Voicing as AVoicing } from "voicings/alt";
 
 export type SettingsInterface = {
     default: {
-        note: Chromatic;
-        diatonicAlt: DiatonicAlt;
-        scale: ScaleAlt;
-        keyAlt: KeyAlt;
+        note: CPitch;
+        diatonicAlt: APitch;
+        scale: AScale;
+        keyAlt: AKey;
         key: Key;
         chord: Chord;
-        chordAlt: ChordAlt;
-        voicingAlt: DiatonicAltPattern;
+        chordAlt: AChord;
+        voicingAlt: AVoicing;
         temperament: Temperament;
         tuning: Tuning;
         concertPitch: ConcertPitch;

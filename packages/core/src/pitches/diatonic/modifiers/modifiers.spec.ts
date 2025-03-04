@@ -1,7 +1,7 @@
-import { A, B, C, D } from "../constants";
-import { add, sub } from ".";
 import { Intervals } from "intervals/diatonic";
 import { TestInit } from "tests";
+import { A, B, C, D } from "../constants";
+import { add, sub } from ".";
 
 TestInit.diatonicInterval();
 

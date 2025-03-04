@@ -1,24 +1,25 @@
-import * as C from "../constants";
 import type { Interval } from "../Interval";
-import { neg } from "./neg";
 import { TestInit } from "tests";
 import { neg as DIntervalsNeg } from "intervals/symbolic/diatonic/modifiers/neg";
+import * as C from "../constants";
+import { neg } from "./neg";
+
 TestInit.diatonicAltInterval();
 
 describe.each([
-  ()=>C.MINOR_SECOND,
-  ()=>C.MAJOR_SECOND,
-  ()=>C.MINOR_THIRD,
-  ()=>C.MAJOR_THIRD,
-  ()=>C.PERFECT_FOURTH,
-  ()=>C.AUGMENTED_FOURTH,
-  ()=>C.DIMINISHED_FIFTH,
-  ()=>C.AUGMENTED_FIFTH,
-  ()=>C.MINOR_SIXTH,
-  ()=>C.MAJOR_SIXTH,
-  ()=>C.MINOR_SEVENTH,
-  ()=>C.MAJOR_SEVENTH,
-  ()=>C.PERFECT_OCTAVE,
+  ()=>C.m2,
+  ()=>C.M2,
+  ()=>C.m3,
+  ()=>C.M3,
+  ()=>C.P4,
+  ()=>C.a4,
+  ()=>C.d5,
+  ()=>C.a5,
+  ()=>C.m6,
+  ()=>C.M6,
+  ()=>C.m7,
+  ()=>C.M7,
+  ()=>C.P8,
 ])("tests", (getInterval: ()=> Interval) => {
   const interval = getInterval();
 
@@ -47,8 +48,8 @@ describe.each([
 } );
 
 describe("p1", () => {
-  it(`same diatonicInterval: ${String(C.PERFECT_UNISON)}`, () => {
-    const interval = C.PERFECT_UNISON;
+  it(`same diatonicInterval: ${String(C.P1)}`, () => {
+    const interval = C.P1;
 
     expect(interval).toBeDefined();
 
@@ -59,7 +60,7 @@ describe("p1", () => {
     expect(negativeDiatonicInterval).toBe(positiveDiatonicInterval);
   } );
 
-  const interval = C.PERFECT_UNISON;
+  const interval = C.P1;
 
   it(`same quality: ${String(interval)}`, () => {
     const negative = neg(interval);

@@ -1,7 +1,7 @@
+import { TestInit } from "tests";
 import { MAJOR, MINOR } from "../constants";
 import { Scale } from "../Scale";
 import { hash } from "./hash";
-import { TestInit } from "tests";
 
 TestInit.diatonicAltScale();
 

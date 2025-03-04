@@ -1,7 +1,7 @@
-import { Scale } from "../Scale";
-import { fromRootIntervals } from "./rootIntervals";
 import { DegreeArray, Degrees } from "degrees/alt";
 import { IntervalArray } from "intervals/alt";
+import { Scale } from "../Scale";
+import { fromRootIntervals } from "./rootIntervals";
 
 export function fromDegrees(...degrees: DegreeArray): Scale {
   const rootIntervals = degrees.map(Degrees.toInterval) as IntervalArray;

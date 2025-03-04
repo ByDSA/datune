@@ -1,10 +1,10 @@
 import { Keys } from "@datune/core/keys/chromatic";
 import { Pitches } from "@datune/core/pitches/chromatic";
 import { SPNs, SPN } from "@datune/core/spns/chromatic";
-import { QUARTER, WHOLE, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
+import { QUARTER, WHOLE, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { intervalOf } from "@datune/utils/math";
-import { NotesSequence } from "./NotesSequence";
 import { TestInit } from "tests";
+import { NotesSequence } from "./NotesSequence";
 
 TestInit.initAll();
 const { add, C: P_C, D: P_D, E: P_E, F: P_F, G: P_G } = Pitches;

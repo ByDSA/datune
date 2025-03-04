@@ -1,12 +1,12 @@
-import { ET12_MAJOR, PT_MAJOR } from "./constants";
 import { Intervals } from "intervals/real";
 import { TestInit } from "tests";
+import { ET12_MAJOR, PT_MAJOR } from "./constants";
 
 TestInit.realScale();
 
 describe("tests", () =>{
   // eslint-disable-next-line max-len
-  const { ET12_MAJOR_SECOND, ET12_MAJOR_SEVENTH, ET12_MAJOR_SIXTH, ET12_MAJOR_THIRD, ET12_PERFECT_FIFTH, ET12_PERFECT_FOURTH, PT_MAJOR_SECOND, PT_MAJOR_SEVENTH, PT_MAJOR_SIXTH, PT_MAJOR_THIRD, PT_PERFECT_FIFTH, PT_PERFECT_FOURTH, UNISON } = Intervals;
+  const { ET12_M2, ET12_M7, ET12_M6, ET12_M3, ET12_P5, ET12_P4, PT_M2, PT_M7, PT_M6, PT_M3, PT_P5, PT_P4, UNISON } = Intervals;
 
   it("precalc - MAJOR 12-ET", () => {
     const scale = ET12_MAJOR;
@@ -20,12 +20,12 @@ describe("tests", () =>{
 
     expect(intraIntervals).toStrictEqual([
       UNISON,
-      ET12_MAJOR_SECOND,
-      ET12_MAJOR_THIRD,
-      ET12_PERFECT_FOURTH,
-      ET12_PERFECT_FIFTH,
-      ET12_MAJOR_SIXTH,
-      ET12_MAJOR_SEVENTH,
+      ET12_M2,
+      ET12_M3,
+      ET12_P4,
+      ET12_P5,
+      ET12_M6,
+      ET12_M7,
     ]);
   } );
 
@@ -35,12 +35,12 @@ describe("tests", () =>{
 
     expect(intraIntervals).toStrictEqual([
       UNISON,
-      PT_MAJOR_SECOND,
-      PT_MAJOR_THIRD,
-      PT_PERFECT_FOURTH,
-      PT_PERFECT_FIFTH,
-      PT_MAJOR_SIXTH,
-      PT_MAJOR_SEVENTH,
+      PT_M2,
+      PT_M3,
+      PT_P4,
+      PT_P5,
+      PT_M6,
+      PT_M7,
     ]);
   } );
 } );

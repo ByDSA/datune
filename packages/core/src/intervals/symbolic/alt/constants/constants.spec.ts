@@ -1,12 +1,12 @@
+import { TestInit } from "tests";
 import * as DIntervals from "../../diatonic/constants";
 import { fromIntervalQuality } from "../building/intervalQuality";
-import { MAJOR } from "../quality/constants";
+import { M } from "../quality/constants";
 import * as C from "./index";
-import { TestInit } from "tests";
 
 describe("initial state", () => {
   it("should be undefined", () => {
-    expect(C.PERFECT_UNISON).toBeUndefined();
+    expect(C.P1).toBeUndefined();
   } );
 } );
 
@@ -20,20 +20,20 @@ describe("after initialization", () => {
   } );
 
   it("constants should be defined", () => {
-    expect(C.PERFECT_UNISON).toBeDefined();
-    expect(C.PERFECT_UNISON.quality).toBeDefined();
-    expect(C.PERFECT_UNISON.diatonicInterval).toBeDefined();
+    expect(C.P1).toBeDefined();
+    expect(C.P1.quality).toBeDefined();
+    expect(C.P1.diatonicInterval).toBeDefined();
   } );
 
   it("cache", () => {
-    const expected = C.MAJOR_THIRD;
-    const actual = fromIntervalQuality(DIntervals.THIRD, MAJOR);
+    const expected = C.M3;
+    const actual = fromIntervalQuality(DIntervals.THIRD, M);
 
     expect(actual).toBe(expected);
   } );
 
   it("cachex", () => {
-    expect(C.MAJOR_THIRD.diatonicInterval).toBe(DIntervals.THIRD);
-    expect(C.MAJOR_THIRD.quality).toBe(MAJOR);
+    expect(C.M3.diatonicInterval).toBe(DIntervals.THIRD);
+    expect(C.M3.quality).toBe(M);
   } );
 } );

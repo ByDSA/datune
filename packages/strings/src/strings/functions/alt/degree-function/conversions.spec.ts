@@ -1,6 +1,6 @@
 import { Functions as F } from "@datune/core/functions/alt";
-import { stringifyDegreeFunction } from ".";
 import { TestInit, TestLang } from "tests";
+import { stringifyDegreeFunction } from ".";
 
 TestInit.diatonicAltFunction();
 TestLang.loadAll();

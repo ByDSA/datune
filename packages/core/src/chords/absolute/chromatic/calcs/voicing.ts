@@ -1,9 +1,9 @@
-import { Chord } from "../Chord";
 import { IntervalArray, Intervals, Interval } from "intervals/chromatic";
 import { Voicings, Voicing } from "voicings/chromatic";
+import { Chord } from "../Chord";
 
-export function voicing(obj: Chord): Voicing {
-  const rootIntervals: IntervalArray = [Intervals.PERFECT_UNISON];
+export function voicingOf(obj: Chord): Voicing {
+  const rootIntervals: IntervalArray = [Intervals.P1];
   const { root } = obj;
 
   for (let i = 1; i < obj.length; i++) {

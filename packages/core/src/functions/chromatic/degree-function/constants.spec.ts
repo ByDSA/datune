@@ -1,9 +1,9 @@
-import { from } from "./building/from";
-import { I, Im, IVMaj7, VII0 } from "./constants";
 import type { DegreeFunction } from "./DegreeFunction";
 import { Degrees as C, Degree } from "degrees/chromatic";
 import { TestInit } from "tests";
 import { Voicings, Voicing } from "voicings/chromatic";
+import { I, Im, IVMaj7, VII0 } from "./constants";
+import { from } from "./building/from";
 
 TestInit.chromaticFunction();
 

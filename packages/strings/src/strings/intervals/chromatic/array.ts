@@ -1,4 +1,4 @@
-import { IntervalArray } from "@datune/core/intervals/chromatic";
+import type { IntervalArray } from "@datune/core/intervals/chromatic";
 import { stringifyInterval } from "./interval";
 
 export function stringifyIntervalArray(array: IntervalArray): string {

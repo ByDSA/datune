@@ -1,10 +1,10 @@
-import { Arrays } from "@datune/utils";
-import { IKey } from "../Key";
 import type { Dto } from "./caching/Dto";
-import { Chord } from "chords/chromatic";
 import type { Interval } from "intervals/chromatic";
+import type { Arrays } from "@datune/utils";
+import { Chord } from "chords/chromatic";
 import { PitchArray, Pitch, Pitches } from "pitches/chromatic";
 import { Scales, Scale } from "scales/chromatic";
+import { IKey } from "../Key";
 
 export class Key implements
   IKey<Interval, Pitch, Scale, Chord> {

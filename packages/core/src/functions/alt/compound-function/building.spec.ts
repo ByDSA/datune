@@ -1,8 +1,8 @@
+import { TestInit } from "tests";
+import { Degrees as D } from "degrees/alt";
 import * as DegreeFunctions from "../degree-function/constants";
 import { compose } from "./building/compose";
 import { V7_V, V_V } from "./constants";
-import { TestInit } from "tests";
-import { Degrees as D } from "degrees/alt";
 
 TestInit.diatonicAltFunction();
 TestInit.diatonicAltKey();

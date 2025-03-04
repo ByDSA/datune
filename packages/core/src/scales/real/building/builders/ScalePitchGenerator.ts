@@ -1,7 +1,7 @@
 import { frac, FracExp, mult } from "@datune/utils/math";
+import { IntervalArray, Intervals, Interval } from "intervals/real";
 import { Scale } from "../../Scale";
 import { fromIntervals } from "../intervals";
-import { IntervalArray, Intervals, Interval } from "intervals/real";
 
 class ScalePitchGenerator {
   #interval: Interval;

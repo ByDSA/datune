@@ -1,10 +1,10 @@
-import { Arrays } from "@datune/utils";
 import type { Pitch } from "@datune/core/pitches/alt";
+import type { Pitch as CPitch } from "@datune/core/pitches/chromatic";
+import type { PitchArray as DPitchArray, Pitch as DPitch } from "@datune/core/pitches/diatonic";
+import type { Arrays } from "@datune/utils";
 import { fromDiatonicAlts as pitchFrom } from "@datune/core/pitches/alt/building/diatonicAlts";
 import { toChromatic } from "@datune/core/pitches/alt/conversions";
 import { DiatonicAltBuilder } from "@datune/core/pitches/alt/building/builders/DiatonicAltBuilder";
-import { Pitch as Chromatic } from "@datune/core/pitches/chromatic";
-import type { PitchArray as DPitchArray, Pitch as Diatonic } from "@datune/core/pitches/diatonic";
 import { ALL as D_ALL } from "@datune/core/pitches/diatonic/constants";
 
 export class DiatonicAltFinder {
@@ -12,7 +12,7 @@ export class DiatonicAltFinder {
 
   #maxFlats: number;
 
-  #note: Chromatic | undefined;
+  #note: CPitch | undefined;
 
   #diatonics: DPitchArray | undefined;
 
@@ -25,7 +25,7 @@ export class DiatonicAltFinder {
     return new DiatonicAltFinder();
   }
 
-  setNote(c: Chromatic): DiatonicAltFinder {
+  setNote(c: CPitch): DiatonicAltFinder {
     this.#note = c;
 
     return this;
@@ -61,12 +61,12 @@ export class DiatonicAltFinder {
       const builder = DiatonicAltBuilder.create()
         .setNote(this.#note)
         .setDiatonic(this.#diatonics[0]);
-      const diatonicAlt = builder.build();
+      const pitch = builder.build();
 
-      if (!diatonicAlt)
+      if (!pitch)
         return [];
 
-      return [diatonicAlt];
+      return [pitch];
     }
 
     if (!this.#note && this.#diatonics && this.#diatonics.length > 0 && this.#validMaxAlts()) {
@@ -99,7 +99,7 @@ export class DiatonicAltFinder {
 
   #addAllDiatonicsIfEmpty() {
     if (!this.#diatonics)
-      this.#diatonics = <Arrays.NonEmpty<Diatonic>>[...D_ALL];
+      this.#diatonics = <Arrays.NonEmpty<DPitch>>[...D_ALL];
   }
 
   #createDiatonicAltsFromDiatonicsAndMaxAltsIterator(f: (dAlt: Pitch)=> void) {
@@ -108,9 +108,9 @@ export class DiatonicAltFinder {
 
     for (const diatonic of this.#diatonics) {
       for (let alts = -this.#maxFlats; alts <= this.#maxSharps; alts++) {
-        const diatonicAlt: Pitch = pitchFrom(diatonic, alts);
+        const pitch: Pitch = pitchFrom(diatonic, alts);
 
-        f(diatonicAlt);
+        f(pitch);
       }
     }
   }

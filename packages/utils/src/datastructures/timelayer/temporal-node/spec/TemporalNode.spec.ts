@@ -1,6 +1,6 @@
+import { intervalOf } from "math";
 import { EventTest } from "./EventTest";
 import { newNode1 } from "./utils";
-import { intervalOf } from "math";
 
 it("info", () => {
   const node = newNode1();

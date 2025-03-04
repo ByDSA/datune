@@ -1,7 +1,7 @@
 import { Keys } from "@datune/core/keys/alt";
-import { stringifyKey } from ".";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
+import { stringifyKey } from ".";
 
 TestLang.loadAll();
 TestInit.diatonicAltKey();

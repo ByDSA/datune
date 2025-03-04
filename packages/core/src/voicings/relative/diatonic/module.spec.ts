@@ -1,24 +1,60 @@
-import { Voicings } from ".";
 import { TestInit } from "tests";
+import { expectExportModulesAsync } from "tests/modules";
+import { Voicings as V } from ".";
 
+TestInit.diatonicInterval();
 TestInit.diatonicVoicing();
 
-describe("static properties should be defined", () => {
-  it("building", () => {
-    expect(Voicings.fromRootIntervalInts).toBeDefined();
-  } );
+const vars: string[] = [
+  // Constants
+  "INTERVAL_SECOND",
+  "INTERVAL_THIRD",
+  "INTERVAL_FOURTH",
+  "INTERVAL_FIFTH",
+  "INTERVAL_SIXTH",
+  "INTERVAL_SEVENTH",
+  "TRIAD",
+  "QUARTAL",
+  "SIXTH",
+  "SIXTH_ADD9",
+  "SEVENTH",
+  "SEVENTH_ADD11",
+  "SEVENTH_ADD13",
+  "NINTH",
+  "NINTH_SUS4",
+  "NINTH_ADD6",
+  "ELEVENTH",
+  "THIRTEENTH",
+  "THIRTEENTH_SUS4",
+  "SUS4",
+  "SEVENTH_SUS4",
+  "TRIAD_OVER_SECOND",
+  "TRIAD_OVER_THIRD",
+  "TRIAD_OVER_FOURTH",
+  "TRIAD_OVER_FIFTH",
+  "TRIAD_OVER_SIXTH",
+  "TRIAD_OVER_SEVENTH",
+];
+const functions: string[] = [
+  // Building
+  V.fromRootIntervalInts.name,
 
-  it("modifiers", () => {
-    expect(Voicings.inv).toBeDefined();
-    expect(Voicings.add).toBeDefined();
-    expect(Voicings.sub).toBeDefined();
-    expect(Voicings.bass).toBeDefined();
-  } );
-} );
+  // Modifiers
+  V.inv.name,
+  V.add.name,
+  V.sub.name,
+  V.bass.name,
+];
 
-describe("lazy properties should be defined", () => {
-  it("constants (some)", () => {
-    expect(Voicings.SECOND_INTERVAL).toBeDefined();
-    expect(Voicings.SEVENTH_SUS4).toBeDefined();
+it("module should export functions and vars", async () => {
+  await expectExportModulesAsync( {
+    expected: {
+      functions,
+      vars,
+    },
+    barrel: V,
+    modules: ["building", "modifiers", "constants"],
+    // eslint-disable-next-line no-undef
+    dirname: __dirname,
   } );
 } );

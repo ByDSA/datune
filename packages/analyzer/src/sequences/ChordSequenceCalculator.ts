@@ -2,7 +2,7 @@ import { MusicalDuration } from "@datune/core";
 import { fromPitches } from "@datune/core/chords/octave/chromatic/building/pitches";
 import { PitchArray as ChromaticArray } from "@datune/core/pitches/chromatic";
 import { SPN } from "@datune/core/spns/chromatic";
-import { ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
+import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { Interval, TemporalNode } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
 import { NotesSequence } from "..";

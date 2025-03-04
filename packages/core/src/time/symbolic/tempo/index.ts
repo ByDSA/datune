@@ -1,3 +1,0 @@
-export {
-  Tempo,
-} from "./Tempo";

@@ -1,19 +1,20 @@
-import { ET12_PERFECT_FIFTH, J_AUGMENTED_FIFTH, OCTAVE, PT_AUGMENTED_SEVENTH, PT_AUGMENTED_UNISON, PT_DIMINISHED_SECOND, UNISON } from "../constants";
+/* eslint-disable camelcase */
 import type { Interval } from "../Interval";
+import { TestInit } from "tests";
+import { ET12_P5, J_a5, OCTAVE, PT_a7, PT_a1, PT_d2, UNISON } from "../constants";
 import { neg } from "./neg";
 import { add } from "./add";
-import { TestInit } from "tests";
 
 TestInit.realInterval();
 
 describe.each([
-  ET12_PERFECT_FIFTH,
-  add(ET12_PERFECT_FIFTH, OCTAVE),
-  J_AUGMENTED_FIFTH,
-  PT_AUGMENTED_SEVENTH,
+  ET12_P5,
+  add(ET12_P5, OCTAVE),
+  J_a5,
+  PT_a7,
   OCTAVE,
-  PT_AUGMENTED_UNISON,
-  PT_DIMINISHED_SECOND,
+  PT_a1,
+  PT_d2,
 ])("tests", (input: Interval): void => {
   it(`${input}`, (): void => {
     const actual = neg(input);

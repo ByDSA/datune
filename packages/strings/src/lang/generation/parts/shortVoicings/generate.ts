@@ -6,10 +6,10 @@ import { ShortVoicingsPart } from "./Part";
 
 export function shortVoicingsGenerate(input: ShortVoicingsInput): ShortVoicingsPart {
   return {
-    get MINOR_SECOND(): string { return `${input.MINOR}2`; },
-    get MAJOR_SECOND(): string { return `${input.MAJOR}2`; },
-    get MINOR_THIRD(): string { return `${input.MINOR}3`; },
-    get MAJOR_THIRD(): string { return `${input.MAJOR}3`; },
+    get m2(): string { return `${input.MINOR}2`; },
+    get M2(): string { return `${input.MAJOR}2`; },
+    get m3(): string { return `${input.MINOR}3`; },
+    get M3(): string { return `${input.MAJOR}3`; },
     get TRITONE(): string { return "TT"; },
     get POWER_CHORD(): string { return "5"; },
     get TRIAD_MAJOR(): string { return input.TRIAD_MAJOR; },

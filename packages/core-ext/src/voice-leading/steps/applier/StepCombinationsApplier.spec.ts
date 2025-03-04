@@ -1,14 +1,14 @@
-import { Keys } from "@datune/core/keys/chromatic";
 import type { PitchArray as ChromaticArray } from "@datune/core/pitches/chromatic";
 import type { SPNArray } from "@datune/core/spns/chromatic";
+import { Keys } from "@datune/core/keys/chromatic";
 import { SPNs } from "@datune/core/spns/chromatic";
+import { TestInit } from "tests";
 import { CompositeSteps } from "../composite";
 import { expandStepsArray } from "../forward/multi/Utils";
 import { NearStepsGen } from "../generators/others/near/NearStepsGenerator";
 import { from, _0_1, _1_S1 } from "../single";
 import { StepArray, Target } from "../Step";
 import { StepCombinationsApplier } from "./StepCombinationsApplier";
-import { TestInit } from "tests";
 
 TestInit.loadAll();
 

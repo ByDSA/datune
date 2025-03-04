@@ -16,9 +16,9 @@ import { initialize as initCPitchSets } from "@datune/core/sets/pitch-set/chroma
 import { initialize as initAltSPNs } from "@datune/core/spns/symbolic/alt/constants";
 import { initialize as initCSPNs } from "@datune/core/spns/symbolic/chromatic/constants";
 import { initialize as initCTemperaments } from "@datune/core/temperaments/chromatic/constants";
-import { initialize as initBPMs } from "@datune/core/time/symbolic/bpm/constants";
-import { initialize as initMusicalDurations } from "@datune/core/time/symbolic/musical-duration/constants";
-import { initialize as initPatterns } from "@datune/core/time/symbolic/rhythm/pattern/constants";
+import { initialize as initBPMs } from "@datune/core/rhythm/tempo/bpm/constants";
+import { initialize as initMusicalDurations } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { initialize as initPatterns } from "@datune/core/rhythm/pattern/constants";
 import { initialize as initCTunings } from "@datune/core/tunings/chromatic/constants";
 import { initialize as initAltVoicings } from "@datune/core/voicings/relative/alt/constants";
 import { initialize as initCVoicings } from "@datune/core/voicings/relative/chromatic/constants";

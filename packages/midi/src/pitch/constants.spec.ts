@@ -1,7 +1,7 @@
 import { SPNs } from "@datune/core/spns/chromatic";
+import { TestInit } from "tests";
 import { A0, A4, A5, B0, B9, C0, C1, C10, C5, C6, C8, C9, MAX, MIN } from "./constants";
 import { MidiCode } from "./MidiCode";
-import { TestInit } from "tests";
 
 TestInit.initAll();
 

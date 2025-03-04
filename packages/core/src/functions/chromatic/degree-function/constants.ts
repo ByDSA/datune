@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-import { from } from "./building/from";
 import type { DegreeFunction } from "./DegreeFunction";
 import { Degrees as D } from "degrees/chromatic";
 import { Voicings } from "voicings/chromatic";
+import { from } from "./building/from";
 
 export function initialize() {
   if (I5)

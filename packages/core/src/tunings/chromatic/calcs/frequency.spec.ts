@@ -1,8 +1,8 @@
-import * as Constants from "../constants";
 import type { Tuning } from "../Tuning";
-import { calcFrequency } from "./frequency";
 import { TestInit } from "tests";
 import { SPNs, type SPN } from "spns/chromatic";
+import * as Constants from "../constants";
+import { calcFrequency } from "./frequency";
 
 TestInit.chromaticTuning();
 

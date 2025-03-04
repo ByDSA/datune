@@ -1,7 +1,7 @@
 import { Pitches } from "@datune/core/pitches/chromatic";
-import { stringifyPitch } from ".";
 import { LangId } from "lang";
 import { TestLang } from "tests";
+import { stringifyPitch } from ".";
 
 TestLang.loadAll();
 

@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-use-before-define */
-
-import { Arrays } from "@datune/utils";
-import { RelativePitch } from "./RelativePitch";
+import type { Arrays } from "@datune/utils";
 import type { Voicing } from "./Voicing";
 import { OctavePitch } from "pitches/OctavePitch";
+import { RelativePitch } from "./RelativePitch";
 
 type NonEmptyArray<T> = Arrays.NonEmpty<T>;
 export abstract class VoicingGenerator<D extends OctavePitch> {

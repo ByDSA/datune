@@ -1,11 +1,11 @@
-import { Arrays } from "@datune/utils";
+import type { Arrays } from "@datune/utils";
 import { SPN } from "@datune/core/spns/chromatic";
+import { CompositeSteps } from "voice-leading/steps/composite/CompositeSteps";
 import { StepCombiner } from "../../combiner/StepCombiner";
 import { CompositeStep } from "../../composite/CompositeStep";
 import { ReasonStepMap } from "../../reason/ReasonStepMap";
 import { Array as SingleStepArray, SingleStep } from "../../single";
 import { Step, StepArray } from "../../Step";
-import { CompositeSteps } from "voice-leading/steps/composite/CompositeSteps";
 
 export function checkAndFixInputSPN(notes: SPN[]) {
   if (!notes || notes.length === 0)

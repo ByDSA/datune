@@ -1,8 +1,8 @@
-import { VoicingGenerator } from "./VoicingGenerator";
-import { PitchArray as DiatonicAltArray, Pitches as DAP } from "pitches/alt";
-import { PitchArray as ChromaticArray, Pitches as CP } from "pitches/chromatic";
-import { PitchArray as DiatonicArray, Pitches as DP } from "pitches/diatonic";
+import { PitchArray as APitchArray, Pitches as AP } from "pitches/alt";
+import { PitchArray as CPitchArray, Pitches as CP } from "pitches/chromatic";
+import { PitchArray as DPitchArray, Pitches as DP } from "pitches/diatonic";
 import { TestInit } from "tests";
+import { VoicingGenerator } from "./VoicingGenerator";
 
 beforeAll(() => {
   TestInit.diatonicAlt();
@@ -11,7 +11,7 @@ beforeAll(() => {
 describe("closed", () => {
   describe("should be without changes, in the same octave", () => {
     it("input: C E G", () => {
-      const degrees: ChromaticArray = [CP.C, CP.E, CP.G];
+      const degrees: CPitchArray = [CP.C, CP.E, CP.G];
       const actual = VoicingGenerator.CLOSED.apply(...degrees);
 
       expect(actual).toHaveLength(3);
@@ -24,7 +24,7 @@ describe("closed", () => {
     } );
 
     it("c E G B", () => {
-      const degrees: ChromaticArray = [CP.C, CP.E, CP.G, CP.B];
+      const degrees: CPitchArray = [CP.C, CP.E, CP.G, CP.B];
       const actual = VoicingGenerator.CLOSED.apply(...degrees);
 
       expect(actual).toHaveLength(4);
@@ -40,7 +40,7 @@ describe("closed", () => {
   } );
 
   it("rEPEAT DEGREE - C E G C. should omit last C", () => {
-    const degrees: ChromaticArray = [CP.C, CP.E, CP.G, CP.C];
+    const degrees: CPitchArray = [CP.C, CP.E, CP.G, CP.C];
     const actual = VoicingGenerator.CLOSED.apply(...degrees);
 
     expect(actual).toHaveLength(3);
@@ -54,7 +54,7 @@ describe("closed", () => {
 
   describe("should resort in the same octave", () => {
     it("c E G B D", () => {
-      const degrees: ChromaticArray = [CP.C, CP.E, CP.G, CP.B, CP.D];
+      const degrees: CPitchArray = [CP.C, CP.E, CP.G, CP.B, CP.D];
       const actual = VoicingGenerator.CLOSED.apply(...degrees);
 
       expect(actual).toHaveLength(5);
@@ -72,24 +72,24 @@ describe("closed", () => {
   } );
 
   it("diatonicAlt: C Eb G Bb", () => {
-    const degrees: DiatonicAltArray = [DAP.C, DAP.Eb, DAP.G, DAP.Bb];
+    const degrees: APitchArray = [AP.C, AP.Eb, AP.G, AP.Bb];
     const actual = VoicingGenerator.CLOSED.apply(...degrees);
 
     expect(actual).toHaveLength(4);
-    expect(actual[0].pitch).toEqual(DAP.C);
+    expect(actual[0].pitch).toEqual(AP.C);
     expect(actual[0].octaveRelative).toBe(0);
-    expect(actual[1].pitch).toEqual(DAP.Eb);
+    expect(actual[1].pitch).toEqual(AP.Eb);
     expect(actual[1].octaveRelative).toBe(0);
-    expect(actual[2].pitch).toEqual(DAP.G);
+    expect(actual[2].pitch).toEqual(AP.G);
     expect(actual[2].octaveRelative).toBe(0);
-    expect(actual[3].pitch).toEqual(DAP.Bb);
+    expect(actual[3].pitch).toEqual(AP.Bb);
     expect(actual[3].octaveRelative).toBe(0);
   } );
 } );
 
 describe("closed unsorted", () => {
   it("rEPEAT DEGREE - C G E C", () => {
-    const degrees: ChromaticArray = [CP.C, CP.G, CP.E, CP.C];
+    const degrees: CPitchArray = [CP.C, CP.G, CP.E, CP.C];
     const actual = VoicingGenerator.CLOSED_UNSORTED.apply(...degrees);
 
     expect(actual).toHaveLength(3);
@@ -102,7 +102,7 @@ describe("closed unsorted", () => {
   } );
 
   it("c E G B D", () => {
-    const degrees: ChromaticArray = [CP.C, CP.E, CP.G, CP.B, CP.D];
+    const degrees: CPitchArray = [CP.C, CP.E, CP.G, CP.B, CP.D];
     const actual = VoicingGenerator.CLOSED_UNSORTED.apply(...degrees);
 
     expect(actual).toHaveLength(5);
@@ -119,7 +119,7 @@ describe("closed unsorted", () => {
   } );
 
   it("diatonic: C E G B D", () => {
-    const degrees: DiatonicArray = [DP.C, DP.E, DP.G, DP.B, DP.D];
+    const degrees: DPitchArray = [DP.C, DP.E, DP.G, DP.B, DP.D];
     const actual = VoicingGenerator.CLOSED_UNSORTED.apply(...degrees);
 
     expect(actual).toHaveLength(5);

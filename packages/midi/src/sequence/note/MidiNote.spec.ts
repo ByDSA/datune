@@ -1,10 +1,10 @@
 import { MusicalDuration } from "@datune/core";
-import { QUARTER } from "@datune/core/time/symbolic/musical-duration/constants";
+import { QUARTER } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { TestInit } from "tests";
+import { C5 } from "pitch/constants";
 import { MidiPitch } from "../../pitch/MidiPitch";
 import { from } from "./building";
 import { PartialMidiNote as Dto } from "./PartialMidiNote";
-import { TestInit } from "tests";
-import { C5 } from "pitch/constants";
 
 TestInit.initAll();
 

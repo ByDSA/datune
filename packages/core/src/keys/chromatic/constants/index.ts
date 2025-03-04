@@ -1,7 +1,7 @@
-import { fromRootScale as from } from "../building";
-import { Key } from "../Key";
 import { Pitches } from "pitches/chromatic";
 import { Scales } from "scales/chromatic";
+import { fromRootScale as from } from "../building";
+import { Key } from "../Key";
 
 export function initialize() {
   const { MAJOR, MINOR } = Scales;

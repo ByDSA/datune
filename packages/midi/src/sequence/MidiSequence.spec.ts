@@ -1,11 +1,11 @@
-import { MusicalDuration, MusicalDurations } from "@datune/core/time";
+import { MusicalDuration, MusicalDurations } from "@datune/core";
+import { TestInit } from "tests";
+import { C5, E5, G5 } from "pitch/constants";
 import { MidiSequence } from "./MidiSequence";
 import { from as nodeFrom } from "./node";
 import { MidiNode } from "./node/MidiNode";
 import { from as noteFrom } from "./note";
 import { MidiNote } from "./note/MidiNote";
-import { TestInit } from "tests";
-import { C5, E5, G5 } from "pitch/constants";
 
 TestInit.initAll();
 

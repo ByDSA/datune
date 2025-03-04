@@ -1,6 +1,6 @@
 import type { Degree } from "degrees/alt";
-import { hash as hashVoicing } from "voicings/relative/alt/caching/hashObj";
 import type { Voicing } from "voicings/alt";
+import { hash as hashVoicing } from "voicings/relative/alt/caching/hashObj";
 import { hash as hashDegree } from "degrees/alt/caching/hash";
 
 export type Dto = {

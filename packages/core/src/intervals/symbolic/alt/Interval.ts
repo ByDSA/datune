@@ -1,10 +1,10 @@
-import { lockr } from "@datune/utils/immutables";
-import type { Interval as Diatonic } from "../diatonic";
+import type { Interval as DInterval } from "../diatonic";
 import type { Quality } from "./quality/Quality";
 import type { Dto } from "./caching/Dto";
+import { lockr } from "@datune/utils/immutables";
 
 export class Interval {
-  diatonicInterval: Diatonic;
+  diatonicInterval: DInterval;
 
   quality: Quality;
 

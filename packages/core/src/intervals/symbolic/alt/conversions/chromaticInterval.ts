@@ -1,13 +1,13 @@
 import type { Interval } from "../Interval";
-import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MINOR } from "../quality/constants";
-import type { Interval as Chromatic } from "intervals/chromatic";
+import type { Interval as CInterval } from "intervals/chromatic";
 import { Intervals as DIntervals } from "intervals/diatonic";
 import { Direction } from "intervals/symbolic/diatonic/Direction";
-import { Pitches as CPitches } from "pitches/chromatic";
-import { Pitches as DPitches } from "pitches/diatonic";
-import { Scales as CScales } from "scales/chromatic";
+import { Pitches as CP } from "pitches/chromatic";
+import { Pitches as DP } from "pitches/diatonic";
+import { Scales as CS } from "scales/chromatic";
+import { a, d, da, dd, m } from "../quality/constants";
 
-export function toChromaticInterval(obj: Interval): Chromatic {
+export function toChromaticInterval(obj: Interval): CInterval {
   return new SemisPrecalculator(obj).calc();
 }
 
@@ -22,9 +22,9 @@ class SemisPrecalculator {
     this.#rootInterval = 0;
 
     this.#positiveDiatonicIntValue = Math.abs(+this.self.diatonicInterval);
-    this.#positiveDiatonicIntValueMod7 = this.#positiveDiatonicIntValue % DPitches.NUMBER;
+    this.#positiveDiatonicIntValueMod7 = this.#positiveDiatonicIntValue % DP.NUMBER;
 
-    this.#rootInterval = CScales.MAJOR_SCALE_DEGREES[this.#positiveDiatonicIntValueMod7];
+    this.#rootInterval = CS.MAJOR_SCALE_DEGREES[this.#positiveDiatonicIntValueMod7];
   }
 
   calc(): number {
@@ -46,16 +46,16 @@ class SemisPrecalculator {
       case +FOURTH:
       case +FIFTH:
         switch (this.self.quality) {
-          case DIMINISHED:
+          case d:
             this.#rootInterval--;
             break;
-          case AUGMENTED:
+          case a:
             this.#rootInterval++;
             break;
-          case DOUBLY_DIMINISHED:
+          case dd:
             this.#rootInterval -= 2;
             break;
-          case DOUBLY_AUGMENTED:
+          case da:
             this.#rootInterval += 2;
             break;
           default: break;
@@ -66,19 +66,19 @@ class SemisPrecalculator {
       case +SIXTH:
       case +SEVENTH:
         switch (this.self.quality) {
-          case MINOR:
+          case m:
             this.#rootInterval--;
             break;
-          case DIMINISHED:
+          case d:
             this.#rootInterval -= 2;
             break;
-          case AUGMENTED:
+          case a:
             this.#rootInterval++;
             break;
-          case DOUBLY_DIMINISHED:
+          case dd:
             this.#rootInterval -= 3;
             break;
-          case DOUBLY_AUGMENTED:
+          case da:
             this.#rootInterval += 2;
             break;
           default: break;
@@ -89,8 +89,8 @@ class SemisPrecalculator {
   }
 
   private octaveFixer() {
-    const octaves: number = Math.floor(this.#positiveDiatonicIntValue / DPitches.NUMBER);
+    const octaves: number = Math.floor(this.#positiveDiatonicIntValue / DP.NUMBER);
 
-    this.#rootInterval += CPitches.NUMBER * octaves;
+    this.#rootInterval += CP.NUMBER * octaves;
   }
 }

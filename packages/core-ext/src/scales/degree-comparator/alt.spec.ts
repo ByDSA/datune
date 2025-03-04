@@ -1,7 +1,7 @@
 import { I, II, III, IV, V, VI, VII } from "@datune/core/degrees/alt/constants";
 import { LOCRIAN, LYDIAN, MAJOR, MINOR } from "@datune/core/scales/symbolic/alt/constants";
-import { compare } from ".";
 import { TestInit } from "tests";
+import { compare } from ".";
 
 TestInit.loadAll();
 

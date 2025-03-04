@@ -1,11 +1,11 @@
 import type { Voicing } from "../Voicing";
-import { fromRootIntervals } from "./rootIntervals";
 import { IntervalArray, Intervals } from "intervals/alt";
+import { fromRootIntervals } from "./rootIntervals";
 
 export function fromIntraIntervals(
   ...intraIntervals: IntervalArray
 ): Voicing | null {
-  const baseIntervals: IntervalArray = [Intervals.PERFECT_UNISON];
+  const baseIntervals: IntervalArray = [Intervals.P1];
 
   for (let i = 0; i < intraIntervals.length - 1; i++) {
     const baseIntervalI = Intervals.add(baseIntervals[baseIntervals.length - 1], intraIntervals[i]);

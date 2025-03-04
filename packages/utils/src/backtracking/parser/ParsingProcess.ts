@@ -1,6 +1,6 @@
+import type { ParserBottomUp } from "./ParserBottomUp";
 import { Backtracking } from "../Backtracking";
 import { ParserNode } from "./Node";
-import type { ParserBottomUp } from "./ParserBottomUp";
 
 export class ParsingProcess extends Backtracking<ParserBottomUp, ParserNode> {
   #result: ParserNode | null = null;

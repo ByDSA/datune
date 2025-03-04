@@ -1,7 +1,7 @@
-import { from } from "../building";
 import { Pitches as P } from "pitches/alt";
 import { Scales } from "scales/alt";
 import { TestInit } from "tests";
+import { from } from "../building";
 
 TestInit.diatonicAltKey();
 

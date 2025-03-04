@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 import { Chord, Chords } from "@datune/core/chords/chromatic";
 import { Pitches } from "@datune/core/pitches/chromatic";
-import { parseChord } from ".";
 import { LangId } from "lang";
 import { stringifyChord } from "strings/chords/chromatic";
 import { TestInit, TestLang } from "tests";
+import { parseChord } from ".";
 
 TestInit.chromaticChord();
 TestLang.loadAll();

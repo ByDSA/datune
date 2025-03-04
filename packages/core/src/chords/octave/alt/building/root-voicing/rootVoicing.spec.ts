@@ -1,11 +1,11 @@
-import { Chord } from "../../Chord";
-import { Am, C as DAC_C, C7, C9, CMaj7 } from "../../constants";
-import { toVoicing } from "../../conversions";
-import { fromRootVoicing } from ".";
-import { Pitches } from "pitches/alt";
 import type { Pitch } from "pitches/alt";
+import { Pitches } from "pitches/alt";
 import { TestInit } from "tests";
 import { Voicings, Voicing } from "voicings/alt";
+import { Chord } from "../../Chord";
+import { Am, C as AC_C, C7, C9, CMaj7 } from "../../constants";
+import { toVoicing } from "../../conversions";
+import { fromRootVoicing } from ".";
 
 TestInit.diatonicAltChord();
 
@@ -14,7 +14,7 @@ describe("tests", () => {
   const { A, C } = Pitches;
 
   describe.each([
-    [C, TRIAD_MAJOR, DAC_C],
+    [C, TRIAD_MAJOR, AC_C],
     [C, SEVENTH, C7],
     [A, TRIAD_MINOR, Am],
     [C, SEVENTH_MAJ7, CMaj7],
@@ -25,9 +25,9 @@ describe("tests", () => {
     const voicingName = String(voicing);
 
     it(`(${pitchName}, ${voicingName}) => ${chordName}`, () => {
-      const diatonicAltChord = fromRootVoicing(pitch, voicing);
+      const chord = fromRootVoicing(pitch, voicing);
 
-      expect(diatonicAltChord).toBe(expectedChord);
+      expect(chord).toBe(expectedChord);
     } );
 
     it(`Reversible: root=${pitchName}, voicing=${voicingName}`, () => {

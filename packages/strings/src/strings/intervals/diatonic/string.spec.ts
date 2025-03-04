@@ -1,6 +1,6 @@
 import { Intervals } from "@datune/core/intervals/diatonic";
-import { stringifyInterval } from ".";
 import { TestInit, TestLang } from "tests/index";
+import { stringifyInterval } from ".";
 
 TestLang.loadAll();
 TestInit.diatonicInterval();

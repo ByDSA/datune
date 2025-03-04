@@ -1,10 +1,10 @@
 import { Pitch } from "@datune/core/pitches/chromatic";
 import { A, AA, Ab, B, Bb, C, CC } from "@datune/core/pitches/chromatic/constants";
 import { add } from "@datune/core/pitches/chromatic/modifiers";
-import { parsePitch } from ".";
 import { LangId } from "lang";
 import { stringifyPitch } from "strings/pitches/chromatic";
 import { TestLang } from "tests";
+import { parsePitch } from ".";
 
 TestLang.loadAll();
 

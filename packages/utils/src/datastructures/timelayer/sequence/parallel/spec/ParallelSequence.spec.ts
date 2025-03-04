@@ -1,10 +1,10 @@
 /* eslint-disable prefer-destructuring */
+import { add } from "time";
+import { intervalOf } from "math";
 import { from as temporalNode } from "../../../temporal-node";
 import { EventTest } from "../../../temporal-node/spec/EventTest";
 import { newNode1 } from "../../../temporal-node/spec/utils";
 import { ParalelSequenceTest } from "./ParallelSequenceTest";
-import { add } from "time";
-import { intervalOf } from "math";
 
 describe("initial state", () => {
   it("initial state - nodes", () => {

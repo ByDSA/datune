@@ -1,5 +1,5 @@
-import { ParserTokens, toArray } from "./ParserTokens";
 import { CstParser } from "chevrotain";
+import { ParserTokens, toArray } from "./ParserTokens";
 
 export type ParserType = {
   keyStatement: ()=> any;

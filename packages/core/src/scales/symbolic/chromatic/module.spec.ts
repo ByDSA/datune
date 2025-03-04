@@ -1,27 +1,48 @@
-import { Scales } from ".";
 import { TestInit } from "tests";
+import { expectExportModulesAsync } from "tests/modules";
+import { CHROMATIC_SCALES_VARNAMES } from "./tests/varnames";
+import { Scales as S } from ".";
 
 TestInit.chromaticScale();
 
-describe("static properties should be defined", () => {
-  it("building", () => {
-    expect(Scales.generateByIntervals).toBeDefined();
-    expect(Scales.fromIntraIntervals).toBeDefined();
-    expect(Scales.fromRootIntervals).toBeDefined();
+const vars: string[] = [
+  ...CHROMATIC_SCALES_VARNAMES,
+  "MAJOR_SCALE_DEGREES",
+];
+const functions: string[] = [
+  // building
+  S.generateByIntervals.name,
+  S.fromIntraIntervals.name,
+  S.fromRootIntervals.name,
+
+  // modifiers
+  S.getModeIntraIntervals.name,
+  S.mode.name,
+  S.modes.name,
+
+  // conversions
+  S.toAlt.name,
+];
+
+it("module should export functions and vars", async () => {
+  await expectExportModulesAsync( {
+    expected: {
+      functions,
+      vars,
+    },
+    barrel: S,
+    modules: [
+      "building",
+      "modifiers",
+      "conversions",
+      "constants",
+    ],
+    // eslint-disable-next-line no-undef
+    dirname: __dirname,
   } );
 } );
 
-describe("lazy properties should be defined", () => {
-  it("conversions", () => {
-    expect(Scales.toAlt).toBeDefined();
-  } );
-
-  it("constants (some)", () => {
-    expect(Scales.MAJOR).toBeDefined();
-    expect(Scales.MINOR).toBeDefined();
-    expect(Scales.MAJOR_SCALE_DEGREES).toBeDefined();
-    expect(Scales.BEBOP_HARMONIC_MINOR).toBeDefined();
-    expect(Scales.DIATONIC_SCALES.size).toBeGreaterThan(0);
-    expect(Scales.COMMON.size).toBeGreaterThan(0);
-  } );
+it("sets", () => {
+  expect(S.DIATONIC_SCALES.size).toBeGreaterThan(0);
+  expect(S.COMMON.size).toBeGreaterThan(0);
 } );

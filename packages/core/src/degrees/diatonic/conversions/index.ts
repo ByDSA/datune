@@ -1,6 +1,6 @@
-import { I, II, III, IV, V, VI, VII } from "../constants";
 import type { Degree } from "../Degree";
 import { Degree as ChromaticDegree, Degrees as CDegrees } from "degrees/chromatic";
+import { I, II, III, IV, V, VI, VII } from "../constants";
 
 export function toChromatic(obj: Degree): ChromaticDegree {
   switch (obj) {

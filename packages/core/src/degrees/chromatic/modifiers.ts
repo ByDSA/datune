@@ -1,6 +1,6 @@
-import { cyclicMod } from "@datune/utils";
 import type { Degree } from "./Degree";
 import type { Interval } from "intervals/chromatic";
+import { cyclicMod } from "@datune/utils";
 import { Pitches } from "pitches/chromatic";
 
 export function add(obj: Degree, interval: Interval): Degree {

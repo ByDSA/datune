@@ -1,31 +1,29 @@
-import { SPNArray } from "./Array";
-
 import type { fromPitchOctave } from "./building/pitch-octave";
-
-import type * as ConstantsType from "./constants";
-
-import type * as ConversionsType from "./conversions";
-
+import type * as Constants from "./constants";
+import { createProxyBarrel } from "lazy-load";
 import * as Modifiers from "./modifiers";
 import { SPN } from "./SPN";
-import { createProxyBarrel } from "lazy-load";
+import { SPNArray } from "./Array";
 
 const staticModule = {
   ...Modifiers,
 };
 
-type LazyType = typeof ConstantsType & typeof ConversionsType & {
+type LazyType = Omit<typeof Constants, "initialize" | "initializeAll" | "initializeValues"> & {
   fromPitchOctave: typeof fromPitchOctave;
 };
 
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    "conversions",
-    "constants",
+    {
+      path: "constants",
+      omit: ["initialize", "initializeAll", "initializeValues"],
+    },
     "building/pitch-octave",
+  ],
   // eslint-disable-next-line no-undef
-  ].map(p=>`${__dirname}/${p}`),
+  dirname: __dirname,
 } );
 
 export {

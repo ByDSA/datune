@@ -1,7 +1,7 @@
-import { DORIAN, EOLIAN, IONIAN, LOCRIAN, LYDIAN, MAJOR, MIXOLYDIAN, PHRYGIAN } from "../constants";
+import { TestInit } from "tests";
+import { DORIAN, AEOLIAN, IONIAN, LOCRIAN, LYDIAN, MAJOR, MIXOLYDIAN, PHRYGIAN } from "../constants";
 import { Scale } from "../Scale";
 import { mode } from ".";
-import { TestInit } from "tests";
 
 TestInit.chromaticScale();
 
@@ -11,7 +11,7 @@ describe.each(<[Scale, number, Scale][]>[
   [MAJOR, 3, PHRYGIAN],
   [MAJOR, 4, LYDIAN],
   [MAJOR, 5, MIXOLYDIAN],
-  [MAJOR, 6, EOLIAN],
+  [MAJOR, 6, AEOLIAN],
   [MAJOR, 7, LOCRIAN],
   [MAJOR, 8, IONIAN],
 ])("get that scale", (scaleBase, n: number, scaleTarget) => {

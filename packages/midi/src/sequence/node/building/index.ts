@@ -1,4 +1,4 @@
-import { ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
+import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { lock } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
 import { add } from "@datune/utils/time";

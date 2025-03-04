@@ -1,6 +1,6 @@
-import { SymbolicSPN as ISPN } from "../SymbolicSPN";
 import type { Dto } from "./building/dto/Dto";
 import { Pitches, Pitch } from "pitches/chromatic";
+import { SymbolicSPN as ISPN } from "../SymbolicSPN";
 
 export class SPN implements ISPN<Pitch> {
   pitch: Pitch;

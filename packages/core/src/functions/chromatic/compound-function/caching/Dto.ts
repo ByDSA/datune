@@ -1,7 +1,7 @@
 import type { DegreeFunction } from "../../degree-function/DegreeFunction";
-import { hashDto as degreeFunctionsHash } from "../../degree-function/caching/Dto";
 import type { DegreeArray } from "degrees/chromatic";
 import { hash as hashDegree } from "degrees/chromatic/caching";
+import { hashDto as degreeFunctionsHash } from "../../degree-function/caching/Dto";
 
 export type Dto = {
   degreeFunction: DegreeFunction;

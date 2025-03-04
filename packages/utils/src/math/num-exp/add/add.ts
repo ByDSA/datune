@@ -1,6 +1,6 @@
+/* eslint-disable import/no-cycle */
 import { FracExp } from "../frac";
 import { NumExp } from "../NumExp";
-// eslint-disable-next-line import/no-cycle
 import { addFrac } from "./frac";
 
 export function add(self: NumExp, other: NumExp): NumExp {

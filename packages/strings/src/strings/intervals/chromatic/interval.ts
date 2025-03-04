@@ -1,33 +1,33 @@
-import { Interval } from "@datune/core/intervals/chromatic";
-import { DIMINISHED_TWELFTH, MAJOR_FOURTEENTH, MAJOR_NINTH, MAJOR_SECOND, MAJOR_SEVENTH, MAJOR_SIXTH, MAJOR_TENTH, MAJOR_THIRD, MAJOR_THIRTEENTH, MINOR_FOURTEENTH, MINOR_NINTH, MINOR_SECOND, MINOR_SEVENTH, MINOR_SIXTH, MINOR_TENTH, MINOR_THIRD, MINOR_THIRTEENTH, PERFECT_ELEVENTH, PERFECT_FIFTEENTH, PERFECT_FIFTH, PERFECT_FOURTH, PERFECT_OCTAVE, PERFECT_TWELFTH, PERFECT_UNISON, TRITONE } from "@datune/core/intervals/symbolic/chromatic/constants";
+import type { Interval } from "@datune/core/intervals/chromatic";
+import { d12, M14, M9, M2, M7, M6, M10, M3, M13, m14, m9, m2, m7, m6, m3, m13, P11, P15, P5, P4, P8, P12, P1, TRITONE, m10 } from "@datune/core/intervals/symbolic/chromatic/constants";
 
 export function stringifyInterval(obj: Interval): string {
   switch (obj) {
-    case PERFECT_UNISON: return "P1";
-    case MINOR_SECOND: return "m2";
-    case MAJOR_SECOND: return "M2";
-    case MINOR_THIRD: return "m3";
-    case MAJOR_THIRD: return "M3";
-    case PERFECT_FOURTH: return "P4";
+    case P1: return "P1";
+    case m2: return "m2";
+    case M2: return "M2";
+    case m3: return "m3";
+    case M3: return "M3";
+    case P4: return "P4";
     case TRITONE: return "T";
-    case PERFECT_FIFTH: return "P5";
-    case MINOR_SIXTH: return "m6";
-    case MAJOR_SIXTH: return "M6";
-    case MINOR_SEVENTH: return "m7";
-    case MAJOR_SEVENTH: return "M7";
-    case PERFECT_OCTAVE: return "P8";
-    case MINOR_NINTH: return "m9";
-    case MAJOR_NINTH: return "M9";
-    case MINOR_TENTH: return "m10";
-    case MAJOR_TENTH: return "M10";
-    case PERFECT_ELEVENTH: return "P11";
-    case DIMINISHED_TWELFTH: return "d12";
-    case PERFECT_TWELFTH: return "P12";
-    case MINOR_THIRTEENTH: return "m13";
-    case MAJOR_THIRTEENTH: return "M13";
-    case MINOR_FOURTEENTH: return "m14";
-    case MAJOR_FOURTEENTH: return "M14";
-    case PERFECT_FIFTEENTH: return "P15";
+    case P5: return "P5";
+    case m6: return "m6";
+    case M6: return "M6";
+    case m7: return "m7";
+    case M7: return "M7";
+    case P8: return "P8";
+    case m9: return "m9";
+    case M9: return "M9";
+    case m10: return "m10";
+    case M10: return "M10";
+    case P11: return "P11";
+    case d12: return "d12";
+    case P12: return "P12";
+    case m13: return "m13";
+    case M13: return "M13";
+    case m14: return "m14";
+    case M14: return "M14";
+    case P15: return "P15";
     default: throw new Error();
   }
 }

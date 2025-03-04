@@ -1,27 +1,27 @@
-import { AUGMENTED_FOURTH, AUGMENTED_SEVENTH, DIMINISHED_FIFTH, DIMINISHED_NINTH, DIMINISHED_SEVENTH, MINOR_THIRD, PERFECT_UNISON } from "../constants";
 import type { Interval } from "../Interval";
+import { TestInit } from "tests";
+import { a4, a7, d5, d9, d7, m3, P1 } from "../constants";
 import { mult } from "./mult";
 import { neg } from "./neg";
-import { TestInit } from "tests";
 
 TestInit.diatonicAltInterval();
 
 describe.each([
-  [MINOR_THIRD, 1, MINOR_THIRD],
-  [MINOR_THIRD, 2, DIMINISHED_FIFTH],
-  [MINOR_THIRD, -2, neg(DIMINISHED_FIFTH)],
-  [MINOR_THIRD, -0.5, PERFECT_UNISON],
-  [MINOR_THIRD, 0.5, PERFECT_UNISON],
-  [MINOR_THIRD, -1.5, neg(MINOR_THIRD)],
-  [MINOR_THIRD, 1.5, MINOR_THIRD],
-  [AUGMENTED_FOURTH, 2, AUGMENTED_SEVENTH],
-  [MINOR_THIRD, 4, DIMINISHED_NINTH],
-  [MINOR_THIRD, 3, DIMINISHED_SEVENTH],
-  [MINOR_THIRD, 0, PERFECT_UNISON],
-  [neg(MINOR_THIRD), 0, PERFECT_UNISON],
-  [PERFECT_UNISON, 500, PERFECT_UNISON],
-  [PERFECT_UNISON, -500, PERFECT_UNISON],
-  [neg(PERFECT_UNISON), 500, PERFECT_UNISON],
+  [m3, 1, m3],
+  [m3, 2, d5],
+  [m3, -2, neg(d5)],
+  [m3, -0.5, P1],
+  [m3, 0.5, P1],
+  [m3, -1.5, neg(m3)],
+  [m3, 1.5, m3],
+  [a4, 2, a7],
+  [m3, 4, d9],
+  [m3, 3, d7],
+  [m3, 0, P1],
+  [neg(m3), 0, P1],
+  [P1, 500, P1],
+  [P1, -500, P1],
+  [neg(P1), 500, P1],
 ])("tests", (interval: Interval, num: number, expectedInterval: Interval) => {
   it(`${String(interval)} * ${num} = ${String(expectedInterval)}`, () => {
     const actual = mult(interval, num);

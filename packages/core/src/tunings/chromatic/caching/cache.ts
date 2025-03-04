@@ -1,8 +1,8 @@
+import type { Dto } from "./Dto";
 import { StringHashCache } from "@datune/utils";
-import type { Dto } from "../building/Dto";
-import { Tuning } from "../Tuning";
 import { hash as hashConcertPitches } from "concert-pitches/chromatic/caching/Dto";
 import { hash as hashTemperament } from "temperaments/chromatic/hash";
+import { Tuning } from "../Tuning";
 
 export const cache = new StringHashCache<Tuning, Dto>( {
   hash(dto: Dto): string {

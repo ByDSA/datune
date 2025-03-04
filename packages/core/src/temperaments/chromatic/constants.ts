@@ -1,30 +1,28 @@
 import type { Temperament } from "./Temperament";
-import type { Interval as ChromaticInterval } from "intervals/symbolic/chromatic/Interval";
-import * as CI from "intervals/symbolic/chromatic/constants";
-import { simplify, octaves } from "intervals/symbolic/chromatic/modifiers";
+import type { Interval } from "intervals/symbolic/chromatic/Interval";
 import type { Interval as RealInterval } from "intervals/real/Interval";
+import * as CI from "intervals/symbolic/chromatic/constants";
 import * as RI from "intervals/real/constants";
+import { simplify, octaves } from "intervals/symbolic/chromatic/modifiers";
 import { shiftOctaves } from "intervals/real/modifiers/shiftOctaves";
-
-type Interval = ChromaticInterval;
 
 export function initialize() {
   ET12 = (input: Interval): RealInterval => {
     const simpleInterval = simplify(input);
     const simpleRealInterval = (() => {
       switch (simpleInterval) {
-        case CI.PERFECT_UNISON: return RI.UNISON;
-        case CI.MINOR_SECOND: return RI.ET12_MINOR_SECOND;
-        case CI.MAJOR_SECOND: return RI.ET12_MAJOR_SECOND;
-        case CI.MINOR_THIRD: return RI.ET12_MINOR_THIRD;
-        case CI.MAJOR_THIRD: return RI.ET12_MAJOR_THIRD;
-        case CI.PERFECT_FOURTH: return RI.ET12_PERFECT_FOURTH;
+        case CI.P1: return RI.UNISON;
+        case CI.m2: return RI.ET12_m2;
+        case CI.M2: return RI.ET12_M2;
+        case CI.m3: return RI.ET12_m3;
+        case CI.M3: return RI.ET12_M3;
+        case CI.P4: return RI.ET12_P4;
         case CI.TRITONE: return RI.ET12_TRITONE;
-        case CI.PERFECT_FIFTH: return RI.ET12_PERFECT_FIFTH;
-        case CI.MINOR_SIXTH: return RI.ET12_MINOR_SIXTH;
-        case CI.MAJOR_SIXTH: return RI.ET12_MAJOR_SIXTH;
-        case CI.MINOR_SEVENTH: return RI.ET12_MINOR_SEVENTH;
-        case CI.MAJOR_SEVENTH: return RI.ET12_MAJOR_SEVENTH;
+        case CI.P5: return RI.ET12_P5;
+        case CI.m6: return RI.ET12_m6;
+        case CI.M6: return RI.ET12_M6;
+        case CI.m7: return RI.ET12_m7;
+        case CI.M7: return RI.ET12_M7;
         default: throw generateError(input);
       }
     } )();
@@ -41,27 +39,27 @@ export function initialize() {
     const simpleRealInterval = (() => {
       switch (simpleInterval) {
         case 0: return RI.UNISON;
-        case 1: return RI.J_MINOR_SECOND;
+        case 1: return RI.J_m2;
         case 2: return RI.J_MAJOR_TONE;
-        case 3: return RI.J_MINOR_THIRD;
-        case 4: return RI.J_MAJOR_THIRD;
-        case 5: return RI.J_PERFECT_FOURTH;
-        case 7: return RI.J_PERFECT_FIFTH;
-        case 8: return RI.J_MINOR_SIXTH;
-        case 9: return RI.J_MAJOR_SIXTH;
-        case 10: return RI.J_MINOR_SEVENTH_SMALL;
-        case 11: return RI.J_MAJOR_SEVENTH;
+        case 3: return RI.J_m3;
+        case 4: return RI.J_M3;
+        case 5: return RI.J_P4;
+        case 7: return RI.J_P5;
+        case 8: return RI.J_m6;
+        case 9: return RI.J_M6;
+        case 10: return RI.J_m7_SMALL;
+        case 11: return RI.J_M7;
         case 6:
         // para DiatonicAlt
-          /*  if (interval === DIMINISHED_FIFTH)
-          return RI.J_DIMINISHED_FIFTH;
+          /*  if (interval === d5)
+          return RI.J_d5;
 
-        if (interval === AUGMENTED_FOURTH)
-          return RI.J_AUGMENTED_FOURTH;
+        if (interval === a4)
+          return RI.J_a4;
 
           throw generateError(interval);
 */
-          return RI.J_DIMINISHED_FIFTH;
+          return RI.J_d5;
         default: throw generateError(input);
       }
     } )();
@@ -78,7 +76,7 @@ export function initialize() {
     const simpleRealInterval = (() => {
       switch (simpleInterval) {
         case 2: return RI.J_MINOR_TONE;
-        case 10: return RI.J_MINOR_SEVENTH_GREATER;
+        case 10: return RI.J_m7_GREATER;
         default: return LIMIT_5_SYMMETRIC_N1(simpleInterval);
       }
     } )();
@@ -95,31 +93,31 @@ export function initialize() {
     const simpleRealInterval = (() => {
       switch (simpleInterval) {
       // comentarios = DiatonicAlt
-      /// case DIMINISHED_SECOND: return RI.PT_DIMINISHED_SECOND;
-        case CI.PERFECT_UNISON: return RI.UNISON;
-          // case AUGMENTED_UNISON: return RI.PT_AUGMENTED_UNISON;
-        case CI.MINOR_SECOND: return RI.PT_MINOR_SECOND;
-        // case DIMINISHED_THIRD: return RI.PT_DIMINISHED_THIRD;
-        case CI.MAJOR_SECOND: return RI.PT_MAJOR_SECOND;
-        case CI.MINOR_THIRD: return RI.PT_MINOR_THIRD;
-          // case AUGMENTED_SECOND: return RI.PT_AUGMENTED_SECOND;
-          // case DIMINISHED_FOURTH: return RI.PT_DIMINISHED_FOURTH;
-        case CI.MAJOR_THIRD: return RI.PT_MAJOR_THIRD;
-        case CI.PERFECT_FOURTH: return RI.PT_PERFECT_FOURTH;
-          // case AUGMENTED_THIRD: return RI.PT_AUGMENTED_THIRD;
-        case CI.DIMINISHED_FIFTH: return RI.PT_DIMINISHED_FIFTH;
-          // case AUGMENTED_FOURTH: return RI.PT_AUGMENTED_FOURTH;
-          // case DIMINISHED_SIXTH: return RI.PT_DIMINISHED_SIXTH;
-        case CI.PERFECT_FIFTH: return RI.PT_PERFECT_FIFTH;
-        case CI.MINOR_SIXTH: return RI.PT_MINOR_SIXTH;
-          // case AUGMENTED_FIFTH: return RI.PT_AUGMENTED_FIFTH;
-          // case DIMINISHED_SEVENTH: return RI.PT_DIMINISHED_SEVENTH;
-        case CI.MAJOR_SIXTH: return RI.PT_MAJOR_SIXTH;
-        case CI.MINOR_SEVENTH: return RI.PT_MINOR_SEVENTH;
-          // case AUGMENTED_SIXTH: return RI.PT_AUGMENTED_SIXTH;
-          // case DIMINISHED_OCTAVE: return RI.PT_DIMINISHED_OCTAVE;
-        case CI.MAJOR_SEVENTH: return RI.PT_MAJOR_SEVENTH;
-        case CI.PERFECT_OCTAVE: return RI.OCTAVE;
+      /// case d2: return RI.PT_d2;
+        case CI.P1: return RI.UNISON;
+          // case a1: return RI.PT_a1;
+        case CI.m2: return RI.PT_m2;
+        // case d3: return RI.PT_d3;
+        case CI.M2: return RI.PT_M2;
+        case CI.m3: return RI.PT_m3;
+          // case a2: return RI.PT_a2;
+          // case d4: return RI.PT_d4;
+        case CI.M3: return RI.PT_M3;
+        case CI.P4: return RI.PT_P4;
+          // case a3: return RI.PT_a3;
+        case CI.d5: return RI.PT_d5;
+          // case a4: return RI.PT_a4;
+          // case d6: return RI.PT_d6;
+        case CI.P5: return RI.PT_P5;
+        case CI.m6: return RI.PT_m6;
+          // case a5: return RI.PT_a5;
+          // case d7: return RI.PT_d7;
+        case CI.M6: return RI.PT_M6;
+        case CI.m7: return RI.PT_m7;
+          // case a6: return RI.PT_a6;
+          // case d8: return RI.PT_d8;
+        case CI.M7: return RI.PT_M7;
+        case CI.P8: return RI.OCTAVE;
         default: throw generateError(input);
       }
     } )();
@@ -140,6 +138,6 @@ export let LIMIT_5_SYMMETRIC_N2: Temperament;
 
 export let PYTHAGOREAN: Temperament;
 
-function generateError(interval: ChromaticInterval): Error {
+function generateError(interval: Interval): Error {
   return new Error(`Cannot convert interval ${interval}.`);
 }

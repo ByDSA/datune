@@ -1,7 +1,7 @@
 import type { ChordArray, Chord } from "@datune/core/chords/chromatic";
-import { ALL, ALL_NON_INVERSIONS } from "@datune/core/chords/octave/chromatic/constants";
 import type { KeyArray } from "@datune/core/keys/chromatic";
 import type { PitchArray, Pitch } from "@datune/core/pitches/chromatic";
+import { ALL, ALL_NON_INVERSIONS } from "@datune/core/chords/octave/chromatic/constants";
 
 export class Finder {
   // TODO: por qué no se usa?

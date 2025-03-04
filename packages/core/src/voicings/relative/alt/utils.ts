@@ -1,6 +1,6 @@
 import type { VoicingArray } from "./Array";
-import { inv } from "./modifiers/inv";
 import type { Voicing } from "./Voicing";
+import { inv } from "./modifiers/inv";
 
 export function getAllInversions(obj: Voicing): VoicingArray {
   const ret: VoicingArray = [obj];

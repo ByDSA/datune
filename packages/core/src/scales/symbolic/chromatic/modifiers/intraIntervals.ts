@@ -1,12 +1,13 @@
-import { Scale } from "../Scale";
-import { IntervalArray, Interval, Intervals } from "intervals/chromatic";
+import type { IntervalArray, Interval } from "intervals/chromatic";
+import type { Scale } from "../Scale";
+import { Intervals as I } from "intervals/chromatic";
 
 export function calcIntraIntervals(obj: Scale): IntervalArray {
   const ret: IntervalArray = [] as any;
-  const rootIntervals = [...obj.rootIntervals, Intervals.PERFECT_OCTAVE];
+  const rootIntervals = [...obj.rootIntervals, I.P8];
 
   for (let i = 1; i < rootIntervals.length; i++) {
-    const interval: Interval = Intervals.sub(rootIntervals[i], rootIntervals[i - 1]);
+    const interval: Interval = I.sub(rootIntervals[i], rootIntervals[i - 1]);
 
     ret.push(interval);
   }

@@ -1,7 +1,8 @@
 node_modules/
 coverage/
 docs/
-dist/
 tmp/
 
 .env
+
+.pnpmfile.cjs

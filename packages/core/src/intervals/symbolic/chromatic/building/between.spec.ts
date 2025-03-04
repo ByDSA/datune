@@ -1,16 +1,16 @@
-import { DIMINISHED_FIFTH, MAJOR_SEVENTH, MAJOR_SIXTH, MINOR_SECOND, MINOR_THIRD, PERFECT_OCTAVE, PERFECT_UNISON } from "../constants";
-import { between, betweenNext } from ".";
 import type { Interval } from "intervals/chromatic";
 import { Pitches, Pitch } from "pitches/chromatic";
+import { d5, M7, M6, m2, m3, P8, P1 } from "../constants";
+import { between, betweenNext } from ".";
 
 const { A, B, C, FF } = Pitches;
 
 describe.each([
-  [C, A, MAJOR_SIXTH],
-  [A, C, MINOR_THIRD],
-  [C, B, MAJOR_SEVENTH],
-  [B, C, MINOR_SECOND],
-  [C, C, PERFECT_OCTAVE],
+  [C, A, M6],
+  [A, C, m3],
+  [C, B, M7],
+  [B, C, m2],
+  [C, C, P8],
 ])("betweenNext", (from: Pitch, to: Pitch, expected: Interval) => {
   it(`between ${from} and ${to} => ${expected}`, () => {
     const actual = betweenNext(from, to);
@@ -20,9 +20,9 @@ describe.each([
 } );
 
 describe.each([
-  [A, C, MINOR_THIRD],
-  [B, C, MINOR_SECOND],
-  [C, C, PERFECT_UNISON],
+  [A, C, m3],
+  [B, C, m2],
+  [C, C, P1],
 ])("between", (from: Pitch, to: Pitch, expected: Interval) => {
   it(`between ${from} and ${to} => ${expected}`, () => {
     const actual = between(from, to);
@@ -39,8 +39,8 @@ describe.each([
 } );
 
 describe.each([
-  [C, FF, DIMINISHED_FIFTH],
-  [FF, C, DIMINISHED_FIFTH],
+  [C, FF, d5],
+  [FF, C, d5],
 ])("between (non reversible)", (from: Pitch, to: Pitch, expected: Interval) => {
   it(`between ${from} and ${to} => ${expected}`, () => {
     const actual = between(from, to);

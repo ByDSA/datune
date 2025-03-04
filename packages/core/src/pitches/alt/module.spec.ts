@@ -1,33 +1,45 @@
-import { Pitches as P } from ".";
 import { TestInit } from "tests";
+import { expectExportModulesAsync } from "tests/modules";
+import { ALT_PITCHES_4ALTS_VARNAMES } from "./tests/varnames";
+import { Pitches as P } from ".";
 
 TestInit.diatonicAlt();
 
-describe("static properties should be defined", () => {
-  it("modifiers", () => {
-    expect(P.add).toBeDefined();
-    expect(P.rootIntervals).toBeDefined();
-    expect(P.sub).toBeDefined();
-  } );
-} );
+const vars: string[] = [
+  ...ALT_PITCHES_4ALTS_VARNAMES,
+  "ALL",
+];
+const functions: string[] = [
+  // building/chromatic
+  P.fromChromatic.name,
 
-describe("lazy properties should be defined", () => {
-  it("conversions", () => {
-    expect(P.toChromatic).toBeDefined();
-  } );
+  // building/diatonicAlts
+  P.fromDiatonicAlts.name,
 
-  it("constants (some)", () => {
-    expect(P.C).toBeDefined();
-    expect(P.CCCC).toBeDefined();
-    expect(P.Bbbb).toBeDefined();
-    expect(P.ALL).toBeDefined();
-  } );
+  // modifiers
+  P.add.name,
+  P.rootIntervals.name,
+  P.sub.name,
 
-  it("building/chromatic", () => {
-    expect(P.fromChromatic).toBeDefined();
-  } );
+  // conversions
+  P.toChromatic.name,
+];
 
-  it("building/diatonicAlts", () => {
-    expect(P.fromDiatonicAlts).toBeDefined();
+it("module should export functions and vars", async () => {
+  await expectExportModulesAsync( {
+    expected: {
+      functions,
+      vars,
+    },
+    barrel: P,
+    modules: [
+      "modifiers",
+      "conversions",
+      "constants",
+      "building/chromatic",
+      "building/diatonicAlts",
+    ],
+    // eslint-disable-next-line no-undef
+    dirname: __dirname,
   } );
 } );

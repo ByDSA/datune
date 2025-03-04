@@ -1,7 +1,7 @@
-import { fromPitchOctave } from "..";
-import { B4, C4, FF4 } from "../../constants";
 import { Pitches as P } from "pitches/alt";
 import { TestInit } from "tests";
+import { fromPitchOctave } from "..";
+import { B4, C4, FF4 } from "../../constants";
 
 TestInit.diatonicAltSPN();
 

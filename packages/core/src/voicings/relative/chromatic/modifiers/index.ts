@@ -1,8 +1,8 @@
-import { cyclicMod } from "@datune/utils";
-import { fromRootIntervals } from "../building/rootIntervals";
 import type { Voicing } from "../Voicing";
+import { cyclicMod } from "@datune/utils";
 import { IntervalArray, Interval } from "intervals/chromatic";
 import { Pitches } from "pitches/chromatic";
+import { fromRootIntervals } from "../building/rootIntervals";
 
 export function inv(obj: Voicing, n: number = 1): Voicing {
   let values: IntervalArray = [...obj.rootIntervals] as IntervalArray;

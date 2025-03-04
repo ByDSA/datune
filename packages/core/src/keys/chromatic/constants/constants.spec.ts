@@ -1,8 +1,8 @@
-import { fromRootScale } from "../building";
-import { C } from ".";
 import { Pitches as P } from "pitches/chromatic";
 import { Scales } from "scales/chromatic";
 import { TestInit } from "tests";
+import { fromRootScale } from "../building";
+import { C } from ".";
 
 TestInit.chromaticKey();
 const { BLUES_MINOR, MAJOR, ORIENTAL } = Scales;

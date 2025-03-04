@@ -1,6 +1,6 @@
-import { BPM, MusicalDuration, TimeSignature } from "@datune/core/time";
-import { SIXTYFOURTH, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
-import { Track } from "../track/Track";
+import type { BPM, MusicalDuration, TimeSignature } from "@datune/core";
+import type { Track } from "../track/Track";
+import { SIXTYFOURTH, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 
 export class MidiFile {
   bpmEvents: {

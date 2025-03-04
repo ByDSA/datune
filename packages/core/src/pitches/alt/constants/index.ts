@@ -1,8 +1,8 @@
-import { lockr } from "@datune/utils/immutables";
 import type { PitchArray } from "../Array";
-import { fromDiatonicAlts } from "../building/diatonicAlts";
 import type { Pitch } from "../Pitch";
+import { lockr } from "@datune/utils/immutables";
 import { Pitches as DPitches } from "pitches/diatonic";
+import { fromDiatonicAlts } from "../building/diatonicAlts";
 
 export function initialize() {
   if (C)

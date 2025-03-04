@@ -1,7 +1,7 @@
 import type { ConcertPitch } from "./ConcertPitch";
-import { A432, A440, A444 } from "./constants";
 import { SPNs, SPN } from "spns/chromatic";
 import { TestInit } from "tests";
+import { A432, A440, A444 } from "./constants";
 
 TestInit.chromaticConcertPitch();
 

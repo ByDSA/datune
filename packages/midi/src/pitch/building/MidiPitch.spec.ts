@@ -1,11 +1,11 @@
 import { SPNs, SPN } from "@datune/core/spns/chromatic";
 import { Tunings } from "@datune/core/tunings/chromatic";
+import { TestInit } from "tests";
 import { calcFrequency } from "../calcs";
 import { A4, A5, B0, B9, C0, C1, C10, C5, C6, C8, C9, MAX, MIN } from "../constants";
 import { MidiCode } from "../MidiCode";
 import { MidiPitch } from "../MidiPitch";
 import { from, fromCode, fromFrequency } from ".";
-import { TestInit } from "tests";
 
 TestInit.initAll();
 

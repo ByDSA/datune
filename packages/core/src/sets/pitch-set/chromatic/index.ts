@@ -1,25 +1,25 @@
-import { PitchSet } from "./PitchSet";
-
-import * as Building from "./building";
-
 import type * as Constants from "./constants";
-
-import * as Modifiers from "./modifiers";
 import { createProxyBarrel } from "lazy-load";
+import { PitchSet } from "./PitchSet";
+import * as Building from "./building";
+import * as Modifiers from "./modifiers";
 
 const staticModule = {
   ...Building,
   ...Modifiers,
 };
 
-type LazyType = typeof Constants ;
+type LazyType = Omit<typeof Constants, "initialize">;
 
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
-  paths: [
-    "constants",
+  paths: [{
+    path: "constants",
+    omit: ["initialize"],
+  },
+  ],
   // eslint-disable-next-line no-undef
-  ].map(p=>`${__dirname}/${p}`),
+  dirname: __dirname,
 } );
 
 export {

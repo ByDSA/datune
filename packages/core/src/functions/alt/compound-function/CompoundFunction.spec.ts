@@ -1,12 +1,12 @@
-import * as DegreeFunctions from "../degree-function/constants";
-import { compose } from "./building/compose";
-import { SUBV7_II, SUBV7_III, SUBV7_IV, SUBV7_V, SUBV7_VI, V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI } from "./constants";
 import { Chords as CC } from "chords/alt";
 import { Degrees as D } from "degrees/alt";
 import { Keys as K } from "keys/alt";
 import { Pitches } from "pitches/alt";
 import { TestInit } from "tests";
 import { Voicings } from "voicings/alt";
+import * as DegreeFunctions from "../degree-function/constants";
+import { SUBV7_II, SUBV7_III, SUBV7_IV, SUBV7_V, SUBV7_VI, V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI } from "./constants";
+import { compose } from "./building/compose";
 
 TestInit.diatonicAltFunction();
 TestInit.diatonicAltKey();

@@ -3,10 +3,10 @@ import { Pitches as P } from "@datune/core/pitches/chromatic";
 import { Voicings as V } from "@datune/core/voicings/chromatic";
 import { bass } from "@datune/core/chords/octave/chromatic/modifiers";
 import { Cm } from "@datune/core/chords/octave/chromatic/constants";
-import { stringifyPitches } from "../../pitches/chromatic/array";
-import { stringifyChord } from ".";
 import { TestInit, TestLang } from "tests/index";
 import { LangId } from "lang";
+import { stringifyPitches } from "../../pitches/chromatic/array";
+import { stringifyChord } from ".";
 
 TestLang.loadAll();
 TestInit.diatonicAltChord();

@@ -1,6 +1,6 @@
-import { fromFrequencySPN } from "./frequencySPN";
 import { TestInit } from "tests";
 import { SPNs } from "spns/chromatic";
+import { fromFrequencySPN } from "./frequencySPN";
 
 TestInit.chromaticConcertPitch();
 

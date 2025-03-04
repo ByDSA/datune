@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import * as Voicings from "../constants";
 import type { Voicing } from "../Voicing";
-import { fromPitches } from "./pitches";
 import { Pitches, PitchArray } from "pitches/chromatic";
 import { TestInit } from "tests";
+import * as Voicings from "../constants";
+import { fromPitches } from "./pitches";
 
 TestInit.chromaticVoicing();
 // eslint-disable-next-line @typescript-eslint/naming-convention

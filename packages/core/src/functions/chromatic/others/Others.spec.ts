@@ -1,8 +1,8 @@
-import { V7ALT } from "./constants";
 import { Chords } from "chords/chromatic";
 import { Keys as K } from "keys/chromatic";
 import { Pitches } from "pitches/chromatic";
 import { TestInit } from "tests";
+import { V7ALT } from "./constants";
 
 TestInit.chromaticFunction();
 TestInit.chromaticKey();

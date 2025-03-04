@@ -1,4 +1,4 @@
-import { Scale } from "../Scale";
+import type { Scale } from "../Scale";
 import { mode } from "./mode";
 
 export function modes(

@@ -1,23 +1,23 @@
-import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "../constants";
 import type { Quality } from "../Quality";
+import { a, d, da, dd, M, m, P } from "../constants";
 import { toInt } from "./int";
 
 describe.each([
-  [PERFECT, true, 0],
-  [MAJOR, false, 0],
-  [MINOR, false, -1],
-  [DIMINISHED, true, -1],
-  [DIMINISHED, false, -2],
-  [DOUBLY_DIMINISHED, true, -2],
-  [DOUBLY_DIMINISHED, false, -3],
-  [AUGMENTED, true, 1],
-  [AUGMENTED, false, 1],
-  [DOUBLY_AUGMENTED, true, 2],
-  [DOUBLY_AUGMENTED, false, 2],
+  [P, true, 0],
+  [M, false, 0],
+  [m, false, -1],
+  [d, true, -1],
+  [d, false, -2],
+  [dd, true, -2],
+  [dd, false, -3],
+  [a, true, 1],
+  [a, false, 1],
+  [da, true, 2],
+  [da, false, 2],
   // invalids
-  [PERFECT, false, null],
-  [MAJOR, true, null],
-  [MINOR, true, null],
+  [P, false, null],
+  [M, true, null],
+  [m, true, null],
 ])("tests", (quality: Quality, isMain: boolean, expected: number | null) => {
   it(`int(${quality}, isMain=${isMain}) => "${expected}"`, () => {
     const actual = toInt(quality, isMain);

@@ -1,16 +1,16 @@
-import { C as DAC_C, C7 } from "../../constants";
-import { fromPitches } from ".";
-import { PitchArray, Pitches as CPitches } from "pitches/chromatic";
+import { PitchArray, Pitches as CP } from "pitches/chromatic";
 import { TestInit } from "tests";
+import { C as AC_C, C7 } from "../../constants";
+import { fromPitches } from ".";
 
 TestInit.chromaticChord();
 
 it("get from ImmutableCache", () => {
   const chord = fromPitches(
-    CPitches.C,
-    CPitches.E,
-    CPitches.G,
-    CPitches.Bb,
+    CP.C,
+    CP.E,
+    CP.G,
+    CP.Bb,
   );
   const expected = C7;
 
@@ -18,11 +18,11 @@ it("get from ImmutableCache", () => {
 } );
 
 it("from array const", () => {
-  const pitches: PitchArray = [CPitches.C, CPitches.E, CPitches.G];
-  const expected = DAC_C;
+  const pitches: PitchArray = [CP.C, CP.E, CP.G];
+  const expected = AC_C;
   const actual = fromPitches(...pitches);
 
-  pitches[1] = CPitches.F;
+  pitches[1] = CP.F;
 
   expect(actual).toBe(expected);
 } );

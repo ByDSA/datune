@@ -1,6 +1,6 @@
-import { DOUBLY_DIMINISHED, MAJOR } from ".";
+import { dd, M } from ".";
 
 it("are defined", () => {
-  expect(MAJOR).toBeDefined();
-  expect(DOUBLY_DIMINISHED).toBeDefined();
+  expect(M).toBeDefined();
+  expect(dd).toBeDefined();
 } );

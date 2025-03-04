@@ -1,8 +1,8 @@
-import { fromKeyFunction } from ".";
 import { Chords } from "chords/chromatic";
 import { Functions as F } from "functions/chromatic";
 import { Keys as K } from "keys/chromatic";
 import { TestInit } from "tests";
+import { fromKeyFunction } from ".";
 
 TestInit.chromaticChord();
 TestInit.chromaticKey();

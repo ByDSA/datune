@@ -1,21 +1,22 @@
-import { AUGMENTED_UNISON, MINOR_SECOND, PERFECT_FIFTH } from "../constants";
 import type { Interval } from "../Interval";
-import { neg } from "../modifiers/neg";
-import { fromIntervals } from "./intervals";
-import { TestInit } from "tests";
 import type { Interval as DiatonicInterval } from "intervals/diatonic";
+import { TestInit } from "tests";
 import * as DIntervals from "intervals/symbolic/diatonic/constants";
 import { neg as DIntervalsNeg } from "intervals/symbolic/diatonic/modifiers/neg";
+import { a1, m2, P5 } from "../constants";
+import { neg } from "../modifiers/neg";
+import { expectInterval } from "../tests/interval";
+import { fromIntervals } from "./intervals";
 
 TestInit.diatonicAltInterval();
 const { FIFTH, SECOND, UNISON } = DIntervals;
 
 describe.each([
-  [7, FIFTH, PERFECT_FIFTH],
-  [1, UNISON, AUGMENTED_UNISON],
-  [1, SECOND, MINOR_SECOND],
-  [-7, DIntervalsNeg(FIFTH), neg(PERFECT_FIFTH)],
-  [-1, DIntervalsNeg(UNISON), neg(AUGMENTED_UNISON)],
+  [7, FIFTH, P5],
+  [1, UNISON, a1],
+  [1, SECOND, m2],
+  [-7, DIntervalsNeg(FIFTH), neg(P5)],
+  [-1, DIntervalsNeg(UNISON), neg(a1)],
 ])("tests", (chromaticInterval: number, diatonicInterval: DiatonicInterval, expected: Interval) => {
   it(`(${chromaticInterval}, ${diatonicInterval}) => ${expected}`, () => {
     const input = {
@@ -24,6 +25,6 @@ describe.each([
     };
     const actual = fromIntervals(input);
 
-    expect(actual).toEqual(expected);
+    expectInterval(actual, expected);
   } );
 } );

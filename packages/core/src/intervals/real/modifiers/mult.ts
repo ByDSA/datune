@@ -1,5 +1,5 @@
-import { UNISON } from "../constants";
 import type { Interval } from "../Interval";
+import { UNISON } from "../constants";
 import { add } from "./add";
 import { neg } from "./neg";
 

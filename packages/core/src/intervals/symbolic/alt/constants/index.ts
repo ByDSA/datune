@@ -1,610 +1,610 @@
+import type { Interval } from "../Interval";
 import { lock } from "@datune/utils/immutables";
 import * as DIntervals from "../../diatonic/constants";
 import { fromIntervalQuality } from "../building/intervalQuality";
-import type { Interval } from "../Interval";
-import { AUGMENTED, DIMINISHED, DOUBLY_AUGMENTED, DOUBLY_DIMINISHED, MAJOR, MINOR, PERFECT } from "../quality/constants";
+import { a, d, da, dd, M, m, P } from "../quality/constants";
 
 export function initialize() {
-  if (PERFECT_UNISON)
-    throw new TypeError("PERFECT_UNISON is already initialized");
+  if (P1)
+    throw new TypeError("P1 is already initialized");
 
   // eslint-disable-next-line max-len
   const { ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH, FOURTH, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH, TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } = DIntervals;
 
-  DIMINISHED_UNISON = fromIntervalQuality(
+  d1 = fromIntervalQuality(
     UNISON,
-    DIMINISHED,
+    d,
   ) as Interval;
-  lock(DIMINISHED_UNISON);
-  PERFECT_UNISON = fromIntervalQuality(
+  lock(d1);
+  P1 = fromIntervalQuality(
     UNISON,
-    PERFECT,
+    P,
   ) as Interval;
-  lock(PERFECT_UNISON);
+  lock(P1);
 
-  DIMINISHED_SECOND = fromIntervalQuality(
+  d2 = fromIntervalQuality(
     SECOND,
-    DIMINISHED,
+    d,
   ) as Interval;
-  lock(DIMINISHED_SECOND);
+  lock(d2);
 
-  MINOR_SECOND = fromIntervalQuality(
+  m2 = fromIntervalQuality(
     SECOND,
-    MINOR,
+    m,
   ) as Interval;
-  lock(MINOR_SECOND);
+  lock(m2);
 
-  AUGMENTED_UNISON = fromIntervalQuality(
+  a1 = fromIntervalQuality(
     UNISON,
-    AUGMENTED,
+    a,
   ) as Interval;
-  lock(AUGMENTED_UNISON);
+  lock(a1);
 
-  DOUBLY_AUGMENTED_UNISON = fromIntervalQuality(
+  da1 = fromIntervalQuality(
     UNISON,
-    DOUBLY_AUGMENTED,
+    da,
   ) as Interval;
-  lock(DOUBLY_AUGMENTED_UNISON);
+  lock(da1);
 
-  MAJOR_SECOND = fromIntervalQuality(
+  M2 = fromIntervalQuality(
     SECOND,
-    MAJOR,
+    M,
   ) as Interval;
-  lock(MAJOR_SECOND);
+  lock(M2);
 
-  DIMINISHED_THIRD = fromIntervalQuality(
+  d3 = fromIntervalQuality(
     THIRD,
-    DIMINISHED,
+    d,
   ) as Interval;
-  lock(DIMINISHED_THIRD);
+  lock(d3);
 
-  DOUBLY_DIMINISHED_THIRD = fromIntervalQuality(
+  dd3 = fromIntervalQuality(
     THIRD,
-    DOUBLY_DIMINISHED,
+    dd,
   ) as Interval;
-  lock(DOUBLY_DIMINISHED_THIRD);
+  lock(dd3);
 
-  MINOR_THIRD = fromIntervalQuality(
+  m3 = fromIntervalQuality(
     THIRD,
-    MINOR,
+    m,
   ) as Interval;
-  lock(MINOR_THIRD);
+  lock(m3);
 
-  AUGMENTED_SECOND = fromIntervalQuality(
+  a2 = fromIntervalQuality(
     SECOND,
-    AUGMENTED,
+    a,
   ) as Interval;
-  lock(AUGMENTED_SECOND);
+  lock(a2);
 
-  DOUBLY_AUGMENTED_SECOND = fromIntervalQuality(
+  da2 = fromIntervalQuality(
     SECOND,
-    DOUBLY_AUGMENTED,
+    da,
   ) as Interval;
-  lock(DOUBLY_AUGMENTED_SECOND);
+  lock(da2);
 
-  MAJOR_THIRD = fromIntervalQuality(
+  M3 = fromIntervalQuality(
     THIRD,
-    MAJOR,
+    M,
   ) as Interval;
-  lock(MAJOR_THIRD);
+  lock(M3);
 
-  DIMINISHED_FOURTH = fromIntervalQuality(
+  d4 = fromIntervalQuality(
     FOURTH,
-    DIMINISHED,
+    d,
   ) as Interval;
-  lock(DIMINISHED_FOURTH);
+  lock(d4);
 
-  DOUBLY_DIMINISHED_FOURTH = fromIntervalQuality(
+  dd4 = fromIntervalQuality(
     FOURTH,
-    DOUBLY_DIMINISHED,
+    dd,
   ) as Interval;
-  lock(DOUBLY_DIMINISHED_FOURTH);
+  lock(dd4);
 
-  PERFECT_FOURTH = fromIntervalQuality(
+  P4 = fromIntervalQuality(
     FOURTH,
-    PERFECT,
+    P,
   ) as Interval;
-  lock(PERFECT_FOURTH);
+  lock(P4);
 
-  AUGMENTED_THIRD = fromIntervalQuality(
+  a3 = fromIntervalQuality(
     THIRD,
-    AUGMENTED,
+    a,
   ) as Interval;
-  lock(AUGMENTED_THIRD);
+  lock(a3);
 
-  DOUBLY_AUGMENTED_THIRD = fromIntervalQuality(
+  da3 = fromIntervalQuality(
     THIRD,
-    DOUBLY_AUGMENTED,
+    da,
   ) as Interval;
-  lock(DOUBLY_AUGMENTED_THIRD);
+  lock(da3);
 
-  DIMINISHED_FIFTH = fromIntervalQuality(
+  d5 = fromIntervalQuality(
     FIFTH,
-    DIMINISHED,
+    d,
   ) as Interval;
-  lock(DIMINISHED_FIFTH);
+  lock(d5);
 
-  DOUBLY_DIMINISHED_FIFTH = fromIntervalQuality(
+  dd5 = fromIntervalQuality(
     FIFTH,
-    DOUBLY_DIMINISHED,
+    dd,
   ) as Interval;
-  lock(DOUBLY_DIMINISHED_FIFTH);
+  lock(dd5);
 
-  AUGMENTED_FOURTH = fromIntervalQuality(
+  a4 = fromIntervalQuality(
     FOURTH,
-    AUGMENTED,
+    a,
   ) as Interval;
-  lock(AUGMENTED_FOURTH);
+  lock(a4);
 
-  DOUBLY_AUGMENTED_FOURTH = fromIntervalQuality(
+  da4 = fromIntervalQuality(
     FOURTH,
-    DOUBLY_AUGMENTED,
+    da,
   ) as Interval;
-  lock(DOUBLY_AUGMENTED_FOURTH);
+  lock(da4);
 
-  PERFECT_FIFTH = fromIntervalQuality(
+  P5 = fromIntervalQuality(
     FIFTH,
-    PERFECT,
+    P,
   ) as Interval;
-  lock(PERFECT_FIFTH);
+  lock(P5);
 
-  DIMINISHED_SIXTH = fromIntervalQuality(
+  d6 = fromIntervalQuality(
     SIXTH,
-    DIMINISHED,
+    d,
   ) as Interval;
-  lock(DIMINISHED_SIXTH);
+  lock(d6);
 
-  DOUBLY_DIMINISHED_SIXTH = fromIntervalQuality(
+  dd6 = fromIntervalQuality(
     SIXTH,
-    DOUBLY_DIMINISHED,
+    dd,
   ) as Interval;
-  lock(DOUBLY_DIMINISHED_SIXTH);
+  lock(dd6);
 
-  MINOR_SIXTH = fromIntervalQuality(
+  m6 = fromIntervalQuality(
     SIXTH,
-    MINOR,
+    m,
   ) as Interval;
-  lock(MINOR_SIXTH);
+  lock(m6);
 
-  AUGMENTED_FIFTH = fromIntervalQuality(
+  a5 = fromIntervalQuality(
     FIFTH,
-    AUGMENTED,
+    a,
   ) as Interval;
-  lock(AUGMENTED_FIFTH);
+  lock(a5);
 
-  DOUBLY_AUGMENTED_FIFTH = fromIntervalQuality(
+  da5 = fromIntervalQuality(
     FIFTH,
-    DOUBLY_AUGMENTED,
+    da,
   ) as Interval;
-  lock(DOUBLY_AUGMENTED_FIFTH);
+  lock(da5);
 
-  MAJOR_SIXTH = fromIntervalQuality(
+  M6 = fromIntervalQuality(
     SIXTH,
-    MAJOR,
+    M,
   ) as Interval;
-  lock(MAJOR_SIXTH);
+  lock(M6);
 
-  DIMINISHED_SEVENTH = fromIntervalQuality(
+  d7 = fromIntervalQuality(
     SEVENTH,
-    DIMINISHED,
+    d,
   ) as Interval;
-  lock(DIMINISHED_SEVENTH);
+  lock(d7);
 
-  DOUBLY_DIMINISHED_SEVENTH = fromIntervalQuality(
+  dd7 = fromIntervalQuality(
     SEVENTH,
-    DOUBLY_DIMINISHED,
+    dd,
   ) as Interval;
-  lock(DOUBLY_DIMINISHED_SEVENTH);
+  lock(dd7);
 
-  MINOR_SEVENTH = fromIntervalQuality(
+  m7 = fromIntervalQuality(
     SEVENTH,
-    MINOR,
+    m,
   ) as Interval;
-  lock(MINOR_SEVENTH);
+  lock(m7);
 
-  AUGMENTED_SIXTH = fromIntervalQuality(
+  a6 = fromIntervalQuality(
     SIXTH,
-    AUGMENTED,
+    a,
   ) as Interval;
-  lock(AUGMENTED_SIXTH);
+  lock(a6);
 
-  DOUBLY_AUGMENTED_SIXTH = fromIntervalQuality(
+  da6 = fromIntervalQuality(
     SIXTH,
-    DOUBLY_AUGMENTED,
+    da,
   ) as Interval;
-  lock(DOUBLY_AUGMENTED_SIXTH);
+  lock(da6);
 
-  MAJOR_SEVENTH = fromIntervalQuality(
+  M7 = fromIntervalQuality(
     SEVENTH,
-    MAJOR,
+    M,
   ) as Interval;
-  lock(MAJOR_SEVENTH);
+  lock(M7);
 
-  DIMINISHED_OCTAVE = fromIntervalQuality(
+  d8 = fromIntervalQuality(
     OCTAVE,
-    DIMINISHED,
+    d,
   ) as Interval;
-  lock(DIMINISHED_OCTAVE);
+  lock(d8);
 
-  DOUBLY_DIMINISHED_OCTAVE = fromIntervalQuality(
+  dd8 = fromIntervalQuality(
     OCTAVE,
-    DOUBLY_DIMINISHED,
+    dd,
   ) as Interval;
-  lock(DOUBLY_DIMINISHED_OCTAVE);
+  lock(dd8);
 
-  PERFECT_OCTAVE = fromIntervalQuality(
+  P8 = fromIntervalQuality(
     OCTAVE,
-    PERFECT,
+    P,
   ) as Interval;
-  lock(PERFECT_OCTAVE);
+  lock(P8);
 
-  AUGMENTED_SEVENTH = fromIntervalQuality(
+  a7 = fromIntervalQuality(
     SEVENTH,
-    AUGMENTED,
+    a,
   ) as Interval;
 
-  DOUBLY_AUGMENTED_SEVENTH = fromIntervalQuality(
+  da7 = fromIntervalQuality(
     SEVENTH,
-    DOUBLY_AUGMENTED,
+    da,
   ) as Interval;
 
-  DIMINISHED_NINTH = fromIntervalQuality(
+  d9 = fromIntervalQuality(
     NINTH,
-    DIMINISHED,
+    d,
   ) as Interval;
 
-  DOUBLY_DIMINISHED_NINTH = fromIntervalQuality(
+  dd9 = fromIntervalQuality(
     NINTH,
-    DOUBLY_DIMINISHED,
+    dd,
   ) as Interval;
 
-  MINOR_NINTH = fromIntervalQuality(
+  m9 = fromIntervalQuality(
     NINTH,
-    MINOR,
+    m,
   ) as Interval;
 
-  AUGMENTED_OCTAVE = fromIntervalQuality(
+  a8 = fromIntervalQuality(
     OCTAVE,
-    AUGMENTED,
+    a,
   ) as Interval;
 
-  MAJOR_NINTH = fromIntervalQuality(
+  M9 = fromIntervalQuality(
     NINTH,
-    MAJOR,
+    M,
   ) as Interval;
 
-  DIMINISHED_TENTH = fromIntervalQuality(
+  d10 = fromIntervalQuality(
     TENTH,
-    DIMINISHED,
+    d,
   ) as Interval;
 
-  DOUBLY_DIMINISHED_TENTH = fromIntervalQuality(
+  dd10 = fromIntervalQuality(
     TENTH,
-    DOUBLY_DIMINISHED,
+    dd,
   ) as Interval;
 
-  MINOR_TENTH = fromIntervalQuality(
+  m10 = fromIntervalQuality(
     TENTH,
-    MINOR,
+    m,
   ) as Interval;
 
-  AUGMENTED_NINTH = fromIntervalQuality(
+  a9 = fromIntervalQuality(
     NINTH,
-    AUGMENTED,
+    a,
   ) as Interval;
 
-  DOUBLY_AUGMENTED_NINTH = fromIntervalQuality(
+  da9 = fromIntervalQuality(
     NINTH,
-    DOUBLY_AUGMENTED,
+    da,
   ) as Interval;
 
-  MAJOR_TENTH = fromIntervalQuality(
+  M10 = fromIntervalQuality(
     TENTH,
-    MAJOR,
+    M,
   ) as Interval;
 
-  DIMINISHED_ELEVENTH = fromIntervalQuality(
+  d11 = fromIntervalQuality(
     ELEVENTH,
-    DIMINISHED,
+    d,
   ) as Interval;
 
-  DOUBLY_DIMINISHED_ELEVENTH = fromIntervalQuality(
+  dd11 = fromIntervalQuality(
     ELEVENTH,
-    DOUBLY_DIMINISHED,
+    dd,
   ) as Interval;
 
-  PERFECT_ELEVENTH = fromIntervalQuality(
+  P11 = fromIntervalQuality(
     ELEVENTH,
-    PERFECT,
+    P,
   ) as Interval;
 
-  AUGMENTED_TENTH = fromIntervalQuality(
+  a10 = fromIntervalQuality(
     TENTH,
-    AUGMENTED,
+    a,
   ) as Interval;
 
-  DOUBLY_AUGMENTED_TENTH = fromIntervalQuality(
+  da10 = fromIntervalQuality(
     TENTH,
-    DOUBLY_AUGMENTED,
+    da,
   ) as Interval;
 
-  DIMINISHED_TWELFTH = fromIntervalQuality(
+  d12 = fromIntervalQuality(
     TWELFTH,
-    DIMINISHED,
+    d,
   ) as Interval;
 
-  DOUBLY_DIMINISHED_TWELFTH = fromIntervalQuality(
+  dd12 = fromIntervalQuality(
     TWELFTH,
-    DOUBLY_DIMINISHED,
+    dd,
   ) as Interval;
 
-  AUGMENTED_ELEVENTH = fromIntervalQuality(
+  a11 = fromIntervalQuality(
     ELEVENTH,
-    AUGMENTED,
+    a,
   ) as Interval;
 
-  DOUBLY_AUGMENTED_ELEVENTH = fromIntervalQuality(
+  da11 = fromIntervalQuality(
     ELEVENTH,
-    DOUBLY_AUGMENTED,
+    da,
   ) as Interval;
 
-  PERFECT_TWELFTH = fromIntervalQuality(
+  P12 = fromIntervalQuality(
     TWELFTH,
-    PERFECT,
+    P,
   ) as Interval;
 
-  DIMINISHED_THIRTEENTH = fromIntervalQuality(
+  d13 = fromIntervalQuality(
     THIRTEENTH,
-    DIMINISHED,
+    d,
   ) as Interval;
 
-  DOUBLY_DIMINISHED_THIRTEENTH = fromIntervalQuality(
+  dd13 = fromIntervalQuality(
     THIRTEENTH,
-    DOUBLY_DIMINISHED,
+    dd,
   ) as Interval;
 
-  MINOR_THIRTEENTH = fromIntervalQuality(
+  m13 = fromIntervalQuality(
     THIRTEENTH,
-    MINOR,
+    m,
   ) as Interval;
 
-  AUGMENTED_TWELFTH = fromIntervalQuality(
+  a12 = fromIntervalQuality(
     TWELFTH,
-    AUGMENTED,
+    a,
   ) as Interval;
 
-  DOUBLY_AUGMENTED_TWELFTH = fromIntervalQuality(
+  da12 = fromIntervalQuality(
     TWELFTH,
-    DOUBLY_AUGMENTED,
+    da,
   ) as Interval;
 
-  MAJOR_THIRTEENTH = fromIntervalQuality(
+  M13 = fromIntervalQuality(
     THIRTEENTH,
-    MAJOR,
+    M,
   ) as Interval;
 
-  DIMINISHED_FOURTEENTH = fromIntervalQuality(
+  d14 = fromIntervalQuality(
     FOURTEENTH,
-    DIMINISHED,
+    d,
   ) as Interval;
 
-  DOUBLY_DIMINISHED_FOURTEENTH = fromIntervalQuality(
+  dd14 = fromIntervalQuality(
     FOURTEENTH,
-    DOUBLY_DIMINISHED,
+    dd,
   ) as Interval;
 
-  MINOR_FOURTEENTH = fromIntervalQuality(
+  m14 = fromIntervalQuality(
     FOURTEENTH,
-    MINOR,
+    m,
   ) as Interval;
 
-  AUGMENTED_THIRTEENTH = fromIntervalQuality(
+  a13 = fromIntervalQuality(
     THIRTEENTH,
-    AUGMENTED,
+    a,
   ) as Interval;
 
-  DOUBLY_AUGMENTED_THIRTEENTH = fromIntervalQuality(
+  da13 = fromIntervalQuality(
     THIRTEENTH,
-    DOUBLY_AUGMENTED,
+    da,
   ) as Interval;
 
-  MAJOR_FOURTEENTH = fromIntervalQuality(
+  M14 = fromIntervalQuality(
     FOURTEENTH,
-    MAJOR,
+    M,
   ) as Interval;
 
-  DIMINISHED_FIFTEENTH = fromIntervalQuality(
+  d15 = fromIntervalQuality(
     FIFTEENTH,
-    DIMINISHED,
+    d,
   ) as Interval;
 
-  DOUBLY_DIMINISHED_FIFTEENTH = fromIntervalQuality(
+  dd15 = fromIntervalQuality(
     FIFTEENTH,
-    DOUBLY_DIMINISHED,
+    dd,
   ) as Interval;
 
-  PERFECT_FIFTEENTH = fromIntervalQuality(
+  P15 = fromIntervalQuality(
     FIFTEENTH,
-    PERFECT,
+    P,
   ) as Interval;
 
-  AUGMENTED_FOURTEENTH = fromIntervalQuality(
+  a14 = fromIntervalQuality(
     FOURTEENTH,
-    AUGMENTED,
+    a,
   ) as Interval;
 
-  DOUBLY_AUGMENTED_FOURTEENTH = fromIntervalQuality(
+  da14 = fromIntervalQuality(
     FOURTEENTH,
-    DOUBLY_AUGMENTED,
+    da,
   ) as Interval;
 
-  AUGMENTED_FIFTEENTH = fromIntervalQuality(
+  a15 = fromIntervalQuality(
     FIFTEENTH,
-    AUGMENTED,
+    a,
   ) as Interval;
 
-  DOUBLY_AUGMENTED_FIFTEENTH = fromIntervalQuality(
+  da15 = fromIntervalQuality(
     FIFTEENTH,
-    DOUBLY_AUGMENTED,
+    da,
   ) as Interval;
 }
 
-export let DIMINISHED_UNISON: Interval;
+export let d1: Interval;
 
-export let PERFECT_UNISON: Interval;
+export let P1: Interval;
 
-export let DIMINISHED_SECOND: Interval;
+export let d2: Interval;
 
-export let MINOR_SECOND: Interval;
+export let m2: Interval;
 
-export let AUGMENTED_UNISON: Interval;
+export let a1: Interval;
 
-export let DOUBLY_AUGMENTED_UNISON: Interval;
+export let da1: Interval;
 
-export let MAJOR_SECOND: Interval;
+export let M2: Interval;
 
-export let DIMINISHED_THIRD: Interval;
+export let d3: Interval;
 
-export let DOUBLY_DIMINISHED_THIRD: Interval;
+export let dd3: Interval;
 
-export let MINOR_THIRD: Interval;
+export let m3: Interval;
 
-export let AUGMENTED_SECOND: Interval;
+export let a2: Interval;
 
-export let DOUBLY_AUGMENTED_SECOND: Interval;
+export let da2: Interval;
 
-export let MAJOR_THIRD: Interval;
+export let M3: Interval;
 
-export let DIMINISHED_FOURTH: Interval;
+export let d4: Interval;
 
-export let DOUBLY_DIMINISHED_FOURTH: Interval;
+export let dd4: Interval;
 
-export let PERFECT_FOURTH: Interval;
+export let P4: Interval;
 
-export let AUGMENTED_THIRD: Interval;
+export let a3: Interval;
 
-export let DOUBLY_AUGMENTED_THIRD: Interval;
+export let da3: Interval;
 
-export let DIMINISHED_FIFTH: Interval;
+export let d5: Interval;
 
-export let DOUBLY_DIMINISHED_FIFTH: Interval;
+export let dd5: Interval;
 
-export let AUGMENTED_FOURTH: Interval;
+export let a4: Interval;
 
-export let DOUBLY_AUGMENTED_FOURTH: Interval;
+export let da4: Interval;
 
-export let PERFECT_FIFTH: Interval;
+export let P5: Interval;
 
-export let DIMINISHED_SIXTH: Interval;
+export let d6: Interval;
 
-export let DOUBLY_DIMINISHED_SIXTH: Interval;
+export let dd6: Interval;
 
-export let MINOR_SIXTH: Interval;
+export let m6: Interval;
 
-export let AUGMENTED_FIFTH: Interval;
+export let a5: Interval;
 
-export let DOUBLY_AUGMENTED_FIFTH: Interval;
+export let da5: Interval;
 
-export let MAJOR_SIXTH: Interval;
+export let M6: Interval;
 
-export let DIMINISHED_SEVENTH: Interval;
+export let d7: Interval;
 
-export let DOUBLY_DIMINISHED_SEVENTH: Interval;
+export let dd7: Interval;
 
-export let MINOR_SEVENTH: Interval;
+export let m7: Interval;
 
-export let AUGMENTED_SIXTH: Interval;
+export let a6: Interval;
 
-export let DOUBLY_AUGMENTED_SIXTH: Interval;
+export let da6: Interval;
 
-export let MAJOR_SEVENTH: Interval;
+export let M7: Interval;
 
-export let DIMINISHED_OCTAVE: Interval;
+export let d8: Interval;
 
-export let DOUBLY_DIMINISHED_OCTAVE: Interval;
+export let dd8: Interval;
 
-export let PERFECT_OCTAVE: Interval;
+export let P8: Interval;
 
-export let AUGMENTED_SEVENTH: Interval;
+export let a7: Interval;
 
-export let DOUBLY_AUGMENTED_SEVENTH: Interval;
+export let da7: Interval;
 
-export let DIMINISHED_NINTH: Interval;
+export let d9: Interval;
 
-export let DOUBLY_DIMINISHED_NINTH: Interval;
+export let dd9: Interval;
 
-export let MINOR_NINTH: Interval;
+export let m9: Interval;
 
-export let AUGMENTED_OCTAVE: Interval;
+export let a8: Interval;
 
-export let MAJOR_NINTH: Interval;
+export let M9: Interval;
 
-export let DIMINISHED_TENTH: Interval;
+export let d10: Interval;
 
-export let DOUBLY_DIMINISHED_TENTH: Interval;
+export let dd10: Interval;
 
-export let MINOR_TENTH: Interval;
+export let m10: Interval;
 
-export let AUGMENTED_NINTH: Interval;
+export let a9: Interval;
 
-export let DOUBLY_AUGMENTED_NINTH: Interval;
+export let da9: Interval;
 
-export let MAJOR_TENTH: Interval;
+export let M10: Interval;
 
-export let DIMINISHED_ELEVENTH: Interval;
+export let d11: Interval;
 
-export let DOUBLY_DIMINISHED_ELEVENTH: Interval;
+export let dd11: Interval;
 
-export let PERFECT_ELEVENTH: Interval;
+export let P11: Interval;
 
-export let AUGMENTED_TENTH: Interval;
+export let a10: Interval;
 
-export let DOUBLY_AUGMENTED_TENTH: Interval;
+export let da10: Interval;
 
-export let DIMINISHED_TWELFTH: Interval;
+export let d12: Interval;
 
-export let DOUBLY_DIMINISHED_TWELFTH: Interval;
+export let dd12: Interval;
 
-export let AUGMENTED_ELEVENTH: Interval;
+export let a11: Interval;
 
-export let DOUBLY_AUGMENTED_ELEVENTH: Interval;
+export let da11: Interval;
 
-export let PERFECT_TWELFTH: Interval;
+export let P12: Interval;
 
-export let DIMINISHED_THIRTEENTH: Interval;
+export let d13: Interval;
 
-export let DOUBLY_DIMINISHED_THIRTEENTH: Interval;
+export let dd13: Interval;
 
-export let MINOR_THIRTEENTH: Interval;
+export let m13: Interval;
 
-export let AUGMENTED_TWELFTH: Interval;
+export let a12: Interval;
 
-export let DOUBLY_AUGMENTED_TWELFTH: Interval;
+export let da12: Interval;
 
-export let MAJOR_THIRTEENTH: Interval;
+export let M13: Interval;
 
-export let DIMINISHED_FOURTEENTH: Interval;
+export let d14: Interval;
 
-export let DOUBLY_DIMINISHED_FOURTEENTH: Interval;
+export let dd14: Interval;
 
-export let MINOR_FOURTEENTH: Interval;
+export let m14: Interval;
 
-export let AUGMENTED_THIRTEENTH: Interval;
+export let a13: Interval;
 
-export let DOUBLY_AUGMENTED_THIRTEENTH: Interval;
+export let da13: Interval;
 
-export let MAJOR_FOURTEENTH: Interval;
+export let M14: Interval;
 
-export let DIMINISHED_FIFTEENTH: Interval;
+export let d15: Interval;
 
-export let DOUBLY_DIMINISHED_FIFTEENTH: Interval;
+export let dd15: Interval;
 
-export let PERFECT_FIFTEENTH: Interval;
+export let P15: Interval;
 
-export let AUGMENTED_FOURTEENTH: Interval;
+export let a14: Interval;
 
-export let DOUBLY_AUGMENTED_FOURTEENTH: Interval;
+export let da14: Interval;
 
-export let AUGMENTED_FIFTEENTH: Interval;
+export let a15: Interval;
 
-export let DOUBLY_AUGMENTED_FIFTEENTH: Interval;
+export let da15: Interval;

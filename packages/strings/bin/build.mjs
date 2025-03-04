@@ -1,4 +1,7 @@
 #!/usr/bin/env zx
+/* eslint-disable no-undef */
+
+$.verbose = true;
 
 await $`rm -rf dist`;
 await $`tsc -p tsconfig-build.json && tsc-alias -p tsconfig-build.json`;
@@ -24,7 +27,6 @@ async function replace( {
   doReplace,
   flag,
 } ) {
-  // eslint-disable-next-line no-undef
   const files = await globby(glob);
 
   for (const file of files) {
@@ -35,7 +37,7 @@ async function replace( {
       const newContent = content.replace(regex, newStr);
 
       await fs.writeFile(file, newContent);
-      console.log("Fixed file:" + file);
+      await echo`Fixed file: ${file}`;
     }
   }
 }

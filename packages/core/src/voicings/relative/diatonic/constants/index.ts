@@ -1,15 +1,15 @@
-import { fromRootIntervalInts } from "../building";
 import type { Voicing } from "../Voicing";
-import { bass } from "../modifiers";
 import { FIFTH, FOURTH, SECOND, THIRD, SIXTH as ISIXTH, SEVENTH as ISEVENTH } from "intervals/symbolic/diatonic/constants";
+import { fromRootIntervalInts } from "../building";
+import { bass } from "../modifiers";
 
 export function initialize() {
-  SECOND_INTERVAL = fromRootIntervalInts(0, 1);
-  THIRD_INTERVAL = fromRootIntervalInts(0, 2);
-  FOURTH_INTERVAL = fromRootIntervalInts(0, 3);
-  FIFTH_INTERVAL = fromRootIntervalInts(0, 4);
-  SIXTH_INTERVAL = fromRootIntervalInts(0, 5);
-  SEVENTH_INTERVAL = fromRootIntervalInts(0, 6);
+  INTERVAL_SECOND = fromRootIntervalInts(0, 1);
+  INTERVAL_THIRD = fromRootIntervalInts(0, 2);
+  INTERVAL_FOURTH = fromRootIntervalInts(0, 3);
+  INTERVAL_FIFTH = fromRootIntervalInts(0, 4);
+  INTERVAL_SIXTH = fromRootIntervalInts(0, 5);
+  INTERVAL_SEVENTH = fromRootIntervalInts(0, 6);
 
   TRIAD = fromRootIntervalInts(0, 2, 4);
 
@@ -49,17 +49,17 @@ export function initialize() {
   TRIAD_OVER_SEVENTH = bass(TRIAD, ISEVENTH);
 }
 
-export let SECOND_INTERVAL: Voicing;
+export let INTERVAL_SECOND: Voicing;
 
-export let THIRD_INTERVAL: Voicing;
+export let INTERVAL_THIRD: Voicing;
 
-export let FOURTH_INTERVAL: Voicing;
+export let INTERVAL_FOURTH: Voicing;
 
-export let FIFTH_INTERVAL: Voicing;
+export let INTERVAL_FIFTH: Voicing;
 
-export let SIXTH_INTERVAL: Voicing;
+export let INTERVAL_SIXTH: Voicing;
 
-export let SEVENTH_INTERVAL: Voicing;
+export let INTERVAL_SEVENTH: Voicing;
 
 export let TRIAD: Voicing;
 

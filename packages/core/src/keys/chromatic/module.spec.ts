@@ -1,23 +1,33 @@
-import { Keys } from ".";
 import { TestInit } from "tests";
+import { CHAROMATIC_PITCHES12_SHARPS_VARNAMES } from "pitches/chromatic/tests/varnames";
+import { expectExportModulesAsync } from "tests/modules";
+import { Keys } from ".";
 
 TestInit.chromaticKey();
 
-describe("static properties should be defined", () => {
-  it("modifiers", () => {
-    expect(Keys.rootChord3).toBeDefined();
-    expect(Keys.rootChord4).toBeDefined();
-  } );
-} );
+const vars: string[] = CHAROMATIC_PITCHES12_SHARPS_VARNAMES.map(v=>[v, v + "m"]).flat();
+const functions: string[] = [
+  // building
+  Keys.fromRootScale.name,
 
-describe("lazy properties should be defined", () => {
-  it("building", () => {
-    expect(Keys.fromRootScale).toBeDefined();
-  } );
+  // modifiers
+  Keys.rootChord3.name,
+  Keys.rootChord4.name,
+];
 
-  it("constants (some)", () => {
-    expect(Keys.C).toBeDefined();
-    expect(Keys.Cm).toBeDefined();
-    expect(Keys.Bm).toBeDefined();
+it("module should export functions and vars", async () => {
+  await expectExportModulesAsync( {
+    expected: {
+      functions,
+      vars,
+    },
+    barrel: Keys,
+    modules: [
+      "modifiers",
+      "constants",
+      "building/rootScale",
+    ],
+    // eslint-disable-next-line no-undef
+    dirname: __dirname,
   } );
 } );

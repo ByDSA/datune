@@ -1,7 +1,7 @@
-import { lockr } from "@datune/utils/immutables";
-import type { Dto } from "./building/Dto";
+import type { Dto } from "./caching/Dto";
 import type { ConcertPitch } from "concert-pitches/chromatic";
 import type { Temperament } from "temperaments/chromatic";
+import { lockr } from "@datune/utils/immutables";
 
 export class Tuning {
   concertPitch: ConcertPitch;

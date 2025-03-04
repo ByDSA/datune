@@ -1,13 +1,13 @@
-import { fromRootIntervals } from "../building/rootIntervals";
-import { MAJOR_SECOND, TRITONE } from "../constants";
 import type { Voicing } from "../Voicing";
-import { inv } from ".";
 import { TestInit } from "tests";
+import { fromRootIntervals } from "../building/rootIntervals";
+import { M2, TRITONE } from "../constants";
+import { inv } from ".";
 
 TestInit.chromaticVoicing();
 
 const map: any[] = [
-  [MAJOR_SECOND, fromRootIntervals(0, 10)],
+  [M2, fromRootIntervals(0, 10)],
   [TRITONE, TRITONE],
 ];
 

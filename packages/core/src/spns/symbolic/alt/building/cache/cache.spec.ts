@@ -1,6 +1,6 @@
+import { TestInit } from "tests";
 import { B7 } from "../../constants";
 import { fromPitchOctave } from "../pitch-octave";
-import { TestInit } from "tests";
 
 TestInit.diatonicAltSPN();
 

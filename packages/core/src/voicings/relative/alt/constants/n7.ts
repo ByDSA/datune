@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import { fromVoicings } from "../building/voicings";
-import { inv } from "../modifiers/inv";
 import type { Voicing } from "../Voicing";
-import { map } from "./inversionMap";
 import { Voicings as DV } from "voicings/diatonic";
 import { Voicings as CV } from "voicings/chromatic";
+import { fromVoicings } from "../building/voicings";
+import { inv } from "../modifiers/inv";
+import { map } from "./inversionMap";
 
 export function initializeN7() {
   THIRTEENTH_MAJ13 = fromVoicings(CV.THIRTEENTH_MAJ13, DV.THIRTEENTH) as Voicing;
@@ -99,5 +99,3 @@ export let THIRTEENTH_MAJ13_b5a9: Voicing;
 export let THIRTEENTH_MAJ13_a5b9: Voicing;
 
 export let THIRTEENTH_MAJ13_a5a9: Voicing;
-
-export let ALT: Voicing;

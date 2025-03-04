@@ -1,14 +1,14 @@
 import { cyclicMod } from "@datune/utils";
-import { calcIntraIntervals } from "../modifiers";
-import { Scale } from "../Scale";
-import { DegreeArray as DegreeAltArray, Degree as DegreeAlt, Degrees as DegreeAlts } from "degrees/alt";
+import { DegreeArray as ADegreeArray, Degree as ADegree, Degrees as AD } from "degrees/alt";
 import { Degree as ChromaticDegree } from "degrees/chromatic";
 import { Degrees as DDegrees } from "degrees/diatonic";
 import { calcAlts } from "pitches/alt/calcAlts";
-import { Pitches as CPitches } from "pitches/chromatic";
-import { Scales as ScalesAlt, Scale as ScaleAlt } from "scales/alt";
+import { Pitches as CP } from "pitches/chromatic";
+import { Scales as AS, Scale as AScale } from "scales/alt";
+import { Scale } from "../Scale";
+import { calcIntraIntervals } from "../modifiers/intraIntervals";
 
-type Reparam = (i: number, acc: number)=> DegreeAlt;
+type Reparam = (i: number, acc: number)=> ADegree;
 class ScaleAltConversor {
   #scale: Scale;
 
@@ -20,28 +20,28 @@ class ScaleAltConversor {
     return new ScaleAltConversor(scale);
   }
 
-  private static sevenReparam(i: number, semis: number): DegreeAlt {
+  private static sevenReparam(i: number, semis: number): ADegree {
     const diatonicDegree = DDegrees.fromInt(i - 1);
 
-    return DegreeAlts.fromDegrees(diatonicDegree, semis as ChromaticDegree);
+    return AD.fromDegrees(diatonicDegree, semis as ChromaticDegree);
   }
 
-  private static defaultReparam(_i: number, semis: number): DegreeAlt {
-    const fixedSemis = cyclicMod(semis, CPitches.NUMBER);
+  private static defaultReparam(_i: number, semis: number): ADegree {
+    const fixedSemis = cyclicMod(semis, CP.NUMBER);
 
     switch (fixedSemis) {
-      case 0: return DegreeAlts.I;
-      case 1: return DegreeAlts.from(DDegrees.I, 1);
-      case 2: return DegreeAlts.II;
-      case 3: return DegreeAlts.from(DDegrees.II, 1);
-      case 4: return DegreeAlts.III;
-      case 5: return DegreeAlts.IV;
-      case 6: return DegreeAlts.from(DDegrees.IV, 1);
-      case 7: return DegreeAlts.V;
-      case 8: return DegreeAlts.from(DDegrees.V, 1);
-      case 9: return DegreeAlts.VI;
-      case 10: return DegreeAlts.from(DDegrees.VI, 1);
-      case 11: return DegreeAlts.VII;
+      case 0: return AD.I;
+      case 1: return AD.from(DDegrees.I, 1);
+      case 2: return AD.II;
+      case 3: return AD.from(DDegrees.II, 1);
+      case 4: return AD.III;
+      case 5: return AD.IV;
+      case 6: return AD.from(DDegrees.IV, 1);
+      case 7: return AD.V;
+      case 8: return AD.from(DDegrees.V, 1);
+      case 9: return AD.VI;
+      case 10: return AD.from(DDegrees.VI, 1);
+      case 11: return AD.VII;
       default: throw new Error();
     }
   }
@@ -54,9 +54,9 @@ class ScaleAltConversor {
     d5: number,
     d6: number,
     d7: number,
-  ): ScaleAlt {
+  ): AScale {
     const degrees = this.intervals2Degrees([d1, d2, d3, d4, d5, d6, d7], this.sevenReparam);
-    const scale = ScalesAlt.fromDegrees(...degrees);
+    const scale = AS.fromDegrees(...degrees);
 
     return scale;
   }
@@ -64,8 +64,8 @@ class ScaleAltConversor {
   private static intervals2Degrees(
     distances: number[],
     reparametrizer: Reparam = this.defaultReparam,
-  ): DegreeAltArray {
-    const degrees: DegreeAltArray = [DegreeAlts.I];
+  ): ADegreeArray {
+    const degrees: ADegreeArray = [AD.I];
     let distancesAcc = 0;
 
     for (let i = 2; i <= distances.length; i++) {
@@ -73,7 +73,7 @@ class ScaleAltConversor {
       const iFixed: number = reparametrizer(i, distancesAcc).diatonicDegree.valueOf();
       const diatonicDegree = DDegrees.fromInt(iFixed);
       const alts = calcAlts(distancesAcc, diatonicDegree);
-      const degree: DegreeAlt = DegreeAlts.from(diatonicDegree, alts);
+      const degree: ADegree = AD.from(diatonicDegree, alts);
 
       degrees.push(degree);
     }
@@ -82,18 +82,18 @@ class ScaleAltConversor {
   }
 
   // eslint-disable-next-line accessor-pairs
-  get scaleDiatonicAlt(): ScaleAlt {
+  get scaleDiatonicAlt(): AScale {
     const ic: number[] = calcIntraIntervals(this.#scale);
 
     if (this.#scale.length === 7)
       return ScaleAltConversor.fromIntervals7(ic[0], ic[1], ic[2], ic[3], ic[4], ic[5], ic[6]);
 
-    const degrees: DegreeAltArray = ScaleAltConversor.intervals2Degrees(ic);
+    const degrees: ADegreeArray = ScaleAltConversor.intervals2Degrees(ic);
 
-    return ScalesAlt.fromDegrees(...degrees);
+    return AS.fromDegrees(...degrees);
   }
 }
 
-export function toAlt(scale: Scale): ScaleAlt {
+export function toAlt(scale: Scale): AScale {
   return ScaleAltConversor.from(scale).scaleDiatonicAlt;
 }

@@ -1,7 +1,7 @@
-import { Arrays } from "@datune/utils";
-import { Voicings as CVoicings } from "../../chromatic";
+import type { Arrays } from "@datune/utils";
 import type { Voicing } from "../Voicing";
 import { Intervals } from "intervals/alt";
+import { Voicings as CVoicings } from "../../chromatic";
 
 export function toChromaticInterval(obj: Voicing) {
   const arrayVoicing: Arrays.Number = [] as any;

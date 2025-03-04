@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
 /* eslint-disable camelcase */
 import { Voicings } from "@datune/core/voicings/alt";
-import { parseVoicing } from ".";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
+import { parseVoicing } from ".";
 
 TestInit.diatonicAltVoicing();
 TestLang.loadAll();

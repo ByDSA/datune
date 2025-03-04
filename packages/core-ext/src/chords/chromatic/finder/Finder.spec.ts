@@ -2,8 +2,8 @@
 import { Chords } from "@datune/core/chords/chromatic";
 import { Pitches } from "@datune/core/pitches/chromatic";
 import { Voicings as V } from "@datune/core/voicings/chromatic";
-import { Finder } from "./Finder";
 import { TestInit } from "tests";
+import { Finder } from "./Finder";
 
 TestInit.loadAll();
 

@@ -1,5 +1,5 @@
-import { lockr } from "@datune/utils/immutables";
 import type { SPN as ISPN } from "../SPN";
+import { lockr } from "@datune/utils/immutables";
 
 export class SPN implements ISPN {
   #frequency: number;

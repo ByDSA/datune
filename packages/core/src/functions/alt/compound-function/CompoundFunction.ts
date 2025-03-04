@@ -1,13 +1,13 @@
 import type { DegreeFunction } from "../degree-function/DegreeFunction";
-import { HarmonicFunction } from "../HarmonicFunction";
 import type { Dto } from "./caching/Dto";
 import type { Chord } from "chords/alt";
-import { Chords } from "chords/alt";
 import type { DegreeArray } from "degrees/alt";
-import { Degrees } from "degrees/alt";
 import type { Interval } from "intervals/alt";
-import { Intervals } from "intervals/alt";
 import type { Key } from "keys/alt";
+import { Chords } from "chords/alt";
+import { Degrees } from "degrees/alt";
+import { Intervals } from "intervals/alt";
+import { HarmonicFunction } from "../HarmonicFunction";
 
 export class CompoundFunction extends HarmonicFunction {
   degreeFunction: DegreeFunction;
@@ -31,7 +31,7 @@ export class CompoundFunction extends HarmonicFunction {
     if (!baseChord)
       return null;
 
-    let accInterval = Intervals.PERFECT_UNISON;
+    let accInterval = Intervals.P1;
 
     for (const degree of this.degreeChain) {
       const rootInterval = Degrees.toInterval(degree);

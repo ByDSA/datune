@@ -1,7 +1,7 @@
 import type { PitchArray } from "../Array";
 import type { Pitch } from "../Pitch";
-import { add } from "./add";
 import { IntervalArray } from "intervals/chromatic";
+import { add } from "./add";
 
 export function rootIntervals(root: Pitch, intervals: IntervalArray): PitchArray {
   return intervals.map(

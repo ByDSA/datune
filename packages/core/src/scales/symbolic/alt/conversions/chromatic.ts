@@ -1,13 +1,14 @@
+import type { IntervalArray as CIntervalArray } from "intervals/chromatic";
+import type { Scale } from "../Scale";
+import type { Scale as CScale } from "scales/chromatic";
+import { Intervals as I } from "intervals/alt";
+import { fromIntraIntervals } from "scales/symbolic/chromatic/building";
 import { calcIntraIntervals } from "../modifiers";
-import { Scale } from "../Scale";
-import { Intervals } from "intervals/alt";
-import { IntervalArray as ChromaticIntervalArray } from "intervals/chromatic";
-import { Scales as CScales, Scale as ChromaticScale } from "scales/chromatic";
 
-export function toChromatic(obj: Scale): ChromaticScale {
+export function toChromatic(obj: Scale): CScale {
   const chromaticIntraIntervals = calcIntraIntervals(obj).map(
-    Intervals.toChromaticInterval,
-  ) as ChromaticIntervalArray;
+    I.toChromaticInterval,
+  ) as CIntervalArray;
 
-  return CScales.fromIntraIntervals(...chromaticIntraIntervals);
+  return fromIntraIntervals(...chromaticIntraIntervals);
 }

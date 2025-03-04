@@ -1,9 +1,8 @@
 /* eslint-disable camelcase */
-
-import { fromVoicings } from "../building/voicings";
 import type { Voicing } from "../Voicing";
 import { Voicings as CV } from "voicings/chromatic";
 import { Voicings as DV } from "voicings/diatonic";
+import { fromVoicings } from "../building/voicings";
 
 export function initializeN5() {
   SIXTH_ADD9 = fromVoicings(CV.SIXTH_ADD9, DV.SIXTH_ADD9) as Voicing;

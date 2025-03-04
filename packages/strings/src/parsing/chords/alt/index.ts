@@ -4,11 +4,11 @@ import { fromRootVoicing } from "@datune/core/chords/octave/alt/building/root-vo
 import { bass } from "@datune/core/chords/octave/alt/modifiers";
 import { Pitch } from "@datune/core/pitches/alt";
 import { Voicing } from "@datune/core/voicings/alt";
-import { ChordStringAbstract } from "../ChordStringAbstract";
-import { normalizeInput } from "../normalizeInput";
 import { parseVoicing } from "parsing/voicings/alt";
 import { parsePitch } from "parsing/pitches/alt";
 import { Options } from "lang/Options";
+import { normalizeInput } from "../normalizeInput";
+import { ChordStringAbstract } from "../ChordStringAbstract";
 
 class ChordAltString extends ChordStringAbstract<Chord> {
   static from(input: string, options?: Options): ChordAltString {

@@ -1,7 +1,7 @@
+import type { Interval } from "../Interval";
 import { lockr } from "@datune/utils/immutables";
 import { frac } from "@datune/utils/math";
 import { from } from "../building";
-import type { Interval } from "../Interval";
 
 export function initialize() {
   SYNTONIC_COMMA = from(frac(81, 80));

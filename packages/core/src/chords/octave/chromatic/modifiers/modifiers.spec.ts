@@ -1,6 +1,6 @@
+import { TestInit } from "tests";
 import { B7, C7, D7 } from "../constants";
 import { add } from ".";
-import { TestInit } from "tests";
 
 TestInit.chromaticChord();
 

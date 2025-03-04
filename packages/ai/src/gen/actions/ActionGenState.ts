@@ -1,5 +1,5 @@
 import { MusicalDuration } from "@datune/core";
-import { ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
+import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { MidiNote } from "@datune/midi";
 import { Voice } from "../voice/Voice";
 

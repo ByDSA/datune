@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 import { Scales, Scale } from "@datune/core/scales/chromatic";
-import { stringifyScale } from "..";
 import { LangId } from "lang";
+import { stringifyScale } from "..";
 
 type Case = [LangId, Scale, string];
 export function getManualCases(): Case[] {

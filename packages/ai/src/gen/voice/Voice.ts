@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import type { VoiceConstraint } from "../constraints/voice/VoiceConstraint";
 import { SPN } from "@datune/core/spns/chromatic";
-import { MusicalDuration } from "@datune/core/time";
+import { MusicalDuration } from "@datune/core/rhythm";
 import { MidiSequence } from "@datune/midi";
 import { ConstraintSPN } from "../constraints/pitch/ConstraintSPN";
-import type { VoiceConstraint } from "../constraints/voice/VoiceConstraint";
 
 export class Voice {
   voiceConstraints: VoiceConstraint[];

@@ -1,7 +1,7 @@
-import { Scale as IScale } from "../../Scale";
 import type { Dto } from "./caching/Dto";
 import { DegreeArray, Degree } from "degrees/chromatic";
 import { IntervalArray, Interval } from "intervals/chromatic";
+import { Scale as IScale } from "../../Scale";
 
 export class Scale implements IScale<Interval, Degree> {
   rootIntervals: IntervalArray;

@@ -1,9 +1,9 @@
 import { ProcessCache } from "@datune/utils";
 import { COMMON } from "@datune/core/scales/symbolic/chromatic/constants";
-import { normalizeInputName } from "./normalizeNameInput";
 import { createToken, TokenType } from "chevrotain";
 import { LangId } from "lang";
 import { getName } from "strings/scales/chromatic/name";
+import { normalizeInputName } from "./normalizeNameInput";
 
 function generateToken(langId: LangId) {
   const pattern = generateVoicing(langId);

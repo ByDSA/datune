@@ -1,5 +1,5 @@
-import { bVII } from ".";
 import { TestInit } from "tests";
+import { bVII } from ".";
 
 beforeAll(() => {
   TestInit.diatonicAltDegree();

@@ -1,5 +1,5 @@
-import { frac, Pow2Exp } from "@datune/utils/math";
 import type { Interval } from "../Interval";
+import { frac, Pow2Exp } from "@datune/utils/math";
 import { from } from "./ratio";
 
 export function fromCents(cents: number): Interval {

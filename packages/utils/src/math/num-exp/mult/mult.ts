@@ -1,7 +1,7 @@
+/* eslint-disable import/no-cycle */
 import { FracExp } from "../frac";
 import { NumExp } from "../NumExp";
 import { PowExp } from "../pow/PowExp";
-// eslint-disable-next-line import/no-cycle
 import { multFrac } from "./frac";
 import { multPow } from "./pow";
 

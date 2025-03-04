@@ -1,6 +1,6 @@
+import type { Voicing } from "../Voicing";
 import { Voicings } from "..";
 import { fromRootIntervals } from "../building/rootIntervals";
-import type { Voicing } from "../Voicing";
 import { map } from "./inversionMap";
 
 export function initializeN3() {

@@ -1,5 +1,5 @@
-import { Direction } from "../Direction";
 import type { Interval } from "../Interval";
+import { Direction } from "../Direction";
 import { cache } from "../caching/cache";
 
 export function fromInt(magnitude: number, direction = Direction.ASCENDENT): Interval {

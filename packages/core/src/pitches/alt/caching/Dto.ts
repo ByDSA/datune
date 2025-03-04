@@ -1,7 +1,7 @@
-import type { Pitch as Diatonic } from "pitches/diatonic";
+import type { Pitch as DPitch } from "pitches/diatonic";
 
 export type Dto = {
-  diatonic: Diatonic;
+  diatonic: DPitch;
   alts: number;
 };
 

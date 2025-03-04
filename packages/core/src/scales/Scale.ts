@@ -1,4 +1,4 @@
-import { Arrays } from "@datune/utils";
+import type { Arrays } from "@datune/utils";
 
 export interface Scale<INTERVAL, DEGREE> {
   rootIntervals: Arrays.NonEmpty<INTERVAL>;

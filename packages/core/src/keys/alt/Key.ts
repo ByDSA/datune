@@ -1,9 +1,9 @@
-import { IKey } from "../Key";
 import type { Dto } from "./building/caching/Dto";
-import { Chord } from "chords/alt";
 import type { Interval } from "intervals/alt";
+import { Chord } from "chords/alt";
 import { PitchArray, Pitch, Pitches } from "pitches/alt";
 import { Scale } from "scales/alt";
+import { IKey } from "../Key";
 
 export class Key implements
   IKey<Interval, Pitch, Scale, Chord> {

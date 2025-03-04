@@ -1,6 +1,6 @@
+import type { Interval } from "../Interval";
 import { lockr } from "@datune/utils/immutables";
 import { fromInt } from "../building";
-import type { Interval } from "../Interval";
 
 export function initialize() {
   if (UNISON)

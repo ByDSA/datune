@@ -1,23 +1,19 @@
 import type { Interval } from "./Interval";
-
 import type { IntervalArray } from "./Array";
-
-import * as Building from "./building";
-
-import type * as ConstantsType from "./constants";
-
-import * as IndependentModifiers from "./modifiers/independentModifiers";
+import type * as Constants from "./constants";
 import type * as ModifierShiftOctaves from "./modifiers/shiftOctaves";
 import type * as ModifierNeg from "./modifiers/neg";
 import type * as ModifierMult from "./modifiers/mult";
 import { createProxyBarrel } from "lazy-load";
+import * as IndependentModifiers from "./modifiers/independentModifiers";
+import * as Building from "./building";
 
 const staticModule = {
   ...Building,
   ...IndependentModifiers,
 };
 
-type LazyType = Omit<typeof ConstantsType, "intialize">
+type LazyType = Omit<typeof Constants, "initialize">
   & typeof ModifierMult
   & typeof ModifierNeg
   & typeof ModifierShiftOctaves;
@@ -28,9 +24,13 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "modifiers/shiftOctaves",
     "modifiers/mult",
     "modifiers/neg",
-    "constants",
+    {
+      path: "constants",
+      omit: ["initialize"],
+    },
+  ],
   // eslint-disable-next-line no-undef
-  ].map(p=>`${__dirname}/${p}`),
+  dirname: __dirname,
 } );
 
 export {

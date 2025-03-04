@@ -1,8 +1,8 @@
-import { cache } from "../caching/cache";
 import type { Pitch } from "../Pitch";
-import type { Pitch as Diatonic } from "pitches/diatonic";
+import type { Pitch as DPitch } from "pitches/diatonic";
+import { cache } from "../caching/cache";
 
-export function fromDiatonicAlts(diatonic: Diatonic, alts: number): Pitch {
+export function fromDiatonicAlts(diatonic: DPitch, alts: number): Pitch {
   return cache.getOrCreate( {
     diatonic,
     alts,

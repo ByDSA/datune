@@ -1,14 +1,14 @@
 import { Intervals } from ".";
 
 describe.each([
-  [Intervals.PERFECT_UNISON, 0],
-  [Intervals.neg(Intervals.PERFECT_UNISON), 0],
-  [Intervals.PERFECT_FIFTH, 0],
-  [Intervals.neg(Intervals.PERFECT_FIFTH), 0],
-  [Intervals.PERFECT_OCTAVE, 1],
-  [Intervals.neg(Intervals.PERFECT_OCTAVE), -1],
-  [Intervals.PERFECT_TWELFTH, 1],
-  [Intervals.neg(Intervals.PERFECT_TWELFTH), -1],
+  [Intervals.P1, 0],
+  [Intervals.neg(Intervals.P1), 0],
+  [Intervals.P5, 0],
+  [Intervals.neg(Intervals.P5), 0],
+  [Intervals.P8, 1],
+  [Intervals.neg(Intervals.P8), -1],
+  [Intervals.P12, 1],
+  [Intervals.neg(Intervals.P12), -1],
 ])("octaves", (interval, expected) => {
   it(`${interval} => ${expected}`, () => {
     const actual = Intervals.octaves(interval);

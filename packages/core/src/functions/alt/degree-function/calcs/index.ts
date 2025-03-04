@@ -1,3 +1,3 @@
 export {
-  calcDegrees as degrees,
+  calcDegrees,
 } from "./degrees";

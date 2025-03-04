@@ -1,8 +1,8 @@
 export type VoicingsPart = {
-  MINOR_SECOND: string;
-  MAJOR_SECOND: string;
-  MINOR_THIRD: string;
-  MAJOR_THIRD: string;
+  m2: string;
+  M2: string;
+  m3: string;
+  M3: string;
   TRITONE: string;
   POWER_CHORD: string;
   TRIAD_MAJOR: string;

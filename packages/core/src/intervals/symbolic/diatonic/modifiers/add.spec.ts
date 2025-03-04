@@ -1,7 +1,7 @@
+import { TestInit } from "tests";
 import { ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH, FOURTH, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH, TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } from "../constants";
 import { add } from "./add";
 import { neg } from "./neg";
-import { TestInit } from "tests";
 
 TestInit.diatonicInterval();
 

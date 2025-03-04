@@ -1,7 +1,7 @@
-import { C } from "../constants";
-import { rootChord4 } from "./rootChord4";
 import { Chords } from "chords/chromatic";
 import { TestInit } from "tests";
+import { C } from "../constants";
+import { rootChord4 } from "./rootChord4";
 
 TestInit.chromaticKey();
 TestInit.chromaticVoicing();

@@ -1,6 +1,6 @@
-import { getLangTokens } from "./tokens";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
+import { getLangTokens } from "./tokens";
 
 TestLang.loadAll();
 TestInit.chromaticScale();

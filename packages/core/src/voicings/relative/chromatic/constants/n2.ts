@@ -1,38 +1,38 @@
-import { fromRootIntervals } from "../building/rootIntervals";
 import type { Voicing } from "../Voicing";
+import { fromRootIntervals } from "../building/rootIntervals";
 
 export function initializeN2() {
-  MINOR_SECOND = fromRootIntervals(0, 1);
-  MAJOR_SECOND = fromRootIntervals(0, 2);
-  MINOR_THIRD = fromRootIntervals(0, 3);
-  MAJOR_THIRD = fromRootIntervals(0, 4);
-  PERFECT_FOURTH = fromRootIntervals(0, 5);
+  m2 = fromRootIntervals(0, 1);
+  M2 = fromRootIntervals(0, 2);
+  m3 = fromRootIntervals(0, 3);
+  M3 = fromRootIntervals(0, 4);
+  P4 = fromRootIntervals(0, 5);
   TRITONE = fromRootIntervals(0, 6);
   POWER_CHORD = fromRootIntervals(0, 7);
-  MINOR_SIXTH = fromRootIntervals(0, 8);
-  MAJOR_SIXTH = fromRootIntervals(0, 9);
-  MINOR_SEVENTH = fromRootIntervals(0, 10);
-  MAJOR_SEVENTH = fromRootIntervals(0, 11);
+  m6 = fromRootIntervals(0, 8);
+  M6 = fromRootIntervals(0, 9);
+  m7 = fromRootIntervals(0, 10);
+  M7 = fromRootIntervals(0, 11);
 }
 
-export let MINOR_SECOND: Voicing;
+export let m2: Voicing;
 
-export let MAJOR_SECOND: Voicing;
+export let M2: Voicing;
 
-export let MINOR_THIRD: Voicing;
+export let m3: Voicing;
 
-export let MAJOR_THIRD: Voicing;
+export let M3: Voicing;
 
 export let TRITONE: Voicing;
 
 export let POWER_CHORD: Voicing;
 
-export let PERFECT_FOURTH: Voicing;
+export let P4: Voicing;
 
-export let MINOR_SIXTH: Voicing;
+export let m6: Voicing;
 
-export let MAJOR_SIXTH: Voicing;
+export let M6: Voicing;
 
-export let MINOR_SEVENTH: Voicing;
+export let m7: Voicing;
 
-export let MAJOR_SEVENTH: Voicing;
+export let M7: Voicing;

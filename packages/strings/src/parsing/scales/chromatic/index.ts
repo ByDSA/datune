@@ -1,7 +1,7 @@
 import { Scale } from "@datune/core/scales/chromatic";
+import { Options } from "parsing";
 import { parseFromName } from "./fromName";
 import { parseFromIntervals } from "./intervals";
-import { Options } from "parsing";
 
 export function parseScale(input: string, options?: Options): Scale | null {
   let scale: Scale | null;

@@ -1,8 +1,8 @@
 import { Scale } from "@datune/core/scales/alt";
 import { COMMON, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN } from "@datune/core/scales/symbolic/alt/constants";
-import { normalizeInputName } from "../normalizeNameInput";
 import { Options } from "lang";
 import { stringifyScale } from "strings/scales/alt";
+import { normalizeInputName } from "../normalizeNameInput";
 
 export function parseFromName(input: string, options?: Options): Scale | null {
   const normalizedInput = normalizeInputName(input);

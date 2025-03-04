@@ -1,5 +1,5 @@
 import { loadSync } from "@datune/core/initialization";
-import init from "@datune/core/initialization/initialize";
+import { initialize } from "@datune/core/initialization/initialize";
 
 export class TestInit {
   static loadAll() {
@@ -12,6 +12,6 @@ export class TestInit {
     if (!data)
       throw new Error();
 
-    init(data);
+    initialize(data);
   }
 }

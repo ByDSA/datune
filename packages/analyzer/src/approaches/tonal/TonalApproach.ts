@@ -1,9 +1,9 @@
 import { MusicalDuration } from "@datune/core";
-import { WHOLE, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
+import { WHOLE, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { mergeDeep } from "mergeDeep";
 import { ChordSequence, FuncSequence, KeySequence, MainFuncSequence, NotesSequence, RhythmSequence } from "../../sequences";
 import { ChordSequenceCalculator } from "../../sequences/ChordSequenceCalculator";
 import { ConstructorObjType, DEFAULT_CONSTRUCTOR_OBJ } from "./Constructor";
-import { mergeDeep } from "mergeDeep";
 
 export class TonalApproach {
   keySequence: KeySequence;

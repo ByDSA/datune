@@ -1,5 +1,4 @@
 /* eslint-disable accessor-pairs */
-
 import { Chord } from "chords/alt";
 import { HarmonicFunction } from "functions/alt";
 import { Key } from "keys/alt";

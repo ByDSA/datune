@@ -1,6 +1,6 @@
+import { TestInit } from "tests";
 import { A0, A1, A2, A3, A4, A5, B2, C0, C10, C4, G10 } from "../constants";
 import { calcFrequency } from "./frequency";
-import { TestInit } from "tests";
 
 TestInit.initAll();
 

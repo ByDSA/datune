@@ -1,7 +1,7 @@
+import type { IntervalArray } from "intervals/alt";
+import type { Scale } from "../Scale";
 import { Arrays } from "@datune/utils";
-import { Scale } from "../Scale";
 import { calcIntraIntervals } from "./intraIntervals";
-import { IntervalArray } from "intervals/alt";
 
 export function getModeIntraIntervals(
   obj: Scale,

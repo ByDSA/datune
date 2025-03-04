@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-continue */
 /* eslint-disable camelcase */
-
 import { ChordSequence, TonalApproach } from "@datune/analyzer";
 import { init as initCore, type Key, type MusicalDuration } from "@datune/core";
 import { fromRootVoicing } from "@datune/core/chords/absolute/chromatic/building";
@@ -11,8 +10,8 @@ import { A2, B3, C4, C7, G4 } from "@datune/core/spns/symbolic/chromatic/constan
 import { SPN, SPNArray } from "@datune/core/spns/chromatic";
 import { add, sub } from "@datune/core/spns/symbolic/chromatic/modifiers";
 import { fromPitchOctave as spnFrom } from "@datune/core/spns/symbolic/chromatic/building/pitch-octave";
-import { EIGHTH, HALF, LONGA, QUARTER, SIXTEENTH } from "@datune/core/time/symbolic/musical-duration/constants";
-import { from as BPMFrom } from "@datune/core/time/symbolic/bpm/building";
+import { EIGHTH, HALF, LONGA, QUARTER, SIXTEENTH } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { from as BPMFrom } from "@datune/core/rhythm/tempo/bpm/building";
 import { initialize as initMidi, Instrument, MidiFile, MidiNode, MidiNote, nodeFrom, noteFrom } from "@datune/midi";
 import { from as midiPitchFrom } from "@datune/midi/pitch/building";
 import { Arrays, random } from "@datune/utils";

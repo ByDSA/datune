@@ -1,12 +1,12 @@
-import { toChromaticInterval } from "../../conversions";
 import type { Interval } from "../../Interval";
 import type { Quality } from "../../quality/Quality";
-import { fromInt as qualityFromInt } from "../../quality/building";
 import type { Interval as DiatonicInterval } from "intervals/diatonic";
 import { Intervals as DIntervals } from "intervals/diatonic";
 import { calcAlts } from "pitches/alt/calcAlts";
 import { fixAlts } from "pitches/alt/fixAlts";
 import { Pitches as DPitches } from "pitches/diatonic";
+import { fromInt as qualityFromInt } from "../../quality/building";
+import { toChromaticInterval } from "../../conversions";
 
 export function calcFixedQualityDifferentDirection(
   self: Interval,

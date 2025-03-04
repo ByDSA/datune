@@ -1,9 +1,9 @@
+import { Intervals as I } from "diatonic";
+import { TestInit } from "tests";
 import { bass } from "./modifiers";
 import * as V from "./constants";
 import { fromRootIntervalInts } from "./building";
 import { expectVoicing } from "./tests/voicing";
-import { Intervals as I } from "diatonic";
-import { TestInit } from "tests";
 
 TestInit.diatonicInterval();
 TestInit.diatonicVoicing();

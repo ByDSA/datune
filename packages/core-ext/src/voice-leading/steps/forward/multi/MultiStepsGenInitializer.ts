@@ -1,5 +1,6 @@
 /* eslint-disable no-continue */
-import { Arrays } from "@datune/utils";
+import type { Arrays } from "@datune/utils";
+import type { RequireFunction } from "./MultiStepsGen";
 import { Interval as ChromaticInterval } from "@datune/core/intervals/chromatic";
 import { SPNArray } from "@datune/core/spns/chromatic";
 import { VoicingArray as ChromaticVoicingArray } from "@datune/core/voicings/chromatic";
@@ -14,7 +15,6 @@ import { StepReason, StepReasonNear, StepReasonRestNotes, StepReasonVoicing } fr
 import { StepType } from "../../reason/StepType";
 import { nonNullSteps, Step, StepArray, StepOrNull } from "../../Step";
 import { IntraVoicing, IntraVoicingsFinder } from "./IntraVoicingsFinder";
-import type { RequireFunction } from "./MultiStepsGen";
 
 export class MultiStepsGenInitializer {
   notes: SPNArray | undefined;

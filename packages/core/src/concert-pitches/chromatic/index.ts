@@ -1,22 +1,24 @@
 import type { ConcertPitch } from "./ConcertPitch";
-
-import { fromFrequencySPN } from "./building/frequencySPN";
-
 import type * as Constants from "./constants";
 import { createProxyBarrel } from "lazy-load";
+import { fromFrequencySPN } from "./building/frequencySPN";
 
 const staticModule = {
   fromFrequencySPN,
 };
 
-type LazyType = typeof Constants;
+type LazyType = Omit<typeof Constants, "initialize">;
 
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    "constants",
+    {
+      path: "constants",
+      omit: ["initialize"],
+    },
+  ],
   // eslint-disable-next-line no-undef
-  ].map(p=>`${__dirname}/${p}`),
+  dirname: __dirname,
 } );
 
 export {

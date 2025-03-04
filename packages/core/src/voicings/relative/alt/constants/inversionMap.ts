@@ -1,6 +1,7 @@
 import type { Voicing } from "../Voicing";
 
-export function getInversionOf(voicing: Voicing) {
+// ??
+export function getNumInversionOf(voicing: Voicing): number {
   return map.get(voicing) ?? 0;
 }
 

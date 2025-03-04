@@ -1,7 +1,7 @@
 import fs from "node:fs";
-import { Language } from "../Language";
 import { LangId } from "lang";
 import { putLang } from "lang/db";
+import { Language } from "../Language";
 
 export type Params = {
   folder?: string;

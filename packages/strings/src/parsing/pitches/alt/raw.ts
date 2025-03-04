@@ -1,8 +1,8 @@
 import { A, AA, AAA, AAAA, Ab, Abb, Abbb, B, BB, Bb, BBB, Bbb, BBBB, Bbbb, C, Cb, Cbb, Cbbb, CC, CCC, CCCC, D, Db, Dbb, Dbbb, DD, DDD, DDDD, E, Eb, Ebb, Ebbb, EE, EEE, EEEE, F, Fb, Fbb, Fbbb, FF, FFF, FFFF, G, Gb, Gbb, Gbbb, GG, GGG, GGGG } from "@datune/core/pitches/alt/constants";
 import { Pitch } from "@datune/core/pitches/alt";
-import { normalizeInput } from "../normalizeInput";
 import { Options } from "parsing";
 import { stringifyPitch } from "strings/pitches/alt";
+import { normalizeInput } from "../normalizeInput";
 
 export function parseRaw(input: string, options?: Options): Pitch | null {
   switch (input) {

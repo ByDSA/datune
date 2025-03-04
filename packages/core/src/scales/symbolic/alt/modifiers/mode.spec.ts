@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-import { BLUES_b5, DORIAN, LOCRIAN, MAJOR } from "../constants";
-import { mode } from "./mode";
 import { Degrees } from "degrees/alt";
 import { TestInit } from "tests";
+import { BLUES_b5, DORIAN, LOCRIAN, MAJOR } from "../constants";
+import { mode } from "./mode";
 
 TestInit.diatonicAltScale();
 

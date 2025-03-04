@@ -1,29 +1,70 @@
-import { PERFECT_UNISON } from "./constants";
+import { TestInit } from "tests";
+import { expectExportModulesAsync } from "tests/modules";
+import { P1 } from "./constants";
 import { Intervals } from ".";
 
-describe("static properties should be defined", () => {
-  it("building", () => {
-    expect(Intervals.between).toBeDefined();
-    expect(Intervals.betweenNext).toBeDefined();
-    expect(Intervals.betweenSPN).toBeDefined();
-  } );
+TestInit.diatonicAltInterval();
 
-  it("constants (some)", () => {
-    expect(Intervals.PERFECT_UNISON).toBeDefined();
-    expect(Intervals.MAJOR_THIRD).toBeDefined();
-    expect(Intervals.PERFECT_FIFTEENTH).toBeDefined();
-  } );
+const vars: string[] = [
+  "M10",
+  "M13",
+  "M14",
+  "M2",
+  "M3",
+  "M6",
+  "M7",
+  "M9",
+  "P1",
+  "P11",
+  "P12",
+  "P15",
+  "P4",
+  "P5",
+  "P8",
+  "TRITONE",
+  "d12",
+  "d5",
+  "m10",
+  "m13",
+  "m14",
+  "m2",
+  "m3",
+  "m6",
+  "m7",
+  "m9",
+];
+const functions: string[] = [
+  // building
+  Intervals.between.name,
+  Intervals.betweenNext.name,
+  Intervals.betweenSPN.name,
 
-  it("modifiers", () => {
-    expect(Intervals.add).toBeDefined();
-    expect(Intervals.sub).toBeDefined();
-    expect(Intervals.neg).toBeDefined();
-    expect(Intervals.simplify).toBeDefined();
-    expect(Intervals.octaves).toBeDefined();
-    expect(Intervals.abs).toBeDefined();
+  // modifiers
+  Intervals.add.name,
+  Intervals.sub.name,
+  Intervals.neg.name,
+  Intervals.simplify.name,
+  Intervals.octaves.name,
+  Intervals.abs.name,
+];
+
+it("module should export functions and vars", async () => {
+  await expectExportModulesAsync( {
+    expected: {
+      functions,
+      vars,
+    },
+    barrel: Intervals,
+    modules: [
+      "building",
+      "constants",
+      "modifiers",
+    ],
+    // eslint-disable-next-line no-undef
+    dirname: __dirname,
   } );
 } );
 
 it("should be same ref", () => {
-  expect(PERFECT_UNISON).toBe(Intervals.PERFECT_UNISON);
+  expect(P1).toBe(Intervals.P1);
 } );

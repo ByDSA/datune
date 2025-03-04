@@ -1,10 +1,11 @@
 /* eslint-disable camelcase */
+import { TestInit } from "tests";
+import { IntervalArray } from "intervals/chromatic";
 import { fromIntraIntervals } from "../building";
 import { BEBOP_DOMINANT, BLUES_a4, BLUES_b5, BLUES_MAJOR, BLUES_MINOR, EGYPCIAN, MAJOR, PENTATONIC, PENTATONIC_MINOR } from "../constants";
 import { Scale } from "../Scale";
-import { calcIntraIntervals, mode } from ".";
-import { TestInit } from "tests";
-import { IntervalArray } from "intervals/chromatic";
+import { calcIntraIntervals } from "./intraIntervals";
+import { mode } from ".";
 
 TestInit.chromaticScale();
 

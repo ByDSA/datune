@@ -1,6 +1,6 @@
 import { StringHashCache } from "@datune/utils";
-import { Chord } from "../../Chord";
 import { SPNArray } from "spns/chromatic";
+import { Chord } from "../../Chord";
 
 type HashingObjectType = SPNArray;
 

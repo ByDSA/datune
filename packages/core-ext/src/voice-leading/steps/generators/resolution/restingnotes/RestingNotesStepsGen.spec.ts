@@ -1,9 +1,9 @@
-import { Keys } from "@datune/core/keys/chromatic";
 import type { PitchArray } from "@datune/core/pitches/chromatic";
+import { Keys } from "@datune/core/keys/chromatic";
 import { SPNArray, SPNs } from "@datune/core/spns/chromatic";
+import { TestInit } from "tests";
 import { from } from "../../../single";
 import { RestingNotesStepsGen } from "./RestingNotesStepsGen";
-import { TestInit } from "tests";
 
 TestInit.loadAll();
 

@@ -1,15 +1,15 @@
 import type { Interval } from "../Interval";
-import { fromInt as qualityFromInt } from "../quality/building";
-import { fromIntervalQuality } from "./intervalQuality";
-import type { Interval as Chromatic } from "intervals/chromatic";
+import type { Interval as CInterval } from "intervals/chromatic";
 import type { Interval as DInterval } from "intervals/diatonic";
 import { Intervals as DIntervals } from "intervals/diatonic";
 import { fixAlts } from "pitches/alt/fixAlts";
 import { calcAlts } from "pitches/alt/calcAlts";
-import { Pitches as DPitches } from "pitches/diatonic";
+import { Pitches as DP } from "pitches/diatonic";
+import { fromInt as qualityFromInt } from "../quality/building";
+import { fromIntervalQuality } from "./intervalQuality";
 
 type Input = {
-  chromaticInterval: Chromatic;
+  chromaticInterval: CInterval;
   diatonicInterval: DInterval;
 };
 export function fromIntervals(
@@ -17,7 +17,7 @@ export function fromIntervals(
     diatonicInterval }: Input,
 ): Interval | null {
   const simplePositiveInterval: DInterval = DIntervals.fromInt(
-    Math.abs(+diatonicInterval % DPitches.NUMBER),
+    Math.abs(+diatonicInterval % DP.NUMBER),
   );
   const simplePositiveChromaticInterval = Math.abs(+chromaticInterval);
   const alts = fixAlts(

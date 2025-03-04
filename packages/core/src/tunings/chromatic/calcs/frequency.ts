@@ -1,7 +1,7 @@
 import type { Tuning } from "../Tuning";
-import { Intervals } from "intervals/chromatic";
 import type { Pitch } from "pitches/chromatic";
 import type { SPN } from "spns/chromatic";
+import { Intervals } from "intervals/chromatic";
 
 class FrequencyCalculator {
   private pitch?: Pitch;

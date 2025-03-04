@@ -1,11 +1,11 @@
-import { Arrays } from "@datune/utils";
-import initialize from "./initialize";
-import { load } from "./io";
-import { Data } from "./types";
-import { cache as chromaticChordCache } from "chords/octave/chromatic/caching/cache";
+import type { Arrays } from "@datune/utils";
 import type { Chord } from "chords/chromatic";
+import { cache as chromaticChordCache } from "chords/octave/chromatic/caching/cache";
 import { Pitches as CP } from "pitches/chromatic";
 import { cache as chromaticScaleCache } from "scales/symbolic/chromatic/caching/cache";
+import { initialize } from "./initialize";
+import { load } from "./io";
+import { Data } from "./types";
 
 describe("initialize", () => {
   describe("before", () => {

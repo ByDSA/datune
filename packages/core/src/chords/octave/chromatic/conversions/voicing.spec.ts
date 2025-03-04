@@ -1,8 +1,8 @@
+import { TestInit } from "tests";
+import { Voicings, Voicing } from "voicings/chromatic";
 import { Chord } from "../Chord";
 import { C, C5, C7 } from "../constants";
 import { toVoicing } from ".";
-import { TestInit } from "tests";
-import { Voicings, Voicing } from "voicings/chromatic";
 
 TestInit.chromaticChord();
 

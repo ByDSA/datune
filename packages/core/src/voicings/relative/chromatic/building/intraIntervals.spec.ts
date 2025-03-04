@@ -1,8 +1,8 @@
-import { Arrays } from "@datune/utils";
-import { TRIAD_MAJOR } from "../constants";
+import type { Arrays } from "@datune/utils";
 import type { Voicing } from "../Voicing";
-import { fromIntraIntervals } from "./intraIntervals";
 import { TestInit } from "tests";
+import { TRIAD_MAJOR } from "../constants";
+import { fromIntraIntervals } from "./intraIntervals";
 
 TestInit.chromaticVoicing();
 

@@ -1,6 +1,6 @@
-import { from } from "../building";
 import type { Degree } from "../Degree";
 import { Degrees as DDegrees } from "degrees/diatonic";
+import { from } from "../building";
 
 export function initialize() {
   if (I)

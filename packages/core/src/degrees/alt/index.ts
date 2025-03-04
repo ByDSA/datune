@@ -1,29 +1,28 @@
-import { DegreeArray } from "./Array";
-
 import type { Degree } from "./Degree";
-
-import * as Building from "./building";
-
 import type * as Constants from "./constants";
-
-import type * as ConversionsType from "./conversions";
-
-import * as Modifiers from "./modifiers";
+import type * as Conversions from "./conversions";
 import { createProxyBarrel } from "lazy-load";
+import * as Modifiers from "./modifiers";
+import * as Building from "./building";
+import { DegreeArray } from "./Array";
 
 const staticModule = {
   ...Building,
   ...Modifiers,
 };
 
-type LazyType = typeof Constants & typeof ConversionsType;
+type LazyType = Omit<typeof Constants, "initialize"> & typeof Conversions;
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
     "conversions",
-    "constants",
+    {
+      path: "constants",
+      omit: ["initialize"],
+    },
+  ],
   // eslint-disable-next-line no-undef
-  ].map(p=>`${__dirname}/${p}`),
+  dirname: __dirname,
 } );
 
 export {

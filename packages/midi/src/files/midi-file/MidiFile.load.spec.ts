@@ -1,13 +1,13 @@
 /* eslint-disable prefer-destructuring */
 import * as fs from "node:fs";
-import { EIGHTH, QUARTER, SIXTEENTH, WHOLE, ZERO } from "@datune/core/time/symbolic/musical-duration/constants";
-import { dotted } from "@datune/core/time/symbolic/musical-duration/modifiers";
-import { Instrument } from "../instrument";
-import { load } from "./load";
-import { MidiFile } from "./MidiFile";
+import { EIGHTH, QUARTER, SIXTEENTH, WHOLE, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { dotted } from "@datune/core/rhythm/tempo/musical-duration/modifiers";
 import { A5, B5, C5, C6, D5, E5, F5, G5 } from "pitch";
 import { nodeFrom, noteFrom } from "sequence";
 import { TestInit } from "tests";
+import { Instrument } from "../instrument";
+import { load } from "./load";
+import { MidiFile } from "./MidiFile";
 
 TestInit.initAll();
 

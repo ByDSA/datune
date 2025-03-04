@@ -1,55 +1,56 @@
 import type { IntervalArray } from "../../Array";
-import { MAJOR_NINTH, MAJOR_THIRTEENTH, PERFECT_FIFTH, PERFECT_UNISON } from "../../constants";
 import type { Interval } from "../../Interval";
+import { TestInit } from "tests";
+import { M9, M13, P1, P5 } from "../../constants";
+import { expectIntervals } from "../../tests/intervals";
 import { neg } from "../neg";
 import { serie } from "./index";
-import { TestInit } from "tests";
 
 TestInit.diatonicAltInterval();
 
 describe.each([
   [{
-    interval: PERFECT_FIFTH,
-  }, [PERFECT_FIFTH]],
+    interval: P5,
+  }, [P5]],
   [{
-    interval: PERFECT_FIFTH,
+    interval: P5,
     length: 2,
-  }, [PERFECT_FIFTH, MAJOR_NINTH]],
+  }, [P5, M9]],
   [{
-    interval: PERFECT_FIFTH,
+    interval: P5,
     startIndex: 0,
-  }, [PERFECT_UNISON]],
+  }, [P1]],
   [{
-    interval: PERFECT_FIFTH,
+    interval: P5,
     length: 2,
     startIndex: 0,
-  }, [PERFECT_UNISON, PERFECT_FIFTH]],
+  }, [P1, P5]],
   [{
-    interval: PERFECT_FIFTH,
+    interval: P5,
     length: 4,
     startIndex: 0,
-  }, [PERFECT_UNISON, PERFECT_FIFTH, MAJOR_NINTH, MAJOR_THIRTEENTH]],
+  }, [P1, P5, M9, M13]],
   [{
-    interval: PERFECT_FIFTH,
+    interval: P5,
     length: 0,
   }, []],
   [{
-    interval: PERFECT_FIFTH,
+    interval: P5,
     length: 1,
     startIndex: 1,
-  }, [PERFECT_FIFTH]],
+  }, [P5]],
   [{
-    interval: PERFECT_FIFTH,
+    interval: P5,
     length: 3,
     startIndex: -1,
-  }, [neg(PERFECT_FIFTH), PERFECT_UNISON, PERFECT_FIFTH]],
+  }, [neg(P5), P1, P5]],
   [{
-    interval: neg(PERFECT_FIFTH),
+    interval: neg(P5),
     startIndex: 0,
     length: 4,
-  }, [PERFECT_UNISON,
-    neg(PERFECT_FIFTH),
-    neg(MAJOR_NINTH), neg(MAJOR_THIRTEENTH)]],
+  }, [P1,
+    neg(P5),
+    neg(M9), neg(M13)]],
 ])("tests", (args: any, expected: Interval[]) => {
   let argsStr = `interval: ${String(args.interval)}`;
 
@@ -62,6 +63,6 @@ describe.each([
   it(`${argsStr} => ${String(expected as IntervalArray)}`, () => {
     const actual = serie(args);
 
-    expect(actual).toEqual(expected);
+    expectIntervals(actual, expected);
   } );
 } );

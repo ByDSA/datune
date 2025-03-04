@@ -1,7 +1,7 @@
-import { calcCents } from "../calcs";
 import type { Interval } from "../Interval";
-import { CENT, ET12_QUARTER_TONE, J_QUARTER_TONE, OCTAVE, PT_COMMA, UNISON } from ".";
 import { TestInit } from "tests";
+import { calcCents } from "../calcs";
+import { CENT, ET12_QUARTER_TONE, J_QUARTER_TONE, OCTAVE, PT_COMMA, UNISON } from ".";
 
 TestInit.realInterval();
 

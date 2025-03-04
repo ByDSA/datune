@@ -1,5 +1,5 @@
 export {
-  default as initialize,
+  initialize,
 } from "./initialize";
 
 export {

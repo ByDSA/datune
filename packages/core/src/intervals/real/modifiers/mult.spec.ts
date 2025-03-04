@@ -1,9 +1,9 @@
-import { ET12_SEMITONE, OCTAVE, UNISON } from "../constants";
 import type { Interval } from "../Interval";
+import { TestInit } from "tests";
+import { ET12_SEMITONE, OCTAVE, UNISON } from "../constants";
 import { add } from "./add";
 import { mult } from "./mult";
 import { neg } from "./neg";
-import { TestInit } from "tests";
 
 TestInit.realInterval();
 

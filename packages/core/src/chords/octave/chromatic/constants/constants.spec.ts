@@ -1,6 +1,6 @@
-import { ALL, ALL_NON_INVERSIONS, C } from ".";
 import { Pitches } from "pitches/chromatic";
 import { TestInit } from "tests";
+import { ALL, ALL_NON_INVERSIONS, C } from ".";
 
 TestInit.chromaticChord();
 

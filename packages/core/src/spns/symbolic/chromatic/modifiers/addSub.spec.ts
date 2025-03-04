@@ -1,25 +1,25 @@
-import { fromPitchOctave } from "../building/pitch-octave";
-import { C4, C5, CC5, FF4, G4 } from "../constants";
 import type { SPN } from "../SPN";
-import { add } from "./add";
-import { sub } from "./sub";
 import type { Interval as CInterval } from "intervals/chromatic";
 import { Intervals } from "intervals/chromatic";
 import { Pitches } from "pitches/chromatic";
 import { TestInit } from "tests";
+import { C4, C5, CC5, FF4, G4 } from "../constants";
+import { fromPitchOctave } from "../building/pitch-octave";
+import { sub } from "./sub";
+import { add } from "./add";
 
 TestInit.chromaticSPN();
 
 describe("tests", () => {
-  const { DIMINISHED_FIFTH, PERFECT_FIFTH, PERFECT_OCTAVE, PERFECT_UNISON } = Intervals;
+  const { d5, P5, P8, P1 } = Intervals;
   const withShiftCases = <[SPN, CInterval, SPN][]>[
-    [C4, PERFECT_UNISON, C4],
-    [C4, PERFECT_OCTAVE, C5],
-    [C4, PERFECT_FIFTH, G4],
-    [FF4, DIMINISHED_FIFTH, C5],
-    [FF4, PERFECT_FIFTH, fromPitchOctave(Pitches.CC, 5)],
-    [fromPitchOctave(Pitches.Gb, 4), DIMINISHED_FIFTH, fromPitchOctave(Pitches.C, 5)],
-    [FF4, PERFECT_FIFTH, CC5],
+    [C4, P1, C4],
+    [C4, P8, C5],
+    [C4, P5, G4],
+    [FF4, d5, C5],
+    [FF4, P5, fromPitchOctave(Pitches.CC, 5)],
+    [fromPitchOctave(Pitches.Gb, 4), d5, fromPitchOctave(Pitches.C, 5)],
+    [FF4, P5, CC5],
   ];
 
   describe.each(withShiftCases)("add-sub", (base: SPN, interval: CInterval, expected: SPN) => {

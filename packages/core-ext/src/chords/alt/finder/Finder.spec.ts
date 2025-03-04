@@ -3,8 +3,8 @@ import { fromRootVoicing } from "@datune/core/chords/octave/alt/building";
 import { inv } from "@datune/core/chords/octave/alt/modifiers";
 import { Pitches } from "@datune/core/pitches/alt";
 import { Voicings } from "@datune/core/voicings/alt";
-import { Finder } from "./Finder";
 import { TestInit } from "tests";
+import { Finder } from "./Finder";
 
 TestInit.loadAll();
 

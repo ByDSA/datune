@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import { Arrays } from "@datune/utils";
+import type { Arrays } from "@datune/utils";
+import type { Voicing } from "../Voicing";
+import { TestInit } from "tests";
 import { NINTH_MINOR, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_SUS4_b9, THIRTEENTH_a5b9, THIRTEENTH_b5a9, THIRTEENTH_MAJ13_b5a9, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } from "../constants";
 import { inv } from "../modifiers";
-import type { Voicing } from "../Voicing";
 import { fromRootIntervals } from "./rootIntervals";
-import { TestInit } from "tests";
 
 TestInit.chromaticVoicing();
 

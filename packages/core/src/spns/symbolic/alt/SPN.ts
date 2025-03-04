@@ -1,7 +1,7 @@
-import { lockr } from "@datune/utils/immutables";
-import { SymbolicSPN as ISPN } from "../SymbolicSPN";
 import type { Dto } from "./building/dto/Dto";
 import type { Pitch } from "pitches/alt";
+import { lockr } from "@datune/utils/immutables";
+import { SymbolicSPN as ISPN } from "../SymbolicSPN";
 
 export class SPN implements ISPN<Pitch> {
   pitch: Pitch;

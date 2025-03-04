@@ -1,11 +1,11 @@
-import { fromPitchOctave } from "../building";
-import { A4, AA4, C4, COMMON } from "../constants";
 import type { SPN } from "../SPN";
-import { toChromatic } from "./chromatic";
-import { TestInit } from "tests";
 import type { SPN as ChromaticSPN } from "spns/chromatic";
+import { TestInit } from "tests";
 import { SPNs as CSPNs } from "spns/chromatic";
 import { Pitches as OctavePitches } from "pitches/alt";
+import { A4, AA4, C4, COMMON } from "../constants";
+import { fromPitchOctave } from "../building";
+import { toChromatic } from "./chromatic";
 
 TestInit.diatonicAltSPN();
 TestInit.chromaticSPN();

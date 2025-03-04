@@ -1,18 +1,18 @@
-import { fromDiatonicAlts } from "../diatonicAlts";
 import type { PitchArray } from "../../Array";
-import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } from "../../constants";
-import { toChromatic } from "../../conversions";
 import type { Pitch } from "../../Pitch";
+import type { Pitch as DPitch } from "pitches/diatonic";
+import type { Pitch as CPitch } from "pitches/chromatic";
+import { Pitches as DP } from "pitches/diatonic";
+import { Pitches as CP } from "pitches/chromatic";
 import { fixAlts } from "../../fixAlts";
-import type { Pitch as Diatonic } from "pitches/diatonic";
-import { Pitches as DPitches } from "pitches/diatonic";
-import type { Pitch as Chromatic } from "pitches/chromatic";
-import { Pitches as CPitches } from "pitches/chromatic";
+import { toChromatic } from "../../conversions";
+import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } from "../../constants";
+import { fromDiatonicAlts } from "../diatonicAlts";
 
 export class DiatonicAltBuilder {
-  #note: Chromatic | undefined;
+  #note: CPitch | undefined;
 
-  #diatonic: Diatonic | undefined;
+  #diatonic: DPitch | undefined;
 
   #diatonicAltList: PitchArray | undefined;
 
@@ -23,13 +23,13 @@ export class DiatonicAltBuilder {
     return new DiatonicAltBuilder();
   }
 
-  setNote(c: Chromatic): DiatonicAltBuilder {
+  setNote(c: CPitch): DiatonicAltBuilder {
     this.#note = c;
 
     return this;
   }
 
-  setDiatonic(d: Diatonic): DiatonicAltBuilder {
+  setDiatonic(d: DPitch): DiatonicAltBuilder {
     this.#diatonic = d;
 
     return this;
@@ -49,9 +49,9 @@ export class DiatonicAltBuilder {
       if (this.#diatonicAltList)
         return getDiatonicAltInListFromNote(this.#note, this.#diatonicAltList);
 
-      const diatonicAlt = getDiatonicAltFromNote(this.#note);
+      const pitch = getDiatonicAltFromNote(this.#note);
 
-      return diatonicAlt;
+      return pitch;
     }
 
     const alts = getAltsFromNoteAndDiatonic(this.#note, this.#diatonic);
@@ -61,7 +61,7 @@ export class DiatonicAltBuilder {
 }
 
 function getDiatonicAltInListFromNote(
-  chromatic: Chromatic,
+  chromatic: CPitch,
   list: Pitch[],
 ): Pitch | null {
   for (const diatonicAlt of list) {
@@ -72,26 +72,26 @@ function getDiatonicAltInListFromNote(
   return null;
 }
 
-function getDiatonicAltFromNote(c: Chromatic): Pitch {
+function getDiatonicAltFromNote(c: CPitch): Pitch {
   switch (c) {
-    case CPitches.C: return C;
-    case CPitches.CC: return CC;
-    case CPitches.D: return D;
-    case CPitches.DD: return DD;
-    case CPitches.E: return E;
-    case CPitches.F: return F;
-    case CPitches.FF: return FF;
-    case CPitches.G: return G;
-    case CPitches.GG: return GG;
-    case CPitches.A: return A;
-    case CPitches.AA: return AA;
-    case CPitches.B: return B;
+    case CP.C: return C;
+    case CP.CC: return CC;
+    case CP.D: return D;
+    case CP.DD: return DD;
+    case CP.E: return E;
+    case CP.F: return F;
+    case CP.FF: return FF;
+    case CP.G: return G;
+    case CP.GG: return GG;
+    case CP.A: return A;
+    case CP.AA: return AA;
+    case CP.B: return B;
     default: throw new Error();
   }
 }
 
-function getAltsFromNoteAndDiatonic(chromatic: Chromatic, diatonic: Diatonic): number {
-  let alts = +chromatic - +DPitches.toChromatic(diatonic);
+function getAltsFromNoteAndDiatonic(chromatic: CPitch, diatonic: DPitch): number {
+  let alts = +chromatic - +DP.toChromatic(diatonic);
 
   alts = fixAlts(alts);
 

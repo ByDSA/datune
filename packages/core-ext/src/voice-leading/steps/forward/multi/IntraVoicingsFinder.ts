@@ -1,10 +1,9 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-restricted-syntax */
-
-import { Arrays } from "@datune/utils";
-import { add } from "@datune/core/spns/symbolic/chromatic/modifiers";
+import type { Arrays } from "@datune/utils";
 import type { SPNArray } from "@datune/core/spns/chromatic";
 import type { VoicingArray as ChromaticVoicingArray, Voicing as ChromaticVoicing } from "@datune/core/voicings/chromatic";
+import { add } from "@datune/core/spns/symbolic/chromatic/modifiers";
 
 export type IntraVoicing = { notesIndex: Arrays.Number;
 voicing: ChromaticVoicing; };

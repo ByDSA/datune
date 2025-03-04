@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 import { POWER_CHORD, SEVENTH, SEVENTH_b5, SEVENTH_MAJ7_b5, SIXTH, THIRTEENTH_a5, THIRTEENTH_a5a9, THIRTEENTH_a5b9, THIRTEENTH_a9, THIRTEENTH_b5, THIRTEENTH_b5a9, THIRTEENTH_b5b9, THIRTEENTH_b9, THIRTEENTH_MAJ13_a5b9, THIRTEENTH_MAJ13_a9, THIRTEENTH_MAJ13_b5, THIRTEENTH_MAJ13_b5a9, THIRTEENTH_MAJ13_b5b9, THIRTEENTH_MAJ13_b9, THIRTEENTH_MINOR, THIRTEENTH_MINOR_MAJ13, THIRTEENTH_SUS4, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_QUARTAL, THIRTEENTH_MAJ13_a5, THIRTEENTH_MAJ13_a5a9 } from "@datune/core/voicings/relative/chromatic/constants";
-import { parseVoicing } from ".";
 import { LangId } from "lang";
 import { TestInit, TestLang } from "tests";
+import { parseVoicing } from ".";
 
 TestInit.chromaticVoicing();
 TestLang.loadAll();

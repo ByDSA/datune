@@ -1,49 +1,49 @@
-import { frac, pow2 } from "@datune/utils/math";
-import { from, fromCents } from "../building";
 import type { Interval } from "../Interval";
+import { frac, pow2 } from "@datune/utils/math";
 import { NUMBER as CNUMBER } from "pitches/chromatic/constants";
+import { from, fromCents } from "../building";
 
 export function initialize() {
   QUARTER_TONE = from(pow2(frac(0.5, CNUMBER)));
   SEMITONE = fromCents(100);
-  MINOR_SECOND = SEMITONE;
-  MAJOR_SECOND = fromCents(200);
-  TONE = MAJOR_SECOND;
-  MINOR_THIRD = fromCents(300);
-  MAJOR_THIRD = fromCents(400);
-  PERFECT_FOURTH = fromCents(500);
+  m2 = SEMITONE;
+  M2 = fromCents(200);
+  TONE = M2;
+  m3 = fromCents(300);
+  M3 = fromCents(400);
+  P4 = fromCents(500);
   TRITONE = fromCents(600);
-  PERFECT_FIFTH = fromCents(700);
-  MINOR_SIXTH = fromCents(800);
-  MAJOR_SIXTH = fromCents(900);
-  MINOR_SEVENTH = fromCents(1000);
-  MAJOR_SEVENTH = fromCents(1100);
+  P5 = fromCents(700);
+  m6 = fromCents(800);
+  M6 = fromCents(900);
+  m7 = fromCents(1000);
+  M7 = fromCents(1100);
 }
 
 export let QUARTER_TONE: Interval;
 
 export let SEMITONE: Interval;
 
-export let MINOR_SECOND: Interval;
+export let m2: Interval;
 
-export let MAJOR_SECOND: Interval;
+export let M2: Interval;
 
 export let TONE: Interval;
 
-export let MINOR_THIRD: Interval;
+export let m3: Interval;
 
-export let MAJOR_THIRD: Interval;
+export let M3: Interval;
 
-export let PERFECT_FOURTH: Interval;
+export let P4: Interval;
 
 export let TRITONE: Interval;
 
-export let PERFECT_FIFTH: Interval;
+export let P5: Interval;
 
-export let MINOR_SIXTH: Interval;
+export let m6: Interval;
 
-export let MAJOR_SIXTH: Interval;
+export let M6: Interval;
 
-export let MINOR_SEVENTH: Interval;
+export let m7: Interval;
 
-export let MAJOR_SEVENTH: Interval;
+export let M7: Interval;

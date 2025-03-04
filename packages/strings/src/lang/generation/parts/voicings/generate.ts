@@ -19,10 +19,10 @@ export function voicingsGenerate(input: VoicingsInput): VoicingsPart {
   };
 
   return {
-    get MINOR_SECOND(): string { return `${input.MINOR} ${input.SECOND}`; },
-    get MAJOR_SECOND(): string { return `${input.MAJOR} ${input.SECOND}`; },
-    get MINOR_THIRD(): string { return `${input.MINOR} ${input.THIRD}`; },
-    get MAJOR_THIRD(): string { return `${input.MAJOR} ${input.THIRD}`; },
+    get m2(): string { return `${input.MINOR} ${input.SECOND}`; },
+    get M2(): string { return `${input.MAJOR} ${input.SECOND}`; },
+    get m3(): string { return `${input.MINOR} ${input.THIRD}`; },
+    get M3(): string { return `${input.MAJOR} ${input.THIRD}`; },
     TRITONE: input.TRITONE,
     get POWER_CHORD(): string { return `${input.POWER_CHORD}`; },
     get TRIAD_MAJOR(): string { return `${input.MAJOR}`; },

@@ -1,6 +1,6 @@
+import { IntervalArray, Interval, Intervals } from "intervals/alt";
 import { Scale } from "../Scale";
 import { fromIntraIntervals } from "./intraIntervals";
-import { IntervalArray, Interval, Intervals } from "intervals/alt";
 
 export function fromRootIntervals(...rootIntervals: IntervalArray): Scale {
   const intraIntervals: Interval[] = [];
@@ -20,7 +20,7 @@ export function fromRootIntervals(...rootIntervals: IntervalArray): Scale {
 
 function getLastIntraInterval(rootIntervals: IntervalArray): Interval {
   return Intervals.sub(
-    Intervals.PERFECT_OCTAVE,
+    Intervals.P8,
     rootIntervals[rootIntervals.length - 1],
   ) as Interval;
 }

@@ -1,5 +1,5 @@
-import { lockr } from "@datune/utils/immutables";
 import type { OctavePitch } from "pitches/OctavePitch";
+import { lockr } from "@datune/utils/immutables";
 
 export class RelativePitch<P extends OctavePitch> {
   private constructor(public pitch: P, public octaveRelative: number) {

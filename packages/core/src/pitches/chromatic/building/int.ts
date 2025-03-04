@@ -1,6 +1,6 @@
+import type { Pitch } from "../Pitch";
 import { cyclicMod } from "@datune/utils";
 import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG, NUMBER } from "../constants";
-import type { Pitch } from "../Pitch";
 
 export function fromInt(intValue: number): Pitch {
   const fixedIntValue = getValidInt(intValue);

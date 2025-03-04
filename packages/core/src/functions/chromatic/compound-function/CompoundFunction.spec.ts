@@ -1,12 +1,12 @@
-import * as DegreeFunctions from "../degree-function/constants";
-import { compose } from "./building/compose";
-import { SUBV7_II, SUBV7_III, SUBV7_IV, SUBV7_V, SUBV7_VI, V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI } from "./constants";
 import { Chords } from "chords/chromatic";
 import { Degrees } from "degrees/chromatic";
 import { Keys as K } from "keys/chromatic";
 import { Pitches } from "pitches/chromatic";
 import { TestInit } from "tests";
 import { Voicings } from "voicings/chromatic";
+import * as DegreeFunctions from "../degree-function/constants";
+import { SUBV7_II, SUBV7_III, SUBV7_IV, SUBV7_V, SUBV7_VI, V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI } from "./constants";
+import { compose } from "./building/compose";
 
 TestInit.chromaticFunction();
 TestInit.chromaticKey();

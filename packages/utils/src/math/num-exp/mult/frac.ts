@@ -1,7 +1,7 @@
+/* eslint-disable import/no-cycle */
 import { frac, FracExp } from "../frac";
 import { neg } from "../neg";
 import { NumExp } from "../NumExp";
-// eslint-disable-next-line import/no-cycle
 import { mult } from "./mult";
 import { MultExp } from "./MultExp";
 

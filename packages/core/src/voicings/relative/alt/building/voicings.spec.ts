@@ -1,16 +1,16 @@
+import { Voicings as DV } from "voicings/diatonic";
+import { Voicings as CV } from "voicings/chromatic";
+import { TestInit } from "tests";
 import { SEVENTH } from "../constants";
 import { fromVoicings } from "./voicings";
-import { Voicings as DVoicings } from "voicings/diatonic";
-import { Voicings as CVoicings } from "voicings/chromatic";
-import { TestInit } from "tests";
 
 beforeAll(() => {
   TestInit.diatonicAltVoicing();
 } );
 
 it("fromVoicings - Voicing SEVENTH + Diatonic SEVENTH = DiatonicAlt SEVENTH", () => {
-  const diatonicAltVoicing = fromVoicings(CVoicings.SEVENTH, DVoicings.SEVENTH);
-  const diatonicAltVoicing2 = SEVENTH;
+  const voicing = fromVoicings(CV.SEVENTH, DV.SEVENTH);
+  const voicing2 = SEVENTH;
 
-  expect(diatonicAltVoicing2).toBe(diatonicAltVoicing);
+  expect(voicing2).toBe(voicing);
 } );

@@ -5,9 +5,9 @@ import { Chords, type Chord } from "@datune/core/chords/chromatic";
 import { SPNArray, SPN, SPNs } from "@datune/core/spns/chromatic";
 import { VoicingArray, Voicings } from "@datune/core/voicings/chromatic";
 import { getAllInversions } from "@datune/core/voicings/relative/chromatic/utils";
+import { TestInit } from "tests";
 import { transformToChordsRootPosition, transformToSPNArray } from "./result/MotionCreatorResultTransforms";
 import { MotionCreator } from "./MotionCreator";
-import { TestInit } from "tests";
 
 TestInit.loadAll();
 const { C: T_C, rootChord3, rootChord4 } = Keys;
