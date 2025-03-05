@@ -13,8 +13,8 @@
   "scripts": {
     "build": "bin/build.mjs",
     "check": "bin/check.mjs",
-    "preinstall": "lib/install_chevrotain.sh",
     "lint": "bin/lint.mjs",
+    "prepare": "lib/install_chevrotain.sh",
     "test": "jest --runInBand",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch"

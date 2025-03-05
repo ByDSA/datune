@@ -51,6 +51,8 @@ describe.each([
       langId,
     } );
 
+    expect(expectedVoicing).toBeDefined();
+
     expect(actual).toBe(expectedVoicing);
   } );
 } );
