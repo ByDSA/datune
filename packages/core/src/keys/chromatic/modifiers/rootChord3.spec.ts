@@ -1,26 +1,27 @@
-import { Chords } from "chords/chromatic";
-import { Pitches } from "pitches/chromatic";
-import { Scales } from "scales/chromatic";
+import { Chords as C } from "chords/chromatic";
+import { Pitches as P } from "pitches/chromatic";
+import { Scales as S } from "scales/chromatic";
 import { TestInit } from "tests";
-import { C } from "../constants";
-import { fromRootScale as from } from "../building";
+import { expectChord } from "chords/octave/chromatic/tests/chord";
+import { Keys as K } from "..";
 import { rootChord3 } from "./rootChord3";
 
 TestInit.chromaticKey();
 TestInit.chromaticVoicing();
 TestInit.chromaticChord();
 
-it("rootChord3: C -> C", () => {
-  const chord = rootChord3(C);
+describe.each([
+  [K.C, C.C],
+  [K.Am, C.Am],
+  [K.fromRootScale(P.C, S.LOCRIAN), C.C0],
+  [K.fromRootScale(P.C, S.ORIENTAL), C.bass(C.Am, P.C)],
+])("rootChord3", (k, c)=> {
+  it(`${k} -> ${c}`, () => {
+    const chord = rootChord3(k);
 
-  expect(chord?.length).toBe(3);
-  expect(chord).toBe(Chords.C);
-} );
+    expect(chord).not.toBeNull();
+    expect(chord).toHaveLength(3);
 
-it("rootChord3: C Oriental -> F/C", () => {
-  const key = from(Pitches.C, Scales.ORIENTAL);
-  const chord = rootChord3(key);
-
-  expect(chord?.length).toBe(3);
-  expect(chord).toBe(Chords.bass(Chords.F, Pitches.C));
+    expectChord(chord, c);
+  } );
 } );

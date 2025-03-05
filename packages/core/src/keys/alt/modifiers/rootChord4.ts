@@ -8,11 +8,11 @@ import { Key } from "../Key";
 export function rootChord4(obj: Key): Chord | null {
   const { fromVoicings } = Voicings;
   const chordRootVoicingPriority: Voicing[] = [
-    fromVoicings(CVoicings.fromRootIntervals(0, 4, 7, 11), DV.SEVENTH) as Voicing,
-    fromVoicings(CVoicings.fromRootIntervals(0, 3, 7, 11), DV.SEVENTH) as Voicing,
-    fromVoicings(CVoicings.fromRootIntervals(0, 4, 7, 10), DV.SEVENTH) as Voicing,
-    fromVoicings(CVoicings.fromRootIntervals(0, 3, 7, 10), DV.SEVENTH) as Voicing,
-    fromVoicings(CVoicings.fromRootIntervals(0, 3, 6, 10), DV.SEVENTH) as Voicing,
+    fromVoicings(CVoicings.fromRootIntervals(0, 4, 7, 11), DV.SEVENTH) as Voicing, // Maj7
+    fromVoicings(CVoicings.fromRootIntervals(0, 3, 7, 11), DV.SEVENTH) as Voicing, // mMaj7
+    fromVoicings(CVoicings.fromRootIntervals(0, 4, 7, 10), DV.SEVENTH) as Voicing, // 7
+    fromVoicings(CVoicings.fromRootIntervals(0, 3, 7, 10), DV.SEVENTH) as Voicing, // m7
+    fromVoicings(CVoicings.fromRootIntervals(0, 3, 6, 10), DV.SEVENTH) as Voicing, // m7b5
     fromVoicings(CVoicings.fromRootIntervals(0, 3, 6, 11), DV.SEVENTH) as Voicing,
     fromVoicings(CVoicings.fromRootIntervals(0, 4, 8, 10), DV.SEVENTH) as Voicing,
     fromVoicings(CVoicings.fromRootIntervals(0, 4, 8, 11), DV.SEVENTH) as Voicing,
