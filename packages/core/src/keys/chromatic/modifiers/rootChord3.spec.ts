@@ -13,8 +13,8 @@ TestInit.chromaticChord();
 describe.each([
   [K.C, C.C],
   [K.Am, C.Am],
-  [K.fromRootScale(P.C, S.LOCRIAN), C.C0],
-  [K.fromRootScale(P.C, S.ORIENTAL), C.bass(C.Am, P.C)],
+  [K.from(P.C, S.LOCRIAN), C.C0],
+  [K.from(P.C, S.ORIENTAL), C.bass(C.Am, P.C)],
 ])("rootChord3", (k, c)=> {
   it(`${k} -> ${c}`, () => {
     const chord = rootChord3(k);

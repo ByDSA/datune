@@ -1,8 +1,8 @@
-import type { fromRootScale } from "./building/rootScale";
+import type { from } from "./building/rootScale";
 import type * as Constants from "./constants";
+import type { KeyArray } from "./Array";
 import { createProxyBarrel } from "lazy-load";
 import { Key } from "./Key";
-import { KeyArray } from "./Array";
 import * as Modifiers from "./modifiers";
 
 const staticModule = {
@@ -10,7 +10,7 @@ const staticModule = {
 };
 
 type LazyType = Omit<typeof Constants, "initialize"> & {
-  fromRootScale: typeof fromRootScale;
+  from: typeof from;
 };
 
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {

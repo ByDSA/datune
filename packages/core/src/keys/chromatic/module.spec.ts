@@ -8,7 +8,7 @@ TestInit.chromaticKey();
 const vars: string[] = CHAROMATIC_PITCHES12_SHARPS_VARNAMES.map(v=>[v, v + "m"]).flat();
 const functions: string[] = [
   // building
-  Keys.fromRootScale.name,
+  Keys.from.name,
 
   // modifiers
   Keys.rootChord3.name,
