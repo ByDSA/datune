@@ -16,7 +16,7 @@ const projectConfigs = [
     },
   },
 ];
-const generatedConfigs = generateConfigs( {
+const generatedConfigs = await generateConfigs( {
   [Dependencies.Jest]: true,
   [Dependencies.Eslint]: true,
   [Dependencies.Prettier]: true,
