@@ -3,10 +3,10 @@ import { Intervals } from "intervals/chromatic";
 import { Key } from "keys/chromatic";
 import { Pitches } from "pitches/chromatic";
 import { Voicings } from "voicings/chromatic";
-import { HarmonicFunction } from "../HarmonicFunction";
+import { Func } from "../Func";
 
 export function initialize() {
-  V7ALT = new (class A extends HarmonicFunction {
+  V7ALT = new (class A extends Func {
     protected calculateChord(key: Key): Chord {
       const pitchV = Pitches.add(key.root, Intervals.P5);
 
@@ -19,4 +19,4 @@ export function initialize() {
   } )();
 }
 
-export let V7ALT: HarmonicFunction;
+export let V7ALT: Func;

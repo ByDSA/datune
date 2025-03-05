@@ -1,5 +1,5 @@
 export {
-  fromKeyFunction,
+  fromKeyFunc,
 } from "./key-function";
 
 export {

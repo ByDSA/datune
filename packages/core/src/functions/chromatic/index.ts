@@ -1,9 +1,9 @@
-import type * as DegreeFunctionConstants from "./degree-function/constants";
-import type * as CompoundFunctionConstants from "./compound-function/constants";
-import type * as OthersFunctionConstants from "./others/constants";
+import type * as DegreeFuncConstants from "./degree-function/constants";
+import type * as CompoundFuncConstants from "./compound-function/constants";
+import type * as OthersFuncConstants from "./others/constants";
 import { createProxyBarrel } from "lazy-load";
 import { compose } from "./compound-function/building/compose";
-import { HarmonicFunction } from "./HarmonicFunction";
+import { Func } from "./Func";
 import { from } from "./degree-function/building/from";
 
 const staticModule = {
@@ -11,7 +11,7 @@ const staticModule = {
   compose,
 };
 
-type LazyType = Omit<typeof CompoundFunctionConstants, "initialize"> & Omit<typeof DegreeFunctionConstants, "initialize"> & Omit<typeof OthersFunctionConstants, "initialize">;
+type LazyType = Omit<typeof CompoundFuncConstants, "initialize"> & Omit<typeof DegreeFuncConstants, "initialize"> & Omit<typeof OthersFuncConstants, "initialize">;
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
@@ -33,6 +33,6 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
 } );
 
 export {
-  HarmonicFunction,
-  mod as Functions,
+  Func,
+  mod as Funcs,
 };

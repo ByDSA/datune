@@ -1,28 +1,28 @@
 import { Chords } from "chords/chromatic";
-import { Degrees } from "degrees/chromatic";
 import { Keys as K } from "keys/chromatic";
 import { Pitches } from "pitches/chromatic";
 import { TestInit } from "tests";
 import { Voicings } from "voicings/chromatic";
-import * as DegreeFunctions from "../degree-function/constants";
+import { Degrees } from "degrees/chromatic";
+import * as DegreeFuncs from "../degree-function/constants";
 import { SUBV7_II, SUBV7_III, SUBV7_IV, SUBV7_V, SUBV7_VI, V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI } from "./constants";
 import { compose } from "./building/compose";
 
-TestInit.chromaticFunction();
+TestInit.chromaticFunc();
 TestInit.chromaticKey();
 TestInit.chromaticChord();
 
 describe("tests", () => {
 // eslint-disable-next-line @typescript-eslint/naming-convention
   const { A, A7, B, C, B7, C7, D, D7, E, E7, fromRootVoicing: CCFromRootVoicing } = Chords;
-  const { SUBV7, V, V7 } = DegreeFunctions;
+  const { SUBV7, V, V7 } = DegreeFuncs;
 
   describe.each([
     [V_V, V, [Degrees.V]],
     [V7_V, V7, [Degrees.V]],
   ])("constants", (func, expectedDegreeFunction, expectedDegreeChain) => {
     it(`${String(func)} degreeFunction => ${String(expectedDegreeFunction)}`, () => {
-      const actual = func.degreeFunction;
+      const actual = func.degreeFunc;
 
       expect(actual).toBe(expectedDegreeFunction);
     } );
@@ -47,7 +47,7 @@ describe("tests", () => {
     [compose(V7, Degrees.V, Degrees.V), V7, [Degrees.V, Degrees.V]],
   ])("from", (func, expectedDegreeFunction, expectedDegreeChain) => {
     it(`${String(func)} degreeFunction => ${String(expectedDegreeFunction)}`, () => {
-      const actual = func.degreeFunction;
+      const actual = func.degreeFunc;
 
       expect(actual).toBe(expectedDegreeFunction);
     } );

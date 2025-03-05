@@ -5,12 +5,14 @@ import { calculateEuclideanRhythm } from "./EuclideanRhythmCalculator";
 
 describe.each([
   [[4, 8], [1, 0, 1, 0, 1, 0, 1, 0]],
+
   /* paper: Euclidean strings */
   [[2, 5], [1, 0, 1, 0, 0]],
   [[3, 7], [1, 0, 1, 0, 1, 0, 0]],
   [[4, 9], [1, 0, 1, 0, 1, 0, 1, 0, 0]],
   [[5, 11], [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0]],
   [[5, 16], [1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0]],
+
   /* paper: reverse Euclidean strings */
   [[7, 16], [1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0]],
   // paper: neither Euclidean nor reverse Euclidean strings
@@ -29,6 +31,7 @@ describe.each([
 } );
 
 describe.each([
+
   /* paper: reverse Euclidean strings */
   [[2, 3], [2, 1]],
   [[3, 4], [2, 1, 1]],

@@ -1,4 +1,4 @@
-import type { DegreeFunction } from "../degree-function/DegreeFunction";
+import type { DegreeFunc } from "../degree-function/DegreeFunc";
 import type { Dto } from "./caching/Dto";
 import type { Chord } from "chords/alt";
 import type { DegreeArray } from "degrees/alt";
@@ -7,26 +7,26 @@ import type { Key } from "keys/alt";
 import { Chords } from "chords/alt";
 import { Degrees } from "degrees/alt";
 import { Intervals } from "intervals/alt";
-import { HarmonicFunction } from "../HarmonicFunction";
+import { Func } from "../Func";
 
-export class CompoundFunction extends HarmonicFunction {
-  degreeFunction: DegreeFunction;
+export class CompoundFunc extends Func {
+  degreeFunc: DegreeFunc;
 
   degreeChain: DegreeArray;
 
   private constructor(dto: Dto) {
     super();
 
-    this.degreeFunction = dto.degreeFunction;
+    this.degreeFunc = dto.degreeFunc;
     this.degreeChain = dto.degreeChain;
   }
 
-  private static create(dto: Dto): CompoundFunction {
-    return new CompoundFunction(dto);
+  private static create(dto: Dto): CompoundFunc {
+    return new CompoundFunc(dto);
   }
 
   protected calculateChord(key: Key): Chord | null {
-    const baseChord = this.degreeFunction.getChord(key);
+    const baseChord = this.degreeFunc.getChord(key);
 
     if (!baseChord)
       return null;
@@ -46,6 +46,6 @@ export class CompoundFunction extends HarmonicFunction {
   }
 
   toString() {
-    return `${this.degreeFunction}/${this.degreeChain.map(String).join("/")}`;
+    return `${this.degreeFunc}/${this.degreeChain.map(String).join("/")}`;
   }
 }

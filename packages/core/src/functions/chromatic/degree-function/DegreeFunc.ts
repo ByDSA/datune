@@ -5,10 +5,10 @@ import { Chord, Chords } from "chords/chromatic";
 import { Degrees, DegreeArray, Degree } from "degrees/chromatic";
 import { Key } from "keys/chromatic";
 import { Pitches, Pitch } from "pitches/chromatic";
-import { HarmonicFunction } from "../HarmonicFunction";
+import { Func } from "../Func";
 import { Dto, hashDto } from "./caching/Dto";
 
-export class DegreeFunction extends HarmonicFunction {
+export class DegreeFunc extends Func {
   degree: Degree;
 
   voicing: Voicing;
@@ -24,8 +24,8 @@ export class DegreeFunction extends HarmonicFunction {
     lockr(this);
   }
 
-  private static create(dto: Dto): DegreeFunction {
-    return new DegreeFunction(dto);
+  private static create(dto: Dto): DegreeFunc {
+    return new DegreeFunc(dto);
   }
 
   protected calculateChord(key: Key): Chord {
@@ -40,7 +40,7 @@ export class DegreeFunction extends HarmonicFunction {
   }
 }
 
-function calcDegrees(obj: DegreeFunction): DegreeArray {
+function calcDegrees(obj: DegreeFunc): DegreeArray {
   const degrees = [];
   const initialDegree = obj.degree;
 

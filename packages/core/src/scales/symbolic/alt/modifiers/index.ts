@@ -1,6 +1,6 @@
 export {
-  getDegreeFunctions,
-} from "./degreeFunctions";
+  getDegreeFuncs,
+} from "./degreeFuncs";
 
 export {
   calcIntraIntervals,

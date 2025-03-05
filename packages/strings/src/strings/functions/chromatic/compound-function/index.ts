@@ -1,9 +1,9 @@
 import { V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI } from "@datune/core/functions/chromatic/compound-function/constants";
-import { CompoundFunction } from "@datune/core/functions/chromatic/compound-function/CompoundFunction";
+import { CompoundFunc } from "@datune/core/functions/chromatic/compound-function/CompoundFunc";
 import { stringifyDegree } from "strings/degrees/chromatic";
-import { stringifyDegreeFunction } from "strings/functions/chromatic/degree-function";
+import { stringifyDegreeFunc } from "strings/functions/chromatic/degree-function";
 
-export function stringifyCompoundFunction(obj: CompoundFunction): string {
+export function stringifyCompoundFunc(obj: CompoundFunc): string {
   switch (obj) {
     case V_II: return "V/II";
     case V_III: return "V/III";
@@ -19,9 +19,9 @@ export function stringifyCompoundFunction(obj: CompoundFunction): string {
   }
 }
 
-function defaultToString(func: CompoundFunction): string {
-  const degreeFunctionStr = stringifyDegreeFunction(func.degreeFunction);
+function defaultToString(func: CompoundFunc): string {
+  const degreeFuncStr = stringifyDegreeFunc(func.degreeFunc);
   const degreeChainStr = func.degreeChain.map(stringifyDegree).join("/");
 
-  return `${degreeFunctionStr}/${degreeChainStr}`;
+  return `${degreeFuncStr}/${degreeChainStr}`;
 }

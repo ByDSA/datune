@@ -36,26 +36,26 @@ export async function expectExportModulesAsync(props: Props) {
     input = input.map(i=>props.dirname + "/" + i);
 
   const { functions, vars } = await classifyModuleExports(...input);
-  const actualFunctions = functions.filter(f=>(props.barrel as any)[f] !== undefined);
+  const actualFuncs = functions.filter(f=>(props.barrel as any)[f] !== undefined);
   const actualVars = vars.filter(v=>(props.barrel as any)[v] !== undefined);
 
   // Propiedades estáticas que tenga el barrel
   // pero que no se hayan importado desde los modules
   for (const k of Object.keys(props.barrel)) {
     if (
-      !actualFunctions.includes(k) && !actualVars.includes(k)
+      !actualFuncs.includes(k) && !actualVars.includes(k)
       && (props.barrel as any)[k] !== undefined // Para descartar las propiedades "omit"
     )
       throw new Error(`Barrel object has static property '${k}' which has not been imported from the modules.`);
   }
 
   if (!props.expected.functions)
-    expect(actualFunctions).toHaveLength(0);
+    expect(actualFuncs).toHaveLength(0);
   else {
-    for (const f of actualFunctions)
+    for (const f of actualFuncs)
       expect((props.barrel as any)[f]).toBeDefined();
 
-    expect(actualFunctions.sort()).toEqual(props.expected.functions.sort());
+    expect(actualFuncs.sort()).toEqual(props.expected.functions.sort());
   }
 
   if (!props.expected.vars)

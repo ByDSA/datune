@@ -1,9 +1,9 @@
 import type { Dto } from "./Dto";
-import { CompoundFunction } from "../CompoundFunction";
+import { CompoundFunc } from "../CompoundFunc";
 
-export function toDto(obj: CompoundFunction): Dto {
+export function toDto(obj: CompoundFunc): Dto {
   return {
-    degreeFunction: obj.degreeFunction,
+    degreeFunc: obj.degreeFunc,
     degreeChain: obj.degreeChain,
   };
 }

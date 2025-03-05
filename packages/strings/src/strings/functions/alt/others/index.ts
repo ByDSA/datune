@@ -1,8 +1,8 @@
-import { HarmonicFunction } from "@datune/core/functions/alt";
+import { Func } from "@datune/core/functions/alt";
 import { V7ALT } from "@datune/core/functions/alt/others/constants";
 
-export function stringifyOtherFunction(obj: HarmonicFunction): string {
-  switch (obj) {
+export function stringifyOtherFunc(func: Func): string {
+  switch (func) {
     case V7ALT: return "V7Alt";
     default: return "undefined name";
   }

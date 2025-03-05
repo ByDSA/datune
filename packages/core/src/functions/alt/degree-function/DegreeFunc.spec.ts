@@ -1,11 +1,11 @@
-import { Chords } from "chords/chromatic";
-import { Keys as K } from "keys/chromatic";
+import { Chords } from "chords/alt";
+import { Keys as K } from "keys/alt";
 import { TestInit } from "tests";
 import { I, I0, V, VIm, Im } from "./constants";
 
-TestInit.chromaticFunction();
-TestInit.chromaticKey();
-TestInit.chromaticChord();
+TestInit.diatonicAltFunc();
+TestInit.diatonicAltKey();
+TestInit.diatonicAltChord();
 
 describe("tests", () => {
   // eslint-disable-next-line @typescript-eslint/naming-convention

@@ -1,23 +1,23 @@
 /* eslint-disable accessor-pairs */
 import { Chord } from "chords/alt";
-import { HarmonicFunction } from "functions/alt";
+import { Func } from "functions/alt";
 import { Key } from "keys/alt";
 
 class Builder {
   #key: Key;
 
-  #harmonicFunction: HarmonicFunction;
+  #func: Func;
 
-  private constructor(key: Key, harmonicFunction: HarmonicFunction) {
+  private constructor(key: Key, func: Func) {
     this.#key = key;
-    this.#harmonicFunction = harmonicFunction;
+    this.#func = func;
   }
 
   static from(
     key: Key,
-    harmonicFunction: HarmonicFunction,
+    func: Func,
   ): Builder {
-    return new Builder(key, harmonicFunction);
+    return new Builder(key, func);
   }
 
   build(): Chord | null {
@@ -28,14 +28,14 @@ class Builder {
     return this.#key;
   }
 
-  get function(): HarmonicFunction {
-    return this.#harmonicFunction;
+  get function(): Func {
+    return this.#func;
   }
 }
 
-export function fromKeyFunction(
+export function fromKeyFunc(
   key: Key,
-  harmonicFunction: HarmonicFunction,
+  func: Func,
 ): Chord | null {
-  return Builder.from(key, harmonicFunction).build();
+  return Builder.from(key, func).build();
 }

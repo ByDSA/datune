@@ -93,7 +93,7 @@ export function initialize() {
     const simpleRealInterval = (() => {
       switch (simpleInterval) {
       // comentarios = DiatonicAlt
-      /// case d2: return RI.PT_d2;
+      // / case d2: return RI.PT_d2;
         case CI.P1: return RI.UNISON;
           // case a1: return RI.PT_a1;
         case CI.m2: return RI.PT_m2;

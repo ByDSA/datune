@@ -1,12 +1,12 @@
 import type { Scale } from "../Scale";
 import type { DegreeArray } from "degrees/alt";
-import type { DegreeFunction } from "functions/alt/degree-function/DegreeFunction";
+import type { DegreeFunc } from "functions/alt/degree-function/DegreeFunc";
 import { calcDegrees } from "functions/alt/degree-function/calcs";
 import { from } from "functions/alt/degree-function/building";
 import { Voicings as V } from "voicings/relative/alt";
 
-export function getDegreeFunctions(obj: Scale): DegreeFunction[] {
-  const ret: DegreeFunction[] = [];
+export function getDegreeFuncs(obj: Scale): DegreeFunc[] {
+  const ret: DegreeFunc[] = [];
   const voicings = V.COMMON;
 
   for (const degree of obj.degrees) {

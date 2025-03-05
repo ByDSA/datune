@@ -2,7 +2,7 @@ import { initialize as initAltChords } from "chords/octave/alt/constants/constan
 import { initialize as initCChords } from "chords/octave/chromatic/constants";
 import { initialize as initCConcerPitches } from "concert-pitches/chromatic/constants";
 import { initialize as initAltDegrees } from "degrees/alt/constants";
-import { initialize as initAltFunctions } from "functions/alt/constants";
+import { initialize as initAltFuncs } from "functions/alt/constants";
 import { initialize as initRIntervals } from "intervals/real/constants";
 import { initialize as diatonicAltIntervalInitialize } from "intervals/symbolic/alt/constants";
 import { initialize as initDIntervals } from "intervals/symbolic/diatonic/constants";
@@ -23,7 +23,7 @@ import { initialize as initCTunings } from "tunings/chromatic/constants";
 import { initialize as initAltVoicings } from "voicings/relative/alt/constants";
 import { initialize as initCVoicings } from "voicings/relative/chromatic/constants";
 import { initialize as initDVoicings } from "voicings/relative/diatonic/constants";
-import { initCFunctions } from "initialization/initializeCommon";
+import { initCFuncs } from "initialization/initializeCommon";
 
 export class TestInit {
   static realScale() {
@@ -43,10 +43,10 @@ export class TestInit {
     }
   }
 
-  static chromaticFunction() {
+  static chromaticFunc() {
     this.chromaticVoicing();
     try {
-      initCFunctions();
+      initCFuncs();
     } catch {
       // ignore
     }
@@ -68,12 +68,12 @@ export class TestInit {
     }
   }
 
-  static diatonicAltFunction() {
+  static diatonicAltFunc() {
     this.diatonicAlt();
     this.diatonicAltVoicing();
     this.diatonicAltDegree();
     try {
-      initAltFunctions();
+      initAltFuncs();
     } catch {
       // ignore
     }

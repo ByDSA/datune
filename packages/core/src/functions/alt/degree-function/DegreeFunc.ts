@@ -8,9 +8,9 @@ import { lockr } from "@datune/utils/immutables";
 import { Pitches as P } from "pitches/alt";
 import { Degrees as D } from "degrees/alt";
 import { Chords as C } from "chords/alt";
-import { HarmonicFunction } from "../HarmonicFunction";
+import { Func } from "../Func";
 
-export class DegreeFunction extends HarmonicFunction {
+export class DegreeFunc extends Func {
   degree: Degree;
 
   voicing: Voicing;
@@ -23,8 +23,8 @@ export class DegreeFunction extends HarmonicFunction {
     lockr(this);
   }
 
-  private static create(dto: Dto): DegreeFunction {
-    return new DegreeFunction(dto);
+  private static create(dto: Dto): DegreeFunc {
+    return new DegreeFunc(dto);
   }
 
   protected calculateChord(key: Key): Chord {

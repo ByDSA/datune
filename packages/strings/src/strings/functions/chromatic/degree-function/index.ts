@@ -1,7 +1,7 @@
-import { DegreeFunction } from "@datune/core/functions/chromatic/degree-function/DegreeFunction";
+import { DegreeFunc } from "@datune/core/functions/chromatic/degree-function/DegreeFunc";
 import { stringifyDegree } from "strings/degrees/chromatic";
 import { stringifyShortName } from "strings/voicings/chromatic/shortName";
 
-export function stringifyDegreeFunction(obj: DegreeFunction): string {
+export function stringifyDegreeFunc(obj: DegreeFunc): string {
   return stringifyDegree(obj.degree) + stringifyShortName(obj.voicing);
 }

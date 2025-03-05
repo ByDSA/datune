@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { Action } from "./Action";
 
 // eslint-disable-next-line no-use-before-define

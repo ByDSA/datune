@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import type { DegreeFunction } from "./DegreeFunction";
+import type { DegreeFunc } from "./DegreeFunc";
 import { Degrees as D } from "degrees/chromatic";
 import { Voicings } from "voicings/chromatic";
 import { from } from "./building/from";
@@ -306,7 +306,6 @@ export function initialize() {
   } );
 
   /* Seventh */
-
   I7 = from( {
     degree: D.I,
     voicing: SEVENTH,
@@ -750,364 +749,364 @@ export function initialize() {
   } );
 }
 
-export let I5: DegreeFunction;
+export let I5: DegreeFunc;
 
-export let bII5: DegreeFunction;
+export let bII5: DegreeFunc;
 
-export let II5: DegreeFunction;
+export let II5: DegreeFunc;
 
-export let bIII5: DegreeFunction;
+export let bIII5: DegreeFunc;
 
-export let III5: DegreeFunction;
+export let III5: DegreeFunc;
 
-export let IV5: DegreeFunction;
+export let IV5: DegreeFunc;
 
-export let bV5: DegreeFunction;
+export let bV5: DegreeFunc;
 
-export let V5: DegreeFunction;
+export let V5: DegreeFunc;
 
-export let bVI5: DegreeFunction;
+export let bVI5: DegreeFunc;
 
-export let VI5: DegreeFunction;
+export let VI5: DegreeFunc;
 
-export let bVII5: DegreeFunction;
+export let bVII5: DegreeFunc;
 
-export let VII5: DegreeFunction;
+export let VII5: DegreeFunc;
 
-export let I: DegreeFunction;
+export let I: DegreeFunc;
 
-export let bII: DegreeFunction;
+export let bII: DegreeFunc;
 
-export let II: DegreeFunction;
+export let II: DegreeFunc;
 
-export let bIII: DegreeFunction;
+export let bIII: DegreeFunc;
 
-export let III: DegreeFunction;
+export let III: DegreeFunc;
 
-export let IV: DegreeFunction;
+export let IV: DegreeFunc;
 
-export let bV: DegreeFunction;
+export let bV: DegreeFunc;
 
-export let V: DegreeFunction;
+export let V: DegreeFunc;
 
-export let bVI: DegreeFunction;
+export let bVI: DegreeFunc;
 
-export let VI: DegreeFunction;
+export let VI: DegreeFunc;
 
-export let bVII: DegreeFunction;
+export let bVII: DegreeFunc;
 
-export let VII: DegreeFunction;
+export let VII: DegreeFunc;
 
-export let ISUS4: DegreeFunction;
+export let ISUS4: DegreeFunc;
 
-export let bIISUS4: DegreeFunction;
+export let bIISUS4: DegreeFunc;
 
-export let IISUS4: DegreeFunction;
+export let IISUS4: DegreeFunc;
 
-export let bIIISUS4: DegreeFunction;
+export let bIIISUS4: DegreeFunc;
 
-export let IIISUS4: DegreeFunction;
+export let IIISUS4: DegreeFunc;
 
-export let IVSUS4: DegreeFunction;
+export let IVSUS4: DegreeFunc;
 
-export let bVSUS4: DegreeFunction;
+export let bVSUS4: DegreeFunc;
 
-export let VSUS4: DegreeFunction;
+export let VSUS4: DegreeFunc;
 
-export let bVISUS4: DegreeFunction;
+export let bVISUS4: DegreeFunc;
 
-export let VISUS4: DegreeFunction;
+export let VISUS4: DegreeFunc;
 
-export let bVIISUS4: DegreeFunction;
+export let bVIISUS4: DegreeFunc;
 
-export let VIISUS4: DegreeFunction;
+export let VIISUS4: DegreeFunc;
 
-export let Im: DegreeFunction;
+export let Im: DegreeFunc;
 
-export let bIIm: DegreeFunction;
+export let bIIm: DegreeFunc;
 
-export let IIm: DegreeFunction;
+export let IIm: DegreeFunc;
 
-export let bIIIm: DegreeFunction;
+export let bIIIm: DegreeFunc;
 
-export let IIIm: DegreeFunction;
+export let IIIm: DegreeFunc;
 
-export let IVm: DegreeFunction;
+export let IVm: DegreeFunc;
 
-export let bVm: DegreeFunction;
+export let bVm: DegreeFunc;
 
-export let Vm: DegreeFunction;
+export let Vm: DegreeFunc;
 
-export let bVIm: DegreeFunction;
+export let bVIm: DegreeFunc;
 
-export let VIm: DegreeFunction;
+export let VIm: DegreeFunc;
 
-export let bVIIm: DegreeFunction;
+export let bVIIm: DegreeFunc;
 
-export let VIIm: DegreeFunction;
+export let VIIm: DegreeFunc;
 
-export let I0: DegreeFunction;
+export let I0: DegreeFunc;
 
-export let bII0: DegreeFunction;
+export let bII0: DegreeFunc;
 
-export let II0: DegreeFunction;
+export let II0: DegreeFunc;
 
-export let bIII0: DegreeFunction;
+export let bIII0: DegreeFunc;
 
-export let III0: DegreeFunction;
+export let III0: DegreeFunc;
 
-export let IV0: DegreeFunction;
+export let IV0: DegreeFunc;
 
-export let bV0: DegreeFunction;
+export let bV0: DegreeFunc;
 
-export let V0: DegreeFunction;
+export let V0: DegreeFunc;
 
-export let bVI0: DegreeFunction;
+export let bVI0: DegreeFunc;
 
-export let VI0: DegreeFunction;
+export let VI0: DegreeFunc;
 
-export let bVII0: DegreeFunction;
+export let bVII0: DegreeFunc;
 
-export let VII0: DegreeFunction;
+export let VII0: DegreeFunc;
 
-export let Iaug: DegreeFunction;
+export let Iaug: DegreeFunc;
 
-export let bIIaug: DegreeFunction;
+export let bIIaug: DegreeFunc;
 
-export let IIaug: DegreeFunction;
+export let IIaug: DegreeFunc;
 
-export let bIIIaug: DegreeFunction;
+export let bIIIaug: DegreeFunc;
 
-export let IIIaug: DegreeFunction;
+export let IIIaug: DegreeFunc;
 
-export let IVaug: DegreeFunction;
+export let IVaug: DegreeFunc;
 
-export let bVaug: DegreeFunction;
+export let bVaug: DegreeFunc;
 
-export let Vaug: DegreeFunction;
+export let Vaug: DegreeFunc;
 
-export let bVIaug: DegreeFunction;
+export let bVIaug: DegreeFunc;
 
-export let VIaug: DegreeFunction;
+export let VIaug: DegreeFunc;
 
-export let bVIIaug: DegreeFunction;
+export let bVIIaug: DegreeFunc;
 
-export let VIIaug: DegreeFunction;
+export let VIIaug: DegreeFunc;
 
-export let I7: DegreeFunction;
+export let I7: DegreeFunc;
 
-export let bII7: DegreeFunction;
+export let bII7: DegreeFunc;
 
-export let II7: DegreeFunction;
+export let II7: DegreeFunc;
 
-export let bIII7: DegreeFunction;
+export let bIII7: DegreeFunc;
 
-export let III7: DegreeFunction;
+export let III7: DegreeFunc;
 
-export let IV7: DegreeFunction;
+export let IV7: DegreeFunc;
 
-export let bV7: DegreeFunction;
+export let bV7: DegreeFunc;
 
-export let V7: DegreeFunction;
+export let V7: DegreeFunc;
 
-export let bVI7: DegreeFunction;
+export let bVI7: DegreeFunc;
 
-export let VI7: DegreeFunction;
+export let VI7: DegreeFunc;
 
-export let bVII7: DegreeFunction;
+export let bVII7: DegreeFunc;
 
-export let VII7: DegreeFunction;
+export let VII7: DegreeFunc;
 
-export let I7SUS4: DegreeFunction;
+export let I7SUS4: DegreeFunc;
 
-export let bII7SUS4: DegreeFunction;
+export let bII7SUS4: DegreeFunc;
 
-export let II7SUS4: DegreeFunction;
+export let II7SUS4: DegreeFunc;
 
-export let bIII7SUS4: DegreeFunction;
+export let bIII7SUS4: DegreeFunc;
 
-export let III7SUS4: DegreeFunction;
+export let III7SUS4: DegreeFunc;
 
-export let IV7SUS4: DegreeFunction;
+export let IV7SUS4: DegreeFunc;
 
-export let bV7SUS4: DegreeFunction;
+export let bV7SUS4: DegreeFunc;
 
-export let V7SUS4: DegreeFunction;
+export let V7SUS4: DegreeFunc;
 
-export let bVI7SUS4: DegreeFunction;
+export let bVI7SUS4: DegreeFunc;
 
-export let VI7SUS4: DegreeFunction;
+export let VI7SUS4: DegreeFunc;
 
-export let bVII7SUS4: DegreeFunction;
+export let bVII7SUS4: DegreeFunc;
 
-export let VII7SUS4: DegreeFunction;
+export let VII7SUS4: DegreeFunc;
 
-export let I7SUS4b9: DegreeFunction;
+export let I7SUS4b9: DegreeFunc;
 
-export let bII7SUS4b9: DegreeFunction;
+export let bII7SUS4b9: DegreeFunc;
 
-export let II7SUS4b9: DegreeFunction;
+export let II7SUS4b9: DegreeFunc;
 
-export let bIII7SUS4b9: DegreeFunction;
+export let bIII7SUS4b9: DegreeFunc;
 
-export let III7SUS4b9: DegreeFunction;
+export let III7SUS4b9: DegreeFunc;
 
-export let IV7SUS4b9: DegreeFunction;
+export let IV7SUS4b9: DegreeFunc;
 
-export let bV7SUS4b9: DegreeFunction;
+export let bV7SUS4b9: DegreeFunc;
 
-export let V7SUS4b9: DegreeFunction;
+export let V7SUS4b9: DegreeFunc;
 
-export let bVI7SUS4b9: DegreeFunction;
+export let bVI7SUS4b9: DegreeFunc;
 
-export let VI7SUS4b9: DegreeFunction;
+export let VI7SUS4b9: DegreeFunc;
 
-export let bVII7SUS4b9: DegreeFunction;
+export let bVII7SUS4b9: DegreeFunc;
 
-export let VII7SUS4b9: DegreeFunction;
+export let VII7SUS4b9: DegreeFunc;
 
-export let I6: DegreeFunction;
+export let I6: DegreeFunc;
 
-export let bII6: DegreeFunction;
+export let bII6: DegreeFunc;
 
-export let II6: DegreeFunction;
+export let II6: DegreeFunc;
 
-export let bIII6: DegreeFunction;
+export let bIII6: DegreeFunc;
 
-export let III6: DegreeFunction;
+export let III6: DegreeFunc;
 
-export let IV6: DegreeFunction;
+export let IV6: DegreeFunc;
 
-export let bV6: DegreeFunction;
+export let bV6: DegreeFunc;
 
-export let V6: DegreeFunction;
+export let V6: DegreeFunc;
 
-export let bVI6: DegreeFunction;
+export let bVI6: DegreeFunc;
 
-export let VI6: DegreeFunction;
+export let VI6: DegreeFunc;
 
-export let bVII6: DegreeFunction;
+export let bVII6: DegreeFunc;
 
-export let VII6: DegreeFunction;
+export let VII6: DegreeFunc;
 
-export let Im6: DegreeFunction;
+export let Im6: DegreeFunc;
 
-export let bIIm6: DegreeFunction;
+export let bIIm6: DegreeFunc;
 
-export let IIm6: DegreeFunction;
+export let IIm6: DegreeFunc;
 
-export let bIIIm6: DegreeFunction;
+export let bIIIm6: DegreeFunc;
 
-export let IIIm6: DegreeFunction;
+export let IIIm6: DegreeFunc;
 
-export let IVm6: DegreeFunction;
+export let IVm6: DegreeFunc;
 
-export let bVm6: DegreeFunction;
+export let bVm6: DegreeFunc;
 
-export let Vm6: DegreeFunction;
+export let Vm6: DegreeFunc;
 
-export let bVIm6: DegreeFunction;
+export let bVIm6: DegreeFunc;
 
-export let VIm6: DegreeFunction;
+export let VIm6: DegreeFunc;
 
-export let bVIIm6: DegreeFunction;
+export let bVIIm6: DegreeFunc;
 
-export let VIIm6: DegreeFunction;
+export let VIIm6: DegreeFunc;
 
-export let IMaj7: DegreeFunction;
+export let IMaj7: DegreeFunc;
 
-export let bIIMaj7: DegreeFunction;
+export let bIIMaj7: DegreeFunc;
 
-export let IIMaj7: DegreeFunction;
+export let IIMaj7: DegreeFunc;
 
-export let bIIIMaj7: DegreeFunction;
+export let bIIIMaj7: DegreeFunc;
 
-export let IIIMaj7: DegreeFunction;
+export let IIIMaj7: DegreeFunc;
 
-export let IVMaj7: DegreeFunction;
+export let IVMaj7: DegreeFunc;
 
-export let bVMaj7: DegreeFunction;
+export let bVMaj7: DegreeFunc;
 
-export let VMaj7: DegreeFunction;
+export let VMaj7: DegreeFunc;
 
-export let bVIMaj7: DegreeFunction;
+export let bVIMaj7: DegreeFunc;
 
-export let VIMaj7: DegreeFunction;
+export let VIMaj7: DegreeFunc;
 
-export let bVIIMaj7: DegreeFunction;
+export let bVIIMaj7: DegreeFunc;
 
-export let VIIMaj7: DegreeFunction;
+export let VIIMaj7: DegreeFunc;
 
-export let IMaj7b5: DegreeFunction;
+export let IMaj7b5: DegreeFunc;
 
-export let bIIMaj7b5: DegreeFunction;
+export let bIIMaj7b5: DegreeFunc;
 
-export let IIMaj7b5: DegreeFunction;
+export let IIMaj7b5: DegreeFunc;
 
-export let bIIIMaj7b5: DegreeFunction;
+export let bIIIMaj7b5: DegreeFunc;
 
-export let IIIMaj7b5: DegreeFunction;
+export let IIIMaj7b5: DegreeFunc;
 
-export let IVMaj7b5: DegreeFunction;
+export let IVMaj7b5: DegreeFunc;
 
-export let bVMaj7b5: DegreeFunction;
+export let bVMaj7b5: DegreeFunc;
 
-export let VMaj7b5: DegreeFunction;
+export let VMaj7b5: DegreeFunc;
 
-export let bVIMaj7b5: DegreeFunction;
+export let bVIMaj7b5: DegreeFunc;
 
-export let VIMaj7b5: DegreeFunction;
+export let VIMaj7b5: DegreeFunc;
 
-export let bVIIMaj7b5: DegreeFunction;
+export let bVIIMaj7b5: DegreeFunc;
 
-export let VIIMaj7b5: DegreeFunction;
+export let VIIMaj7b5: DegreeFunc;
 
-export let Im7: DegreeFunction;
+export let Im7: DegreeFunc;
 
-export let bIIm7: DegreeFunction;
+export let bIIm7: DegreeFunc;
 
-export let IIm7: DegreeFunction;
+export let IIm7: DegreeFunc;
 
-export let bIIIm7: DegreeFunction;
+export let bIIIm7: DegreeFunc;
 
-export let IIIm7: DegreeFunction;
+export let IIIm7: DegreeFunc;
 
-export let IVm7: DegreeFunction;
+export let IVm7: DegreeFunc;
 
-export let bVm7: DegreeFunction;
+export let bVm7: DegreeFunc;
 
-export let Vm7: DegreeFunction;
+export let Vm7: DegreeFunc;
 
-export let bVIm7: DegreeFunction;
+export let bVIm7: DegreeFunc;
 
-export let VIm7: DegreeFunction;
+export let VIm7: DegreeFunc;
 
-export let bVIIm7: DegreeFunction;
+export let bVIIm7: DegreeFunc;
 
-export let VIIm7: DegreeFunction;
+export let VIIm7: DegreeFunc;
 
-export let Im7b5: DegreeFunction;
+export let Im7b5: DegreeFunc;
 
-export let bIIm7b5: DegreeFunction;
+export let bIIm7b5: DegreeFunc;
 
-export let IIm7b5: DegreeFunction;
+export let IIm7b5: DegreeFunc;
 
-export let bIIIm7b5: DegreeFunction;
+export let bIIIm7b5: DegreeFunc;
 
-export let IIIm7b5: DegreeFunction;
+export let IIIm7b5: DegreeFunc;
 
-export let IVm7b5: DegreeFunction;
+export let IVm7b5: DegreeFunc;
 
-export let bVm7b5: DegreeFunction;
+export let bVm7b5: DegreeFunc;
 
-export let Vm7b5: DegreeFunction;
+export let Vm7b5: DegreeFunc;
 
-export let bVIm7b5: DegreeFunction;
+export let bVIm7b5: DegreeFunc;
 
-export let VIm7b5: DegreeFunction;
+export let VIm7b5: DegreeFunc;
 
-export let bVIIm7b5: DegreeFunction;
+export let bVIIm7b5: DegreeFunc;
 
-export let VIIm7b5: DegreeFunction;
+export let VIIm7b5: DegreeFunc;
 
-export let SUBV7: DegreeFunction;
+export let SUBV7: DegreeFunc;

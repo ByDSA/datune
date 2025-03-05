@@ -1,12 +1,12 @@
-import * as DegreeFunctionConstants from "./degree-function/constants";
-import * as CompoundFunctionsConstants from "./compound-function/constants";
-import * as OtherFunctionsConstants from "./others/constants";
+import * as DegreeFuncConstants from "./degree-function/constants";
+import * as CompoundFuncsConstants from "./compound-function/constants";
+import * as OtherFuncsConstants from "./others/constants";
 
 export function initialize() {
-  if (DegreeFunctionConstants.I)
+  if (DegreeFuncConstants.I)
     throw new Error("Already defined");
 
-  DegreeFunctionConstants.initialize();
-  CompoundFunctionsConstants.initialize();
-  OtherFunctionsConstants.initialize();
+  DegreeFuncConstants.initialize();
+  CompoundFuncsConstants.initialize();
+  OtherFuncsConstants.initialize();
 }

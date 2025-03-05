@@ -10,7 +10,7 @@ export function wordsGenerate(basePart: WordsInput): Settings {
     key: basePart.key,
     tuning: basePart.tuning,
     temperament: basePart.temperament,
-    degreeFunction: basePart.degreeFunction,
+    degreeFunc: basePart.degreeFunc,
     degree: basePart.degree,
     pitch: basePart.pitch,
     voicing: basePart.voicing,

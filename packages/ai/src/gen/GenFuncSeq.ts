@@ -1,7 +1,7 @@
 import { FuncSequence, MainFunc, TonalApproach } from "@datune/analyzer";
 import { Degree } from "@datune/core/degrees/chromatic";
 import { bIII, bIIIMaj7, bVI, bVIm7, I, IIIm, IIIm7, IIm, IIm7, Im, Im7, IMaj7, ISUS4, IV, IVm, IVm7, IVMaj7, V, V7, VII0, VIm, VIm7, Vm, Vm7 } from "@datune/core/functions/chromatic/degree-function/constants";
-import { HarmonicFunction } from "@datune/core/functions/chromatic";
+import { Func } from "@datune/core/functions/chromatic";
 import { MAJOR, MINOR } from "@datune/core/scales/symbolic/chromatic/constants";
 import { HALF, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { MusicalDuration } from "@datune/core/rhythm";
@@ -10,7 +10,7 @@ import { intervalOf } from "@datune/utils/math";
 import { GenSeq } from "./GenSeq";
 import { limitTime } from "./utils";
 
-type Node = TemporalNode<HarmonicFunction>;
+type Node = TemporalNode<Func>;
 export class GenFuncSeq extends GenSeq {
   private funcSeq: FuncSequence;
 
@@ -31,7 +31,7 @@ export class GenFuncSeq extends GenSeq {
       toTime = this.limitMaxDuration(toTime);
       toTime = limitTime(toTime, this.getNextMeasureTime(time));
 
-      const func: HarmonicFunction | null = this.#pickFunc(prevNode, time, toTime);
+      const func: Func | null = this.#pickFunc(prevNode, time, toTime);
 
       if (func) {
         [prevNode] = this.funcSeq.add( {
@@ -55,7 +55,7 @@ export class GenFuncSeq extends GenSeq {
     prevNode: Node | undefined,
     time: MusicalDuration,
     toTime: MusicalDuration,
-  ): HarmonicFunction | null {
+  ): Func | null {
     const [keyAtTime] = this.tonalApporach.keySequence.get( {
       at: time,
     } );
@@ -74,7 +74,7 @@ export class GenFuncSeq extends GenSeq {
       return Im;
     }
 
-    let availableFuncs: HarmonicFunction[] = [];
+    let availableFuncs: Func[] = [];
     const currentMainFunc = this.tonalApporach.mainFuncSequence.get( {
       at: time,
     } )[0]?.event;

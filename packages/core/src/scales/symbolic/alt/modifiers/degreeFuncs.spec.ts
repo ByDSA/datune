@@ -1,15 +1,15 @@
-import { Functions as F } from "functions/alt";
+import { Funcs as F } from "functions/alt";
 import { TestInit } from "tests";
 import { MAJOR, MINOR } from "../constants";
-import { getDegreeFunctions } from "./degreeFunctions";
+import { getDegreeFuncs } from "./degreeFuncs";
 
 TestInit.diatonicAltScale();
 TestInit.diatonicAltVoicing();
-TestInit.diatonicAltFunction();
+TestInit.diatonicAltFunc();
 
 it("scale - degreeFunctions: MAJOR", () => {
   const scale = MAJOR;
-  const actual = getDegreeFunctions(scale);
+  const actual = getDegreeFuncs(scale);
   const someFunctions = [
     F.I,
     F.ISUS4,
@@ -27,7 +27,7 @@ it("scale - degreeFunctions: MAJOR", () => {
 
 it("scale - degreeFunctions: MAJOR seventh", () => {
   const scale = MAJOR;
-  const actual = getDegreeFunctions(scale);
+  const actual = getDegreeFuncs(scale);
   const someFunctions = [
     F.IMaj7,
     F.IIm7,
@@ -44,7 +44,7 @@ it("scale - degreeFunctions: MAJOR seventh", () => {
 
 it("scale - degreeFunctions: MINOR", () => {
   const scale = MINOR;
-  const actual = getDegreeFunctions(scale);
+  const actual = getDegreeFuncs(scale);
   const someFunctions = [
     F.Im,
     F.II0,
@@ -60,7 +60,7 @@ it("scale - degreeFunctions: MINOR", () => {
 
 it("scale - degreeFunctions: MINOR seventh", () => {
   const scale = MINOR;
-  const actual = getDegreeFunctions(scale);
+  const actual = getDegreeFuncs(scale);
   const someFunctions = [
     F.Im7,
     F.IIm7b5,

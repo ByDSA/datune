@@ -1,11 +1,11 @@
-import type { DegreeFunction } from "../DegreeFunction";
+import type { DegreeFunc } from "../DegreeFunc";
 import { DegreeArray, Degrees } from "degrees/alt";
 import { Degrees as DDegrees } from "degrees/diatonic";
 import { Intervals } from "intervals/alt";
 import { Pitches as CP } from "pitches/chromatic";
 import { Pitches as DPitches } from "pitches/diatonic";
 
-export function calcDegrees(obj: DegreeFunction): DegreeArray {
+export function calcDegrees(obj: DegreeFunc): DegreeArray {
   const ret: DegreeArray = [] as any;
   const chromaticDegree = Degrees.toChromaticDegree(obj.degree);
 

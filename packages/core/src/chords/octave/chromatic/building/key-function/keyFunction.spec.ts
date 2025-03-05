@@ -1,15 +1,15 @@
 import { Chords } from "chords/chromatic";
-import { Functions as F } from "functions/chromatic";
+import { Funcs as F } from "functions/chromatic";
 import { Keys as K } from "keys/chromatic";
 import { TestInit } from "tests";
-import { fromKeyFunction } from ".";
+import { fromKeyFunc } from ".";
 
 TestInit.chromaticChord();
 TestInit.chromaticKey();
-TestInit.chromaticFunction();
+TestInit.chromaticFunc();
 
-it("calculateChord: Key C, DegreeFunction I = Chord C", () => {
-  const chord = fromKeyFunction(K.C, F.I);
+it("calculateChord: Key C, DegreeFunc I = Chord C", () => {
+  const chord = fromKeyFunc(K.C, F.I);
 
   expect(chord).toBe(Chords.C);
 } );

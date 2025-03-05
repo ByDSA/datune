@@ -5,7 +5,7 @@ export type WordsPart = {
   key: string;
   tuning: string;
   temperament: string;
-  degreeFunction: string;
+  degreeFunc: string;
   degree: string;
   pitch: string;
   voicing: string;

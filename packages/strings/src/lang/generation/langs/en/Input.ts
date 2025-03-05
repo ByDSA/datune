@@ -97,7 +97,7 @@ const words = {
   key: "key",
   tuning: "tuning",
   temperament: "temperament",
-  degreeFunction: "degree function",
+  degreeFunc: "degree function",
   degree: "degree",
   pitch: "pitch",
   voicing: "voicing",

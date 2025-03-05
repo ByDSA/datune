@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { MusicalDuration } from "@datune/core";
 import { MidiNode, MidiNote, nodeFrom } from "@datune/midi";
 import { TemporalNode } from "@datune/utils";
@@ -27,7 +26,6 @@ export class ActionGen extends ActionNote {
     const ret: boolean = true;
 
     // console.log(`check: ${this.state} ${this.node?.event} ${ret}`);
-
     return ret;
   }
 

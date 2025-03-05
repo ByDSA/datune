@@ -1,7 +1,7 @@
-import { Chord } from "chords/chromatic";
-import { HarmonicFunction } from "functions/chromatic";
-import { Key } from "keys/chromatic";
+import type { Chord } from "chords/chromatic";
+import type { Func } from "functions/chromatic";
+import type { Key } from "keys/chromatic";
 
-export function fromKeyFunction(key: Key, harmonicFunction: HarmonicFunction): Chord {
-  return harmonicFunction.getChord(key);
+export function fromKeyFunc(key: Key, func: Func): Chord {
+  return func.getChord(key);
 }

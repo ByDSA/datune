@@ -1,11 +1,11 @@
-import type { DegreeFunction } from "./DegreeFunction";
+import type { DegreeFunc } from "./DegreeFunc";
 import { Degrees as C, Degree } from "degrees/chromatic";
 import { TestInit } from "tests";
 import { Voicings, Voicing } from "voicings/chromatic";
 import { I, Im, IVMaj7, VII0 } from "./constants";
 import { from } from "./building/from";
 
-TestInit.chromaticFunction();
+TestInit.chromaticFunc();
 
 describe("tests", () => {
   const { SEVENTH_MAJ7, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = Voicings;
@@ -16,21 +16,21 @@ describe("tests", () => {
     [VII0, C.VII, TRIAD_DIMINISHED, [C.VII, C.II, C.IV]],
     [IVMaj7, C.IV, SEVENTH_MAJ7, [C.IV, C.VI, C.I, C.III]],
   ])("%s", (
-    degreeFunction: DegreeFunction,
+    degreeFunc: DegreeFunc,
     expectedDegree: Degree,
     expectedVoicing: Voicing,
     expectedDegrees: Degree[],
   ) => {
     it("degree", () => {
-      expect(degreeFunction.degree).toBe(expectedDegree);
+      expect(degreeFunc.degree).toBe(expectedDegree);
     } );
 
     it("voicing", () => {
-      expect(degreeFunction.voicing).toBe(expectedVoicing);
+      expect(degreeFunc.voicing).toBe(expectedVoicing);
     } );
 
     it("degrees", () => {
-      const { degrees } = degreeFunction;
+      const { degrees } = degreeFunc;
       const expected = expectedDegrees;
 
       expect(degrees).toStrictEqual(expected);
@@ -38,12 +38,12 @@ describe("tests", () => {
   } );
 
   it("from: I + TRIAD_MAJOR = I", () => {
-    const degreeFunction = from( {
+    const degreeFunc = from( {
       degree: C.I,
       voicing: TRIAD_MINOR,
     } );
     const expected = Im;
 
-    expect(degreeFunction).toEqual(expected);
+    expect(degreeFunc).toEqual(expected);
   } );
 } );

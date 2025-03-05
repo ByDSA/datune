@@ -1,15 +1,15 @@
 import { bIII, bVI, bVII, I, II, III, IV, V, VI, VII } from "@datune/core/degrees/chromatic/constants";
 import { Degree as DegreeAlt } from "@datune/core/degrees/chromatic";
-import { DegreeFunction } from "@datune/core/functions/chromatic/degree-function/DegreeFunction";
+import { DegreeFunc } from "@datune/core/functions/chromatic/degree-function/DegreeFunc";
 import { MusicalDuration } from "@datune/core";
 
 export const commonDegreesWith = (
-  degreeFunction: DegreeFunction,
+  degreeFunc: DegreeFunc,
   withDegrees: DegreeAlt[],
 ): boolean => {
   let common = 0;
 
-  for (const d of degreeFunction.degrees) {
+  for (const d of degreeFunc.degrees) {
     if (withDegrees.includes(d))
       common++;
   }
@@ -21,8 +21,8 @@ export const commonDegreesWith = (
 };
 
 export const isTonic = (
-  degreeFunction: DegreeFunction,
-): boolean => commonDegreesWith(degreeFunction, [
+  degreeFunc: DegreeFunc,
+): boolean => commonDegreesWith(degreeFunc, [
   I,
   bIII,
   III,
@@ -30,8 +30,8 @@ export const isTonic = (
 ]);
 
 export const isSubDominant = (
-  degreeFunction: DegreeFunction,
-): boolean => commonDegreesWith(degreeFunction, [
+  degreeFunc: DegreeFunc,
+): boolean => commonDegreesWith(degreeFunc, [
   IV,
   bVI,
   VI,
@@ -39,8 +39,8 @@ export const isSubDominant = (
 ]);
 
 export const isDominant = (
-  degreeFunction: DegreeFunction,
-): boolean => commonDegreesWith(degreeFunction, [
+  degreeFunc: DegreeFunc,
+): boolean => commonDegreesWith(degreeFunc, [
   V,
   VII,
   bVII,

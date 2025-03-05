@@ -18,7 +18,7 @@ const functions: string[] = [
   S.fromRootIntervals.name,
 
   // modifiers
-  S.getDegreeFunctions.name,
+  S.getDegreeFuncs.name,
   S.calcIntraIntervals.name,
   S.mode.name,
   S.getModeIntraIntervals.name,

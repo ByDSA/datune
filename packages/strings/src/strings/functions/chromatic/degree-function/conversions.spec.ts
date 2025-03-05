@@ -1,8 +1,8 @@
 import { I, I5, Im, VISUS4 } from "@datune/core/functions/chromatic/degree-function/constants";
 import { TestInit, TestLang } from "tests";
-import { stringifyDegreeFunction } from ".";
+import { stringifyDegreeFunc } from ".";
 
-TestInit.chromaticFunction();
+TestInit.chromaticFunc();
 TestLang.loadAll();
 
 describe.each([
@@ -12,7 +12,7 @@ describe.each([
   [VISUS4, "VIsus4"],
 ])("constants", (func, expectedString) => {
   it(`${func} => ${expectedString}`, () => {
-    const actual = stringifyDegreeFunction(func);
+    const actual = stringifyDegreeFunc(func);
 
     expect(actual).toBe(expectedString);
   } );

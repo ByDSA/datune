@@ -113,7 +113,6 @@ export function initialize() {
   BLUES_a4 = BLUES_b5;
 
   // 5
-
   PENTATONIC_MINOR = fromIntraIntervals(3, 2, 2, 3, 2);
 
   PENTATONIC = mode(PENTATONIC_MINOR, 2);
@@ -125,7 +124,6 @@ export function initialize() {
   BLUES_MAJOR = mode(PENTATONIC_MINOR, 5);
 
   // Symmetric
-
   CHROMATIC = fromIntraIntervals(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
   WHOLE_TONE = fromIntraIntervals(2, 2, 2, 2, 2, 2);
@@ -301,7 +299,6 @@ export let BLUES_b5: Scale;
 export let BLUES_a4: Scale;
 
 // 5
-
 export let PENTATONIC_MINOR: Scale;
 
 export let PENTATONIC: Scale;
@@ -313,7 +310,6 @@ export let BLUES_MINOR: Scale;
 export let BLUES_MAJOR: Scale;
 
 // Symmetric
-
 export let CHROMATIC: Scale;
 
 export let WHOLE_TONE: Scale;

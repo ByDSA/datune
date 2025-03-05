@@ -1,8 +1,8 @@
-import { Functions as F } from "@datune/core/functions/alt";
+import { Funcs as F } from "@datune/core/functions/alt";
 import { TestInit, TestLang } from "tests";
-import { stringifyDegreeFunction } from ".";
+import { stringifyDegreeFunc } from ".";
 
-TestInit.diatonicAltFunction();
+TestInit.diatonicAltFunc();
 TestLang.loadAll();
 
 describe.each([
@@ -12,7 +12,7 @@ describe.each([
   [F.VISUS4, "VIsus4"],
 ])("constants", (func, expectedString) => {
   it(`${func} => ${expectedString}`, () => {
-    const actual = stringifyDegreeFunction(func);
+    const actual = stringifyDegreeFunc(func);
 
     expect(actual).toBe(expectedString);
   } );

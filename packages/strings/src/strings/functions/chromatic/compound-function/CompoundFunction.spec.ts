@@ -7,9 +7,9 @@ import { Keys as K } from "@datune/core/keys/chromatic";
 import { Pitches as C } from "@datune/core/pitches/chromatic";
 import { Voicings as V } from "@datune/core/voicings/chromatic";
 import { TestInit, TestLang } from "tests";
-import { stringifyCompoundFunction } from ".";
+import { stringifyCompoundFunc } from ".";
 
-TestInit.chromaticFunction();
+TestInit.chromaticFunc();
 TestInit.chromaticKey();
 TestInit.chromaticChord();
 TestLang.loadAll();
@@ -18,7 +18,7 @@ describe.each([
   [compose(V7, D.V, D.V), "V7/V/V"],
 ])("from", (func, expectedString) => {
   it(`${String(func)} String => ${expectedString}`, () => {
-    const actual = stringifyCompoundFunction(func);
+    const actual = stringifyCompoundFunc(func);
 
     expect(actual).toBe(expectedString);
   } );

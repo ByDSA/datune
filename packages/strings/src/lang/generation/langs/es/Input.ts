@@ -94,7 +94,7 @@ const words = {
   get key(): string { return "tonalidad"; },
   get tuning(): string { return "afinación"; },
   get temperament(): string { return "temperamento"; },
-  get degreeFunction(): string { return "función tonal"; },
+  get degreeFunc(): string { return "función tonal"; },
   get degree(): string { return "grado"; },
   get pitch(): string { return "pitch"; },
   get voicing(): string { return "patrón"; },

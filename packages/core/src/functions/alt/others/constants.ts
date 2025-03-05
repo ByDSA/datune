@@ -4,10 +4,10 @@ import { Chords } from "chords/alt";
 import { Intervals } from "intervals/alt";
 import { Pitches } from "pitches/alt";
 import { Voicings } from "voicings/alt";
-import { HarmonicFunction } from "../HarmonicFunction";
+import { Func } from "../Func";
 
 export function initialize() {
-  V7ALT = new (class A extends HarmonicFunction {
+  V7ALT = new (class A extends Func {
     protected calculateChord(key: Key): Chord {
       const pitchV = Pitches.add(key.root, Intervals.P5);
 
@@ -24,4 +24,4 @@ export function initialize() {
   } )();
 }
 
-export let V7ALT: HarmonicFunction;
+export let V7ALT: Func;

@@ -1,8 +1,8 @@
 import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
-import { Functions } from ".";
+import { Funcs } from ".";
 
-TestInit.diatonicAltFunction();
+TestInit.diatonicAltFunc();
 
 const vars: string[] = [
   "I",
@@ -205,10 +205,10 @@ const vars: string[] = [
 ];
 const functions: string[] = [
   // degree-function/calcs
-  Functions.calcDegrees.name,
+  Funcs.calcDegrees.name,
 
   // compound-function/building/compose
-  Functions.compose.name,
+  Funcs.compose.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -217,7 +217,7 @@ it("module should export functions and vars", async () => {
       functions,
       vars,
     },
-    barrel: Functions,
+    barrel: Funcs,
     modules: [
       "degree-function/calcs",
       "compound-function/building/compose",

@@ -1,6 +1,5 @@
 #!/usr/bin/env zx
 /* eslint-disable no-undef */
-
 $.verbose = true;
 
 await $`rm -rf dist`;

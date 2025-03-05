@@ -4,7 +4,7 @@ import { Pitches } from "pitches/chromatic";
 import { TestInit } from "tests";
 import { V7ALT } from "./constants";
 
-TestInit.chromaticFunction();
+TestInit.chromaticFunc();
 TestInit.chromaticKey();
 
 describe("tests", () => {

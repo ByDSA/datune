@@ -1,14 +1,14 @@
-import type { DegreeFunction } from "../../degree-function/DegreeFunction";
+import type { DegreeFunc } from "../../degree-function/DegreeFunc";
 import { DegreeArray } from "degrees/chromatic";
 import { cache } from "../caching/cache";
-import { CompoundFunction } from "../CompoundFunction";
+import { CompoundFunc } from "../CompoundFunc";
 
 export function compose(
-  degreeFunction: DegreeFunction,
+  degreeFunc: DegreeFunc,
   ...degreeChain: DegreeArray
-): CompoundFunction {
+): CompoundFunc {
   return cache.getOrCreate( {
     degreeChain,
-    degreeFunction,
+    degreeFunc: degreeFunc,
   } );
 }

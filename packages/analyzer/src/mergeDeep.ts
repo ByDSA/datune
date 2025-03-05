@@ -1,5 +1,4 @@
 // Source: https://stackoverflow.com/a/34749873/3261703
-
 /**
  * Simple object check.
  * @param item

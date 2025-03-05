@@ -4,7 +4,7 @@ import { initialize as AltChordsInitialize } from "chords/octave/alt/constants";
 import { initialize as CChordsInitialize } from "chords/octave/chromatic/constants";
 import { initialize as CConcertPitchesInitialize } from "concert-pitches/chromatic/constants";
 import { initialize as AltDegreesInitialize } from "degrees/alt/constants";
-import { initialize as initAltFunctions } from "functions/alt/constants";
+import { initialize as initAltFuncs } from "functions/alt/constants";
 import { initialize as initDIntervals } from "intervals/symbolic/diatonic/constants";
 import { initialize as IntervalsAltInitialize } from "intervals/symbolic/alt/constants";
 import { initialize as RIntervalsInitialize } from "intervals/real/constants";
@@ -23,7 +23,7 @@ import { initialize as CTuningsInitialize } from "tunings/chromatic/constants";
 import { initialize as VoicingsAltInitialize } from "voicings/relative/alt/constants";
 import { initialize as CVoicingsInitialize } from "voicings/relative/chromatic/constants";
 import { initialize as DVoicingsInitialize } from "voicings/relative/diatonic/constants";
-import { initCFunctions } from "./initializeCommon";
+import { initCFuncs } from "./initializeCommon";
 import { Data } from "./types";
 import { initialize as chromaticScaleInitialize } from "./scales/chromatic";
 import { initialize as chromaticKeyInitialize } from "./keys/chromatic";
@@ -51,7 +51,7 @@ function initializeConstants() {
   CPitchSetsInitialize();
 
   CScalesInitialize();
-  initCFunctions();
+  initCFuncs();
   CKeysInitialize();
 
   CConcertPitchesInitialize();
@@ -73,7 +73,7 @@ function initializeConstants() {
 
   AltDegreesInitialize();
   ScalesAltInitialize();
-  initAltFunctions();
+  initAltFuncs();
   KeysAltInitialize();
 
   // Time

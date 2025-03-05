@@ -1,10 +1,10 @@
-import type { CompoundFunction } from "./CompoundFunction";
+import type { CompoundFunc } from "./CompoundFunc";
 import { Degrees as D } from "degrees/alt";
-import * as DegreeFunctions from "../degree-function/constants";
+import * as DegreeFuncs from "../degree-function/constants";
 import { compose } from "./building/compose";
 
 export function initialize() {
-  const { SUBV7, V, V7 } = DegreeFunctions;
+  const { SUBV7, V, V7 } = DegreeFuncs;
 
   V_II = compose(V, D.II);
   V_III = compose(V, D.III);
@@ -25,32 +25,32 @@ export function initialize() {
   SUBV7_VI = compose(SUBV7, D.VI);
 }
 
-export let V_II: CompoundFunction;
+export let V_II: CompoundFunc;
 
-export let V_III: CompoundFunction;
+export let V_III: CompoundFunc;
 
-export let V_IV: CompoundFunction;
+export let V_IV: CompoundFunc;
 
-export let V_V: CompoundFunction;
+export let V_V: CompoundFunc;
 
-export let V_VI: CompoundFunction;
+export let V_VI: CompoundFunc;
 
-export let V7_II: CompoundFunction;
+export let V7_II: CompoundFunc;
 
-export let V7_III: CompoundFunction;
+export let V7_III: CompoundFunc;
 
-export let V7_IV: CompoundFunction;
+export let V7_IV: CompoundFunc;
 
-export let V7_V: CompoundFunction;
+export let V7_V: CompoundFunc;
 
-export let V7_VI: CompoundFunction;
+export let V7_VI: CompoundFunc;
 
-export let SUBV7_II: CompoundFunction;
+export let SUBV7_II: CompoundFunc;
 
-export let SUBV7_III: CompoundFunction;
+export let SUBV7_III: CompoundFunc;
 
-export let SUBV7_IV: CompoundFunction;
+export let SUBV7_IV: CompoundFunc;
 
-export let SUBV7_V: CompoundFunction;
+export let SUBV7_V: CompoundFunc;
 
-export let SUBV7_VI: CompoundFunction;
+export let SUBV7_VI: CompoundFunc;

@@ -1,4 +1,4 @@
-import type { fromKeyFunction } from "./building/key-function";
+import type { fromKeyFunc } from "./building/key-function";
 import type { fromPitches } from "./building/pitches";
 import type { fromRootVoicing } from "./building/root-voicing";
 import type * as Constants from "./constants";
@@ -12,7 +12,7 @@ export const staticModule = {
   ...Modifiers,
 };
 type LazyType = Omit<typeof Constants, "initialize"> & typeof Conversions & {
-  fromKeyFunction: typeof fromKeyFunction;
+  fromKeyFunc: typeof fromKeyFunc;
   fromPitches: typeof fromPitches;
   fromRootVoicing: typeof fromRootVoicing;
 };

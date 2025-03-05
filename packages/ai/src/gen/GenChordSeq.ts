@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Chord } from "@datune/core/chords/chromatic";
 import { bIII, bVI, bVII, I, II0, IIIm, IIm, Im, IV, IVm, V, V7, VII0, VIm } from "@datune/core/functions/chromatic/degree-function/constants";
-import { HarmonicFunction } from "@datune/core/functions/chromatic";
+import { Func } from "@datune/core/functions/chromatic";
 import { Key } from "@datune/core/keys/chromatic";
 import { fromRootScale as keyFrom } from "@datune/core/keys/chromatic/building";
 import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
@@ -26,7 +25,7 @@ export class GenChordSeq extends GenSeq {
       if (!fNode)
         throw new Error(`${time} ${tonalApproach.funcSequence.duration}`);
 
-      const func = fNode.event as HarmonicFunction;
+      const func = fNode.event as Func;
 
       toTime = fNode.interval.to;
 
@@ -47,11 +46,11 @@ export class GenChordSeq extends GenSeq {
   }
 }
 
-function pickKeyChord(originalKey: Key, f: HarmonicFunction, chord: Chord): Key {
-  const [root] = f.getChord(originalKey).pitches;
+function pickKeyChord(originalKey: Key, func: Func, _chord: Chord): Key {
+  const [root] = func.getChord(originalKey).pitches;
   const available: Key[] = [];
 
-  switch (f) {
+  switch (func) {
     case I:
     case bIII:
       available.push(keyFrom(root, MAJOR));
@@ -84,6 +83,7 @@ function pickKeyChord(originalKey: Key, f: HarmonicFunction, chord: Chord): Key 
       available.push(keyFrom(root, CHROMATIC));
       break;
   }
+
   // let chord = f.getChord(originalKey);
   // switch (chord.voicing) {
   //     case Pattern.TRIAD_MAJOR:
@@ -117,7 +117,6 @@ function pickKeyChord(originalKey: Key, f: HarmonicFunction, chord: Chord): Key 
   //     case Pattern.SEVENTH_b5:
   //         return keyFrom(root, Scale.LOCRIAN);
   // }
-
   if (available.length === 0)
     return originalKey;
 

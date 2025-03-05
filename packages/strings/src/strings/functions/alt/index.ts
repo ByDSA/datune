@@ -1,16 +1,16 @@
-import { CompoundFunction } from "@datune/core/functions/alt/compound-function/CompoundFunction";
-import { HarmonicFunction } from "@datune/core/functions/alt";
-import { DegreeFunction } from "@datune/core/functions/alt/degree-function/DegreeFunction";
-import { stringifyCompoundFunction } from "./compound-function";
-import { stringifyDegreeFunction } from "./degree-function";
-import { stringifyOtherFunction } from "./others";
+import { CompoundFunc } from "@datune/core/functions/alt/compound-function/CompoundFunc";
+import { Func } from "@datune/core/functions/alt";
+import { DegreeFunc } from "@datune/core/functions/alt/degree-function/DegreeFunc";
+import { stringifyCompoundFunc } from "./compound-function";
+import { stringifyDegreeFunc } from "./degree-function";
+import { stringifyOtherFunc } from "./others";
 
-export function stringifyHarmonicFunction(harmonicFunction: HarmonicFunction): string {
-  if (harmonicFunction instanceof DegreeFunction)
-    return stringifyDegreeFunction(harmonicFunction);
+export function stringifyFunc(func: Func): string {
+  if (func instanceof DegreeFunc)
+    return stringifyDegreeFunc(func);
 
-  if (harmonicFunction instanceof CompoundFunction)
-    return stringifyCompoundFunction(harmonicFunction);
+  if (func instanceof CompoundFunc)
+    return stringifyCompoundFunc(func);
 
-  return stringifyOtherFunction(harmonicFunction);
+  return stringifyOtherFunc(func);
 }

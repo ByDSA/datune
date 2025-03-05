@@ -178,7 +178,7 @@ const vars: string[] = [
 ];
 const functions: string[] = [
   // Building
-  Chords.fromKeyFunction.name,
+  Chords.fromKeyFunc.name,
   Chords.fromPitches.name,
   Chords.fromRootVoicing.name,
 
