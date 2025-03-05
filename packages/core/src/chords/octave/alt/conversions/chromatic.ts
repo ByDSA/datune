@@ -1,11 +1,11 @@
 import type { Chord } from "../Chord";
 import type { Chord as CChord } from "chords/chromatic";
-import type { PitchArray as CArray } from "pitches/chromatic";
-import { Chords as CChords } from "chords/chromatic";
-import { Pitches } from "pitches/alt";
+import type { PitchArray as CPitchArray } from "pitches/chromatic";
+import { Chords as CC } from "chords/chromatic";
+import { Pitches as P } from "pitches/alt";
 
 export function toChromatic(obj: Chord): CChord {
-  const pitches = obj.pitches.map(Pitches.toChromatic) as CArray;
+  const pitches = obj.pitches.map(P.toChromatic) as CPitchArray;
 
-  return CChords.fromPitches(...pitches);
+  return CC.fromPitches(...pitches);
 }

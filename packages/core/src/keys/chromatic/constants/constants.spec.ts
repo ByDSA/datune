@@ -1,7 +1,7 @@
 import { Pitches as P } from "pitches/chromatic";
 import { Scales } from "scales/chromatic";
 import { TestInit } from "tests";
-import { fromRootScale } from "../building";
+import { from } from "../building";
 import { C } from ".";
 
 TestInit.chromaticKey();
@@ -9,7 +9,7 @@ const { BLUES_MINOR, MAJOR, ORIENTAL } = Scales;
 
 describe.each([
   [C, P.C, MAJOR],
-  [fromRootScale(P.C, ORIENTAL), P.C, ORIENTAL],
+  [from(P.C, ORIENTAL), P.C, ORIENTAL],
 ])("scales & root", (key, root, scale) => {
   const scaleName = String(scale);
   const rootName = String(root);
@@ -23,7 +23,7 @@ describe.each([
 
 describe.each([
   [C, [P.C, P.D, P.E, P.F, P.G, P.A, P.B]],
-  [fromRootScale(P.C, BLUES_MINOR), [P.C, P.DD, P.F, P.GG, P.AA],
+  [from(P.C, BLUES_MINOR), [P.C, P.DD, P.F, P.GG, P.AA],
   ],
 ])("pitches", (key, expectedPitches) => {
   const keyName = String(key);

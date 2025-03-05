@@ -1,3 +1,3 @@
 export {
-  from as fromRootScale,
+  from,
 } from "./rootScale";

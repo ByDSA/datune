@@ -2,7 +2,7 @@ import { Chord } from "@datune/core/chords/chromatic";
 import { bIII, bVI, bVII, I, II0, IIIm, IIm, Im, IV, IVm, V, V7, VII0, VIm } from "@datune/core/functions/chromatic/degree-function/constants";
 import { Func } from "@datune/core/functions/chromatic";
 import { Key } from "@datune/core/keys/chromatic";
-import { fromRootScale as keyFrom } from "@datune/core/keys/chromatic/building";
+import { from } from "@datune/core/keys/chromatic/building";
 import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { random } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
@@ -53,34 +53,34 @@ function pickKeyChord(originalKey: Key, func: Func, _chord: Chord): Key {
   switch (func) {
     case I:
     case bIII:
-      available.push(keyFrom(root, MAJOR));
+      available.push(from(root, MAJOR));
       break;
     case IIm:
-      available.push(keyFrom(root, DORIAN));
+      available.push(from(root, DORIAN));
       break;
     case IIIm:
     case IVm:
-      available.push(keyFrom(root, PHRYGIAN));
+      available.push(from(root, PHRYGIAN));
       break;
     case IV:
     case bVI:
-      available.push(keyFrom(root, LYDIAN));
+      available.push(from(root, LYDIAN));
       break;
     case V:
     case bVII:
     case V7:
-      available.push(keyFrom(root, MIXOLYDIAN));
+      available.push(from(root, MIXOLYDIAN));
       break;
     case VIm:
     case Im:
-      available.push(keyFrom(root, MINOR));
+      available.push(from(root, MINOR));
       break;
     case VII0:
     case II0:
-      available.push(keyFrom(root, LOCRIAN));
+      available.push(from(root, LOCRIAN));
       break;
     default:
-      available.push(keyFrom(root, CHROMATIC));
+      available.push(from(root, CHROMATIC));
       break;
   }
 

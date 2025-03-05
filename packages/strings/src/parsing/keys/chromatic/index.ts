@@ -1,4 +1,4 @@
-import { fromRootScale } from "@datune/core/keys/chromatic/building";
+import { from } from "@datune/core/keys/chromatic/building";
 import { MAJOR } from "@datune/core/scales/symbolic/chromatic/constants";
 import { getLangIdFromOptions, Options } from "lang";
 import { getLangTokens, tokenize } from "parsing";
@@ -30,7 +30,7 @@ export function parseKey(input: string, options?: Options) {
     const scale = parsed.scale ? parseScale(parsed.scale, options) : MAJOR;
 
     if (pitch && scale)
-      return fromRootScale(pitch, scale);
+      return from(pitch, scale);
 
     return null;
   } catch {

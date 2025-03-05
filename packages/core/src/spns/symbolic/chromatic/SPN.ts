@@ -1,5 +1,6 @@
 import type { Dto } from "./building/dto/Dto";
-import { Pitches, Pitch } from "pitches/chromatic";
+import type { Pitch } from "pitches/chromatic";
+import { Pitches as P } from "pitches/chromatic";
 import { SymbolicSPN as ISPN } from "../SymbolicSPN";
 
 export class SPN implements ISPN<Pitch> {
@@ -13,7 +14,7 @@ export class SPN implements ISPN<Pitch> {
   }
 
   valueOf(): number {
-    return +this.pitch + (this.octave * Pitches.NUMBER);
+    return +this.pitch + (this.octave * P.NUMBER);
   }
 
   toString(): string {

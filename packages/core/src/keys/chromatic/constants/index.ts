@@ -1,35 +1,35 @@
-import { Pitches } from "pitches/chromatic";
-import { Scales } from "scales/chromatic";
-import { fromRootScale as from } from "../building";
-import { Key } from "../Key";
+import type { Key } from "../Key";
+import { Pitches as P } from "pitches/chromatic";
+import { Scales as S } from "scales/chromatic";
+import { from } from "../building";
 
 export function initialize() {
-  const { MAJOR, MINOR } = Scales;
+  const { MAJOR, MINOR } = S;
 
-  C = from(Pitches.C, MAJOR);
-  CC = from(Pitches.CC, MAJOR);
-  D = from(Pitches.CC, MAJOR);
-  DD = from(Pitches.DD, MAJOR);
-  E = from(Pitches.E, MAJOR);
-  F = from(Pitches.F, MAJOR);
-  FF = from(Pitches.FF, MAJOR);
-  G = from(Pitches.G, MAJOR);
-  GG = from(Pitches.GG, MAJOR);
-  A = from(Pitches.A, MAJOR);
-  AA = from(Pitches.AA, MAJOR);
-  B = from(Pitches.B, MAJOR);
-  Cm = from(Pitches.C, MINOR);
-  CCm = from(Pitches.CC, MINOR);
-  Dm = from(Pitches.D, MINOR);
-  DDm = from(Pitches.DD, MINOR);
-  Em = from(Pitches.E, MINOR);
-  Fm = from(Pitches.F, MINOR);
-  FFm = from(Pitches.FF, MINOR);
-  Gm = from(Pitches.G, MINOR);
-  GGm = from(Pitches.GG, MINOR);
-  Am = from(Pitches.A, MINOR);
-  AAm = from(Pitches.AA, MINOR);
-  Bm = from(Pitches.B, MINOR);
+  C = from(P.C, MAJOR);
+  CC = from(P.CC, MAJOR);
+  D = from(P.CC, MAJOR);
+  DD = from(P.DD, MAJOR);
+  E = from(P.E, MAJOR);
+  F = from(P.F, MAJOR);
+  FF = from(P.FF, MAJOR);
+  G = from(P.G, MAJOR);
+  GG = from(P.GG, MAJOR);
+  A = from(P.A, MAJOR);
+  AA = from(P.AA, MAJOR);
+  B = from(P.B, MAJOR);
+  Cm = from(P.C, MINOR);
+  CCm = from(P.CC, MINOR);
+  Dm = from(P.D, MINOR);
+  DDm = from(P.DD, MINOR);
+  Em = from(P.E, MINOR);
+  Fm = from(P.F, MINOR);
+  FFm = from(P.FF, MINOR);
+  Gm = from(P.G, MINOR);
+  GGm = from(P.GG, MINOR);
+  Am = from(P.A, MINOR);
+  AAm = from(P.AA, MINOR);
+  Bm = from(P.B, MINOR);
 }
 
 export let C: Key;

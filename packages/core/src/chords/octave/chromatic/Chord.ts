@@ -1,6 +1,7 @@
 import type { Dto } from "./caching/Dto";
+import type { PitchArray, Pitch } from "pitches/chromatic";
 import { lockr } from "@datune/utils/immutables";
-import { PitchArray, Pitches, Pitch } from "pitches/chromatic";
+import { Pitches as P } from "pitches/chromatic";
 import { SymbolicChord } from "../SymbolicChord";
 
 export class Chord implements SymbolicChord<Pitch> {
@@ -11,7 +12,7 @@ export class Chord implements SymbolicChord<Pitch> {
   root: Pitch;
 
   private constructor(dto: Dto) {
-    this.pitches = dto.map(Pitches.fromInt) as PitchArray;
+    this.pitches = dto.map(P.fromInt) as PitchArray;
     [this.root] = this.pitches;
 
     this.length = this.pitches.length;

@@ -1,8 +1,8 @@
 import { C, C5, Cm, Csus2, Csus4, Fsus2, Gsus4 } from "@datune/core/chords/octave/alt/constants";
 import { fromRootVoicing } from "@datune/core/chords/octave/alt/building";
 import { inv } from "@datune/core/chords/octave/alt/modifiers";
-import { Pitches } from "@datune/core/pitches/alt";
-import { Voicings } from "@datune/core/voicings/alt";
+import { Pitches as P } from "@datune/core/pitches/alt";
+import { Voicings as V } from "@datune/core/voicings/alt";
 import { TestInit } from "tests";
 import { Finder } from "./Finder";
 
@@ -10,7 +10,7 @@ TestInit.loadAll();
 
 it("contains= C, G. MaxLength=3. NotInversions", () => {
   const finder = new Finder()
-    .containsNote(Pitches.C, Pitches.G)
+    .containsNote(P.C, P.G)
     .notInversions()
     .maxChordLength(3);
   const actual = finder.find();
@@ -27,7 +27,7 @@ it("contains= C, G. MaxLength=3. NotInversions", () => {
 
 it("contains= C, G. MaxLength=3", () => {
   const finder = new Finder()
-    .containsNote(Pitches.C, Pitches.G)
+    .containsNote(P.C, P.G)
     .maxChordLength(3);
   const actual = finder.find();
   const expected = [
@@ -44,11 +44,11 @@ it("contains= C, G. MaxLength=3", () => {
 
     Csus4,
     Fsus2,
-    fromRootVoicing(Pitches.G, Voicings.TRIAD_QUARTAL),
+    fromRootVoicing(P.G, V.TRIAD_QUARTAL),
 
     Gsus4,
     Csus2,
-    fromRootVoicing(Pitches.D, Voicings.TRIAD_QUARTAL),
+    fromRootVoicing(P.D, V.TRIAD_QUARTAL),
   ];
 
   expect(actual).toEqual(expected);
@@ -56,9 +56,9 @@ it("contains= C, G. MaxLength=3", () => {
 
 it("contains= C, G. MaxLength=3. Root=C", () => {
   const finder = new Finder()
-    .containsNote(Pitches.C, Pitches.G)
+    .containsNote(P.C, P.G)
     .maxChordLength(3)
-    .bass(Pitches.C);
+    .bass(P.C);
   const actual = finder.find();
   const expected = [
     C5,

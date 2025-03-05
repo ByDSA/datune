@@ -1,14 +1,14 @@
 import type { Degree } from "./Degree";
 import type { Interval } from "intervals/chromatic";
 import { cyclicMod } from "@datune/utils";
-import { Pitches } from "pitches/chromatic";
+import { Pitches as P } from "pitches/chromatic";
 
-export function add(obj: Degree, interval: Interval): Degree {
-  const fixedNumber = cyclicMod(obj + interval, Pitches.NUMBER);
+export function add(degree: Degree, interval: Interval): Degree {
+  const fixedNumber = cyclicMod(degree + interval, P.NUMBER);
 
   return fixedNumber as Degree;
 }
 
-export function sub(obj: Degree, interval: Interval): Degree {
-  return add(obj, -interval);
+export function sub(degree: Degree, interval: Interval): Degree {
+  return add(degree, -interval);
 }

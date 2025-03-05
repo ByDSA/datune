@@ -1,9 +1,10 @@
 import type { Dto } from "./building/caching/Dto";
 import type { Interval } from "intervals/alt";
-import { Chord } from "chords/alt";
-import { PitchArray, Pitch, Pitches } from "pitches/alt";
-import { Scale } from "scales/alt";
-import { IKey } from "../Key";
+import type { Chord } from "chords/alt";
+import type { PitchArray, Pitch } from "pitches/alt";
+import type { Scale } from "scales/alt";
+import type { IKey } from "../Key";
+import { Pitches as P } from "pitches/alt";
 
 export class Key implements
   IKey<Interval, Pitch, Scale, Chord> {
@@ -19,7 +20,7 @@ export class Key implements
     this.root = dto.root;
     this.scale = dto.scale;
     this.length = this.scale.length;
-    this.pitches = Pitches.rootIntervals(this.root, this.scale.rootIntervals);
+    this.pitches = P.rootIntervals(this.root, this.scale.rootIntervals);
   }
 
   private static create(dto: Dto): Key {

@@ -1,10 +1,11 @@
 import type { Voicing } from "voicings/alt";
-import { Pitch, Pitches } from "pitches/alt";
-import { Chord } from "../../Chord";
+import type { Pitch } from "pitches/alt";
+import type { Chord } from "../../Chord";
+import { Pitches as P } from "pitches/alt";
 import { fromPitches } from "../pitches";
 
 export function fromRootVoicing(root: Pitch, voicing: Voicing): Chord {
-  const pitches = Pitches.rootIntervals(root, voicing.rootIntervals);
+  const pitches = P.rootIntervals(root, voicing.rootIntervals);
 
   return fromPitches(...pitches);
 }

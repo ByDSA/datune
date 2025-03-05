@@ -1,6 +1,6 @@
-import { Keys } from "@datune/core/keys/alt";
-import { Pitches } from "@datune/core/pitches/alt";
-import { Scales } from "@datune/core/scales/alt";
+import { Keys as K } from "@datune/core/keys/alt";
+import { Pitches as P } from "@datune/core/pitches/alt";
+import { Scales as S } from "@datune/core/scales/alt";
 import { LangId } from "lang";
 import { parseKey } from "parsing/keys/alt";
 import { TestInit, TestLang } from "tests";
@@ -9,8 +9,8 @@ TestLang.loadAll();
 TestInit.diatonicAltKey();
 
 describe.each([
-  [LangId.EN, Keys.C, "C MAJOR"],
-  [LangId.ES, Keys.C, "Do MAYOR"],
+  [LangId.EN, K.C, "C MAJOR"],
+  [LangId.ES, K.C, "Do MAYOR"],
   [LangId.EN, null, "C MAJ"],
 ])("toString", (langId, expectedKey, str) => {
   it(`${langId} - "${str}" => ${expectedKey}`, () => {
@@ -23,13 +23,13 @@ describe.each([
 } );
 
 describe.each([
-  [LangId.ES, "Do ", Keys.C],
-  [LangId.ES, "Do", Keys.C],
-  [LangId.ES, "Do m", Keys.Cm],
-  [LangId.EN, "C ", Keys.C],
-  [LangId.EN, "C", Keys.C],
-  [LangId.EN, "Cm", Keys.Cm],
-  [LangId.EN, "bBB bLuEsB5", Keys.from(Pitches.Bbb, Scales.BLUES_b5)],
+  [LangId.ES, "Do ", K.C],
+  [LangId.ES, "Do", K.C],
+  [LangId.ES, "Do m", K.Cm],
+  [LangId.EN, "C ", K.C],
+  [LangId.EN, "C", K.C],
+  [LangId.EN, "Cm", K.Cm],
+  [LangId.EN, "bBB bLuEsB5", K.from(P.Bbb, S.BLUES_b5)],
 ])("parse", (langId, str, expectedKey) => {
   it(`${langId} - "${str}" => ${expectedKey}`, () => {
     const key = parseKey(str, {

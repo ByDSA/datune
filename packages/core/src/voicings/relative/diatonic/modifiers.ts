@@ -1,7 +1,7 @@
 import type { Arrays } from "@datune/utils";
 import type { Voicing } from "./Voicing";
 import type { Interval } from "diatonic";
-import { Pitches } from "pitches/diatonic";
+import { Pitches as P } from "pitches/diatonic";
 import { abs } from "intervals/symbolic/diatonic/modifiers/abs";
 import { OCTAVE } from "intervals/symbolic/diatonic/constants";
 import { simplify } from "intervals/symbolic/diatonic/modifiers/simplify";
@@ -15,7 +15,7 @@ export function inv(obj: Voicing, n: number = 1): Voicing {
     const firstValueBeforeShift = <number>rootIntervalInts.shift();
     const [firstValueAfterShift] = rootIntervalInts;
 
-    rootIntervalInts.push(firstValueBeforeShift + Pitches.NUMBER);
+    rootIntervalInts.push(firstValueBeforeShift + P.NUMBER);
     rootIntervalInts = <Arrays.Number>rootIntervalInts.map(
       (value: number) => value - firstValueAfterShift,
     );

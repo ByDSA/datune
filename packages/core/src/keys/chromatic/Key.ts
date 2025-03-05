@@ -1,10 +1,12 @@
 import type { Dto } from "./caching/Dto";
 import type { Interval } from "intervals/chromatic";
 import type { Arrays } from "@datune/utils";
-import { Chord } from "chords/chromatic";
-import { PitchArray, Pitch, Pitches } from "pitches/chromatic";
-import { Scales, Scale } from "scales/chromatic";
-import { IKey } from "../Key";
+import type { Chord } from "chords/chromatic";
+import type { PitchArray, Pitch } from "pitches/chromatic";
+import type { Scale } from "scales/chromatic";
+import type { IKey } from "../Key";
+import { Pitches as P } from "pitches/chromatic";
+import { Scales as S } from "scales/chromatic";
 
 export class Key implements
   IKey<Interval, Pitch, Scale, Chord> {
@@ -17,10 +19,10 @@ export class Key implements
   length: number;
 
   private constructor(dto: Dto) {
-    this.root = Pitches.fromInt(dto[0]);
-    this.scale = Scales.fromRootIntervals(...dto[1]);
+    this.root = P.fromInt(dto[0]);
+    this.scale = S.fromRootIntervals(...dto[1]);
     this.length = this.scale.length;
-    this.pitches = Pitches.rootIntervals(this.root, this.scale.rootIntervals);
+    this.pitches = P.rootIntervals(this.root, this.scale.rootIntervals);
   }
 
   private static create(dto: Dto): Key {

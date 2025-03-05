@@ -1,8 +1,9 @@
 import type { Interval } from "intervals/alt";
+import type { PitchArray, Pitch } from "pitches/alt";
+import type { Chord } from "../Chord";
 import { Arrays } from "@datune/utils";
-import { PitchArray, Pitch, Pitches } from "pitches/alt";
+import { Pitches as P } from "pitches/alt";
 import { fromPitches } from "../building";
-import { Chord } from "../Chord";
 
 export function inv(obj: Chord, n: number = 1): Chord {
   const notes: PitchArray = [...obj.pitches];
@@ -14,7 +15,7 @@ export function inv(obj: Chord, n: number = 1): Chord {
 
 export function add(obj: Chord, interval: Interval): Chord {
   const notes: PitchArray = obj.pitches.map(
-    (p) => Pitches.add(p, interval),
+    (p) => P.add(p, interval),
   ) as PitchArray;
 
   return fromPitches(...notes);
@@ -22,7 +23,7 @@ export function add(obj: Chord, interval: Interval): Chord {
 
 export function sub(obj: Chord, interval: Interval): Chord {
   const notes: PitchArray = obj.pitches.map(
-    (p) => Pitches.sub(p, interval),
+    (p) => P.sub(p, interval),
   ) as PitchArray;
 
   return fromPitches(...notes);

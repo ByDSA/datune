@@ -1,17 +1,17 @@
 import type { Chord } from "chords/alt";
 import type { Key } from "keys/alt";
-import { Chords } from "chords/alt";
-import { Intervals } from "intervals/alt";
-import { Pitches } from "pitches/alt";
-import { Voicings } from "voicings/alt";
-import { Func } from "../Func";
+import { Chords as C } from "chords/alt";
+import { Intervals as I } from "intervals/alt";
+import { Pitches as P } from "pitches/alt";
+import { Voicings as V } from "voicings/alt";
+import { Func as F } from "../Func";
 
 export function initialize() {
-  V7ALT = new (class A extends Func {
+  V7ALT = new (class A extends F {
     protected calculateChord(key: Key): Chord {
-      const pitchV = Pitches.add(key.root, Intervals.P5);
+      const pitchV = P.add(key.root, I.P5);
 
-      return Chords.fromRootVoicing(pitchV, Voicings.SEVENTH_b5);
+      return C.fromRootVoicing(pitchV, V.SEVENTH_b5);
     }
 
     hashCode(): string {
@@ -24,4 +24,4 @@ export function initialize() {
   } )();
 }
 
-export let V7ALT: Func;
+export let V7ALT: F;

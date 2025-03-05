@@ -1,6 +1,7 @@
 import type { PitchSet } from "../PitchSet";
 import type { Interval } from "intervals/chromatic";
-import { Pitches, PitchArray, Pitch } from "pitches/chromatic";
+import type { PitchArray, Pitch } from "pitches/chromatic";
+import { Pitches as P } from "pitches/chromatic";
 import { from } from "../building";
 
 export function add(self: PitchSet, interval: Interval): PitchSet {
@@ -8,7 +9,7 @@ export function add(self: PitchSet, interval: Interval): PitchSet {
   const newPitches: Pitch[] = [];
 
   selfPitches.forEach((pitch) => {
-    const newPitch = Pitches.add(pitch, interval);
+    const newPitch = P.add(pitch, interval);
 
     newPitches.push(newPitch);
   } );
