@@ -17,3 +17,5 @@ export * from "./scales/chromatic";
 export * from "./spns/chromatic";
 
 export * from "./temperaments/chromatic";
+
+export * from "./voicings/chromatic";

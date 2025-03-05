@@ -13,3 +13,5 @@ export * from "./pitches/alt";
 export * from "./scales/alt";
 
 export * from "./spns/alt";
+
+export * from "./voicings/alt";
