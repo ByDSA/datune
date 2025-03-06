@@ -5,8 +5,9 @@ import type { Chord } from "chords/chromatic";
 import type { PitchArray, Pitch } from "pitches/chromatic";
 import type { Scale } from "scales/chromatic";
 import type { IKey } from "../Key";
-import { Pitches as P } from "pitches/chromatic";
-import { Scales as S } from "scales/chromatic";
+import { rootIntervals as pitchesRootIntervals } from "pitches/chromatic/modifiers";
+import { fromRootIntervals as scaleFromRootIntervals } from "scales/symbolic/chromatic/building/rootIntervals";
+import { fromInt as pitchFromInt } from "pitches/chromatic/building";
 
 export class Key implements
   IKey<Interval, Pitch, Scale, Chord> {
@@ -19,10 +20,10 @@ export class Key implements
   length: number;
 
   private constructor(dto: Dto) {
-    this.root = P.fromInt(dto[0]);
-    this.scale = S.fromRootIntervals(...dto[1]);
+    this.root = pitchFromInt(dto[0]);
+    this.scale = scaleFromRootIntervals(...dto[1]);
     this.length = this.scale.length;
-    this.pitches = P.rootIntervals(this.root, this.scale.rootIntervals);
+    this.pitches = pitchesRootIntervals(this.root, this.scale.rootIntervals);
   }
 
   private static create(dto: Dto): Key {
@@ -34,8 +35,8 @@ export class Key implements
   }
 
   hasPitches(...pitches: PitchArray): boolean {
-    for (const chromatic of pitches) {
-      if (!this.pitches.includes(chromatic))
+    for (const pitch of pitches) {
+      if (!this.pitches.includes(pitch))
         return false;
     }
 

@@ -4,7 +4,7 @@ import type { Chord } from "chords/alt";
 import type { PitchArray, Pitch } from "pitches/alt";
 import type { Scale } from "scales/alt";
 import type { IKey } from "../Key";
-import { Pitches as P } from "pitches/alt";
+import { rootIntervals as pitchesRootIntervals } from "pitches/alt/modifiers";
 
 export class Key implements
   IKey<Interval, Pitch, Scale, Chord> {
@@ -20,7 +20,7 @@ export class Key implements
     this.root = dto.root;
     this.scale = dto.scale;
     this.length = this.scale.length;
-    this.pitches = P.rootIntervals(this.root, this.scale.rootIntervals);
+    this.pitches = pitchesRootIntervals(this.root, this.scale.rootIntervals);
   }
 
   private static create(dto: Dto): Key {
@@ -32,8 +32,8 @@ export class Key implements
   }
 
   hasPitches(...pitches: PitchArray): boolean {
-    for (const chromatic of pitches) {
-      if (!this.pitches.includes(chromatic))
+    for (const pitch of pitches) {
+      if (!this.pitches.includes(pitch))
         return false;
     }
 

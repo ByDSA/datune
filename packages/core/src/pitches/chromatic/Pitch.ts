@@ -1,4 +1,4 @@
-import { OctavePitch } from "../OctavePitch";
+import type { OctavePitch } from "../OctavePitch";
 
 export class Pitch implements OctavePitch {
   private intValue;
