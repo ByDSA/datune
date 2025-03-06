@@ -1,5 +1,5 @@
 import type { PitchSet } from "../PitchSet";
-import { PitchArray, Pitch } from "pitches/chromatic";
+import type { PitchArray, Pitch } from "pitches/chromatic";
 import { cache } from "../caching/cache";
 
 export function from(...pitches: PitchArray): PitchSet {

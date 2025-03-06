@@ -1,9 +1,6 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { CHAROMATIC_PITCHES12_SHARPS_VARNAMES } from "pitches/chromatic/tests/varnames";
 import { SPNs } from ".";
-
-TestInit.diatonicAltSPN();
 
 const vars: string[] = [
   ...CHAROMATIC_PITCHES12_SHARPS_VARNAMES.map(

@@ -9,7 +9,9 @@ export function initialize() {
   if (QUARTER_TONE)
     throw new Error("Already initialized");
 
-  PT.initialize();
+  if (!PT.COMMA)
+    PT.initialize();
+
   QUARTER_TONE = from(frac(246, 239));
   m2 = from(frac(16, 15));
   SEMITONE = m2;

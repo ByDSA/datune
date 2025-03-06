@@ -1,9 +1,6 @@
-import { init } from "@datune/core";
 import { Pitches as P, Intervals as I } from "@datune/core/diatonic";
 import { parsePitch, stringifyPitch } from "@datune/strings/diatonic";
 import { LangId, loadFromFile } from "@datune/strings/lang";
-
-init();
 
 /* Using constants */
 // C, D, E, F, G, A, B

@@ -1,8 +1,5 @@
 import { expectExportModulesAsync } from "tests/modules";
-import { TestInit } from "tests";
 import { ConcertPitches } from ".";
-
-TestInit.chromaticConcertPitch();
 
 const vars: string[] = [
   "A432",

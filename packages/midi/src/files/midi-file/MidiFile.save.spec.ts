@@ -1,6 +1,6 @@
 /* eslint-disable prefer-destructuring */
 import * as fs from "node:fs";
-import { SIXTEENTH, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { MusicalDurations as MD } from "@datune/core";
 import { Track, DEFAULT } from "files/track/Track";
 import { AA5, C5, C6, D5, DD5, F5, G5, GG5 } from "pitch";
 import { MidiNode, nodeFrom, noteFrom } from "sequence";
@@ -10,6 +10,7 @@ import { MidiFile } from "./MidiFile";
 import { load } from "./load";
 
 TestInit.initAll();
+const { SIXTEENTH, ZERO } = MD;
 
 it("save ok", () => {
   const path = "tests/tmp.mid";

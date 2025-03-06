@@ -1,9 +1,15 @@
 import type { Key } from "../Key";
-import { Pitches as P } from "pitches/chromatic";
-import { Scales as S } from "scales/chromatic";
+import * as P from "pitches/chromatic/constants";
+import * as S from "scales/symbolic/chromatic/constants";
 import { from } from "../building";
 
 export function initialize() {
+  if (C)
+    throw new Error("Already initialized");
+
+  if (!S.MAJOR)
+    S.initialize();
+
   const { MAJOR, MINOR } = S;
 
   C = from(P.C, MAJOR);

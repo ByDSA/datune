@@ -1,9 +1,8 @@
 import { Pitches as P } from "pitches/chromatic";
-import { TestInit } from "tests";
-import { B4, C4, FF4 } from "../../constants";
+import { SPNs } from "chromatic";
 import { fromPitchOctave } from "./index";
 
-TestInit.chromaticSPN();
+const { B4, C4, FF4 } = SPNs;
 
 describe("range", () => {
   describe("below limit", () => {

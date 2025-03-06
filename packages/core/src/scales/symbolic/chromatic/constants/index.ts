@@ -8,7 +8,7 @@ import { mode } from "../modifiers";
 
 export function initialize() {
   if (MAJOR)
-    throw new Error("Scale is already initialized");
+    throw new Error("Already initialized");
 
   MAJOR = fromRootIntervals(...MAJOR_SCALE_DEGREES as Arrays.Number);
   MAJOR.toString = (): string => "Major";

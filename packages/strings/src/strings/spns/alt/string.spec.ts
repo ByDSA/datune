@@ -1,10 +1,8 @@
 import { SPNs, SPN } from "@datune/core/spns/alt";
 import { LangId } from "lang";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { stringifySpn } from ".";
 
-TestInit.diatonicAltSPN();
-TestInit.diatonicAltInterval();
 TestLang.loadAll();
 const toStringCases = <[LangId, SPN, string][]>[
   [LangId.EN, SPNs.A4, "A4"],

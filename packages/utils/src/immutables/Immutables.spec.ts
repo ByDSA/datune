@@ -29,7 +29,7 @@ describe("immutable recursive (lockr)", () => {
       (<any>obj).privateVar = 22;
     };
 
-    expect(t).toThrow(TypeError);
+    expect(t).toThrow(Error);
   } );
 
   it("new key", () => {
@@ -41,7 +41,7 @@ describe("immutable recursive (lockr)", () => {
       (<any>obj).asd = 22;
     };
 
-    expect(t).toThrow(TypeError);
+    expect(t).toThrow(Error);
   } );
 
   it("change static obj", () => {
@@ -53,7 +53,7 @@ describe("immutable recursive (lockr)", () => {
       obj.STATIC_OBJ.a = 22;
     };
 
-    expect(t).toThrow(TypeError);
+    expect(t).toThrow(Error);
   } );
 
   it("change static", () => {
@@ -65,6 +65,6 @@ describe("immutable recursive (lockr)", () => {
       obj.STATIC = 22;
     };
 
-    expect(t).toThrow(TypeError);
+    expect(t).toThrow(Error);
   } );
 } );

@@ -1,4 +1,4 @@
-import { Scale } from "@datune/core/scales/alt";
+import type { Scale } from "@datune/core/scales/alt";
 import { COMMON, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN } from "@datune/core/scales/symbolic/alt/constants";
 import { Options } from "lang";
 import { stringifyScale } from "strings/scales/alt";

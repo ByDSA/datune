@@ -1,5 +1,7 @@
-import { A, B, C, CC, D } from "../constants";
+import { Pitches as P } from "..";
 import { add } from "./add";
+
+const { A, B, C, CC, D } = P;
 
 describe("shift", () => {
   it("c+1", () => {

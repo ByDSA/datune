@@ -1,9 +1,10 @@
-import { I, II, III, IV, V, VI, VII } from "@datune/core/degrees/alt/constants";
-import { LOCRIAN, LYDIAN, MAJOR, MINOR } from "@datune/core/scales/symbolic/alt/constants";
+import { Degrees as D, Scales as S } from "@datune/core/alt";
 import { TestInit } from "tests";
 import { compare } from ".";
 
 TestInit.loadAll();
+const { LOCRIAN, LYDIAN, MAJOR, MINOR } = S;
+const { I, II, III, IV, V, VI, VII } = D;
 
 it("scale.MAJOR and itself nonenharmonic", () => {
   const { common } = compare(MAJOR, MAJOR);

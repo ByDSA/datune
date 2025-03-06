@@ -1,9 +1,15 @@
 import type { Voicing } from "../Voicing";
-import { FIFTH, FOURTH, SECOND, THIRD, SIXTH as ISIXTH, SEVENTH as ISEVENTH } from "intervals/symbolic/diatonic/constants";
+import { FIFTH, FOURTH, SECOND, THIRD, SIXTH as ISIXTH, SEVENTH as ISEVENTH, initialize as initializeIntervals } from "intervals/symbolic/diatonic/constants";
 import { fromRootIntervalInts } from "../building";
 import { bass } from "../modifiers";
 
 export function initialize() {
+  if (TRIAD)
+    throw new Error("Already initialized");
+
+  if (!SECOND)
+    initializeIntervals();
+
   INTERVAL_SECOND = fromRootIntervalInts(0, 1);
   INTERVAL_THIRD = fromRootIntervalInts(0, 2);
   INTERVAL_FOURTH = fromRootIntervalInts(0, 3);

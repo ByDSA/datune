@@ -1,10 +1,9 @@
 import type { Interval } from "../Interval";
-import { TestInit } from "tests";
+import { Intervals as I } from "..";
 import { fromCents } from "../building";
-import { ET12_P5, ET12_SEMITONE, OCTAVE, UNISON } from "../constants";
 import { add } from "./independentModifiers";
 
-TestInit.realInterval();
+const { ET12_P5, ET12_SEMITONE, OCTAVE, UNISON } = I;
 
 describe.each([
   [ET12_SEMITONE, ET12_SEMITONE, fromCents(200)],

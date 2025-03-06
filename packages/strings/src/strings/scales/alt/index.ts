@@ -1,4 +1,4 @@
-import { Scale } from "@datune/core/scales/alt";
+import type { Scale } from "@datune/core/scales/alt";
 import { Options } from "parsing";
 import { stringifyArray } from "../../intervals/alt/array";
 import { toStringName } from "./name";

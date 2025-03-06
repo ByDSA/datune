@@ -1,9 +1,5 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { Voicings as V } from ".";
-
-TestInit.diatonicInterval();
-TestInit.diatonicVoicing();
 
 const vars: string[] = [
   // Constants

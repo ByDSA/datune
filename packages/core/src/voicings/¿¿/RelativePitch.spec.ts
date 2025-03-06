@@ -1,9 +1,6 @@
 import { Pitches as P } from "pitches/alt";
 import { Pitches as CP } from "pitches/chromatic";
-import { TestInit } from "tests";
 import { RelativePitch } from "./RelativePitch";
-
-TestInit.diatonicAlt();
 
 it("from - C 0", () => {
   const pitch = CP.C;

@@ -1,9 +1,5 @@
 import { from } from "./building";
 
-export function initialize() {
-  // Por si en un futuro hace falta
-}
-
 export const QUARTER = from(4);
 
 export const THIRD = from(3);

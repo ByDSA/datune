@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 import { Voicings } from "@datune/core/voicings/alt";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { stringifyShortName } from "./shortName";
 
-TestInit.diatonicAltVoicing();
 TestLang.loadAll();
 
 const { SEVENTH, SEVENTH_MAJ7_b5, SEVENTH_SUS4_b9, TRIAD_MAJOR } = Voicings;

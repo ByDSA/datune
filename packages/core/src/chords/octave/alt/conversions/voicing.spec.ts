@@ -1,12 +1,8 @@
+import type { Voicing } from "alt";
 import { expectVoicing } from "voicings/relative/alt/tests/voicing";
-import { TestInit } from "tests";
-import { Pitches as P, Voicings as V, type Voicing } from "alt";
-import * as C from "../constants";
+import { Pitches as P, Voicings as V, Chords as C } from "alt";
 import { bass } from "../modifiers";
 import { toVoicing } from "./voicing";
-
-TestInit.diatonicAltVoicing();
-TestInit.diatonicAltChord();
 
 describe.each([
   [C.C, V.TRIAD_MAJOR],

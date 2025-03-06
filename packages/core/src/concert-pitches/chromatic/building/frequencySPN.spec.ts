@@ -1,8 +1,5 @@
-import { TestInit } from "tests";
 import { SPNs } from "spns/chromatic";
 import { fromFrequencySPN } from "./frequencySPN";
-
-TestInit.chromaticConcertPitch();
 
 it("fromFrequencySPN", () => {
   const spn = SPNs.A4;

@@ -1,9 +1,6 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { ALT_PITCHES_4ALTS_VARNAMES } from "./tests/varnames";
 import { Pitches as P } from ".";
-
-TestInit.diatonicAlt();
 
 const vars: string[] = [
   ...ALT_PITCHES_4ALTS_VARNAMES,

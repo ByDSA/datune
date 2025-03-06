@@ -7,7 +7,7 @@ export let SOURCE_SCALES: Set<Scale>;
 
 export function initialize() {
   if (SOURCE_SCALES)
-    return;
+    throw new Error("Already initialized");
 
   SOURCE_SCALES = new Set([
     MAJOR,

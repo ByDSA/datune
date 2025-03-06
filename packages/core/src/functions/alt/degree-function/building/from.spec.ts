@@ -1,19 +1,14 @@
-import { Degrees } from "degrees/alt";
-import { TestInit } from "tests";
-import { Voicings } from "voicings/alt";
-import { Im } from "../constants";
+import { Degrees as D } from "degrees/alt";
+import { Voicings as V } from "voicings/alt";
+import { Funcs as F } from "../..";
 import { from } from "./from";
-
-TestInit.diatonicAltFunc();
-TestInit.diatonicAltVoicing();
-TestInit.diatonicAltDegree();
 
 it("from: I + TRIAD_MINOR = Im", () => {
   const degreeFunc = from( {
-    degree: Degrees.I,
-    voicing: Voicings.TRIAD_MINOR,
+    degree: D.I,
+    voicing: V.TRIAD_MINOR,
   } );
-  const expected = Im;
+  const expected = F.Im;
 
   expect(degreeFunc).toEqual(expected);
 } );

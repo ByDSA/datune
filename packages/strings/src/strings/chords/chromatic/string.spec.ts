@@ -2,18 +2,14 @@ import { Chord, Chords } from "@datune/core/chords/chromatic";
 import { Pitches as P } from "@datune/core/pitches/chromatic";
 import { Voicings as V } from "@datune/core/voicings/chromatic";
 import { bass } from "@datune/core/chords/octave/chromatic/modifiers";
-import { Cm } from "@datune/core/chords/octave/chromatic/constants";
-import { TestInit, TestLang } from "tests/index";
+import { TestLang } from "tests/index";
 import { LangId } from "lang";
 import { stringifyPitches } from "../../pitches/chromatic/array";
 import { stringifyChord } from ".";
 
 TestLang.loadAll();
-TestInit.diatonicAltChord();
-TestInit.chromaticChord();
-
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const { C, C7, CC7, CMaj7, CmMaj7, Csus4, fromRootVoicing, Fsus2, inv } = Chords;
+const { Cm, C, C7, CC7, CMaj7, CmMaj7, Csus4, fromRootVoicing, Fsus2, inv } = Chords;
 
 describe.each([
   [LangId.EN, C, "C"],

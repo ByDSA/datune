@@ -1,10 +1,9 @@
 import type { Interval } from "../Interval";
-import { TestInit } from "tests";
-import { a4, a7, d5, d9, d7, m3, P1 } from "../constants";
+import { Intervals as I } from "..";
 import { mult } from "./mult";
 import { neg } from "./neg";
 
-TestInit.diatonicAltInterval();
+const { a4, a7, d5, d9, d7, m3, P1 } = I;
 
 describe.each([
   [m3, 1, m3],

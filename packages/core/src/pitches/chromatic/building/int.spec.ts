@@ -1,5 +1,7 @@
-import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } from "../constants";
+import { Pitches as P } from "..";
 import { fromInt } from "./int";
+
+const { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } = P;
 
 it("should initialize 0 to 11", () => {
   expect(fromInt(0)).toBe(C);

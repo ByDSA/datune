@@ -1,10 +1,6 @@
-import { TestInit } from "tests";
 import { MusicalDurations } from "rhythm";
 import { RhythmPatterns } from "../../../pattern";
 import { fromAdditive, fromFrac, fromPattern, fromRhythmArray } from ".";
-
-TestInit.musicalDuration();
-TestInit.rhythmPattern();
 
 it("imported constants should be defined", () => {
   expect(MusicalDurations.EIGHTH).toBeDefined();

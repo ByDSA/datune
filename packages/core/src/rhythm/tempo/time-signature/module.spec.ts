@@ -1,8 +1,5 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { TimeSignatures as TS } from ".";
-
-TestInit.rhythmPattern();
 
 const vars: string[] = [
   "S3_4",

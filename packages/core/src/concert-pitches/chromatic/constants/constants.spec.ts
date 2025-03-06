@@ -1,8 +1,5 @@
-import { TestInit } from "tests";
-import * as C from ".";
+import { ConcertPitches as CP } from "..";
 
 it("constants should be defined", () => {
-  TestInit.chromaticConcertPitch();
-
-  expect(C.A440).toBeDefined();
+  expect(CP.A440).toBeDefined();
 } );

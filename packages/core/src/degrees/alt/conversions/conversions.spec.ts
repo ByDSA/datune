@@ -1,11 +1,10 @@
-import { TestInit } from "tests";
-import { Degrees } from "../../diatonic";
+import { Degrees as D } from "..";
+import { Degrees as DD } from "../../diatonic";
 import { from } from "../building";
-import { I, II, III, IV, V, VI, VII } from "../constants";
 import { hash } from "../caching/hash";
 import { toChromaticDegree } from ".";
 
-TestInit.diatonicAltDegree();
+const { I, II, III, IV, V, VI, VII } = D;
 
 describe.each([
   [I, "I"],
@@ -36,7 +35,7 @@ describe.each([
 } );
 
 it("toChromaticDegree", () => {
-  const degree1 = from(Degrees.I, -1);
+  const degree1 = from(DD.I, -1);
   const degree2 = VII;
 
   expect(toChromaticDegree(degree1)).toBe(toChromaticDegree(degree2));

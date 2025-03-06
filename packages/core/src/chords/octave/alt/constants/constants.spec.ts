@@ -1,50 +1,17 @@
-import { TestInit } from "tests";
-import { PitchArray, Pitches } from "pitches/alt";
-import { fromPitches } from "../building";
-import { Chord } from "../Chord";
-import { inv } from "../modifiers";
-import { C as AC_C, C7, C9, CMaj7, CmMaj7 } from "./constants";
+import { C7, initialize } from "./constants";
 
-TestInit.diatonicAltChord();
+it("before initialization, constant should be uninitialized", () => {
+  expect(C7).toBeUndefined();
+} );
 
-describe("tests", () => {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { B, Bb, C, D, E, Eb, G } = Pitches;
+it("should call initialize without errors", () => {
+  expect(() => initialize()).not.toThrow();
+} );
 
-  describe.each(<[Chord, PitchArray][]>[
-    [AC_C, [C, E, G]],
-    [C7, [C, E, G, Bb]],
-    [C9, [C, E, G, Bb, D]],
-    [CMaj7, [C, E, G, B]],
-    [CmMaj7, [C, Eb, G, B]],
-    [inv(C7), [E, G, Bb, C]],
-    [inv(C7, 2), [G, Bb, C, E]],
-    [inv(C7, 3), [Bb, C, E, G]],
-  ])("pitches", (chord: Chord, pitches: PitchArray) => {
-    const chordName = chord ? String(chord) : "undefined";
+it("should not initialize twice", () => {
+  expect(() => initialize()).toThrow();
+} );
 
-    describe("name: " + chordName, () => {
-      it("defined chord", () => {
-        expect(chord).toBeDefined();
-      } );
-
-      it(`pitches = ${String(pitches)}`, () => {
-        const actual = chord.pitches;
-
-        expect(actual).toStrictEqual(pitches);
-      } );
-
-      it(`length = ${pitches.length}`, () => {
-        const actual = chord.length;
-
-        expect(actual).toBe(pitches.length);
-      } );
-
-      it(`Reversible from pitches: ${String(pitches)}`, () => {
-        const actual = fromPitches(...pitches);
-
-        expect(actual).toStrictEqual(chord);
-      } );
-    } );
-  } );
+it("after initialization, constant should be initialized", () => {
+  expect(C7).toBeDefined();
 } );

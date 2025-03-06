@@ -1,12 +1,10 @@
 /* eslint-disable camelcase */
 import { IntervalArray, Intervals } from "intervals/alt";
-import { TestInit } from "tests";
-import { SEVENTH, THIRTEENTH_b5a9, TRIAD_MAJOR } from "../constants";
+import { Voicings as V } from "..";
 import { fromRootIntervals } from "./rootIntervals";
 
-beforeAll(() => {
-  TestInit.diatonicAltVoicing();
-} );
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { SEVENTH, THIRTEENTH_b5a9, TRIAD_MAJOR } = V;
 
 it("immutable: 0, 4, 7", () => {
   const { M3, P5, P1 } = Intervals;

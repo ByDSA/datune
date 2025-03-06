@@ -3,9 +3,8 @@ import type { TimeSignature } from "./TimeSignature";
 import { createProxyBarrel } from "lazy-load";
 import * as Constants from "./constants";
 
-const { initialize, ...publicConstants } = Constants;
 const staticModule = {
-  ...publicConstants,
+  ...Constants,
 };
 
 type LazyType = typeof Building;

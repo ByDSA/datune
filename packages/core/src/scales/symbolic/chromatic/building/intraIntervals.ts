@@ -1,6 +1,7 @@
 import type { IntervalArray } from "intervals/chromatic";
 import type { Scale } from "../Scale";
-import { Intervals as I } from "intervals/chromatic";
+import { add as Iadd } from "intervals/symbolic/chromatic/modifiers";
+import * as I from "intervals/symbolic/chromatic/constants";
 import { fromRootIntervals } from "./rootIntervals";
 
 export function fromIntraIntervals(...intraIntervals: IntervalArray): Scale {
@@ -8,7 +9,7 @@ export function fromIntraIntervals(...intraIntervals: IntervalArray): Scale {
   let [last] = rootIntervals;
 
   for (const intraInterval of intraIntervals) {
-    const newRootInterval = I.add(last, intraInterval);
+    const newRootInterval = Iadd(last, intraInterval);
 
     if (newRootInterval === I.P8)
       break;

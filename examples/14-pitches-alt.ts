@@ -1,11 +1,8 @@
-import { init } from "@datune/core";
 import { Pitches as P, Intervals as I } from "@datune/core/alt";
 import { Pitches as CP } from "@datune/core/chromatic";
 import { Pitches as DP } from "@datune/core/diatonic";
 import { parsePitch, stringifyPitch } from "@datune/strings/alt";
 import { LangId, loadFromFile } from "@datune/strings/lang";
-
-init();
 
 /* Using constants */
 // Normal Pitches: C, D, E, F, G, A, B

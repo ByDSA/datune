@@ -1,13 +1,11 @@
 import { fromIntervalQuality } from "@datune/core/intervals/symbolic/alt/building/intervalQuality";
-import { M10, M3 } from "@datune/core/intervals/symbolic/alt/constants";
 import { fromInt as intervalDiatonicFromInt } from "@datune/core/intervals/symbolic/diatonic/building";
-import { M as MAJOR } from "@datune/core/intervals/symbolic/alt/quality/constants";
-import { TestInit } from "tests";
+import { IntervalQualities } from "@datune/core";
+import { Intervals as I } from "@datune/core/alt";
 import { parseInterval } from "./interval";
 
-beforeAll(() => {
-  TestInit.diatonicAltInterval();
-} );
+const { M } = IntervalQualities;
+const { M10, M3 } = I;
 
 it("m3", () => {
   const actual = parseInterval("M3");
@@ -25,7 +23,7 @@ it("m10", () => {
 
 it("m17", () => {
   const actual = parseInterval("M17");
-  const expected = fromIntervalQuality(intervalDiatonicFromInt(17 - 1), MAJOR);
+  const expected = fromIntervalQuality(intervalDiatonicFromInt(17 - 1), M);
 
   expect(actual).toBe(expected);
 } );

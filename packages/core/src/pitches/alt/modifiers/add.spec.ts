@@ -1,18 +1,14 @@
-import { TestInit } from "tests";
 import { Intervals } from "intervals/alt";
-import { C, Db } from "../constants";
+import { Pitches as P } from "..";
 import { add } from "./add";
-
-TestInit.diatonicAlt();
-TestInit.diatonicAltInterval();
 
 it("add: minor second", () => {
   const i = Intervals.m2;
 
   expect(i).toBeDefined();
 
-  const actual = add(C, i);
-  const expected = Db;
+  const actual = add(P.C, i);
+  const expected = P.Db;
 
   expect(actual).toBe(expected);
 } );

@@ -39,6 +39,9 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
         "initializeN7",
         "initializeSets",
       ],
+      hooks: {
+        onLoadModule: (m: typeof Constants)=>!m.TRIAD_MAJOR && m.initialize(),
+      },
     },
   ],
   // eslint-disable-next-line no-undef

@@ -1,12 +1,10 @@
-import { PitchArray as APitchArray, Pitches as AP } from "pitches/alt";
-import { PitchArray as CPitchArray, Pitches as CP } from "pitches/chromatic";
-import { PitchArray as DPitchArray, Pitches as DP } from "pitches/diatonic";
-import { TestInit } from "tests";
+import type { PitchArray as APitchArray } from "pitches/alt";
+import type { PitchArray as CPitchArray } from "pitches/chromatic";
+import type { PitchArray as DPitchArray } from "pitches/diatonic";
+import { Pitches as AP } from "pitches/alt";
+import { Pitches as CP } from "pitches/chromatic";
+import { Pitches as DP } from "pitches/diatonic";
 import { VoicingGenerator } from "./VoicingGenerator";
-
-beforeAll(() => {
-  TestInit.diatonicAlt();
-} );
 
 describe("closed", () => {
   describe("should be without changes, in the same octave", () => {

@@ -1,10 +1,17 @@
-import { TestInit } from "tests";
-import { bVII } from ".";
+import { bVII, initialize } from ".";
 
-beforeAll(() => {
-  TestInit.diatonicAltDegree();
+it("before initialization, constant should be uninitialized", () => {
+  expect(bVII).toBeUndefined();
 } );
 
-it("precalc not undefined", () => {
+it("should call initialize without errors", () => {
+  expect(() => initialize()).not.toThrow();
+} );
+
+it("should not initialize twice", () => {
+  expect(() => initialize()).toThrow();
+} );
+
+it("after initialization, constant should be initialized", () => {
   expect(bVII).toBeDefined();
 } );

@@ -1,10 +1,8 @@
-import { init } from "@datune/core";
 import { Intervals as I, Scales as S } from "@datune/core/chromatic";
 import { stringifyDegree, stringifyInterval, stringifyIntervalArray, stringifyScale } from "@datune/strings/chromatic";
 import { stringifyDegree as stringifyADegree } from "@datune/strings/alt";
 import { LangId, loadFromFile } from "@datune/strings/lang";
 
-init();
 // Loading language files
 loadFromFile( {
   folder: "langs",

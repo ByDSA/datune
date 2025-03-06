@@ -1,9 +1,7 @@
-import { init } from "@datune/core";
 import { Chords as C, Keys as K, Pitches as P, Scales as S } from "@datune/core/chromatic";
 import { stringifyScale } from "@datune/strings/chromatic";
 import { LangId, loadFromFile } from "@datune/strings/lang";
 
-init();
 // Loading language files
 loadFromFile( {
   folder: "langs",

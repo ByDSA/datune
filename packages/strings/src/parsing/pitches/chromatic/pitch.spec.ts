@@ -1,5 +1,4 @@
-import { Pitch } from "@datune/core/pitches/chromatic";
-import { A, AA, Ab, B, Bb, C, CC } from "@datune/core/pitches/chromatic/constants";
+import { Pitch, Pitches as P } from "@datune/core/pitches/chromatic";
 import { add } from "@datune/core/pitches/chromatic/modifiers";
 import { LangId } from "lang";
 import { stringifyPitch } from "strings/pitches/chromatic";
@@ -7,6 +6,8 @@ import { TestLang } from "tests";
 import { parsePitch } from ".";
 
 TestLang.loadAll();
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { A, AA, Ab, B, Bb, C, CC } = P;
 
 describe.each([
   [LangId.EN, "C", C],

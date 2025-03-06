@@ -1,5 +1,5 @@
+import type { Scale } from "@datune/core/scales/alt";
 import { IntervalArray } from "@datune/core/intervals/alt";
-import { Scale } from "@datune/core/scales/alt";
 import { fromIntraIntervals } from "@datune/core/scales/symbolic/alt/building";
 import { parseIntervalArray as parseIntervals } from "parsing/intervals/alt/array";
 

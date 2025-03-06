@@ -1,7 +1,6 @@
 /* eslint-disable prefer-destructuring */
 import * as fs from "node:fs";
-import { EIGHTH, QUARTER, SIXTEENTH, WHOLE, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
-import { dotted } from "@datune/core/rhythm/tempo/musical-duration/modifiers";
+import { MusicalDurations as MD } from "@datune/core";
 import { A5, B5, C5, C6, D5, E5, F5, G5 } from "pitch";
 import { nodeFrom, noteFrom } from "sequence";
 import { TestInit } from "tests";
@@ -10,7 +9,7 @@ import { load } from "./load";
 import { MidiFile } from "./MidiFile";
 
 TestInit.initAll();
-
+const { EIGHTH, QUARTER, SIXTEENTH, WHOLE, ZERO } = MD;
 const LOAD_SAMPLE = "./tests/sample.mid";
 
 it("load exists", () => {
@@ -58,7 +57,7 @@ describe("load sample.mid", () => {
       at: ZERO,
       note: noteFrom( {
         pitch: C5,
-        duration: dotted(QUARTER),
+        duration: MD.dotted(QUARTER),
         velocity: 100,
       } ),
     } );

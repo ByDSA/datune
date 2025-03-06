@@ -1,10 +1,7 @@
-import { init } from "@datune/core";
 import { Intervals as I, Pitches as P, IntervalQualities as IQ } from "@datune/core/alt";
 import { Pitches as DP, Intervals as DI } from "@datune/core/diatonic";
 import { parseInterval, stringifyInterval } from "@datune/strings/alt";
 import { LangId, loadFromFile } from "@datune/strings/lang";
-
-init();
 
 /* Using constants */
 // PERFECT_UNISON, MINOR_SECOND, ..., PERFECT_FIFTEENTH

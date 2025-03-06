@@ -1,6 +1,6 @@
 import { StringHashCache } from "@datune/utils";
 import { Scale } from "../../Scale";
-import { Dto, hashDto } from "../dto/Dto";
+import { type Dto, hashDto } from "../dto/Dto";
 
 export const cache = new StringHashCache<Scale, Dto>( {
   hash: hashDto,

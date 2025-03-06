@@ -1,7 +1,7 @@
+import type { Scale } from "../Scale";
 import { Pitch as DiatonicAlt, PitchArray } from "pitches/alt";
 import { Degrees as DDegrees } from "degrees/diatonic";
 import { DegreeArray as DegreeAltArray, Degrees } from "../../../../degrees/alt";
-import { Scale } from "../Scale";
 import { fromDegrees } from "./degrees";
 
 export function fromDiatonicAlts(...pitches: PitchArray): Scale {

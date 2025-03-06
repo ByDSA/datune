@@ -1,10 +1,9 @@
 import type { Arrays } from "@datune/utils";
 import type { Voicing } from "../Voicing";
-import { TestInit } from "tests";
-import { TRIAD_MAJOR } from "../constants";
+import { Voicings as V } from "..";
 import { fromIntraIntervals } from "./intraIntervals";
 
-TestInit.chromaticVoicing();
+const { TRIAD_MAJOR } = V;
 
 describe.each(<[Arrays.Number, Voicing][]>[
   [[4, 3], TRIAD_MAJOR],

@@ -13,10 +13,14 @@ type LazyType = Omit<typeof Constants, "initialize">;
 
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
-  paths: [{
-    path: "constants",
-    omit: ["initialize"],
-  },
+  paths: [
+    {
+      path: "constants",
+      omit: ["initialize"],
+      hooks: {
+        onLoadModule: (m: typeof Constants)=>!m.C5 && m.initialize(),
+      },
+    },
   ],
   // eslint-disable-next-line no-undef
   dirname: __dirname,

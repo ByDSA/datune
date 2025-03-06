@@ -1,9 +1,8 @@
-import { TestInit } from "tests";
-import { MAJOR, MINOR } from "../constants";
-import { Scale } from "../Scale";
+import type { Scale } from "../Scale";
+import { Scales as S } from "..";
 import { hash } from "./hash";
 
-TestInit.diatonicAltScale();
+const { MAJOR, MINOR } = S;
 
 describe.each([
   [MAJOR, "+0P|+1M|+2M|+3P|+4P|+5M|+6M"],

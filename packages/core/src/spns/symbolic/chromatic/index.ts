@@ -19,6 +19,9 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     {
       path: "constants",
       omit: ["initialize", "initializeAll", "initializeValues"],
+      hooks: {
+        onLoadModule: (m: typeof Constants)=>!m.C0 && m.initialize(),
+      },
     },
     "building/pitch-octave",
   ],

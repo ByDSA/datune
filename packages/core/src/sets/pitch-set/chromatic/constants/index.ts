@@ -1,9 +1,12 @@
 import type { PitchSet } from "../PitchSet";
-import { Pitches as P } from "pitches/chromatic";
+import * as P from "pitches/chromatic/constants";
 import { from } from "../building";
 import { add } from "../modifiers";
 
 export function initialize() {
+  if (C5)
+    throw new Error("Already initialized");
+
   C5 = from(P.C, P.G);
 
   CC5 = add(C5, 1);

@@ -1,9 +1,5 @@
 import { SPNArray, SPNs } from "spns/chromatic";
-import { TestInit } from "tests";
 import { fromSPNs } from "./building";
-
-TestInit.chromaticSPN();
-TestInit.chromaticVoicing();
 
 it("cache", () => {
   const notes: SPNArray = [SPNs.C4, SPNs.E4, SPNs.G4];

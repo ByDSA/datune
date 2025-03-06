@@ -3,10 +3,9 @@
 import { Scales } from "@datune/core/scales/chromatic";
 import { LangId } from "lang";
 import { stringifyScale } from "strings/scales/chromatic";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { parseScale } from ".";
 
-TestInit.chromaticScale();
 TestLang.loadAll();
 
 const { AEOLIAN_b1, BLUES_b5, LYDIAN_b7, MAJOR, SUPERLOCRIAN_bb7 } = Scales;

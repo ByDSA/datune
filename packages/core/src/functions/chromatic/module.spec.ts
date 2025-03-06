@@ -1,8 +1,5 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { Funcs } from ".";
-
-TestInit.chromaticFunc();
 
 const vars: string[] = [
   "I",

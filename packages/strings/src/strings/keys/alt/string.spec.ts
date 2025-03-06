@@ -1,10 +1,9 @@
 import { Keys } from "@datune/core/keys/alt";
 import { LangId } from "lang";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { stringifyKey } from ".";
 
 TestLang.loadAll();
-TestInit.diatonicAltKey();
 
 describe.each([
   [LangId.EN, Keys.C, "C Major"],

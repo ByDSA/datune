@@ -1,9 +1,18 @@
 import type { CompoundFunc } from "./CompoundFunc";
-import { Degrees as D } from "degrees/alt";
+import * as D from "degrees/alt/constants";
 import * as DegreeFuncs from "../degree-function/constants";
 import { compose } from "./building/compose";
 
 export function initialize() {
+  if (V_V)
+    throw new Error("Already initialized");
+
+  if (!D.I)
+    D.initialize();
+
+  if (!DegreeFuncs.I)
+    DegreeFuncs.initialize();
+
   const { SUBV7, V, V7 } = DegreeFuncs;
 
   V_II = compose(V, D.II);

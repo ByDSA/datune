@@ -1,17 +1,18 @@
 /* eslint-disable camelcase */
+import type { Interval } from "intervals/alt";
 import { Voicings as DVoicings } from "voicings/diatonic";
 import { Voicings as CVoicings } from "voicings/chromatic";
-import { TestInit } from "tests";
-import { Interval, Intervals } from "intervals/alt";
+import { Intervals as I } from "intervals/alt";
 import { fromVoicings } from "./building/voicings";
 import { fromRootIntervals } from "./building/rootIntervals";
-import { SEVENTH, SEVENTH_MAJ7_b5, TRIAD_MAJOR } from "./constants";
 import { inv } from "./modifiers/inv";
+import { Voicings as V } from ".";
 
-TestInit.diatonicAltVoicing();
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { SEVENTH, SEVENTH_MAJ7_b5, TRIAD_MAJOR } = V;
 
 it("rootIntervals - SEVENTH = P1-M3-P5-m7", () => {
-  const { M3, m7, P5, P1 } = Intervals;
+  const { M3, m7, P5, P1 } = I;
   const actual: Interval[] = SEVENTH.rootIntervals;
   const expected: Interval[] = [
     P1,
@@ -24,7 +25,7 @@ it("rootIntervals - SEVENTH = P1-M3-P5-m7", () => {
 } );
 
 it("withInv: TRIAD MAJOR + 2inv", () => {
-  const { M6, P4, P1 } = Intervals;
+  const { M6, P4, P1 } = I;
   const voicing = inv(TRIAD_MAJOR, 2);
   const expected = fromRootIntervals(P1, P4, M6);
 

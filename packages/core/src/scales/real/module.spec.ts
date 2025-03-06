@@ -1,8 +1,5 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { Scales as S } from ".";
-
-TestInit.realScale();
 
 const vars: string[] = [
   "ET12_MAJOR",

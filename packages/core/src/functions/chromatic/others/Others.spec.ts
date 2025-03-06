@@ -1,23 +1,17 @@
-import { Chords } from "chords/chromatic";
+import { Chords as C } from "chords/chromatic";
 import { Keys as K } from "keys/chromatic";
-import { Pitches } from "pitches/chromatic";
-import { TestInit } from "tests";
-import { V7ALT } from "./constants";
+import { Pitches as P } from "pitches/chromatic";
+import { Funcs as F } from "../";
 
-TestInit.chromaticFunc();
-TestInit.chromaticKey();
-
-describe("tests", () => {
 // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { B, Db, F, G } = Pitches;
+const { B, Db, G } = P;
 
-  describe.each([
-    [V7ALT, K.C, Chords.fromPitches(G, B, Db, F)],
-  ])("getChord", (func, key, expectedChord) => {
-    it(`${func} of ${key} = ${expectedChord}`, () => {
-      const actual = func.getChord(key);
+describe.each([
+  [F.V7ALT, K.C, C.fromPitches(G, B, Db, P.F)],
+])("getChord", (func, key, expectedChord) => {
+  it(`${func} of ${key} = ${expectedChord}`, () => {
+    const actual = func.getChord(key);
 
-      expect(actual).toBe(expectedChord);
-    } );
+    expect(actual).toBe(expectedChord);
   } );
 } );

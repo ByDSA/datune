@@ -1,9 +1,6 @@
-import { Intervals } from "intervals/diatonic";
-import { TestInit } from "tests";
+import { Intervals as I } from "intervals/diatonic";
 import { A, B, C, D } from "../constants";
 import { add, sub } from ".";
-
-TestInit.diatonicInterval();
 
 describe("add", () => {
   it("should be C+SECOND", () => {
@@ -11,7 +8,7 @@ describe("add", () => {
 
     expect(base).toBeDefined();
 
-    const interval = Intervals.SECOND;
+    const interval = I.SECOND;
 
     expect(interval).toBeDefined();
 
@@ -24,7 +21,7 @@ describe("add", () => {
   } );
 
   it("should be C+NINTH", () => {
-    const interval = Intervals.NINTH;
+    const interval = I.NINTH;
 
     expect(interval).toBeDefined();
 
@@ -37,14 +34,14 @@ describe("add", () => {
 
 describe("sub", () => {
   it("should be C-SECOND", () => {
-    const diatonic = sub(C, Intervals.SECOND);
+    const diatonic = sub(C, I.SECOND);
     const expected = B;
 
     expect(diatonic).toBe(expected);
   } );
 
   it("should be C-TENTH", () => {
-    const diatonic = sub(C, Intervals.TENTH);
+    const diatonic = sub(C, I.TENTH);
     const expected = A;
 
     expect(diatonic).toBe(expected);

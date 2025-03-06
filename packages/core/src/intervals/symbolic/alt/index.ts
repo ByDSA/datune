@@ -59,6 +59,9 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     {
       path: "constants",
       omit: ["initialize"],
+      hooks: {
+        onLoadModule: (m: typeof Constants)=>!m.P1 && m.initialize(),
+      },
     },
     "modifiers/calcSerie",
     "modifiers/abs",

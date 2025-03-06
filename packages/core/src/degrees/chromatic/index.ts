@@ -12,14 +12,11 @@ const staticModule = {
   ...Constants,
 };
 
-type LazyType = Omit<typeof Constants, "initialize"> & typeof Conversions;
+type LazyType = typeof Constants & typeof Conversions;
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    {
-      path: "conversions",
-      omit: ["initialize"],
-    },
+    "conversions",
   ],
   // eslint-disable-next-line no-undef
   dirname: __dirname,

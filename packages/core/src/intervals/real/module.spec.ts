@@ -1,8 +1,5 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
-import { Intervals } from ".";
-
-TestInit.realInterval();
+import { Intervals as I } from ".";
 
 const vars: string[] = [
   "CENT",
@@ -76,17 +73,17 @@ const vars: string[] = [
 ];
 const functions: string[] = [
   // building
-  Intervals.fromCents.name,
-  Intervals.from.name,
+  I.fromCents.name,
+  I.from.name,
 
   // independent modifiers
-  Intervals.add.name,
-  Intervals.sub.name,
+  I.add.name,
+  I.sub.name,
 
   // modifiers
-  Intervals.shiftOctaves.name,
-  Intervals.mult.name,
-  Intervals.neg.name,
+  I.shiftOctaves.name,
+  I.mult.name,
+  I.neg.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -95,7 +92,7 @@ it("module should export functions and vars", async () => {
       functions,
       vars,
     },
-    barrel: Intervals,
+    barrel: I,
     modules: [
       "building",
       "modifiers/independentModifiers",

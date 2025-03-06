@@ -1,11 +1,9 @@
 import type { Voicing } from "../Voicing";
-import { TestInit } from "tests";
 import { fromRootIntervals } from "../building/rootIntervals";
-import { M2, TRITONE } from "../constants";
+import { Voicings as V } from "..";
 import { inv } from ".";
 
-TestInit.chromaticVoicing();
-
+const { M2, TRITONE } = V;
 const map: any[] = [
   [M2, fromRootIntervals(0, 10)],
   [TRITONE, TRITONE],

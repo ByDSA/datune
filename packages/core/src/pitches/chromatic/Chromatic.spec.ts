@@ -1,4 +1,6 @@
-import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } from "./constants";
+import { Pitches as P } from ".";
+
+const { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } = P;
 
 describe.each([
   [C, 0],

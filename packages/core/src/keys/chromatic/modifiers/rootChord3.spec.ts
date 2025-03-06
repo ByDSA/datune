@@ -1,14 +1,9 @@
 import { Chords as C } from "chords/chromatic";
 import { Pitches as P } from "pitches/chromatic";
 import { Scales as S } from "scales/chromatic";
-import { TestInit } from "tests";
 import { expectChord } from "chords/octave/chromatic/tests/chord";
 import { Keys as K } from "..";
 import { rootChord3 } from "./rootChord3";
-
-TestInit.chromaticKey();
-TestInit.chromaticVoicing();
-TestInit.chromaticChord();
 
 describe.each([
   [K.C, C.C],

@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { init } from "@datune/core";
 import { Keys as AK, Pitches as AP, Scales as AS, Intervals as AI, Degrees as AD, Funcs as AF, Chord as AChord } from "@datune/core/alt";
 import { Keys as K, Chords as C, Pitches as P, Intervals as I, Scales as S, Voicings } from "@datune/core/chromatic";
 import { stringifyPitch, stringifyScale, stringifyVoicing } from "@datune/strings/chromatic";
 import { stringifyPitch as stringifyAPitch, stringifyChord as stringifyAChord } from "@datune/strings/alt";
 import { LangId, loadFromFile } from "@datune/strings/lang";
-
-init();
 
 loadFromFile( {
   folder: "langs",

@@ -1,15 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 /* eslint-disable max-len */
-import * as CI from "intervals/symbolic/chromatic/constants";
-import * as RI from "intervals/real/constants";
-import { TestInit } from "tests";
-import { ET12, LIMIT_5_SYMMETRIC_N1, LIMIT_5_SYMMETRIC_N2, PYTHAGOREAN } from "./constants";
+import { Intervals as RI } from "intervals/real";
+import { Intervals as CI } from "chromatic";
+import { Temperaments as TE } from ".";
 
+const { ET12, LIMIT_5_SYMMETRIC_N1, LIMIT_5_SYMMETRIC_N2, PYTHAGOREAN } = TE;
 const { d5, M2, M7, M6, M3, m2, m7, m6, m3, P5, P4, P8, P1 } = CI;
-
-TestInit.chromaticTemperament();
-
 const { ET12_P5, ET12_P4, J_d5, J_M7, J_M6, J_M3, J_MAJOR_TONE, J_m2, J_m7_GREATER, J_m7_SMALL, J_m6, J_m3, J_MINOR_TONE, J_P5, J_P4, OCTAVE, PT_d5, PT_M2, PT_M7, PT_M6, PT_M3, PT_m2, PT_m7, PT_m6, PT_m3, PT_P5, PT_P4, UNISON } = RI;
 
 describe.each([

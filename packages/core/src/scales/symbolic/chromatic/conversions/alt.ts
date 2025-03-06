@@ -1,3 +1,4 @@
+import type { Scale } from "../Scale";
 import { cyclicMod } from "@datune/utils";
 import { DegreeArray as ADegreeArray, Degree as ADegree, Degrees as AD } from "degrees/alt";
 import { Degree as ChromaticDegree } from "degrees/chromatic";
@@ -5,7 +6,6 @@ import { Degrees as DDegrees } from "degrees/diatonic";
 import { calcAlts } from "pitches/alt/calcAlts";
 import { Pitches as CP } from "pitches/chromatic";
 import { Scales as AS, Scale as AScale } from "scales/alt";
-import { Scale } from "../Scale";
 import { calcIntraIntervals } from "../modifiers/intraIntervals";
 
 type Reparam = (i: number, acc: number)=> ADegree;

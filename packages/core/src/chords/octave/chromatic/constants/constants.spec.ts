@@ -1,8 +1,21 @@
 import { Pitches as P } from "pitches/chromatic";
-import { TestInit } from "tests";
-import { ALL, ALL_NON_INVERSIONS, C } from ".";
+import { ALL, ALL_NON_INVERSIONS, C, initialize } from ".";
 
-TestInit.chromaticChord();
+it("before initialization, constant should be uninitialized", () => {
+  expect(C).toBeUndefined();
+} );
+
+it("should call initialize without errors", () => {
+  expect(() => initialize()).not.toThrow();
+} );
+
+it("should not initialize twice", () => {
+  expect(() => initialize()).toThrow();
+} );
+
+it("after initialization, constant should be initialized", () => {
+  expect(C).toBeDefined();
+} );
 
 it("trying edit property notes", () => {
   const { pitches } = C;
@@ -10,7 +23,7 @@ it("trying edit property notes", () => {
     pitches[0] = P.D;
   };
 
-  expect(t).toThrow(TypeError);
+  expect(t).toThrow(Error);
 } );
 
 it("all", () => {

@@ -1,23 +1,19 @@
-import { TestInit } from "tests";
-import { Voicings, Voicing } from "voicings/chromatic";
-import { Chord } from "../Chord";
-import { C, C5, C7 } from "../constants";
+import type { Voicing } from "voicings/chromatic";
+import type { Chord } from "../Chord";
+import { Voicings as V } from "voicings/chromatic";
+import { Chords as C } from "..";
 import { toVoicing } from ".";
 
-TestInit.chromaticChord();
+const { POWER_CHORD, SEVENTH, TRIAD_MAJOR } = V;
 
-describe("tests", () => {
-  const { POWER_CHORD, SEVENTH, TRIAD_MAJOR } = Voicings;
+describe.each([
+  [C.C5, POWER_CHORD],
+  [C.C, TRIAD_MAJOR],
+  [C.C7, SEVENTH],
+])("voicing", (chord: Chord, voicing: Voicing) => {
+  it(`${chord} => ${voicing}`, () => {
+    const actual = toVoicing(chord);
 
-  describe.each([
-    [C5, POWER_CHORD],
-    [C, TRIAD_MAJOR],
-    [C7, SEVENTH],
-  ])("voicing", (chord: Chord, voicing: Voicing) => {
-    it(`${chord} => ${voicing}`, () => {
-      const actual = toVoicing(chord);
-
-      expect(actual).toBe(voicing);
-    } );
+    expect(actual).toBe(voicing);
   } );
 } );

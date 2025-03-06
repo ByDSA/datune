@@ -1,9 +1,11 @@
 import type { Interval } from "intervals/chromatic";
-import { Pitches, Pitch } from "pitches/chromatic";
-import { d5, M7, M6, m2, m3, P8, P1 } from "../constants";
+import type { Pitch } from "pitches/chromatic";
+import { Pitches as P } from "pitches/chromatic";
+import { Intervals as I } from "..";
 import { between, betweenNext } from ".";
 
-const { A, B, C, FF } = Pitches;
+const { A, B, C, FF } = P;
+const { d5, M7, M6, m2, m3, P8, P1 } = I;
 
 describe.each([
   [C, A, M6],

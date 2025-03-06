@@ -1,8 +1,5 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { MusicalDurations as MD } from ".";
-
-TestInit.bpm();
 
 const vars: string[] = [
   "DOUBLE",

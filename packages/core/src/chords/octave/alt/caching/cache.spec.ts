@@ -1,11 +1,9 @@
-import { PitchArray, Pitches } from "pitches/alt";
-import { TestInit } from "tests";
+import type { PitchArray } from "pitches/alt";
+import { Pitches as P } from "pitches/alt";
 import { cache } from "./cache";
 
-TestInit.diatonicAltChord();
-
 it("same instance", () => {
-  const { C, E, G } = Pitches;
+  const { C, E, G } = P;
   const pitches = [C, E, G] as PitchArray;
   const actual1 = cache.getOrCreate(pitches);
   const actual2 = cache.getOrCreate(pitches);

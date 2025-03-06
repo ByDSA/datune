@@ -1,21 +1,18 @@
-import { Pitches } from "pitches/chromatic";
-import { TestInit } from "tests";
+import { Pitches as P } from "pitches/chromatic";
 import { from } from "./building";
-import { C5 } from "./constants";
+import { PitchSets as PS } from ".";
 
-TestInit.chromaticPitchSet();
-
-const { C, E, G } = Pitches;
+const { C, E, G } = P;
 
 it("constants", () => {
-  const noteSet1 = C5;
+  const noteSet1 = PS.C5;
   const noteSet2 = from(C, G);
 
   expect(noteSet1).toBe(noteSet2);
 } );
 
 it("content", () => {
-  expect(C5.has(C)).toBeTruthy();
-  expect(C5.has(G)).toBeTruthy();
-  expect(C5.has(E)).toBeFalsy();
+  expect(PS.C5.has(C)).toBeTruthy();
+  expect(PS.C5.has(G)).toBeTruthy();
+  expect(PS.C5.has(E)).toBeFalsy();
 } );

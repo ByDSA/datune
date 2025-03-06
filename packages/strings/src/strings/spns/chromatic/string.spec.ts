@@ -1,9 +1,8 @@
 import { SPNs, SPN } from "@datune/core/spns/chromatic";
 import { LangId } from "lang";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { stringifySpn } from ".";
 
-TestInit.chromaticSPN();
 TestLang.loadAll();
 
 describe.each([

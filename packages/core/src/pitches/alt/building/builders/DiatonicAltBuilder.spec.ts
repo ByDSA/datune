@@ -2,12 +2,7 @@ import { Keys as K } from "keys/alt";
 import { Pitches as P } from "pitches/alt";
 import { Pitches as CP } from "pitches/chromatic";
 import { Pitches as DP } from "pitches/diatonic";
-import { TestInit } from "tests";
 import { DiatonicAltBuilder } from "./DiatonicAltBuilder";
-
-beforeAll(() => {
-  TestInit.diatonicAlt();
-} );
 
 it("from Chromatic and Diatonic", () => {
   expect(DiatonicAltBuilder.create()
@@ -63,7 +58,6 @@ it("from Chromatic and Diatonic", () => {
 
 describe("from Chromatic and DiatonicAlt list", () => {
   it("chromatic DD in Key Cm = Eb", () => {
-    TestInit.diatonicAltKey();
     const list = K.Cm.pitches;
     const pitch = DiatonicAltBuilder.create()
       .setNote(CP.DD)

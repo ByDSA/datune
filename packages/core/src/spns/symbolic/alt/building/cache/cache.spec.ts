@@ -1,9 +1,7 @@
-import { TestInit } from "tests";
-import { B7 } from "../../constants";
+import { SPNs } from "../..";
 import { fromPitchOctave } from "../pitch-octave";
 
-TestInit.diatonicAltSPN();
-
+const { B7 } = SPNs;
 const cases = [B7];
 
 describe.each(cases)("cached", (spn) => {

@@ -1,10 +1,9 @@
 import type { Interval } from "../Interval";
-import { TestInit } from "tests";
-import { d15, M3, m7, P1, P5 } from "../constants";
 import { neg } from "../modifiers/neg";
+import { Intervals as I } from "..";
 import { hash } from "./hashObj";
 
-TestInit.diatonicAltInterval();
+const { d15, M3, m7, P1, P5 } = I;
 
 describe.each([
   [P5, "+4P"],

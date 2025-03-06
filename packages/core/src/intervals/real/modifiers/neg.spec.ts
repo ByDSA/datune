@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 import type { Interval } from "../Interval";
-import { TestInit } from "tests";
-import { ET12_P5, J_a5, OCTAVE, PT_a7, PT_a1, PT_d2, UNISON } from "../constants";
+import { Intervals as I } from "..";
 import { neg } from "./neg";
 import { add } from "./add";
 
-TestInit.realInterval();
+const { ET12_P5, J_a5, OCTAVE, PT_a7, PT_a1, PT_d2, UNISON } = I;
 
 describe.each([
   ET12_P5,

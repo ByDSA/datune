@@ -1,11 +1,10 @@
 import type { Interval } from "../Interval";
-import { TestInit } from "tests";
-import { ET12_SEMITONE, OCTAVE, UNISON } from "../constants";
+import { Intervals as I } from "..";
 import { add } from "./add";
 import { mult } from "./mult";
 import { neg } from "./neg";
 
-TestInit.realInterval();
+const { ET12_SEMITONE, OCTAVE, UNISON } = I;
 
 describe.each([
   [UNISON, 1, UNISON],

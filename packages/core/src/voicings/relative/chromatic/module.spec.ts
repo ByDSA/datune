@@ -1,9 +1,6 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { inv } from "./modifiers";
 import { Voicings as V } from ".";
-
-TestInit.chromaticVoicing();
 
 const vars: string[] = [
   "ELEVENTH",

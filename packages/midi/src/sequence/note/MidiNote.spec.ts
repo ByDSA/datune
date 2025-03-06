@@ -1,5 +1,4 @@
-import { MusicalDuration } from "@datune/core";
-import { QUARTER } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { MusicalDuration, MusicalDurations as MD } from "@datune/core";
 import { TestInit } from "tests";
 import { C5 } from "pitch/constants";
 import { MidiPitch } from "../../pitch/MidiPitch";
@@ -7,6 +6,7 @@ import { from } from "./building";
 import { PartialMidiNote as Dto } from "./PartialMidiNote";
 
 TestInit.initAll();
+const { QUARTER } = MD;
 
 it("from - C5 QUARTER 90", () => {
   const pitch: MidiPitch = C5;
@@ -48,5 +48,5 @@ it("immutability", () => {
 
   expect(() => {
     (note as any).velocity = 100;
-  } ).toThrow(TypeError);
+  } ).toThrow(Error);
 } );

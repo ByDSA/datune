@@ -1,9 +1,6 @@
-import { init } from "@datune/core";
 import { Pitches as P, Intervals as I } from "@datune/core/chromatic";
 import { parsePitch, stringifyPitch } from "@datune/strings/chromatic";
 import { LangId, loadFromFile } from "@datune/strings/lang";
-
-init();
 
 /* Using constants */
 // Normal Pitches: C, D, E, F, G, A, B
@@ -48,5 +45,5 @@ console.log("stringify G ES", stringifyPitch(P.G, {
 } )?.toString()); // -> "Sol"
 
 /* Others */
-console.log("ALL", P.ALL.map(String)); // -> C, C#, ..., B
+console.log("ALL", P.ALL.map(String).toString()); // -> C, C#, ..., B
 console.log("NUMBER", P.NUMBER); // -> 12

@@ -1,10 +1,9 @@
-import { TestInit } from "tests";
 import { Intervals as CI } from "intervals/chromatic";
-import { a4, a8, a7, a1, d8, d7, d1, da4, da7, dd7, M7, m7, P8, P5 } from "../constants";
 import { neg } from "../modifiers/neg";
+import { Intervals as I } from "..";
 import { toChromaticInterval } from "./chromaticInterval";
 
-TestInit.diatonicAltInterval();
+const { a4, a8, a7, a1, d8, d7, d1, da4, da7, dd7, M7, m7, P8, P5 } = I;
 
 describe.each([
   [a1, CI.m2],

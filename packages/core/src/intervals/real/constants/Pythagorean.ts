@@ -55,6 +55,9 @@ export let M7: Interval;
 export let a7: Interval;
 
 export function initialize() {
+  if (COMMA)
+    throw new Error("Already initialized");
+
   COMMA = from(frac(531441, 524288));
   a1 = from(frac(2187, 2048));
   d2 = from(frac(524288, 531441)); // lower than 1

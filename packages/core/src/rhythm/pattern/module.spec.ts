@@ -1,8 +1,5 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { RhythmPatterns as RP } from ".";
-
-TestInit.rhythmPattern();
 
 const vars: string[] = [
   "CINQUILLO",

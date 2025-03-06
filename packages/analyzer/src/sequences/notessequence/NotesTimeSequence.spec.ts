@@ -1,18 +1,19 @@
-import { Keys } from "@datune/core/keys/chromatic";
-import { Pitches } from "@datune/core/pitches/chromatic";
+import { Keys as K } from "@datune/core/keys/chromatic";
+import { Pitches as P } from "@datune/core/pitches/chromatic";
 import { SPNs, SPN } from "@datune/core/spns/chromatic";
-import { QUARTER, WHOLE, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { intervalOf } from "@datune/utils/math";
+import { MusicalDurations as MD } from "@datune/core";
 import { TestInit } from "tests";
 import { NotesSequence } from "./NotesSequence";
 
 TestInit.initAll();
-const { add, C: P_C, D: P_D, E: P_E, F: P_F, G: P_G } = Pitches;
+const { QUARTER, WHOLE, ZERO } = MD;
+const { add, C: P_C, D: P_D, E: P_E, F: P_F, G: P_G } = P;
 
 function generateCMajorTest() {
   const s = new NotesSequence();
 
-  for (const n of Keys.C.pitches) {
+  for (const n of K.C.pitches) {
     const spn = SPNs.fromPitchOctave(n, 4) as SPN;
 
     s.add( {

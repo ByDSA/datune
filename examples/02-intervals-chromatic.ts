@@ -1,9 +1,6 @@
-import { init } from "@datune/core";
 import { Intervals as I, SPNs, Pitches as P } from "@datune/core/chromatic";
 import { parseInterval, stringifyInterval } from "@datune/strings/chromatic";
 import { LangId, loadFromFile } from "@datune/strings/lang";
-
-init();
 
 /* Using constants */
 // P1, m2, M2, ..., P15

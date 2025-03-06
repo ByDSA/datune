@@ -1,7 +1,7 @@
 import type { Dto } from "./building/dto/Dto";
+import type { Scale as IScale } from "../Scale";
 import { DegreeArray, Degree } from "degrees/chromatic";
 import { IntervalArray, Interval } from "intervals/real";
-import { Scale as IScale } from "../Scale";
 
 export class Scale implements IScale<Interval, Degree> {
   intraIntervals: IntervalArray;

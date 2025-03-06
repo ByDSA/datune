@@ -1,5 +1,5 @@
 import { expectExportModulesAsync } from "tests/modules";
-import { Degrees } from ".";
+import { Degrees as D } from ".";
 
 const vars: string[] = [
   "I",
@@ -17,14 +17,14 @@ const vars: string[] = [
 ];
 const functions: string[] = [
   // Building
-  Degrees.fromInt.name,
+  D.fromInt.name,
 
   // Modifiers
-  Degrees.add.name,
-  Degrees.sub.name,
+  D.add.name,
+  D.sub.name,
 
   // Conversions
-  Degrees.toInterval.name,
+  D.toInterval.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -33,7 +33,7 @@ it("module should export functions and vars", async () => {
       functions,
       vars,
     },
-    barrel: Degrees,
+    barrel: D,
     modules: [
       "building",
       "modifiers",

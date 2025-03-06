@@ -1,9 +1,8 @@
-import { TestInit } from "tests";
-import { ET12_P5, OCTAVE, PT_COMMA, PT_P5, UNISON } from "./constants";
 import { sub } from "./modifiers/independentModifiers";
 import { mult } from "./modifiers/mult";
+import { Intervals as I } from ".";
 
-TestInit.realInterval();
+const { ET12_P5, OCTAVE, PT_COMMA, PT_P5, UNISON } = I;
 
 it("pythagorean Comma", () => {
   const expected = PT_COMMA;

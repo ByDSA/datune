@@ -1,8 +1,5 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { Voicings as V } from ".";
-
-TestInit.diatonicAltVoicing();
 
 const vars: string[] = [
   "ELEVENTH",

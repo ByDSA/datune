@@ -4,6 +4,12 @@ import { compose } from "./building/compose";
 import { CompoundFunc } from "./CompoundFunc";
 
 export function initialize() {
+  if (V_V)
+    throw new Error("Already initialized");
+
+  if (!DegreeFuncs.I)
+    DegreeFuncs.initialize();
+
   const { SUBV7, V, V7 } = DegreeFuncs;
 
   V_II = compose(V, C.II);

@@ -1,11 +1,10 @@
 import type { Interval } from "../Interval";
-import { TestInit } from "tests";
-import { FIFTH } from "../constants";
 import { Direction } from "../Direction";
 import { neg } from "../modifiers/neg";
+import { Intervals as I } from "..";
 import { fromInt } from "./int";
 
-TestInit.diatonicInterval();
+const { FIFTH } = I;
 
 it("uncached", () => {
   const actual: Interval = fromInt(1234);

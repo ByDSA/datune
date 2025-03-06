@@ -1,10 +1,7 @@
 import type { RhythmPattern } from "./Pattern";
-import { TestInit } from "tests";
-import { CINQUILLO, QUARTER, QUARTER_THIRD, RUMBA, THIRD, TRESILLO } from "./constants";
+import { RhythmPatterns as RP } from ".";
 
-beforeAll(() => {
-  TestInit.rhythmPattern();
-} );
+const { CINQUILLO, QUARTER, QUARTER_THIRD, RUMBA, THIRD, TRESILLO } = RP;
 
 describe.each([
   QUARTER, THIRD, QUARTER_THIRD, TRESILLO, CINQUILLO, RUMBA,

@@ -1,6 +1,7 @@
 import type { Voicing } from "../Voicing";
 import { Voicings as DV } from "voicings/relative/diatonic";
 import { Voicings as CV } from "voicings/chromatic";
+import { P8, initialize as initializeIntervals } from "intervals/symbolic/alt/constants";
 import { fromVoicings } from "../building/voicings";
 import { inv } from "../modifiers/inv";
 import { map } from "./inversionMap";
@@ -17,6 +18,9 @@ export function initializeN3() {
   TRIAD_AUGMENTED = fromVoicings(CV.TRIAD_AUGMENTED, TRIAD) as Voicing;
 
   TRIAD_SUS4 = fromVoicings(CV.TRIAD_SUS4, SUS4) as Voicing;
+
+  if (!P8)
+    initializeIntervals();
 
   TRIAD_SUS2 = inv(TRIAD_SUS4) as Voicing;
 

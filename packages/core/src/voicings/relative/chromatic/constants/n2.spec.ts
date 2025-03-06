@@ -1,9 +1,8 @@
 import type { Voicing } from "../Voicing";
 import type { Interval } from "intervals/chromatic";
-import { TestInit } from "tests";
-import { M2, M3, m2, m3, POWER_CHORD, TRITONE } from "./n2";
+import { Voicings as V } from "..";
 
-TestInit.chromaticVoicing();
+const { M2, M3, m2, m3, POWER_CHORD, TRITONE } = V;
 
 describe.each([
   [m2, [0, 1]],

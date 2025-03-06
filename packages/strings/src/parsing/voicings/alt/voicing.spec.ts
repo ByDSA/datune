@@ -2,10 +2,9 @@
 /* eslint-disable camelcase */
 import { Voicings } from "@datune/core/voicings/alt";
 import { LangId } from "lang";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { parseVoicing } from ".";
 
-TestInit.diatonicAltVoicing();
 TestLang.loadAll();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

@@ -1,12 +1,11 @@
 import type { Pitch } from "@datune/core/pitches/alt";
 import { Pitches as P } from "@datune/core/pitches/alt";
-import { C as D_C } from "@datune/core/pitches/diatonic/constants";
+import { Pitches as DP } from "@datune/core/pitches/diatonic";
 import { LangId } from "lang";
 import { stringifyPitch } from "strings/pitches/alt";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { parsePitch } from ".";
 
-TestInit.diatonicAlt();
 TestLang.loadAll();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -26,8 +25,8 @@ describe.each([
   [LangId.EN, "bb", Bb],
   [LangId.EN, "bbb", Bbb],
   [LangId.EN, "b##", BBB],
-  [LangId.EN, "Cbbb", fromDiatonicAlts(D_C, -3)],
-  [LangId.EN, "C###", fromDiatonicAlts(D_C, 3)],
+  [LangId.EN, "Cbbb", fromDiatonicAlts(DP.C, -3)],
+  [LangId.EN, "C###", fromDiatonicAlts(DP.C, 3)],
   [LangId.ES, "C", null],
   [LangId.EN, "Do", null],
   [LangId.EN, "C####", null],

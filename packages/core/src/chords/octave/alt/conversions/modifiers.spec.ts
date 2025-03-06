@@ -1,20 +1,14 @@
-import { Intervals } from "intervals/alt";
+import { Intervals as I } from "intervals/alt";
 import { Pitches as P } from "pitches/alt";
-import { TestInit } from "tests";
-import { Voicings as DVoicings } from "voicings/alt";
+import { Voicings as V } from "voicings/alt";
 import { add, bass, inv, sub } from "../modifiers";
-import { C, C7, CMaj7 } from "../constants";
+import { Chords as C } from "..";
 import { fromRootVoicing } from "../building";
 
-TestInit.diatonicAltVoicing();
-TestInit.diatonicAlt();
-TestInit.chromaticChord();
-TestInit.diatonicAltChord();
-
 describe.each([
-  [C, P.C, C],
-  [C, P.E, inv(C)],
-  [C, P.B, inv(CMaj7, 3)],
+  [C.C, P.C, C.C],
+  [C.C, P.E, inv(C.C)],
+  [C.C, P.B, inv(C.CMaj7, 3)],
 ])("withBass", (chord, pitchBass, expectedChord) => {
   it(`${chord}.withBass(${pitchBass}) = ${expectedChord}`, () => {
     const actual = bass(chord, pitchBass);
@@ -24,7 +18,7 @@ describe.each([
 } );
 
 describe.each([
-  [C7, 4, C7],
+  [C.C7, 4, C.C7],
 ])("withInv", (chord, invs, expectedChord) => {
   it(`${chord}.withInv(${invs}) = ${expectedChord}`, () => {
     const actual = inv(chord, invs);
@@ -34,15 +28,15 @@ describe.each([
 } );
 
 it("withAdd - C7 + M2 = D7", () => {
-  const actual = add(C7, Intervals.M2);
-  const expected = fromRootVoicing(P.D, DVoicings.SEVENTH);
+  const actual = add(C.C7, I.M2);
+  const expected = fromRootVoicing(P.D, V.SEVENTH);
 
   expect(actual).toBe(expected);
 } );
 
 it("withSub - C7 - M2 = Bb7", () => {
-  const actual = sub(C7, Intervals.M2);
-  const expected = fromRootVoicing(P.Bb, DVoicings.SEVENTH);
+  const actual = sub(C.C7, I.M2);
+  const expected = fromRootVoicing(P.Bb, V.SEVENTH);
 
   expect(actual).toBe(expected);
 } );

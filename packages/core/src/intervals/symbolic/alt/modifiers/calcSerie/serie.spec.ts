@@ -1,12 +1,11 @@
 import type { IntervalArray } from "../../Array";
 import type { Interval } from "../../Interval";
-import { TestInit } from "tests";
-import { M9, M13, P1, P5 } from "../../constants";
 import { expectIntervals } from "../../tests/intervals";
 import { neg } from "../neg";
+import { Intervals as I } from "../..";
 import { serie } from "./index";
 
-TestInit.diatonicAltInterval();
+const { M9, M13, P1, P5 } = I;
 
 describe.each([
   [{

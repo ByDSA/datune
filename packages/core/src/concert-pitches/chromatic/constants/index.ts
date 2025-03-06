@@ -5,7 +5,7 @@ import { fromFrequencySPN } from "../building/frequencySPN";
 
 export function initialize(): void {
   if (A440)
-    throw new TypeError("A440 is already initialized");
+    throw new Error("Already initialized");
 
   A440 = fromFrequencySPN(440, SPNs.A4);
   lockr(A440);

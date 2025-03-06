@@ -1,8 +1,5 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { Intervals } from ".";
-
-TestInit.diatonicAltInterval();
 
 const vars: string[] = [
   "M10",

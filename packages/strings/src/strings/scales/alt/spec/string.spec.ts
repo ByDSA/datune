@@ -1,10 +1,9 @@
 import { Scales as S } from "@datune/core/scales/alt";
 import { stringifyScale as stringifyCScale } from "strings/scales/chromatic";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { stringifyScale } from "..";
 import { getAllCases, getManualCases } from "./Cases";
 
-TestInit.diatonicAltScale();
 TestLang.loadAll();
 
 describe.each(getManualCases())("tests", (langId, scale, str) => {

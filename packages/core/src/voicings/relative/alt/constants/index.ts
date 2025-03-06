@@ -1,4 +1,4 @@
-import { initializeN2 } from "./n2";
+import { initializeN2, POWER_CHORD } from "./n2";
 import { initializeN3 } from "./n3";
 import { initializeN4 } from "./n4";
 import { initializeN5 } from "./n5";
@@ -7,6 +7,9 @@ import { initializeN7 } from "./n7";
 import { initializeSets } from "./sets";
 
 export function initialize() {
+  if (POWER_CHORD)
+    throw new Error("Already initialized");
+
   initializeN2();
   initializeN3();
   initializeN4();

@@ -1,6 +1,6 @@
 import type { Arrays } from "@datune/utils";
+import type { Scale } from "scales/Scale";
 import { OctavePitch } from "pitches/OctavePitch";
-import { Scale } from "scales/Scale";
 import { Chord } from "../chords/Chord";
 
 export interface IKey<

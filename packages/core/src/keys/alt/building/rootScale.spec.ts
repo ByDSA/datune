@@ -1,15 +1,10 @@
 import { Pitches as P } from "pitches/alt";
-import { Scales } from "scales/alt";
-import { TestInit } from "tests";
+import { Scales as S } from "scales/alt";
 import { from } from "../building";
 
-TestInit.diatonicAltKey();
+it("rootChord3: C Oriental -> Am", () => {
+  const key = from(P.C, S.ORIENTAL);
 
-describe("tests", () => {
-  it("rootChord3: C Oriental -> Am", () => {
-    const key = from(P.C, Scales.ORIENTAL);
-
-    expect(key.root).toBeDefined();
-    expect(key.scale).toBeDefined();
-  } );
+  expect(key.root).toBeDefined();
+  expect(key.scale).toBeDefined();
 } );

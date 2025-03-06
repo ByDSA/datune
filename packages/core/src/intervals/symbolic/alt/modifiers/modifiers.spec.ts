@@ -1,16 +1,14 @@
 /* eslint-disable camelcase */
 import type { Interval } from "../Interval";
 import { Intervals as DIntervals } from "intervals/diatonic";
-import { TestInit } from "tests";
-import { Intervals } from "..";
-import { a5, a4, a2, a7, a1, d5, d9, M2, M7, M6, M3, m2, m7, m6, m3, P11, P4, P8, P12, P1, P5 } from "../constants";
+import { Intervals as I } from "..";
 import { d } from "../quality/constants";
 import { expectInterval } from "../tests/interval";
 import { neg } from "./neg";
 import { add } from "./add";
 import { sub } from "./sub";
 
-TestInit.diatonicAltInterval();
+const { a5, a4, a2, a7, a1, d5, d9, M2, M7, M6, M3, m2, m7, m6, m3, P11, P4, P8, P12, P1, P5 } = I;
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const { FIFTH, FOURTH, neg: Dneg } = DIntervals;
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -28,7 +26,7 @@ const CASES_AmB = [
   [d9, d5, d5],
   [a7, a4, a4],
   [P1, d5,
-     Intervals.fromIntervalQuality(Dneg(FIFTH), d) as Interval],
+     I.fromIntervalQuality(Dneg(FIFTH), d) as Interval],
   [P1, P1, P1],
   [P8, m2, M7],
   [P8, M2, m7],
@@ -37,7 +35,7 @@ const CASES_AmB = [
   [P8, P4, P5],
   [P8, a4, d5],
   [P8, d5, a4],
-  [P8, a5, Intervals.fromIntervalQuality(FOURTH, d) as Interval],
+  [P8, a5, I.fromIntervalQuality(FOURTH, d) as Interval],
   [M3, P1, M3],
   [P1, M3, neg(M3)],
   [P1, P12, neg(P12)],

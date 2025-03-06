@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
 import { Voicings, Voicing } from "@datune/core/voicings/chromatic";
 import { LangId } from "lang";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { stringifyShortName } from "./shortName";
 import { stringifyVoicing } from ".";
 
-TestInit.chromaticVoicing();
 TestLang.loadAll();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

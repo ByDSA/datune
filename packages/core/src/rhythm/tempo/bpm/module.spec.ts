@@ -1,8 +1,5 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { BPMs } from ".";
-
-TestInit.bpm();
 
 const vars: string[] = [
   "QUARTER_120",

@@ -1,8 +1,5 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { Tunings as TU } from ".";
-
-TestInit.chromaticTuning();
 
 const vars: string[] = [
   "EQUAL_440",

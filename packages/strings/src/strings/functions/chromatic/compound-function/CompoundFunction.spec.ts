@@ -1,18 +1,16 @@
 import { Chords as CC } from "@datune/core/chords/chromatic";
 import { Degrees as D } from "@datune/core/degrees/chromatic";
-import { SUBV7_II, SUBV7_III, SUBV7_IV, SUBV7_V, SUBV7_VI, V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI } from "@datune/core/functions/chromatic/compound-function/constants";
 import { compose } from "@datune/core/functions/chromatic/compound-function/building/compose";
-import { V7 } from "@datune/core/functions/chromatic/degree-function/constants";
 import { Keys as K } from "@datune/core/keys/chromatic";
 import { Pitches as C } from "@datune/core/pitches/chromatic";
 import { Voicings as V } from "@datune/core/voicings/chromatic";
-import { TestInit, TestLang } from "tests";
+import { Funcs as F } from "@datune/core";
+import { TestLang } from "tests";
 import { stringifyCompoundFunc } from ".";
 
-TestInit.chromaticFunc();
-TestInit.chromaticKey();
-TestInit.chromaticChord();
 TestLang.loadAll();
+const { SUBV7_II, SUBV7_III, SUBV7_IV, SUBV7_V, SUBV7_VI,
+  V7_II, V7_III, V7_IV, V7_V, V7_VI, V_II, V_III, V_IV, V_V, V_VI, V7 } = F;
 
 describe.each([
   [compose(V7, D.V, D.V), "V7/V/V"],

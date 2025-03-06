@@ -1,12 +1,15 @@
 /* eslint-disable camelcase */
 import type { DegreeFunc } from "./DegreeFunc";
 import { Degrees as D } from "degrees/alt";
-import { Voicings } from "voicings/alt";
+import * as Voicings from "voicings/relative/alt/constants";
 import { from } from "./building";
 
 export function initialize() {
   if (I5)
     throw new Error("Already initialized");
+
+  if (!Voicings.TRIAD_MAJOR)
+    Voicings.initialize();
 
   // eslint-disable-next-line max-len, @typescript-eslint/naming-convention
   const { POWER_CHORD, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_MINOR_b5, SEVENTH_SUS4, SEVENTH_SUS4_b9, SIXTH, SIXTH_MINOR, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_SUS4 } = Voicings;

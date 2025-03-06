@@ -1,10 +1,7 @@
 import type { Arrays } from "@datune/utils";
 import type { PitchArray } from "pitches/chromatic";
 import { Pitches as P } from "pitches/chromatic";
-import { TestInit } from "tests";
 import { cache } from "./cache";
-
-TestInit.chromaticChord();
 
 it("same instance", () => {
   const pitches = [P.C, P.E, P.G] as PitchArray;

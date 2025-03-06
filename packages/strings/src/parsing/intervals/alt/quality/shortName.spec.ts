@@ -1,16 +1,18 @@
-import { M as MAJOR, m as MINOR } from "@datune/core/intervals/symbolic/alt/quality/constants";
+import { IntervalQualities } from "@datune/core";
 import { parseShortName } from "./shortName";
+
+const { M, m } = IntervalQualities;
 
 it("mayor", () => {
   const actual = parseShortName("M");
-  const expected = MAJOR;
+  const expected = M;
 
   expect(actual).toBe(expected);
 } );
 
 it("minor", () => {
   const actual = parseShortName("m");
-  const expected = MINOR;
+  const expected = m;
 
   expect(actual).toBe(expected);
 } );

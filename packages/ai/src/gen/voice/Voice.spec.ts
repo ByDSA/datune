@@ -1,10 +1,11 @@
-import { HALF, QUARTER, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { C5, D5, E5, nodeFrom, noteFrom } from "@datune/midi";
+import { MusicalDurations as MD } from "@datune/core";
 import { TestInit } from "tests";
 import { LowerVoiceConstraint } from "../constraints/voice/LowerVoiceConstraint";
 import { Voice } from "./Voice";
 
 TestInit.initAll();
+const { HALF, QUARTER, ZERO } = MD;
 
 function initializeVoice() {
   const voice = new Voice();

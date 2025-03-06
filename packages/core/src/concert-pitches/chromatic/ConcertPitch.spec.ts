@@ -1,9 +1,9 @@
 import type { ConcertPitch } from "./ConcertPitch";
-import { SPNs, SPN } from "spns/chromatic";
-import { TestInit } from "tests";
-import { A432, A440, A444 } from "./constants";
+import type { SPN } from "spns/chromatic";
+import { SPNs } from "spns/chromatic";
+import { ConcertPitches as CP } from ".";
 
-TestInit.chromaticConcertPitch();
+const { A432, A440, A444 } = CP;
 
 describe.each([
   [A440, SPNs.A4, 440],

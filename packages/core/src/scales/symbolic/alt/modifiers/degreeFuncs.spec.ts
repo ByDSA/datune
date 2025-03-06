@@ -1,11 +1,8 @@
 import { Funcs as F } from "functions/alt";
-import { TestInit } from "tests";
-import { MAJOR, MINOR } from "../constants";
+import { Scales as S } from "..";
 import { getDegreeFuncs } from "./degreeFuncs";
 
-TestInit.diatonicAltScale();
-TestInit.diatonicAltVoicing();
-TestInit.diatonicAltFunc();
+const { MAJOR, MINOR } = S;
 
 it("scale - degreeFunctions: MAJOR", () => {
   const scale = MAJOR;

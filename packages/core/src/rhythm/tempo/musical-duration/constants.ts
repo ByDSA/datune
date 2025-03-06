@@ -3,6 +3,9 @@ import { lock } from "@datune/utils/immutables";
 import { from } from "./building/from";
 
 export function initialize() {
+  if (QUARTER)
+    throw new Error("Already initialized");
+
   MAXIMA = from(8);
   LONGA = from(4);
   DOUBLE = from(2);

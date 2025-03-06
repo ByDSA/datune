@@ -1,8 +1,7 @@
-import { TestInit } from "tests";
 import { MusicalDuration, MusicalDurations } from "../musical-duration";
-import { QUARTER_120 } from "./constants";
+import { BPMs } from ".";
 
-TestInit.bpm();
+const { QUARTER_120 } = BPMs;
 
 it("precalc - QUARTER_120", () => {
   const bpm = QUARTER_120;

@@ -1,19 +1,17 @@
 import type { SPN } from "../SPN";
 import type { SPN as ChromaticSPN } from "spns/chromatic";
-import { TestInit } from "tests";
 import { SPNs as CSPNs } from "spns/chromatic";
-import { Pitches as OctavePitches } from "pitches/alt";
-import { A4, AA4, C4, COMMON } from "../constants";
+import { Pitches as P } from "pitches/alt";
 import { fromPitchOctave } from "../building";
+import { SPNs } from "..";
 import { toChromatic } from "./chromatic";
 
-TestInit.diatonicAltSPN();
-TestInit.chromaticSPN();
+const { A4, AA4, C4, COMMON } = SPNs;
 const cases = [
   [C4, CSPNs.C4],
   [A4, CSPNs.A4],
   [AA4, CSPNs.AA4],
-  [fromPitchOctave(OctavePitches.Bb, 4), CSPNs.AA4],
+  [fromPitchOctave(P.Bb, 4), CSPNs.AA4],
 ] as [SPN, ChromaticSPN][];
 
 describe.each(cases)("specific cases", (spn: SPN, expectedChromaticSPN: ChromaticSPN) => {

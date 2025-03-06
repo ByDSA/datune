@@ -1,8 +1,5 @@
 import { expectExportModulesAsync } from "tests/modules";
-import { TestInit } from "tests";
 import { Chords } from ".";
-
-TestInit.diatonicAltChord();
 
 const vars: string[] = [
   // Constants

@@ -1,8 +1,7 @@
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { stringifyScale } from "..";
 import { getAllCases, getManualCases } from "./Cases";
 
-TestInit.chromaticScale();
 TestLang.loadAll();
 
 describe.each(getManualCases())("tests", (langId, scale, str) => {

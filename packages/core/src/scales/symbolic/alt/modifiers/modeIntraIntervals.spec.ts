@@ -1,40 +1,37 @@
-import { Interval, Intervals } from "intervals/alt";
-import { TestInit } from "tests";
-import { MAJOR } from "../constants";
+import type { Interval } from "intervals/alt";
+import { Intervals as I } from "intervals/alt";
+import { Scales as S } from "..";
 import { getModeIntraIntervals } from "./modeIntraIntervals";
 
-TestInit.diatonicAltScale();
+const { MAJOR } = S;
+const { M2, m2 } = I;
 
-describe("tests", () => {
-  const { M2, m2 } = Intervals;
+it("getModeIntervals - -III  = MINOR.intervals", () => {
+  const actual: Interval[] = getModeIntraIntervals(MAJOR, -3);
+  const expected: Interval[] = [
+    M2,
+    m2,
+    M2,
+    M2,
+    m2,
+    M2,
+    M2,
+  ];
 
-  it("getModeIntervals - -III  = MINOR.intervals", () => {
-    const actual: Interval[] = getModeIntraIntervals(MAJOR, -3);
-    const expected: Interval[] = [
-      M2,
-      m2,
-      M2,
-      M2,
-      m2,
-      M2,
-      M2,
-    ];
+  expect(actual).toStrictEqual(expected);
+} );
 
-    expect(actual).toStrictEqual(expected);
-  } );
+it("getModeIntervals - VI  = MINOR.intervals", () => {
+  const actual: Interval[] = getModeIntraIntervals(MAJOR, 6);
+  const expected: Interval[] = [
+    M2,
+    m2,
+    M2,
+    M2,
+    m2,
+    M2,
+    M2,
+  ];
 
-  it("getModeIntervals - VI  = MINOR.intervals", () => {
-    const actual: Interval[] = getModeIntraIntervals(MAJOR, 6);
-    const expected: Interval[] = [
-      M2,
-      m2,
-      M2,
-      M2,
-      m2,
-      M2,
-      M2,
-    ];
-
-    expect(actual).toStrictEqual(expected);
-  } );
+  expect(actual).toStrictEqual(expected);
 } );

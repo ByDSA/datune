@@ -1,13 +1,13 @@
-import { Pitch, Pitches } from "@datune/core/pitches/alt";
+import type { Pitch } from "@datune/core/pitches/alt";
+import { Pitches as P } from "@datune/core/pitches/alt";
 import { LangId } from "lang";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { stringifyPitch } from ".";
 
-TestInit.diatonicAlt();
 TestLang.loadAll();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const { Ab, BB, Bb, BBB, C, Eb } = Pitches;
+const { Ab, BB, Bb, BBB, C, Eb } = P;
 
 describe.each([
   [LangId.EN, C, "C"],

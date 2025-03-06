@@ -1,3 +1,3 @@
-import { Scale } from "scales/chromatic";
+import type { Scale } from "scales/chromatic";
 
 export type Data = [string, Scale][];

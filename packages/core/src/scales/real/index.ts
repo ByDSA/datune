@@ -15,6 +15,9 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     {
       path: "constants",
       omit: ["initialize"],
+      hooks: {
+        onLoadModule: (m: typeof Constants)=>!m.ET12_MAJOR && m.initialize(),
+      },
     },
   ],
   // eslint-disable-next-line no-undef

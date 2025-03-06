@@ -1,5 +1,5 @@
-import cache from "./cache/collectData";
 import type { Data } from "./Data";
+import cache from "./cache/collectData";
 
 export default (): Data => {
   const data: Data = {

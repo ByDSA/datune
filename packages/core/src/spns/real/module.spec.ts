@@ -1,8 +1,5 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { SPNs } from ".";
-
-TestInit.chromaticPitchSet();
 
 const vars: string[] = [
 ];

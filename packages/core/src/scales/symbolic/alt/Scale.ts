@@ -1,9 +1,9 @@
 import type { Dto } from "./caching/Dto";
 import type { Interval } from "intervals/alt";
+import type { Scale as IScale } from "../../Scale";
 import { lockr } from "@datune/utils/immutables";
 import { DegreeArray, Degree, Degrees } from "degrees/alt";
 import { Voicings } from "voicings/alt";
-import { Scale as IScale } from "../../Scale";
 import { calcIntraIntervals } from "./modifiers/intraIntervals";
 
 export class Scale implements IScale<Interval, Degree> {

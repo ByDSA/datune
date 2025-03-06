@@ -1,11 +1,11 @@
 import type { MusicalDuration } from "../MusicalDuration";
-import { TestInit } from "tests";
-import { QUARTER_120 } from "../../bpm/constants";
-import { BPM } from "../../bpm/BPM";
-import { HALF } from "../constants";
+import type { BPM } from "../../bpm/BPM";
+import { BPMs } from "rhythm/tempo/bpm";
+import { MusicalDurations as MD } from "..";
 import { fromMillisAndBPM } from "./fromMillisAndBPM";
 
-TestInit.bpm();
+const { HALF } = MD;
+const { QUARTER_120 } = BPMs;
 
 it("fromMillisAndBPM - 1000ms in QUARTER_120 = HALF", () => {
   const bpm: BPM = QUARTER_120;

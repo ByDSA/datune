@@ -4,7 +4,7 @@ import * as OtherFuncsConstants from "./others/constants";
 
 export function initialize() {
   if (DegreeFuncConstants.I)
-    throw new Error("Already defined");
+    throw new Error("Already initialized");
 
   DegreeFuncConstants.initialize();
   CompoundFuncsConstants.initialize();

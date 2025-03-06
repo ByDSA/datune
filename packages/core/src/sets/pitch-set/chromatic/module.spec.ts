@@ -1,9 +1,6 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { CHAROMATIC_PITCHES12_SHARPS_VARNAMES } from "pitches/chromatic/tests/varnames";
 import { PitchSets as PS } from ".";
-
-TestInit.chromaticPitchSet();
 
 const vars: string[] = [
   ...CHAROMATIC_PITCHES12_SHARPS_VARNAMES.map(n=>n + "5"),

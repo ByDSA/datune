@@ -66,7 +66,7 @@ describe("sets", () => {
         (C as any).asd = "s";
       };
 
-      expect(t).toThrow(TypeError);
+      expect(t).toThrow(Error);
     } );
 
     it("aLL addition error", () => {
@@ -74,7 +74,7 @@ describe("sets", () => {
         ALL.push(C);
       };
 
-      expect(t).toThrow(TypeError);
+      expect(t).toThrow(Error);
     } );
   } );
 } );

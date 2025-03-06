@@ -1,9 +1,8 @@
 import type { Interval } from "../Interval";
-import { TestInit } from "tests";
 import { calcCents } from "../calcs";
-import { CENT, ET12_QUARTER_TONE, J_QUARTER_TONE, OCTAVE, PT_COMMA, UNISON } from ".";
+import { Intervals as I } from "..";
 
-TestInit.realInterval();
+const { CENT, ET12_QUARTER_TONE, J_QUARTER_TONE, OCTAVE, PT_COMMA, UNISON } = I;
 
 describe.each([
   [UNISON, 0, 1],

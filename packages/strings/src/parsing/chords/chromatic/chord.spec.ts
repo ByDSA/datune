@@ -3,10 +3,9 @@ import { Chord, Chords as C } from "@datune/core/chords/chromatic";
 import { Pitches as P } from "@datune/core/pitches/chromatic";
 import { LangId } from "lang";
 import { stringifyChord } from "strings/chords/chromatic";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { parseChord } from ".";
 
-TestInit.chromaticChord();
 TestLang.loadAll();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

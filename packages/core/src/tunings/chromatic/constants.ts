@@ -1,9 +1,18 @@
 import type { Tuning } from "./Tuning";
-import { ConcertPitches as CP } from "concert-pitches/chromatic";
-import { Temperaments as TE } from "temperaments/chromatic";
+import * as CP from "concert-pitches/chromatic/constants";
+import * as TE from "temperaments/chromatic/constants";
 import { from } from "./building/from";
 
 export function initialize() {
+  if (EQUAL_440)
+    throw new Error("Already initialized");
+
+  if (!CP.A440)
+    CP.initialize();
+
+  if (!TE.ET12)
+    TE.initialize();
+
   EQUAL_440 = from( {
     concertPitch: CP.A440,
     temperament: TE.ET12,

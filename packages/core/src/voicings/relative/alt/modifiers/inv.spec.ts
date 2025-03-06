@@ -1,9 +1,8 @@
 import type { Voicing } from "../Voicing";
-import { TestInit } from "tests";
-import { TRIAD_MAJOR } from "../constants";
+import { Voicings as V } from "..";
 import { inv } from "./inv";
 
-TestInit.diatonicAltVoicing();
+const { TRIAD_MAJOR } = V;
 
 describe.each([
   [TRIAD_MAJOR, 0, TRIAD_MAJOR],

@@ -1,12 +1,14 @@
-import { C, C5, Cm, Csus2, Csus4, Fsus2, Gsus4 } from "@datune/core/chords/octave/alt/constants";
 import { fromRootVoicing } from "@datune/core/chords/octave/alt/building";
 import { inv } from "@datune/core/chords/octave/alt/modifiers";
 import { Pitches as P } from "@datune/core/pitches/alt";
 import { Voicings as V } from "@datune/core/voicings/alt";
+import { Chords as C } from "@datune/core/alt";
 import { TestInit } from "tests";
 import { Finder } from "./Finder";
 
 TestInit.loadAll();
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { C5, Cm, Csus2, Csus4, Fsus2, Gsus4 } = C;
 
 it("contains= C, G. MaxLength=3. NotInversions", () => {
   const finder = new Finder()
@@ -16,7 +18,7 @@ it("contains= C, G. MaxLength=3. NotInversions", () => {
   const actual = finder.find();
   const expected = [
     C5,
-    C,
+    C.C,
     Cm,
     Csus4,
     Gsus4,
@@ -34,9 +36,9 @@ it("contains= C, G. MaxLength=3", () => {
     C5,
     inv(C5),
 
-    C,
-    inv(C),
-    inv(C, 2),
+    C.C,
+    inv(C.C),
+    inv(C.C, 2),
 
     Cm,
     inv(Cm),
@@ -62,7 +64,7 @@ it("contains= C, G. MaxLength=3. Root=C", () => {
   const actual = finder.find();
   const expected = [
     C5,
-    C,
+    C.C,
     Cm,
     Csus4,
     Csus2,

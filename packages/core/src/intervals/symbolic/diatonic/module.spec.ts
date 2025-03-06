@@ -1,9 +1,6 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
-import { UNISON } from "./constants";
-import { Intervals } from ".";
-
-TestInit.diatonicInterval();
+import * as Constants from "./constants";
+import { Intervals as I } from ".";
 
 const vars: string[] = [
   "ELEVENTH",
@@ -24,17 +21,17 @@ const vars: string[] = [
 ];
 const functions: string[] = [
   // building
-  Intervals.fromInt.name,
+  I.fromInt.name,
 
   // modifiers
-  Intervals.abs.name,
-  Intervals.add.name,
-  Intervals.neg.name,
-  Intervals.simplify.name,
-  Intervals.sub.name,
+  I.abs.name,
+  I.add.name,
+  I.neg.name,
+  I.simplify.name,
+  I.sub.name,
 
   // isMainInterval
-  Intervals.isMainInterval.name,
+  I.isMainInterval.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -43,7 +40,7 @@ it("module should export functions and vars", async () => {
       functions,
       vars,
     },
-    barrel: Intervals,
+    barrel: I,
     modules: [
       "building",
       "modifiers/abs",
@@ -60,5 +57,5 @@ it("module should export functions and vars", async () => {
 } );
 
 it("should be same ref", () => {
-  expect(UNISON).toBe(Intervals.UNISON);
+  expect(Constants.UNISON).toBe(I.UNISON);
 } );

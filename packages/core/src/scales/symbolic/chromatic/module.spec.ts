@@ -1,9 +1,6 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
 import { CHROMATIC_SCALES_VARNAMES } from "./tests/varnames";
 import { Scales as S } from ".";
-
-TestInit.chromaticScale();
 
 const vars: string[] = [
   ...CHROMATIC_SCALES_VARNAMES,

@@ -1,13 +1,12 @@
-import { Scales as CScales } from "scales/chromatic";
-import { TestInit } from "tests";
-import { MAJOR, MINOR } from "../constants";
+import { Scales as CS } from "scales/chromatic";
+import { Scales as S } from "..";
 import { toChromatic } from "./chromatic";
 
-TestInit.diatonicAltScale();
+const { MAJOR, MINOR } = S;
 
 describe.each([
-  [MAJOR, CScales.MAJOR],
-  [MINOR, CScales.MINOR],
+  [MAJOR, CS.MAJOR],
+  [MINOR, CS.MINOR],
 ])("toChromatic", (base, expected) => {
   it(`${base.toString()} => ${expected.toString()}`, () => {
     const actual = toChromatic(base);

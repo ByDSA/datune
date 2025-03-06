@@ -61,13 +61,10 @@ console.log(
 
 );
 
-if (Math.random() < 2)
-  throw new Error();
-
 /* Stringify */
 console.log(
   "stringify",
   stringifyFunc(F.II7), // -> "II7"
   stringifyFunc(F.V7_V), // -> "V7/V"
-  stringifyFunc(F.V7ALT), // ->"V7/V"
+  stringifyFunc(F.V7ALT), // ->"V7AltV"
 );

@@ -1,10 +1,7 @@
-import { Pitches } from "pitches/chromatic";
-import { TestInit } from "tests";
+import { Pitches as P } from "pitches/chromatic";
 import { from } from "../building";
 
-TestInit.chromaticPitchSet();
-
-const { C, G } = Pitches;
+const { C, G } = P;
 
 it("cache works correctly", () => {
   const noteSet1 = from(C, G);

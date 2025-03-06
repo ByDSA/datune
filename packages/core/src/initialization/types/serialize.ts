@@ -1,5 +1,5 @@
-import collectData from "./collectData";
 import type { Dto } from "./Dto";
+import collectData from "./collectData";
 import { toDto } from "./toDto";
 
 export function serialize(): Dto {

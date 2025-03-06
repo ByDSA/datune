@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 import type { Arrays } from "@datune/utils";
 import type { Voicing } from "../Voicing";
-import { TestInit } from "tests";
-import { NINTH_MINOR, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_SUS4_b9, THIRTEENTH_a5b9, THIRTEENTH_b5a9, THIRTEENTH_MAJ13_b5a9, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } from "../constants";
 import { inv } from "../modifiers";
+import { Voicings as V } from "..";
 import { fromRootIntervals } from "./rootIntervals";
 
-TestInit.chromaticVoicing();
+// eslint-disable-next-line max-len
+const { NINTH_MINOR, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_SUS4_b9, THIRTEENTH_a5b9, THIRTEENTH_b5a9, THIRTEENTH_MAJ13_b5a9, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = V;
 
 describe.each(<[Arrays.Number, Voicing][]>[
   [[0, 4, 7], TRIAD_MAJOR],

@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
-import { TestInit } from "tests";
-import { IntervalArray } from "intervals/chromatic";
+import type { Scale } from "../Scale";
+import type { IntervalArray } from "intervals/chromatic";
 import { fromIntraIntervals } from "../building";
-import { BEBOP_DOMINANT, BLUES_a4, BLUES_b5, BLUES_MAJOR, BLUES_MINOR, EGYPCIAN, MAJOR, PENTATONIC, PENTATONIC_MINOR } from "../constants";
-import { Scale } from "../Scale";
+import { Scales as S } from "..";
 import { calcIntraIntervals } from "./intraIntervals";
 import { mode } from ".";
 
-TestInit.chromaticScale();
+const { BEBOP_DOMINANT, BLUES_a4, BLUES_b5,
+  BLUES_MAJOR, BLUES_MINOR, EGYPCIAN, MAJOR, PENTATONIC, PENTATONIC_MINOR } = S;
 
 describe.each(<[Scale, IntervalArray][]>[
   [mode(BLUES_b5, 2), [2, 1, 1, 3, 2, 3]],

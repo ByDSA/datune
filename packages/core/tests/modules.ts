@@ -4,11 +4,11 @@ export async function classifyModuleExports(...paths: string[]) {
   const promises = paths.map(async (p)=> {
     const module = await import(p);
 
-    Object.entries(module).forEach(([nombre, valor]) => {
-      if (typeof valor === "function")
-        functions.push(nombre);
+    Object.entries(module).forEach(([key, value]) => {
+      if (typeof value === "function")
+        functions.push(key);
       else
-        vars.push(nombre);
+        vars.push(key); // incluye typeof value === "undefined", que son la mayoría
     } );
   } );
 

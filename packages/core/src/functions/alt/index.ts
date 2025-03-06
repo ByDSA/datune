@@ -18,14 +18,23 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     {
       path: "degree-function/constants",
       omit: ["initialize"],
+      hooks: {
+        onLoadModule: (m: typeof DegreeFuncConstants)=>!m.I && m.initialize(),
+      },
     },
     {
       path: "compound-function/constants",
       omit: ["initialize"],
+      hooks: {
+        onLoadModule: (m: typeof CompoundFuncsConstants)=>!m.V_V && m.initialize(),
+      },
     },
     {
       path: "others/constants",
       omit: ["initialize"],
+      hooks: {
+        onLoadModule: (m: typeof OtherFuncsConstants)=>!m.V7ALT && m.initialize(),
+      },
     },
   ],
   // eslint-disable-next-line no-undef

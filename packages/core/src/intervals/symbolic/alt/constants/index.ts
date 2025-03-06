@@ -1,15 +1,18 @@
 import type { Interval } from "../Interval";
 import { lock } from "@datune/utils/immutables";
-import * as DIntervals from "../../diatonic/constants";
+import * as DI from "../../diatonic/constants";
 import { fromIntervalQuality } from "../building/intervalQuality";
 import { a, d, da, dd, M, m, P } from "../quality/constants";
 
 export function initialize() {
   if (P1)
-    throw new TypeError("P1 is already initialized");
+    throw new Error("Already initialized");
+
+  if (!DI.UNISON)
+    DI.initialize();
 
   // eslint-disable-next-line max-len
-  const { ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH, FOURTH, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH, TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } = DIntervals;
+  const { ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH, FOURTH, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH, TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } = DI;
 
   d1 = fromIntervalQuality(
     UNISON,

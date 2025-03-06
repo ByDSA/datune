@@ -1,10 +1,8 @@
-import { TestInit } from "tests";
+import { Voicings as V } from "..";
 import { inv } from "../modifiers/inv";
 import { getNumInversionOf } from "./inversionMap";
-import { TRIAD_MAJOR, TRIAD_MINOR } from "./n3";
-import { COMMON_NON_INVERSIONS } from "./sets";
 
-TestInit.diatonicAltVoicing();
+const { COMMON_NON_INVERSIONS, TRIAD_MAJOR, TRIAD_MINOR } = V;
 
 describe.each([
   [TRIAD_MAJOR, 0],

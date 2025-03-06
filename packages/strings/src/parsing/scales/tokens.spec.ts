@@ -1,9 +1,8 @@
 import { LangId } from "lang";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { getLangTokens } from "./tokens";
 
 TestLang.loadAll();
-TestInit.chromaticScale();
 
 describe.each([
   [LangId.EN, "Major"],

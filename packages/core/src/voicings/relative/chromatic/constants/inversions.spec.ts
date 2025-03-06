@@ -1,9 +1,8 @@
-import { TestInit } from "tests";
+import { Voicings as V } from "..";
 import { inv } from "../modifiers";
 import { getNumInversionOf } from "./inversionMap";
-import { TRIAD_MAJOR, TRIAD_MINOR } from "./n3";
 
-TestInit.chromaticVoicing();
+const { TRIAD_MAJOR, TRIAD_MINOR } = V;
 
 describe.each([
   [TRIAD_MAJOR, 0],

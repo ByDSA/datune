@@ -1,9 +1,10 @@
-import { TestInit } from "tests";
-import { ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH, FOURTH, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH, TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } from "../constants";
+import { Intervals as I } from "..";
 import { sub } from "./sub";
 import { neg } from "./neg";
 
-TestInit.diatonicInterval();
+const { ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH,
+  FOURTH, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH,
+  TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } = I;
 
 describe.each([
   [UNISON, SECOND, neg(SECOND)],

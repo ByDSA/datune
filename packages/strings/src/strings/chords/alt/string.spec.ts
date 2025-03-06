@@ -6,10 +6,9 @@ import { Voicings } from "@datune/core/voicings/alt";
 import { bass } from "@datune/core/chords/octave/alt/modifiers";
 import { LangId } from "lang";
 import { stringifyPitches } from "strings/pitches/alt/array";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { stringifyChord } from ".";
 
-TestInit.diatonicAltChord();
 TestLang.loadAll();
 
 const { SEVENTH, THIRTEENTH_b5a9, TRIAD_AUGMENTED } = Voicings;

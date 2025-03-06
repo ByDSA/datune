@@ -1,9 +1,8 @@
-import { TestInit } from "tests";
 import { fromRootIntervals } from "./building";
-import { MAJOR } from "./constants";
 import { getModeIntraIntervals } from "./modifiers";
+import { Scales as S } from ".";
 
-TestInit.chromaticScale();
+const { MAJOR } = S;
 
 describe("getModeIntraIntervals", () => {
   it("-III  = MINOR.intervals", () => {

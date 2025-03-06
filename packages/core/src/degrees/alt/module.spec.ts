@@ -1,8 +1,5 @@
-import { TestInit } from "tests";
 import { expectExportModulesAsync } from "tests/modules";
-import { Degrees } from ".";
-
-TestInit.diatonicAltDegree();
+import { Degrees as D } from ".";
 
 const vars: string[] = [
   "I",
@@ -27,16 +24,16 @@ const vars: string[] = [
 ];
 const functions: string[] = [
   // Building
-  Degrees.from.name,
-  Degrees.fromDegrees.name,
+  D.from.name,
+  D.fromDegrees.name,
 
   // Modifiers
-  Degrees.add.name,
-  Degrees.sub.name,
+  D.add.name,
+  D.sub.name,
 
   // Conversions
-  Degrees.toChromaticDegree.name,
-  Degrees.toInterval.name,
+  D.toChromaticDegree.name,
+  D.toInterval.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -45,7 +42,7 @@ it("module should export functions and vars", async () => {
       functions,
       vars,
     },
-    barrel: Degrees,
+    barrel: D,
     modules: [
       "building",
       "modifiers",

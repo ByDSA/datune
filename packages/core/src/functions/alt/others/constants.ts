@@ -7,6 +7,9 @@ import { Voicings as V } from "voicings/alt";
 import { Func as F } from "../Func";
 
 export function initialize() {
+  if (V7ALT)
+    throw new Error("Already initialized");
+
   V7ALT = new (class A extends F {
     protected calculateChord(key: Key): Chord {
       const pitchV = P.add(key.root, I.P5);

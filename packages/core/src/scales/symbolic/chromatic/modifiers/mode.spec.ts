@@ -1,9 +1,8 @@
-import { TestInit } from "tests";
-import { DORIAN, AEOLIAN, IONIAN, LOCRIAN, LYDIAN, MAJOR, MIXOLYDIAN, PHRYGIAN } from "../constants";
-import { Scale } from "../Scale";
+import type { Scale } from "../Scale";
+import { Scales as S } from "..";
 import { mode } from ".";
 
-TestInit.chromaticScale();
+const { DORIAN, AEOLIAN, IONIAN, LOCRIAN, LYDIAN, MAJOR, MIXOLYDIAN, PHRYGIAN } = S;
 
 describe.each(<[Scale, number, Scale][]>[
   [MAJOR, 1, IONIAN],

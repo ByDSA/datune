@@ -1,14 +1,21 @@
 /* eslint-disable camelcase */
-import { Voicings } from "voicings/chromatic";
+import type { ChordArray } from "../Array";
+import type { Chord } from "../Chord";
+import { initialize as initializeVoicings, TRIAD_MAJOR } from "voicings/relative/chromatic/constants";
+import { Voicings as V } from "voicings/chromatic";
 import { Pitches as P } from "pitches/chromatic";
-import { ChordArray } from "../Array";
 import { fromRootVoicing } from "../building/root-voicing";
-import { Chord } from "../Chord";
 import { inv } from "../modifiers";
 
 export function initialize() {
+  if (C)
+    throw new Error("Already initialized");
+
+  if (!TRIAD_MAJOR)
+    initializeVoicings();
+
   // eslint-disable-next-line max-len, @typescript-eslint/naming-convention
-  const { NINTH, POWER_CHORD, SEVENTH, SEVENTH_MAJ7, SEVENTH_MINOR, SEVENTH_MINOR_MAJ7, THIRTEENTH_MAJ13_b5a9, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_SUS2, TRIAD_SUS4, THIRTEENTH_b5a9, TRIAD_AUGMENTED } = Voicings;
+  const { NINTH, POWER_CHORD, SEVENTH, SEVENTH_MAJ7, SEVENTH_MINOR, SEVENTH_MINOR_MAJ7, THIRTEENTH_MAJ13_b5a9, TRIAD_DIMINISHED, TRIAD_MINOR, TRIAD_SUS2, TRIAD_SUS4, THIRTEENTH_b5a9, TRIAD_AUGMENTED } = V;
 
   C = fromRootVoicing(P.C, TRIAD_MAJOR);
   CC = fromRootVoicing(P.CC, TRIAD_MAJOR);
@@ -185,7 +192,7 @@ export function initialize() {
 }
 
 function calculateAllNonInversions(): ChordArray {
-  const { COMMON_NON_INVERSIONS: VOICINGS_ALL_NON_INVERSIONS } = Voicings;
+  const { COMMON_NON_INVERSIONS: VOICINGS_ALL_NON_INVERSIONS } = V;
   const ret: ChordArray = [] as any;
 
   for (const voicing of VOICINGS_ALL_NON_INVERSIONS) {
@@ -200,7 +207,7 @@ function calculateAllNonInversions(): ChordArray {
 }
 
 function calcAll(): ChordArray {
-  const { COMMON_NON_INVERSIONS: VOICINGS_ALL_NON_INVERSIONS } = Voicings;
+  const { COMMON_NON_INVERSIONS: VOICINGS_ALL_NON_INVERSIONS } = V;
   const set = new Set<Chord>();
 
   for (const voicing of VOICINGS_ALL_NON_INVERSIONS) {

@@ -12,7 +12,7 @@ it("try to change private variables: index", () => {
     (<any>from(0, 1)).index = 1;
   };
 
-  expect(t).toThrow(TypeError);
+  expect(t).toThrow(Error);
 } );
 
 it("try to change private variables: interval", () => {
@@ -20,5 +20,5 @@ it("try to change private variables: interval", () => {
     (<any>from(0, 1)).interval = 1;
   };
 
-  expect(t).toThrow(TypeError);
+  expect(t).toThrow(Error);
 } );

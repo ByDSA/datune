@@ -1,21 +1,29 @@
 type Module = Record<string, unknown>;
 const moduleCache: Record<string, Module> = {}; // Cache de módulos cargados
 
-// Función para cargar un módulo si no está en cache
-function loadModule(modulePath: string) {
-  if (!moduleCache[modulePath])
-    // eslint-disable-next-line no-undef
-    moduleCache[modulePath] = require(modulePath);
-
-  return moduleCache[modulePath];
-}
-
-type PathObj = {
+type ModuleObj = {
   path: string;
   omit?: string[];
+  hooks?: {
+    onLoadModule?: (module: any)=> void;
+  };
 };
+
+// Función para cargar un módulo si no está en cache
+function loadModule(moduleObj: ModuleObj) {
+  if (!moduleCache[moduleObj.path]) {
+    // eslint-disable-next-line no-undef
+    const module = require(moduleObj.path);
+
+    moduleCache[moduleObj.path] = module;
+
+    moduleObj.hooks?.onLoadModule?.(module);
+  }
+
+  return moduleCache[moduleObj.path];
+}
 type Props = {
-  paths: (PathObj | string)[];
+  paths: (ModuleObj | string)[];
   dirname?: string;
   staticModule?: object;
 };
@@ -33,32 +41,39 @@ export function createProxyBarrel<T>(
       if (!(prop in target)) {
       // Si la propiedad no se ha cacheado, buscamos en los módulos disponibles
         if (!propertyCache[prop]) {
-          for (const modulePathObj of modulePaths) {
-            let modulePath: string;
+          for (const modulePath of modulePaths) {
+            let loadModuleObj: ModuleObj;
 
-            if (typeof modulePathObj === "string")
-              modulePath = modulePathObj;
-            else {
-              modulePath = modulePathObj.path;
+            if (typeof modulePath === "string") {
+              loadModuleObj = {
+                path: modulePath,
+              };
+            } else {
+              loadModuleObj = modulePath;
 
-              if (modulePathObj.omit?.includes(prop)) {
+              if (modulePath.omit?.includes(prop)) {
                 target[prop] = undefined;
                 break;
               }
             }
 
-            if (dirname)
-              modulePath = dirname + "/" + modulePath;
+            let loadModuleFullPath = loadModuleObj.path;
 
-            const module = loadModule(modulePath);
+            if (dirname)
+              loadModuleFullPath = dirname + "/" + loadModuleFullPath;
+
+            const module = loadModule( {
+              ...loadModuleObj,
+              path: loadModuleFullPath,
+            } );
 
             if (prop in module) {
             // Si encontramos la propiedad, la cacheamos junto con el módulo correspondiente
-              propertyCache[prop] = modulePath;
+              propertyCache[prop] = loadModuleFullPath;
               const value = module[prop];
 
               if (value === undefined)
-                throw new Error(`prop=${prop} for module=${modulePath} is undefined`);
+                throw new Error(`prop=${prop} for module=${loadModuleFullPath} is undefined`);
 
               target[prop] = value;
               break; // Salimos cuando encontramos la propiedad

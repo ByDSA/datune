@@ -1,13 +1,19 @@
-import { Pitches as P } from "pitches/alt";
-import { Scales } from "scales/alt";
+import type { Key } from "../Key";
+import * as P from "pitches/alt/constants";
+import * as S from "scales/symbolic/alt/constants";
 import { from } from "../building";
-import { Key } from "../Key";
 
 export function initialize() {
   if (C)
-    throw new Error("Cannot initialize twice");
+    throw new Error("Already initialized");
 
-  const { MAJOR, MINOR } = Scales;
+  if (!P.C)
+    P.initialize();
+
+  if (!S.MAJOR)
+    S.initialize();
+
+  const { MAJOR, MINOR } = S;
 
   C = from(P.C, MAJOR);
   CC = from(P.CC, MAJOR);

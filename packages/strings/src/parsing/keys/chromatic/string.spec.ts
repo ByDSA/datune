@@ -3,9 +3,8 @@ import { Pitches as P } from "@datune/core/pitches/chromatic";
 import { Scales } from "@datune/core/scales/chromatic";
 import { LangId } from "lang";
 import { parseKey } from "parsing/keys/chromatic";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 
-TestInit.chromaticKey();
 TestLang.loadAll();
 
 describe.each([

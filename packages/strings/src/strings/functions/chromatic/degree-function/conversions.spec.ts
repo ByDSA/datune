@@ -1,9 +1,10 @@
-import { I, I5, Im, VISUS4 } from "@datune/core/functions/chromatic/degree-function/constants";
-import { TestInit, TestLang } from "tests";
+import { Funcs as F } from "@datune/core";
+import { TestLang } from "tests";
 import { stringifyDegreeFunc } from ".";
 
-TestInit.chromaticFunc();
 TestLang.loadAll();
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { I, I5, Im, VISUS4 } = F;
 
 describe.each([
   [I, "I"],

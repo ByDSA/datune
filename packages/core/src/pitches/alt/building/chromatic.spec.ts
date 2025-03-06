@@ -1,29 +1,26 @@
 import { Pitches as CP } from "pitches/chromatic";
-import { TestInit } from "tests";
-import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } from "../constants";
+import { Pitches as P } from "..";
 import { fromChromatic } from "./chromatic";
 
-TestInit.diatonicAlt();
-
 describe.each([
-  [CP.C, C],
-  [CP.CC, CC],
-  [CP.Db, CC],
-  [CP.D, D],
-  [CP.DD, DD],
-  [CP.Eb, DD],
-  [CP.E, E],
-  [CP.F, F],
-  [CP.FF, FF],
-  [CP.Gb, FF],
-  [CP.G, G],
-  [CP.GG, GG],
-  [CP.Ab, GG],
-  [CP.A, A],
-  [CP.AA, AA],
-  [CP.Bb, AA],
-  [CP.B, B],
-  [CP.Cb, B],
+  [CP.C, P.C],
+  [CP.CC, P.CC],
+  [CP.Db, P.CC],
+  [CP.D, P.D],
+  [CP.DD, P.DD],
+  [CP.Eb, P.DD],
+  [CP.E, P.E],
+  [CP.F, P.F],
+  [CP.FF, P.FF],
+  [CP.Gb, P.FF],
+  [CP.G, P.G],
+  [CP.GG, P.GG],
+  [CP.Ab, P.GG],
+  [CP.A, P.A],
+  [CP.AA, P.AA],
+  [CP.Bb, P.AA],
+  [CP.B, P.B],
+  [CP.Cb, P.B],
 ])("tests", (chromatic, expected) => {
   it(`${chromatic}`, () => {
     const actual = fromChromatic(chromatic);

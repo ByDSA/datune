@@ -1,31 +1,23 @@
-import { Degrees } from "degrees/alt";
-import { TestInit } from "tests";
-import * as DegreeFuncs from "../degree-function/constants";
-import * as Constants from "./constants";
+import { Degrees as D } from "degrees/alt";
+import { Funcs as F } from "..";
 
-TestInit.diatonicAltDegree();
-TestInit.diatonicAltFunc();
+const { V, V7, V7_V, V_V } = F;
 
-describe("tests", () => {
-  const { V, V7 } = DegreeFuncs;
-  const { V7_V, V_V } = Constants;
+describe.each([
+  [V_V, V, [D.V]],
+  [V7_V, V7, [D.V]],
+])("constants", (func, expectedDegreeFunc, expectedDegreeChain) => {
+  describe(`${String(func)}`, () => {
+    it(`degreeFunc => ${String(expectedDegreeFunc)}`, () => {
+      const actual = func.degreeFunc;
 
-  describe.each([
-    [V_V, V, [Degrees.V]],
-    [V7_V, V7, [Degrees.V]],
-  ])("constants", (func, expectedDegreeFunc, expectedDegreeChain) => {
-    describe(`${String(func)}`, () => {
-      it(`degreeFunc => ${String(expectedDegreeFunc)}`, () => {
-        const actual = func.degreeFunc;
+      expect(actual).toBe(expectedDegreeFunc);
+    } );
 
-        expect(actual).toBe(expectedDegreeFunc);
-      } );
+    it(`degreeChain => ${expectedDegreeChain.map(String).join("-")}`, () => {
+      const actual = func.degreeChain;
 
-      it(`degreeChain => ${expectedDegreeChain.map(String).join("-")}`, () => {
-        const actual = func.degreeChain;
-
-        expect(actual).toStrictEqual(expectedDegreeChain);
-      } );
+      expect(actual).toStrictEqual(expectedDegreeChain);
     } );
   } );
 } );

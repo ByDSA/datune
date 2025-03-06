@@ -1,9 +1,10 @@
-import { A, C } from "@datune/core/pitches/diatonic/constants";
+import { Pitches as P } from "@datune/core/diatonic";
 import { LangId } from "lang";
 import { TestLang } from "tests";
 import { parsePitch } from ".";
 
 TestLang.loadAll();
+const { A, C } = P;
 
 describe.each([
   [LangId.ES, "Do", C],

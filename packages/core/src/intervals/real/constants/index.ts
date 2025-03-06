@@ -5,11 +5,10 @@ import { from, fromCents } from "../building";
 import { initialize as commasInitialize } from "./Commas";
 import { initialize as et12Initialize } from "./ET12";
 import { initialize as justInitialize } from "./Just";
-import { initialize as ptInitialize } from "./Pythagorean";
 
 export function initialize() {
   if (UNISON)
-    throw new TypeError("UNISON is already initialized");
+    throw new Error("Already initialized");
 
   UNISON = from(1);
   lock(UNISON);
@@ -21,7 +20,6 @@ export function initialize() {
   commasInitialize();
   et12Initialize();
   justInitialize();
-  ptInitialize();
 }
 
 export let UNISON: Interval;

@@ -1,5 +1,5 @@
+import type { Scale } from "../Scale";
 import { IntervalArray, Interval, Intervals } from "intervals/alt";
-import { Scale } from "../Scale";
 import { fromIntraIntervals } from "./intraIntervals";
 
 export function fromRootIntervals(...rootIntervals: IntervalArray): Scale {

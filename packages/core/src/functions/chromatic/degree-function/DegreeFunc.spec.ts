@@ -1,28 +1,22 @@
-import { Chords } from "chords/chromatic";
+/* eslint-disable @typescript-eslint/naming-convention */
+import { Chords as C } from "chords/chromatic";
 import { Keys as K } from "keys/chromatic";
-import { TestInit } from "tests";
-import { I, I0, V, VIm, Im } from "./constants";
+import { Funcs as F } from "..";
 
-TestInit.chromaticFunc();
-TestInit.chromaticKey();
-TestInit.chromaticChord();
+const { Am, C0, G } = C;
+const { I, I0, V, VIm, Im } = F;
 
-describe("tests", () => {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { Am, C, C0, G } = Chords;
+describe.each([
+  [I, K.C, C.C],
+  [Im, K.Am, Am],
+  [V, K.C, G],
+  [VIm, K.C, Am],
+  [I0, K.C, C0],
 
-  describe.each([
-    [I, K.C, C],
-    [Im, K.Am, Am],
-    [V, K.C, G],
-    [VIm, K.C, Am],
-    [I0, K.C, C0],
+])("getChord", (func, key, expectedChord) => {
+  it(`${String(func)} of ${key} = ${String(expectedChord)}`, () => {
+    const actual = func.getChord(key);
 
-  ])("getChord", (func, key, expectedChord) => {
-    it(`${String(func)} of ${key} = ${String(expectedChord)}`, () => {
-      const actual = func.getChord(key);
-
-      expect(actual).toBe(expectedChord);
-    } );
+    expect(actual).toBe(expectedChord);
   } );
 } );

@@ -1,10 +1,9 @@
 import type { Interval } from "../Interval";
-import { TestInit } from "tests";
-import { FIFTEENTH, SECOND, THIRD, UNISON } from "../constants";
+import { Intervals as I } from "..";
 import { neg } from "../modifiers/neg";
 import { hash } from "./hashObj";
 
-TestInit.diatonicInterval();
+const { FIFTEENTH, SECOND, THIRD, UNISON } = I;
 
 describe.each([
   [UNISON, "+0"],

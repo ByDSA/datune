@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-import { TestInit } from "tests";
-import { BLUES_a4, COMMON, MAJOR, MINOR, MIXOLYDIAN } from ".";
+import { Scales as S } from "..";
 
-TestInit.chromaticScale();
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const { BLUES_a4, COMMON, MAJOR, MINOR, MIXOLYDIAN } = S;
 
 describe("sets", () => {
   describe.each([...COMMON])("tests", (scale) => {

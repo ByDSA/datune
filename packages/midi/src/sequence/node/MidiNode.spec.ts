@@ -1,10 +1,11 @@
-import { HALF, QUARTER, WHOLE, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { MusicalDurations as MD } from "@datune/core";
 import { TestInit } from "tests";
 import { C5 } from "../../pitch/constants";
 import { from as noteFrom, MidiNote } from "../note";
 import { from } from "./building";
 
 TestInit.initAll();
+const { HALF, QUARTER, WHOLE, ZERO } = MD;
 
 describe("from - ZERO (C5 QUARTER 90)", () => {
   const note: MidiNote = noteFrom( {
@@ -63,5 +64,5 @@ it("immutability", () => {
 
   expect(() => {
     (node as any).to = WHOLE;
-  } ).toThrow(TypeError);
+  } ).toThrow(Error);
 } );

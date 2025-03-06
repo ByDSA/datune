@@ -1,18 +1,16 @@
-import { DegreeArray as DegreeAltArray, Degrees } from "degrees/alt";
-import { Degrees as D } from "degrees/diatonic";
+import type { DegreeArray } from "degrees/alt";
+import { Degrees as D } from "degrees/alt";
+import { Degrees as DD } from "degrees/diatonic";
 import { Funcs as F } from "functions/alt";
-import { TestInit } from "tests";
 import { getDegreeFuncs } from "./modifiers";
-import { CHROMATIC } from "./constants";
+import { Scales as S } from ".";
 
-TestInit.diatonicAltScale();
-TestInit.diatonicAltFunc();
-TestInit.diatonicAltVoicing();
+const { CHROMATIC } = S;
 
 it("hasEnharmonicDegrees - CHROMATIC - II# and bIII", () => {
-  const degrees: DegreeAltArray = [
-    Degrees.from(D.II, 1),
-    Degrees.bIII,
+  const degrees: DegreeArray = [
+    D.from(DD.II, 1),
+    D.bIII,
   ];
 
   expect(CHROMATIC.hasEnharmonicDegrees(...degrees)).toBeTruthy();

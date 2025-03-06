@@ -1,18 +1,15 @@
-import { TestInit } from "tests";
 import { CHAROMATIC_PITCHES12_SHARPS_VARNAMES } from "pitches/chromatic/tests/varnames";
 import { expectExportModulesAsync } from "tests/modules";
-import { Keys } from ".";
-
-TestInit.chromaticKey();
+import { Keys as K } from ".";
 
 const vars: string[] = CHAROMATIC_PITCHES12_SHARPS_VARNAMES.map(v=>[v, v + "m"]).flat();
 const functions: string[] = [
   // building
-  Keys.from.name,
+  K.from.name,
 
   // modifiers
-  Keys.rootChord3.name,
-  Keys.rootChord4.name,
+  K.rootChord3.name,
+  K.rootChord4.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -21,7 +18,7 @@ it("module should export functions and vars", async () => {
       functions,
       vars,
     },
-    barrel: Keys,
+    barrel: K,
     modules: [
       "modifiers",
       "constants",

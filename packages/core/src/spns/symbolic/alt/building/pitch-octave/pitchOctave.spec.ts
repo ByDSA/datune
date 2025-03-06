@@ -1,9 +1,8 @@
 import { Pitches as P } from "pitches/alt";
-import { TestInit } from "tests";
 import { fromPitchOctave } from "..";
-import { B4, C4, FF4 } from "../../constants";
+import { SPNs } from "../..";
 
-TestInit.diatonicAltSPN();
+const { B4, C4, FF4 } = SPNs;
 
 describe("range", () => {
   describe("below limit", () => {

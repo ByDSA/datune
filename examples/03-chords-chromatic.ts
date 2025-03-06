@@ -1,9 +1,6 @@
-import { init } from "@datune/core";
 import { Chords as C, Pitches as P, Intervals as I, Voicings as V, Keys as K, Funcs as F } from "@datune/core/chromatic";
 import { parseChord, stringifyChord } from "@datune/strings/chromatic";
 import { LangId, loadFromFile } from "@datune/strings/lang";
-
-init();
 
 /* Using constants */
 console.log("obj", C.Cm); /* ->

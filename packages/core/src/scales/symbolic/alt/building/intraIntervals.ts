@@ -1,6 +1,6 @@
+import type { Scale } from "../Scale";
 import { IntervalArray, Interval, Intervals } from "intervals/alt";
 import { cache } from "../caching/cache";
-import { Scale } from "../Scale";
 
 export function fromIntraIntervals(...intervals: IntervalArray): Scale {
   checkSumOctave(intervals);

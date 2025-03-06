@@ -3,10 +3,9 @@ import { Pitches as P } from "@datune/core/pitches/alt";
 import { Scales as S } from "@datune/core/scales/alt";
 import { LangId } from "lang";
 import { parseKey } from "parsing/keys/alt";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 
 TestLang.loadAll();
-TestInit.diatonicAltKey();
 
 describe.each([
   [LangId.EN, K.C, "C MAJOR"],

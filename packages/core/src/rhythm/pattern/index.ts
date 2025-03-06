@@ -5,10 +5,9 @@ import * as Constants from "./constants";
 import * as Modifiers from "./modifiers";
 import * as Euclidean from "./euclidean";
 
-const { initialize, ...publicConstants } = Constants;
 const staticModule = {
   ...Building,
-  ...publicConstants,
+  ...Constants,
   ...Modifiers,
   ...Euclidean,
 };

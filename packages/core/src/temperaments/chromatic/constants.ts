@@ -7,6 +7,12 @@ import { simplify, octaves } from "intervals/symbolic/chromatic/modifiers";
 import { shiftOctaves } from "intervals/real/modifiers/shiftOctaves";
 
 export function initialize() {
+  if (ET12 as unknown)
+    throw new Error("Already initialized");
+
+  if (!RI.UNISON)
+    RI.initialize();
+
   ET12 = (input: Interval): RealInterval => {
     const simpleInterval = simplify(input);
     const simpleRealInterval = (() => {

@@ -3,10 +3,9 @@ import { Chords as C } from "@datune/core/chords/alt";
 import { Pitches as P } from "@datune/core/pitches/alt";
 import { LangId } from "lang";
 import { stringifyChord } from "strings/chords/alt";
-import { TestInit, TestLang } from "tests";
+import { TestLang } from "tests";
 import { parseChord } from ".";
 
-TestInit.diatonicAltChord();
 TestLang.loadAll();
 
 describe.each([
