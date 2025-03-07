@@ -27,8 +27,6 @@ export * from "./immutables";
 
 export * from "./math/misc";
 
-export * from "./misc/Utils";
-
 export {
   random,
 } from "./random/random";
