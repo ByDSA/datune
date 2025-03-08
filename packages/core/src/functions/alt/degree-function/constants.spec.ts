@@ -5,7 +5,7 @@ import type { Voicing } from "voicings/alt";
 import { Degrees as D } from "degrees/alt";
 import { Voicings as V } from "voicings/alt";
 import { Funcs as F } from "..";
-import { calcDegrees } from "./calcs/degrees";
+import { getDegrees } from "./conversions";
 
 const { I, I0, Im, IVMaj7, VII0 } = F;
 const { SEVENTH_MAJ7, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = V;
@@ -32,7 +32,7 @@ describe.each([
     } );
 
     it(`degrees => ${expectedDegrees.map(String).join("-")}`, () => {
-      const degrees = calcDegrees(degreeFunc);
+      const degrees = getDegrees(degreeFunc);
       const expected = expectedDegrees;
 
       expect(degrees).toStrictEqual(expected);

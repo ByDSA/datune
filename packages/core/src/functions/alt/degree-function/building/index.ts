@@ -1,3 +1,7 @@
 export {
-  from,
-} from "./from";
+  fromDegreeVoicing,
+} from "./fromDegreeVoicing";
+
+export {
+  fromDegrees,
+} from "./fromDegrees";

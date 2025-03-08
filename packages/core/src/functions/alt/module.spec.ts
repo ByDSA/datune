@@ -201,8 +201,12 @@ const vars: string[] = [
   "bVm7b5",
 ];
 const functions: string[] = [
-  // degree-function/calcs
-  Funcs.calcDegrees.name,
+  // degree-function/building
+  Funcs.fromDegreeVoicing.name,
+  Funcs.fromDegrees.name,
+
+  // degree-function/conversions
+  Funcs.getDegrees.name,
 
   // compound-function/building/compose
   Funcs.compose.name,
@@ -216,7 +220,9 @@ it("module should export functions and vars", async () => {
     },
     barrel: Funcs,
     modules: [
-      "degree-function/calcs",
+      "degree-function/building/fromDegreeVoicing",
+      "degree-function/building/fromDegrees",
+      "degree-function/conversions",
       "compound-function/building/compose",
       "degree-function/constants",
       "compound-function/constants",

@@ -1,7 +1,7 @@
-import type { PitchArray } from "pitches/chromatic";
-import type { Voicing } from "voicings/chromatic";
-import { IntervalArray, Intervals } from "intervals/chromatic";
-import { DegreeArray } from "chromatic";
+import type { PitchArray } from "pitches/alt";
+import type { Voicing } from "voicings/alt";
+import { IntervalArray, Intervals } from "intervals/alt";
+import { DegreeArray } from "alt";
 import { fromRootIntervals } from "./rootIntervals";
 
 export function fromPitches(...pitches: PitchArray): Voicing {
@@ -28,8 +28,15 @@ function getRootIntervalsFromPitches(pitches: PitchArray): IntervalArray {
   for (let i = 1; i < pitches.length; i++) {
     let rootInterval = intervalBetweenNext(pitches[0], pitches[i]);
 
-    while (i > 0 && rootIntervals[i - 1] >= rootInterval)
+    if (!rootInterval)
+      throw new Error();
+
+    while (i > 0 && rootIntervals[i - 1].diatonicInterval >= rootInterval.diatonicInterval) {
       rootInterval = Iadd(rootInterval, P8);
+
+      if (!rootInterval)
+        throw new Error();
+    }
 
     rootIntervals.push(rootInterval);
   }

@@ -1,7 +1,7 @@
 import { bIII, bVI, bVII, I, II, III, IV, V, VI, VII } from "@datune/core/degrees/chromatic/constants";
 import { Degree as DegreeAlt } from "@datune/core/degrees/chromatic";
 import { DegreeFunc } from "@datune/core/functions/chromatic/degree-function/DegreeFunc";
-import { MusicalDuration } from "@datune/core";
+import { Funcs as F, MusicalDuration } from "@datune/core";
 
 export const commonDegreesWith = (
   degreeFunc: DegreeFunc,
@@ -9,7 +9,7 @@ export const commonDegreesWith = (
 ): boolean => {
   let common = 0;
 
-  for (const d of degreeFunc.degrees) {
+  for (const d of F.getDegrees(degreeFunc)) {
     if (withDegrees.includes(d))
       common++;
   }

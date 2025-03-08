@@ -106,6 +106,8 @@ const functions: string[] = [
   V.fromIntraIntervals.name,
   V.fromRootIntervals.name,
   V.fromVoicings.name,
+  V.fromDegrees.name,
+  V.fromPitches.name,
 
   // modifiers
   V.inv.name,

@@ -1,3 +1,0 @@
-export {
-  calcDegrees,
-} from "./degrees";

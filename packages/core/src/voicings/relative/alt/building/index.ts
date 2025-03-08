@@ -9,3 +9,7 @@ export {
 export {
   fromRootIntervals,
 } from "./rootIntervals";
+
+export {
+  fromDegrees, fromPitches,
+} from "./pitches";

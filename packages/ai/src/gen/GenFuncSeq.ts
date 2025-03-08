@@ -1,11 +1,10 @@
 import { FuncSequence, MainFunc, TonalApproach } from "@datune/analyzer";
-import { Degree } from "@datune/core/degrees/chromatic";
 import { bIII, bIIIMaj7, bVI, bVIm7, I, IIIm, IIIm7, IIm, IIm7, Im, Im7, IMaj7, ISUS4, IV, IVm, IVm7, IVMaj7, V, V7, VII0, VIm, VIm7, Vm, Vm7 } from "@datune/core/functions/chromatic/degree-function/constants";
-import { Func } from "@datune/core/functions/chromatic";
+import { Func, Funcs as F } from "@datune/core/functions/chromatic";
 import { MAJOR, MINOR } from "@datune/core/scales/symbolic/chromatic/constants";
 import { HALF, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { MusicalDuration } from "@datune/core/rhythm";
-import { Arrays, random, TemporalNode } from "@datune/utils";
+import { random, TemporalNode } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
 import { GenSeq } from "./GenSeq";
 import { limitTime } from "./utils";
@@ -61,7 +60,7 @@ export class GenFuncSeq extends GenSeq {
     } );
     const currentScale = keyAtTime?.event.scale;
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const funcIDegrees = <Arrays.NonEmpty<Degree>>I.degrees;
+    const funcIDegrees = F.getDegrees(I);
     const includesAll = (
       superArray: any[],
       subArray: any[],

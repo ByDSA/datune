@@ -24,9 +24,9 @@ export class Degree {
   }
 
   toString(): string {
-    if (this.alts === 0)
-      return this.diatonicDegree.toString();
+    if (this.alts >= 0)
+      return "#".repeat(this.alts) + this.diatonicDegree.toString();
 
-    return `${this.diatonicDegree} ${this.alts}`;
+    return `${"b".repeat(-this.alts)}${this.diatonicDegree}`;
   }
 }

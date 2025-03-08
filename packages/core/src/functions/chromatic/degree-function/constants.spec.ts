@@ -4,7 +4,8 @@ import type { Voicing } from "voicings/chromatic";
 import { Degrees as D, Degree } from "degrees/chromatic";
 import { Voicings as V } from "voicings/chromatic";
 import { Funcs as F } from "..";
-import { from } from "./building/from";
+import { fromDegreeVoicing } from "./building/fromDegreeVoicing";
+import { getDegrees } from "./conversions";
 
 const { I, Im, IVMaj7, VII0 } = F;
 const { SEVENTH_MAJ7, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = V;
@@ -29,7 +30,7 @@ describe.each([
   } );
 
   it("degrees", () => {
-    const { degrees } = degreeFunc;
+    const degrees = getDegrees(degreeFunc);
     const expected = expectedDegrees;
 
     expect(degrees).toStrictEqual(expected);
@@ -37,10 +38,7 @@ describe.each([
 } );
 
 it("from: I + TRIAD_MAJOR = I", () => {
-  const degreeFunc = from( {
-    degree: D.I,
-    voicing: TRIAD_MINOR,
-  } );
+  const degreeFunc = fromDegreeVoicing(D.I, TRIAD_MINOR);
   const expected = Im;
 
   expect(degreeFunc).toEqual(expected);

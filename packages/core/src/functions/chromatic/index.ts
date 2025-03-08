@@ -4,11 +4,15 @@ import type * as OthersFuncConstants from "./others/constants";
 import { createProxyBarrel } from "lazy-load";
 import { compose } from "./compound-function/building/compose";
 import { Func } from "./Func";
-import { from } from "./degree-function/building/from";
+import { fromDegreeVoicing } from "./degree-function/building/fromDegreeVoicing";
+import { fromDegrees } from "./degree-function/building/fromDegrees";
+import { getDegrees } from "./degree-function/conversions";
 
 const staticModule = {
-  from,
+  fromDegreeVoicing,
+  fromDegrees,
   compose,
+  getDegrees,
 };
 
 type LazyType = Omit<typeof CompoundFuncConstants, "initialize"> & Omit<typeof DegreeFuncConstants, "initialize"> & Omit<typeof OthersFuncConstants, "initialize">;

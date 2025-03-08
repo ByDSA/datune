@@ -1,7 +1,7 @@
-import type { Degree } from "./Degree";
 import type * as Constants from "./constants";
 import type * as Conversions from "./conversions";
 import { createProxyBarrel } from "lazy-load";
+import { Degree } from "./Degree";
 import * as Modifiers from "./modifiers";
 import * as Building from "./building";
 import { DegreeArray } from "./Array";

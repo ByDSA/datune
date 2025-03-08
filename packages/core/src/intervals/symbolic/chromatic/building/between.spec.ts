@@ -1,6 +1,7 @@
 import type { Interval } from "intervals/chromatic";
 import type { Pitch } from "pitches/chromatic";
 import { Pitches as P } from "pitches/chromatic";
+import { Degree, Degrees as D } from "chromatic";
 import { Intervals as I } from "..";
 import { between, betweenNext } from ".";
 
@@ -13,7 +14,21 @@ describe.each([
   [C, B, M7],
   [B, C, m2],
   [C, C, P8],
-])("betweenNext", (from: Pitch, to: Pitch, expected: Interval) => {
+])("betweenNext pitches", (from: Pitch, to: Pitch, expected: Interval) => {
+  it(`between ${from} and ${to} => ${expected}`, () => {
+    const actual = betweenNext(from, to);
+
+    expect(actual).toBe(expected);
+  } );
+} );
+
+describe.each([
+  [D.I, D.VI, M6],
+  [D.VI, D.I, m3],
+  [D.I, D.VII, M7],
+  [D.VII, D.I, m2],
+  [D.I, D.I, P8],
+])("betweenNext degrees", (from: Degree, to: Degree, expected: Interval) => {
   it(`between ${from} and ${to} => ${expected}`, () => {
     const actual = betweenNext(from, to);
 

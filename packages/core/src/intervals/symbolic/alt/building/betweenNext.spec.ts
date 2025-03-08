@@ -1,82 +1,47 @@
 import { Pitches as P } from "pitches/alt";
+import { Degrees as D } from "alt";
 import { Intervals as I } from "..";
 import { betweenNext } from "./betweenNext";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const { A, AA, B, C, DD, E, Gb, G, GG } = P;
 
-it("fromRootNotes: get from ImmutableCache", () => {
-  const interval = betweenNext(C, E);
-  const expected = I.M3;
+describe.each([
+  [C, E, I.M3],
+  [P.Gb, P.DD, I.da5],
+  [B, C, I.m2],
+  [C, B, I.M7],
+  [DD, Gb, I.dd4],
+  [A, AA, I.a1],
+  [A, GG, I.M7],
+  [GG, G, I.d8],
+])("betweenNext pitches", (from, to, expected) => {
+  it(`between ${from} and ${to} => ${expected}`, () => {
+    expect(from).toBeDefined();
+    expect(to).toBeDefined();
 
-  expect(interval).toBe(expected);
+    const interval = betweenNext(from, to);
+
+    expect(interval).toBe(expected);
+  } );
 } );
 
-it("gb to D#: DOUBLY DIMINISHED FIFTH", () => {
-  const a = P.Gb;
-  const b = P.DD;
+describe.each([
+  [D.I, D.III, I.M3],
+  [D.bV, D.aII, I.da5],
+  [D.VII, D.I, I.m2],
+  [D.I, D.VII, I.M7],
+  [D.aII, D.bV, I.dd4],
+  [D.VI, D.aVI, I.a1],
+  [D.VI, D.aV, I.M7],
+  [D.aV, D.V, I.d8],
+])("betweenNext degrees", (from, to, expected) => {
+  it(`between ${from} and ${to} => ${expected}`, () => {
+    expect(from).toBeDefined();
+    expect(to).toBeDefined();
 
-  expect(a).toBeDefined();
-  expect(b).toBeDefined();
+    const interval = betweenNext(from, to);
 
-  const interval = betweenNext(a, b);
-  const expected = I.da5;
-
-  expect(expected).toBeDefined();
-
-  expect(interval).toBe(expected);
-} );
-
-it("b to C: MINOR SECOND", () => {
-  const a = B;
-  const b = C;
-  const interval = betweenNext(a, b);
-  const expected = I.m2;
-
-  expect(interval).toBe(expected);
-} );
-
-it("c to B: MAJOR SEVENTH", () => {
-  const a = C;
-  const b = B;
-  const interval = betweenNext(a, b);
-  const expected = I.M7;
-
-  expect(interval).toBe(expected);
-} );
-
-it("d# to Gb: DOUBLY DIMINISHED FIFTH", () => {
-  const a = DD;
-  const b = Gb;
-  const interval = betweenNext(a, b);
-  const expected = I.dd4;
-
-  expect(interval).toBe(expected);
-} );
-
-it("a to A#:", () => {
-  const a = A;
-  const b = AA;
-  const interval = betweenNext(a, b);
-  const expected = I.a1;
-
-  expect(interval).toBe(expected);
-} );
-
-it("a to G#:", () => {
-  const a = A;
-  const b = GG;
-  const interval = betweenNext(a, b);
-  const expected = I.M7;
-
-  expect(interval).toBe(expected);
-} );
-
-it("g# to G:", () => {
-  const a = GG;
-  const b = G;
-  const interval = betweenNext(a, b);
-  const expected = I.d8;
-
-  expect(interval).toBe(expected);
+    expect(interval).toBe(expected);
+  } );
 } );
