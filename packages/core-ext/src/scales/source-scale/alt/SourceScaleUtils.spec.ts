@@ -2,7 +2,7 @@ import type { Scale } from "@datune/core/scales/alt";
 import { Scales } from "@datune/core/scales/alt";
 import { TestInit } from "tests";
 import { initialize } from "./set";
-import { getFromScale } from ".";
+import { findSourceScale } from ".";
 
 TestInit.loadAll();
 
@@ -16,7 +16,7 @@ describe.each([
   [MAJOR, MAJOR, 1],
 ])("getSourceScale", (scale: Scale, expectedSourceScale: Scale, expectedMode: number) => {
   describe("Scale: " + String(scale), () => {
-    const result = getFromScale(scale);
+    const result = findSourceScale(scale);
 
     it(`sourceScale => ${String(expectedSourceScale)}`, () => {
       const actual = result.sourceScale;
@@ -34,7 +34,7 @@ describe.each([
 
 it("getSourceScaleFrom:", () => {
   for (const scale of COMMON) {
-    const sourceScale = getFromScale(scale);
+    const sourceScale = findSourceScale(scale);
 
     expect(sourceScale).toBeDefined();
   }
