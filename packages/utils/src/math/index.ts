@@ -10,3 +10,5 @@ export {
 export * from "./misc";
 
 export * from "./num-exp";
+
+export * from "./combinatorics";
