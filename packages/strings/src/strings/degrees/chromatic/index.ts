@@ -4,16 +4,16 @@ import { Degree } from "@datune/core/degrees/chromatic";
 export function stringifyDegree(obj: Degree): string {
   switch (obj) {
     case I: return "I";
-    case bII: return "bII";
+    case bII: return "♭II";
     case II: return "II";
-    case bIII: return "bIII";
+    case bIII: return "♭III";
     case III: return "III";
     case IV: return "IV";
-    case bV: return "bV";
+    case bV: return "♭V";
     case V: return "V";
-    case bVI: return "bVI";
+    case bVI: return "♭VI";
     case VI: return "VI";
-    case bVII: return "bVII";
+    case bVII: return "♭VII";
     case VII: return "VII";
     default: return "[Chromatic Degree]";
   }

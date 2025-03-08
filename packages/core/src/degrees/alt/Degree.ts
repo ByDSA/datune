@@ -25,8 +25,8 @@ export class Degree {
 
   toString(): string {
     if (this.alts >= 0)
-      return "#".repeat(this.alts) + this.diatonicDegree.toString();
+      return "♯".repeat(this.alts) + this.diatonicDegree.toString();
 
-    return `${"b".repeat(-this.alts)}${this.diatonicDegree}`;
+    return `${"♭".repeat(-this.alts)}${this.diatonicDegree}`;
   }
 }

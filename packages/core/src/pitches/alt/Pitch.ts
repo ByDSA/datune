@@ -21,8 +21,8 @@ export class Pitch implements OctavePitch {
 
   toString(): string {
     if (this.alts >= 0)
-      return `${this.diatonic}${"#".repeat(this.alts)}`;
+      return `${this.diatonic}${"♯".repeat(this.alts)}`;
 
-    return `${this.diatonic}${"b".repeat(-this.alts)}`;
+    return `${this.diatonic}${"♭".repeat(-this.alts)}`;
   }
 }
