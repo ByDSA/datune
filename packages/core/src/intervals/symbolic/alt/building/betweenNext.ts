@@ -19,8 +19,8 @@ export function betweenNext(from: Degree | Pitch, to: Degree | Pitch): Interval 
   let pitch2: Pitch;
 
   if (from instanceof Degree) {
-    pitch1 = Pitches.fromDiatonicAlts(DP.fromInt(+from.diatonicDegree), from.alts);
-    pitch2 = Pitches.fromDiatonicAlts(DP.fromInt(+(to as any).diatonicDegree), to.alts);
+    pitch1 = Pitches.fromDPitchAlts(DP.fromInt(+from.diatonicDegree), from.alts);
+    pitch2 = Pitches.fromDPitchAlts(DP.fromInt(+(to as any).diatonicDegree), to.alts);
   } else {
     pitch1 = from;
     pitch2 = to as any;

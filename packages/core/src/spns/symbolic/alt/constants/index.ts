@@ -3,7 +3,7 @@ import type { SPNArray } from "../Array";
 import { lockr } from "@datune/utils/immutables";
 import * as DP from "pitches/diatonic/constants";
 import * as P from "pitches/alt/constants";
-import { fromDiatonicAlts as pitchFromDiatonicAlts } from "pitches/alt/building/diatonicAlts";
+import { fromDPitchAlts as pitchFromDiatonicAlts } from "pitches/alt/building/diatonicAlts";
 import { fromPitchOctave } from "../building";
 
 export function initialize() {

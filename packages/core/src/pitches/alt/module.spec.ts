@@ -7,11 +7,11 @@ const vars: string[] = [
   "ALL",
 ];
 const functions: string[] = [
-  // building/chromatic
+  // building
   P.fromChromatic.name,
-
-  // building/diatonicAlts
-  P.fromDiatonicAlts.name,
+  P.fromChromaticAndDiatonic.name,
+  P.fromDPitchAlts.name,
+  P.fromChromaticInPitchArray.name,
 
   // modifiers
   P.add.name,
@@ -34,6 +34,8 @@ it("module should export functions and vars", async () => {
       "conversions",
       "constants",
       "building/chromatic",
+      "building/chromaticAndDiatonic",
+      "building/chromaticInPitchArray",
       "building/diatonicAlts",
     ],
     // eslint-disable-next-line no-undef

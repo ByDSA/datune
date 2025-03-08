@@ -9,7 +9,7 @@ import { parsePitch } from ".";
 TestLang.loadAll();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const { AA, AAA, Ab, B, Bb, Bbb, BBB, C, fromDiatonicAlts } = P;
+const { AA, AAA, Ab, B, Bb, Bbb, BBB, C, fromDPitchAlts } = P;
 
 describe.each([
   [LangId.ES, "do", C],
@@ -25,8 +25,8 @@ describe.each([
   [LangId.EN, "bb", Bb],
   [LangId.EN, "bbb", Bbb],
   [LangId.EN, "b##", BBB],
-  [LangId.EN, "Cbbb", fromDiatonicAlts(DP.C, -3)],
-  [LangId.EN, "C###", fromDiatonicAlts(DP.C, 3)],
+  [LangId.EN, "Cbbb", fromDPitchAlts(DP.C, -3)],
+  [LangId.EN, "C###", fromDPitchAlts(DP.C, 3)],
   [LangId.ES, "C", null],
   [LangId.EN, "Do", null],
   [LangId.EN, "C####", null],
