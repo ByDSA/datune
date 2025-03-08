@@ -1,8 +1,8 @@
-import type { Func } from "./Func";
 import type * as DegreeFuncConstants from "./degree-function/constants";
 import type * as CompoundFuncsConstants from "./compound-function/constants";
 import type * as OtherFuncsConstants from "./others/constants";
 import { createProxyBarrel } from "lazy-load";
+import { Func } from "./Func";
 import { compose } from "./compound-function/building/compose";
 import { fromDegreeVoicing } from "./degree-function/building/fromDegreeVoicing";
 import { fromDegrees } from "./degree-function/building/fromDegrees";

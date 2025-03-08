@@ -1,7 +1,9 @@
 import { Intervals as I, Pitches as P, IntervalQualities as IQ } from "@datune/core/alt";
 import { Pitches as DP, Intervals as DI } from "@datune/core/diatonic";
-import { parseInterval, stringifyInterval } from "@datune/strings/alt";
-import { LangId, loadFromFile } from "@datune/strings/lang";
+import { useStringify } from "@datune/strings";
+import { parseInterval } from "@datune/strings/alt";
+
+useStringify();
 
 /* Using constants */
 // PERFECT_UNISON, MINOR_SECOND, ..., PERFECT_FIFTEENTH
@@ -48,19 +50,10 @@ console.log(
 );
 
 /* String parsing */
-// Loading language files
-loadFromFile( {
-  folder: "langs",
-  langId: LangId.EN,
-} );
-loadFromFile( {
-  folder: "langs",
-  langId: LangId.ES,
-} );
-
+useStringify();
 console.log("parse d5", parseInterval("d5")?.toString()); // -> d5
 // Error: console.log( parseInterval("d5", { langId: LangId.ES }) );
-console.log("stringify da11", stringifyInterval(I.da11)); // -> "da11" (double augmented ELEVENTH)
+console.log("stringify da11", I.da11.toString()); // -> "da11" (double augmented ELEVENTH)
 // Error: console.log( stringifyInterval(I.MAJOR_NINTH, { langId: LangId.ES }) );
 
 /* Others */

@@ -1,7 +1,7 @@
 import type * as Constants from "./constants";
-import type { Scale } from "./Scale";
 import type { ScaleArray } from "./Array";
 import { createProxyBarrel } from "lazy-load";
+import { Scale } from "./Scale";
 import * as Building from "./building";
 
 const staticModule = {

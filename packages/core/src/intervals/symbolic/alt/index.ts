@@ -1,4 +1,3 @@
-import type { Interval } from "./Interval";
 import type { IntervalArray } from "./Array";
 import type { between } from "./building/between";
 import type { betweenNext } from "./building/betweenNext";
@@ -14,8 +13,9 @@ import type { neg } from "./modifiers/neg";
 import type { simplify } from "./modifiers/simplify";
 import type { serie } from "./modifiers/calcSerie";
 import type { sub } from "./modifiers/sub";
-import type { Quality } from "./quality/Quality";
 import { createProxyBarrel } from "lazy-load";
+import { Quality } from "./quality/Quality";
+import { Interval } from "./Interval";
 import * as QualityBuilding from "./quality/building";
 import * as QualityConstants from "./quality/constants";
 import * as QualityConversions from "./quality/conversions";
@@ -26,12 +26,6 @@ const qualityModStatic = {
   ...QualityConversions,
 };
 const qualityMod = qualityModStatic;
-
-export {
-  Quality as IntervalQuality,
-  qualityMod as IntervalQualities,
-};
-
 const staticModule = {};
 
 type LazyType = Omit<typeof Constants, "initialize"> & typeof Conversions & {
@@ -81,4 +75,6 @@ export {
   IntervalArray,
   Interval,
   mod as Intervals,
+  Quality as IntervalQuality,
+  qualityMod as IntervalQualities,
 };

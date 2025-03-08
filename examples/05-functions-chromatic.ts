@@ -1,18 +1,8 @@
-import { init } from "@datune/core";
 import { Funcs as F, Degrees as D, Voicings as V, Keys as K } from "@datune/core/chromatic";
-import { stringifyDegree, stringifyVoicing, stringifyFunc } from "@datune/strings/chromatic";
-import { LangId, loadFromFile } from "@datune/strings/lang";
+import { useStringify } from "@datune/strings";
+import { stringifyDegree } from "@datune/strings/chromatic";
 
-init();
-// Loading language files
-loadFromFile( {
-  folder: "langs",
-  langId: LangId.EN,
-} );
-loadFromFile( {
-  folder: "langs",
-  langId: LangId.ES,
-} );
+useStringify();
 
 /* Constants */
 console.log("obj", F.I); /* -> DegreeFunction {
@@ -28,43 +18,42 @@ console.log(
   stringifyDegree(F.bIIIm.degree), // -> bIII
 );
 console.log(
-  "degrees",
-  F.I.degrees.map(stringifyDegree).toString(), // -> I, III, V
-  F.ISUS4.degrees.map(stringifyDegree).toString(), // -> I, IV, V
-);
-console.log(
   "voicing",
-  stringifyVoicing(F.V7.voicing), // -> Seventh
+  F.V7.voicing
+    .toString(), // -> Seventh
 );
 
 /* Building */
 console.log(
-  "from",
-  stringifyFunc(F.from( {
-    degree: D.II,
-    voicing: V.SEVENTH_MINOR,
-  } )), // -> IIm7
+  "fromDegreeVoicing",
+  F.fromDegreeVoicing(D.II, V.SEVENTH_MINOR)
+    .toString(), // -> IIm7
+  F.fromDegrees(D.I, D.IV, D.V)
+    .toString(), // -> Isus4
 );
 
 /* Compose */
 console.log(
   "compose",
-  stringifyFunc(F.compose(F.V7, D.VI)), // -> V7/VI
-  stringifyFunc(F.compose(F.V, D.V, D.V)), // -> V/V/V
-  stringifyFunc(F.compose(F.II7, D.VI)), // -> II7/VI
+  F.compose(F.V7, D.VI).toString(), // -> V7/VI
+  F.compose(F.V, D.V, D.V).toString(), // -> V/V/V
+  F.compose(F.II7, D.VI).toString(), // -> II7/VI
 );
 
 /* Get chord */
 console.log(
   "getChord",
-  F.V7.getChord(K.C),
+  F.V7.getChord(K.C).toString(), // -> G7
 
 );
 
-/* Stringify */
+/* Others */
 console.log(
-  "stringify",
-  stringifyFunc(F.II7), // -> "II7"
-  stringifyFunc(F.V7_V), // -> "V7/V"
-  stringifyFunc(F.V7ALT), // ->"V7AltV"
+  "getDegrees",
+  F.getDegrees(F.I)
+    .map(stringifyDegree)
+    .toString(), // -> I, III, V
+  F.getDegrees(F.ISUS4)
+    .map(stringifyDegree)
+    .toString(), // -> I, IV, V
 );

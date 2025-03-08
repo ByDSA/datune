@@ -1,8 +1,8 @@
 import type * as fromType from "./building/from";
 import type * as fromMillisAndBPM from "./building/fromMillisAndBPM";
 import type * as Constants from "./constants";
-import type { MusicalDuration } from "./MusicalDuration";
 import { createProxyBarrel } from "lazy-load";
+import { MusicalDuration } from "./MusicalDuration";
 import * as Modifiers from "./modifiers";
 
 const staticModule = {

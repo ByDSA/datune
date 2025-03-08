@@ -1,9 +1,9 @@
 import type * as Constants from "./constants";
 import type * as Building from "./building";
 import type * as Conversions from "./conversions";
-import type { Key } from "./Key";
 import type { KeyArray } from "./Array";
 import { createProxyBarrel } from "lazy-load";
+import { Key } from "./Key";
 import * as Modifiers from "./modifiers";
 
 const staticModule = {

@@ -1,9 +1,9 @@
-import type { Pitch } from "./Pitch";
 import type { PitchArray } from "./Array";
 import type * as Building from "./building";
 import type * as Conversions from "./conversions";
 import type * as Modifiers from "./modifiers";
 import { createProxyBarrel } from "lazy-load";
+import { Pitch } from "./Pitch";
 import * as Constants from "./constants";
 
 const staticModule = {

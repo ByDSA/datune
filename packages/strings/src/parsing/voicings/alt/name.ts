@@ -1,15 +1,14 @@
-import { Voicing } from "@datune/core/voicings/alt";
-import { COMMON } from "@datune/core/voicings/relative/alt/constants";
+import { Voicing, Voicings as V } from "@datune/core/voicings/alt";
 import { Options } from "parsing";
-import { stringifyVoicing as longName } from "strings/voicings/alt";
+import { stringifyVoicing as stringifyLongName } from "strings/voicings/alt";
 import { stringifyShortName } from "strings/voicings/alt/shortName";
 import { normalizeInput } from "../normalizeInput";
 
 export function parseFromName(input: string, options?: Options): Voicing | null {
   const normalizedInput = normalizeInput(input);
 
-  for (const voicing of COMMON) {
-    const normalizedLongName = normalizeInput(longName(voicing, options));
+  for (const voicing of V.COMMON) {
+    const normalizedLongName = normalizeInput(stringifyLongName(voicing, options));
 
     if (normalizedInput === normalizedLongName)
       return voicing;

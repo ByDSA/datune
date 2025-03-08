@@ -18,16 +18,6 @@ export function loadFromFile(params: Params): Language | null {
     } ) as string;
     const lang = JSON.parse(readLang) as Language;
 
-    return loadFromJSON(lang);
-  } catch {
-    return null;
-  }
-}
-
-export function loadFromJSON(json: object): Language | null {
-  try {
-    const lang = json as Language;
-
     if (!isValidLang(lang))
       return null;
 

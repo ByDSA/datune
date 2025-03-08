@@ -9,6 +9,7 @@ describe.each([
   [F.I5, "I5"],
   [F.Im, "Im"],
   [F.VISUS4, "VIsus4"],
+  [F.bII7SUS4b9, "♭II7sus4(♭9)"],
 ])("constants", (func, expectedString) => {
   it(`${func} => ${expectedString}`, () => {
     const actual = stringifyDegreeFunc(func);

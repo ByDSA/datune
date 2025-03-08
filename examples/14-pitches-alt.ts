@@ -1,8 +1,9 @@
 import { Pitches as P, Intervals as I } from "@datune/core/alt";
 import { Pitches as CP } from "@datune/core/chromatic";
 import { Pitches as DP } from "@datune/core/diatonic";
+import { useStringify } from "@datune/strings";
 import { parsePitch, stringifyPitch } from "@datune/strings/alt";
-import { LangId, loadFromFile } from "@datune/strings/lang";
+import { LangId } from "@datune/strings/lang";
 
 /* Using constants */
 // Normal Pitches: C, D, E, F, G, A, B
@@ -30,16 +31,6 @@ console.log("rootIntervals", P.rootIntervals(P.C, [I.m3, I.P5]).map(String)); //
 console.log("toChromatic", P.toChromatic(P.Eb)); // -> D# (Chromatic)
 
 /* String parsing */
-// Loading language files
-loadFromFile( {
-  folder: "langs",
-  langId: LangId.EN,
-} );
-loadFromFile( {
-  folder: "langs",
-  langId: LangId.ES,
-} );
-
 // Parsing
 console.log("parse D#", parsePitch("D#")?.toString()); // -> D#
 console.log("parse Eb", parsePitch("Eb")?.toString()); // -> D#
@@ -49,7 +40,8 @@ console.log("parse Solb ES", parsePitch("Solb", {
 } )?.toString()); // -> F#
 
 // Stringify
-console.log("stringify F##", stringifyPitch(P.FFF)?.toString()); // -> "F♯♯"
+useStringify();
+console.log("stringify F##", P.FFF.toString()); // -> "F♯♯"
 console.log("stringify Gbb ES", stringifyPitch(P.Gbb, {
   langId: LangId.ES,
 } )?.toString()); // -> "Sol♭♭"

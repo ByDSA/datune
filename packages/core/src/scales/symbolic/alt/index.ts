@@ -3,8 +3,8 @@ import type * as Constants from "./constants";
 import type * as Conversions from "./conversions";
 import type * as Modifiers from "./modifiers";
 import type { ScaleArray } from "./Array";
-import type { Scale } from "./Scale";
 import { createProxyBarrel } from "lazy-load";
+import { Scale } from "./Scale";
 
 const staticModule = {};
 

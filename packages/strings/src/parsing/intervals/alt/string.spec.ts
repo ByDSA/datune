@@ -21,6 +21,13 @@ it("m10", () => {
   expect(actual).toBe(expected);
 } );
 
+it("d5", () => {
+  const actual = parseInterval("d5");
+  const expected = I.d5;
+
+  expect(actual).toBe(expected);
+} );
+
 it("m17", () => {
   const actual = parseInterval("M17");
   const expected = fromIntervalQuality(intervalDiatonicFromInt(17 - 1), M);

@@ -1,6 +1,6 @@
 import type * as Building from "./building";
-import type { TimeSignature } from "./TimeSignature";
 import { createProxyBarrel } from "lazy-load";
+import { TimeSignature } from "./TimeSignature";
 import * as Constants from "./constants";
 
 const staticModule = {

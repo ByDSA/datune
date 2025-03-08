@@ -1,6 +1,6 @@
 import { Intervals as I, SPNs, Pitches as P } from "@datune/core/chromatic";
-import { parseInterval, stringifyInterval } from "@datune/strings/chromatic";
-import { LangId, loadFromFile } from "@datune/strings/lang";
+import { useStringify } from "@datune/strings";
+import { parseInterval } from "@datune/strings/chromatic";
 
 /* Using constants */
 // P1, m2, M2, ..., P15
@@ -31,20 +31,11 @@ console.log(
 );
 
 /* String parsing */
-// Loading language files
-loadFromFile( {
-  folder: "langs",
-  langId: LangId.EN,
-} );
-loadFromFile( {
-  folder: "langs",
-  langId: LangId.ES,
-} );
-
+useStringify();
 // Parsing
 console.log("parse d5", parseInterval("d5")); // -> d5 (6)
 // Error: console.log( parseInterval("d5", { langId: LangId.ES }) );
-console.log("stringify M9", stringifyInterval(I.M9)); // -> "M9"
+console.log("stringify M9", I.M9.toString()); // -> "M9"
 // Error: console.log( stringifyInterval(I.MAJOR_NINTH, { langId: LangId.ES }) );
 
 /* Others */

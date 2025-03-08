@@ -1,6 +1,7 @@
 import { Chords as C, Pitches as P, Intervals as I, Voicings as V, Keys as K, Funcs as F } from "@datune/core/chromatic";
-import { parseChord, stringifyChord } from "@datune/strings/chromatic";
-import { LangId, loadFromFile } from "@datune/strings/lang";
+import { useStringify } from "@datune/strings";
+import { parseChord } from "@datune/strings/chromatic";
+import { LangId } from "@datune/strings/lang";
 
 /* Using constants */
 console.log("obj", C.Cm); /* ->
@@ -65,16 +66,6 @@ console.log(
 );
 
 /* String parsing */
-// Loading language files
-loadFromFile( {
-  folder: "langs",
-  langId: LangId.EN,
-} );
-loadFromFile( {
-  folder: "langs",
-  langId: LangId.ES,
-} );
-
 // Parsing
 console.log("parse C", parseChord("C")?.toString()); // -> C-E-G (C)
 console.log("parse Eb", parseChord("Eb")?.toString()); // -> D#-G-A# (D#)
@@ -90,12 +81,13 @@ console.log("parse Sol7 ES", parseChord("Sol7", {
 } )?.toString()); // -> G-B-D-F (G7)
 
 // Stringify
-console.log("stringify Bº", stringifyChord(C.B0)?.toString()); // -> "Bº"
+useStringify();
+console.log("stringify Bº", C.B0.toString()); // -> "Bº"
 // Error: console.log("stringify G ES", stringifyChord(C.C7, { langId: LangId.ES })?.toString() );
-console.log("stringify C bass F", stringifyChord(C.bass(C.C, P.F))?.toString()); // -> "C/F"
-console.log("stringify Cm bass E", stringifyChord(C.bass(C.Cm, P.E))?.toString()); // -> "Cm/E"
-console.log("stringify C13b5a9", stringifyChord(C.C13b5a9)?.toString()); // -> "C13♭5♯9"
-console.log("stringify C13b5", stringifyChord(C.fromRootVoicing(P.C, V.THIRTEENTH_b5))?.toString()); // -> "C13♭5"
+console.log("stringify C bass F", C.bass(C.C, P.F).toString()); // -> "C/F"
+console.log("stringify Cm bass E", C.bass(C.Cm, P.E).toString()); // -> "Cm/E"
+console.log("stringify C13b5a9", C.C13b5a9.toString()); // -> "C13♭5♯9"
+console.log("stringify C13b5", C.fromRootVoicing(P.C, V.THIRTEENTH_b5).toString()); // -> "C13♭5"
 
 /* Others */
 console.log("toVoicing", C.toVoicing(C.G7).toString()); // -> 0-4-7-10 (SEVENTH)

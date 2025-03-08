@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {},
   "dependencies": {
+    "@datune/utils": "file:../packages/utils/dist",
     "@datune/core": "file:../packages/core/dist",
     "@datune/strings": "file:../packages/strings/dist"
   },

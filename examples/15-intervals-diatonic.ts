@@ -1,6 +1,5 @@
 import { Intervals as I } from "@datune/core/diatonic";
 import { stringifyInterval } from "@datune/strings/diatonic";
-import { LangId, loadFromFile } from "@datune/strings/lang";
 
 /* Using constants */
 // UNISON, SECOND, ..., FIFTEENTH
@@ -15,16 +14,6 @@ console.log("fromInt", I.fromInt(4).toString(), I.fromInt(-4).toString()); // ->
 console.log("neg", I.neg(I.FIFTH)); // -> Interval { magnitude: 4, direction: 1 } (FIFTH descendent)
 
 /* String parsing */
-// Loading language files
-loadFromFile( {
-  folder: "langs",
-  langId: LangId.EN,
-} );
-loadFromFile( {
-  folder: "langs",
-  langId: LangId.ES,
-} );
-
 // Error: console.log( parseInterval("FIFTH")?.toString() );
 console.log("stringify", stringifyInterval(I.FIFTH)?.toString()); // -> "FIFTH"
 // Error: console.log( stringifyInterval(I.FIFTH, { langId: LangId.ES })?.toString() );

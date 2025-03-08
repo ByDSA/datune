@@ -1,16 +1,7 @@
 import { Chords as C, Keys as K, Pitches as P, Scales as S } from "@datune/core/chromatic";
-import { stringifyScale } from "@datune/strings/chromatic";
-import { LangId, loadFromFile } from "@datune/strings/lang";
+import { useStringify } from "@datune/strings";
 
-// Loading language files
-loadFromFile( {
-  folder: "langs",
-  langId: LangId.EN,
-} );
-loadFromFile( {
-  folder: "langs",
-  langId: LangId.ES,
-} );
+useStringify();
 
 /* Constants */
 console.log("obj", K.C); /* ->
@@ -47,7 +38,7 @@ console.log(
 );
 console.log(
   "scale",
-  stringifyScale(K.FFm.scale), // -> Minor
+  K.FFm.scale.toString(), // -> Minor
 );
 console.log(
   "pitches",
@@ -75,17 +66,17 @@ console.log(
 console.log(
   "fromRootScale",
   K.from(P.C, S.MAJOR).toString(), // -> C Major
-  K.from(P.G, S.MIXOLYDIAN).pitches.toString(), // -> G Mixolydian
+  K.from(P.G, S.MIXOLYDIAN).toString(), // -> G Mixolydian
 );
 
 /* Others */
 console.log(
   "rootChord",
-  K.rootChord3(K.C)?.toString(), // -> C-E-G (C)
-  K.rootChord3(K.Am)?.toString(), // -> A-C-E (Am)
-  K.rootChord4(K.C)?.toString(), // -> C-E-G-B (CMaj7)
-  K.rootChord4(K.Am)?.toString(), // -> A-C-E-G (Am7)
-  K.rootChord3(K.from(P.C, S.LOCRIAN))?.toString(), // -> C-D#-F# (Cº)
-  K.rootChord3(K.from(P.C, S.ORIENTAL))?.toString(), // -> C-F-A (F/C)
+  K.rootChord3(K.C)?.toString(), // -> C
+  K.rootChord3(K.Am)?.toString(), // ->Am
+  K.rootChord4(K.C)?.toString(), // -> CMaj7
+  K.rootChord4(K.Am)?.toString(), // -> Am7
+  K.rootChord3(K.from(P.C, S.LOCRIAN))?.toString(), // -> Cº
+  K.rootChord3(K.from(P.C, S.ORIENTAL))?.toString(), // -> Am/C
   K.rootChord4(K.from(P.C, S.ORIENTAL)), // -> null
 );

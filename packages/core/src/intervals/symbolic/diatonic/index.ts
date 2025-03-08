@@ -1,5 +1,4 @@
 import type * as Constants from "./constants";
-import type { Interval } from "./Interval";
 import type { IntervalArray } from "./Array";
 import type { isMainInterval } from "./isMainInterval";
 import type { abs } from "./modifiers/abs";
@@ -8,6 +7,7 @@ import type { neg } from "./modifiers/neg";
 import type { simplify } from "./modifiers/simplify";
 import type { sub } from "./modifiers/sub";
 import { createProxyBarrel } from "lazy-load";
+import { Interval } from "./Interval";
 import { Direction } from "./Direction";
 import { fromInt } from "./building";
 
