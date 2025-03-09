@@ -2,7 +2,9 @@
   "name": "datune-examples",
   "version": "1.0.0",
   "description": "",
-  "scripts": {},
+  "scripts": {
+    "test:errors": "bin/test-errors.mjs"
+  },
   "dependencies": {
     "@datune/utils": "file:../packages/utils/dist",
     "@datune/core": "file:../packages/core/dist",
