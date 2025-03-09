@@ -1,13 +1,13 @@
 import type { DegreeArray } from "alt";
 import type { DegreeFunc } from "./DegreeFunc";
-import { Degrees as D } from "alt";
+import { add as aAdd } from "degrees/alt/modifiers";
 
 export function getDegrees(degreeFunc: DegreeFunc): DegreeArray {
   const ret = [];
   const initialDegree = degreeFunc.degree;
 
   for (const rootIntervalVoicing of degreeFunc.voicing) {
-    const degree = D.add(initialDegree, rootIntervalVoicing);
+    const degree = aAdd(initialDegree, rootIntervalVoicing);
 
     ret.push(degree);
   }

@@ -30,10 +30,6 @@ const functions: string[] = [
   // Modifiers
   D.add.name,
   D.sub.name,
-
-  // Conversions
-  D.toChromaticDegree.name,
-  D.toInterval.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -46,7 +42,6 @@ it("module should export functions and vars", async () => {
     modules: [
       "building",
       "modifiers",
-      "conversions",
       "constants",
     ],
     // eslint-disable-next-line no-undef

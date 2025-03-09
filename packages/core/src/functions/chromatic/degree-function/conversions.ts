@@ -1,13 +1,13 @@
 import type { DegreeArray } from "chromatic";
 import type { DegreeFunc } from "./DegreeFunc";
-import { Degrees as D } from "chromatic";
+import { add as degreeAdd } from "degrees/chromatic/modifiers";
 
 export function getDegrees(degreeFunc: DegreeFunc): DegreeArray {
   const ret = [];
   const initialDegree = degreeFunc.degree;
 
   for (const rootIntervalVoicing of degreeFunc.voicing) {
-    const degree = D.add(initialDegree, rootIntervalVoicing);
+    const degree = degreeAdd(initialDegree, rootIntervalVoicing);
 
     ret.push(degree);
   }

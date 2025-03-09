@@ -17,9 +17,6 @@ const functions: string[] = [
   P.add.name,
   P.rootIntervals.name,
   P.sub.name,
-
-  // conversions
-  P.toChromatic.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -31,7 +28,6 @@ it("module should export functions and vars", async () => {
     barrel: P,
     modules: [
       "modifiers",
-      "conversions",
       "constants",
       "building/chromatic",
       "building/chromaticAndDiatonic",

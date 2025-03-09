@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 import type { Scale } from "../Scale";
-import type { Degree } from "degrees/chromatic";
 import type { Arrays } from "@datune/utils";
 import { lockr } from "@datune/utils/immutables";
 import { fromIntraIntervals, fromRootIntervals } from "../building";
 import { mode } from "../modifiers";
+import { MAJOR_SCALE_DEGREES } from "./majorScaleDegrees";
 
 export function initialize() {
   if (MAJOR)
@@ -193,8 +193,6 @@ export function initialize() {
   initializeSets();
   lockr(COMMON);
 }
-
-export const MAJOR_SCALE_DEGREES: readonly Degree[] = Object.freeze([0, 2, 4, 5, 7, 9, 11]);
 
 export let MAJOR: Scale;
 

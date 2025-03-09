@@ -11,9 +11,6 @@ const functions: string[] = [
   // building
   P.fromInt.name,
 
-  // conversions
-  P.toChromatic.name,
-
   // modifiers
   P.add.name,
   P.sub.name,
@@ -29,7 +26,6 @@ it("module should export functions and vars", async () => {
     modules: [
       "constants",
       "building",
-      "conversions",
       "modifiers",
     ],
     // eslint-disable-next-line no-undef

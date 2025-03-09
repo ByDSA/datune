@@ -56,7 +56,7 @@ export function initialize() {
         case 10: return RI.J_m7_SMALL;
         case 11: return RI.J_M7;
         case 6:
-        // para DiatonicAlt
+        // para AltPitch
           /*  if (interval === d5)
           return RI.J_d5;
 
@@ -98,7 +98,7 @@ export function initialize() {
     const simpleInterval = simplify(input);
     const simpleRealInterval = (() => {
       switch (simpleInterval) {
-      // comentarios = DiatonicAlt
+      // comentarios = AltPitch
       // / case d2: return RI.PT_d2;
         case CI.P1: return RI.UNISON;
           // case a1: return RI.PT_a1;

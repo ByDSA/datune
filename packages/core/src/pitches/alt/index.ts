@@ -3,7 +3,6 @@ import type { fromChromatic } from "./building/chromatic";
 import type { fromDPitchAlts } from "./building/diatonicAlts";
 import type { fromChromaticInPitchArray } from "./building/chromaticInPitchArray";
 import type * as Constants from "./constants";
-import type * as Conversions from "./conversions";
 import { createProxyBarrel } from "lazy-load";
 import * as Modifiers from "./modifiers";
 import { Pitch } from "./Pitch";
@@ -13,7 +12,7 @@ const staticModule = {
   ...Modifiers,
 };
 
-type LazyType = Omit<typeof Constants, "initialize"> & typeof Conversions & {
+type LazyType = Omit<typeof Constants, "initialize"> & {
   fromChromatic: typeof fromChromatic;
   fromChromaticAndDiatonic: typeof fromChromaticAndDiatonic;
   fromDPitchAlts: typeof fromDPitchAlts;
@@ -22,7 +21,6 @@ type LazyType = Omit<typeof Constants, "initialize"> & typeof Conversions & {
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    "conversions",
     {
       path: "constants",
       omit: ["initialize"],

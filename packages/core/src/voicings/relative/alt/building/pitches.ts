@@ -1,7 +1,8 @@
 import type { PitchArray } from "pitches/alt";
 import type { Voicing } from "voicings/alt";
-import { IntervalArray, Intervals } from "intervals/alt";
-import { DegreeArray } from "alt";
+import type { IntervalArray } from "intervals/alt";
+import type { DegreeArray } from "alt";
+import { Intervals } from "intervals/alt";
 import { fromRootIntervals } from "./rootIntervals";
 
 export function fromPitches(...pitches: PitchArray): Voicing {

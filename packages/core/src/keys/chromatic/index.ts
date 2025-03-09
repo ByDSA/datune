@@ -4,6 +4,7 @@ import type { KeyArray } from "./Array";
 import { createProxyBarrel } from "lazy-load";
 import { Key } from "./Key";
 import * as Modifiers from "./modifiers";
+import { fromAltKey } from "./building";
 
 const staticModule = {
   ...Modifiers,
@@ -11,6 +12,7 @@ const staticModule = {
 
 type LazyType = Omit<typeof Constants, "initialize"> & {
   from: typeof from;
+  fromAltKey: typeof fromAltKey;
 };
 
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
@@ -24,6 +26,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
       },
     },
     "building/rootScale",
+    "building/fromAltKey",
   ],
   // eslint-disable-next-line no-undef
   dirname: __dirname,

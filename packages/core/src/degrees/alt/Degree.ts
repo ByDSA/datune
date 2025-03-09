@@ -1,7 +1,7 @@
 import type { Dto } from "./caching/Dto";
 import { lockr } from "@datune/utils/immutables";
+import { fromAltDegree } from "degrees/chromatic/building";
 import { Degree as DiatonicDegree } from "degrees/diatonic";
-import { toChromatic as innerToChromatic } from "./utils";
 
 export class Degree {
   diatonicDegree: DiatonicDegree;
@@ -20,7 +20,7 @@ export class Degree {
   }
 
   valueOf(): number {
-    return innerToChromatic(this.diatonicDegree, this.alts);
+    return fromAltDegree(this);
   }
 
   toString(): string {

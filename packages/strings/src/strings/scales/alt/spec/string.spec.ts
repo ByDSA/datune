@@ -1,3 +1,4 @@
+import { Scales as CS } from "@datune/core/scales/chromatic";
 import { Scales as S } from "@datune/core/scales/alt";
 import { stringifyScale as stringifyCScale } from "strings/scales/chromatic";
 import { TestLang } from "tests";
@@ -26,7 +27,7 @@ describe.each(getAllCases())("aLL", (langId, scale, str) => {
 
     if (scale !== S.BLUES_a4) {
       it("same string in chromatic", () => {
-        const chromaticScale = S.toChromatic(scale);
+        const chromaticScale = CS.fromAltScale(scale);
         const actual = stringifyCScale(chromaticScale, {
           langId,
         } );

@@ -1,5 +1,5 @@
 import { type PitchArray } from "pitches/alt";
-import { hash as hashPitch } from "pitches/alt/conversions/hash";
+import { hash as hashPitch } from "pitches/alt/caching/hash";
 
 export type Dto = PitchArray;
 

@@ -10,9 +10,6 @@ const functions: string[] = [
   // modifiers
   K.rootChord3.name,
   K.rootChord4.name,
-
-  // conversions
-  K.toChromatic.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -24,7 +21,6 @@ it("module should export functions and vars", async () => {
     barrel: K,
     modules: [
       "building",
-      "conversions",
       "constants",
       "modifiers",
     ],

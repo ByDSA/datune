@@ -6,6 +6,7 @@ const vars: string[] = CHAROMATIC_PITCHES12_SHARPS_VARNAMES.map(v=>[v, v + "m"])
 const functions: string[] = [
   // building
   K.from.name,
+  K.fromAltKey.name,
 
   // modifiers
   K.rootChord3.name,
@@ -23,6 +24,7 @@ it("module should export functions and vars", async () => {
       "modifiers",
       "constants",
       "building/rootScale",
+      "building/fromAltKey",
     ],
     // eslint-disable-next-line no-undef
     dirname: __dirname,

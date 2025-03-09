@@ -1,7 +1,7 @@
 import type { Pitch as CPitch } from "@datune/core/pitches/chromatic";
 import type { PitchArray as DPitchArray } from "@datune/core/pitches/diatonic";
 import { Pitches as P, type Pitch } from "@datune/core/pitches/alt";
-import { toChromatic } from "@datune/core/pitches/alt/conversions";
+import { fromAltPitch } from "@datune/core/pitches/chromatic/building";
 import { ALL as D_ALL } from "@datune/core/pitches/diatonic/constants";
 
 type Props = {
@@ -47,7 +47,7 @@ export function find( { cPitch,
     for (let alts = -maxFlats; alts <= maxSharps; alts++) {
       const pitch: Pitch = P.fromDPitchAlts(diatonic, alts);
 
-      if (toChromatic(pitch) === cPitch)
+      if (fromAltPitch(pitch) === cPitch)
         ret.push(pitch);
     }
   }

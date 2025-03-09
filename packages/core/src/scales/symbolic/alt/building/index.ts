@@ -3,8 +3,8 @@ export {
 } from "./degrees";
 
 export {
-  fromDiatonicAlts,
-} from "./diatonicAlts";
+  fromPitches,
+} from "./pitches";
 
 export {
   generateByIntervals,

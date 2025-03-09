@@ -2,8 +2,9 @@ import type { Chord } from "../Chord";
 import type { IntervalArray } from "intervals/alt";
 import type { PitchArray } from "pitches/alt";
 import type { Voicing } from "voicings/alt";
-import { Intervals } from "intervals/alt";
-import { Voicings } from "voicings/alt";
+import { Intervals as I } from "intervals/alt";
+import { Intervals as CI } from "intervals/chromatic";
+import { Voicings as V } from "voicings/alt";
 
 export function toVoicing(obj: Chord): Voicing | null {
   const rootIntervals: IntervalArray | null = getRootIntervalsFromNotes(obj.pitches);
@@ -11,12 +12,13 @@ export function toVoicing(obj: Chord): Voicing | null {
   if (!rootIntervals)
     return null;
 
-  return Voicings.fromRootIntervals(...rootIntervals);
+  return V.fromRootIntervals(...rootIntervals);
 }
 
 function getRootIntervalsFromNotes(notes: PitchArray): IntervalArray | null {
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { add: Iadd, betweenNext, P8, P1, toChromaticInterval } = Intervals;
+  const { add: Iadd, betweenNext, P8, P1 } = I;
+  const { fromAltInterval } = CI;
   const rootIntervals: IntervalArray = [P1];
 
   for (let i = 1; i < notes.length; i++) {
@@ -26,7 +28,7 @@ function getRootIntervalsFromNotes(notes: PitchArray): IntervalArray | null {
       return null;
 
     while (i > 0
-      && toChromaticInterval(rootIntervals[i - 1]) >= toChromaticInterval(rootInterval)) {
+      && fromAltInterval(rootIntervals[i - 1]) >= fromAltInterval(rootInterval)) {
       rootInterval = Iadd(rootInterval, P8);
 
       if (!rootInterval)

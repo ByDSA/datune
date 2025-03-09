@@ -1,3 +1,0 @@
-export {
-  toChromatic,
-} from "./chromatic";

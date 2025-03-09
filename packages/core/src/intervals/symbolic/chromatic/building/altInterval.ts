@@ -1,14 +1,14 @@
-import type { Interval } from "../Interval";
-import type { Interval as CInterval } from "intervals/chromatic";
-import { Intervals as DIntervals } from "intervals/diatonic";
+import type { Interval as AInterval } from "intervals/alt";
+import type { Interval } from "intervals/chromatic";
+import { Intervals as DI } from "intervals/diatonic";
 import { Direction } from "intervals/symbolic/diatonic/Direction";
 import { Pitches as CP } from "pitches/chromatic";
 import { Pitches as DP } from "pitches/diatonic";
-import { Scales as CS } from "scales/chromatic";
-import { a, d, da, dd, m } from "../quality/constants";
+import { a, d, da, dd, m } from "intervals/symbolic/alt/quality/constants";
+import { MAJOR_SCALE_DEGREES } from "scales/symbolic/chromatic/constants/majorScaleDegrees";
 
-export function toChromaticInterval(obj: Interval): CInterval {
-  return new SemisPrecalculator(obj).calc();
+export function fromAltInterval(altInterval: AInterval): Interval {
+  return new SemisPrecalculator(altInterval).calc();
 }
 
 class SemisPrecalculator {
@@ -18,13 +18,13 @@ class SemisPrecalculator {
 
   #positiveDiatonicIntValue: number;
 
-  constructor(private self: Interval) {
+  constructor(private aInterval: AInterval) {
     this.#rootInterval = 0;
 
-    this.#positiveDiatonicIntValue = Math.abs(+this.self.diatonicInterval);
+    this.#positiveDiatonicIntValue = Math.abs(+this.aInterval.diatonicInterval);
     this.#positiveDiatonicIntValueMod7 = this.#positiveDiatonicIntValue % DP.NUMBER;
 
-    this.#rootInterval = CS.MAJOR_SCALE_DEGREES[this.#positiveDiatonicIntValueMod7];
+    this.#rootInterval = MAJOR_SCALE_DEGREES[this.#positiveDiatonicIntValueMod7];
   }
 
   calc(): number {
@@ -32,20 +32,20 @@ class SemisPrecalculator {
 
     this.octaveFixer();
 
-    if (this.self.diatonicInterval.direction === Direction.ASCENDENT)
+    if (this.aInterval.diatonicInterval.direction === Direction.ASCENDENT)
       return this.#rootInterval;
 
     return -this.#rootInterval;
   }
 
   private qualityFixer() {
-    const { FIFTH, FOURTH, SECOND, SEVENTH, SIXTH, THIRD, UNISON } = DIntervals;
+    const { FIFTH, FOURTH, SECOND, SEVENTH, SIXTH, THIRD, UNISON } = DI;
 
     switch (this.#positiveDiatonicIntValueMod7) {
       case +UNISON:
       case +FOURTH:
       case +FIFTH:
-        switch (this.self.quality) {
+        switch (this.aInterval.quality) {
           case d:
             this.#rootInterval--;
             break;
@@ -65,7 +65,7 @@ class SemisPrecalculator {
       case +THIRD:
       case +SIXTH:
       case +SEVENTH:
-        switch (this.self.quality) {
+        switch (this.aInterval.quality) {
           case m:
             this.#rootInterval--;
             break;

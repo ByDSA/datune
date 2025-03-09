@@ -1,5 +1,7 @@
 import type { Scale } from "../../Scale";
-import { IntervalArray, Interval, Intervals } from "intervals/alt";
+import type { IntervalArray, Interval } from "intervals/alt";
+import { Intervals as I } from "intervals/alt";
+import { Intervals as CI } from "intervals/chromatic";
 import { Scales } from "../..";
 
 class Generator {
@@ -23,7 +25,7 @@ class Generator {
   }
 
   private calculateUnorderedIntervals(): IntervalArray {
-    const { cyclic, serie } = Intervals;
+    const { cyclic, serie } = I;
     const serieIntervals = serie( {
       interval: this.interval,
       startIndex: this.startIndex,
@@ -35,7 +37,7 @@ class Generator {
   }
 
   generate(): Scale {
-    const { sub } = Intervals;
+    const { sub } = I;
     const unorderedIntervals = this.calculateUnorderedIntervals();
     const sortedIntervals = sortIntervals(unorderedIntervals);
     const [firstInterval] = sortedIntervals;
@@ -48,10 +50,10 @@ class Generator {
 }
 
 function sortIntervals(unorderedIntervals: IntervalArray): IntervalArray {
-  const { toChromaticInterval } = Intervals;
+  const { fromAltInterval } = CI;
   const rootIntervals = [...unorderedIntervals];
 
-  rootIntervals.sort((a, b) => toChromaticInterval(a) - toChromaticInterval(b));
+  rootIntervals.sort((a, b) => fromAltInterval(a) - fromAltInterval(b));
 
   return <IntervalArray>rootIntervals;
 }

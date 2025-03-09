@@ -2,11 +2,10 @@ import type { DegreeFunc } from "../degree-function/DegreeFunc";
 import type { Dto } from "./caching/Dto";
 import type { Chord } from "chords/alt";
 import type { DegreeArray } from "degrees/alt";
-import type { Interval } from "intervals/alt";
 import type { Key } from "keys/alt";
+import { Interval } from "intervals/alt";
 import { Chords } from "chords/alt";
-import { Degrees } from "degrees/alt";
-import { Intervals } from "intervals/alt";
+import { Intervals as I } from "intervals/alt";
 import { Func } from "../Func";
 
 export class CompoundFunc extends Func {
@@ -31,12 +30,12 @@ export class CompoundFunc extends Func {
     if (!baseChord)
       return null;
 
-    let accInterval = Intervals.P1;
+    let accInterval = I.P1;
 
     for (const degree of this.degreeChain) {
-      const rootInterval = Degrees.toInterval(degree);
+      const rootInterval = I.fromDegree(degree);
 
-      accInterval = Intervals.add(accInterval, rootInterval) as Interval;
+      accInterval = I.add(accInterval, rootInterval) as Interval;
 
       if (!accInterval)
         return null;

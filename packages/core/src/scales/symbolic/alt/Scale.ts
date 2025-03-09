@@ -1,9 +1,11 @@
 import type { Dto } from "./caching/Dto";
 import type { Interval } from "intervals/alt";
 import type { Scale as IScale } from "../../Scale";
+import type { DegreeArray, Degree } from "degrees/alt";
 import { lockr } from "@datune/utils/immutables";
-import { DegreeArray, Degree, Degrees } from "degrees/alt";
-import { Voicings } from "voicings/alt";
+import { Degrees as D } from "degrees/alt";
+import { Voicings as V } from "voicings/alt";
+import { fromAltDegree } from "degrees/chromatic/building/fromAltDegree";
 import { calcIntraIntervals } from "./modifiers/intraIntervals";
 
 export class Scale implements IScale<Interval, Degree> {
@@ -18,7 +20,7 @@ export class Scale implements IScale<Interval, Degree> {
   private constructor(dto: Dto) {
     this.intraIntervals = dto;
     this.length = this.intraIntervals.length;
-    const voicing = Voicings.fromIntraIntervals(...this.intraIntervals) as any;
+    const voicing = V.fromIntraIntervals(...this.intraIntervals) as any;
 
     this.rootIntervals = voicing.rootIntervals;
     this.degrees = calcDegrees(this);
@@ -35,7 +37,7 @@ export class Scale implements IScale<Interval, Degree> {
       let found = false;
 
       for (const scaleDegree of this.degrees) {
-        if (Degrees.toChromaticDegree(scaleDegree) === Degrees.toChromaticDegree(degree)) {
+        if (fromAltDegree(scaleDegree) === fromAltDegree(degree)) {
           found = true;
           break;
         }
@@ -54,12 +56,12 @@ export class Scale implements IScale<Interval, Degree> {
 }
 
 function calcDegrees(obj: Scale): DegreeArray {
-  const ret: DegreeArray = [Degrees.I];
+  const ret: DegreeArray = [D.I];
   const intraIntervals = calcIntraIntervals(obj);
 
   for (let i = 0; i < intraIntervals.length - 1; i++) {
     const interval = intraIntervals[i];
-    const degree = Degrees.add(ret[ret.length - 1], interval);
+    const degree = D.add(ret[ret.length - 1], interval);
 
     ret.push(degree);
   }

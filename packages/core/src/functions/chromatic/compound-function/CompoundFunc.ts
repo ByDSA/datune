@@ -1,8 +1,8 @@
 import type { DegreeFunc } from "../degree-function/DegreeFunc";
 import { Chords, Chord } from "chords/chromatic";
-import { Intervals } from "intervals/chromatic";
+import { Intervals as I } from "intervals/chromatic";
 import { Key } from "keys/chromatic";
-import { DegreeArray, Degrees } from "degrees/chromatic";
+import { DegreeArray } from "degrees/chromatic";
 import { Func } from "../Func";
 import { Dto, hash } from "./caching/Dto";
 
@@ -24,12 +24,12 @@ export class CompoundFunc extends Func {
 
   protected calculateChord(key: Key): Chord {
     const baseChord = this.degreeFunc.getChord(key);
-    let accInterval = Intervals.P1;
+    let accInterval = I.P1;
 
     for (const degree of this.degreeChain) {
-      const rootInterval = Degrees.toInterval(degree);
+      const rootInterval = I.fromDegree(degree);
 
-      accInterval = Intervals.add(accInterval, rootInterval);
+      accInterval = I.add(accInterval, rootInterval);
     }
 
     return Chords.add(baseChord, accInterval);

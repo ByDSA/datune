@@ -89,6 +89,7 @@ const functions: string[] = [
   Intervals.betweenNext.name,
   Intervals.fromIntervalQuality.name,
   Intervals.fromIntervals.name,
+  Intervals.fromDegree.name,
 
   // modifiers
   Intervals.serie.name,
@@ -99,9 +100,6 @@ const functions: string[] = [
   Intervals.neg.name,
   Intervals.simplify.name,
   Intervals.sub.name,
-
-  // conversions
-  Intervals.toChromaticInterval.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -119,6 +117,7 @@ it("module should export functions and vars", async () => {
       "building/betweenNext",
       "building/intervalQuality",
       "building/intervals",
+      "building/degree",
       "constants",
       "modifiers/calcSerie",
       "modifiers/abs",
@@ -128,7 +127,6 @@ it("module should export functions and vars", async () => {
       "modifiers/neg",
       "modifiers/simplify",
       "modifiers/sub",
-      "conversions",
     ],
     // eslint-disable-next-line no-undef
     dirname: __dirname,

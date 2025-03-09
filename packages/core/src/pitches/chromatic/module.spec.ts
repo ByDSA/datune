@@ -14,6 +14,8 @@ const vars: string[] = [
 const functions: string[] = [
   // building
   P.fromInt.name,
+  P.fromAltPitch.name,
+  P.fromDPitch.name,
 
   // modifiers
   P.add.name,

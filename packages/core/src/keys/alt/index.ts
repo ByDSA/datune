@@ -1,6 +1,5 @@
 import type * as Constants from "./constants";
 import type * as Building from "./building";
-import type * as Conversions from "./conversions";
 import type { KeyArray } from "./Array";
 import { createProxyBarrel } from "lazy-load";
 import { Key } from "./Key";
@@ -10,12 +9,11 @@ const staticModule = {
   ...Modifiers,
 };
 
-type LazyType = Omit<typeof Constants, "initialize"> & typeof Building & typeof Conversions;
+type LazyType = Omit<typeof Constants, "initialize"> & typeof Building;
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
     "building",
-    "conversions",
     {
       path: "constants",
       omit: ["initialize"],

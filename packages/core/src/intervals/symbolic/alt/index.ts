@@ -4,7 +4,6 @@ import type { betweenNext } from "./building/betweenNext";
 import type { fromIntervalQuality } from "./building/intervalQuality";
 import type { fromIntervals } from "./building/intervals";
 import type * as Constants from "./constants";
-import type * as Conversions from "./conversions";
 import type { abs } from "./modifiers/abs";
 import type { add } from "./modifiers/add";
 import type { cyclic } from "./modifiers/cyclic";
@@ -19,6 +18,7 @@ import { Interval } from "./Interval";
 import * as QualityBuilding from "./quality/building";
 import * as QualityConstants from "./quality/constants";
 import * as QualityConversions from "./quality/conversions";
+import { fromDegree } from "./building/degree";
 
 const qualityModStatic = {
   ...QualityBuilding,
@@ -28,11 +28,12 @@ const qualityModStatic = {
 const qualityMod = qualityModStatic;
 const staticModule = {};
 
-type LazyType = Omit<typeof Constants, "initialize"> & typeof Conversions & {
+type LazyType = Omit<typeof Constants, "initialize"> & {
   between: typeof between;
   betweenNext: typeof betweenNext;
   fromIntervalQuality: typeof fromIntervalQuality;
   fromIntervals: typeof fromIntervals;
+  fromDegree: typeof fromDegree;
   abs: typeof abs;
   add: typeof add;
   cyclic: typeof cyclic;
@@ -50,6 +51,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "building/betweenNext",
     "building/intervalQuality",
     "building/intervals",
+    "building/degree",
     {
       path: "constants",
       omit: ["initialize"],
@@ -65,7 +67,6 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "modifiers/neg",
     "modifiers/simplify",
     "modifiers/sub",
-    "conversions",
   ],
   // eslint-disable-next-line no-undef
   dirname: __dirname,

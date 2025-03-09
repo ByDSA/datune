@@ -18,13 +18,11 @@ const vars: string[] = [
 const functions: string[] = [
   // Building
   D.fromInt.name,
+  D.fromAltDegree.name,
 
   // Modifiers
   D.add.name,
   D.sub.name,
-
-  // Conversions
-  D.toInterval.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -38,7 +36,6 @@ it("module should export functions and vars", async () => {
       "building",
       "modifiers",
       "constants",
-      "conversions",
     ],
     // eslint-disable-next-line no-undef
     dirname: __dirname,

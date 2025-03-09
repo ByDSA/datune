@@ -1,9 +1,9 @@
 import type { Interval } from "../Interval";
+import { Intervals as CI } from "intervals/chromatic";
 import { calcAlts as pitchCalcAlts } from "pitches/alt/calcAlts";
-import { toChromaticInterval } from "./chromaticInterval";
 
 export function calcAlts(interval: Interval) {
-  const cInterval = toChromaticInterval(interval);
+  const cInterval = CI.fromAltInterval(interval);
 
   return pitchCalcAlts(cInterval, interval.diatonicInterval);
 }

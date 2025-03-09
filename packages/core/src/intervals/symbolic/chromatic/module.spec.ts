@@ -35,6 +35,8 @@ const functions: string[] = [
   I.between.name,
   I.betweenNext.name,
   I.betweenSPN.name,
+  I.fromAltInterval.name,
+  I.fromDegree.name,
 
   // modifiers
   I.add.name,

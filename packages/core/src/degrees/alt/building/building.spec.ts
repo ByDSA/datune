@@ -1,10 +1,7 @@
-import { Degrees as D } from "..";
-import { Degrees as DD } from "../../diatonic";
-import { from } from "../building";
+import { Degrees as AD } from "..";
 import { hash } from "../caching/hash";
-import { toChromaticDegree } from ".";
 
-const { I, II, III, IV, V, VI, VII } = D;
+const { I, II, III, IV, V, VI, VII } = AD;
 
 describe.each([
   [I, "I"],
@@ -14,7 +11,7 @@ describe.each([
   [V, "V"],
   [VI, "VI"],
   [VII, "VII"],
-])("stringify", (degree, expected) => {
+])("toString", (degree, expected) => {
   it(`${+degree} matches`, () => {
     expect(String(degree)).toBe(expected);
   } );
@@ -32,11 +29,4 @@ describe.each([
   it(`${String(degree)} matches`, () => {
     expect(hash(degree)).toBe(expected);
   } );
-} );
-
-it("toChromaticDegree", () => {
-  const degree1 = from(DD.I, -1);
-  const degree2 = VII;
-
-  expect(toChromaticDegree(degree1)).toBe(toChromaticDegree(degree2));
 } );

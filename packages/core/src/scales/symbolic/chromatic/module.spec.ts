@@ -11,6 +11,7 @@ const functions: string[] = [
   S.generateByIntervals.name,
   S.fromIntraIntervals.name,
   S.fromRootIntervals.name,
+  S.fromAltScale.name,
 
   // modifiers
   S.getModeIntraIntervals.name,
@@ -33,6 +34,7 @@ it("module should export functions and vars", async () => {
       "modifiers",
       "conversions",
       "constants",
+      "constants/majorScaleDegrees",
     ],
     // eslint-disable-next-line no-undef
     dirname: __dirname,

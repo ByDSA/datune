@@ -1,11 +1,10 @@
 import type { Pitch } from "../Pitch";
-import type { Pitch as CPitch } from "pitches/chromatic";
 import type { PitchArray } from "alt";
-import { toChromatic } from "../conversions";
+import { Pitches as CP, type Pitch as CPitch } from "pitches/chromatic";
 
 export function fromChromaticInPitchArray(
   cPitch: CPitch,
   pitchArray: PitchArray,
 ): Pitch | null {
-  return pitchArray.find(p=>toChromatic(p) === cPitch) ?? null;
+  return pitchArray.find(p=>CP.fromAltPitch(p) === cPitch) ?? null;
 }

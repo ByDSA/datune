@@ -6,8 +6,8 @@ import type { Pitch } from "pitches/alt";
 import type { Voicing } from "voicings/alt";
 import { lockr } from "@datune/utils/immutables";
 import { Pitches as P } from "pitches/alt";
-import { Degrees as D } from "degrees/alt";
 import { Chords as C } from "chords/alt";
+import { Intervals as I } from "intervals/alt";
 import { Func } from "../Func";
 
 export class DegreeFunc extends Func {
@@ -28,7 +28,7 @@ export class DegreeFunc extends Func {
   }
 
   protected calculateChord(key: Key): Chord {
-    const noteBase: Pitch = P.add(key.root, D.toInterval(this.degree));
+    const noteBase: Pitch = P.add(key.root, I.fromDegree(this.degree));
 
     return C.fromRootVoicing(noteBase, this.voicing);
   }

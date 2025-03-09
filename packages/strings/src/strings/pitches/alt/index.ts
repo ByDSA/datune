@@ -3,6 +3,6 @@ import { alts } from "lang/generation/utils";
 import { Options } from "parsing";
 import { stringifyPitch as stringifyAltPitch } from "../diatonic";
 
-export function stringifyPitch(diatonicAlt: Pitch, options?: Options): string {
-  return stringifyAltPitch(diatonicAlt.diatonic, options) + alts(diatonicAlt.alts);
+export function stringifyPitch(pitch: Pitch, options?: Options): string {
+  return stringifyAltPitch(pitch.diatonic, options) + alts(pitch.alts);
 }

@@ -6,8 +6,9 @@ import { cyclicMod } from "@datune/utils";
 import { Intervals as DIntervals, Interval as DInterval } from "intervals/diatonic";
 import { Pitches as CP } from "pitches/chromatic";
 import { Pitches as DP } from "pitches/diatonic";
-import { Scales as CScales } from "scales/chromatic";
-import { Degree, Pitches } from "alt";
+import { fromDPitchAlts } from "pitches/alt/building/diatonicAlts";
+import { Degree } from "degrees/alt/Degree";
+import { MAJOR_SCALE_DEGREES } from "scales/symbolic/chromatic/constants/majorScaleDegrees";
 import { fromIntervals } from "./intervals";
 
 export function betweenNext(from: Degree, to: Degree): Interval | null;
@@ -19,8 +20,8 @@ export function betweenNext(from: Degree | Pitch, to: Degree | Pitch): Interval 
   let pitch2: Pitch;
 
   if (from instanceof Degree) {
-    pitch1 = Pitches.fromDPitchAlts(DP.fromInt(+from.diatonicDegree), from.alts);
-    pitch2 = Pitches.fromDPitchAlts(DP.fromInt(+(to as any).diatonicDegree), to.alts);
+    pitch1 = fromDPitchAlts(DP.fromInt(+from.diatonicDegree), from.alts);
+    pitch2 = fromDPitchAlts(DP.fromInt(+(to as any).diatonicDegree), to.alts);
   } else {
     pitch1 = from;
     pitch2 = to as any;
@@ -30,8 +31,8 @@ export function betweenNext(from: Degree | Pitch, to: Degree | Pitch): Interval 
   let diatonicInterval: DInterval = DIntervals.fromInt(
     cyclicMod(intervalDiatonicInt, DP.NUMBER),
   );
-  const intervalChromaticInt = CScales.MAJOR_SCALE_DEGREES[+pitch2.diatonic] + pitch2.alts
-  - (CScales.MAJOR_SCALE_DEGREES[+pitch1.diatonic] + pitch1.alts);
+  const intervalChromaticInt = MAJOR_SCALE_DEGREES[+pitch2.diatonic] + pitch2.alts
+  - (MAJOR_SCALE_DEGREES[+pitch1.diatonic] + pitch1.alts);
   const chromaticInterval: ChromaticInterval = cyclicMod(intervalChromaticInt, CP.NUMBER);
 
   if (diatonicInterval === DIntervals.UNISON && intervalChromaticInt < 0)

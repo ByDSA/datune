@@ -9,7 +9,7 @@ const vars: string[] = [
 const functions: string[] = [
   // building
   S.fromDegrees.name,
-  S.fromDiatonicAlts.name,
+  S.fromPitches.name,
   S.generateByIntervals.name,
   S.fromIntraIntervals.name,
   S.fromRootIntervals.name,
@@ -20,9 +20,6 @@ const functions: string[] = [
   S.mode.name,
   S.getModeIntraIntervals.name,
   S.modes.name,
-
-  // conversions
-  S.toChromatic.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -35,7 +32,6 @@ it("module should export functions and vars", async () => {
     modules: [
       "building",
       "modifiers",
-      "conversions",
       "constants",
     ],
     // eslint-disable-next-line no-undef
