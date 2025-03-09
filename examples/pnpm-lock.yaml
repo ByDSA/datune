@@ -11,6 +11,9 @@ importers:
       '@datune/core':
         specifier: file:../packages/core/dist
         version: file:../packages/core/dist
+      '@datune/core-ext':
+        specifier: file:../packages/core-ext/dist
+        version: file:../packages/core-ext/dist
       '@datune/strings':
         specifier: file:../packages/strings/dist
         version: file:../packages/strings/dist
@@ -29,6 +32,9 @@ packages:
 
   '@datune/analyzer@file:../packages/analyzer/dist':
     resolution: {directory: ../packages/analyzer/dist, type: directory}
+
+  '@datune/core-ext@file:../packages/core-ext/dist':
+    resolution: {directory: ../packages/core-ext/dist, type: directory}
 
   '@datune/core@file:../packages/core/dist':
     resolution: {directory: ../packages/core/dist, type: directory}
@@ -237,6 +243,11 @@ packages:
 snapshots:
 
   '@datune/analyzer@file:../packages/analyzer/dist':
+    dependencies:
+      '@datune/core': file:../packages/core/dist
+      '@datune/utils': file:../packages/utils/dist
+
+  '@datune/core-ext@file:../packages/core-ext/dist':
     dependencies:
       '@datune/core': file:../packages/core/dist
       '@datune/utils': file:../packages/utils/dist

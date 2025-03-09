@@ -25,8 +25,10 @@ console.log(
   P.sub(P.C, I.d8).toString(), // C - d8 = C#
   P.sub(P.C, I.a8).toString(), // C - a8 = Cb
 );
-console.log("fromChromatic", P.fromChromatic(CP.Eb).toString()); // D#
-console.log("fromDiatonicAlts", P.fromDiatonicAlts(DP.B, -2).toString()); // Bbb
+console.log("fromChromatic", P.fromChromatic(CP.Eb).toString()); // -> D#
+console.log("fromDPitchAlts", P.fromDPitchAlts(DP.B, -2).toString()); // -> Bbb
+console.log("fromChromaticAndDiatonic", P.fromChromaticAndDiatonic(CP.B, DP.C).toString()); // -> Cb
+console.log("fromChromaticInPitchArray", P.fromChromaticInPitchArray(CP.B, [P.C, P.AAA, P.Cb])?.toString()); // -> A♯♯
 console.log("rootIntervals", P.rootIntervals(P.C, [I.m3, I.P5]).map(String)); // -> [ C + m3 = D#, C + P5 = G ]
 console.log("toChromatic", P.toChromatic(P.Eb)); // -> D# (Chromatic)
 

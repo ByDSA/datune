@@ -29,9 +29,13 @@ console.log(
   I.between(P.E, P.C)?.toString(), // -M3
   I.between(P.C, P.A)?.toString(), // -m3
   I.between(
-    P.fromDiatonicAlts(DP.C, -4),
-    P.fromDiatonicAlts(DP.C, 4),
-  ), // -> null (not calculated, Cbbbb to C#### is unused interval)
+    P.fromDPitchAlts(DP.C, -2),
+    P.fromDPitchAlts(DP.C, 4),
+  )?.toString(), // -> (+6)1 (from Cbb to C####)
+  I.between(
+    P.fromDPitchAlts(DP.C, -4),
+    P.fromDPitchAlts(DP.C, 4),
+  )?.toString(), // -> (-4)1 (from Cbbbb to C#### of previous octave)
 );
 console.log(
   "betweenNext",

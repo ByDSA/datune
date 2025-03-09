@@ -6,6 +6,7 @@
   "dependencies": {
     "@datune/utils": "file:../packages/utils/dist",
     "@datune/core": "file:../packages/core/dist",
+    "@datune/core-ext": "file:../packages/core-ext/dist",
     "@datune/strings": "file:../packages/strings/dist"
   },
   "keywords": [],
