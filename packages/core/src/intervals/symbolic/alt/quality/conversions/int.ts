@@ -9,7 +9,9 @@ export function toInt(quality: Quality, isMain: boolean): number | null {
       case a: return 1;
       case dd: return -2;
       case da: return 2;
-      default: return null;
+      case M:
+      case m: return null;
+      default: return strToNum(quality.toString());
     }
   }
 
@@ -20,6 +22,11 @@ export function toInt(quality: Quality, isMain: boolean): number | null {
     case d: return -2;
     case dd: return -3;
     case da: return 2;
-    default: return null;
+    case P: return null;
+    default: return strToNum(quality.toString());
   }
+}
+
+function strToNum(str: string): number {
+  return +str.substring(1, str.length - 1);
 }
