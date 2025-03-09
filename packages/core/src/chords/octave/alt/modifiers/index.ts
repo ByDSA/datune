@@ -13,7 +13,7 @@ export function inv(chord: Chord, n: number = 1): Chord {
   return fromPitches(...notes);
 }
 
-export function add(chord: Chord, interval: Interval): Chord {
+export function shift(chord: Chord, interval: Interval): Chord {
   const notes: PitchArray = chord.pitches.map(
     (p) => P.add(p, interval),
   ) as PitchArray;
@@ -21,7 +21,7 @@ export function add(chord: Chord, interval: Interval): Chord {
   return fromPitches(...notes);
 }
 
-export function sub(chord: Chord, interval: Interval): Chord {
+export function shiftDown(chord: Chord, interval: Interval): Chord {
   const notes: PitchArray = chord.pitches.map(
     (p) => P.sub(p, interval),
   ) as PitchArray;

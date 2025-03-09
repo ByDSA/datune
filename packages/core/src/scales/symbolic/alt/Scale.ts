@@ -1,11 +1,15 @@
 import type { Dto } from "./caching/Dto";
-import type { Interval } from "intervals/alt";
 import type { Scale as IScale } from "../../Scale";
 import type { DegreeArray, Degree } from "degrees/alt";
+import type { IntervalArray as CIntervalArray } from "intervals/chromatic";
 import { lockr } from "@datune/utils/immutables";
+import { type Interval } from "intervals/alt";
 import { Degrees as D } from "degrees/alt";
 import { Voicings as V } from "voicings/alt";
 import { fromAltDegree } from "degrees/chromatic/building/fromAltDegree";
+import { Scale as CScale } from "scales/chromatic";
+import { Intervals as CI } from "intervals/chromatic";
+import { Scales as CS } from "scales/chromatic";
 import { calcIntraIntervals } from "./modifiers/intraIntervals";
 
 export class Scale implements IScale<Interval, Degree> {
@@ -30,6 +34,12 @@ export class Scale implements IScale<Interval, Degree> {
 
   private static create(dto: Dto): Scale {
     return new Scale(dto);
+  }
+
+  toChromatic(): CScale {
+    const rootcIntervals = this.rootIntervals.map(i=>CI.fromAltInterval(i)) as CIntervalArray;
+
+    return CS.fromRootIntervals(...rootcIntervals);
   }
 
   hasEnharmonicDegrees(...degrees: DegreeArray): boolean {

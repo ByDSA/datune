@@ -105,6 +105,7 @@ const functions: string[] = [
   V.fromRootIntervals.name,
   V.fromPitches.name,
   V.fromDegrees.name,
+  V.fromChord.name,
 
   // modifiers
   V.inv.name,

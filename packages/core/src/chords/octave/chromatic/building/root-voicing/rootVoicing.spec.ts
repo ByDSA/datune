@@ -3,7 +3,6 @@ import type { Voicing } from "voicings/chromatic";
 import type { Chord } from "../../Chord";
 import { Pitches as P } from "pitches/chromatic";
 import { Voicings as V } from "voicings/chromatic";
-import { toVoicing } from "../../conversions";
 import { Chords as C } from "../..";
 import { fromRootVoicing } from ".";
 
@@ -30,6 +29,6 @@ describe.each([
     const chord = fromRootVoicing(pitch, voicing);
 
     expect(chord.pitches[0]).toBe(pitch);
-    expect(toVoicing(chord)).toBe(voicing);
+    expect(chord.toVoicing()).toBe(voicing);
   } );
 } );

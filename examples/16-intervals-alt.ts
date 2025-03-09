@@ -47,10 +47,10 @@ console.log(
 // Conversion
 console.log(
   "toChromaticInterval",
-  I.toChromaticInterval(I.d5).toString(), // d5 -> d5/a4 (6)
-  I.toChromaticInterval(I.M7).toString(), // M7 (11)
-  I.toChromaticInterval(I.d7).toString(), // d7 -> M6 (9)
-  I.toChromaticInterval(I.dd7).toString(), // dd7 -> m6 (8)
+  I.d5.toChromaticInterval().toString(), // d5 -> d5/a4 (6)
+  I.M7.toChromaticInterval().toString(), // M7 (11)
+  I.d7.toChromaticInterval().toString(), // d7 -> M6 (9)
+  I.dd7.toChromaticInterval().toString(), // dd7 -> m6 (8)
 );
 
 /* String parsing */
@@ -87,7 +87,7 @@ console.log(
     startIndex: -1,
   } )
     ?.map(I.cyclic)
-    .sort((a, b)=>I.toChromaticInterval(a) - I.toChromaticInterval(b))
+    .sort((a, b)=>+a - +b)
     .map(String), // P1, M2, M3, P4, P5, M6, M7 (Major Scale)
   I.serie( {
     interval: I.P5,
@@ -95,6 +95,6 @@ console.log(
     startIndex: 0,
   } )
     ?.map(I.cyclic)
-    .sort((a, b)=>I.toChromaticInterval(a) - I.toChromaticInterval(b))
+    .sort((a, b)=>+a - +b)
     .map(String), // P1, M2, M3, a4, P5, M6, M7 (Lydian Scale)
 );

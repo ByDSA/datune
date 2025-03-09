@@ -1,7 +1,9 @@
 import type { Pitch as DPitch } from "../diatonic";
 import type { Dto } from "./caching/Dto";
 import type { OctavePitch } from "../OctavePitch";
+import type { Pitch as CPitch } from "chromatic";
 import { lockr } from "@datune/utils/immutables";
+import { Pitches as CP } from "pitches/chromatic";
 
 export class Pitch implements OctavePitch {
   diatonic: DPitch;
@@ -17,6 +19,10 @@ export class Pitch implements OctavePitch {
 
   valueOf(): number {
     return (+this.diatonic * 11) + (this.alts * 17);
+  }
+
+  toChromatic(): CPitch {
+    return CP.fromAltPitch(this);
   }
 
   toString(): string {

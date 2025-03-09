@@ -1,9 +1,9 @@
-import { Intervals } from "intervals/alt";
+import { Intervals as I } from "intervals/alt";
 import { Pitches as P } from "..";
 import { add } from "./add";
 
 it("add: minor second", () => {
-  const i = Intervals.m2;
+  const i = I.m2;
 
   expect(i).toBeDefined();
 

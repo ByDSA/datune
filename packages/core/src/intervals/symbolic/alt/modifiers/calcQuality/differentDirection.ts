@@ -12,7 +12,7 @@ export function calcFixedQualityDifferentDirection(
   self: Interval,
   other: Interval,
   diatonicInterval: DiatonicInterval,
-): Quality | null {
+): Quality {
   const { fromInt: diatonicIntervalFromInt } = DI;
   const isMain = diatonicIsMainInterval(diatonicInterval);
   const selfChromatic = Math.abs(CI.fromAltInterval(self));

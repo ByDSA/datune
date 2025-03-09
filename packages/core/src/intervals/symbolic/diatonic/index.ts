@@ -9,10 +9,11 @@ import type { sub } from "./modifiers/sub";
 import { createProxyBarrel } from "lazy-load";
 import { Interval } from "./Interval";
 import { Direction } from "./Direction";
-import { fromInt } from "./building";
+import { fromChromaticInterval, fromInt } from "./building";
 
 const staticModule = {
   fromInt,
+  fromChromaticInterval,
 };
 
 type LazyType = Omit<typeof Constants, "initialize"> & {

@@ -26,6 +26,7 @@ const functions: string[] = [
   // Building
   D.from.name,
   D.fromDegrees.name,
+  D.fromInterval.name,
 
   // Modifiers
   D.add.name,

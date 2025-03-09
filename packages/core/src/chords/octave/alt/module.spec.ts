@@ -212,16 +212,13 @@ const functions: string[] = [
   Chords.fromKeyFunc.name,
   Chords.fromPitches.name,
   Chords.fromRootVoicing.name,
+  Chords.fromChromaticChord.name,
 
   // Modifiers
   Chords.inv.name,
-  Chords.add.name,
-  Chords.sub.name,
+  Chords.shift.name,
+  Chords.shiftDown.name,
   Chords.bass.name,
-
-  // Conversions
-  Chords.toChromatic.name,
-  Chords.toVoicing.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -231,7 +228,7 @@ it("module should export functions and vars", async () => {
       vars,
     },
     barrel: Chords,
-    modules: ["building", "modifiers", "conversions", "constants"],
+    modules: ["building", "modifiers", "constants"],
     // eslint-disable-next-line no-undef
     dirname: __dirname,
   } );

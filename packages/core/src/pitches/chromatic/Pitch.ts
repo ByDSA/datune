@@ -1,4 +1,9 @@
+/* eslint-disable import/no-cycle */
 import type { OctavePitch } from "../OctavePitch";
+import type { Interval } from "intervals/chromatic";
+import type { Pitch as APitch } from "pitches/alt";
+import { Pitches as AP } from "pitches/alt";
+import { Pitches as P } from ".";
 
 export class Pitch implements OctavePitch {
   private intValue;
@@ -9,6 +14,10 @@ export class Pitch implements OctavePitch {
 
   valueOf(): number {
     return this.intValue;
+  }
+
+  toAlt(): APitch {
+    return AP.fromChromatic(this);
   }
 
   toString() {
@@ -27,5 +36,13 @@ export class Pitch implements OctavePitch {
       case 11: return "B";
       default: return "Pitch";
     }
+  }
+
+  withAdd(interval: Interval): Pitch {
+    return P.add(this, interval);
+  }
+
+  withSub(interval: Interval): Pitch {
+    return P.sub(this, interval);
   }
 }

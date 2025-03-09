@@ -1,6 +1,5 @@
 import type { ChordArray } from "./Array";
 import type * as Constants from "./constants";
-import type * as Conversions from "./conversions";
 import { createProxyBarrel } from "lazy-load";
 import { Chord } from "./Chord";
 import * as Modifiers from "./modifiers";
@@ -11,11 +10,10 @@ const staticModule = {
   ...Modifiers,
 };
 
-type LazyType = Omit<typeof Constants, "initialize"> & typeof Conversions;
+type LazyType = Omit<typeof Constants, "initialize">;
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    "conversions",
     {
       path: "constants",
       omit: ["initialize"],

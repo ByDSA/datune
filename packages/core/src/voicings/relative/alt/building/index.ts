@@ -11,5 +11,9 @@ export {
 } from "./rootIntervals";
 
 export {
+  fromChord,
+} from "./fromChord";
+
+export {
   fromDegrees, fromPitches,
 } from "./pitches";

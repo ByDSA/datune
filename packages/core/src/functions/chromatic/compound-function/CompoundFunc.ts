@@ -1,5 +1,5 @@
 import type { DegreeFunc } from "../degree-function/DegreeFunc";
-import { Chords, Chord } from "chords/chromatic";
+import { Chords as C, Chord } from "chords/chromatic";
 import { Intervals as I } from "intervals/chromatic";
 import { Key } from "keys/chromatic";
 import { DegreeArray } from "degrees/chromatic";
@@ -32,7 +32,7 @@ export class CompoundFunc extends Func {
       accInterval = I.add(accInterval, rootInterval);
     }
 
-    return Chords.add(baseChord, accInterval);
+    return C.shift(baseChord, accInterval);
   }
 
   hashCode(): string {

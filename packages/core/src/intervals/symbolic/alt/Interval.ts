@@ -2,6 +2,8 @@ import type { Interval as DInterval } from "../diatonic";
 import type { Quality } from "./quality/Quality";
 import type { Dto } from "./caching/Dto";
 import { lockr } from "@datune/utils/immutables";
+import { Intervals as CI } from "intervals/chromatic";
+import { Degrees as D } from "degrees/alt";
 
 export class Interval {
   diatonicInterval: DInterval;
@@ -19,10 +21,17 @@ export class Interval {
   }
 
   toString() {
-    const diatonicIntervalInt = +this.diatonicInterval;
-    const diatonicIntervalIntAbs = Math.abs(diatonicIntervalInt);
+    const dIntervalIntAbs = Math.abs(+this.diatonicInterval);
     const sign = this.diatonicInterval.direction === 0 ? "" : "-";
 
-    return `${sign}${this.quality}${diatonicIntervalIntAbs + 1}`;
+    return `${sign}${this.quality}${dIntervalIntAbs + 1}`;
+  }
+
+  toChromaticInterval() {
+    return CI.fromAltInterval(this);
+  }
+
+  toDegree() {
+    return D.fromInterval(this);
   }
 }

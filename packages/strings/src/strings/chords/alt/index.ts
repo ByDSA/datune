@@ -1,6 +1,5 @@
 import { cyclicMod } from "@datune/utils";
 import { Chord } from "@datune/core/chords/alt";
-import { toVoicing } from "@datune/core/chords/octave/alt/conversions";
 import { Pitch } from "@datune/core/pitches/alt";
 import { inv } from "@datune/core/voicings/relative/alt/modifiers/inv";
 import { getNumInversionOf } from "@datune/core/voicings/relative/alt/constants/inversionMap";
@@ -10,7 +9,7 @@ import { stringifyPitch } from "strings/pitches/alt";
 import { stringifyShortName } from "strings/voicings/alt/shortName";
 
 export function stringifyChord(chord: Chord, options?: Options): string {
-  const voicing = toVoicing(chord);
+  const voicing = chord.toVoicing();
 
   if (!voicing)
     return getDefaultName(chord, options);

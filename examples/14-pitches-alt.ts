@@ -30,7 +30,7 @@ console.log("fromDPitchAlts", P.fromDPitchAlts(DP.B, -2).toString()); // -> Bbb
 console.log("fromChromaticAndDiatonic", P.fromChromaticAndDiatonic(CP.B, DP.C).toString()); // -> Cb
 console.log("fromChromaticInPitchArray", P.fromChromaticInPitchArray(CP.B, [P.C, P.AAA, P.Cb])?.toString()); // -> A♯♯
 console.log("rootIntervals", P.rootIntervals(P.C, [I.m3, I.P5]).map(String)); // -> [ C + m3 = D#, C + P5 = G ]
-console.log("toChromatic", P.toChromatic(P.Eb)); // -> D# (Chromatic)
+console.log("toChromatic", P.Eb.toChromatic()); // -> D# (Chromatic)
 
 /* String parsing */
 // Parsing

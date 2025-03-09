@@ -1,7 +1,12 @@
 import type { SymbolicChord } from "../SymbolicChord";
 import type { Dto } from "./caching/Dto";
 import type { PitchArray, Pitch } from "pitches/alt";
+import type { Interval, Voicing } from "alt";
+import type { Chord as CChord } from "chromatic";
 import { lockr } from "@datune/utils/immutables";
+import { Chords as CC } from "chords/octave/chromatic";
+import { Chords as C } from "chords/alt";
+import { Voicings as V } from "voicings/alt";
 
 export class Chord implements SymbolicChord<Pitch> {
   pitches: PitchArray;
@@ -38,6 +43,30 @@ export class Chord implements SymbolicChord<Pitch> {
     }
 
     return false;
+  }
+
+  withShift(interval: Interval): Chord {
+    return C.shift(this, interval);
+  }
+
+  withShiftDown(interval: Interval): Chord {
+    return C.shiftDown(this, interval);
+  }
+
+  withInv(n: number = 1): Chord {
+    return C.inv(this, n);
+  }
+
+  withBass(pitch: Pitch): Chord {
+    return C.bass(this, pitch);
+  }
+
+  toVoicing(): Voicing {
+    return V.fromChord(this);
+  }
+
+  toChromatic(): CChord {
+    return CC.fromAltChord(this);
   }
 
   toString(): string {

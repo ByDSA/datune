@@ -9,7 +9,10 @@ console.log("toString", I.d5.toString()); // -> 6
 console.log("valueOf", I.M3.valueOf()); // -> 4
 
 /* Using functions */
-console.log("add", I.add(I.M3, I.m3)); // M3 + m3 = P5 (7)
+console.log(
+  "add",
+  I.add(I.M3, I.m3), // M3 + m3 = P5 (7)
+);
 console.log("sub", I.sub(I.P8, I.P4)); // P8 - P4 = P5 (7)
 console.log(
   "between", // Shortest interval

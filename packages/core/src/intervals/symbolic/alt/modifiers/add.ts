@@ -7,14 +7,11 @@ import { calcFixedQualitySameDirection } from "./calcQuality/sameDirection";
 export function add(
   self: Interval,
   other: Interval,
-): Interval | null {
+): Interval {
   const diatonicInterval = DI.add(self.diatonicInterval, other.diatonicInterval);
   const quality = self.diatonicInterval.direction === other.diatonicInterval.direction
     ? calcFixedQualitySameDirection(self, other, diatonicInterval)
     : calcFixedQualityDifferentDirection(self, other, diatonicInterval);
 
-  if (!quality)
-    return null;
-
-  return fromIntervalQuality(diatonicInterval, quality);
+  return fromIntervalQuality(diatonicInterval, quality) as Interval;
 }

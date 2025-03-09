@@ -3,8 +3,8 @@ import type { Dto } from "./caching/Dto";
 import type { Chord } from "chords/alt";
 import type { DegreeArray } from "degrees/alt";
 import type { Key } from "keys/alt";
-import { Interval } from "intervals/alt";
-import { Chords } from "chords/alt";
+import type { Interval } from "intervals/alt";
+import { Chords as C } from "chords/alt";
 import { Intervals as I } from "intervals/alt";
 import { Func } from "../Func";
 
@@ -41,7 +41,7 @@ export class CompoundFunc extends Func {
         return null;
     }
 
-    return Chords.add(baseChord, accInterval);
+    return C.shift(baseChord, accInterval);
   }
 
   toString() {

@@ -1,3 +1,0 @@
-export {
-  toAlt,
-} from "./alt";

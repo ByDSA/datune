@@ -10,3 +10,7 @@ export {
 export {
   fromRootIntervals,
 } from "./rootIntervals";
+
+export {
+  fromChord,
+} from "./fromChord";

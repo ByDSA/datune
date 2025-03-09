@@ -57,11 +57,11 @@ console.log("fromKeyFunction", C.fromKeyFunc(K.C, F.VIm)?.toString()); // -> Am
 // Modifiers
 console.log(
   "add",
-  C.add(C.C, I.M2).toString(), // D
-  C.add(C.Cm, I.d5).toString(), // G♭m
-  C.add(C.Cm, I.a4).toString(), // F♯m
+  C.shift(C.C, I.M2).toString(), // D
+  C.shift(C.Cm, I.d5).toString(), // G♭m
+  C.shift(C.Cm, I.a4).toString(), // F♯m
 );
-console.log("sub", C.sub(C.C7, I.P4).toString()); // G7
+console.log("sub", C.shiftDown(C.C7, I.P4).toString()); // G7
 console.log(
   "inv",
   C.inv(C.Cm).toString(), // Cm/E♭
@@ -98,6 +98,6 @@ console.log("stringify CMaj13b5a9", C.CMaj13b5a9.toString()); // -> "CMaj13♭5�
 console.log("stringify C13b5", C.fromRootVoicing(P.C, V.THIRTEENTH_b5).toString()); // -> "C13♭5"
 
 /* Others */
-console.log("toVoicing", C.toVoicing(C.G7)?.toString()); // -> SEVENTH
+console.log("toVoicing", C.G7.toVoicing()); // -> SEVENTH
 console.log("ALL_NON_INVERSIONS", C.ALL_NON_INVERSIONS.length); // -> 2695
 console.log("ALL", C.ALL.length); // -> 14357

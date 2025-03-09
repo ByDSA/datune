@@ -4,7 +4,6 @@ import type { Chord } from "../../Chord";
 import { Pitches as P } from "pitches/alt";
 import { Voicings as V } from "voicings/alt";
 import { Chords as C } from "../..";
-import { toVoicing } from "../../conversions";
 import { fromRootVoicing } from ".";
 
 const { NINTH, SEVENTH, SEVENTH_MAJ7, TRIAD_MAJOR, TRIAD_MINOR } = V;
@@ -30,6 +29,6 @@ describe.each([
     const chord = fromRootVoicing(pitch, voicing);
 
     expect(chord.pitches[0]).toBe(pitch);
-    expect(toVoicing(chord)).toBe(voicing);
+    expect(chord.toVoicing()).toBe(voicing);
   } );
 } );

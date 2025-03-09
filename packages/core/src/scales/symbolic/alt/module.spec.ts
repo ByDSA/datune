@@ -13,6 +13,7 @@ const functions: string[] = [
   S.generateByIntervals.name,
   S.fromIntraIntervals.name,
   S.fromRootIntervals.name,
+  S.fromChromaticScale.name,
 
   // modifiers
   S.getDegreeFuncs.name,

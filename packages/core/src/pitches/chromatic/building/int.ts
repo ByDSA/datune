@@ -3,7 +3,7 @@ import { cyclicMod } from "@datune/utils";
 import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG, NUMBER } from "../constants";
 
 export function fromInt(intValue: number): Pitch {
-  const fixedIntValue = getValidInt(intValue);
+  const fixedIntValue = cyclicMod(intValue, NUMBER);
 
   switch (fixedIntValue) {
     case 0: return C;
@@ -20,8 +20,4 @@ export function fromInt(intValue: number): Pitch {
     case 11: return B;
     default: throw new Error(String(intValue));
   }
-}
-
-function getValidInt(intValue: number): number {
-  return cyclicMod(intValue, NUMBER);
 }

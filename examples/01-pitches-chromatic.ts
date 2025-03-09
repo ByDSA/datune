@@ -15,9 +15,20 @@ console.log("toString Eb", P.Eb.toString()); // -> D#
 console.log("toString D#", P.DD.toString()); // -> D#
 
 /* Using functions */
-console.log("add", P.add(P.C, I.M9).toString()); // C + M9 = D
-console.log("sub", P.sub(P.C, I.P4).toString()); // C - P4 = G
+// Building
 console.log("fromInt", P.fromInt(6).toString()); // 6 -> F#
+
+// Modifiers
+console.log(
+  "add",
+  P.C.withAdd(I.P5).toString(), // C + P5 = G
+  P.add(P.C, I.M9).toString(), // C + M9 = D
+);
+console.log(
+  "sub",
+  P.C.withSub(I.P5).toString(), // C - P5 = F
+  P.sub(P.C, I.P4).toString(), // C - P4 = G
+);
 console.log("rootIntervals", P.rootIntervals(P.C, [I.m3, I.P5]).map(String)); // -> [ C + m3 = D#, C + P5 = G ]
 
 /* String parsing */

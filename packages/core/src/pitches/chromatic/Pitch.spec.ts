@@ -1,3 +1,5 @@
+import { Intervals as I } from "intervals/chromatic";
+import { Pitches as AP } from "pitches/alt";
 import { Pitches as P } from ".";
 
 const { A, AA, B, C, CC, D, DD, E, F, FF, G, GG } = P;
@@ -28,4 +30,27 @@ it("sorting", () => {
   const actual = [E, G, C].sort();
 
   expect(actual).toEqual(expected);
+} );
+
+describe("modifiers", () => {
+  it("add", () => {
+    const actual = C.withAdd(I.P5);
+    const expected = G;
+
+    expect(actual).toBe(expected);
+  } );
+
+  it("sub", () => {
+    const actual = C.withSub(I.P5);
+    const expected = F;
+
+    expect(actual).toBe(expected);
+  } );
+} );
+
+it("toALt", () => {
+  const expected = AP.AA;
+  const actual = P.AA.toAlt();
+
+  expect(actual).toBe(expected);
 } );

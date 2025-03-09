@@ -1,4 +1,3 @@
-import type * as Conversions from "./conversions";
 import type * as Constants from "./constants";
 import type { ScaleArray } from "./Array";
 import type * as Building from "./building";
@@ -12,11 +11,10 @@ const staticModule = {
   MAJOR_SCALE_DEGREES,
 };
 
-type LazyType = Omit<typeof Constants, "initialize"> & typeof Building & typeof Conversions;
+type LazyType = Omit<typeof Constants, "initialize"> & typeof Building;
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    "conversions",
     "building",
     {
       path: "constants",

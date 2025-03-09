@@ -29,12 +29,6 @@ console.log(
   D.sub(D.I, I.m3), // -> 9 (VI)
 );
 
-/* Conversions */
-console.log(
-  "toInterval",
-  D.toInterval(D.bIII), // -> 3 (m3)
-);
-
 /* Stringify */
 console.log(
   "toString",

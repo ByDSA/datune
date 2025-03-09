@@ -1,5 +1,7 @@
+import { Pitches as P } from "..";
 import { Pitch } from "../Pitch";
-import { A, AA, ALL, B, C, CC, D, DD, E, F, FF, G, GG, NUMBER } from ".";
+
+const { A, AA, ALL, B, C, CC, D, DD, E, F, FF, G, GG, NUMBER } = P;
 
 describe("sets", () => {
   it("number", () => {

@@ -19,6 +19,7 @@ import * as QualityBuilding from "./quality/building";
 import * as QualityConstants from "./quality/constants";
 import * as QualityConversions from "./quality/conversions";
 import { fromDegree } from "./building/degree";
+import { fromChromaticInterval } from "./building/fromCInterval";
 
 const qualityModStatic = {
   ...QualityBuilding,
@@ -34,6 +35,7 @@ type LazyType = Omit<typeof Constants, "initialize"> & {
   fromIntervalQuality: typeof fromIntervalQuality;
   fromIntervals: typeof fromIntervals;
   fromDegree: typeof fromDegree;
+  fromChromaticInterval: typeof fromChromaticInterval;
   abs: typeof abs;
   add: typeof add;
   cyclic: typeof cyclic;

@@ -1,12 +1,12 @@
 import { Chords } from "chords/chromatic";
 import { Pitches as P } from "pitches/alt";
-import { fromPitches } from "../building";
-import { toChromatic } from "./chromatic";
+import { Chords as AC } from "chords/alt";
+import { fromAltChord } from "./fromAltChord";
 
 it("chromatic", () => {
   const expected = Chords.C7;
-  const chord = fromPitches(P.C, P.E, P.G, P.AA);
-  const actual = toChromatic(chord);
+  const chord = AC.fromPitches(P.C, P.E, P.G, P.AA);
+  const actual = fromAltChord(chord);
 
   expect(actual).toBe(expected);
 } );

@@ -2,8 +2,6 @@
 import { lock, lockr } from "@datune/utils/immutables";
 import { Pitch } from "../Pitch";
 
-export const NUMBER = 12;
-
 export const C: Pitch = new (Pitch as any)(0);
 
 export const CC: Pitch = new (Pitch as any)(1);
@@ -50,3 +48,7 @@ lock(BB);
 
 export const ALL = [C, CC, D, DD, E, F, FF, G, GG, A, AA, B];
 lockr(ALL);
+
+export {
+  NUMBER,
+} from "./Number";

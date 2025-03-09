@@ -4,7 +4,7 @@ import type { Pitch } from "pitches/chromatic/Pitch";
 import type { SPN } from "spns/symbolic/chromatic/SPN";
 import type { Degree } from "chromatic";
 import { cyclicMod } from "@datune/utils";
-import { NUMBER as CNUMBER } from "pitches/chromatic/constants";
+import { NUMBER as CNUMBER } from "pitches/chromatic/constants/Number";
 import { P8 } from "../constants";
 
 export function between(n1: Degree, n2: Degree): Interval;

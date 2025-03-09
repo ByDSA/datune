@@ -9,3 +9,7 @@ export {
 export {
   fromRootVoicing,
 } from "./root-voicing";
+
+export {
+  fromChromaticChord,
+} from "./fromCChord";

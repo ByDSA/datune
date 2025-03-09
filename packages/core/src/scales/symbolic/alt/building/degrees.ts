@@ -1,6 +1,7 @@
 import type { Scale } from "../Scale";
-import { DegreeArray } from "degrees/alt";
-import { IntervalArray, Intervals as I } from "intervals/alt";
+import type { DegreeArray } from "degrees/alt";
+import type { IntervalArray } from "intervals/alt";
+import { Intervals as I } from "intervals/alt";
 import { fromRootIntervals } from "./rootIntervals";
 
 export function fromDegrees(...degrees: DegreeArray): Scale {

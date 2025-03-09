@@ -17,9 +17,6 @@ const functions: string[] = [
   S.getModeIntraIntervals.name,
   S.mode.name,
   S.modes.name,
-
-  // conversions
-  S.toAlt.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -32,7 +29,6 @@ it("module should export functions and vars", async () => {
     modules: [
       "building",
       "modifiers",
-      "conversions",
       "constants",
       "constants/majorScaleDegrees",
     ],

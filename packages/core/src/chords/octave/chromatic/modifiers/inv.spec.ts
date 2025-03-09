@@ -2,7 +2,6 @@ import type { Voicing } from "voicings/chromatic";
 import type { Chord } from "../Chord";
 import { Voicings as V } from "voicings/chromatic";
 import { Chords as C } from "..";
-import { toVoicing } from "../conversions";
 import { inv } from ".";
 
 describe.each([
@@ -11,6 +10,6 @@ describe.each([
   [inv(C.C), V.inv(V.TRIAD_MAJOR)],
 ])("inv voicing", (chord: Chord, voicing: Voicing) => {
   it(`${chord} => ${voicing}`, () => {
-    expect(voicing).toBe(toVoicing(chord));
+    expect(voicing).toBe(chord.toVoicing());
   } );
 } );

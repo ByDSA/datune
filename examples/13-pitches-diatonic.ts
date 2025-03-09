@@ -13,7 +13,6 @@ console.log("valueOf", P.C.valueOf()); // -> 0 (C = 0)
 console.log("add", P.add(P.C, I.FIFTH).toString()); // C + FIFTH = G
 console.log("sub", P.sub(P.C, I.THIRD).toString()); // C - THIRD = A
 console.log("fromInt", P.fromInt(6).toString()); // 6 -> B
-console.log("toChromatic", P.toChromatic(P.G)); // -> G, Pitch (Chromatic) { intValue: 7 }
 
 /* String parsing */
 // Parsing

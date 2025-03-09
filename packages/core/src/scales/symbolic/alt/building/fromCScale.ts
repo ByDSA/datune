@@ -1,12 +1,14 @@
-import type { Scale } from "../Scale";
+import type { Scale } from "../../chromatic/Scale";
 import { cyclicMod } from "@datune/utils";
-import { DegreeArray as ADegreeArray, Degree as ADegree, Degrees as AD } from "degrees/alt";
 import { Degree as ChromaticDegree } from "degrees/chromatic";
 import { Degrees as DDegrees } from "degrees/diatonic";
 import { calcAlts } from "pitches/alt/calcAlts";
-import { Pitches as CP } from "pitches/chromatic";
+import { NUMBER as CNUMBER } from "pitches/chromatic/constants/Number";
 import { Scales as AS, Scale as AScale } from "scales/alt";
-import { calcIntraIntervals } from "../modifiers/intraIntervals";
+import { DegreeArray as ADegreeArray, Degree as ADegree, Degrees as AD } from "degrees/alt";
+import { calcIntraIntervals } from "../../chromatic/modifiers/intraIntervals";
+
+;
 
 type Reparam = (i: number, acc: number)=> ADegree;
 class ScaleAltConversor {
@@ -27,7 +29,7 @@ class ScaleAltConversor {
   }
 
   private static defaultReparam(_i: number, semis: number): ADegree {
-    const fixedSemis = cyclicMod(semis, CP.NUMBER);
+    const fixedSemis = cyclicMod(semis, CNUMBER);
 
     switch (fixedSemis) {
       case 0: return AD.I;
@@ -94,6 +96,6 @@ class ScaleAltConversor {
   }
 }
 
-export function toAlt(scale: Scale): AScale {
+export function fromChromaticScale(scale: Scale): AScale {
   return ScaleAltConversor.from(scale).scaleDiatonicAlt;
 }

@@ -8,7 +8,7 @@ import { calcFixedQualitySameDirection } from "./calcQuality/sameDirection";
 export function sub(
   self: Interval,
   other: Interval,
-): Interval | null {
+): Interval {
   let diatonicInterval = DIntervals.sub(self.diatonicInterval, other.diatonicInterval);
 
   if (diatonicInterval.magnitude === 0
@@ -19,8 +19,5 @@ export function sub(
     ? calcFixedQualitySameDirection(self, other, diatonicInterval)
     : calcFixedQualityDifferentDirection(self, other, diatonicInterval);
 
-  if (!quality)
-    return null;
-
-  return fromIntervalQuality(diatonicInterval, quality);
+  return fromIntervalQuality(diatonicInterval, quality) as Interval;
 }

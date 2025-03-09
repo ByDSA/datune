@@ -15,7 +15,7 @@ type Input = {
 export function fromIntervals(
   { chromaticInterval,
     diatonicInterval }: Input,
-): Interval | null {
+): Interval {
   const simplePositiveInterval: DInterval = DIntervals.fromInt(
     Math.abs(+diatonicInterval % DP.NUMBER),
   );
@@ -26,8 +26,5 @@ export function fromIntervals(
   const isMain = DIntervals.isMainInterval(diatonicInterval);
   const quality = qualityFromInt(alts, isMain);
 
-  if (!quality)
-    return null;
-
-  return fromIntervalQuality(diatonicInterval, quality);
+  return fromIntervalQuality(diatonicInterval, quality) as Interval;
 }

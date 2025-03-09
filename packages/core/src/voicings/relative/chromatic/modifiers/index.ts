@@ -1,8 +1,10 @@
 import type { Voicing } from "../Voicing";
 import type { IntervalArray, Interval } from "intervals/chromatic";
 import { cyclicMod } from "@datune/utils";
-import { Pitches as P } from "pitches/chromatic";
+import { NUMBER as CNUMBER } from "pitches/chromatic/constants/Number";
 import { fromRootIntervals } from "../building/rootIntervals";
+
+;
 
 export function inv(obj: Voicing, n: number = 1): Voicing {
   let values: IntervalArray = [...obj.rootIntervals] as IntervalArray;
@@ -24,12 +26,12 @@ export function inv(obj: Voicing, n: number = 1): Voicing {
 }
 
 function getFixedOctaveRootInterval(lastRootInterval: Interval, rootInterval: Interval): number {
-  const rootIntervalInOneOctave = rootInterval % P.NUMBER;
-  const lastRootIntervalOctave = Math.floor(lastRootInterval / P.NUMBER);
-  let ret = (lastRootIntervalOctave * P.NUMBER) + rootIntervalInOneOctave;
+  const rootIntervalInOneOctave = rootInterval % CNUMBER;
+  const lastRootIntervalOctave = Math.floor(lastRootInterval / CNUMBER);
+  let ret = (lastRootIntervalOctave * CNUMBER) + rootIntervalInOneOctave;
 
   if (ret < lastRootInterval)
-    ret += P.NUMBER;
+    ret += CNUMBER;
 
   return ret;
 }

@@ -6,7 +6,7 @@ import { Intervals as AI } from "intervals/alt";
 import { Scales as CS } from "scales/chromatic";
 import { initialize as initializeDegrees } from "degrees/alt/constants";
 import { mode } from "../modifiers";
-import { fromDegrees, fromIntraIntervals, fromRootIntervals } from "../building";
+import { fromChromaticScale, fromDegrees, fromIntraIntervals, fromRootIntervals } from "../building";
 
 export function initializeConstants() {
   if (MAJOR)
@@ -16,7 +16,7 @@ export function initializeConstants() {
   const { bV, bVI, bVII, from: degreeFrom, I, II, III, IV, V, VI, VII } = D;
   const { a5, a1, d5, d7, M2, M3, m2, m3, P1 } = AI;
   // eslint-disable-next-line max-len, @typescript-eslint/naming-convention
-  const { DOUBLE_HARMONIC: C_DOUBLE_HARMONIC, HALF_DIMINISHED: C_HALF_DIMINISHED, HARMONIC_MAJOR: C_HARMONIC_MAJOR, HARMONIC_MINOR: C_HARMONIC_MINOR, MELODIC_MINOR: C_MELODIC_MINOR, MESSIAEN_III_INV: C_MESSIAEN_III_INV, MESSIAEN_II_TRUNCATED_n3: C_MESSIAEN_II_TRUNCATED_n3, MESSIAEN_INV_III_V_TRUNCATED_n2: C_MESSIAEN_INV_III_V_TRUNCATED_n2, MESSIAEN_IV: C_MESSIAEN_IV, MESSIAEN_V: C_MESSIAEN_V, MESSIAEN_VI: C_MESSIAEN_VI, MESSIAEN_VII: C_MESSIAEN_VII, MESSIAEN_V_TRUNCATED: C_MESSIAEN_V_TRUNCATED, NEAPOLITAN_MAJOR: C_NEAPOLITAN_MAJOR, NEAPOLITAN_MINOR: C_NEAPOLITAN_MINOR, RAGA_INDRUPRIYA_INDIA: C_RAGA_INDRUPRIYA_INDIA, toAlt } = CS;
+  const { DOUBLE_HARMONIC: C_DOUBLE_HARMONIC, HALF_DIMINISHED: C_HALF_DIMINISHED, HARMONIC_MAJOR: C_HARMONIC_MAJOR, HARMONIC_MINOR: C_HARMONIC_MINOR, MELODIC_MINOR: C_MELODIC_MINOR, MESSIAEN_III_INV: C_MESSIAEN_III_INV, MESSIAEN_II_TRUNCATED_n3: C_MESSIAEN_II_TRUNCATED_n3, MESSIAEN_INV_III_V_TRUNCATED_n2: C_MESSIAEN_INV_III_V_TRUNCATED_n2, MESSIAEN_IV: C_MESSIAEN_IV, MESSIAEN_V: C_MESSIAEN_V, MESSIAEN_VI: C_MESSIAEN_VI, MESSIAEN_VII: C_MESSIAEN_VII, MESSIAEN_V_TRUNCATED: C_MESSIAEN_V_TRUNCATED, NEAPOLITAN_MAJOR: C_NEAPOLITAN_MAJOR, NEAPOLITAN_MINOR: C_NEAPOLITAN_MINOR, RAGA_INDRUPRIYA_INDIA: C_RAGA_INDRUPRIYA_INDIA } = CS;
 
   if (!I)
     initializeDegrees();
@@ -47,7 +47,7 @@ export function initializeConstants() {
 
   LOCRIAN = mode(MAJOR, 7);
 
-  HARMONIC_MINOR = toAlt(C_HARMONIC_MINOR);
+  HARMONIC_MINOR = fromChromaticScale(C_HARMONIC_MINOR);
 
   LOCRIAN_a6 = mode(HARMONIC_MINOR, 2);
 
@@ -61,7 +61,7 @@ export function initializeConstants() {
 
   SUPERLOCRIAN_bb7 = mode(HARMONIC_MINOR, 7);
 
-  HARMONIC_MAJOR = toAlt(C_HARMONIC_MAJOR);
+  HARMONIC_MAJOR = fromChromaticScale(C_HARMONIC_MAJOR);
 
   DORIAN_b5 = mode(HARMONIC_MAJOR, 2);
 
@@ -75,7 +75,7 @@ export function initializeConstants() {
 
   LOCRIAN_bb7 = mode(HARMONIC_MAJOR, 7);
 
-  MELODIC_MINOR = toAlt(C_MELODIC_MINOR);
+  MELODIC_MINOR = fromChromaticScale(C_MELODIC_MINOR);
 
   DORIAN_b2 = mode(MELODIC_MINOR, 2);
 
@@ -89,7 +89,7 @@ export function initializeConstants() {
 
   SUPERLOCRIAN = mode(MELODIC_MINOR, 7);
 
-  DOUBLE_HARMONIC = toAlt(C_DOUBLE_HARMONIC);
+  DOUBLE_HARMONIC = fromChromaticScale(C_DOUBLE_HARMONIC);
 
   LYDIAN_a2_a6 = mode(DOUBLE_HARMONIC, 2);
 
@@ -103,9 +103,9 @@ export function initializeConstants() {
 
   LOCRIAN_bb3_bb7 = mode(DOUBLE_HARMONIC, 7);
 
-  NEAPOLITAN_MINOR = toAlt(C_NEAPOLITAN_MINOR);
+  NEAPOLITAN_MINOR = fromChromaticScale(C_NEAPOLITAN_MINOR);
 
-  NEAPOLITAN_MAJOR = toAlt(C_NEAPOLITAN_MAJOR);
+  NEAPOLITAN_MAJOR = fromChromaticScale(C_NEAPOLITAN_MAJOR);
 
   // 6
   BLUES_b5 = fromIntraIntervals(
@@ -203,27 +203,27 @@ export function initializeConstants() {
     bVII,
   );
 
-  RAGA_INDRUPRIYA_INDIA = toAlt(C_RAGA_INDRUPRIYA_INDIA);
+  RAGA_INDRUPRIYA_INDIA = fromChromaticScale(C_RAGA_INDRUPRIYA_INDIA);
 
-  HALF_DIMINISHED = toAlt(C_HALF_DIMINISHED);
+  HALF_DIMINISHED = fromChromaticScale(C_HALF_DIMINISHED);
 
-  MESSIAEN_V_TRUNCATED = toAlt(C_MESSIAEN_V_TRUNCATED);
+  MESSIAEN_V_TRUNCATED = fromChromaticScale(C_MESSIAEN_V_TRUNCATED);
 
-  MESSIAEN_III_INV = toAlt(C_MESSIAEN_III_INV);
+  MESSIAEN_III_INV = fromChromaticScale(C_MESSIAEN_III_INV);
 
-  MESSIAEN_II_TRUNCATED_n3 = toAlt(C_MESSIAEN_II_TRUNCATED_n3);
+  MESSIAEN_II_TRUNCATED_n3 = fromChromaticScale(C_MESSIAEN_II_TRUNCATED_n3);
 
-  MESSIAEN_INV_III_V_TRUNCATED_n2 = toAlt(
+  MESSIAEN_INV_III_V_TRUNCATED_n2 = fromChromaticScale(
     C_MESSIAEN_INV_III_V_TRUNCATED_n2,
   );
 
-  MESSIAEN_IV = toAlt(C_MESSIAEN_IV);
+  MESSIAEN_IV = fromChromaticScale(C_MESSIAEN_IV);
 
-  MESSIAEN_V = toAlt(C_MESSIAEN_V);
+  MESSIAEN_V = fromChromaticScale(C_MESSIAEN_V);
 
-  MESSIAEN_VI = toAlt(C_MESSIAEN_VI);
+  MESSIAEN_VI = fromChromaticScale(C_MESSIAEN_VI);
 
-  MESSIAEN_VII = toAlt(C_MESSIAEN_VII);
+  MESSIAEN_VII = fromChromaticScale(C_MESSIAEN_VII);
 
   // Bebop
   BEBOP_MAJOR = fromDegrees(

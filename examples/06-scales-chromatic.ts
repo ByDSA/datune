@@ -99,7 +99,7 @@ console.log(
 /* Others */
 console.log(
   "toAlt",
-  S.toAlt(S.LYDIAN).degrees.map(String).toString(), // -> I,II,III,♯IV,V,VI,VII
+  S.LYDIAN.toAlt().degrees.map(String).toString(), // -> I,II,III,♯IV,V,VI,VII
   // Chromatic version can't differentiate between bV and IV#:
   S.LYDIAN.degrees.map(stringifyDegree).toString(), // -> I,II,III,bV,V,VI,VII
 );

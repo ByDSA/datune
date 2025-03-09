@@ -11,11 +11,11 @@ import { Degree } from "degrees/alt/Degree";
 import { MAJOR_SCALE_DEGREES } from "scales/symbolic/chromatic/constants/majorScaleDegrees";
 import { fromIntervals } from "./intervals";
 
-export function betweenNext(from: Degree, to: Degree): Interval | null;
+export function betweenNext(from: Degree, to: Degree): Interval;
 
-export function betweenNext(from: Pitch, to: Pitch): Interval | null;
+export function betweenNext(from: Pitch, to: Pitch): Interval;
 
-export function betweenNext(from: Degree | Pitch, to: Degree | Pitch): Interval | null {
+export function betweenNext(from: Degree | Pitch, to: Degree | Pitch): Interval {
   let pitch1: Pitch;
   let pitch2: Pitch;
 

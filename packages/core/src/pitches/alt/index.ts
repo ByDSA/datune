@@ -8,11 +8,9 @@ import * as Modifiers from "./modifiers";
 import { Pitch } from "./Pitch";
 import { fromChromaticAndDiatonic } from "./building/chromaticAndDiatonic";
 
-const staticModule = {
-  ...Modifiers,
-};
+const staticModule = {};
 
-type LazyType = Omit<typeof Constants, "initialize"> & {
+type LazyType = Omit<typeof Constants, "initialize"> & typeof Modifiers & {
   fromChromatic: typeof fromChromatic;
   fromChromaticAndDiatonic: typeof fromChromaticAndDiatonic;
   fromDPitchAlts: typeof fromDPitchAlts;
@@ -28,6 +26,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
         onLoadModule: (m: typeof Constants) => !m.C && m.initialize(),
       },
     },
+    "modifiers",
     "building/chromatic",
     "building/chromaticAndDiatonic",
     "building/diatonicAlts",

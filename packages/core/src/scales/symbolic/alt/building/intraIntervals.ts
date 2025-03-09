@@ -1,5 +1,6 @@
 import type { Scale } from "../Scale";
-import { IntervalArray, Interval, Intervals } from "intervals/alt";
+import type { IntervalArray, Interval } from "intervals/alt";
+import { Intervals as I } from "intervals/alt";
 import { cache } from "../caching/cache";
 
 export function fromIntraIntervals(...intervals: IntervalArray): Scale {
@@ -9,15 +10,15 @@ export function fromIntraIntervals(...intervals: IntervalArray): Scale {
 }
 
 function checkSumOctave(intervals: IntervalArray): void {
-  let sum: Interval | null = Intervals.P1;
+  let sum: Interval | null = I.P1;
 
   for (let i = 0; i < intervals.length; i++) {
     if (sum === null)
       break;
 
-    sum = Intervals.add(sum, intervals[i]);
+    sum = I.add(sum, intervals[i]);
   }
 
-  if (sum !== Intervals.P8)
+  if (sum !== I.P8)
     throw new Error(`Intervals doesn't sum up to a perfect octave: ${intervals} sums up to ${sum}`);
 }

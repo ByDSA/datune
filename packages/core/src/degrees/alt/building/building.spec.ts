@@ -1,10 +1,12 @@
-import { Degrees as AD } from "..";
+import { Intervals as I } from "alt";
+import { Degrees as AD, Degrees as D } from "..";
 import { hash } from "../caching/hash";
+import { fromInterval } from ".";
 
-const { I, II, III, IV, V, VI, VII } = AD;
+const { II, III, IV, V, VI, VII } = AD;
 
 describe.each([
-  [I, "I"],
+  [AD.I, "I"],
   [II, "II"],
   [III, "III"],
   [IV, "IV"],
@@ -18,7 +20,7 @@ describe.each([
 } );
 
 describe.each([
-  [I, "0:0"],
+  [AD.I, "0:0"],
   [II, "1:0"],
   [III, "2:0"],
   [IV, "3:0"],
@@ -29,4 +31,11 @@ describe.each([
   it(`${String(degree)} matches`, () => {
     expect(hash(degree)).toBe(expected);
   } );
+} );
+
+it("fromInterval", () => {
+  const expected = D.aVII;
+  const actual = fromInterval(I.a7);
+
+  expect(actual).toBe(expected);
 } );

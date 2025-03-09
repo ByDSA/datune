@@ -1,5 +1,5 @@
 import type { Interval } from "./Interval";
-import { NUMBER as CNUMBER } from "pitches/chromatic/constants";
+import { NUMBER as CNUMBER } from "pitches/chromatic/constants/Number";
 
 export function add(obj: Interval, interval: Interval): Interval {
   return obj + interval;

@@ -1,12 +1,14 @@
-import { Pitches as CP } from "pitches/chromatic";
+import { NUMBER as CNUMBER } from "pitches/chromatic/constants/Number";
+
+;
 
 export function fixAlts(alts: number): number {
-  let fixed = alts % CP.NUMBER;
+  let fixed = alts % CNUMBER;
 
-  if (fixed < -CP.NUMBER / 2)
-    fixed += CP.NUMBER;
-  else if (fixed > CP.NUMBER / 2)
-    fixed -= CP.NUMBER;
+  if (fixed < -CNUMBER / 2)
+    fixed += CNUMBER;
+  else if (fixed > CNUMBER / 2)
+    fixed -= CNUMBER;
 
   return fixed;
 }
