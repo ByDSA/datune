@@ -1,5 +1,5 @@
 import { Intervals as I, Voicings as V, Voicing } from "@datune/core";
-import { countAllInnerVoicings, getAllInnerVoicings, findInnerVoicings, InnerVoicingResult, voicingWithOmit } from "./findInnerVoicings";
+import { countAllInnerVoicings, getAllInnerVoicings, findInnerVoicings, InnerVoicingResult } from "./findInnerVoicings";
 
 it("voicing SUS4 should include M2", () => {
   const actual = findInnerVoicings(V.TRIAD_SUS4, [V.M2]);
@@ -94,10 +94,10 @@ describe("getAllInnerVoicings", () => {
         innerVoicing: V.TRIAD_MAJOR,
       }, {
         indexMap: [0, 1, 3],
-        innerVoicing: voicingWithOmit(V.SEVENTH_MAJ7, I.P5) as Voicing,
+        innerVoicing: V.SEVENTH_MAJ7.withOmit(I.P5) as Voicing,
       }, {
         indexMap: [0, 2, 3],
-        innerVoicing: voicingWithOmit(V.SEVENTH_MAJ7, I.M3) as Voicing,
+        innerVoicing: V.SEVENTH_MAJ7.withOmit(I.M3) as Voicing,
       }, {
         indexMap: [1, 2, 3],
         innerVoicing: V.TRIAD_MINOR, // omit P1

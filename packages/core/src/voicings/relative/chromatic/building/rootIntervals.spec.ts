@@ -55,3 +55,10 @@ it("formRootIntervals - 0", () => {
 
   expect(voicing).not.toBeNull();
 } );
+
+it("order should not have effect", () => {
+  const voicing1 = fromRootIntervals(0, 5);
+  const voicing2 = fromRootIntervals(5, 0);
+
+  expect(voicing1).toBe(voicing2);
+} );

@@ -112,6 +112,8 @@ const functions: string[] = [
 
   // modifiers
   V.inv.name,
+  V.add.name,
+  V.omit.name,
 
   // conversions
   V.toChromaticInterval.name,

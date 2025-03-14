@@ -5,7 +5,7 @@ import { cache } from "../caching/cache";
 export function fromRootIntervals(
   ...rootIntervals: IntervalArray
 ): Voicing {
-  let fixedRootIntervals = rootIntervals;
+  let fixedRootIntervals = [...rootIntervals].sort((a, b)=>a - b) as IntervalArray;
 
   if (fixedRootIntervals[0] > 0)
     fixedRootIntervals = getStartFromZero(fixedRootIntervals);

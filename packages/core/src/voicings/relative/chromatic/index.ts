@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import type { VoicingArray } from "./Array";
 import type * as Constants from "./constants";
 import { createProxyBarrel } from "lazy-load";

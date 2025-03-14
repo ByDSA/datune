@@ -2,6 +2,7 @@ import type { Arrays } from "@datune/utils";
 import type { VoicingArray, Voicing } from "@datune/core/voicings/chromatic";
 import { countCombinations, getCombinations } from "@datune/utils/math";
 import { Interval, IntervalArray, Voicings as V } from "@datune/core";
+import { voicingIncludesInnerVoicing } from "./includesInnerVoicing";
 
 export type InnerVoicingResult = {
   indexMap: Arrays.Number; // InnerVoicing -> BaseVoicing
@@ -37,49 +38,6 @@ class InnerVoicingsFinder {
 
     return results;
   }
-}
-
-// TODO: mover a core
-function voicingIncludesInnerVoicing(base: Voicing, innerVoicing: Voicing): InnerVoicingResult[] {
-  const results: InnerVoicingResult[] = [];
-  const baseRootIntervals = base.rootIntervals;
-
-  // eslint-disable-next-line no-restricted-syntax
-  baseFor: for (const intervalInBase of base) {
-    const indexMap = [] as unknown as Arrays.Number;
-
-    for (const interval of innerVoicing) {
-      const shiftedInterval = intervalInBase + interval;
-      const index = baseRootIntervals.indexOf(shiftedInterval);
-
-      if (index === -1)
-        continue baseFor;
-
-      indexMap.push(index);
-    }
-
-    results.push( {
-      indexMap,
-      innerVoicing,
-    } );
-  }
-
-  return results;
-}
-
-// TODO: mover a core
-export function voicingWithOmit(voicing: Voicing, ...intervals: Interval[]): Voicing | null {
-  let newIntervals: Interval[] = [];
-
-  for (const i of voicing.rootIntervals) {
-    if (!intervals.includes(i))
-      newIntervals.push(i);
-  }
-
-  if (newIntervals.length <= 1)
-    return null;
-
-  return V.fromRootIntervals(...newIntervals as IntervalArray);
 }
 
 export function getAllInnerVoicings(voicing: Voicing): InnerVoicingResult[] {

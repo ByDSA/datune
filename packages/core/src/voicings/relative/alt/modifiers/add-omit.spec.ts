@@ -1,22 +1,6 @@
-import type { Voicing } from "../Voicing";
-import { Intervals as I } from "chromatic";
-import { fromRootIntervals } from "../building/rootIntervals";
-import { Voicings as V } from "..";
-import { add, inv, omit } from ".";
-
-const { M2, TRITONE } = V;
-const map: any[] = [
-  [M2, fromRootIntervals(0, 10)],
-  [TRITONE, TRITONE],
-];
-
-describe.each(map)("inv", (voicing: Voicing, expectedVoicing: Voicing) => {
-  it(`${String(voicing)} inv=${String(expectedVoicing)}`, () => {
-    const actual = inv(voicing);
-
-    expect(actual).toBe(expectedVoicing);
-  } );
-} );
+import { Intervals as I } from "alt";
+import { Voicings as V } from "alt";
+import { add, omit } from "./add-omit";
 
 it("omit", () => {
   const base = V.SEVENTH_MAJ7;

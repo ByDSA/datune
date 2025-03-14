@@ -24,9 +24,17 @@ it("rootIntervals - SEVENTH = P1-M3-P5-m7", () => {
   expect(actual).toStrictEqual(expected);
 } );
 
-it("withInv: TRIAD MAJOR + 2inv", () => {
+it("inv: TRIAD MAJOR + 2inv", () => {
   const { M6, P4, P1 } = I;
   const voicing = inv(TRIAD_MAJOR, 2);
+  const expected = fromRootIntervals(P1, P4, M6);
+
+  expect(voicing).toBe(expected);
+} );
+
+it("withInv: TRIAD MAJOR + 2inv", () => {
+  const { M6, P4, P1 } = I;
+  const voicing = TRIAD_MAJOR.withInv(2);
   const expected = fromRootIntervals(P1, P4, M6);
 
   expect(voicing).toBe(expected);
@@ -38,4 +46,18 @@ it("precalc - SEVENTH MAJ7 b5", () => {
   const expected = SEVENTH_MAJ7_b5;
 
   expect(voicing).toBe(expected);
+} );
+
+it("withAdd", () => {
+  const expected = V.SEVENTH_MAJ7;
+  const actual = V.POWER_CHORD.withAdd(I.M7, I.M3);
+
+  expect(actual).toBe(expected);
+} );
+
+it("withOmit", () => {
+  const expected = V.POWER_CHORD;
+  const actual = V.SEVENTH_MAJ7.withOmit(I.M7, I.M3);
+
+  expect(actual).toBe(expected);
 } );
