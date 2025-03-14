@@ -35,7 +35,6 @@ export function findVoicings(scale: Scale, voicings: Voicing[]): Degree[][] {
     const possibleVoicings = voicings.filter(v=>v.rootIntervals[0] === Intervals.P1);
 
     if (possibleVoicings.length === 0)
-      // eslint-disable-next-line no-continue
       continue;
 
     inner(i, [degrees[i]], 1, voicings);

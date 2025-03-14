@@ -17,7 +17,6 @@ export function rootChord4(obj: Key): Chord | null {
 
   for (const voicing of chordRootVoicingPriority) {
     if (!voicing)
-      // eslint-disable-next-line no-continue
       continue;
 
     const chord = Chords.fromRootVoicing(obj.root, voicing);

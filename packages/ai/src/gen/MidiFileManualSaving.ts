@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-continue */
+
 /* eslint-disable camelcase */
 import { ChordSequence, TonalApproach } from "@datune/analyzer";
 import { init as initCore, type Key, type MusicalDuration } from "@datune/core";
