@@ -1,40 +1,55 @@
-/* eslint-disable no-continue */
-import { add } from "@datune/core/spns/symbolic/chromatic/modifiers";
-import { Array as SingleStepArray } from "../single";
-import { SPNOrNullArray, Step } from "../Step";
+import type { SingleStepArray } from "../single/Array";
+import type { Step, Target } from "../Step";
+import { IntervalArray, SPNs } from "@datune/core";
+import { lockr } from "@datune/utils";
+import { from } from "../single/building";
+import { compositeStepToSingleSteps } from "./cacheMaps";
 
 export class CompositeStep implements Step {
-  #singleSteps: SingleStepArray;
+  array: IntervalArray;
 
-  private constructor(singleSteps: SingleStepArray) {
-    this.#singleSteps = singleSteps;
+  private constructor(array: IntervalArray) {
+    this.array = array;
+    lockr(this.array);
   }
 
   // eslint-disable-next-line accessor-pairs
   get singleSteps(): SingleStepArray {
-    return this.#singleSteps;
-  }
+    let ret: SingleStepArray | undefined = compositeStepToSingleSteps.get(this);
 
-  apply(notes: SPNOrNullArray): SPNOrNullArray {
-    const ret: SPNOrNullArray = [...notes];
+    if (!ret) {
+      ret = [] as unknown as SingleStepArray;
 
-    for (const sm of this.#singleSteps) {
-      if (!sm)
-        continue;
+      for (let index = 0; index < this.array.length; index++) {
+        const interval = this.array[index];
 
-      const { index } = sm;
+        if (interval === undefined)
+          continue;
 
-      if (sm.interval === null)
-        ret[index] = null;
-      else if (+sm.interval === 0)
-        continue;
-      else {
-        const retIndex = ret[index];
-
-        ret[index] = retIndex ? (add(retIndex, sm.interval) || null) : null;
+        ret.push(from(index, interval));
       }
+
+      compositeStepToSingleSteps.set(this, ret);
     }
 
     return ret;
+  }
+
+  applyTo(spnArray: Target): void {
+    this.array.forEach((interval, index) => {
+      const spnAtIndex = spnArray[index];
+
+      if (!spnAtIndex)
+        return;
+
+      if (interval !== null)
+        spnArray[index] = SPNs.add(spnAtIndex, interval);
+      else
+        spnArray[index] = null;
+    } );
+  }
+
+  toString() {
+    return this.array.join(",");
   }
 }

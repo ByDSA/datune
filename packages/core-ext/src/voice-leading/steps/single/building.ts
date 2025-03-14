@@ -1,6 +1,6 @@
-import { Interval } from "@datune/core/intervals/chromatic";
+import type { Interval } from "@datune/core/intervals/chromatic";
+import type { SingleStep } from "./SingleStep";
 import { cache } from "./cache";
-import { SingleStep } from "./SingleStep";
 
 export function from(index: number, interval: Interval | null): SingleStep {
   return cache.getOrCreate( {

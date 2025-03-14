@@ -17,3 +17,7 @@ export {
 export {
   countCombinations, getCombinations,
 } from "./combinations/combinations";
+
+export {
+  countCartesianProduct, getCartesianProduct,
+} from "./cartesian-product/cartesianProduct";

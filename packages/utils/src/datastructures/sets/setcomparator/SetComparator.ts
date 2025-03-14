@@ -1,4 +1,3 @@
-/* eslint-disable no-continue */
 /* eslint-disable no-restricted-syntax */
 export class SetComparator<T> {
   #common = new Set<T>();

@@ -1,7 +1,13 @@
+/* eslint-disable max-len */
 import { Interval } from "@datune/core/intervals/chromatic";
 import { add as SPNAdd } from "@datune/core/spns/symbolic/chromatic/modifiers";
-import { SPNOrNullArray, Step } from "../Step";
+import { Step, Target } from "../Step";
 
+/*
+Interval = 0: significa que la voz no cambia, pero sigue existiendo. Se usa por ejemplo cuando en sus4 una de las voces debe mantenerse en la resolución
+Interval = null: significa que la voz con ese index se elimina (se pone a null, no se borra del array)
+Interval = undefined: valor inválido, sigifica que el step no existe (usado en CompositeStep)
+*/
 export class SingleStep implements Step {
   index: number;
 
@@ -21,20 +27,19 @@ export class SingleStep implements Step {
     return `[${this.index}] => ${this.interval}`;
   }
 
-  apply(notes: SPNOrNullArray): SPNOrNullArray {
-    const noteIndex = notes[this.index];
+  applyTo(spnArray: Target): void {
+    if (this.interval === undefined)
+      return;
 
-    if (noteIndex === null)
-      return notes;
+    const spnAtIndex = spnArray[this.index];
 
-    const ret: SPNOrNullArray = [...notes];
+    if (!spnAtIndex)
+      return;
 
     if (this.interval !== null)
-      ret[this.index] = SPNAdd(noteIndex, this.interval);
+      spnArray[this.index] = SPNAdd(spnAtIndex, this.interval);
     else
-      ret[this.index] = null;
-
-    return ret;
+      spnArray[this.index] = null;
   }
 }
 
