@@ -2,11 +2,13 @@
 import { Keys as K } from "@datune/core/keys/chromatic";
 import { Pitches as P, PitchArray } from "@datune/core/pitches/chromatic";
 import { Chords as C } from "@datune/core/chords/chromatic";
-import { SPNArray, SPNs as N } from "@datune/core/spns/chromatic";
+import { SPNArray, SPNs as N, SPN } from "@datune/core/spns/chromatic";
 import { VoicingArray, Voicings as V } from "@datune/core/voicings/chromatic";
 import { getAllInversions } from "@datune/core/voicings/relative/chromatic/utils";
 import { TestInit } from "tests";
 import { createAllPitchesInEveryKeyFilter, createAllPitchesInSomeKeyFilter, createHasSomeVoicingFilter } from "voice-leading/appliers/filters";
+import { VoiceLeadings as VL } from "voice-leading";
+import { getTargetId } from "voice-leading/steps/Step";
 import { generateVoiceLeading } from "./VoiceLeading";
 import { expectTargets } from "./tests/targets";
 
@@ -450,3 +452,36 @@ it("dm7 resolution in Key C (resting=root4)", () => {
 
   expectTargets(result.targets).toEqualChords(expected);
 } );
+
+it("chord G resolution in C Major Key should not have duplicates", () => {
+  const result = VL.generateVoiceLeading([N.G4, N.B4, N.D5], {
+    multipleGenConfig: {
+      nearest: {
+        enabled: false,
+      },
+      keyResolution: {
+        restingPitches: rootChord3(K.C)?.pitches,
+      },
+    },
+    combinationApplierConfig: {
+      afterFilters: [VL.Appliers.processors.createAllPitchesInSomeKeyFilter(K.C)],
+    },
+  } );
+
+  expect(removeDuplicatedSpnArrays(result.targets)).toHaveLength(result.targets.length);
+} );
+
+function removeDuplicatedSpnArrays(spnArrays: (SPN | null)[][]): (SPN | null)[][] {
+  const uniqueArrays = new Set<string>();
+
+  return spnArrays.filter(spnArray => {
+    const id = getTargetId(spnArray);
+
+    if (uniqueArrays.has(id))
+      return false;
+
+    uniqueArrays.add(id);
+
+    return true;
+  } );
+}
