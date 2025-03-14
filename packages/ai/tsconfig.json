@@ -18,7 +18,7 @@
     },
     "sourceMap": true,
     "strict": true,
-    "target": "es2015",
+    "target": "es2021",
     "typeRoots": ["../node_modules/@types"]
   },
   "exclude": ["dist", "node_modules"],
