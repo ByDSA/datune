@@ -1,4 +1,4 @@
-import { type Data } from "./Data";
 import { cache } from "scales/symbolic/chromatic/caching/cache";
+import { type Data } from "./Data";
 
-export default (): Data => cache.serialize();
+export default (): Data => cache.exportEntries();

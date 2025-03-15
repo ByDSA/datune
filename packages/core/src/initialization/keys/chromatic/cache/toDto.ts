@@ -1,5 +1,5 @@
 import type { Data } from "./Data";
 import type { Cache } from "./Dto";
-import { toDto as Key } from "keys/chromatic/caching/toDto";
+import { getKey as keyGetKey } from "keys/chromatic/caching/cache";
 
-export default (data: Data): Cache => data.map((entry) => [entry[0], Key(entry[1])]);
+export default (data: Data): Cache => data.map((entry) => [entry[0], keyGetKey(entry[1])]);

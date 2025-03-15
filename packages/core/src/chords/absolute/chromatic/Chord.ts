@@ -1,4 +1,5 @@
 import type { Pitch } from "pitches/chromatic";
+import type { Key } from "./building/cache";
 import { lockr } from "@datune/utils/immutables";
 import { SPNArray, SPN } from "spns/chromatic";
 import { AbsoluteChord } from "../AbsoluteChord";
@@ -10,17 +11,13 @@ export class Chord implements AbsoluteChord<Pitch, SPN> {
 
   length: number;
 
-  private constructor(spns: SPNArray) {
-    this.pitches = spns;
+  private constructor(key: Key) {
+    this.pitches = key;
     // eslint-disable-next-line prefer-destructuring
     this.root = this.pitches[0];
     this.length = this.pitches.length;
 
     lockr(this);
-  }
-
-  private static create(spns: SPNArray): Chord {
-    return new Chord(spns);
   }
 
   has(note: SPN): boolean {

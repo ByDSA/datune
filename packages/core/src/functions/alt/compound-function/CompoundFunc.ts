@@ -1,5 +1,5 @@
 import type { DegreeFunc } from "../degree-function/DegreeFunc";
-import type { Dto } from "./caching/Dto";
+import type { Key as K } from "./caching/cache";
 import type { Chord } from "chords/alt";
 import type { DegreeArray } from "degrees/alt";
 import type { Key } from "keys/alt";
@@ -13,15 +13,11 @@ export class CompoundFunc extends Func {
 
   degreeChain: DegreeArray;
 
-  private constructor(dto: Dto) {
+  private constructor(key: K) {
     super();
 
-    this.degreeFunc = dto.degreeFunc;
-    this.degreeChain = dto.degreeChain;
-  }
-
-  private static create(dto: Dto): CompoundFunc {
-    return new CompoundFunc(dto);
+    this.degreeFunc = key.degreeFunc;
+    this.degreeChain = key.degreeChain;
   }
 
   protected calculateChord(key: Key): Chord | null {

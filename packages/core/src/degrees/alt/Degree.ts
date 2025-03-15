@@ -1,4 +1,4 @@
-import type { Dto } from "./caching/Dto";
+import type { Key } from "./caching/cache";
 import { lockr } from "@datune/utils/immutables";
 import { Intervals as I } from "intervals/alt";
 import { fromAltDegree } from "degrees/chromatic/building";
@@ -9,15 +9,11 @@ export class Degree {
 
   alts: number;
 
-  private constructor(dto: Dto) {
-    this.diatonicDegree = dto.diatonicDegree;
-    this.alts = dto.alts;
+  private constructor(key: Key) {
+    this.diatonicDegree = key.diatonicDegree;
+    this.alts = key.alts;
 
     lockr(this);
-  }
-
-  private static create(dto: Dto): Degree {
-    return new Degree(dto);
   }
 
   valueOf(): number {

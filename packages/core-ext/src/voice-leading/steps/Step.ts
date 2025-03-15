@@ -3,7 +3,7 @@ import { SPN } from "@datune/core/spns/chromatic";
 
 export type Target = (SPN | null)[];
 
-export function getTargetId(target: Target): string {
+export function targetGetId(target: Target): string {
   return target.map(n => n?.toString() ?? "null").join(",");
 }
 

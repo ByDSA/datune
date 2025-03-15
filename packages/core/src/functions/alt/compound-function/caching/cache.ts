@@ -1,11 +1,31 @@
-import type { Dto } from "./Dto";
-import { StringHashCache } from "@datune/utils";
+import type { DegreeFunc } from "../../degree-function/DegreeFunc";
+import type { DegreeArray } from "degrees/alt";
+import { KeyMappedFlyweightCache } from "@datune/utils";
+import { getObjId as degreeGetObjId } from "degrees/alt/caching/cache";
 import { CompoundFunc } from "../CompoundFunc";
-import { hashDto } from "./Dto";
-import { toDto } from "./toDto";
+import { getObjId as degreeFuncGetObjId } from "../../degree-function/caching/cache";
 
-export const cache = new StringHashCache<CompoundFunc, Dto>( {
-  hash: hashDto,
-  toDto,
-  create: (CompoundFunc as any).create,
+export type Key = {
+  degreeFunc: DegreeFunc;
+  degreeChain: DegreeArray;
+};
+
+export function getId(key: Key): string {
+  const degreeFunc = degreeFuncGetObjId(key.degreeFunc);
+  const degreeChain = key.degreeChain.map(degreeGetObjId).join("-");
+
+  return `(${degreeFunc}|${degreeChain})`;
+}
+
+export function getKey(func: CompoundFunc): Key {
+  return {
+    degreeFunc: func.degreeFunc,
+    degreeChain: func.degreeChain,
+  };
+}
+
+export const cache = new KeyMappedFlyweightCache<CompoundFunc, Key, string>( {
+  getId,
+  getKey,
+  create: key=>new (CompoundFunc as any)(key),
 } );

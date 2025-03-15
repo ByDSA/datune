@@ -1,4 +1,4 @@
-import type { Dto } from "./caching/Dto";
+import type { Key } from "./caching/cache";
 import type { ConcertPitch } from "concert-pitches/chromatic";
 import type { Temperament } from "temperaments/chromatic";
 import { lockr } from "@datune/utils/immutables";
@@ -8,15 +8,11 @@ export class Tuning {
 
   temperament: Temperament;
 
-  private constructor(dto: Dto) {
-    this.concertPitch = dto.concertPitch;
-    this.temperament = dto.temperament;
+  private constructor(key: Key) {
+    this.concertPitch = key.concertPitch;
+    this.temperament = key.temperament;
 
     lockr(this);
-  }
-
-  private static create(dto: Dto): Tuning {
-    return new Tuning(dto);
   }
 
   toString(): string {

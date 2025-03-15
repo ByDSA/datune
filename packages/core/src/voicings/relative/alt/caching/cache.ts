@@ -1,11 +1,24 @@
-import { StringHashCache } from "@datune/utils";
-import { IntervalArray } from "intervals/alt";
+import type { IntervalArray } from "intervals/alt";
+import { KeyMappedFlyweightCache } from "@datune/utils";
+import { getObjId as intervalGetObjId } from "intervals/symbolic/alt/caching/cache";
 import { Voicing } from "../Voicing";
-import { hashDto } from "./Dto";
-import { toDto } from "./toDto";
 
-export const cache = new StringHashCache<Voicing, IntervalArray>( {
-  hash: hashDto,
-  toDto,
-  create: (Voicing as any).create,
+export function getObjId(voicing: Voicing): string {
+  return getId(getKey(voicing));
+}
+
+export type Key = IntervalArray;
+
+export function getId(key: Key): string {
+  return key.map(intervalGetObjId).join("-");
+}
+
+export function getKey(obj: Voicing): Key {
+  return obj.rootIntervals;
+}
+
+export const cache = new KeyMappedFlyweightCache<Voicing, IntervalArray, string>( {
+  getId,
+  getKey,
+  create: key=>new (Voicing as any)(key),
 } );

@@ -1,11 +1,9 @@
-import type { Dto } from "./Dto";
-import { StringHashCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "@datune/utils";
 import { DegreeFunc } from "../DegreeFunc";
-import { hashDto } from "./Dto";
-import { toDto } from "./toDto";
+import { getId, getKey, type Key } from "./key-id";
 
-export const cache = new StringHashCache<DegreeFunc, Dto>( {
-  hash: hashDto,
-  toDto,
-  create: (DegreeFunc as any).create,
+export const cache = new KeyMappedFlyweightCache<DegreeFunc, Key, string>( {
+  getId,
+  getKey,
+  create: key=>new (DegreeFunc as any)(key),
 } );

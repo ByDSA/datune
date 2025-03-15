@@ -1,24 +1,27 @@
-import type { Dto } from "./Dto";
-import { StringHashCache } from "@datune/utils";
-import { hash as hashConcertPitches } from "concert-pitches/chromatic/caching/Dto";
-import { hash as hashTemperament } from "temperaments/chromatic/hash";
+import type { ConcertPitch } from "concert-pitches/chromatic";
+import type { Temperament } from "temperaments/chromatic";
+import { KeyMappedFlyweightCache } from "@datune/utils";
+import { getObjId as concertPitchesGetObjId } from "concert-pitches/chromatic/caching/cache";
+import { getObjId as temperamentGetObjId } from "temperaments/chromatic/id";
 import { Tuning } from "../Tuning";
 
-export const cache = new StringHashCache<Tuning, Dto>( {
-  hash(dto: Dto): string {
-    const concertPitchHashCode = hashConcertPitches(dto.concertPitch);
-    const temperamentHashCode = hashTemperament(dto.temperament);
+export type Key = {
+  concertPitch: ConcertPitch;
+  temperament: Temperament;
+};
 
-    if (!concertPitchHashCode || !temperamentHashCode)
-      throw new Error();
+export const cache = new KeyMappedFlyweightCache<Tuning, Key, string>( {
+  getId(key: Key): string {
+    const concertPitchId = concertPitchesGetObjId(key.concertPitch);
+    const temperamentId = temperamentGetObjId(key.temperament);
 
-    return concertPitchHashCode + temperamentHashCode;
+    return concertPitchId + temperamentId;
   },
-  toDto(tuning: Tuning): Dto {
+  getKey(tuning: Tuning): Key {
     return {
       concertPitch: tuning.concertPitch,
       temperament: tuning.temperament,
     };
   },
-  create: (Tuning as any).create,
+  create: key=>new (Tuning as any)(key),
 } );

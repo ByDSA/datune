@@ -1,8 +1,7 @@
 import { Intervals as I } from "intervals/alt";
 import { fromRootIntervals } from "../building";
 import { Scales as S } from "..";
-import { toDto } from "./toDto";
-import { hashDto } from "./Dto";
+import { getKey, getId } from "./cache";
 
 const { MAJOR, PHRYGIAN } = S;
 const { M2, M7, M6, M3, m2, m7, m6, m3, P5, P4, P1 } = I;
@@ -17,11 +16,11 @@ describe.each([
     expect(actual).toBe(expected);
   } );
 
-  it("same dto", () => {
-    expect(toDto(actual)).toEqual(toDto(expected));
+  it("same key", () => {
+    expect(getKey(actual)).toEqual(getKey(expected));
   } );
 
-  it("same hash", () => {
-    expect(hashDto(toDto(actual))).toBe(hashDto(toDto(expected)));
+  it("same id", () => {
+    expect(getId(getKey(actual))).toBe(getId(getKey(expected)));
   } );
 } );

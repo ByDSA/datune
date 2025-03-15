@@ -1,11 +1,29 @@
-import type { Dto } from "./Dto";
-import { StringHashCache } from "@datune/utils";
+import type { Degree as DDegree } from "degrees/diatonic";
+import { KeyMappedFlyweightCache } from "@datune/utils";
 import { Degree } from "../Degree";
-import { toDto } from "./toDto";
-import { hashDto } from "./Dto";
 
-export const cache = new StringHashCache<Degree, Dto>( {
-  hash: hashDto,
-  toDto,
-  create: (Degree as any).create,
+export type Key = {
+  diatonicDegree: DDegree;
+  alts: number;
+ };
+
+export function getId(key: Key): string {
+  return `${+key.diatonicDegree}:${key.alts}`;
+}
+
+export function getKey(degree: Degree): Key {
+  return {
+    diatonicDegree: degree.diatonicDegree,
+    alts: degree.alts,
+  };
+}
+
+export function getObjId(degree: Degree): string {
+  return getId(getKey(degree));
+}
+
+export const cache = new KeyMappedFlyweightCache<Degree, Key, string>( {
+  getId,
+  getKey,
+  create: key=> new (Degree as any)(key),
 } );

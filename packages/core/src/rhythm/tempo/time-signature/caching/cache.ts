@@ -1,11 +1,25 @@
-import type { Dto } from "./Dto";
-import { StringHashCache } from "@datune/utils";
+import type { MusicalDuration } from "../../musical-duration";
+import { KeyMappedFlyweightCache } from "@datune/utils";
 import { TimeSignature } from "../TimeSignature";
-import { hashDto } from "./Dto";
-import { toDto } from "./toDto";
 
-export const cache = new StringHashCache<TimeSignature, Dto>( {
-  hash: hashDto,
-  toDto,
-  create: (TimeSignature as any).create,
+export type Key = {
+  nums: number[];
+  beat: MusicalDuration;
+};
+
+export function getId(key: Key): string {
+  return `${key.nums.join("-")}|${String(+key.beat)}`;
+}
+
+export function getKey(ts: TimeSignature): Key {
+  return {
+    nums: ts.numerators,
+    beat: ts.denominatorBeat,
+  };
+}
+
+export const cache = new KeyMappedFlyweightCache<TimeSignature, Key, string>( {
+  getId,
+  getKey,
+  create: key=>new (TimeSignature as any)(key),
 } );

@@ -1,4 +1,4 @@
-import type { Dto } from "./caching/Dto";
+import type { Key } from "./caching/key-id";
 import { Direction } from "./Direction";
 
 export class Interval {
@@ -6,13 +6,9 @@ export class Interval {
 
   direction: Direction;
 
-  private constructor(dto: Dto) {
-    this.magnitude = dto.magnitude;
-    this.direction = dto.direction;
-  }
-
-  private static create(dto: Dto): Interval {
-    return new Interval(dto);
+  private constructor(key: Key) {
+    this.magnitude = key.magnitude;
+    this.direction = key.direction;
   }
 
   valueOf() {

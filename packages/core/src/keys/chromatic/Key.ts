@@ -1,4 +1,4 @@
-import type { Dto } from "./caching/Dto";
+import type { Key as K } from "./caching/cache";
 import type { Interval } from "intervals/chromatic";
 import type { Arrays } from "@datune/utils";
 import type { Chord } from "chords/chromatic";
@@ -19,15 +19,11 @@ export class Key implements
 
   length: number;
 
-  private constructor(dto: Dto) {
-    this.root = pitchFromInt(dto[0]);
-    this.scale = scaleFromRootIntervals(...dto[1]);
+  private constructor(key: K) {
+    this.root = pitchFromInt(key[0]);
+    this.scale = scaleFromRootIntervals(...key[1]);
     this.length = this.scale.length;
     this.pitches = pitchesRootIntervals(this.root, this.scale.rootIntervals);
-  }
-
-  private static create(dto: Dto): Key {
-    return new Key(dto);
   }
 
   hasChord(chord: Chord): boolean {

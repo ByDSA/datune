@@ -1,6 +1,6 @@
-import type { Dto } from "../caching/Dto";
+import type { Key } from "../caching/cache";
 import { cache } from "../caching/cache";
 
-export function from(dto: Dto) {
-  return cache.getOrCreate(dto);
+export function from(key: Key) {
+  return cache.getOrCreate(key);
 }

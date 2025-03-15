@@ -1,5 +1,5 @@
 import type { Pitch as DPitch } from "../diatonic";
-import type { Dto } from "./caching/Dto";
+import type { Key } from "./caching/cache";
 import type { OctavePitch } from "../OctavePitch";
 import type { Pitch as CPitch } from "chromatic";
 import { lockr } from "@datune/utils/immutables";
@@ -10,9 +10,9 @@ export class Pitch implements OctavePitch {
 
   alts: number;
 
-  private constructor(dto: Dto) {
-    this.diatonic = dto.diatonic;
-    this.alts = dto.alts;
+  private constructor(key: Key) {
+    this.diatonic = key.diatonic;
+    this.alts = key.alts;
 
     lockr(this);
   }

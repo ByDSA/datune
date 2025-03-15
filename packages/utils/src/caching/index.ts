@@ -1,3 +1,3 @@
-export * from "./dto-hash-cache";
+export * from "./flyweight";
 
 export * from "./process-cache";

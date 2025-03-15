@@ -1,5 +1,5 @@
 import type { SPN as ISPN } from "../../spns/SPN";
-import type { Dto } from "./caching/Dto";
+import type { Key } from "./caching/cache";
 import type { SPN } from "spns/chromatic";
 
 export class ConcertPitch implements ISPN {
@@ -7,9 +7,9 @@ export class ConcertPitch implements ISPN {
 
   spn: SPN;
 
-  private constructor(dto: Dto) {
-    this.frequency = dto.frequency;
-    this.spn = dto.spn;
+  private constructor(key: Key) {
+    this.frequency = key.frequency;
+    this.spn = key.spn;
   }
 
   valueOf(): number {

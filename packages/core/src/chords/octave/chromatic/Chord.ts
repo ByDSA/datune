@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import type { Dto } from "./caching/Dto";
+import type { Key } from "./caching/cache";
 import type { PitchArray, Pitch } from "pitches/chromatic";
 import type { Interval, Voicing } from "chromatic";
 import type { Chord as AChord } from "chords/alt";
@@ -17,17 +17,13 @@ export class Chord implements SymbolicChord<Pitch> {
 
   root: Pitch;
 
-  private constructor(dto: Dto) {
-    this.pitches = dto.map(fromInt) as PitchArray;
+  private constructor(key: Key) {
+    this.pitches = key.map(fromInt) as PitchArray;
     [this.root] = this.pitches;
 
     this.length = this.pitches.length;
 
     lockr(this);
-  }
-
-  private static create(dto: Dto): Chord {
-    return new Chord(dto);
   }
 
   has(pitch: Pitch): boolean {

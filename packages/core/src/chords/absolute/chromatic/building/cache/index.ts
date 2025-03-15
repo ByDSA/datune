@@ -1,15 +1,15 @@
-import { StringHashCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "@datune/utils";
 import { SPNArray } from "spns/chromatic";
 import { Chord } from "../../Chord";
 
-type HashingObjectType = SPNArray;
+export type Key = SPNArray;
 
-export const cache = new StringHashCache<Chord, HashingObjectType>( {
-  hash(hashingObject: HashingObjectType): string {
-    return hashingObject.map(String).join("-");
+export const cache = new KeyMappedFlyweightCache<Chord, Key, string>( {
+  getId(key: Key): string {
+    return key.map(String).join("-");
   },
-  toDto(chord: Chord): HashingObjectType {
+  getKey(chord: Chord): Key {
     return chord.pitches;
   },
-  create: (Chord as any).create,
+  create: key=>new (Chord as any)(key),
 } );

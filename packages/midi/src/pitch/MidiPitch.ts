@@ -1,14 +1,14 @@
+import type { Key } from "./caching/cache";
 import { SPN } from "@datune/core/spns/chromatic";
-import { Dto } from "./caching";
 
 export class MidiPitch {
   spn: SPN;
 
   detuned: number;
 
-  private constructor(dto: Dto) {
-    this.spn = dto.spn;
-    this.detuned = dto.detuned;
+  private constructor(key: Key) {
+    this.spn = key.spn;
+    this.detuned = key.detuned;
   }
 
   valueOf(): number {

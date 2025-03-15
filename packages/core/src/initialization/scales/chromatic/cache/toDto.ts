@@ -1,5 +1,5 @@
+import { getKey as scaleGetKey } from "scales/symbolic/chromatic/caching/cache";
 import { type Data } from "./Data";
 import { type Dto } from "./Dto";
-import { toDto as toScaleDto } from "scales/symbolic/chromatic/caching/toDto";
 
-export default (data: Data): Dto => data.map((entry) => [entry[0], toScaleDto(entry[1])]);
+export default (data: Data): Dto => data.map((entry) => [entry[0], scaleGetKey(entry[1])]);

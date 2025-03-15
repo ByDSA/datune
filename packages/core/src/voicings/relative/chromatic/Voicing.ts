@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import type { Dto } from "./caching/Dto";
+import type { Key } from "./caching/cache";
 import { lockr } from "@datune/utils/immutables";
 import { IntervalArray, Interval } from "intervals/symbolic/chromatic";
 import { Voicing as IVoicing } from "../Voicing";
@@ -10,14 +10,10 @@ export class Voicing implements IVoicing<Interval> {
 
   length: number;
 
-  private constructor(...values: Dto) {
-    this.rootIntervals = values;
+  private constructor(key: Key) {
+    this.rootIntervals = key;
     this.length = this.rootIntervals.length;
     lockr(this);
-  }
-
-  private static create(values: Dto): Voicing {
-    return new Voicing(...values);
   }
 
   [Symbol.iterator](): Iterator<Interval> {

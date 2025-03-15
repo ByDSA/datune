@@ -1,11 +1,11 @@
 import type { MusicalDuration } from "./MusicalDuration";
-import { StringHashCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "@datune/utils";
 
-// UNUSED
-export type Dto = number;
+export type Key = number;
 
-export const cache = new StringHashCache<MusicalDuration, Dto>( {
-  hash: (dto: Dto) => String(dto),
-  toDto: (obj: MusicalDuration): Dto => +obj,
-  create: (dto: Dto): MusicalDuration => dto,
+// TODO: UNUSED
+export const cache = new KeyMappedFlyweightCache<MusicalDuration, Key, string>( {
+  getId: (key: Key) => String(key),
+  getKey: (md: MusicalDuration): Key => +md,
+  create: key => key,
 } );

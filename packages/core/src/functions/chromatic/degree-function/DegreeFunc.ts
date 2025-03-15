@@ -8,23 +8,19 @@ import { lockr } from "@datune/utils/immutables";
 import { Chords as C } from "chords/chromatic";
 import { Pitches as P } from "pitches/chromatic";
 import { Func } from "../Func";
-import { Dto, hashDto } from "./caching/Dto";
+import { type Key as K, getObjId } from "./caching/key-id";
 
 export class DegreeFunc extends Func {
   degree: Degree;
 
   voicing: Voicing;
 
-  protected constructor(dto: Dto) {
+  protected constructor(key: K) {
     super();
 
-    this.degree = dto.degree;
-    this.voicing = dto.voicing;
+    this.degree = key.degree;
+    this.voicing = key.voicing;
     lockr(this);
-  }
-
-  private static create(dto: Dto): DegreeFunc {
-    return new DegreeFunc(dto);
   }
 
   protected calculateChord(key: Key): Chord {
@@ -34,7 +30,7 @@ export class DegreeFunc extends Func {
     return C.fromRootVoicing(noteBase, this.voicing);
   }
 
-  hashCode(): string {
-    return hashDto(this);
+  getId(): string {
+    return getObjId(this);
   }
 }

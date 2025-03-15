@@ -3,6 +3,6 @@
     "inlineSources": false,
     "sourceMap": false
   },
-  "exclude": ["**/*.spec.ts", "spec"],
+  "exclude": ["**/*.spec.ts", "spec", "tests"],
   "extends": "./tsconfig.json"
 }

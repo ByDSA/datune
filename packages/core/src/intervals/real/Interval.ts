@@ -7,10 +7,6 @@ export class Interval {
     this.ratio = ratio;
   }
 
-  private static create(ratio: NumExp) {
-    return new Interval(ratio);
-  }
-
   valueOf() {
     return +this.ratio;
   }

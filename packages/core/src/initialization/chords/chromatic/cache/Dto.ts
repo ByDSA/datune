@@ -1,3 +1,3 @@
-import { Dto as ChordDto } from "chords/octave/chromatic/caching/Dto";
+import { Key as ChordKey } from "chords/octave/chromatic/caching/cache";
 
-export type Cache = [string, ChordDto][];
+export type Cache = [string, ChordKey][];

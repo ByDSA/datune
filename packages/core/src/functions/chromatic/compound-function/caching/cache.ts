@@ -1,10 +1,9 @@
-import { StringHashCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "@datune/utils";
 import { CompoundFunc } from "../CompoundFunc";
-import { Dto, hash } from "./Dto";
-import { toDto } from "./toDto";
+import { getId, getKey, type Key } from "./key-id";
 
-export const cache = new StringHashCache<CompoundFunc, Dto>( {
-  hash,
-  toDto,
-  create: (CompoundFunc as any).create,
+export const cache = new KeyMappedFlyweightCache<CompoundFunc, Key, string>( {
+  getId,
+  getKey,
+  create: key=>new (CompoundFunc as any)(key),
 } );

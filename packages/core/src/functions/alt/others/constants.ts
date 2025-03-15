@@ -17,7 +17,7 @@ export function initialize() {
       return C.fromRootVoicing(pitchV, V.SEVENTH_b5);
     }
 
-    hashCode(): string {
+    getId(): string {
       return "V7ALT";
     }
 

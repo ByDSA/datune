@@ -1,5 +1,5 @@
 import { SPN, SPNArray } from "@datune/core/spns/chromatic";
-import { getTargetId, Target } from "../steps/Step";
+import { targetGetId, Target } from "../steps/Step";
 import { StepCombination } from "../combiners/types";
 import { CombinationApplierFilter } from "./filters";
 
@@ -17,7 +17,7 @@ export function applyCombinations(
 
   for (const combination of combinations) {
     const target = applyCombination(base, combination);
-    const targetId = getTargetId(target);
+    const targetId = targetGetId(target);
 
     if (uniqueTargetIds.has(targetId))
       continue;

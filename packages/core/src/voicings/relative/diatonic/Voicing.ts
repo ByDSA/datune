@@ -1,6 +1,7 @@
 import type { Arrays } from "@datune/utils";
 import type { Voicing as IVoicing } from "../Voicing";
 import type { IntervalArray, Interval } from "intervals/diatonic";
+import type { Key } from "./building";
 import { lockr } from "@datune/utils/immutables";
 import { Intervals } from "intervals/diatonic";
 
@@ -17,8 +18,8 @@ export class Voicing implements IVoicing<Interval> {
 
   length: number;
 
-  private constructor(...ints: Arrays.Number) {
-    this.rootIntervalInts = ints;
+  private constructor(key: Key) {
+    this.rootIntervalInts = key;
 
     this.rootIndex = 0;
     this.rootIntervals = this.rootIntervalInts.map(
@@ -31,10 +32,6 @@ export class Voicing implements IVoicing<Interval> {
     % this.rootIntervalInts.length;
     this.length = this.rootIntervalInts.length;
     lockr(this);
-  }
-
-  private static create(...ints: Arrays.Number): Voicing {
-    return new Voicing(...ints);
   }
 
   [Symbol.iterator](): Iterator<Interval> {

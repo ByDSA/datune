@@ -3,7 +3,7 @@ import { TestInit } from "tests";
 import { C5 } from "pitch/constants";
 import { MidiPitch } from "../../pitch/MidiPitch";
 import { from } from "./building";
-import { PartialMidiNote as Dto } from "./PartialMidiNote";
+import { PartialMidiNote } from "./PartialMidiNote";
 
 TestInit.initAll();
 const { QUARTER } = MD;
@@ -12,7 +12,7 @@ it("from - C5 QUARTER 90", () => {
   const pitch: MidiPitch = C5;
   const duration: MusicalDuration = QUARTER;
   const velocity = 90;
-  const midiNote: Dto = from( {
+  const midiNote: PartialMidiNote = from( {
     pitch,
     duration,
     velocity,

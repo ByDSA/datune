@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import type { Key } from "./cache";
 import { Interval } from "@datune/core/intervals/chromatic";
 import { add as SPNAdd } from "@datune/core/spns/symbolic/chromatic/modifiers";
 import { Step, Target } from "../Step";
@@ -13,14 +14,10 @@ export class SingleStep implements Step {
 
   interval: Interval | null;
 
-  private constructor(index: number, interval: Interval | null) {
-    this.index = index;
-    this.interval = interval;
+  private constructor(key: Key) {
+    this.index = key.index;
+    this.interval = key.interval;
     Object.freeze(this);
-  }
-
-  private static create(index: number, interval: Interval | null): SingleStep {
-    return new SingleStep(index, interval);
   }
 
   toString(): string {

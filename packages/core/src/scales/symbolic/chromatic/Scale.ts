@@ -1,4 +1,4 @@
-import type { Dto } from "./caching/Dto";
+import type { Key } from "./caching/cache";
 import type { Scale as IScale } from "../../Scale";
 import type { DegreeArray, Degree } from "degrees/chromatic";
 import type { IntervalArray, Interval } from "intervals/chromatic";
@@ -11,15 +11,11 @@ export class Scale implements IScale<Interval, Degree> {
 
   length: number;
 
-  private constructor(...rootIntervals: Dto) {
-    this.rootIntervals = rootIntervals;
+  private constructor(key: Key) {
+    this.rootIntervals = key;
     this.length = this.rootIntervals.length;
 
     this.degrees = this.rootIntervals as DegreeArray;
-  }
-
-  private static create(intraIntervals: Dto): Scale {
-    return new Scale(...intraIntervals);
   }
 
   toAlt(): AScale {

@@ -1,11 +1,21 @@
-import type { Dto } from "./Dto";
-import { StringHashCache } from "@datune/utils";
+import type { Pitch as DPitch } from "pitches/diatonic";
+import { KeyMappedFlyweightCache } from "@datune/utils";
 import { Pitch } from "../Pitch";
-import { hashDto } from "./Dto";
-import { toDto } from "./toDto";
 
-export const cache = new StringHashCache<Pitch, Dto>( {
-  hash: hashDto,
-  toDto,
-  create: (dto: Dto) => new (Pitch as any)(dto),
+export type Key = {
+  diatonic: DPitch;
+  alts: number;
+};
+
+export const getKey = (pitch: Pitch): Key => ( {
+  diatonic: pitch.diatonic,
+  alts: pitch.alts,
+} );
+
+export const getId = (key: Key): string => `${+key.diatonic}:${key.alts}`;
+
+export const cache = new KeyMappedFlyweightCache<Pitch, Key, string>( {
+  getId,
+  getKey,
+  create: key => new (Pitch as any)(key),
 } );

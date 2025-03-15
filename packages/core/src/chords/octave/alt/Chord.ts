@@ -1,5 +1,5 @@
 import type { SymbolicChord } from "../SymbolicChord";
-import type { Dto } from "./caching/Dto";
+import type { Key } from "./caching/cache";
 import type { PitchArray, Pitch } from "pitches/alt";
 import type { Interval, Voicing } from "alt";
 import type { Chord as CChord } from "chromatic";
@@ -15,8 +15,8 @@ export class Chord implements SymbolicChord<Pitch> {
 
   root: Pitch;
 
-  private constructor(dto: Dto) {
-    this.pitches = dto;
+  private constructor(key: Key) {
+    this.pitches = key;
     [this.root] = this.pitches;
     this.length = this.pitches.length;
 

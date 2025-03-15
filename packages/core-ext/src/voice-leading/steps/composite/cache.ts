@@ -1,12 +1,12 @@
 import type { CompositeArray } from "./building";
-import { StringHashCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "@datune/utils";
 import { CompositeStep } from "./CompositeStep";
 
-export type Dto = CompositeArray;
+export type Key = CompositeArray;
 
-export const cache = new StringHashCache<CompositeStep, Dto>( {
-  hash(dto: Dto): string {
-    return dto.map(
+export const cache = new KeyMappedFlyweightCache<CompositeStep, Key, string>( {
+  getId(key: Key): string {
+    return key.map(
       (interval) => {
         if (interval === undefined)
           return "";
@@ -18,8 +18,8 @@ export const cache = new StringHashCache<CompositeStep, Dto>( {
       },
     ).join("|");
   },
-  toDto(obj: CompositeStep): Dto {
-    return obj.array;
+  getKey(compositeStep: CompositeStep): Key {
+    return compositeStep.array;
   },
-  create: (dto: Dto): CompositeStep => new (CompositeStep as any)(dto),
+  create: (key: Key): CompositeStep => new (CompositeStep as any)(key),
 } );

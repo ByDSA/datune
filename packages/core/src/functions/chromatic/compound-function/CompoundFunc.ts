@@ -1,25 +1,21 @@
 import type { DegreeFunc } from "../degree-function/DegreeFunc";
-import { Chords as C, Chord } from "chords/chromatic";
+import type { Key } from "keys/chromatic";
+import type { DegreeArray } from "degrees/chromatic";
+import { Chords as C, type Chord } from "chords/chromatic";
 import { Intervals as I } from "intervals/chromatic";
-import { Key } from "keys/chromatic";
-import { DegreeArray } from "degrees/chromatic";
 import { Func } from "../Func";
-import { Dto, hash } from "./caching/Dto";
+import { type Key as K, getObjId } from "./caching/key-id";
 
 export class CompoundFunc extends Func {
   degreeFunc: DegreeFunc;
 
   degreeChain: DegreeArray;
 
-  private constructor(dto: Dto) {
+  private constructor(key: K) {
     super();
 
-    this.degreeFunc = dto.degreeFunc;
-    this.degreeChain = dto.degreeChain;
-  }
-
-  private static create(dto: Dto): CompoundFunc {
-    return new CompoundFunc(dto);
+    this.degreeFunc = key.degreeFunc;
+    this.degreeChain = key.degreeChain;
   }
 
   protected calculateChord(key: Key): Chord {
@@ -35,7 +31,7 @@ export class CompoundFunc extends Func {
     return C.shift(baseChord, accInterval);
   }
 
-  hashCode(): string {
-    return hash(this);
+  getId(): string {
+    return getObjId(this);
   }
 }

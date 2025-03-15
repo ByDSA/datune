@@ -1,9 +1,9 @@
-import type { Dto } from "./caching/Dto";
+import type { Key } from "./caching/cache";
 import type { Scale as IScale } from "../../Scale";
 import type { DegreeArray, Degree } from "degrees/alt";
 import type { IntervalArray as CIntervalArray } from "intervals/chromatic";
+import type { IntervalArray, Interval } from "intervals/alt";
 import { lockr } from "@datune/utils/immutables";
-import { type Interval } from "intervals/alt";
 import { Degrees as D } from "degrees/alt";
 import { Voicings as V } from "voicings/alt";
 import { fromAltDegree } from "degrees/chromatic/building/fromAltDegree";
@@ -13,16 +13,16 @@ import { Scales as CS } from "scales/chromatic";
 import { calcIntraIntervals } from "./modifiers/intraIntervals";
 
 export class Scale implements IScale<Interval, Degree> {
-  private intraIntervals: Dto;
+  private intraIntervals: IntervalArray;
 
-  rootIntervals: Dto;
+  rootIntervals: IntervalArray;
 
   degrees: DegreeArray;
 
   length: number;
 
-  private constructor(dto: Dto) {
-    this.intraIntervals = dto;
+  private constructor(key: Key) {
+    this.intraIntervals = key;
     this.length = this.intraIntervals.length;
     const voicing = V.fromIntraIntervals(...this.intraIntervals) as any;
 
@@ -30,10 +30,6 @@ export class Scale implements IScale<Interval, Degree> {
     this.degrees = calcDegrees(this);
 
     lockr(this);
-  }
-
-  private static create(dto: Dto): Scale {
-    return new Scale(dto);
   }
 
   toChromatic(): CScale {

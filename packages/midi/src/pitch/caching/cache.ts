@@ -1,16 +1,21 @@
-import { StringHashCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "@datune/utils";
+import { SPN } from "@datune/core/spns/chromatic";
 import { MidiPitch } from "../MidiPitch";
-import { Dto } from "./Dto";
 
-export const cache = new StringHashCache<MidiPitch, Dto>( {
-  hash(dto: Dto): string {
-    return `${+dto.spn}-${dto.detuned}`;
+export type Key = {
+  spn: SPN;
+  detuned: number;
+};
+
+export const cache = new KeyMappedFlyweightCache<MidiPitch, Key, string>( {
+  getId(key: Key): string {
+    return `${+key.spn}-${key.detuned}`;
   },
-  toDto(midiNote: MidiPitch): Dto {
+  getKey(midiNote: MidiPitch): Key {
     return {
       spn: midiNote.spn,
       detuned: midiNote.detuned,
     };
   },
-  create: (dto: Dto) => new (MidiPitch as any)(dto),
+  create: key => new (MidiPitch as any)(key),
 } );

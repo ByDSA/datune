@@ -1,4 +1,4 @@
-import type { Dto } from "./caching/Dto";
+import type { Key as K } from "./caching/cache";
 import type { Chord } from "chords/alt";
 import type { Degree } from "degrees/alt";
 import type { Key } from "keys/alt";
@@ -15,16 +15,12 @@ export class DegreeFunc extends Func {
 
   voicing: Voicing;
 
-  protected constructor(dto: Dto) {
+  protected constructor(key: K) {
     super();
 
-    this.degree = dto.degree;
-    this.voicing = dto.voicing;
+    this.degree = key.degree;
+    this.voicing = key.voicing;
     lockr(this);
-  }
-
-  private static create(dto: Dto): DegreeFunc {
-    return new DegreeFunc(dto);
   }
 
   protected calculateChord(key: Key): Chord {

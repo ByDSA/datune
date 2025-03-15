@@ -1,5 +1,6 @@
 import type { Arrays } from "@datune/utils";
 import type { ArrayRhythm } from "./array";
+import type { Key } from "./cache";
 import { lockr } from "@datune/utils/immutables";
 
 export class RhythmPattern implements Iterable<number> {
@@ -7,15 +8,11 @@ export class RhythmPattern implements Iterable<number> {
 
   values: Arrays.Number;
 
-  private constructor(...values: Arrays.Number) {
-    this.values = values;
-    this.array = calcArray(values);
+  private constructor(key: Key) {
+    this.values = key;
+    this.array = calcArray(key);
 
     lockr(this);
-  }
-
-  private static create(...values: Arrays.Number): RhythmPattern {
-    return new RhythmPattern(...values);
   }
 
   [Symbol.iterator]() {

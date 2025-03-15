@@ -1,5 +1,5 @@
 import type { MusicalDuration } from "../musical-duration";
-import type { Dto } from "./caching/Dto";
+import type { Key } from "./caching/cache";
 import { lockr } from "@datune/utils/immutables";
 
 export class TimeSignature {
@@ -11,17 +11,13 @@ export class TimeSignature {
 
   denominatorBeat: MusicalDuration;
 
-  private constructor(dto: Dto) {
-    this.denominator = musicalDurationToDen(dto.beat);
-    this.denominatorBeat = dto.beat;
-    this.numerators = dto.nums;
+  private constructor(key: Key) {
+    this.denominator = musicalDurationToDen(key.beat);
+    this.denominatorBeat = key.beat;
+    this.numerators = key.nums;
     this.numerator = calcNumerator(this.numerators);
 
     lockr(this);
-  }
-
-  private static create(dto: Dto): TimeSignature {
-    return new TimeSignature(dto);
   }
 }
 

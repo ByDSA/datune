@@ -3,7 +3,7 @@ import type { StepCombinerTransform } from "./transforms";
 import type { SingleStep } from "../steps/single/SingleStep";
 import type { StepOrNull } from "../steps/Step";
 import { getCartesianProduct } from "@datune/utils/math";
-import { hashSingleSteps } from "voice-leading/steps/single/hash";
+import { singleStepsGetObjId } from "voice-leading/steps/single/id";
 import { SingleStepArray } from "voice-leading/steps";
 import { flattenStep } from "../steps/flattenSteps";
 import { StepCombinerFilter } from "./filters";
@@ -68,7 +68,7 @@ class StepCombiner {
     #cleanFlatDirtyCombinations(
       flatDirtyCombinations: SingleStepCombination[],
     ): SingleStepCombination[] {
-      const hashesAddedSets = new Set<string>();
+      const idsAddedSets = new Set<string>();
 
       return flatDirtyCombinations.filter((flatDirtyCombination) => {
         let indexes = new Set<number>();
@@ -101,12 +101,12 @@ class StepCombiner {
           }
         }
 
-        const hash = hashSingleSteps(flatDirtyNonEmptyCombination);
+        const id = singleStepsGetObjId(flatDirtyNonEmptyCombination);
 
-        if (hashesAddedSets.has(hash))
+        if (idsAddedSets.has(id))
           return false; // Duplicated combination
 
-        hashesAddedSets.add(hash);
+        idsAddedSets.add(id);
 
         return true;
       } );

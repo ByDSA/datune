@@ -1,10 +1,10 @@
-export type Dto = string;
+import type { Key } from "./building/id";
 
 export class Quality {
   private shortName: string;
 
-  private constructor(dto: Dto) {
-    this.shortName = dto;
+  private constructor(key: Key) {
+    this.shortName = key;
   }
 
   toString() {

@@ -8,7 +8,7 @@ import { getAllInversions } from "@datune/core/voicings/relative/chromatic/utils
 import { TestInit } from "tests";
 import { createAllPitchesInEveryKeyFilter, createAllPitchesInSomeKeyFilter, createHasSomeVoicingFilter } from "voice-leading/appliers/filters";
 import { VoiceLeadings as VL } from "voice-leading";
-import { getTargetId } from "voice-leading/steps/Step";
+import { targetGetId } from "voice-leading/steps/Step";
 import { generateVoiceLeading } from "./VoiceLeading";
 import { expectTargets } from "./tests/targets";
 
@@ -475,7 +475,7 @@ function removeDuplicatedSpnArrays(spnArrays: (SPN | null)[][]): (SPN | null)[][
   const uniqueArrays = new Set<string>();
 
   return spnArrays.filter(spnArray => {
-    const id = getTargetId(spnArray);
+    const id = targetGetId(spnArray);
 
     if (uniqueArrays.has(id))
       return false;

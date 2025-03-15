@@ -1,4 +1,5 @@
 import type { MusicalDuration } from "../musical-duration";
+import type { Key } from "./building";
 import { lockr } from "@datune/utils/immutables";
 import { Tempo } from "../Tempo";
 
@@ -9,18 +10,14 @@ export class BPM extends Tempo<MusicalDuration> {
 
   private wholeMillisDuration;
 
-  private constructor(bpm: number, beat: MusicalDuration) {
+  private constructor(key: Key) {
     super();
 
-    this.bpm = bpm;
-    this.beat = beat;
+    this.bpm = key.bpm;
+    this.beat = key.beat;
     this.wholeMillisDuration = calcWholeMillisDuration(this.bpm, this.beat);
 
     lockr(this);
-  }
-
-  private static create(bpm: number, beat: MusicalDuration): BPM {
-    return new BPM(bpm, beat);
   }
 
   getMillis(musicalDuration: MusicalDuration): number {

@@ -1,6 +1,6 @@
 import { Intervals as I } from "alt";
 import { Degrees as AD, Degrees as D } from "..";
-import { hash } from "../caching/hash";
+import { getId } from "../caching/cache";
 import { fromInterval } from ".";
 
 const { II, III, IV, V, VI, VII } = AD;
@@ -27,9 +27,9 @@ describe.each([
   [V, "4:0"],
   [VI, "5:0"],
   [VII, "6:0"],
-])("hashCode", (degree, expected) => {
+])("getId", (degree, expected) => {
   it(`${String(degree)} matches`, () => {
-    expect(hash(degree)).toBe(expected);
+    expect(getId(degree)).toBe(expected);
   } );
 } );
 

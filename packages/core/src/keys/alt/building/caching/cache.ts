@@ -1,11 +1,35 @@
-import type { Dto } from "./Dto";
-import { StringHashCache } from "@datune/utils";
+import type { Pitch } from "pitches/alt";
+import type { Scale } from "scales/alt";
+import { KeyMappedFlyweightCache } from "@datune/utils";
+import { getObjId as pitchGetObjId } from "pitches/alt/id";
+import { getObjId as scaleGetObjId } from "scales/symbolic/alt/caching/cache";
 import { Key } from "../../Key";
-import { toDto } from "./toDto";
-import { hash } from "./Dto";
 
-export const cache = new StringHashCache<Key, Dto>( {
-  hash,
-  toDto,
-  create: (Key as any).create,
+export type K = {
+  root: Pitch;
+  scale: Scale;
+};
+
+export function getKey(key: Key): K {
+  return {
+    root: key.root,
+    scale: key.scale,
+  };
+}
+
+export function getId(obj: K): string {
+  const rootId = pitchGetObjId(obj.root);
+  const scaleId = scaleGetObjId(obj.scale);
+
+  return `${rootId}|(${scaleId})`;
+}
+
+export function getObjId(key: Key): string {
+  return getId(getKey(key));
+}
+
+export const cache = new KeyMappedFlyweightCache<Key, K, string>( {
+  getId,
+  getKey,
+  create: key=>new (Key as any)(key),
 } );

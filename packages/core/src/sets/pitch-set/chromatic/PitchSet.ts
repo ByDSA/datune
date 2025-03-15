@@ -1,4 +1,4 @@
-import type { Dto } from "./caching/Dto";
+import type { Key } from "./caching/cache";
 import type { Pitch } from "pitches/chromatic";
 import { lockr } from "@datune/utils/immutables";
 
@@ -7,8 +7,8 @@ export class PitchSet {
 
   size: number;
 
-  private constructor(dto: Dto) {
-    this.pitches = new Set(dto);
+  private constructor(key: Key) {
+    this.pitches = new Set(key);
     this.size = this.pitches.size;
 
     lockr(this);

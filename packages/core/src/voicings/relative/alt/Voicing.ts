@@ -9,16 +9,12 @@ export class Voicing implements IVoicing<Interval> {
 
   length: number;
 
-  private constructor(...values: IntervalArray) {
-    this.rootIntervals = values;
+  private constructor(key: IntervalArray) {
+    this.rootIntervals = key;
 
     this.length = this.rootIntervals.length;
 
     lockr(this);
-  }
-
-  private static create(values: IntervalArray): Voicing {
-    return new Voicing(...values);
   }
 
   [Symbol.iterator](): Iterator<Interval> {
