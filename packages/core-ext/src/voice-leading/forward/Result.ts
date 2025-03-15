@@ -1,3 +1,4 @@
+import type { applyCombinations } from "voice-leading/appliers/combination-appliers";
 import { Target } from "voice-leading/steps/Step";
 import { MultipleGenResult } from "voice-leading/generators/multiple/generate";
 import { SingleStepCombination } from "voice-leading/combiners/types";
@@ -7,5 +8,6 @@ export type VoiceLeadingResult = {
     meta: {
         multipleGenResult: MultipleGenResult;
         singleStepCombinations: SingleStepCombination[];
+        applyCombinationsResult: Omit<ReturnType<typeof applyCombinations>, "targets">;
     };
 };

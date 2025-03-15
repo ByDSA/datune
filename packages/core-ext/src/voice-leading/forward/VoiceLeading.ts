@@ -1,5 +1,4 @@
 import type { SPNArray } from "@datune/core/spns/chromatic";
-import type { Target } from "../steps/Step";
 import { voiceCrossingFilter, voiceOverlappingFilter } from "../appliers/voices-interaction-filters";
 import { SingleStepCombination, StepGroup } from "../combiners/types";
 import { CombinationApplierFilter } from "../appliers/filters";
@@ -45,13 +44,15 @@ class VoiceLeading {
   generate(): VoiceLeadingResult {
     const multipleGenResult = generateMultiple(this.#base, this.#multipleGenConfig);
     const singleStepCombinations = this.#combineGroups(multipleGenResult.groups);
-    const targets = this.#applyCombinations(singleStepCombinations);
+    const applyCombinationsResult = this.#applyCombinations(singleStepCombinations);
+    const { targets, ...applyCombinationsResultRest } = applyCombinationsResult;
 
     return {
       targets,
       meta: {
         multipleGenResult,
         singleStepCombinations,
+        applyCombinationsResult: applyCombinationsResultRest,
       },
     };
   }
@@ -68,7 +69,7 @@ class VoiceLeading {
     } );
   }
 
-  #applyCombinations(singleStepCombinations: SingleStepCombination[]): Target[] {
+  #applyCombinations(singleStepCombinations: SingleStepCombination[]) {
     const afterFilters: CombinationApplierFilter[] = [];
 
     if (!this.#combinationApplierConfig?.voiceCrossing)

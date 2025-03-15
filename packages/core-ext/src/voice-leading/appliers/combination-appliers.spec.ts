@@ -26,7 +26,7 @@ it("apply: notes and combinations", () => {
   ];
   const actual = applyCombinations(notes, combinations, {
     afterFilters: [voiceCrossingFilter, voiceOverlappingFilter],
-  } );
+  } ).targets;
   const expected = [
     [CC5, DD5, G5],
     [CC5, E5, A5],
@@ -43,7 +43,7 @@ it("overlapping discards", () => {
   ];
   const actual = applyCombinations(notes, combinations, {
     afterFilters: [voiceCrossingFilter, voiceOverlappingFilter],
-  } );
+  } ).targets;
   const expected: Target[] = [];
 
   expectTargets(actual).toEqual(expected);
@@ -54,7 +54,7 @@ it("overlapping let", () => {
   const combinations = [
     compositeStepFromIntervals(5, 2, 3).singleSteps,
   ];
-  const actual = applyCombinations(notes, combinations);
+  const actual = applyCombinations(notes, combinations).targets;
   const expected: SPNArray[] = [
     [F5, FF5, AA5],
   ];
@@ -71,7 +71,7 @@ it("near (distance=2) C5-E5-G5 in C", () => {
   const combinations = steps.map(flattenStep);
   let actual = applyCombinations(fromNotes, combinations, {
     afterFilters: [voiceCrossingFilter, voiceOverlappingFilter],
-  } );
+  } ).targets;
 
   actual = actual
     .filter(

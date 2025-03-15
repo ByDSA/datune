@@ -7,13 +7,21 @@ export type CombinationApplierProps = {
   afterFilters?: CombinationApplierFilter[];
 };
 
+type ApplyCombinationsResult = {
+  targets: Target[];
+  meta: {
+    reverseMap: Map<Target, StepCombination>;
+  };
+};
+
 export function applyCombinations(
   base: SPNArray,
   combinations: StepCombination[],
   props?: CombinationApplierProps,
-) {
+): ApplyCombinationsResult {
   const targets: Target[] = [];
   const uniqueTargetIds = new Set<string>();
+  const reverseMap = new Map<Target, StepCombination>();
 
   for (const combination of combinations) {
     const target = applyCombination(base, combination);
@@ -35,10 +43,16 @@ export function applyCombinations(
         continue;
     }
 
+    reverseMap.set(target, combination);
     targets.push(target);
   }
 
-  return targets;
+  return {
+    targets,
+    meta: {
+      reverseMap,
+    },
+  };
 }
 
 type Result = {
