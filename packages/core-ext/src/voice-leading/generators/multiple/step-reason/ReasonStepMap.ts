@@ -1,30 +1,23 @@
-import { CompositeStep } from "../../../steps/composite/CompositeStep";
-import { SingleStep } from "../../../steps/single/SingleStep";
-import { StepArray } from "../../../steps/Step";
-import { SingleStepReasonInfo } from "./SingleStepReasonInfo";
+import { Step, StepArray } from "../../../steps/Step";
+import { StepReasonInfo } from "./StepReasonInfo";
 
-export class SingleStepsToReasonMap {
-    #map = new Map<SingleStep, SingleStepReasonInfo[]>();
+export class StepToReasonMap {
+    #map = new Map<Step, StepReasonInfo[]>();
 
-    add(reasonInfo: SingleStepReasonInfo, ...steps: StepArray) {
+    add(reasonInfo: StepReasonInfo, ...steps: StepArray) {
       for (const step of steps) {
-        if (step instanceof SingleStep)
-          this.#addSingleStep(reasonInfo, step);
-        else if (step instanceof CompositeStep) {
-          for (const singleSteps of step.singleSteps)
-            this.add(reasonInfo, singleSteps);
+        let result = this.#map.get(step);
+
+        if (!result) {
+          result = [];
+          this.#map.set(step, result);
         }
+
+        result.push(reasonInfo);
       }
     }
 
-    #addSingleStep(reasonInfo: SingleStepReasonInfo, singleStep: SingleStep) {
-      let result = this.#map.get(singleStep) ?? [];
-
-      this.#map.set(singleStep, result);
-      result.push(reasonInfo);
-    }
-
-    addMap(mapObj: SingleStepsToReasonMap) {
+    addMap(mapObj: StepToReasonMap) {
       const newEntries = mapObj.#map.entries();
 
       for (const [key, value] of newEntries) {
@@ -37,7 +30,7 @@ export class SingleStepsToReasonMap {
       }
     }
 
-    get(sm: SingleStep): SingleStepReasonInfo[] | null {
+    get(sm: Step): StepReasonInfo[] | null {
       return this.#map.get(sm) ?? null;
     }
 }

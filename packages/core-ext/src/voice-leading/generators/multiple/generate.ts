@@ -7,13 +7,13 @@ import { generate as generateToKeyResolution } from "../key-resolution/generate"
 import { generate as generateToVoicingResolution } from "../voicing-resolution/generate";
 import { generate as generateToNearest } from "../nearest/generate";
 import { voicingFromSpnArray } from "../voicing-resolution/generate";
-import { SingleStepReason } from "./step-reason/SingleStepReason";
-import { SingleStepsToReasonMap } from "./step-reason/ReasonStepMap";
-import { SingleStepReasonNearInfo, SingleStepReasonRestNotesInfo, SingleStepReasonVoicingResolutionInfo } from "./step-reason/SingleStepReasonInfo";
+import { StepReason } from "./step-reason/StepReason";
+import { StepToReasonMap } from "./step-reason/ReasonStepMap";
+import { StepReasonNearInfo, StepReasonRestNotesInfo, StepReasonVoicingResolutionInfo } from "./step-reason/StepReasonInfo";
 
 export type MultipleGenResult = {
   groups: StepGroup[];
-  reasonsMap: SingleStepsToReasonMap;
+  reasonsMap: StepToReasonMap;
 };
 
 export type MultipleGenProps = {
@@ -66,7 +66,7 @@ class MultipleGen {
   }
 
   generate(): MultipleGenResult {
-    const reasonsMap = new SingleStepsToReasonMap();
+    const reasonsMap = new StepToReasonMap();
     const groups: StepGroup[] = [];
 
     if (this.#props.voicingResolution?.enabled) {
@@ -88,7 +88,7 @@ class MultipleGen {
     };
   }
 
-  #genToVoicingResolution(reasonsMap: SingleStepsToReasonMap, required: boolean): StepGroup[] {
+  #genToVoicingResolution(reasonsMap: StepToReasonMap, required: boolean): StepGroup[] {
     const groups: StepGroup[] = [];
     const gen = generateToVoicingResolution( {
       voicing: voicingFromSpnArray(this.#base),
@@ -97,8 +97,8 @@ class MultipleGen {
     for (const result of gen.meta.results) {
       // eslint-disable-next-line prefer-destructuring
       const steps: StepOrNull[] = result.steps;
-      const reason: SingleStepReasonVoicingResolutionInfo = {
-        reason: SingleStepReason.RESOLUTION_VOICING,
+      const reason: StepReasonVoicingResolutionInfo = {
+        reason: StepReason.RESOLUTION_VOICING,
         tensionVoicing: result.tensionVoicing,
       };
 
@@ -118,15 +118,15 @@ class MultipleGen {
     return groups;
   }
 
-  #genToKeyResolution(reasonsMap: SingleStepsToReasonMap, required: boolean): StepGroup {
+  #genToKeyResolution(reasonsMap: StepToReasonMap, required: boolean): StepGroup {
     // eslint-disable-next-line prefer-destructuring
     const steps: StepOrNull[] = generateToKeyResolution( {
       base: this.#base,
       maxInterval: this.#props.maxDistance,
       restingPitches: this.#props.keyResolution?.restingPitches as PitchArray,
     } ).steps;
-    const reason: SingleStepReasonRestNotesInfo = {
-      reason: SingleStepReason.RESOLUTION_KEY,
+    const reason: StepReasonRestNotesInfo = {
+      reason: StepReason.RESOLUTION_KEY,
     };
 
     if (!required)
@@ -144,14 +144,14 @@ class MultipleGen {
     return group;
   }
 
-  #genNearest(reasonsMap: SingleStepsToReasonMap, required: boolean): StepGroup {
+  #genNearest(reasonsMap: StepToReasonMap, required: boolean): StepGroup {
     // eslint-disable-next-line prefer-destructuring
     const steps: StepOrNull[] = generateToNearest( {
       arrayLength: this.#base.length,
       maxInterval: this.#props.maxDistance,
     } ).steps;
-    const reason: SingleStepReasonNearInfo = {
-      reason: SingleStepReason.NEAR,
+    const reason: StepReasonNearInfo = {
+      reason: StepReason.NEAR,
     };
 
     if (!required)

@@ -1,5 +1,5 @@
 import type { StepCombinerFilter } from "./combiners/filters";
-import { SingleStepReason } from "./generators/multiple/step-reason/SingleStepReason";
+import { StepReason } from "./generators/multiple/step-reason/StepReason";
 import { StepCombinerTransform } from "./combiners/transforms";
 import { type CombinationApplierFilter } from "./appliers/filters";
 import { generateVoiceLeading } from "./forward/VoiceLeading";
@@ -25,7 +25,7 @@ export type * from "./combiners";
 export type * from "./appliers";
 
 export {
-  SingleStepReason,
+  StepReason,
   StepCombinerFilter,
   StepCombinerTransform,
   CombinationApplierFilter,
