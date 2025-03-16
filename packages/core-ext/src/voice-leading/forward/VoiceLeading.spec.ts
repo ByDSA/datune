@@ -9,9 +9,9 @@ import { TestInit } from "tests";
 import { createHasSomeVoicingFilter } from "voice-leading/appliers/filters";
 import { VoiceLeadings as VL } from "voice-leading";
 import { targetGetId } from "voice-leading/steps/Step";
-import { findInnerVoicings } from "voicings/findInnerVoicings";
 import { generateVoiceLeading } from "./VoiceLeading";
 import { expectTargets } from "./tests/targets";
+import { humanizeVoiceLeadingResult } from "./Result";
 
 TestInit.loadAll();
 const { rootChord3, rootChord4 } = K;
@@ -484,19 +484,13 @@ it("chord G7 resolution in C Major Key", () => {
     },
     combinationApplierConfig: {
       afterFilters: [
-        (props) => {
-          if (props.nonNullTarget.length === 0)
-            return true;
-
-          const voicing = V.fromPitches(...props.nonNullTarget.map(n=>n.pitch) as PitchArray);
-          const r = findInnerVoicings(voicing, [V.M2, V.m2]);
-
-          return r.length === 0;
-        },
+        VL.Appliers.processors.createDisallowInnerVoicingsFilter(V.M2, V.m2),
       ],
     },
   } );
   const expected = C.fromPitches(...C.C.withInv(2).pitches, P.G); // G-C-E-G
+
+  console.log(JSON.stringify(humanizeVoiceLeadingResult(base, result), null, 2));
 
   expectTargets(result.targets).toContainChord(expected);
 } );

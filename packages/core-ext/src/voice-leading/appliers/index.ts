@@ -1,5 +1,5 @@
 import { applyCombination, applyCombinations, applyCombinationsWithMeta } from "./combination-appliers";
-import { createHasSomeVoicingFilter } from "./filters";
+import { createDisallowInnerVoicingsFilter, createHasSomeVoicingFilter } from "./filters";
 import { voiceCrossingFilter, voiceOverlappingFilter } from "./voices-interaction-filters";
 
 const staticModule = {
@@ -8,6 +8,7 @@ const staticModule = {
   applyCombinationsWithMeta,
   processors: {
     createHasSomeVoicingFilter,
+    createDisallowInnerVoicingsFilter,
     voiceCrossingFilter,
     voiceOverlappingFilter,
   },
