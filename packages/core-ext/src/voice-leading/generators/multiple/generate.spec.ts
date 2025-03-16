@@ -18,7 +18,7 @@ const { B3, B4, C4, D3, D4, F4, G3, G4, GG4 } = N;
 it("combinations - SUS in notes: C4, F4, G4", () => {
   const base: SPNArray = [C4, F4, G4];
   const result = generateMultiple(base, {
-    nearest: {
+    near: {
       enabled: false,
     },
   } );
@@ -33,7 +33,7 @@ it("combinations - SUS in notes: C4, F4, G4", () => {
   expectCombinations(actual, expected);
 } );
 
-it("combinations - nearest (1): C4, G4", () => {
+it("combinations - near (1): C4, G4", () => {
   const base: SPNArray = [C4, G4];
   const result = generateMultiple(base, {
     maxInterval: 1,
@@ -56,7 +56,7 @@ it("combinations - nearest (1): C4, G4", () => {
 it("dIM in notes: D3, F4, B4", () => {
   const notes: SPNArray = [D3, F4, B4];
   const result = generateMultiple(notes, {
-    nearest: {
+    near: {
       enabled: false,
     },
   } );
@@ -83,7 +83,7 @@ it("dIM in notes: D3, F4, B4", () => {
 it("dIM in notes: G3, B3, D4, F4", () => {
   const spnArray: SPNArray = [G3, B3, D4, F4];
   const result = generateMultiple(spnArray, {
-    nearest: {
+    near: {
       enabled: false,
     },
   } );
@@ -115,7 +115,7 @@ it("dIM in notes: G3, B3, D4, F4", () => {
 it("dIM in notes fill zeros last index: B3, F4, GG4", () => {
   const spnArray: SPNArray = [B3, F4, GG4];
   const result = generateMultiple(spnArray, {
-    nearest: {
+    near: {
       enabled: false,
     },
   } );
@@ -143,7 +143,7 @@ it("dIM in notes fill zeros last index: B3, F4, GG4", () => {
 it("disableResolutions - DIM in notes: G3, B3, D4, F4", () => {
   const notes: SPNArray = [G3, B3, D4, F4];
   const result = generateMultiple(notes, {
-    nearest: {
+    near: {
       enabled: false,
     },
     voicingResolution: {
@@ -160,7 +160,7 @@ it("notes=[F4] C Major Key Resolution", () => {
   const notes: SPNArray = [F4];
   const result = generateMultiple(notes, {
     maxInterval: 1,
-    nearest: {
+    near: {
       enabled: false,
     },
     voicingResolution: {
@@ -168,7 +168,7 @@ it("notes=[F4] C Major Key Resolution", () => {
     },
     keyResolution: {
       required: true,
-      restingPitches: rootChord3(K.C)?.pitches,
+      restingPitches: rootChord3(K.C)?.pitches!,
     },
   } );
   const resultGroups = result.groups;

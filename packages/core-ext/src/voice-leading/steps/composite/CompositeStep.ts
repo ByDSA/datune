@@ -1,14 +1,14 @@
 import type { SingleStepArray } from "../single/Array";
 import type { Step, Target } from "../Step";
-import { IntervalArray, SPNs } from "@datune/core";
-import { lockr } from "@datune/utils";
+import { Interval, SPNs } from "@datune/core";
+import { Arrays, lockr } from "@datune/utils";
 import { from } from "../single/building";
 import { compositeStepToSingleSteps } from "./cacheMaps";
 
 export class CompositeStep implements Step {
-  array: IntervalArray;
+  array: Arrays.NonEmpty<Interval | undefined>;
 
-  private constructor(array: IntervalArray) {
+  private constructor(array: Arrays.NonEmpty<Interval | undefined>) {
     this.array = array;
     lockr(this.array);
   }
@@ -39,7 +39,7 @@ export class CompositeStep implements Step {
     this.array.forEach((interval, index) => {
       const spnAtIndex = spnArray[index];
 
-      if (!spnAtIndex)
+      if (!spnAtIndex || interval === undefined)
         return;
 
       if (interval !== null)

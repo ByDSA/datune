@@ -10,7 +10,7 @@ import { fromIntervals as compositeStepFromIntervals } from "../steps/composite/
 import { X0_1, X1_S1 } from "../steps/single/constants";
 import { from } from "../steps/single/building";
 import { Target } from "../steps/Step";
-import { generate } from "../generators/nearest/generate";
+import { generate } from "../generators/near/generate";
 import { applyCombinations } from "./combination-appliers";
 import { voiceCrossingFilter, voiceOverlappingFilter } from "./voices-interaction-filters";
 

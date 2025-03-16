@@ -1,17 +1,17 @@
 import type { StepGroup } from "../StepsGenerator";
-import { PitchArray } from "@datune/core/pitches/chromatic";
+import type { StepOrNull } from "../../steps/Step";
+import type { StepReasonNearInfo, StepReasonRestNotesInfo, StepReasonVoicingResolutionInfo } from "./step-reason/StepReasonInfo";
+import type { StepFilter } from "../filters";
 import { SPN, SPNArray } from "@datune/core/spns/chromatic";
-import { CombinerResult, combineStepGroups } from "voice-leading/combiners/combine-groups";
-import { StepOrNull } from "../../steps/Step";
-import { filterNonNullSteps, StepArray } from "../../steps/Step";
-import { generate as generateToKeyResolution } from "../key-resolution/generate";
-import { generate as generateToVoicingResolution } from "../voicing-resolution/generate";
-import { generate as generateToNearest } from "../nearest/generate";
+import { type CombinerResult, combineStepGroups } from "voice-leading/combiners/combine-groups";
+import { filterNonNullSteps, type StepArray } from "../../steps/Step";
+import { generate as generateToKeyResolution, KeyResolutionGeneratorProps } from "../key-resolution/generate";
+import { generate as generateToVoicingResolution, VoicingResolutionGeneratorProps } from "../voicing-resolution/generate";
+import { generate as generateToNear, NearGeneratorProps } from "../near/generate";
 import { voicingFromSpnArray } from "../voicing-resolution/generate";
 import { compactCombinationsUnsafe } from "../compact-combinations";
 import { StepReason } from "./step-reason/StepReason";
 import { StepToReasonMap } from "./step-reason/ReasonStepMap";
-import { StepReasonNearInfo, StepReasonRestNotesInfo, StepReasonVoicingResolutionInfo } from "./step-reason/StepReasonInfo";
 import { GroupItemToRawsMap } from "./GroupItemToRawMap";
 
 export type MultipleGenResult = {
@@ -24,17 +24,14 @@ export type MultipleGenResult = {
 
 export type MultipleGenProps = {
   maxInterval?: number;
-  nearest?: {
+  filters?: StepFilter[];
+  near?: Omit<NearGeneratorProps, "arrayLength"> & {
     enabled?: boolean;
     required?: boolean;
   };
-  keyResolution?: {
-    restingPitches?: PitchArray;
-    required?: boolean;
-  };
-  voicingResolution?: {
+  keyResolution?: Omit<KeyResolutionGeneratorProps, "base">;
+  voicingResolution?: Omit<VoicingResolutionGeneratorProps, "voicing"> & {
     enabled?: boolean;
-    required?: boolean;
   };
 };
 
@@ -53,16 +50,31 @@ class MultipleGen {
   #reasonsMap;
 
   constructor(base: SPNArray, props?: MultipleGenProps) {
+    const voicingResolutionEnabled = props?.voicingResolution?.enabled ?? true;
+    const nearEnabled = props?.near?.enabled ?? true;
+
     this.#props = {
       ...props,
-      nearest: {
-        ...props?.nearest,
-        enabled: props?.nearest?.enabled ?? true,
-      },
-      voicingResolution: {
-        ...props?.voicingResolution,
-        enabled: props?.voicingResolution?.enabled ?? true,
-      },
+      near: nearEnabled
+        ? {
+          ...props?.near,
+          filters: mergeArrays(props?.filters, props?.near?.filters),
+          enabled: nearEnabled,
+        }
+        : undefined,
+      voicingResolution: voicingResolutionEnabled
+        ? {
+          ...props?.voicingResolution,
+          filters: mergeArrays(props?.filters, props?.voicingResolution?.filters),
+          enabled: voicingResolutionEnabled,
+        }
+        : undefined,
+      keyResolution: props?.keyResolution?.restingPitches
+        ? {
+          ...props?.keyResolution,
+          filters: mergeArrays(props?.filters, props?.keyResolution?.filters),
+        }
+        : undefined,
     };
 
     this.#groupItemToRawsMap = new GroupItemToRawsMap();
@@ -92,8 +104,8 @@ class MultipleGen {
         groups.push(partialGroup);
     }
 
-    if (this.#props.nearest?.enabled) {
-      const partialGroup = this.#genNearest();
+    if (this.#props.near?.enabled) {
+      const partialGroup = this.#genNear();
 
       if (partialGroup)
         groups.push(partialGroup);
@@ -109,8 +121,10 @@ class MultipleGen {
   }
 
   #genToVoicingResolution(): StepGroup[] {
+    const { enabled: _, ...voicingResolutionProps } = this.#props.voicingResolution!;
     const groups: StepGroup[] = [];
     const gen = generateToVoicingResolution( {
+      ...voicingResolutionProps,
       voicing: voicingFromSpnArray(this.#base),
     } );
 
@@ -122,7 +136,7 @@ class MultipleGen {
         innerVoicingResult: result.innerVoicing,
       };
 
-      if (!this.#props.voicingResolution?.required)
+      if (!voicingResolutionProps.required)
         steps.push(null);
 
       if (steps.length === 0)
@@ -141,11 +155,12 @@ class MultipleGen {
   }
 
   #genToKeyResolution(): StepGroup | null {
+    const { required: _, ...keyResolutionProps } = this.#props.keyResolution!;
     const { groups } = generateToKeyResolution( {
       base: this.#base,
-      required: false,
       maxInterval: this.#props.maxInterval,
-      restingPitches: this.#props.keyResolution?.restingPitches as PitchArray,
+      ...keyResolutionProps,
+      required: false,
     } );
     const reason: StepReasonRestNotesInfo = {
       reason: StepReason.RESOLUTION_KEY,
@@ -168,10 +183,12 @@ class MultipleGen {
     return group;
   }
 
-  #genNearest() {
-    const { groups } = generateToNearest( {
+  #genNear() {
+    const { enabled: _, ...nearProps } = this.#props.near!;
+    const { groups } = generateToNear( {
       arrayLength: this.#base.length,
       maxInterval: this.#props.maxInterval,
+      ...nearProps,
     } );
     const reason: StepReasonNearInfo = {
       reason: StepReason.NEAR,
@@ -188,7 +205,7 @@ class MultipleGen {
 
     this.#addToGroupItemToRawsMap(group, combinerResult);
 
-    if (!this.#props.nearest?.required)
+    if (!nearProps.required)
       group.push(null);
 
     return group;
@@ -215,4 +232,10 @@ function ensureSpnArrayIsDefinedAndSorted(spnArray: SPN[]) {
     throw new Error("No notes");
 
   spnArray.sort((a, b) => a.valueOf() - b.valueOf());
+}
+
+function mergeArrays<T>(...groups: (T[] | undefined)[]): T[] | undefined {
+  const result = groups.flatMap(g => g ?? []);
+
+  return result.length ? result : undefined;
 }

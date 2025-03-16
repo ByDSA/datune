@@ -6,13 +6,12 @@ import { SPNArray, SPNs as N, SPN } from "@datune/core/spns/chromatic";
 import { VoicingArray, Voicings as V } from "@datune/core/voicings/chromatic";
 import { getAllInversions } from "@datune/core/voicings/relative/chromatic/utils";
 import { TestInit } from "tests";
-import { createAllPitchesInEveryKeyFilter, createAllPitchesInSomeKeyFilter, createHasSomeVoicingFilter } from "voice-leading/appliers/filters";
+import { createHasSomeVoicingFilter } from "voice-leading/appliers/filters";
 import { VoiceLeadings as VL } from "voice-leading";
 import { targetGetId } from "voice-leading/steps/Step";
 import { findInnerVoicings } from "voicings/findInnerVoicings";
 import { generateVoiceLeading } from "./VoiceLeading";
 import { expectTargets } from "./tests/targets";
-import { humanizeVoiceLeadingResult } from "./Result";
 
 TestInit.loadAll();
 const { rootChord3, rootChord4 } = K;
@@ -22,7 +21,7 @@ const { COMMON_TRIADS, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SE
 const TRIADS_MAJOR_MINOR_ARRAY = [...TRIADS_MAJOR_MINOR] as VoicingArray;
 const COMMON_TRIADS_ARRAY = [...COMMON_TRIADS] as VoicingArray;
 
-it("voice leading C (default=nearest)", () => {
+it("voice leading C (default=near)", () => {
   const base: SPNArray = [C5, E5, G5];
   const result = generateVoiceLeading(base);
 
@@ -30,7 +29,7 @@ it("voice leading C (default=nearest)", () => {
   expect(result.targets).toHaveLength(104); // Quitando voice crossing y overlapping
 } );
 
-it("voice leading C (nearest + voice filters off)", () => {
+it("voice leading C (near + voice filters off)", () => {
   const base: SPNArray = [C5, E5, G5];
   const result = generateVoiceLeading(base, {
     combinationApplierConfig: {
@@ -44,11 +43,11 @@ it("voice leading C (nearest + voice filters off)", () => {
   ); // (5 * 5 * 5) - 1
 } );
 
-it("voice leading C (nearest off) should be empty", () => {
+it("voice leading C (near off) should be empty", () => {
   const base: SPNArray = [C5, E5, G5];
   const result = generateVoiceLeading(base, {
     multipleGenConfig: {
-      nearest: {
+      near: {
         enabled: false,
       },
     },
@@ -57,7 +56,7 @@ it("voice leading C (nearest off) should be empty", () => {
   expect(result.targets).toHaveLength(0);
 } );
 
-it("c nearest Key.C", () => {
+it("c near Key.C", () => {
   const base: SPNArray = [C5, E5, G5];
   const voicings = [
     ...getAllInversions(TRIAD_MAJOR),
@@ -65,11 +64,13 @@ it("c nearest Key.C", () => {
     TRIAD_DIMINISHED,
   ] as VoicingArray;
   const result = generateVoiceLeading(base, {
+    multipleGenConfig: {
+      filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
+    },
     combinationApplierConfig: {
       voiceOverlapping: true,
       afterFilters: [
         createHasSomeVoicingFilter(...voicings),
-        createAllPitchesInEveryKeyFilter(K.C),
       ],
     },
   } );
@@ -117,6 +118,7 @@ it("csus4 resolution in C", () => {
   const base: SPNArray = [C5, F5, G5];
   const result = generateVoiceLeading(base, {
     multipleGenConfig: {
+      filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       voicingResolution: {
         required: true,
       },
@@ -124,7 +126,6 @@ it("csus4 resolution in C", () => {
     combinationApplierConfig: {
       afterFilters: [
         createHasSomeVoicingFilter(...COMMON_TRIADS_ARRAY),
-        createAllPitchesInSomeKeyFilter(K.C),
       ],
     },
   } );
@@ -221,6 +222,7 @@ it("bº resolution in Key C", () => {
   const base: SPNArray = [B4, D5, F5];
   const result = generateVoiceLeading(base, {
     multipleGenConfig: {
+      filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       voicingResolution: {
         required: true,
       },
@@ -228,7 +230,6 @@ it("bº resolution in Key C", () => {
     combinationApplierConfig: {
       afterFilters: [
         createHasSomeVoicingFilter(...COMMON_TRIADS_ARRAY),
-        createAllPitchesInSomeKeyFilter(K.C),
       ],
     },
   } );
@@ -249,6 +250,7 @@ it("dm resolution in Key C (resting=root3) common triads", () => {
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
   const result = generateVoiceLeading(base, {
     multipleGenConfig: {
+      filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       keyResolution: {
         required: true,
         restingPitches,
@@ -259,7 +261,6 @@ it("dm resolution in Key C (resting=root3) common triads", () => {
       voiceOverlapping: true,
       afterFilters: [
         createHasSomeVoicingFilter(...COMMON_TRIADS_ARRAY),
-        createAllPitchesInSomeKeyFilter(K.C),
       ],
     },
   } );
@@ -283,15 +284,11 @@ it("d5 note resolution in Key C (resting=root3)", () => {
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
   const result = generateVoiceLeading(base, {
     multipleGenConfig: {
+      filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       keyResolution: {
         required: true,
         restingPitches,
       },
-    },
-    combinationApplierConfig: {
-      afterFilters: [
-        createAllPitchesInSomeKeyFilter(K.C),
-      ],
     },
   } );
   const expected = [
@@ -308,15 +305,11 @@ it("c5 note resolution in Key C (resting=root4)", () => {
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
   const result = generateVoiceLeading(base, {
     multipleGenConfig: {
+      filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       keyResolution: {
         required: true,
         restingPitches,
       },
-    },
-    combinationApplierConfig: {
-      afterFilters: [
-        createAllPitchesInSomeKeyFilter(K.C),
-      ],
     },
   } );
   const expected = [
@@ -332,16 +325,12 @@ it("d5 note resolution in Key C (resting=root4, maxInterval=3)", () => {
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
   const result = generateVoiceLeading(base, {
     multipleGenConfig: {
+      filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       maxInterval: 3,
       keyResolution: {
         required: true,
         restingPitches,
       },
-    },
-    combinationApplierConfig: {
-      afterFilters: [
-        createAllPitchesInSomeKeyFilter(K.C),
-      ],
     },
   } );
   const expected = [
@@ -359,6 +348,7 @@ it("dm resolution in Key C (resting=root3) triads major minor", () => {
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
   const result = generateVoiceLeading(base, {
     multipleGenConfig: {
+      filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       keyResolution: {
         required: true,
         restingPitches,
@@ -367,7 +357,6 @@ it("dm resolution in Key C (resting=root3) triads major minor", () => {
     combinationApplierConfig: {
       afterFilters: [
         createHasSomeVoicingFilter(...TRIADS_MAJOR_MINOR_ARRAY),
-        createAllPitchesInSomeKeyFilter(K.C),
       ],
     },
   } );
@@ -388,6 +377,7 @@ it("dm resolution in Key C (resting=root4)", () => {
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
   const result = generateVoiceLeading(base, {
     multipleGenConfig: {
+      filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       keyResolution: {
         required: true,
         restingPitches,
@@ -396,7 +386,6 @@ it("dm resolution in Key C (resting=root4)", () => {
     combinationApplierConfig: {
       afterFilters: [
         createHasSomeVoicingFilter(...TRIADS_MAJOR_MINOR_ARRAY),
-        createAllPitchesInSomeKeyFilter(K.C),
       ],
     },
   } );
@@ -411,7 +400,7 @@ it("dm resolution in Key C (resting=root4)", () => {
   expectTargets(result.targets).toEqualChords(expected);
 } );
 
-it("dm7 resolution in Key C (resting=root4 required, nearest=true)", () => {
+it("dm7 resolution in Key C (resting=root4 required, near=true)", () => {
   const base: SPNArray = [D5, F5, A5, C6];
   const rootChord = rootChord4(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
@@ -427,9 +416,9 @@ it("dm7 resolution in Key C (resting=root4 required, nearest=true)", () => {
   const result = generateVoiceLeading(base, {
     multipleGenConfig: {
       filters: [
-
+        VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray),
       ],
-      nearest: {
+      near: {
         enabled: true,
       },
       keyResolution: {
@@ -440,7 +429,6 @@ it("dm7 resolution in Key C (resting=root4 required, nearest=true)", () => {
     combinationApplierConfig: {
       afterFilters: [
         createHasSomeVoicingFilter(...voicings),
-        createAllPitchesInSomeKeyFilter(K.C),
       ],
     },
   } );
@@ -462,23 +450,20 @@ it("dm7 resolution in Key C (resting=root4 required, nearest=true)", () => {
     C.fromRootVoicing(P.G, SEVENTH_SUS4).withInv(2),
   ];
 
-  console.log(JSON.stringify(humanizeVoiceLeadingResult(base, result), null, 2));
-
   expectTargets(result.targets).toEqualChords(expected);
 } );
 
 it("chord G resolution in C Major Key should not have duplicates", () => {
-  const result = VL.generateVoiceLeading([N.G4, N.B4, N.D5], {
+  const base = [N.G4, N.B4, N.D5] as SPNArray;
+  const result = VL.generateVoiceLeading(base, {
     multipleGenConfig: {
-      nearest: {
+      filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
+      near: {
         enabled: false,
       },
       keyResolution: {
-        restingPitches: rootChord3(K.C)?.pitches,
+        restingPitches: rootChord3(K.C)?.pitches!,
       },
-    },
-    combinationApplierConfig: {
-      afterFilters: [VL.Appliers.processors.createAllPitchesInSomeKeyFilter(K.C)],
     },
   } );
 
@@ -489,16 +474,16 @@ it("chord G7 resolution in C Major Key", () => {
   const base = [N.G4, N.B4, N.D5, N.F5] as SPNArray;
   const result = VL.generateVoiceLeading(base, {
     multipleGenConfig: {
-      nearest: {
+      filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
+      near: {
         enabled: false,
       },
       keyResolution: {
-        restingPitches: rootChord3(K.C)?.pitches,
+        restingPitches: rootChord3(K.C)?.pitches!,
       },
     },
     combinationApplierConfig: {
       afterFilters: [
-        VL.Appliers.processors.createAllPitchesInSomeKeyFilter(K.C),
         (props) => {
           if (props.nonNullTarget.length === 0)
             return true;

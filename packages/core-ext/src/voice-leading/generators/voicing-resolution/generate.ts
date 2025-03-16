@@ -1,5 +1,6 @@
 import type { Step, StepArray } from "voice-leading/steps/Step";
 import type { StepsGenerator } from "../StepsGenerator";
+import type { StepFilter } from "../filters";
 import { IntervalArray, Voicing, SPNArray, Voicings as V, VoicingArray } from "@datune/core";
 import { betweenSPN } from "@datune/core/intervals/symbolic/chromatic/building";
 import { SingleStepArray } from "voice-leading/steps";
@@ -8,8 +9,10 @@ import { reIndex } from "../../steps/single/modifiers";
 import { findInnerVoicings, InnerVoicingResult } from "../../../voicings/findInnerVoicings";
 import { DEFAULT_AUGMENTED_RESOLUTION, DEFAULT_M2_RESOLUTION, DEFAULT_MINOR7_RESOLUTION, DEFAULT_TRITONE_RESOLUTION, ResolutionSteps } from "./constants";
 
-type Props = {
+export type VoicingResolutionGeneratorProps = {
   voicing: Voicing;
+  required?: boolean;
+  filters?: StepFilter[];
 };
 type Meta = {
   results: {
@@ -17,7 +20,7 @@ type Meta = {
     innerVoicing: InnerVoicingResult;
   }[];
 };
-export const generate: StepsGenerator<Props, Meta> = (props) => {
+export const generate: StepsGenerator<VoicingResolutionGeneratorProps, Meta> = (props) => {
   const obj = new IntervalStepsGen(props);
 
   return obj.generateGroups();
@@ -30,8 +33,12 @@ class IntervalStepsGen {
 
   #tensionVoicings: VoicingArray;
 
-  constructor(props: Props) {
+  #filters?: StepFilter[];
+
+  constructor(props: VoicingResolutionGeneratorProps) {
     this.#voicing = props.voicing;
+
+    this.#filters = props.filters;
 
     if (!defaultResolutionMap) {
       defaultResolutionMap = new Map<Voicing, ResolutionSteps>([
@@ -62,6 +69,15 @@ class IntervalStepsGen {
     return resolutionSteps;
   }
 
+  #shouldAdd(atomicResolution: Step): boolean {
+    for (const f of this.#filters!) {
+      if (!f(atomicResolution))
+        return false;
+    }
+
+    return true;
+  }
+
   generateGroups(): ReturnType<typeof generate> {
     const meta: ReturnType<typeof generate>["meta"] = {
       results: [],
@@ -81,6 +97,20 @@ class IntervalStepsGen {
       const resolutionTensionVoicingAtomicSteps = compactCombinationsUnsafe(
         resolutionTensionVoicingSubatomicSteps,
       ) as StepArray;
+
+      if (this.#filters) {
+        for (let i = 0; i < resolutionTensionVoicingAtomicSteps.length; i++) {
+          const atomicResolution = resolutionTensionVoicingAtomicSteps[i];
+
+          if (!this.#shouldAdd(atomicResolution)) {
+            resolutionTensionVoicingAtomicSteps.splice(i, 1);
+            i--;
+          }
+        }
+      }
+
+      if (resolutionTensionVoicingAtomicSteps.length === 0)
+        continue;
 
       groups.push(resolutionTensionVoicingAtomicSteps);
       const result: ReturnType<typeof generate>["meta"]["results"][0] = {

@@ -1,18 +1,21 @@
 import type { StepGroup, StepsGenerator } from "../StepsGenerator";
+import type { StepOrNull } from "voice-leading/steps/Step";
+import type { SingleStep } from "voice-leading/steps";
+import type { StepFilter } from "../filters";
 import { PitchArray } from "@datune/core/pitches/chromatic";
 import { SPNArray } from "@datune/core/spns/chromatic";
 import { add as spnAdd } from "@datune/core/spns/symbolic/chromatic/modifiers";
-import { StepOrNull } from "voice-leading/steps/Step";
 import { from as singleStepFrom } from "../../steps/single/building";
 
-type Props = {
+export type KeyResolutionGeneratorProps = {
   base: SPNArray;
   required?: boolean;
   restingPitches: PitchArray;
   maxInterval?: number;
+  filters?: StepFilter[];
 };
 
-export const generate: StepsGenerator<Props> = (props) => {
+export const generate: StepsGenerator<KeyResolutionGeneratorProps> = (props) => {
   return {
     groups: new RestingNotesStepsGen(props).generateGroups(),
   };
@@ -26,11 +29,25 @@ class RestingNotesStepsGen {
 
   #required: boolean;
 
-  constructor(props: Props) {
+  #filters?: StepFilter[];
+
+  constructor(props: KeyResolutionGeneratorProps) {
     this.#base = props.base;
     this.#restingPitches = props.restingPitches;
     this.#maxInterval = props.maxInterval ?? 2;
     this.#required = props.required ?? true;
+    this.#filters = props.filters;
+  }
+
+  #shouldAdd(singleStep: SingleStep): boolean {
+    if (this.#filters) {
+      for (const f of this.#filters) {
+        if (!f(singleStep))
+          return false;
+      }
+    }
+
+    return true;
   }
 
   generateGroups(): StepGroup[] {
@@ -48,6 +65,9 @@ class RestingNotesStepsGen {
 
         if (shiftedNote && this.#restingPitches.includes(shiftedNote.pitch)) {
           const singleStep = singleStepFrom(index, i);
+
+          if (!this.#shouldAdd(singleStep))
+            continue;
 
           group.push(singleStep);
         }

@@ -1,22 +1,26 @@
 import type { Interval } from "@datune/core";
 import type { StepGroup, StepsGenerator } from "../StepsGenerator";
+import type { SingleStep } from "voice-leading/steps";
+import type { StepFilter } from "../filters";
 import { from } from "../../steps/single/building";
 
-type Props = {
+export type NearGeneratorProps = {
   maxInterval?: Interval;
   arrayLength: number;
+  filters?: StepFilter[];
 };
-export const generate: StepsGenerator<Props> = (props)=> {
+
+export const generate: StepsGenerator<NearGeneratorProps> = (props)=> {
   return {
     groups: new NearStepsGen(props).generateGroups(),
   };
 };
 
-type Props2 = Omit<Props, "maxInterval"> & Required<Pick<Props, "maxInterval">>;
+type Props2 = Omit<NearGeneratorProps, "maxInterval"> & Required<Pick<NearGeneratorProps, "maxInterval">>;
 class NearStepsGen {
   #props: Props2;
 
-  constructor(props: Props) {
+  constructor(props: NearGeneratorProps) {
     this.#props = {
       ...props,
       maxInterval: props.maxInterval ?? 2,
@@ -46,6 +50,17 @@ class Generator {
     return groups;
   }
 
+  #shouldAdd(singleStep: SingleStep): boolean {
+    if (this.props.filters) {
+      for (const f of this.props.filters) {
+        if (!f(singleStep))
+          return false;
+      }
+    }
+
+    return true;
+  }
+
   #generateIndexGroup(index: number) {
     const group: StepGroup = [null]; // let pivot notes
 
@@ -54,6 +69,9 @@ class Generator {
         continue;
 
       const singleStep = from(index, j);
+
+      if (!this.#shouldAdd(singleStep))
+        continue;
 
       group.push(singleStep);
     }
