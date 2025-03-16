@@ -1,6 +1,7 @@
 import type { SPNArray } from "@datune/core/spns/chromatic";
+import type { StepGroup } from "../generators/StepsGenerator";
 import { voiceCrossingFilter, voiceOverlappingFilter } from "../appliers/voices-interaction-filters";
-import { SingleStepCombination, StepGroup } from "../combiners/types";
+import { Combination } from "../combiners/types";
 import { CombinationApplierFilter } from "../appliers/filters";
 import { generateMultiple, MultipleGenProps } from "../generators/multiple/generate";
 import { applyCombinations, CombinationApplierProps } from "../appliers/combination-appliers";
@@ -43,16 +44,16 @@ class VoiceLeading {
 
   generate(): VoiceLeadingResult {
     const multipleGenResult = generateMultiple(this.#base, this.#multipleGenConfig);
-    const singleStepCombinations = this.#combineGroups(multipleGenResult.groups);
-    const applyCombinationsResult = this.#applyCombinations(singleStepCombinations);
+    const combinerResult = this.#combineGroups(multipleGenResult.groups);
+    const applyCombinationsResult = this.#applyCombinations(combinerResult.combinations);
     const { targets, ...applyCombinationsResultRest } = applyCombinationsResult;
 
     return {
       targets,
       meta: {
         multipleGenResult,
-        singleStepCombinations,
-        applyCombinationsResult: applyCombinationsResultRest,
+        combinerResult,
+        applyCombinationsMeta: applyCombinationsResultRest.meta,
       },
     };
   }
@@ -69,7 +70,7 @@ class VoiceLeading {
     } );
   }
 
-  #applyCombinations(singleStepCombinations: SingleStepCombination[]) {
+  #applyCombinations(combinations: Combination[]) {
     const afterFilters: CombinationApplierFilter[] = [];
 
     if (!this.#combinationApplierConfig?.voiceCrossing)
@@ -81,7 +82,7 @@ class VoiceLeading {
     if (this.#combinationApplierConfig?.afterFilters)
       afterFilters.push(...this.#combinationApplierConfig.afterFilters);
 
-    return applyCombinations(this.#base, singleStepCombinations, {
+    return applyCombinations(this.#base, combinations, {
       afterFilters,
     } );
   }

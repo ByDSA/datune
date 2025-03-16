@@ -1,27 +1,27 @@
 import { SPN, SPNArray } from "@datune/core/spns/chromatic";
 import { targetGetId, Target } from "../steps/Step";
-import { StepCombination } from "../combiners/types";
+import { Combination } from "../combiners/types";
 import { CombinationApplierFilter } from "./filters";
 
 export type CombinationApplierProps = {
   afterFilters?: CombinationApplierFilter[];
 };
 
-type ApplyCombinationsResult = {
+export type ApplyCombinationsResult = {
   targets: Target[];
   meta: {
-    reverseMap: Map<Target, StepCombination>;
+    reverseMap: Map<Target, Combination>;
   };
 };
 
 export function applyCombinations(
   base: SPNArray,
-  combinations: StepCombination[],
+  combinations: Combination[],
   props?: CombinationApplierProps,
 ): ApplyCombinationsResult {
   const targets: Target[] = [];
   const uniqueTargetIds = new Set<string>();
-  const reverseMap = new Map<Target, StepCombination>();
+  const reverseMap = new Map<Target, Combination>();
 
   for (const combination of combinations) {
     const target = applyCombination(base, combination);
@@ -57,14 +57,14 @@ export function applyCombinations(
 
 type Result = {
   target: Target;
-  combination: StepCombination;
+  combination: Combination;
 };
 export function applyCombinationsWithMeta(
   base: SPNArray,
-  combinations: StepCombination[],
+  combinations: Combination[],
   settings?: CombinationApplierProps,
 ) {
-  const map = new Map<StepCombination, Target>();
+  const map = new Map<Combination, Target>();
   const results: Result[] = [];
 
   for (const combination of combinations) {
@@ -94,7 +94,7 @@ export function applyCombinationsWithMeta(
   };
 }
 
-export function applyCombination(base: SPNArray, combination: StepCombination): Target {
+export function applyCombination(base: SPNArray, combination: Combination): Target {
   let target: Target = [...base];
 
   for (const sm of combination)

@@ -1,15 +1,11 @@
-import type { StepGroup, SingleStepCombination } from "./types";
+import type { Combination, RawCombination } from "./types";
 import type { StepCombinerTransform } from "./transforms";
-import type { SingleStep } from "../steps/single/SingleStep";
-import type { StepOrNull } from "../steps/Step";
+import type { StepGroup } from "voice-leading/generators/StepsGenerator";
 import { getCartesianProduct } from "@datune/utils/math";
-import { singleStepsGetObjId } from "voice-leading/steps/single/id";
-import { SingleStepArray } from "voice-leading/steps";
-import { flattenStep } from "../steps/flattenSteps";
+import { SingleStep } from "voice-leading/steps";
+import { flattenStep } from "voice-leading/steps/flattenSteps";
 import { StepCombinerFilter } from "./filters";
-
-// Dirty = con potenciales problemas de aplicar producto cartesiano o aplanar
-type DirtyCombination = StepOrNull[];
+import { CombinationToRawsMap } from "./CombinationsToRawMap";
 
 export type StepCombinerProps = {
   // Transforms y Filters se usan para iterar una única vez el resultado
@@ -18,8 +14,15 @@ export type StepCombinerProps = {
   afterTransforms?: StepCombinerTransform[];
 };
 
-export function combineStepGroups(groups: StepGroup[], props?: StepCombinerProps) {
-  return new StepCombiner(groups, props).calc();
+export type CombinerResult = {
+  combinations: Combination[];
+  meta: {
+    combinationToRawsMap: CombinationToRawsMap;
+  };
+};
+
+export function combineStepGroups(groups: StepGroup[], props?: StepCombinerProps): CombinerResult {
+  return new StepCombiner(groups, props).combine();
 }
 class StepCombiner {
     #stepGroups: StepGroup[];
@@ -27,6 +30,8 @@ class StepCombiner {
     #afterTransforms?: StepCombinerTransform[];
 
     #afterFilters?: StepCombinerFilter[];
+
+    #combinationToRawsMap: CombinationToRawsMap = new CombinationToRawsMap();
 
     constructor(groups: StepGroup[], props?: StepCombinerProps) {
       this.#stepGroups = groups;
@@ -36,24 +41,22 @@ class StepCombiner {
       this.#afterFilters = props?.afterFilters;
     }
 
-    calc(): SingleStepCombination[] {
-      if (this.#stepGroups.length === 0)
-        return [];
+    combine(): CombinerResult {
+      if (this.#stepGroups.length === 0) {
+        return {
+          combinations: [],
+          meta: {
+            combinationToRawsMap: this.#combinationToRawsMap,
+          },
+        };
+      }
+
+      let rawCombinations: RawCombination[] = getCartesianProduct(this.#stepGroups);
 
       /*
       Problemas tras el producto cartesiano:
        - Puede haber una combinación que sean todo nulls. Habría que borrarlas
-       */
-      let dirtyCombinations: DirtyCombination[] = getCartesianProduct(this.#stepGroups);
-      let flatDirtyNonNullCombinations = dirtyCombinations.map(dirtyCombination => {
-        return dirtyCombination.map(
-          step=>step
-            ? flattenStep(step)
-            : [], // Remove null step
-        ).flat() as SingleStep[];
-      } );
 
-      /*
       Problemas tras aplanar:
         - Puede haber una combinaciones contratictorias, con más de un step que aplique al
         mismo índice. Habría que borrar estas combinaciones
@@ -62,53 +65,65 @@ class StepCombiner {
         Habría que añadir sólo una vez la combinación.
       */
 
-      return this.#cleanFlatDirtyCombinations(flatDirtyNonNullCombinations);
+      return this.#cleanRawCombinations(rawCombinations);
     }
 
-    #cleanFlatDirtyCombinations(
-      flatDirtyCombinations: SingleStepCombination[],
-    ): SingleStepCombination[] {
-      const idsAddedSets = new Set<string>();
+    #cleanRawCombinations(
+      rawCombinations: RawCombination[],
+    ): CombinerResult {
+      const combinations: Combination[] = [];
 
-      return flatDirtyCombinations.filter((flatDirtyCombination) => {
+      rawCombinations.forEach((rawCombination) => {
+        const flatRawCombination = rawCombination.map(
+          step=>step
+            ? flattenStep(step)
+            : [], // Remove null step
+        ).flat() as SingleStep[];
         let indexes = new Set<number>();
 
-        for (const singleStep of flatDirtyCombination) {
+        for (const singleStep of flatRawCombination) {
           if (indexes.has(singleStep.index))
-            return false; // Contradiction: two steps with same index
+            return; // Contradiction: two steps with same index
 
           indexes.add(singleStep.index);
         }
 
         if (indexes.size === 0)
-          return false; // All null steps combination (empty combination at this point)
+          return; // All null steps combination (empty combination at this point)
 
-        const flatDirtyNonEmptyCombination = flatDirtyCombination as SingleStepArray;
+        const combination = flatRawCombination as Combination;
 
         if (this.#afterFilters) {
           for (const filter of this.#afterFilters) {
-            if (!filter(flatDirtyNonEmptyCombination))
-              return false;
+            if (!filter(combination))
+              return;
           }
         }
 
         if (this.#afterTransforms) {
           for (const transform of this.#afterTransforms) {
             transform( {
-              stepCombination: flatDirtyNonEmptyCombination,
+              combination: combination,
               hasIndex: indexes.has.bind(indexes),
             } );
           }
         }
 
-        const id = singleStepsGetObjId(flatDirtyNonEmptyCombination);
+        const duplicatedCombination = this.#combinationToRawsMap.has(combination);
 
-        if (idsAddedSets.has(id))
-          return false; // Duplicated combination
+        this.#combinationToRawsMap.add(combination, rawCombination);
 
-        idsAddedSets.add(id);
+        if (duplicatedCombination)
+          return; // Duplicated combination
 
-        return true;
+        combinations.push(combination);
       } );
+
+      return {
+        combinations: combinations,
+        meta: {
+          combinationToRawsMap: this.#combinationToRawsMap,
+        },
+      };
     }
 }

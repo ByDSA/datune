@@ -15,7 +15,7 @@ it("interval=M2: F4, G4", () => {
   const notes: SPNArray = [bottom, top];
   const actual = generate( {
     voicing: voicingFromSpnArray(notes),
-  } ).steps;
+  } ).groups;
   const expected = [
     compositeStepFromIntervals(-2, 0),
     compositeStepFromIntervals(-1, 0),
@@ -23,7 +23,9 @@ it("interval=M2: F4, G4", () => {
     compositeStepFromIntervals(0, 2),
   ];
 
-  expectSteps(actual).toEqual(expected);
+  expect(actual).toHaveLength(1);
+
+  expectSteps(actual[0]).toEqual(expected);
 } );
 
 it("sus4: C4, F4, G4", () => {
@@ -32,7 +34,7 @@ it("sus4: C4, F4, G4", () => {
   const notes: SPNArray = [C4, bottom, top];
   const actual = generate( {
     voicing: voicingFromSpnArray(notes),
-  } ).steps;
+  } ).groups;
   const expected = [
     compositeStepFromIntervals(undefined, -1, 0),
     compositeStepFromIntervals(undefined, -2, 0),
@@ -40,7 +42,9 @@ it("sus4: C4, F4, G4", () => {
     compositeStepFromIntervals(undefined, 0, 2),
   ];
 
-  expectSteps(actual).toEqual(expected);
+  expect(actual).toHaveLength(1);
+
+  expectSteps(actual[0]).toEqual(expected);
 } );
 
 it("nothing: C4, G4", () => {
@@ -51,14 +55,14 @@ it("nothing: C4, G4", () => {
     voicing: voicingFromSpnArray(notes),
   } );
 
-  expect(actual.steps).toHaveLength(0);
+  expect(actual.groups).toHaveLength(0);
 } );
 
 it("tritone interval: B3, F4", () => {
   const notes: SPNArray = [B3, F4];
   const actual = generate( {
     voicing: voicingFromSpnArray(notes),
-  } ).steps;
+  } ).groups;
   const expected = [
     compositeStepFromIntervals(1, 2),
     compositeStepFromIntervals(1, -1),
@@ -74,14 +78,16 @@ it("tritone interval: B3, F4", () => {
     compositeStepFromIntervals(-2, -1),
   ];
 
-  expectSteps(actual).toEqual(expected);
+  expect(actual).toHaveLength(1);
+
+  expectSteps(actual[0]).toEqual(expected);
 } );
 
 it("augmented triad", () => {
   const notes: SPNArray = [C4, E4, GG4];
   const actual = generate( {
     voicing: voicingFromSpnArray(notes),
-  } ).steps;
+  } ).groups;
   const expected = [
     singleStepFrom(0, 1),
     singleStepFrom(0, -1),
@@ -103,5 +109,7 @@ it("augmented triad", () => {
     compositeStepFromIntervals(-1, undefined, 1),
   ];
 
-  expectSteps(actual).toEqual(expected);
+  expect(actual).toHaveLength(1);
+
+  expectSteps(actual[0]).toEqual(expected);
 } );

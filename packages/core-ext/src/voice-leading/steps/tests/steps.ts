@@ -1,8 +1,8 @@
-import { Step } from "../../steps/Step";
+import { StepOrNull } from "../../steps/Step";
 
-export function expectSteps(actual: Step[]) {
+export function expectSteps(actual: StepOrNull[]) {
   return {
-    toEqual: (expected: Step[]) => {
+    toEqual: (expected: StepOrNull[]) => {
       expect(new Set(actual)).toEqual(new Set(expected));
     },
   };

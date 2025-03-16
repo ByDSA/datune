@@ -1,8 +1,8 @@
-import type { SingleStepArray } from "../steps";
+import { Combination } from "./types";
 
-export type StepCombinerFilter = (singleStepCombination: SingleStepArray)=> boolean;
+export type StepCombinerFilter = (combination: Combination)=> boolean;
 
-export function effectiveStepsFilter(combination: SingleStepArray): boolean {
+export function effectiveStepsFilter(combination: Combination): boolean {
   for (const ss of combination) {
     if (ss.interval !== 0)
       return true;

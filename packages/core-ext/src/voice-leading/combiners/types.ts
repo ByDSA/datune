@@ -1,8 +1,7 @@
-import type { StepOrNull } from "../steps/Step";
-import type { Step, SingleStep } from "../steps";
+import type { SingleStepArray } from "../steps";
+import type { StepOrNull } from "voice-leading/steps/Step";
 
-export type StepCombination = Step[];
+export type Combination = SingleStepArray;
 
-export type SingleStepCombination = SingleStep[];
-
-export type StepGroup = StepOrNull[];
+// Raw = con potenciales problemas de aplicar producto cartesiano o aplanar
+export type RawCombination = StepOrNull[];

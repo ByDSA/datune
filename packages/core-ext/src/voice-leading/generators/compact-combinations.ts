@@ -1,12 +1,12 @@
 import type { SingleStepArray } from "../steps/single/Array";
 import type { Step } from "../steps/Step";
 import { fromSingleSteps as compositeStepFromSingleSteps } from "../steps/composite/building";
-import { StepCombination } from "../combiners/types";
+import { Combination } from "../combiners/types";
 
 /* Unsafe: no comprueba contradicciones.
    Los generators ya generan los single steps sin contradicciones
 */
-export function compactStepCombinationsUnsafe(combinations: StepCombination[]): Step[] {
+export function compactCombinationsUnsafe(combinations: Combination[]): Step[] {
   const ret: Step[] = [];
 
   for (const singleSteps of combinations) {

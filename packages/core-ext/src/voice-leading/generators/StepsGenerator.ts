@@ -1,11 +1,14 @@
-import type { Step } from "../steps/Step";
+import type { StepOrNull } from "../steps/Step";
+import { Arrays } from "@datune/utils";
+
+export type StepGroup = Arrays.NonEmpty<StepOrNull>;
 
 type Return<M = undefined> = M extends undefined
 ? {
-  steps: Step[];
+  groups: StepGroup[];
 }
 : {
-  steps: Step[];
+  groups: StepGroup[];
   meta: M;
 };
 

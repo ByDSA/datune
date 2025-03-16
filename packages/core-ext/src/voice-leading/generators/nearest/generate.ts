@@ -1,9 +1,5 @@
-import type { Step } from "../../steps/Step";
 import type { Interval } from "@datune/core";
-import type { StepsGenerator } from "../StepsGenerator";
-import type { SingleStepCombination, StepGroup } from "../../combiners/types";
-import { compactStepCombinationsUnsafe } from "../compact-combinations";
-import { combineStepGroups } from "../../combiners/combine-groups";
+import type { StepGroup, StepsGenerator } from "../StepsGenerator";
 import { from } from "../../steps/single/building";
 
 type Props = {
@@ -12,7 +8,7 @@ type Props = {
 };
 export const generate: StepsGenerator<Props> = (props)=> {
   return {
-    steps: new NearStepsGen(props).generateSteps(),
+    groups: new NearStepsGen(props).generateGroups(),
   };
 };
 
@@ -27,13 +23,8 @@ class NearStepsGen {
     };
   }
 
-  generateSteps(): Step[] {
-    const singleStepCombinations = new Generator(this.#props).generateCombinations();
-
-    if (singleStepCombinations.length === 0)
-      return [];
-
-    return compactStepCombinationsUnsafe(singleStepCombinations);
+  generateGroups(): StepGroup[] {
+    return new Generator(this.#props).generateGroups();
   }
 }
 class Generator {
@@ -43,7 +34,7 @@ class Generator {
     this.props = props;
   }
 
-  generateCombinations(): SingleStepCombination[] {
+  generateGroups(): StepGroup[] {
     const groups: StepGroup[] = [];
 
     for (let index = 0; index < this.props.arrayLength; index++) {
@@ -52,7 +43,7 @@ class Generator {
       groups.push(group);
     }
 
-    return combineStepGroups(groups);
+    return groups;
   }
 
   #generateIndexGroup(index: number) {

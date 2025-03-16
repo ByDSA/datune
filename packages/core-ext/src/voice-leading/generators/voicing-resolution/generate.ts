@@ -1,12 +1,12 @@
-import type { Step } from "voice-leading/steps/Step";
-import type { SingleStep } from "../../steps/single/SingleStep";
+import type { Step, StepArray } from "voice-leading/steps/Step";
 import type { StepsGenerator } from "../StepsGenerator";
 import { IntervalArray, Voicing, SPNArray, Voicings as V, VoicingArray } from "@datune/core";
 import { betweenSPN } from "@datune/core/intervals/symbolic/chromatic/building";
-import { compactStepCombinationsUnsafe } from "../compact-combinations";
+import { SingleStepArray } from "voice-leading/steps";
+import { compactCombinationsUnsafe } from "../compact-combinations";
 import { reIndex } from "../../steps/single/modifiers";
-import { findInnerVoicings } from "../../../voicings/findInnerVoicings";
-import { DEFAULT_AUGMENTED_RESOLUTION, DEFAULT_M2_RESOLUTION, DEFAULT_MINOR7_RESOLUTION, DEFAULT_TRITONE_RESOLUTION } from "./constants";
+import { findInnerVoicings, InnerVoicingResult } from "../../../voicings/findInnerVoicings";
+import { DEFAULT_AUGMENTED_RESOLUTION, DEFAULT_M2_RESOLUTION, DEFAULT_MINOR7_RESOLUTION, DEFAULT_TRITONE_RESOLUTION, ResolutionSteps } from "./constants";
 
 type Props = {
   voicing: Voicing;
@@ -14,16 +14,17 @@ type Props = {
 type Meta = {
   results: {
     steps: Step[];
-    tensionVoicing: Voicing;
+    innerVoicing: InnerVoicingResult;
   }[];
 };
 export const generate: StepsGenerator<Props, Meta> = (props) => {
   const obj = new IntervalStepsGen(props);
 
-  return obj.generateSteps();
+  return obj.generateGroups();
 };
+
 class IntervalStepsGen {
-  #map: Map<Voicing, SingleStep[][]>;
+  #map: Map<Voicing, ResolutionSteps>;
 
   #voicing: Voicing;
 
@@ -33,7 +34,7 @@ class IntervalStepsGen {
     this.#voicing = props.voicing;
 
     if (!defaultResolutionMap) {
-      defaultResolutionMap = new Map([
+      defaultResolutionMap = new Map<Voicing, ResolutionSteps>([
         [V.M2, DEFAULT_M2_RESOLUTION],
         [V.m7, DEFAULT_MINOR7_RESOLUTION],
         [V.TRITONE, DEFAULT_TRITONE_RESOLUTION],
@@ -46,8 +47,8 @@ class IntervalStepsGen {
     this.#tensionVoicings = Array.from(this.#map.keys()) as VoicingArray;
   }
 
-  #solveTensionVoicing(tensionVoicing: Voicing, indexMapping: number[]): Step[] {
-    let resolutionSteps = this.#map.get(tensionVoicing);
+  #solveTensionVoicing(tensionVoicing: Voicing, indexMapping: number[]): SingleStepArray[] {
+    let resolutionSteps: ResolutionSteps | undefined = this.#map.get(tensionVoicing);
 
     if (!resolutionSteps)
       return [];
@@ -56,28 +57,35 @@ class IntervalStepsGen {
     resolutionSteps = resolutionSteps
       .map(c=> (c.map((s)=> {
         return reIndex(s, indexMapping[s.index]);
-      } )));
+      } ))) as ResolutionSteps;
 
-    return compactStepCombinationsUnsafe(resolutionSteps);
+    return resolutionSteps;
   }
 
-  generateSteps(): ReturnType<typeof generate> {
+  generateGroups(): ReturnType<typeof generate> {
     const meta: ReturnType<typeof generate>["meta"] = {
       results: [],
     };
-    const steps: ReturnType<typeof generate>["steps"] = [];
+    const groups: ReturnType<typeof generate>["groups"] = [];
     const innerVoicings = findInnerVoicings(this.#voicing, this.#tensionVoicings);
 
     for (const innerVoicing of innerVoicings) {
-      let resolutionTensionVoicingSteps = this.#solveTensionVoicing(
+      let resolutionTensionVoicingSubatomicSteps = this.#solveTensionVoicing(
         innerVoicing.innerVoicing,
         innerVoicing.indexMap,
       );
 
-      steps.push(...resolutionTensionVoicingSteps);
+      if (resolutionTensionVoicingSubatomicSteps.length === 0)
+        continue;
+
+      const resolutionTensionVoicingAtomicSteps = compactCombinationsUnsafe(
+        resolutionTensionVoicingSubatomicSteps,
+      ) as StepArray;
+
+      groups.push(resolutionTensionVoicingAtomicSteps);
       const result: ReturnType<typeof generate>["meta"]["results"][0] = {
-        tensionVoicing: innerVoicing.innerVoicing,
-        steps: resolutionTensionVoicingSteps,
+        innerVoicing,
+        steps: resolutionTensionVoicingAtomicSteps,
       };
 
       meta.results.push(result);
@@ -85,7 +93,7 @@ class IntervalStepsGen {
 
     return {
       meta,
-      steps,
+      groups,
     };
   }
 }
@@ -106,4 +114,4 @@ export function voicingFromIndexes(voicing: Voicing, indexes: number[]): Voicing
   return V.fromRootIntervals(...intervals);
 }
 
-let defaultResolutionMap: Map<Voicing, SingleStep[][]>;
+let defaultResolutionMap: Map<Voicing, ResolutionSteps>;

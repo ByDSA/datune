@@ -1,7 +1,10 @@
 import { SPNArray, SPNs as N } from "@datune/core/spns/chromatic";
+import { rootChord3 } from "@datune/core/keys/chromatic/modifiers";
+import { Keys as K } from "@datune/core";
 import { TestInit } from "tests";
 import { createFillZerosTransform } from "voice-leading/combiners/transforms";
 import { expectCombinations } from "voice-leading/combiners/tests/combination";
+import { StepReason, VoiceLeadings as VL } from "voice-leading";
 import { combineStepGroups } from "../../combiners/combine-groups";
 import { fromIntervals as compositeStepFromIntervals } from "../../steps/composite/building";
 import { from as singleStepFrom } from "../../steps/single/building";
@@ -19,7 +22,7 @@ it("combinations - SUS in notes: C4, F4, G4", () => {
       enabled: false,
     },
   } );
-  const actual = combineStepGroups(result.groups);
+  const actual = combineStepGroups(result.groups).combinations;
   const expected = [
     [singleStepFrom(1, -1), singleStepFrom(2, 0)],
     [singleStepFrom(1, -2), singleStepFrom(2, 0)],
@@ -33,9 +36,9 @@ it("combinations - SUS in notes: C4, F4, G4", () => {
 it("combinations - nearest (1): C4, G4", () => {
   const base: SPNArray = [C4, G4];
   const result = generateMultiple(base, {
-    maxDistance: 1,
+    maxInterval: 1,
   } );
-  const actual = combineStepGroups(result.groups);
+  const actual = combineStepGroups(result.groups).combinations;
   const expected = [
     compositeStepFromIntervals(-1, -1),
     compositeStepFromIntervals(-1, 1),
@@ -57,7 +60,7 @@ it("dIM in notes: D3, F4, B4", () => {
       enabled: false,
     },
   } );
-  const actual = combineStepGroups(result.groups);
+  const actual = combineStepGroups(result.groups).combinations;
   // Sólo resuelven F4 y B4, se ignora D3 porque no genera tensión
   const expected = [
     compositeStepFromIntervals(undefined, 1, 2),
@@ -86,7 +89,7 @@ it("dIM in notes: G3, B3, D4, F4", () => {
   } );
   const actual = combineStepGroups(result.groups, {
     afterTransforms: [createFillZerosTransform(spnArray.length)],
-  } );
+  } ).combinations;
   const expected: SingleStep[][] = [
     compositeStepFromIntervals(0, 0, 0, -1),
     compositeStepFromIntervals(0, 0, 0, -2),
@@ -118,8 +121,8 @@ it("dIM in notes fill zeros last index: B3, F4, GG4", () => {
   } );
   const actual = combineStepGroups(result.groups, {
     afterTransforms: [createFillZerosTransform(spnArray.length)],
-  } );
-  const expected: SingleStep[][] = [
+  } ).combinations;
+  const expected = [
     compositeStepFromIntervals(-1, -2, 0),
     compositeStepFromIntervals(-1, 1, 0),
     compositeStepFromIntervals(-1, 2, 0),
@@ -147,8 +150,35 @@ it("disableResolutions - DIM in notes: G3, B3, D4, F4", () => {
       enabled: false,
     },
   } );
-  const actual = combineStepGroups(result.groups);
+  const actual = combineStepGroups(result.groups).combinations;
   const expected: SingleStep[][] = [];
 
   expectCombinations(actual, expected);
+} );
+
+it("notes=[F4] C Major Key Resolution", () => {
+  const notes: SPNArray = [F4];
+  const result = generateMultiple(notes, {
+    maxInterval: 1,
+    nearest: {
+      enabled: false,
+    },
+    voicingResolution: {
+      enabled: false,
+    },
+    keyResolution: {
+      required: true,
+      restingPitches: rootChord3(K.C)?.pitches,
+    },
+  } );
+  const resultGroups = result.groups;
+
+  expect(resultGroups).toHaveLength(1);
+  expect(resultGroups[0]).toHaveLength(1);
+  expect(resultGroups[0][0]).toBe(VL.Steps.X0_S1); // [0] => -1
+
+  const reasons = result.meta.reasonsMap.get(resultGroups[0][0] as SingleStep)!;
+
+  expect(reasons).toHaveLength(1);
+  expect(reasons[0].reason).toBe(StepReason.RESOLUTION_KEY);
 } );

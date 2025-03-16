@@ -5,9 +5,9 @@ export function singleStepsGetObjId(singleSteps: SingleStepArray): string {
   return singleSteps
     .sort((a, b) => a.index - b.index) // Ordenar por índice
     .map(singleStepGetObjId) // Id de cada SingleStep
-    .join("|");
+    .join(",");
 }
 
 export function singleStepGetObjId(singleStep: SingleStep): string {
-  return `${singleStep.index}-${singleStep.interval}`;
+  return `${singleStep.index}|${singleStep.interval}`;
 }

@@ -4,11 +4,12 @@ import { Keys } from "@datune/core/keys/chromatic";
 import { SPNs } from "@datune/core/spns/chromatic";
 import { TestInit } from "tests";
 import { expectTargets } from "voice-leading/forward/tests/targets";
+import { Combination } from "voice-leading/combiners/types";
+import { combineStepGroups } from "voice-leading/combiners/combine-groups";
 import { fromIntervals as compositeStepFromIntervals } from "../steps/composite/building";
 import { X0_1, X1_S1 } from "../steps/single/constants";
 import { from } from "../steps/single/building";
 import { Target } from "../steps/Step";
-import { flattenStep } from "../steps/flattenSteps";
 import { generate } from "../generators/nearest/generate";
 import { applyCombinations } from "./combination-appliers";
 import { voiceCrossingFilter, voiceOverlappingFilter } from "./voices-interaction-filters";
@@ -23,7 +24,7 @@ it("apply: notes and combinations", () => {
     [X0_1, X1_S1],
     [X0_1, from(2, 2)],
     compositeStepFromIntervals(1, 2, 3).singleSteps,
-  ];
+  ] as Combination[];
   const actual = applyCombinations(notes, combinations, {
     afterFilters: [voiceCrossingFilter, voiceOverlappingFilter],
   } ).targets;
@@ -64,11 +65,11 @@ it("overlapping let", () => {
 
 it("near (distance=2) C5-E5-G5 in C", () => {
   const fromNotes: SPNArray = [C5, E5, G5];
-  const { steps } = generate( {
+  const { groups } = generate( {
     arrayLength: fromNotes.length,
     maxInterval: 2,
   } );
-  const combinations = steps.map(flattenStep);
+  const { combinations } = combineStepGroups(groups);
   let actual = applyCombinations(fromNotes, combinations, {
     afterFilters: [voiceCrossingFilter, voiceOverlappingFilter],
   } ).targets;

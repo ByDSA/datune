@@ -17,5 +17,11 @@ export function expectTargets(targets: Target[]) {
     toEqual: (expected: Target[]) => {
       expect(new Set(targets)).toEqual(new Set(expected));
     },
+    toContainChord: (chord: Chord) => {
+      const chords = targetsToChords(targets);
+
+      expect(chords).toContain(chord);
+    },
+
   };
 }

@@ -9,8 +9,10 @@ import { TestInit } from "tests";
 import { createAllPitchesInEveryKeyFilter, createAllPitchesInSomeKeyFilter, createHasSomeVoicingFilter } from "voice-leading/appliers/filters";
 import { VoiceLeadings as VL } from "voice-leading";
 import { targetGetId } from "voice-leading/steps/Step";
+import { findInnerVoicings } from "voicings/findInnerVoicings";
 import { generateVoiceLeading } from "./VoiceLeading";
 import { expectTargets } from "./tests/targets";
+import { humanizeVoiceLeadingResult } from "./Result";
 
 TestInit.loadAll();
 const { rootChord3, rootChord4 } = K;
@@ -24,7 +26,7 @@ it("voice leading C (default=nearest)", () => {
   const base: SPNArray = [C5, E5, G5];
   const result = generateVoiceLeading(base);
 
-  expect(result.meta.singleStepCombinations).toHaveLength((5 * 5 * 5) - 1);
+  expect(result.meta.combinerResult.combinations).toHaveLength((5 * 5 * 5) - 1);
   expect(result.targets).toHaveLength(104); // Quitando voice crossing y overlapping
 } );
 
@@ -37,7 +39,9 @@ it("voice leading C (nearest + voice filters off)", () => {
     },
   } );
 
-  expect(result.targets).toHaveLength(result.meta.singleStepCombinations.length); // (5 * 5 * 5) - 1
+  expect(result.targets).toHaveLength(
+    result.meta.combinerResult.combinations.length,
+  ); // (5 * 5 * 5) - 1
 } );
 
 it("voice leading C (nearest off) should be empty", () => {
@@ -142,7 +146,7 @@ it("bº resolution", () => {
   ];
   const result = generateVoiceLeading(base, {
     multipleGenConfig: {
-      maxDistance: 3,
+      maxInterval: 3,
       voicingResolution: {
         required: true,
       },
@@ -251,6 +255,8 @@ it("dm resolution in Key C (resting=root3) common triads", () => {
       },
     },
     combinationApplierConfig: {
+      voiceCrossing: true,
+      voiceOverlapping: true,
       afterFilters: [
         createHasSomeVoicingFilter(...COMMON_TRIADS_ARRAY),
         createAllPitchesInSomeKeyFilter(K.C),
@@ -320,13 +326,13 @@ it("c5 note resolution in Key C (resting=root4)", () => {
   expectTargets(result.targets).toEqualSpnsArray(expected);
 } );
 
-it("d5 note resolution in Key C (resting=root4, maxStep=3)", () => {
+it("d5 note resolution in Key C (resting=root4, maxInterval=3)", () => {
   const base: SPNArray = [D5];
   const rootChord = rootChord4(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
   const result = generateVoiceLeading(base, {
     multipleGenConfig: {
-      maxDistance: 3,
+      maxInterval: 3,
       keyResolution: {
         required: true,
         restingPitches,
@@ -405,7 +411,7 @@ it("dm resolution in Key C (resting=root4)", () => {
   expectTargets(result.targets).toEqualChords(expected);
 } );
 
-it("dm7 resolution in Key C (resting=root4)", () => {
+it("dm7 resolution in Key C (resting=root4 required, nearest=true)", () => {
   const base: SPNArray = [D5, F5, A5, C6];
   const rootChord = rootChord4(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
@@ -420,6 +426,12 @@ it("dm7 resolution in Key C (resting=root4)", () => {
   ];
   const result = generateVoiceLeading(base, {
     multipleGenConfig: {
+      filters: [
+
+      ],
+      nearest: {
+        enabled: true,
+      },
       keyResolution: {
         required: true,
         restingPitches,
@@ -450,6 +462,8 @@ it("dm7 resolution in Key C (resting=root4)", () => {
     C.fromRootVoicing(P.G, SEVENTH_SUS4).withInv(2),
   ];
 
+  console.log(JSON.stringify(humanizeVoiceLeadingResult(base, result), null, 2));
+
   expectTargets(result.targets).toEqualChords(expected);
 } );
 
@@ -469,6 +483,37 @@ it("chord G resolution in C Major Key should not have duplicates", () => {
   } );
 
   expect(removeDuplicatedSpnArrays(result.targets)).toHaveLength(result.targets.length);
+} );
+
+it("chord G7 resolution in C Major Key", () => {
+  const base = [N.G4, N.B4, N.D5, N.F5] as SPNArray;
+  const result = VL.generateVoiceLeading(base, {
+    multipleGenConfig: {
+      nearest: {
+        enabled: false,
+      },
+      keyResolution: {
+        restingPitches: rootChord3(K.C)?.pitches,
+      },
+    },
+    combinationApplierConfig: {
+      afterFilters: [
+        VL.Appliers.processors.createAllPitchesInSomeKeyFilter(K.C),
+        (props) => {
+          if (props.nonNullTarget.length === 0)
+            return true;
+
+          const voicing = V.fromPitches(...props.nonNullTarget.map(n=>n.pitch) as PitchArray);
+          const r = findInnerVoicings(voicing, [V.M2, V.m2]);
+
+          return r.length === 0;
+        },
+      ],
+    },
+  } );
+  const expected = C.fromPitches(...C.C.withInv(2).pitches, P.G); // G-C-E-G
+
+  expectTargets(result.targets).toContainChord(expected);
 } );
 
 function removeDuplicatedSpnArrays(spnArrays: (SPN | null)[][]): (SPN | null)[][] {

@@ -1,4 +1,4 @@
-import { Voicing } from "@datune/core/voicings/chromatic";
+import { InnerVoicingResult } from "voicings/findInnerVoicings";
 import { StepReason } from "./StepReason";
 
 export type StepReasonInfo = {
@@ -6,7 +6,7 @@ export type StepReasonInfo = {
 };
 
 export type StepReasonVoicingResolutionInfo = StepReasonInfo & {
-    tensionVoicing: Voicing;
+    innerVoicingResult: InnerVoicingResult;
  };
 
 export type StepReasonRestNotesInfo = StepReasonInfo;
