@@ -149,6 +149,6 @@ const resultWithoutTensions = VL.generate(base, {
 
 console.log(
   "Too many chords. I want only target chords without tensions/clusters, and know why.",
-  "There are " + resultWithoutTensions.targets.length + " chords:",
+  "\nOkay, so there are " + resultWithoutTensions.targets.length + " chords:",
   JSON.stringify(VL.handleResult(resultWithoutTensions).toReadableChordMotionReasons(), null, 2),
 );
