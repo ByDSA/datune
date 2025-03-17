@@ -33,9 +33,16 @@ describe.each([
   } );
 } );
 
-it("fromInterval", () => {
+it("fromInterval a7", () => {
   const expected = D.aVII;
   const actual = fromInterval(I.a7);
+
+  expect(actual).toBe(expected);
+} );
+
+it("fromInterval 7", () => {
+  const expected = D.VII;
+  const actual = fromInterval(I.M7);
 
   expect(actual).toBe(expected);
 } );

@@ -3,11 +3,12 @@ import { Chord } from "@datune/core/chords/alt";
 import { Pitch } from "@datune/core/pitches/alt";
 import { inv } from "@datune/core/voicings/relative/alt/modifiers/inv";
 import { getNumInversionOf } from "@datune/core/voicings/relative/alt/constants/inversionMap";
-import { Voicing, Voicings as V, PitchArray } from "@datune/core/alt";
+import { Voicing, Voicings as V, PitchArray, Interval } from "@datune/core/alt";
 import { fromPitches } from "@datune/core/chords/octave/alt/building";
+import { fromInterval } from "@datune/core/degrees/alt/building";
 import { Options } from "lang/Options";
 import { stringifyPitch } from "strings/pitches/alt";
-import { stringifyShortName } from "strings/voicings/alt/shortName";
+import { stringifyShortName, stringifyShortNameLang } from "strings/voicings/alt/shortName";
 
 export function stringifyChord(chord: Chord, options?: Options): string {
   const simplifiedChord = removeRepeatedPitches(chord);
@@ -25,7 +26,11 @@ export function stringifyChord(chord: Chord, options?: Options): string {
   const invVoicing = inv(voicing, -inversion);
   const rootPosition = cyclicMod(-inversion, simplifiedChord.length);
   const rootName = stringifyPitch(simplifiedChord.pitches[rootPosition], options);
-  const invVoicingShortName = stringifyShortName(invVoicing);
+  let invVoicingShortName = stringifyShortNameLang(invVoicing);
+
+  if (invVoicingShortName === null)
+    invVoicingShortName = `(${invVoicing.rootIntervals.map(intervalToRoman)})`;
+
   let inversionName = "";
 
   if (inversion !== 0)
@@ -89,4 +94,12 @@ function customStringify(chord: Chord, voicing: Voicing): string | null {
     return stringifyPitch(chord.pitches[1]) + stringifyShortName(V.TRIAD_MINOR) + "/" + stringifyPitch(chord.pitches[0]);
 
   return null;
+}
+
+function intervalToRoman(interval: Interval): string {
+  const degree = fromInterval(interval);
+  const diatonicIntervalNumStr = (+degree.diatonicDegree + 1).toString();
+  const alt = degree.alts > 0 ? "♯".repeat(degree.alts) : "♭".repeat(-degree.alts);
+
+  return alt + diatonicIntervalNumStr;
 }

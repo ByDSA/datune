@@ -41,6 +41,12 @@ describe.each([
   [LangId.EN, inv(fromRootVoicing(P.C, V.THIRTEENTH_b5a9), 2), "C13♭5♯9/F♯"],
   [LangId.EN, Chords.fromPitches(P.C, P.E, P.G, P.C), "C"],
   [LangId.EN, Chords.fromPitches(P.G, P.C, P.E, P.G), "C/G"],
+  [LangId.EN, Chords.fromPitches(P.C, P.CC, P.DD), "C(1,♭2,♭3)"],
+  [LangId.EN, Chords.fromPitches(P.C, P.E, P.FF), "C♭5"],
+  [LangId.EN, Chords.fromPitches(P.C, P.CC, P.Gb), "Cloc∆"],
+  [LangId.EN, Chords.fromPitches(P.C, P.Db, P.Gb), "Cloc∆"],
+  [LangId.EN, Chords.fromPitches(P.C, P.FF, P.G), "Clyd∆"],
+  [LangId.EN, Chords.fromPitches(P.C, P.Gb, P.G), "Clyd∆"],
 ])("toString", (langId, chord: Chord, str) => {
   const pitchesName = stringifyPitches(chord.pitches, {
     langId,

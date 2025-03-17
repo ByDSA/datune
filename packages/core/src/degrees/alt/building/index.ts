@@ -27,8 +27,8 @@ export function fromInterval(interval: Interval): Degree {
   const dDegree = Degrees.fromInt(+interval.diatonicInterval);
   const alts = toInt(interval.quality, isMainInterval(interval.diatonicInterval));
 
-  if (!alts)
-    throw new Error();
+  if (alts === null)
+    throw new Error("alts is null");
 
   return from(dDegree, alts);
 }
