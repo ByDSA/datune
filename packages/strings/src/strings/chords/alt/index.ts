@@ -3,33 +3,50 @@ import { Chord } from "@datune/core/chords/alt";
 import { Pitch } from "@datune/core/pitches/alt";
 import { inv } from "@datune/core/voicings/relative/alt/modifiers/inv";
 import { getNumInversionOf } from "@datune/core/voicings/relative/alt/constants/inversionMap";
-import { Voicing, Voicings as V } from "@datune/core/alt";
+import { Voicing, Voicings as V, PitchArray } from "@datune/core/alt";
+import { fromPitches } from "@datune/core/chords/octave/alt/building";
 import { Options } from "lang/Options";
 import { stringifyPitch } from "strings/pitches/alt";
 import { stringifyShortName } from "strings/voicings/alt/shortName";
 
 export function stringifyChord(chord: Chord, options?: Options): string {
-  const voicing = chord.toVoicing();
+  const simplifiedChord = removeRepeatedPitches(chord);
+  const voicing = simplifiedChord.toVoicing();
 
   if (!voicing)
-    return getDefaultName(chord, options);
+    return getDefaultName(simplifiedChord, options);
 
-  const custom = customStringify(chord, voicing);
+  const custom = customStringify(simplifiedChord, voicing);
 
   if (custom)
     return custom;
 
   const inversion = getNumInversionOf(voicing);
   const invVoicing = inv(voicing, -inversion);
-  const rootPosition = cyclicMod(-inversion, chord.length);
-  const rootName = stringifyPitch(chord.pitches[rootPosition], options);
+  const rootPosition = cyclicMod(-inversion, simplifiedChord.length);
+  const rootName = stringifyPitch(simplifiedChord.pitches[rootPosition], options);
   const invVoicingShortName = stringifyShortName(invVoicing);
   let inversionName = "";
 
   if (inversion !== 0)
-    inversionName = getInversionName(chord, options);
+    inversionName = getInversionName(simplifiedChord, options);
 
   return rootName + invVoicingShortName + inversionName;
+}
+
+function removeRepeatedPitches(chord: Chord): Chord {
+  const pitches: PitchArray = [] as any;
+  const added = new Set<Pitch>();
+
+  for (const p of chord.pitches) {
+    if (!added.has(p)) {
+      pitches.push(p);
+
+      added.add(p);
+    }
+  }
+
+  return fromPitches(...pitches);
 }
 
 function getDefaultName(chord: Chord, options?: Options): string {

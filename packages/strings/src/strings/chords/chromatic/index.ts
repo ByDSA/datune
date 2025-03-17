@@ -1,23 +1,25 @@
 import { cyclicMod } from "@datune/utils";
 import { Chord } from "@datune/core/chords/chromatic";
-import { Pitch } from "@datune/core/pitches/chromatic";
+import { Pitch, PitchArray } from "@datune/core/pitches/chromatic";
 import { inv } from "@datune/core/voicings/relative/chromatic/modifiers";
 import { getNumInversionOf } from "@datune/core/voicings/relative/chromatic/constants/inversionMap";
 import { Voicing, Voicings as V } from "@datune/core/chromatic";
+import { fromPitches } from "@datune/core/chords/octave/chromatic/building/pitches";
 import { stringifyPitch } from "strings/pitches/chromatic";
 import { stringifyShortName } from "strings/voicings/chromatic/shortName";
 
 export function stringifyChord(chord: Chord): string {
-  const voicing = chord.toVoicing();
-  const custom = customStringify(chord, voicing);
+  const simplifiedChord = removeRepeatedPitches(chord);
+  const voicing = simplifiedChord.toVoicing();
+  const custom = customStringify(simplifiedChord, voicing);
 
   if (custom)
     return custom;
 
   const inversion = getNumInversionOf(voicing);
   const invVoicing = inv(voicing, -inversion);
-  const rootPosition = cyclicMod(-inversion, chord.length);
-  const rootName = stringifyPitch(chord.pitches[rootPosition]);
+  const rootPosition = cyclicMod(-inversion, simplifiedChord.length);
+  const rootName = stringifyPitch(simplifiedChord.pitches[rootPosition]);
   const invVoicingShortName = stringifyShortName(invVoicing);
   let inversionName = "";
 
@@ -25,6 +27,21 @@ export function stringifyChord(chord: Chord): string {
     inversionName = getInversionName(chord);
 
   return rootName + invVoicingShortName + inversionName;
+}
+
+function removeRepeatedPitches(chord: Chord): Chord {
+  const pitches: PitchArray = [] as any;
+  const added = new Set<Pitch>();
+
+  for (const p of chord.pitches) {
+    if (!added.has(p)) {
+      pitches.push(p);
+
+      added.add(p);
+    }
+  }
+
+  return fromPitches(...pitches);
 }
 
 function getInversionName(chord: Chord): string {
