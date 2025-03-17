@@ -1,4 +1,4 @@
-import type { Target } from "../steps/Step";
+import type { Target } from "voice-leading/steps/Target";
 import { PitchArray, SPNArray, VoicingArray } from "@datune/core";
 import { fromPitches } from "@datune/core/voicings/relative/chromatic/building/pitches";
 import { findInnerVoicings } from "voicings/findInnerVoicings";

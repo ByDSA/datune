@@ -51,6 +51,7 @@ class VoiceLeading {
     return {
       targets,
       meta: {
+        base: this.#base,
         multipleGenResult,
         combinerResult,
         applyCombinationsMeta: applyCombinationsResultRest.meta,

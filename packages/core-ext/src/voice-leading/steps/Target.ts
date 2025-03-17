@@ -1,15 +1,19 @@
-import { Chord } from "@datune/core/chords/chromatic";
+import { SPN, Chord, PitchArray } from "@datune/core";
 import { fromPitches } from "@datune/core/chords/octave/chromatic/building/pitches";
-import { PitchArray, Pitch } from "@datune/core/pitches/chromatic";
-import { SPN } from "@datune/core/spns/chromatic";
+import { Pitch } from "@datune/core/pitches/chromatic";
 import { SPNArray } from "@datune/core";
-import { Target } from "../steps/Step";
+
+export type Target = (SPN | null)[];
+
+export function targetGetId(target: Target): string {
+  return target.map(n => n?.toString() ?? "null").join(",");
+}
 
 export function targetsToChords(targets: Target[]): Chord[] {
   return targets.map(targetToChord).filter((c) => !!c) as Chord[];
 }
 
-function targetToChord(target: Target): Chord | null {
+export function targetToChord(target: Target): Chord | null {
   const pitchArray = targetToPitches(target);
 
   if (pitchArray.length === 0)

@@ -1,5 +1,5 @@
 import { SPN, SPNArray } from "@datune/core/spns/chromatic";
-import { targetGetId, Target } from "../steps/Step";
+import { Target, targetGetId } from "voice-leading/steps/Target";
 import { Combination } from "../combiners/types";
 import { CombinationApplierFilter } from "./filters";
 

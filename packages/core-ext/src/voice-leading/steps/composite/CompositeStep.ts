@@ -1,8 +1,9 @@
 import type { SingleStepArray } from "../single/Array";
-import type { Step, Target } from "../Step";
+import type { Step } from "../Step";
 import { Interval, SPNs } from "@datune/core";
 import { Arrays, lockr } from "@datune/utils";
 import { from } from "../single/building";
+import { Target } from "../Target";
 import { compositeStepToSingleSteps } from "./cacheMaps";
 
 export class CompositeStep implements Step {

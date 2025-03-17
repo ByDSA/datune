@@ -7,13 +7,15 @@ import { CompositeStep, SingleStep, Steps } from "./steps";
 import { StepsGen } from "./generators";
 import { StepCombiners } from "./combiners";
 import { StepAppliers } from "./appliers";
+import { handleResult } from "./forward/Result";
 
 const staticModule = {
   Steps,
   StepsGen,
-  StepCombiners,
+  Combiners: StepCombiners,
   Appliers: StepAppliers,
-  generateVoiceLeading,
+  generate: generateVoiceLeading,
+  handleResult,
   SingleStep,
   CompositeStep,
 };

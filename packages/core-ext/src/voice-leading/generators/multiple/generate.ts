@@ -4,6 +4,7 @@ import type { StepReasonNearInfo, StepReasonRestNotesInfo, StepReasonVoicingReso
 import type { StepFilter } from "../filters";
 import { SPN, SPNArray } from "@datune/core/spns/chromatic";
 import { type CombinerResult, combineStepGroups } from "voice-leading/combiners/combine-groups";
+import { SingleStep } from "voice-leading/steps";
 import { filterNonNullSteps, type StepArray } from "../../steps/Step";
 import { generate as generateToKeyResolution, KeyResolutionGeneratorProps } from "../key-resolution/generate";
 import { generate as generateToVoicingResolution, VoicingResolutionGeneratorProps } from "../voicing-resolution/generate";
@@ -25,9 +26,9 @@ export type MultipleGenResult = {
 export type MultipleGenProps = {
   maxInterval?: number;
   filters?: StepFilter[];
+  requireAnyResolution?: boolean;
   near?: Omit<NearGeneratorProps, "arrayLength"> & {
     enabled?: boolean;
-    required?: boolean;
   };
   keyResolution?: Omit<KeyResolutionGeneratorProps, "base">;
   voicingResolution?: Omit<VoicingResolutionGeneratorProps, "voicing"> & {
@@ -94,21 +95,41 @@ class MultipleGen {
   generate(): MultipleGenResult {
     const groups: StepGroup[] = [];
 
-    if (this.#props.voicingResolution?.enabled)
-      groups.push(...this.#genToVoicingResolution());
-
-    if (this.#props.keyResolution?.restingPitches) {
-      const partialGroup = this.#genToKeyResolution();
-
-      if (partialGroup)
-        groups.push(partialGroup);
-    }
-
     if (this.#props.near?.enabled) {
       const partialGroup = this.#genNear();
 
       if (partialGroup)
         groups.push(partialGroup);
+    }
+
+    const resolutionGroups: StepGroup[] = [];
+
+    if (this.#props.voicingResolution?.enabled) {
+      const partialGroup = this.#genToVoicingResolution();
+
+      if (partialGroup)
+        resolutionGroups.push(partialGroup);
+    }
+
+    if (this.#props.keyResolution?.restingPitches) {
+      const partialGroup = this.#genToKeyResolution();
+
+      if (partialGroup)
+        resolutionGroups.push(partialGroup);
+    }
+
+    const resolutionCombinedGroup: StepOrNull[] = compactCombinationsUnsafe(
+      combineStepGroups(resolutionGroups).combinations,
+    );
+
+    if (resolutionCombinedGroup.length > 0) {
+      if (!this.#props.requireAnyResolution
+        && groups.length > 0
+        && resolutionGroups.length > 1
+      )
+        resolutionCombinedGroup.push(null);
+
+      groups.push(resolutionCombinedGroup as StepGroup);
     }
 
     return {
@@ -120,7 +141,7 @@ class MultipleGen {
     };
   }
 
-  #genToVoicingResolution(): StepGroup[] {
+  #genToVoicingResolution(): StepGroup | null {
     const { enabled: _, ...voicingResolutionProps } = this.#props.voicingResolution!;
     const groups: StepGroup[] = [];
     const gen = generateToVoicingResolution( {
@@ -136,12 +157,10 @@ class MultipleGen {
         innerVoicingResult: result.innerVoicing,
       };
 
-      if (!voicingResolutionProps.required)
-        steps.push(null);
-
       if (steps.length === 0)
         continue;
 
+      steps.push(null); // Para no obligar a que resuelva todas las tensiones
       groups.push(steps as StepGroup);
       const atomicStepsInResult = filterNonNullSteps(steps);
 
@@ -151,7 +170,16 @@ class MultipleGen {
       this.#reasonsMap.add(reason, ...atomicStepsInResult as StepArray);
     }
 
-    return groups;
+    const combinerResult = combineStepGroups(groups);
+    const group: StepOrNull[] = compactCombinationsUnsafe(combinerResult.combinations);
+
+    if (group.length === 0)
+      return null;
+
+    if (!voicingResolutionProps.required)
+      group.push(null);
+
+    return group as StepGroup;
   }
 
   #genToKeyResolution(): StepGroup | null {
@@ -190,23 +218,26 @@ class MultipleGen {
       maxInterval: this.#props.maxInterval,
       ...nearProps,
     } );
-    const reason: StepReasonNearInfo = {
-      reason: StepReason.NEAR,
-    };
     const atomicSteps = filterNonNullSteps(groups.flat());
 
     if (atomicSteps.length === 0)
       return null;
 
-    this.#reasonsMap.add(reason, ...atomicSteps as StepArray);
+    for (const s of atomicSteps) {
+      const reason: StepReasonNearInfo = {
+        reason: StepReason.NEAR,
+        interval: (s as SingleStep).interval!,
+      };
+
+      this.#reasonsMap.add(reason, s);
+    }
 
     const combinerResult = combineStepGroups(groups);
     const group = compactCombinationsUnsafe(combinerResult.combinations) as StepGroup;
 
     this.#addToGroupItemToRawsMap(group, combinerResult);
 
-    if (!nearProps.required)
-      group.push(null);
+    group.push(null); // Never is required
 
     return group;
   }

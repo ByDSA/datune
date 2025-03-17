@@ -120,7 +120,7 @@ class StepCombiner {
       } );
 
       return {
-        combinations: combinations,
+        combinations,
         meta: {
           combinationToRawsMap: this.#combinationToRawsMap,
         },

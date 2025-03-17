@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Keys as AK, Pitches as AP, Scales as AS, Intervals as AI, Degrees as AD, Funcs as AF } from "@datune/core/alt";
-import { Keys as K, Chords as C, Pitches as P, Intervals as I, Scales as S, Voicings as V, Funcs } from "@datune/core/chromatic";
+import { Keys as K, Chords as C, Pitches as P, Intervals as I, Scales as S, Voicings as V, Funcs, SPNs as N, SPNArray, PitchArray } from "@datune/core/chromatic";
 import { useStringify } from "@datune/strings";
 import { stringifyDegree, stringifyScale } from "@datune/strings/chromatic";
 import { parseChord as parseAChord } from "@datune/strings/alt";
@@ -8,6 +8,7 @@ import { LangId } from "@datune/strings/lang";
 import { scaleFindVoicings } from "@datune/core-ext/scales";
 import { countAllCombinations, getCombinations, countCombinations } from "@datune/utils/math/combinatorics";
 import { TRIAD_MINOR, TRIAD_SUS4 } from "@datune/core/voicings/relative/chromatic/constants";
+import { VoiceLeadings as VL } from "@datune/core-ext/voice-leading";
 
 useStringify();
 
@@ -111,4 +112,43 @@ console.log(
   scaleFindVoicings(S.MINOR, [V.TRIAD_SUS2, TRIAD_SUS4])
     .map(a=>Funcs.fromDegrees(...a).getChord(K.C))
     .map(String),
+);
+
+/* Voice Leading */
+const base = [N.G4, N.B4, N.D5, N.F5] as SPNArray;
+const voiceLeadingProps = {
+  multipleGenConfig: {
+    filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches)],
+    requireAnyResolution: true,
+    keyResolution: {
+      restingPitches: [P.C, P.E, P.G] as PitchArray,
+    },
+  },
+};
+const result = VL.generate(base, voiceLeadingProps);
+
+console.log(
+  "Where does G7 chord resolve (4-length chords) in C Major Key?",
+  "There are " + result.targets.length + " chords:",
+  JSON.stringify(
+    VL.handleResult(result)
+      .toChordMotionReasons()
+      .map(cmr=>cmr.chord.toString() + " (" + cmr.target.map(n=>n?.pitch) + ")"),
+    null,
+    2,
+  ),
+);
+const resultWithoutTensions = VL.generate(base, {
+  ...voiceLeadingProps,
+  combinationApplierConfig: {
+    afterFilters: [
+      VL.Appliers.processors.createDisallowInnerVoicingsFilter(V.M2, V.m2, V.TRITONE, V.m7, V.M7),
+    ],
+  },
+} );
+
+console.log(
+  "Too many chords. I want only target chords without tensions/clusters, and know why.",
+  "There are " + resultWithoutTensions.targets.length + " chords:",
+  JSON.stringify(VL.handleResult(resultWithoutTensions).toReadableChordMotionReasons(), null, 2),
 );

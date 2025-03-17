@@ -1,5 +1,5 @@
 import type { SPN } from "@datune/core";
-import type { Target } from "../steps/Step";
+import { Target } from "voice-leading/steps/Target";
 import { CombinationApplierFilter } from "./filters";
 
 // En un momento dado, cuando una línea grave supera a una aguda o al revés

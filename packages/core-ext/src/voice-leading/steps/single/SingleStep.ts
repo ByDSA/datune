@@ -2,7 +2,8 @@
 import type { Key } from "./cache";
 import { Interval } from "@datune/core/intervals/chromatic";
 import { add as SPNAdd } from "@datune/core/spns/symbolic/chromatic/modifiers";
-import { Step, Target } from "../Step";
+import { Step } from "../Step";
+import { Target } from "../Target";
 
 /*
 Interval = 0: significa que la voz no cambia, pero sigue existiendo. Se usa por ejemplo cuando en sus4 una de las voces debe mantenerse en la resolución

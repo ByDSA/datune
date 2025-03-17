@@ -4,7 +4,7 @@ import { fromSingleSteps as compositeStepFromSingleSteps } from "../steps/compos
 import { Combination } from "../combiners/types";
 
 /* Unsafe: no comprueba contradicciones.
-   Los generators ya generan los single steps sin contradicciones
+   "combineStepGroups" ya elimina las contradicciones
 */
 export function compactCombinationsUnsafe(combinations: Combination[]): Step[] {
   const ret: Step[] = [];
