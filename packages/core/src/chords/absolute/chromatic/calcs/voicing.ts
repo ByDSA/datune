@@ -8,7 +8,7 @@ export function voicingOf(obj: Chord): Voicing {
 
   for (let i = 1; i < obj.length; i++) {
     const n = obj.pitches[i];
-    const rootInterval: Interval = Intervals.betweenSPN(root, n);
+    const rootInterval: Interval = Intervals.betweenSpn(root, n);
 
     rootIntervals.push(rootInterval);
   }

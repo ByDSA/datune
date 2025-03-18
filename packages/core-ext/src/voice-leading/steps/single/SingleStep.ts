@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import type { Key } from "./cache";
 import { Interval } from "@datune/core/intervals/chromatic";
-import { add as SPNAdd } from "@datune/core/spns/symbolic/chromatic/modifiers";
+import { add as SpnAdd } from "@datune/core/spns/symbolic/chromatic/modifiers";
 import { Step } from "../Step";
 import { Target } from "../Target";
 
@@ -35,7 +35,7 @@ export class SingleStep implements Step {
       return;
 
     if (this.interval !== null)
-      spnArray[this.index] = SPNAdd(spnAtIndex, this.interval);
+      spnArray[this.index] = SpnAdd(spnAtIndex, this.interval);
     else
       spnArray[this.index] = null;
   }

@@ -2,7 +2,7 @@ import type { StepGroup } from "../StepsGenerator";
 import type { StepOrNull } from "../../steps/Step";
 import type { StepReasonNearInfo, StepReasonRestNotesInfo, StepReasonVoicingResolutionInfo } from "./step-reason/StepReasonInfo";
 import type { StepFilter } from "../filters";
-import { SPN, SPNArray } from "@datune/core/spns/chromatic";
+import { Spn, SpnArray } from "@datune/core/spns/chromatic";
 import { type CombinerResult, combineStepGroups } from "voice-leading/combiners/combine-groups";
 import { SingleStep } from "voice-leading/steps";
 import { filterNonNullSteps, type StepArray } from "../../steps/Step";
@@ -36,7 +36,7 @@ export type MultipleGenProps = {
   };
 };
 
-export const generateMultiple = (base: SPNArray, props?: MultipleGenProps) => {
+export const generateMultiple = (base: SpnArray, props?: MultipleGenProps) => {
   ensureSpnArrayIsDefinedAndSorted(base);
 
   return new MultipleGen(base, props).generate();
@@ -44,13 +44,13 @@ export const generateMultiple = (base: SPNArray, props?: MultipleGenProps) => {
 class MultipleGen {
   #props: MultipleGenProps;
 
-  #base: SPNArray;
+  #base: SpnArray;
 
   #groupItemToRawsMap: GroupItemToRawsMap;
 
   #reasonsMap;
 
-  constructor(base: SPNArray, props?: MultipleGenProps) {
+  constructor(base: SpnArray, props?: MultipleGenProps) {
     const voicingResolutionEnabled = props?.voicingResolution?.enabled ?? true;
     const nearEnabled = props?.near?.enabled ?? true;
 
@@ -258,7 +258,7 @@ class MultipleGen {
   }
 }
 
-function ensureSpnArrayIsDefinedAndSorted(spnArray: SPN[]) {
+function ensureSpnArrayIsDefinedAndSorted(spnArray: Spn[]) {
   if (!spnArray || spnArray.length === 0)
     throw new Error("No notes");
 

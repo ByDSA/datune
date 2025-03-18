@@ -1,11 +1,11 @@
 import { expectExportModulesAsync } from "tests/modules";
-import { SPNs } from ".";
+import { Spns } from ".";
 
 const vars: string[] = [
 ];
 const functions: string[] = [
   // calcs
-  SPNs.overtones.name,
+  Spns.overtones.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -14,7 +14,7 @@ it("module should export functions and vars", async () => {
       functions,
       vars,
     },
-    barrel: SPNs,
+    barrel: Spns,
     modules: [
       "calcs",
     ],

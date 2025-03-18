@@ -1,5 +1,5 @@
 import type { VoiceLeadingResult } from "../Result";
-import { SPNArray, SPN } from "@datune/core";
+import { SpnArray, Spn } from "@datune/core";
 import { Voicings as V } from "@datune/core";
 import { type Target } from "voice-leading/steps/Target";
 import { stringifyStepReasonInfo } from "voice-leading/generators/multiple/step-reason/StepReasonInfo";
@@ -40,12 +40,12 @@ export function toReadableChordMotionReasons(result: VoiceLeadingResult): Humani
     } );
 }
 
-function sortingScoreTarget(target: Target, base: SPNArray): number {
+function sortingScoreTarget(target: Target, base: SpnArray): number {
   let distance = 0;
 
   for (let i = 0; i < target.length; i++) {
     if (target[i] !== null)
-      distance += Math.abs(+(target[i] as SPN) - +base[i]);
+      distance += Math.abs(+(target[i] as Spn) - +base[i]);
   }
 
   return -distance;

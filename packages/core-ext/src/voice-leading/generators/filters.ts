@@ -1,9 +1,9 @@
 import type { Step } from "voice-leading/steps/Step";
-import type { PitchArray, SPNArray } from "@datune/core";
+import type { PitchArray, SpnArray } from "@datune/core";
 
 export type StepFilter = (step: Step)=> boolean;
 
-export function createAllowedPitchesFilter(base: SPNArray, pitches: PitchArray): StepFilter {
+export function createAllowedPitchesFilter(base: SpnArray, pitches: PitchArray): StepFilter {
   return (step: Step) => {
     const target = [...base];
 

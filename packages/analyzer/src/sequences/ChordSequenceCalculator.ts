@@ -1,7 +1,7 @@
 import { MusicalDuration } from "@datune/core";
 import { fromPitches } from "@datune/core/chords/octave/chromatic/building/pitches";
 import { PitchArray as ChromaticArray } from "@datune/core/pitches/chromatic";
-import { SPN } from "@datune/core/spns/chromatic";
+import { Spn } from "@datune/core/spns/chromatic";
 import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { Interval, TemporalNode } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
@@ -65,8 +65,8 @@ export class ChordSequenceCalculator {
 }
 
 function sortNodesByPitch(
-  nodes: TemporalNode<SPN>[],
-): TemporalNode<SPN>[] {
+  nodes: TemporalNode<Spn>[],
+): TemporalNode<Spn>[] {
   return nodes.sort((a, b) => {
     const valueA = a.event.valueOf();
     const valueB = b.event.valueOf();

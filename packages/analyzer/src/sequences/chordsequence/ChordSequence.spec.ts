@@ -1,6 +1,6 @@
-import { Chords } from "@datune/core/chords/chromatic";
-import { Pitches } from "@datune/core/pitches/chromatic";
-import { SPNs } from "@datune/core/spns/chromatic";
+import { Chords as C } from "@datune/core/chords/chromatic";
+import { Pitches as P } from "@datune/core/pitches/chromatic";
+import { Spns as N } from "@datune/core/spns/chromatic";
 import { MusicalDurations as MD } from "@datune/core/rhythm";
 import { TimeSignatures as TS } from "@datune/core/rhythm";
 import { TestInit } from "tests";
@@ -8,10 +8,10 @@ import { TonalApproach } from "../../approaches/tonal/TonalApproach";
 import { NotesSequence } from "../notessequence/NotesSequence";
 
 TestInit.initAll();
-const { A5, B4, C4, C6, D5, E4, F5, G4 } = SPNs;
-const { A: P_A, C: P_C } = Pitches;
+const { A5, B4, C4, C6, D5, E4, F5, G4 } = N;
+const { A: P_A, C: P_C } = P;
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const { B0, C, CMaj7, Dm7, fromPitches } = Chords;
+const { B0, CMaj7, Dm7, fromPitches } = C;
 const testNoteTimeSequence = () => {
   const notesTimeSequence = new NotesSequence();
   const eventDuration = MD.QUARTER;
@@ -64,7 +64,7 @@ it("chord Analyser 3/4", () => {
   const { nodes } = harmonicSequence.chordSequence;
   const chords = nodes.map((n) => n.event);
 
-  expect(chords[0]).toBe(C);
+  expect(chords[0]).toBe(C.C);
   expect(chords[1]).toBe(B0);
   expect(chords[2]).toBe(fromPitches(P_A, P_C));
 } );

@@ -1,13 +1,14 @@
-import { SPNs, type SPNArray, type SPN } from "spns/chromatic";
+import { type SpnArray, type Spn } from "spns/chromatic";
+import { add as spnAdd } from "spns/symbolic/chromatic/modifiers";
 import { type Voicing } from "voicings/chromatic";
 import { type Chord } from "../Chord";
-import { fromSPNs } from "./spns";
+import { fromSpns } from "./spns";
 
-export function fromRootVoicing(base: SPN, voicing: Voicing): Chord | null {
-  const notes: SPN[] = [];
+export function fromRootVoicing(base: Spn, voicing: Voicing): Chord | null {
+  const notes: Spn[] = [];
 
   for (const rootInterval of voicing) {
-    const shiftedSpn = SPNs.add(base, rootInterval);
+    const shiftedSpn = spnAdd(base, rootInterval);
 
     if (!shiftedSpn)
       return null;
@@ -18,5 +19,5 @@ export function fromRootVoicing(base: SPN, voicing: Voicing): Chord | null {
   if (notes.length === 0)
     return null;
 
-  return fromSPNs(...notes as SPNArray);
+  return fromSpns(...notes as SpnArray);
 };

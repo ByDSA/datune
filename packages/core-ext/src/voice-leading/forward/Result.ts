@@ -1,7 +1,7 @@
 import type { ApplyCombinationsResult } from "voice-leading/appliers/combination-appliers";
 import type { MultipleGenResult } from "voice-leading/generators/multiple/generate";
 import type { CombinerResult } from "voice-leading/combiners/combine-groups";
-import { SPNArray } from "@datune/core";
+import { SpnArray } from "@datune/core";
 import { type Target } from "voice-leading/steps/Target";
 import { getAtomicStepsOf } from "./result-handlers/get-atomic-steps";
 import { toChordMotionReasons } from "./result-handlers/chord-motion-reasons";
@@ -10,7 +10,7 @@ import { toReadableChordMotionReasons } from "./result-handlers/chord-motion-rea
 export type VoiceLeadingResult = {
     targets: Target[];
     meta: {
-        base: SPNArray;
+        base: SpnArray;
         multipleGenResult: MultipleGenResult;
         combinerResult: CombinerResult;
         applyCombinationsMeta: ApplyCombinationsResult["meta"];

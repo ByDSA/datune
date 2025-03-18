@@ -1,5 +1,5 @@
-import { SPN } from "@datune/core/spns/chromatic";
-import { betweenSPN } from "@datune/core/intervals/symbolic/chromatic/building";
+import { Spn } from "@datune/core/spns/chromatic";
+import { betweenSpn } from "@datune/core/intervals/symbolic/chromatic/building";
 import { Constraint } from "../Constraint";
 
 export class PitchDistanceConstraint extends Constraint {
@@ -7,9 +7,9 @@ export class PitchDistanceConstraint extends Constraint {
     super(probability);
   }
 
-  check(spn1: SPN, spn2: SPN): boolean {
+  check(spn1: Spn, spn2: Spn): boolean {
     if (this.isMustConstrain())
-      return Math.abs(betweenSPN(spn1, spn2)) <= this.distance;
+      return Math.abs(betweenSpn(spn1, spn2)) <= this.distance;
 
     return true;
   }

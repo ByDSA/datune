@@ -1,9 +1,9 @@
 import { KeyMappedFlyweightCache } from "@datune/utils";
-import { SPN } from "@datune/core/spns/chromatic";
+import { Spn } from "@datune/core/spns/chromatic";
 import { MidiPitch } from "../MidiPitch";
 
 export type Key = {
-  spn: SPN;
+  spn: Spn;
   detuned: number;
 };
 

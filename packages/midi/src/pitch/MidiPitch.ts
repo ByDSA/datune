@@ -1,8 +1,8 @@
 import type { Key } from "./caching/cache";
-import { SPN } from "@datune/core/spns/chromatic";
+import { Spn } from "@datune/core/spns/chromatic";
 
 export class MidiPitch {
-  spn: SPN;
+  spn: Spn;
 
   detuned: number;
 

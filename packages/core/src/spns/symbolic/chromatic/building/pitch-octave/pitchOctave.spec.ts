@@ -1,8 +1,8 @@
 import { Pitches as P } from "pitches/chromatic";
-import { SPNs } from "chromatic";
+import { Spns as N } from "chromatic";
 import { fromPitchOctave } from "./index";
 
-const { B4, C4, FF4 } = SPNs;
+const { B4, C4, FF4 } = N;
 
 describe("range", () => {
   describe("below limit", () => {

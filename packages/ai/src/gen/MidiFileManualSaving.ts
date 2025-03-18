@@ -7,7 +7,7 @@ import { fromRootVoicing } from "@datune/core/chords/absolute/chromatic/building
 import { A as T_A, AA as T_AA, AAm as T_AAm, Am as T_Am, B as T_B, Bm as T_Bm, C as T_C, CC as T_CC, CCm as T_CCm, Cm as T_Cm, D as T_D, DD as T_DD, DDm as T_DDm, Dm as T_Dm, E as T_E, Em as T_Em, F as T_F, FF as T_FF, FFm as T_FFm, Fm as T_Fm, G as T_G, GG as T_GG, GGm as T_GGm, Gm as T_Gm } from "@datune/core/keys/chromatic/constants";
 import { Pitch } from "@datune/core/pitches/chromatic";
 import { A2, B3, C4, C7, G4 } from "@datune/core/spns/symbolic/chromatic/constants";
-import { SPN, SPNArray } from "@datune/core/spns/chromatic";
+import { SpnArray, Spn } from "@datune/core/spns/chromatic";
 import { add, sub } from "@datune/core/spns/symbolic/chromatic/modifiers";
 import { fromPitchOctave as spnFrom } from "@datune/core/spns/symbolic/chromatic/building/pitch-octave";
 import { EIGHTH, HALF, LONGA, QUARTER, SIXTEENTH } from "@datune/core/rhythm/tempo/musical-duration/constants";
@@ -16,15 +16,15 @@ import { initialize as initMidi, Instrument, MidiFile, MidiNode, MidiNote, nodeF
 import { from as midiPitchFrom } from "@datune/midi/pitch/building";
 import { Arrays, random } from "@datune/utils";
 import { IntervalArray } from "@datune/core/intervals/chromatic";
-import { betweenSPN } from "@datune/core/intervals/symbolic/chromatic/building";
+import { betweenSpn } from "@datune/core/intervals/symbolic/chromatic/building";
 import { fromRootIntervals } from "@datune/core/voicings/relative/chromatic/building/rootIntervals";
 import { Track } from "@datune/midi/files/track/Track";
 import { Channel } from "@datune/midi/files/track/Channel";
-import { Chord as SPNChord } from "@datune/core/chords/absolute/chromatic/Chord";
+import { Chord as SpnChord } from "@datune/core/chords/absolute/chromatic/Chord";
 import { ActionGen } from "./actions/ActionGen";
 import { ActionGenState } from "./actions/ActionGenState";
 import { ActionManager } from "./actions/ActionManager";
-import { ConstraintSPN } from "./constraints/pitch/ConstraintSPN";
+import { ConstraintSpn } from "./constraints/pitch/ConstraintSpn";
 import { PitchDistanceConstraint } from "./constraints/pitch/DistanceConstraint";
 import { PitchMaxConstraint } from "./constraints/pitch/PitchMaxConstraint";
 import { PitchMinConstraint } from "./constraints/pitch/PitchMinConstraint";
@@ -56,15 +56,15 @@ function initializeVoices() {
   }
 }
 
-function filterPitchesByLastSPNConstraint(spns: SPN[], lastSPN: SPN | null, voice: Voice): SPN[] {
-  if (lastSPN) {
+function filterPitchesByLastSpnConstraint(spns: Spn[], lastSpn: Spn | null, voice: Voice): Spn[] {
+  if (lastSpn) {
     return spns.filter((spn) => {
       const i = voices.indexOf(voice);
 
       if (i === 0)
-        return new PitchDistanceConstraint(2).check(lastSPN, spn);
+        return new PitchDistanceConstraint(2).check(lastSpn, spn);
 
-      return new PitchDistanceConstraint(4).check(lastSPN, spn);
+      return new PitchDistanceConstraint(4).check(lastSpn, spn);
     } );
   }
 
@@ -72,20 +72,20 @@ function filterPitchesByLastSPNConstraint(spns: SPN[], lastSPN: SPN | null, voic
 }
 
 function filterPitchesByPitchConstraint(
-  spns: SPN[],
+  spns: Spn[],
   voice: Voice,
   from: MusicalDuration,
   to: MusicalDuration,
-): SPN[] {
+): Spn[] {
   return spns.filter((spn) => voice.checkPitchConstraints(spn, from, to));
 }
 
 function filterPitchesByVoiceConstraint(
-  spns: SPN[],
+  spns: Spn[],
   voice: Voice,
   from: MusicalDuration,
   to: MusicalDuration,
-): SPN[] {
+): Spn[] {
   return spns.filter((spn) => voice.checkVoiceConstraintsPitch(spn, from, to));
 }
 
@@ -124,26 +124,26 @@ function getAvailableNotes(
   to: MusicalDuration,
 ): MidiNote[] {
   const currentChordNotes = getAvailablePitches(time, chordSequence, key);
-  let availableSPNs: SPN[] = [];
+  let availableSpns: Spn[] = [];
 
   for (const n of currentChordNotes) {
     for (let o = -1; o < 9; o++) {
       const spn = spnFrom(n, o);
 
       if (spn)
-        availableSPNs.push(spn);
+        availableSpns.push(spn);
     }
   }
 
-  availableSPNs = filterPitchesByVoiceConstraint(availableSPNs, voice, from, to);
-  availableSPNs = filterPitchesByPitchConstraint(availableSPNs, voice, from, to);
-  availableSPNs = filterPitchesByLastSPNConstraint(
-    availableSPNs,
+  availableSpns = filterPitchesByVoiceConstraint(availableSpns, voice, from, to);
+  availableSpns = filterPitchesByPitchConstraint(availableSpns, voice, from, to);
+  availableSpns = filterPitchesByLastSpnConstraint(
+    availableSpns,
     lastNote?.pitch.spn ?? null,
     voice,
   );
 
-  const notes = availableSPNs.map((spn) => noteFrom( {
+  const notes = availableSpns.map((spn) => noteFrom( {
     pitch: midiPitchFrom(spn),
     duration: QUARTER,
   } ));
@@ -259,7 +259,7 @@ export function sample4(): MidiFile {
   };
 
   midiFile.addTrack(accompTrack);
-  let prevNotes: SPNArray | undefined;
+  let prevNotes: SpnArray | undefined;
   const chordConstraints = [
     new PitchMaxConstraint(B3),
     new PitchMinConstraint(A2),
@@ -269,20 +269,20 @@ export function sample4(): MidiFile {
     const chord = node.event;
     const time = node.interval.from;
     const timeTo = node.interval.to;
-    const root = <SPN>spnFrom(chord.root, 3);
+    const root = <Spn>spnFrom(chord.root, 3);
     const rootIntervalsVoicing = chord.pitches.map(
       (spn, i, array) => +spn - +array[i],
     ) as IntervalArray;
     const voicing = fromRootIntervals(...rootIntervalsVoicing);
-    const spnChord = <SPNChord>fromRootVoicing(root, voicing);
+    const spnChord = <SpnChord>fromRootVoicing(root, voicing);
     let { pitches } = spnChord;
-    const constraints: ConstraintSPN[] = chordConstraints;
+    const constraints: ConstraintSpn[] = chordConstraints;
 
     if (prevNotes)
       pitches = minimizeDistance(pitches, prevNotes, constraints);
 
     prevNotes = pitches;
-    const midiNodes = pitches.map((spn: SPN) => {
+    const midiNodes = pitches.map((spn: Spn) => {
       const pitch = midiPitchFrom(spn);
       const note = noteFrom( {
         pitch,
@@ -302,7 +302,7 @@ export function sample4(): MidiFile {
   return midiFile;
 }
 
-function spnCheckConstraints(spn: SPN, constraints: ConstraintSPN[] = []): SPN | null {
+function spnCheckConstraints(spn: Spn, constraints: ConstraintSpn[] = []): Spn | null {
   for (const c of constraints) {
     if (!c.check(spn))
       return null;
@@ -312,11 +312,11 @@ function spnCheckConstraints(spn: SPN, constraints: ConstraintSPN[] = []): SPN |
 }
 
 function minimizeDistance(
-  from: SPNArray,
-  to: SPNArray,
-  constraints: ConstraintSPN[] = [],
-): SPNArray {
-  const result: SPNArray = [...from];
+  from: SpnArray,
+  to: SpnArray,
+  constraints: ConstraintSpn[] = [],
+): SpnArray {
+  const result: SpnArray = [...from];
 
   for (let i = 0; i < from.length; i++) {
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -330,7 +330,7 @@ function minimizeDistance(
       result[i] = original_i;
     }
 
-    let lower_i: SPN | null = from[i];
+    let lower_i: Spn | null = from[i];
 
     do {
       lower_i = sub(lower_i, 12);
@@ -356,7 +356,7 @@ function minimizeDistance(
     // eslint-disable-next-line no-constant-condition
     } while (true);
 
-    let upper_i: SPN | null = from[i];
+    let upper_i: Spn | null = from[i];
 
     do {
       upper_i = add(upper_i, 12);
@@ -386,11 +386,11 @@ function minimizeDistance(
   return result;
 }
 
-function distanceToNotes(from: SPN, toNotes: SPNArray): number {
+function distanceToNotes(from: Spn, toNotes: SpnArray): number {
   let dist = 0;
 
-  toNotes.forEach((spn: SPN) => {
-    dist += Math.abs(betweenSPN(from, spn));
+  toNotes.forEach((spn: Spn) => {
+    dist += Math.abs(betweenSpn(from, spn));
   } );
 
   return dist;

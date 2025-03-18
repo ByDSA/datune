@@ -2,7 +2,7 @@ import { MusicalDuration } from "@datune/core";
 import { MidiNote } from "@datune/midi";
 import { TemporalNode } from "@datune/utils";
 import { intervalOf } from "@datune/utils/math";
-import { SPN } from "@datune/core/spns/chromatic";
+import { Spn } from "@datune/core/spns/chromatic";
 import { Voice } from "../../voice/Voice";
 import { VoiceConstraint } from "./VoiceConstraint";
 
@@ -35,7 +35,7 @@ export class LowerVoiceConstraint extends VoiceConstraint {
     return true;
   }
 
-  checkPitch(spn: SPN, from: MusicalDuration, to: MusicalDuration): boolean {
+  checkPitch(spn: Spn, from: MusicalDuration, to: MusicalDuration): boolean {
     const interval = intervalOf(from, to);
     const otherNodes = this.otherVoice.notesSequence.get( {
       interval,

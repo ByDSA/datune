@@ -1,9 +1,9 @@
 import type { Tuning } from "../Tuning";
-import { SPNs, type SPN } from "spns/chromatic";
+import { Spns as N, type Spn } from "spns/chromatic";
 import { Tunings as TU } from "..";
 import { calcFrequency } from "./frequency";
 
-const { A4, AA4, C0, E4, GG4 } = SPNs;
+const { A4, AA4, C0, E4, GG4 } = N;
 const { EQUAL_440, LIMIT_5_SYMMETRIC_N1_440 } = TU;
 
 describe.each([
@@ -13,8 +13,8 @@ describe.each([
   [EQUAL_440, GG4, 415.30],
   [LIMIT_5_SYMMETRIC_N1_440, A4, 440],
   [LIMIT_5_SYMMETRIC_N1_440, E4, 330],
-])("tuning + SPN = frequency", (tuning: Tuning, spn: SPN, frequency: number) => {
-  it(`tuning=(${tuning}) SPN=${String(spn)} => ${frequency}`, () => {
+])("tuning + Spn = frequency", (tuning: Tuning, spn: Spn, frequency: number) => {
+  it(`tuning=(${tuning}) Spn=${String(spn)} => ${frequency}`, () => {
     const actual: number = calcFrequency(tuning, spn);
 
     expect(actual).toBeCloseTo(frequency);

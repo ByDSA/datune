@@ -3,12 +3,12 @@ import type { StepOrNull } from "voice-leading/steps/Step";
 import type { SingleStep } from "voice-leading/steps";
 import type { StepFilter } from "../filters";
 import { PitchArray } from "@datune/core/pitches/chromatic";
-import { SPNArray } from "@datune/core/spns/chromatic";
+import { SpnArray } from "@datune/core/spns/chromatic";
 import { add as spnAdd } from "@datune/core/spns/symbolic/chromatic/modifiers";
 import { from as singleStepFrom } from "../../steps/single/building";
 
 export type KeyResolutionGeneratorProps = {
-  base: SPNArray;
+  base: SpnArray;
   required?: boolean;
   restingPitches: PitchArray;
   maxInterval?: number;
@@ -21,7 +21,7 @@ export const generate: StepsGenerator<KeyResolutionGeneratorProps> = (props) => 
   };
 };
 class RestingNotesStepsGen {
-  #base: SPNArray; // Notas a evaluar
+  #base: SpnArray; // Notas a evaluar
 
   #restingPitches: PitchArray; // Notas de reposo. Ej: acorde de C (C-E-G) en C Mayor
 

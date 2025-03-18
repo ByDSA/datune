@@ -14,8 +14,8 @@ import { initialize as PitchesAltInitialize } from "pitches/alt/constants";
 import { initialize as ScalesAltInitialize } from "scales/symbolic/alt/constants";
 import { initialize as CScalesInitialize } from "scales/symbolic/chromatic/constants";
 import { initialize as CPitchSetsInitialize } from "sets/pitch-set/chromatic/constants";
-import { initialize as SPNsAltInitialize } from "spns/symbolic/alt/constants";
-import { initialize as CSPNInitialize } from "spns/symbolic/chromatic/constants";
+import { initialize as SpnsAltInitialize } from "spns/symbolic/alt/constants";
+import { initialize as CSpnInitialize } from "spns/symbolic/chromatic/constants";
 import { initialize as CTemperamentsInitialize } from "temperaments/chromatic/constants";
 import { initialize as CTuningsInitialize } from "tunings/chromatic/constants";
 import { initialize as VoicingsAltInitialize } from "voicings/relative/alt/constants";
@@ -45,7 +45,7 @@ function initializeConstants() {
   CVoicingsInitialize();
   CChordsInitialize();
 
-  CSPNInitialize();
+  CSpnInitialize();
   CPitchSetsInitialize();
 
   CScalesInitialize();
@@ -63,7 +63,7 @@ function initializeConstants() {
   // Alt
   PitchesAltInitialize();
 
-  SPNsAltInitialize();
+  SpnsAltInitialize();
 
   IntervalsAltInitialize();
   VoicingsAltInitialize();

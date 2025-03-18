@@ -8,7 +8,7 @@ const vars: string[] = [
 ];
 const functions: string[] = [
   // Building
-  ConcertPitches.fromFrequencySPN.name,
+  ConcertPitches.fromFrequencySpn.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -20,7 +20,7 @@ it("module should export functions and vars", async () => {
     barrel: ConcertPitches,
     modules: [
       "constants",
-      "building/frequencySPN",
+      "building/frequencySpn",
     ],
     // eslint-disable-next-line no-undef
     dirname: __dirname,

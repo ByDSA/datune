@@ -1,4 +1,4 @@
-import type { SPN, Chord } from "@datune/core";
+import type { Spn, Chord } from "@datune/core";
 import type { Combination } from "voice-leading/combiners/types";
 import type { StepReasonInfo } from "voice-leading/generators";
 import type { VoiceLeadingResult } from "../Result";
@@ -8,8 +8,8 @@ import { Target, targetToChord } from "voice-leading/steps/Target";
 import { getAtomicStepsOf } from "./get-atomic-steps";
 
 type Motion = {
-  from: SPN;
-  to: SPN | null;
+  from: Spn;
+  to: Spn | null;
 };
 type Reasons = StepReasonInfo[];
 type ChordMotionReason = {

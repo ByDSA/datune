@@ -3,5 +3,5 @@ export {
 } from "./rootVoicing";
 
 export {
-  fromSPNs,
+  fromSpns,
 } from "./spns";

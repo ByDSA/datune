@@ -1,10 +1,10 @@
 import type { ConcertPitch } from "../ConcertPitch";
-import type { SPN } from "spns/chromatic";
+import type { Spn } from "spns/chromatic";
 import { cache } from "../caching/cache";
 
-export function fromFrequencySPN(
+export function fromFrequencySpn(
   frequency: number,
-  spn: SPN,
+  spn: Spn,
 ): ConcertPitch {
   return cache.getOrCreate( {
     frequency,

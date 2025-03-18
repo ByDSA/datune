@@ -1,5 +1,5 @@
 /* eslint-disable func-names */
-import { Voicing, Chord, Scale, APitch, AChord, AScale, AVoicing, Pitch, ASPN, ConcertPitch, Key, SPN, Temperaments as TE, ADegree, AKey, AInterval } from "@datune/core";
+import { Voicing, Chord, Scale, APitch, AChord, AScale, AVoicing, Pitch, ASpn, ConcertPitch, Key, Spn, Temperaments as TE, ADegree, AKey, AInterval } from "@datune/core";
 import { Voicing as DVoicing, Pitch as DPitch } from "@datune/core/diatonic";
 import { DegreeFunc } from "@datune/core/functions/chromatic/degree-function/DegreeFunc";
 import { DegreeFunc as ADegreeFunc } from "@datune/core/functions/alt/degree-function/DegreeFunc";
@@ -66,7 +66,7 @@ function useStringifyChromatic(langId: LangId) {
       langId,
     } );
   };
-  SPN.prototype.toString = function () {
+  Spn.prototype.toString = function () {
     return stringifySpn(this, {
       langId,
     } );
@@ -120,7 +120,7 @@ function useStringifyAlt(langId: LangId) {
       langId,
     } );
   };
-  ASPN.prototype.toString = function () {
+  ASpn.prototype.toString = function () {
     return stringifyASpn(this, {
       langId,
     } );

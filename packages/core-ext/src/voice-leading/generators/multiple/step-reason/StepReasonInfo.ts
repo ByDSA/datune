@@ -1,4 +1,4 @@
-import { Interval, SPNArray } from "@datune/core";
+import { Interval, SpnArray } from "@datune/core";
 import { InnerVoicingResult } from "voicings/findInnerVoicings";
 import { StepReason } from "./StepReason";
 
@@ -17,7 +17,7 @@ export type StepReasonNearInfo = StepReasonInfo & {
 };
 
 type Settings = {
-    base?: SPNArray;
+    base?: SpnArray;
   };
 export function stringifyStepReasonInfo(reasonInfo: StepReasonInfo, settings?: Settings) {
   switch (reasonInfo.reason) {

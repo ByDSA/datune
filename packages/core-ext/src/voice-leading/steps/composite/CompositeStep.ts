@@ -1,6 +1,6 @@
 import type { SingleStepArray } from "../single/Array";
 import type { Step } from "../Step";
-import { Interval, SPNs } from "@datune/core";
+import { Interval, Spns as N } from "@datune/core";
 import { Arrays, lockr } from "@datune/utils";
 import { from } from "../single/building";
 import { Target } from "../Target";
@@ -44,7 +44,7 @@ export class CompositeStep implements Step {
         return;
 
       if (interval !== null)
-        spnArray[index] = SPNs.add(spnAtIndex, interval);
+        spnArray[index] = N.add(spnAtIndex, interval);
       else
         spnArray[index] = null;
     } );

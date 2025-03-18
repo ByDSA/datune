@@ -1,4 +1,4 @@
-import { SPNArray, SPNs } from "@datune/core/spns/chromatic";
+import { SpnArray, Spns as N } from "@datune/core/spns/chromatic";
 import { TestInit } from "tests";
 import { expectSteps } from "voice-leading/steps/tests/steps";
 import { from as singleStepFrom } from "../../steps/single/building";
@@ -7,12 +7,12 @@ import { generate, voicingFromSpnArray } from "./generate";
 
 TestInit.loadAll();
 
-const { B3, C4, F4, G4, GG4, E4 } = SPNs;
+const { B3, C4, F4, G4, GG4, E4 } = N;
 
 it("interval=M2: F4, G4", () => {
   const bottom = F4;
   const top = G4;
-  const notes: SPNArray = [bottom, top];
+  const notes: SpnArray = [bottom, top];
   const actual = generate( {
     voicing: voicingFromSpnArray(notes),
   } ).groups;
@@ -31,7 +31,7 @@ it("interval=M2: F4, G4", () => {
 it("sus4: C4, F4, G4", () => {
   const bottom = F4;
   const top = G4;
-  const notes: SPNArray = [C4, bottom, top];
+  const notes: SpnArray = [C4, bottom, top];
   const actual = generate( {
     voicing: voicingFromSpnArray(notes),
   } ).groups;
@@ -50,7 +50,7 @@ it("sus4: C4, F4, G4", () => {
 it("nothing: C4, G4", () => {
   const bottom = C4;
   const top = G4;
-  const notes: SPNArray = [bottom, top];
+  const notes: SpnArray = [bottom, top];
   const actual = generate( {
     voicing: voicingFromSpnArray(notes),
   } );
@@ -59,7 +59,7 @@ it("nothing: C4, G4", () => {
 } );
 
 it("tritone interval: B3, F4", () => {
-  const notes: SPNArray = [B3, F4];
+  const notes: SpnArray = [B3, F4];
   const actual = generate( {
     voicing: voicingFromSpnArray(notes),
   } ).groups;
@@ -84,7 +84,7 @@ it("tritone interval: B3, F4", () => {
 } );
 
 it("augmented triad", () => {
-  const notes: SPNArray = [C4, E4, GG4];
+  const notes: SpnArray = [C4, E4, GG4];
   const actual = generate( {
     voicing: voicingFromSpnArray(notes),
   } ).groups;

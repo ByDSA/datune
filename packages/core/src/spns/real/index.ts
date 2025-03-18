@@ -1,15 +1,15 @@
 import type { Arrays } from "@datune/utils";
-import { SPN } from "../SPN";
+import { Spn } from "../Spn";
 import { overtones } from "./calcs";
 
-type SPNArray = Arrays.NonEmpty<SPN>;
+type SpnArray = Arrays.NonEmpty<Spn>;
 
 const mod = {
   overtones,
 };
 
 export {
-  SPN,
-  SPNArray,
-  mod as SPNs,
+  Spn,
+  SpnArray,
+  mod as Spns,
 };

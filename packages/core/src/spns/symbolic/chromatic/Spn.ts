@@ -1,9 +1,9 @@
 import type { Key } from "./building/caching/key";
 import type { Pitch } from "pitches/chromatic";
 import { Pitches as P } from "pitches/chromatic";
-import { SymbolicSPN as ISPN } from "../SymbolicSPN";
+import { SymbolicSpn as ISpn } from "../SymbolicSpn";
 
-export class SPN implements ISPN<Pitch> {
+export class Spn implements ISpn<Pitch> {
   pitch: Pitch;
 
   octave: number;

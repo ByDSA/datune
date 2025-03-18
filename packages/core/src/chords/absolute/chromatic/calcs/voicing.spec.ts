@@ -1,20 +1,20 @@
 import type { Voicing } from "voicings/chromatic";
-import type { SPN, SPNArray } from "spns/chromatic";
-import { SPNs } from "spns/chromatic";
+import type { Spn, SpnArray } from "spns/chromatic";
+import { Spns as N } from "spns/chromatic";
 import { Voicings as V } from "voicings/chromatic";
-import { fromSPNs } from "../building";
+import { fromSpns } from "../building";
 
 const { TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = V;
 
 describe.each([
-  [[SPNs.D4, SPNs.F4, SPNs.A4], TRIAD_MINOR],
-  [[SPNs.C4, SPNs.E4, SPNs.G4], TRIAD_MAJOR],
-  [[SPNs.C4, SPNs.DD4, SPNs.G4], TRIAD_MINOR],
-  [[SPNs.B4, SPNs.D5, SPNs.F5], TRIAD_DIMINISHED],
-  [[SPNs.C4, SPNs.E4, SPNs.GG4], TRIAD_AUGMENTED],
-])("tests", (spns: SPN[], expected: Voicing) => {
+  [[N.D4, N.F4, N.A4], TRIAD_MINOR],
+  [[N.C4, N.E4, N.G4], TRIAD_MAJOR],
+  [[N.C4, N.DD4, N.G4], TRIAD_MINOR],
+  [[N.B4, N.D5, N.F5], TRIAD_DIMINISHED],
+  [[N.C4, N.E4, N.GG4], TRIAD_AUGMENTED],
+])("tests", (spns: Spn[], expected: Voicing) => {
   it(`voicing (${spns}) => ${expected}`, () => {
-    const chord = fromSPNs(...spns as SPNArray);
+    const chord = fromSpns(...spns as SpnArray);
 
     expect(chord.pitches).toStrictEqual(spns);
   } );

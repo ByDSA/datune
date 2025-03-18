@@ -1,13 +1,13 @@
 import type { Pitch } from "pitches/chromatic";
 import type { Key } from "./building/cache";
 import { lockr } from "@datune/utils/immutables";
-import { SPNArray, SPN } from "spns/chromatic";
+import { SpnArray, Spn } from "spns/chromatic";
 import { AbsoluteChord } from "../AbsoluteChord";
 
-export class Chord implements AbsoluteChord<Pitch, SPN> {
-  pitches: SPNArray;
+export class Chord implements AbsoluteChord<Pitch, Spn> {
+  pitches: SpnArray;
 
-  root: SPN;
+  root: Spn;
 
   length: number;
 
@@ -20,11 +20,11 @@ export class Chord implements AbsoluteChord<Pitch, SPN> {
     lockr(this);
   }
 
-  has(note: SPN): boolean {
+  has(note: Spn): boolean {
     return this.pitches.includes(note);
   }
 
-  hasAll(...spns: SPNArray): boolean {
+  hasAll(...spns: SpnArray): boolean {
     for (const c of spns) {
       if (!this.pitches.includes(c))
         return false;
@@ -33,7 +33,7 @@ export class Chord implements AbsoluteChord<Pitch, SPN> {
     return true;
   }
 
-  hasAny(...spns: SPNArray): boolean {
+  hasAny(...spns: SpnArray): boolean {
     for (const c of spns) {
       if (this.pitches.includes(c))
         return true;

@@ -1,6 +1,6 @@
-import type { SPNArray } from "@datune/core/spns/chromatic";
+import type { SpnArray } from "@datune/core/spns/chromatic";
 import type { CompositeArray } from "./building";
-import { SPNs } from "@datune/core/spns/chromatic";
+import { Spns as N } from "@datune/core/spns/chromatic";
 import { Intervals as I } from "@datune/core";
 import { TestInit } from "tests";
 import { from as singleStepFrom } from "../single/building";
@@ -196,7 +196,7 @@ describe("singleSteps", ()=> {
 } );
 
 describe("compositeSteps applied to [F5, B5]", () => {
-  const { A5, AA5, B5, C6, CC6, DD5, E5, F5, FF5, G5 } = SPNs;
+  const { A5, AA5, B5, C6, CC6, DD5, E5, F5, FF5, G5 } = N;
 
   describe.each([
     [CompositeSteps.KEEP_U1, F5, C6],
@@ -234,7 +234,7 @@ describe("compositeSteps applied to [F5, B5]", () => {
     [CompositeSteps.NULL_D1, null, AA5],
     [CompositeSteps.NULL_D2, null, A5],
   ])("intervals work fine", (compositeStep, expectedBottom, expectedTop) => {
-    const source: SPNArray = [F5, B5];
+    const source: SpnArray = [F5, B5];
 
     it(`[${source.join(",")}] compositeStep=[${compositeStep.toString()}] => [${expectedBottom} ${expectedTop}]`, () => {
       const actual = [...source];

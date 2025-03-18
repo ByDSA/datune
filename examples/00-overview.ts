@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Keys as AK, Pitches as AP, Scales as AS, Intervals as AI, Degrees as AD, Funcs as AF } from "@datune/core/alt";
-import { Keys as K, Chords as C, Pitches as P, Intervals as I, Scales as S, Voicings as V, Funcs, SPNs as N, SPNArray, PitchArray } from "@datune/core/chromatic";
+import { Keys as K, Chords as C, Pitches as P, Intervals as I, Scales as S, Voicings as V, Funcs, Spns as N, SpnArray, PitchArray } from "@datune/core/chromatic";
 import { useStringify } from "@datune/strings";
 import { stringifyDegree, stringifyScale } from "@datune/strings/chromatic";
 import { parseChord as parseAChord } from "@datune/strings/alt";
@@ -115,7 +115,7 @@ console.log(
 );
 
 /* Voice Leading */
-const base = [N.G4, N.B4, N.D5, N.F5] as SPNArray;
+const base = [N.G4, N.B4, N.D5, N.F5] as SpnArray;
 const voiceLeadingProps = {
   multipleGenConfig: {
     filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches)],

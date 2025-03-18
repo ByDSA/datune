@@ -81,7 +81,7 @@ it("lower voice 2", () => {
   expect(actual).toBe(expected);
 } );
 
-it("lower voice SPN", () => {
+it("lower voice Spn", () => {
   const voice = initializeVoice();
   const lowerVoice = initializeLowerVoice();
 
@@ -93,7 +93,7 @@ it("lower voice SPN", () => {
   expect(actual).toBe(expected);
 } );
 
-it("lower voice SPN 2", () => {
+it("lower voice Spn 2", () => {
   const voice = initializeVoice();
   const lowerVoice = initializeLowerVoice();
 

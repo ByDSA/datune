@@ -1,4 +1,4 @@
-import { Intervals as I, SPNs, Pitches as P } from "@datune/core/chromatic";
+import { Intervals as I, Spns as N, Pitches as P } from "@datune/core/chromatic";
 import { useStringify } from "@datune/strings";
 import { parseInterval } from "@datune/strings/chromatic";
 
@@ -27,10 +27,10 @@ console.log(
   I.betweenNext(P.C, P.A), // M6 (9)
 );
 console.log(
-  "betweenSPN",
-  I.betweenSPN(SPNs.A4, SPNs.C5), // m3 (3)
-  I.betweenSPN(SPNs.C5, SPNs.A4), // m3 descendent (-3)
-  I.betweenSPN(SPNs.A4, SPNs.A7), // three octaves (36)
+  "betweenSpn",
+  I.betweenSpn(N.A4, N.C5), // m3 (3)
+  I.betweenSpn(N.C5, N.A4), // m3 descendent (-3)
+  I.betweenSpn(N.A4, N.A7), // three octaves (36)
 );
 
 /* String parsing */
@@ -55,5 +55,5 @@ console.log(
   I.octaves(I.m9), // -> 1
   I.octaves(I.neg(I.M14)), // -> -1
   I.octaves(I.neg(I.P15)), // -> -2
-  I.octaves(I.betweenSPN(SPNs.A4, SPNs.C7)), // -> 2
+  I.octaves(I.betweenSpn(N.A4, N.C7)), // -> 2
 );

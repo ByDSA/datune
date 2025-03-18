@@ -1,8 +1,8 @@
 import type { Step, StepArray } from "voice-leading/steps/Step";
 import type { StepsGenerator } from "../StepsGenerator";
 import type { StepFilter } from "../filters";
-import { IntervalArray, Voicing, SPNArray, Voicings as V, VoicingArray } from "@datune/core";
-import { betweenSPN } from "@datune/core/intervals/symbolic/chromatic/building";
+import { IntervalArray, Voicing, SpnArray, Voicings as V, VoicingArray } from "@datune/core";
+import { betweenSpn } from "@datune/core/intervals/symbolic/chromatic/building";
 import { SingleStepArray } from "voice-leading/steps";
 import { compactCombinationsUnsafe } from "../compact-combinations";
 import { reIndex } from "../../steps/single/modifiers";
@@ -128,9 +128,9 @@ class IntervalStepsGen {
   }
 }
 
-export function voicingFromSpnArray(spnArray: SPNArray): Voicing {
+export function voicingFromSpnArray(spnArray: SpnArray): Voicing {
   const intervals = spnArray.map(
-    (s, _, a)=>betweenSPN(a[0], s),
+    (s, _, a)=>betweenSpn(a[0], s),
   ) as IntervalArray;
 
   return V.fromRootIntervals(...intervals);

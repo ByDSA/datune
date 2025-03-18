@@ -1,5 +1,5 @@
 import type { Pitch as CPitch } from "@datune/core/pitches/chromatic";
-import type { SPN } from "@datune/core/spns/chromatic";
+import type { Spn } from "@datune/core/spns/chromatic";
 import { between } from "@datune/core/intervals/symbolic/chromatic/building";
 import { Intervals as I } from "@datune/core";
 
@@ -22,7 +22,7 @@ export function minDistanceBetweenPitchArrays(a1: CPitch[], a2: CPitch[]) {
   return minDistances.reduce((prev, current) => prev + current);
 }
 
-export function minDistanceBetweenSpnArrays(a1: SPN[], a2: SPN[]) {
+export function minDistanceBetweenSpnArrays(a1: Spn[], a2: Spn[]) {
   const minDistances = [];
 
   for (const n1 of a1) {

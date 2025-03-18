@@ -1,6 +1,6 @@
 import type { Tuning } from "../Tuning";
 import type { Pitch } from "pitches/chromatic";
-import type { SPN } from "spns/chromatic";
+import type { Spn } from "spns/chromatic";
 import { Intervals } from "intervals/chromatic";
 
 class FrequencyCalculator {
@@ -10,9 +10,9 @@ class FrequencyCalculator {
 
   private tuning: Tuning;
 
-  private spn: SPN;
+  private spn: Spn;
 
-  constructor(tuning: Tuning, spn: SPN) {
+  constructor(tuning: Tuning, spn: Spn) {
     this.tuning = tuning;
     this.spn = spn;
   }
@@ -38,6 +38,6 @@ class FrequencyCalculator {
   }
 }
 
-export function calcFrequency(tuning: Tuning, spn: SPN): number {
+export function calcFrequency(tuning: Tuning, spn: Spn): number {
   return new FrequencyCalculator(tuning, spn).calc();
 }

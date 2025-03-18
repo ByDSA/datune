@@ -1,8 +1,8 @@
 import { Pitches as P } from "pitches/alt";
 import { fromPitchOctave } from "..";
-import { SPNs } from "../..";
+import { Spns as N } from "../..";
 
-const { B4, C4, FF4 } = SPNs;
+const { B4, C4, FF4 } = N;
 
 describe("range", () => {
   describe("below limit", () => {

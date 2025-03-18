@@ -1,8 +1,8 @@
 import type * as Constants from "./constants";
 import type * as Conversions from "./conversions";
 import { createProxyBarrel } from "lazy-load";
-import { SPN } from "./SPN";
-import { SPNArray } from "./Array";
+import { Spn } from "./Spn";
+import { SpnArray } from "./Array";
 import * as Building from "./building";
 import * as Modifiers from "./modifiers";
 
@@ -30,7 +30,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
 } );
 
 export {
-  SPN,
-  SPNArray,
-  mod as SPNs,
+  Spn,
+  SpnArray,
+  mod as Spns,
 };

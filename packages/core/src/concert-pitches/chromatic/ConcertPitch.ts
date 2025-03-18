@@ -1,11 +1,11 @@
-import type { SPN as ISPN } from "../../spns/SPN";
+import type { Spn as ISpn } from "../../spns/Spn";
 import type { Key } from "./caching/cache";
-import type { SPN } from "spns/chromatic";
+import type { Spn } from "spns/chromatic";
 
-export class ConcertPitch implements ISPN {
+export class ConcertPitch implements ISpn {
   frequency: number;
 
-  spn: SPN;
+  spn: Spn;
 
   private constructor(key: Key) {
     this.frequency = key.frequency;

@@ -1,5 +1,5 @@
-import type { SPNArray } from "../Array";
-import type { SPN } from "../SPN";
+import type { SpnArray } from "../Array";
+import type { Spn } from "../Spn";
 import { lockr } from "@datune/utils/immutables";
 import { ALL as ALL_PITCHES } from "pitches/chromatic/constants";
 import { fromPitchOctave } from "../building/pitch-octave";
@@ -9,18 +9,18 @@ export function initializeAll() {
   lockr(ALL);
 }
 
-function calcAll(): SPNArray {
+function calcAll(): SpnArray {
   const ret = [];
 
   for (let octave = -1; octave <= 9; octave++) {
     for (const pitch of ALL_PITCHES) {
-      const spn = fromPitchOctave(pitch, octave) as SPN;
+      const spn = fromPitchOctave(pitch, octave) as Spn;
 
       ret.push(spn);
     }
   }
 
-  return ret as SPNArray;
+  return ret as SpnArray;
 }
 
-export let ALL: SPNArray;
+export let ALL: SpnArray;

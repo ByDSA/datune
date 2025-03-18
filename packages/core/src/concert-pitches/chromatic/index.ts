@@ -1,10 +1,10 @@
 import type * as Constants from "./constants";
 import { createProxyBarrel } from "lazy-load";
 import { ConcertPitch } from "./ConcertPitch";
-import { fromFrequencySPN } from "./building/frequencySPN";
+import { fromFrequencySpn } from "./building/frequencySpn";
 
 const staticModule = {
-  fromFrequencySPN,
+  fromFrequencySpn,
 };
 
 type LazyType = Omit<typeof Constants, "initialize">;

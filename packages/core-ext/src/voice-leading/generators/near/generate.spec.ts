@@ -1,9 +1,9 @@
-import { SPNs } from "@datune/core/spns/chromatic";
+import { Spns as N } from "@datune/core/spns/chromatic";
 import { TestInit } from "tests";
 import { generate } from "./generate";
 
 TestInit.loadAll();
-const { C5, E5, G5 } = SPNs;
+const { C5, E5, G5 } = N;
 
 it("near motion C5-E5-G5 in C", () => {
   const fromNotes = [C5, E5, G5];

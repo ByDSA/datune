@@ -1,4 +1,4 @@
-import type { SPN } from "@datune/core";
+import type { Spn } from "@datune/core";
 import { Target } from "voice-leading/steps/Target";
 import { CombinationApplierFilter } from "./filters";
 
@@ -28,7 +28,7 @@ export const voiceCrossingFilter: CombinationApplierFilter = ( { target } ) => {
 
 function getPrev(notes: Target, currentIndex: number, lastPrevIndex: { i: number } = {
   i: -1,
-} ): SPN | null {
+} ): Spn | null {
   for (let i = currentIndex - 1; i > lastPrevIndex.i; i--) {
     if (notes[i]) {
       lastPrevIndex.i = i;

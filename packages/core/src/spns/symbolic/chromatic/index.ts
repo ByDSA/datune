@@ -2,8 +2,8 @@ import type { fromPitchOctave } from "./building/pitch-octave";
 import type * as Constants from "./constants";
 import { createProxyBarrel } from "lazy-load";
 import * as Modifiers from "./modifiers";
-import { SPN } from "./SPN";
-import { SPNArray } from "./Array";
+import { Spn } from "./Spn";
+import { SpnArray } from "./Array";
 
 const staticModule = {
   ...Modifiers,
@@ -30,7 +30,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
 } );
 
 export {
-  SPN,
-  SPNArray,
-  mod as SPNs,
+  Spn,
+  SpnArray,
+  mod as Spns,
 };

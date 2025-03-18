@@ -1,6 +1,6 @@
 import type { PitchArray } from "@datune/core/pitches/chromatic";
 import { Keys as K } from "@datune/core/keys/chromatic";
-import { type SPNArray, SPNs as N } from "@datune/core/spns/chromatic";
+import { type SpnArray, Spns as N } from "@datune/core/spns/chromatic";
 import { Intervals as I } from "@datune/core";
 import { TestInit } from "tests";
 import { expectSteps } from "voice-leading/steps/tests/steps";
@@ -15,7 +15,7 @@ const { B4, C5, D5 } = N;
 const { rootChord3, rootChord4 } = K;
 
 it("base=[B4] in Key=C (root=3)", () => {
-  const spns: SPNArray = [B4];
+  const spns: SpnArray = [B4];
   const key = K.C;
   const root3 = rootChord3(key);
   const restingNotes = root3?.pitches as PitchArray;
@@ -33,7 +33,7 @@ it("base=[B4] in Key=C (root=3)", () => {
 } );
 
 it("base=[B4, F5] in Key=C (root=3), maxInterval=1", () => {
-  const spns: SPNArray = [N.B4, N.F5];
+  const spns: SpnArray = [N.B4, N.F5];
   const key = K.C;
   const root3 = rootChord3(key);
   const restingNotes = root3?.pitches as PitchArray;
@@ -56,7 +56,7 @@ it("base=[B4, F5] in Key=C (root=3), maxInterval=1", () => {
 } );
 
 it("base=[B4, F5] in Key=C (root=3), maxInterval=2 (default)", () => {
-  const spns: SPNArray = [N.B4, N.F5];
+  const spns: SpnArray = [N.B4, N.F5];
   const key = K.C;
   const root3 = rootChord3(key);
   const restingNotes = root3?.pitches as PitchArray;
@@ -79,7 +79,7 @@ it("base=[B4, F5] in Key=C (root=3), maxInterval=2 (default)", () => {
 } );
 
 it("base=[B4, D5, F5] in Key=C (root=3), maxInterval=1", () => {
-  const spns: SPNArray = [N.B4, N.D5, N.F5];
+  const spns: SpnArray = [N.B4, N.D5, N.F5];
   const key = K.C;
   const root3 = rootChord3(key);
   const restingNotes = root3?.pitches as PitchArray;
@@ -102,7 +102,7 @@ it("base=[B4, D5, F5] in Key=C (root=3), maxInterval=1", () => {
 } );
 
 it("base=[D5] in Key=C (root=3)", () => {
-  const notes: SPNArray = [D5];
+  const notes: SpnArray = [D5];
   const restingNotes = <PitchArray>rootChord3(K.C)?.pitches;
   const actual = generate( {
     base: notes,
@@ -119,7 +119,7 @@ it("base=[D5] in Key=C (root=3)", () => {
 } );
 
 it("base=[C5] in Key=C (root=3)", () => {
-  const notes: SPNArray = [C5];
+  const notes: SpnArray = [C5];
   const restingPitches = rootChord3(K.C)?.pitches as PitchArray;
   const actual = generate( {
     base: notes,
@@ -130,7 +130,7 @@ it("base=[C5] in Key=C (root=3)", () => {
 } );
 
 it("base=[C5] in Key=C (root=4)", () => {
-  const notes: SPNArray = [C5];
+  const notes: SpnArray = [C5];
   const restingPitches = rootChord4(K.C)?.pitches as PitchArray;
   const actual = generate( {
     base: notes,
@@ -146,7 +146,7 @@ it("base=[C5] in Key=C (root=4)", () => {
 } );
 
 it("base=[D5] in Key=C (root=4, maxInterval=3)", () => {
-  const base: SPNArray = [D5];
+  const base: SpnArray = [D5];
   const restingPitches = rootChord4(K.C)?.pitches as PitchArray;
   const actual = generate( {
     base,
@@ -165,7 +165,7 @@ it("base=[D5] in Key=C (root=4, maxInterval=3)", () => {
 } );
 
 it("base=[G4, B4, D5, F4] (G7) in Key=C (root=3, maxInterval=2)", () => {
-  const base: SPNArray = [N.G4, N.B4, N.D5, N.F4];
+  const base: SpnArray = [N.G4, N.B4, N.D5, N.F4];
   const restingPitches = rootChord3(K.C)?.pitches as PitchArray;
   const actual = generate( {
     base,

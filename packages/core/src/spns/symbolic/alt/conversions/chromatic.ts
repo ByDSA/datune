@@ -1,10 +1,10 @@
-import type { SPN } from "../SPN";
-import type { SPN as ChromaticSPN } from "spns/chromatic";
-import { SPNs as CSPNs } from "spns/chromatic";
+import type { Spn } from "../Spn";
+import type { Spn as CSpn } from "spns/chromatic";
+import { fromPitchOctave } from "spns/symbolic/chromatic/building/pitch-octave";
 import { fromAltPitch as cPitchFromAltPitch } from "pitches/chromatic/building/altPitch";
 
-export function toChromatic(spn: SPN): ChromaticSPN {
+export function toChromatic(spn: Spn): CSpn {
   const cPitch = cPitchFromAltPitch(spn.pitch);
 
-  return CSPNs.fromPitchOctave(cPitch, spn.octave) as ChromaticSPN;
+  return fromPitchOctave(cPitch, spn.octave) as CSpn;
 }

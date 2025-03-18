@@ -1,11 +1,11 @@
 import type { Target } from "voice-leading/steps/Target";
-import { PitchArray, SPNArray, VoicingArray } from "@datune/core";
+import { PitchArray, SpnArray, VoicingArray } from "@datune/core";
 import { fromPitches } from "@datune/core/voicings/relative/chromatic/building/pitches";
 import { findInnerVoicings } from "voicings/findInnerVoicings";
 import { voicingFromSpnArray } from "../generators/voicing-resolution/generate";
 
 type CombinationApplierFilterProps = {
-  base: SPNArray;
+  base: SpnArray;
   target: Target;
   nonNullTarget: NonNullable<Target[0]>[];
 };
@@ -16,7 +16,7 @@ export function createHasSomeVoicingFilter(...voicings: VoicingArray): Combinati
     if (nonNullTarget.length === 0)
       return false;
 
-    const voicing = voicingFromSpnArray(nonNullTarget as SPNArray);
+    const voicing = voicingFromSpnArray(nonNullTarget as SpnArray);
 
     return voicings.includes(voicing);
   };

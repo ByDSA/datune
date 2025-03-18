@@ -1,5 +1,5 @@
 import type { Pitch } from "pitches/chromatic";
-import type { SPN } from "../../SPN";
+import type { Spn } from "../../Spn";
 import { getObjId as pitchGetId } from "pitches/chromatic/caching/id";
 
 export type Key = {
@@ -11,7 +11,7 @@ export function getId(key: Key): string {
   return `(${pitchGetId(key.pitch)})|${key.octave}`;
 }
 
-export function getKey(spn: SPN): Key {
+export function getKey(spn: Spn): Key {
   return {
     pitch: spn.pitch,
     octave: spn.octave,

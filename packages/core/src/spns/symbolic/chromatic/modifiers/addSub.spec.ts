@@ -1,15 +1,15 @@
-import type { SPN } from "../SPN";
+import type { Spn } from "../Spn";
 import type { Interval as CInterval } from "intervals/chromatic";
 import { Intervals as I } from "intervals/chromatic";
 import { Pitches as P } from "pitches/chromatic";
 import { fromPitchOctave } from "../building/pitch-octave";
-import { SPNs } from "..";
+import { Spns as N } from "..";
 import { sub } from "./sub";
 import { add } from "./add";
 
-const { C4, C5, CC5, FF4, G4 } = SPNs;
+const { C4, C5, CC5, FF4, G4 } = N;
 const { d5, P5, P8, P1 } = I;
-const withShiftCases = <[SPN, CInterval, SPN][]>[
+const withShiftCases = <[Spn, CInterval, Spn][]>[
   [C4, P1, C4],
   [C4, P8, C5],
   [C4, P5, G4],
@@ -19,7 +19,7 @@ const withShiftCases = <[SPN, CInterval, SPN][]>[
   [FF4, P5, CC5],
 ];
 
-describe.each(withShiftCases)("add-sub", (base: SPN, interval: CInterval, expected: SPN) => {
+describe.each(withShiftCases)("add-sub", (base: Spn, interval: CInterval, expected: Spn) => {
   const baseName = base.toString();
   const intervalName = interval.toString();
   const expectedName = expected.toString();

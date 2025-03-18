@@ -1,4 +1,4 @@
-import type { SPN } from "spns/alt";
+import type { Spn } from "spns/alt";
 import type { Tuning } from "tunings/chromatic";
 import { Intervals as I } from "intervals/alt";
 import { Pitches as P, Pitch } from "pitches/alt";
@@ -12,9 +12,9 @@ export class FrequencyCalculatorDiatonicAlt {
 
   #tuning: Tuning;
 
-  private spn: SPN;
+  private spn: Spn;
 
-  constructor(_tuning: Tuning, spn: SPN) {
+  constructor(_tuning: Tuning, spn: Spn) {
     this.#tuning = _tuning;
     this.spn = spn;
   }

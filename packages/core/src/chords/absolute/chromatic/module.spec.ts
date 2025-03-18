@@ -6,7 +6,7 @@ const vars: string[] = [
 const functions: string[] = [
   // Building
   Chords.fromRootVoicing.name,
-  Chords.fromSPNs.name,
+  Chords.fromSpns.name,
   // Calca
   Chords.voicingOf.name,
 ];

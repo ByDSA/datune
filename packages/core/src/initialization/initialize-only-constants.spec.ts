@@ -15,8 +15,8 @@ import { Pitches as DP } from "pitches/diatonic";
 import { Scales as AS } from "scales/alt";
 import { Scales as CS } from "scales/chromatic";
 import { PitchSets as CPS } from "sets/pitch-set/chromatic";
-import { SPNs as ASPN } from "spns/alt";
-import { SPNs as CSPN } from "spns/chromatic";
+import { Spns as ASpn } from "spns/alt";
+import { Spns as CSpn } from "spns/chromatic";
 import { Temperaments as CTE } from "temperaments/chromatic";
 import { Tunings as CTU } from "tunings/chromatic";
 import { Voicings as AV } from "voicings/alt";
@@ -38,7 +38,7 @@ describe("initialize all constants", () => {
     } );
 
     it("spn", () => {
-      expect(CSPN.C4).toBeDefined();
+      expect(CSpn.C4).toBeDefined();
     } );
 
     it("interval", () => {
@@ -92,7 +92,7 @@ describe("initialize all constants", () => {
     } );
 
     it("spn", () => {
-      expect(ASPN.C4).toBeDefined();
+      expect(ASpn.C4).toBeDefined();
     } );
 
     it("interval", () => {

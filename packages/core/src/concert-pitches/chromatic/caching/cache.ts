@@ -1,11 +1,11 @@
-import type { SPN } from "chromatic";
+import type { Spn } from "chromatic";
 import { KeyMappedFlyweightCache } from "@datune/utils";
 import { getId as spnGetId } from "spns/symbolic/chromatic/building/caching/key";
 import { ConcertPitch } from "../ConcertPitch";
 
 export type Key = {
   frequency: number;
-  spn: SPN;
+  spn: Spn;
 };
 
 export function getKey(concertPitch: ConcertPitch): Key {

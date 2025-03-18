@@ -1,5 +1,5 @@
-import { Chords as AC, Degrees as AD, Funcs as AF, Intervals as AI, Keys as AK, Pitches as AP, SPNs as ASPNs, Scales as AS, Voicings as AV, Pitch as APitch, Voicing as AVoicing, Chord as AChord, Degree as ADegree, Key as AKey, SPN as ASPN, Scale as AScale, Interval as AInterval } from "@datune/core/alt";
-import { Chords as C, Pitches as P, ConcertPitches as CP, Funcs as F, Keys as K, PitchSets as PS, Scales as S, SPNs, Temperaments as TE, Voicings as V, Pitch, Chord, Voicing, Key, SPN, Scale, ConcertPitch, Degrees as D, Intervals as I } from "@datune/core/chromatic";
+import { Chords as AC, Degrees as AD, Funcs as AF, Intervals as AI, Keys as AK, Pitches as AP, Spns as AN, Scales as AS, Voicings as AV, Pitch as APitch, Voicing as AVoicing, Chord as AChord, Degree as ADegree, Key as AKey, Spn as ASpn, Scale as AScale, Interval as AInterval } from "@datune/core/alt";
+import { Chords as C, Pitches as P, ConcertPitches as CP, Funcs as F, Keys as K, PitchSets as PS, Scales as S, Spns as N, Temperaments as TE, Voicings as V, Pitch, Chord, Voicing, Key, Spn, Scale, ConcertPitch, Degrees as D, Intervals as I } from "@datune/core/chromatic";
 import { Pitches as DP, Voicings as DV, Pitch as DPitch, Voicing as DVoicing } from "@datune/core/diatonic";
 import { DegreeFunc as ADegreeFunc } from "@datune/core/functions/alt/degree-function/DegreeFunc";
 import { CompoundFunc as ACompoundFunc } from "@datune/core/functions/alt/compound-function/CompoundFunc";
@@ -30,7 +30,7 @@ describe("before", ()=> {
   describe("alt", () => {
     beforeAll(() => {
       for (const c of [APitch, AChord, AVoicing, ADegree,
-        ADegreeFunc, ACompoundFunc, AInterval, AKey, ASPN, AScale])
+        ADegreeFunc, ACompoundFunc, AInterval, AKey, ASpn, AScale])
         c.prototype.toString = failFn;
     } );
 
@@ -63,7 +63,7 @@ describe("before", ()=> {
     } );
 
     it("spn", () => {
-      expect(ASPNs.GG9.toString()).toBeUndefined();
+      expect(AN.GG9.toString()).toBeUndefined();
     } );
 
     it("scale", () => {
@@ -78,7 +78,7 @@ describe("before", ()=> {
   describe("chromatic", () => {
     beforeAll(() => {
       for (const c of [Pitch, Chord, ConcertPitch, Voicing,
-        DegreeFunc, CompoundFunc, Key, PitchSet, SPN, Scale])
+        DegreeFunc, CompoundFunc, Key, PitchSet, Spn, Scale])
         c.prototype.toString = failFn;
 
       const temperaments = [
@@ -132,7 +132,7 @@ describe("before", ()=> {
     } );
 
     it("spn", () => {
-      expect(SPNs.G7.toString()).toBeUndefined();
+      expect(N.G7.toString()).toBeUndefined();
     } );
 
     it("temperament", () => {
@@ -190,7 +190,7 @@ describe("after", () => {
     } );
 
     it("spn", () => {
-      expect(ASPNs.GG9.toString()).toBe("G♯9");
+      expect(AN.GG9.toString()).toBe("G♯9");
     } );
 
     it("scale", () => {
@@ -244,7 +244,7 @@ describe("after", () => {
     } );
 
     it("spn", () => {
-      expect(SPNs.G7.toString()).toBe("G7");
+      expect(N.G7.toString()).toBe("G7");
     } );
 
     it("temperament", () => {

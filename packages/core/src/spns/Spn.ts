@@ -1,3 +1,3 @@
-export interface SPN {
+export interface Spn {
     valueOf(): number;
 }

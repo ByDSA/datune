@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { VoiceConstraint } from "../constraints/voice/VoiceConstraint";
-import { SPN } from "@datune/core/spns/chromatic";
+import { Spn } from "@datune/core/spns/chromatic";
 import { MusicalDuration } from "@datune/core/rhythm";
 import { MidiSequence } from "@datune/midi";
-import { ConstraintSPN } from "../constraints/pitch/ConstraintSPN";
+import { ConstraintSpn } from "../constraints/pitch/ConstraintSpn";
 
 export class Voice {
   voiceConstraints: VoiceConstraint[];
 
-  pitchConstraints: ConstraintSPN[];
+  pitchConstraints: ConstraintSpn[];
 
   notesSequence: MidiSequence;
 
-  addPitchConstraint(c: ConstraintSPN) {
+  addPitchConstraint(c: ConstraintSpn) {
     this.pitchConstraints.push(c);
   }
 
@@ -20,13 +20,13 @@ export class Voice {
     this.voiceConstraints.push(c);
   }
 
-  checkConstraints(spn: SPN, from: MusicalDuration, to: MusicalDuration): boolean {
+  checkConstraints(spn: Spn, from: MusicalDuration, to: MusicalDuration): boolean {
     return this.checkPitchConstraints(spn, from, to)
             && this.checkVoiceConstraints(from, to);
   }
 
   checkPitchConstraints(
-    spn: SPN,
+    spn: Spn,
     from: MusicalDuration,
     to: MusicalDuration,
   ): boolean {
@@ -48,7 +48,7 @@ export class Voice {
   }
 
   checkVoiceConstraintsPitch(
-    spn: SPN,
+    spn: Spn,
     from: MusicalDuration,
     to: MusicalDuration,
   ): boolean {

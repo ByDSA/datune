@@ -1,4 +1,4 @@
-import { SPN, SPNArray } from "@datune/core/spns/chromatic";
+import { Spn, SpnArray } from "@datune/core/spns/chromatic";
 import { Target, targetGetId } from "voice-leading/steps/Target";
 import { Combination } from "../combiners/types";
 import { CombinationApplierFilter } from "./filters";
@@ -15,7 +15,7 @@ export type ApplyCombinationsResult = {
 };
 
 export function applyCombinations(
-  base: SPNArray,
+  base: SpnArray,
   combinations: Combination[],
   props?: CombinationApplierProps,
 ): ApplyCombinationsResult {
@@ -33,7 +33,7 @@ export function applyCombinations(
     uniqueTargetIds.add(targetId);
 
     if (props?.afterFilters) {
-      const nonNullTarget = target.filter((s: SPN | null) => !!s) as SPN[];
+      const nonNullTarget = target.filter((s: Spn | null) => !!s) as Spn[];
 
       if (props.afterFilters.some(f=>!f( {
         target,
@@ -60,7 +60,7 @@ type Result = {
   combination: Combination;
 };
 export function applyCombinationsWithMeta(
-  base: SPNArray,
+  base: SpnArray,
   combinations: Combination[],
   settings?: CombinationApplierProps,
 ) {
@@ -71,7 +71,7 @@ export function applyCombinationsWithMeta(
     const target = applyCombination(base, combination);
 
     if (settings?.afterFilters) {
-      const nonNullTarget = target.filter((s: SPN | null) => !!s) as SPN[];
+      const nonNullTarget = target.filter((s: Spn | null) => !!s) as Spn[];
 
       if (settings.afterFilters.some(f=>!f( {
         target,
@@ -94,7 +94,7 @@ export function applyCombinationsWithMeta(
   };
 }
 
-export function applyCombination(base: SPNArray, combination: Combination): Target {
+export function applyCombination(base: SpnArray, combination: Combination): Target {
   let target: Target = [...base];
 
   for (const sm of combination)

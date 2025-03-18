@@ -1,6 +1,6 @@
 import { expectExportModulesAsync } from "tests/modules";
 import { CHAROMATIC_PITCHES12_SHARPS_VARNAMES } from "pitches/chromatic/tests/varnames";
-import { SPNs } from ".";
+import { Spns } from ".";
 
 const vars: string[] = [
   ...CHAROMATIC_PITCHES12_SHARPS_VARNAMES.map(
@@ -10,11 +10,11 @@ const vars: string[] = [
 ];
 const functions: string[] = [
   // building/pitch-octave
-  SPNs.fromPitchOctave.name,
+  Spns.fromPitchOctave.name,
 
   // modifiers
-  SPNs.add.name,
-  SPNs.sub.name,
+  Spns.add.name,
+  Spns.sub.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -23,7 +23,7 @@ it("module should export functions and vars", async () => {
       functions,
       vars,
     },
-    barrel: SPNs,
+    barrel: Spns,
     modules: [
       "modifiers",
       "constants",

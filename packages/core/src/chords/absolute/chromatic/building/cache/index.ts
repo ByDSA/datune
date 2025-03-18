@@ -1,8 +1,8 @@
 import { KeyMappedFlyweightCache } from "@datune/utils";
-import { SPNArray } from "spns/chromatic";
+import { SpnArray } from "spns/chromatic";
 import { Chord } from "../../Chord";
 
-export type Key = SPNArray;
+export type Key = SpnArray;
 
 export const cache = new KeyMappedFlyweightCache<Chord, Key, string>( {
   getId(key: Key): string {

@@ -1,9 +1,9 @@
-import { Chord, SPN } from "@datune/core";
+import { Chord, Spn } from "@datune/core";
 import { Target, targetsToSpnsArray, targetsToChords, targetGetId } from "voice-leading/steps/Target";
 
 export function expectTargets(targets: Target[]) {
   return {
-    toEqualSpnsArray: (expected: SPN[][]) => {
+    toEqualSpnsArray: (expected: Spn[][]) => {
       const actual = targetsToSpnsArray(targets);
 
       expect(new Set(actual)).toEqual(new Set(expected));
@@ -39,7 +39,7 @@ export function expectTargets(targets: Target[]) {
   };
 }
 
-export function removeDuplicatedSpnArrays(spnArrays: (SPN | null)[][]): (SPN | null)[][] {
+export function removeDuplicatedSpnArrays(spnArrays: (Spn | null)[][]): (Spn | null)[][] {
   const uniqueArrays = new Set<string>();
 
   return spnArrays.filter(spnArray => {

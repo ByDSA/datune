@@ -1,5 +1,5 @@
 import { MusicalDuration } from "@datune/core";
-import { SPN } from "@datune/core/spns/chromatic";
+import { Spn } from "@datune/core/spns/chromatic";
 import { Voice } from "../../voice/Voice";
 import { Constraint } from "../Constraint";
 
@@ -10,5 +10,5 @@ export abstract class VoiceConstraint extends Constraint {
 
     abstract check(voice: Voice, from: MusicalDuration, to: MusicalDuration): boolean;
 
-    abstract checkPitch(spn: SPN, from: MusicalDuration, to: MusicalDuration): boolean;
+    abstract checkPitch(spn: Spn, from: MusicalDuration, to: MusicalDuration): boolean;
 }

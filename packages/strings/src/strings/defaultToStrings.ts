@@ -1,4 +1,4 @@
-import { Pitch, Voicing, Chord, Scale, APitch, AChord, AScale, AVoicing, AInterval, Key, ConcertPitch, SPN, DVoicing, ASPN, AKey, ADegree, DPitch } from "@datune/core";
+import { Pitch, Voicing, Chord, Scale, APitch, AChord, AScale, AVoicing, AInterval, Key, ConcertPitch, Spn, DVoicing, ASpn, AKey, ADegree, DPitch } from "@datune/core";
 import { CompoundFunc } from "@datune/core/functions/chromatic/compound-function/CompoundFunc";
 import { DegreeFunc } from "@datune/core/functions/chromatic/degree-function/DegreeFunc";
 import { CompoundFunc as ACompoundFunc } from "@datune/core/functions/alt/compound-function/CompoundFunc";
@@ -16,7 +16,7 @@ const aClasses = [
   AKey,
   APitch,
   AScale,
-  ASPN,
+  ASpn,
   AVoicing,
 ];
 const dClasses = [
@@ -32,7 +32,7 @@ const cClasses = [
   Pitch,
   PitchSet,
   Scale,
-  SPN,
+  Spn,
   Voicing,
 ];
 const classes = [

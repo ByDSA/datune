@@ -1,10 +1,10 @@
-import type { SPN } from "../SPN";
+import type { Spn } from "../Spn";
 import type { Interval } from "intervals/alt";
 import { Pitches as P } from "pitches/alt";
 import { Pitches as DP } from "pitches/diatonic";
 import { fromPitchOctave } from "../building";
 
-export function add(obj: SPN, interval: Interval): SPN | null {
+export function add(obj: Spn, interval: Interval): Spn | null {
   if (interval === null)
     return null;
 

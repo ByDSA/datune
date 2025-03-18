@@ -1,7 +1,7 @@
 import type { PitchArray } from "@datune/core/pitches/chromatic";
-import type { SPNArray } from "@datune/core/spns/chromatic";
-import { Keys } from "@datune/core/keys/chromatic";
-import { SPNs } from "@datune/core/spns/chromatic";
+import type { SpnArray } from "@datune/core/spns/chromatic";
+import { Keys as K } from "@datune/core/keys/chromatic";
+import { Spns as N } from "@datune/core/spns/chromatic";
 import { TestInit } from "tests";
 import { expectTargets } from "voice-leading/forward/tests/targets";
 import { Combination } from "voice-leading/combiners/types";
@@ -16,10 +16,10 @@ import { voiceCrossingFilter, voiceOverlappingFilter } from "./voices-interactio
 
 TestInit.loadAll();
 
-const { A5, AA5, B4, C5, CC5, D5, DD5, E5, F5, FF5, G5 } = SPNs;
+const { A5, AA5, B4, C5, CC5, D5, DD5, E5, F5, FF5, G5 } = N;
 
 it("apply: notes and combinations", () => {
-  const notes: SPNArray = [C5, E5, G5];
+  const notes: SpnArray = [C5, E5, G5];
   const combinations = [
     [X0_1, X1_S1],
     [X0_1, from(2, 2)],
@@ -38,7 +38,7 @@ it("apply: notes and combinations", () => {
 } );
 
 it("overlapping discards", () => {
-  const notes: SPNArray = [C5, E5, G5];
+  const notes: SpnArray = [C5, E5, G5];
   const combinations = [
     compositeStepFromIntervals(5, 2, 3).singleSteps,
   ];
@@ -51,12 +51,12 @@ it("overlapping discards", () => {
 } );
 
 it("overlapping let", () => {
-  const notes: SPNArray = [C5, E5, G5];
+  const notes: SpnArray = [C5, E5, G5];
   const combinations = [
     compositeStepFromIntervals(5, 2, 3).singleSteps,
   ];
   const actual = applyCombinations(notes, combinations).targets;
-  const expected: SPNArray[] = [
+  const expected: SpnArray[] = [
     [F5, FF5, AA5],
   ];
 
@@ -64,7 +64,7 @@ it("overlapping let", () => {
 } );
 
 it("near (distance=2) C5-E5-G5 in C", () => {
-  const fromNotes: SPNArray = [C5, E5, G5];
+  const fromNotes: SpnArray = [C5, E5, G5];
   const { groups } = generate( {
     arrayLength: fromNotes.length,
     maxInterval: 2,
@@ -78,7 +78,7 @@ it("near (distance=2) C5-E5-G5 in C", () => {
     .filter(
       (target) => {
         const pitches = target.map((s) => s?.pitch || null) as PitchArray;
-        const ret = Keys.C.hasPitches(...pitches);
+        const ret = K.C.hasPitches(...pitches);
 
         return ret;
       },

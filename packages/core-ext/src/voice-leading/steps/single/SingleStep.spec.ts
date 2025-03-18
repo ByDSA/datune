@@ -1,4 +1,4 @@
-import { Intervals as I, SPNs as N } from "@datune/core";
+import { Intervals as I, Spns as N } from "@datune/core";
 import { from } from "./building";
 import { X0_1, X2_1 } from "./constants";
 import { reIndex, reInterval } from "./modifiers";

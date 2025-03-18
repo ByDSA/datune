@@ -1,17 +1,17 @@
-import { SPNArray, SPNs } from "spns/chromatic";
-import { fromSPNs } from "./building";
+import { SpnArray, Spns as N } from "spns/chromatic";
+import { fromSpns } from "./building";
 
 it("cache", () => {
-  const notes: SPNArray = [SPNs.C4, SPNs.E4, SPNs.G4];
-  const actual = fromSPNs(...notes);
-  const actual2 = fromSPNs(...notes);
+  const notes: SpnArray = [N.C4, N.E4, N.G4];
+  const actual = fromSpns(...notes);
+  const actual2 = fromSpns(...notes);
 
   expect(actual).toBe(actual2);
 } );
 
 it("fromNotes - notes", () => {
-  const notes: SPNArray = [SPNs.C4, SPNs.E4, SPNs.G4];
-  const actual = fromSPNs(...notes);
+  const notes: SpnArray = [N.C4, N.E4, N.G4];
+  const actual = fromSpns(...notes);
 
   expect(actual.pitches).toStrictEqual(notes);
 } );

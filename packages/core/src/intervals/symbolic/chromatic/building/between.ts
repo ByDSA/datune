@@ -1,7 +1,7 @@
 /* eslint-disable no-redeclare */
 import type { Interval } from "../Interval";
 import type { Pitch } from "pitches/chromatic/Pitch";
-import type { SPN } from "spns/symbolic/chromatic/SPN";
+import type { Spn } from "spns/symbolic/chromatic/Spn";
 import type { Degree } from "chromatic";
 import { cyclicMod } from "@datune/utils";
 import { NUMBER as CNUMBER } from "pitches/chromatic/constants/Number";
@@ -36,6 +36,6 @@ export function betweenNext(n1: Degree | Pitch, n2: Degree | Pitch): Interval {
   return ret;
 }
 
-export function betweenSPN(n1: SPN, n2: SPN): Interval {
+export function betweenSpn(n1: Spn, n2: Spn): Interval {
   return +n2 - +n1;
 }

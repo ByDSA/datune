@@ -1,4 +1,4 @@
-import type { SPNArray } from "@datune/core/spns/chromatic";
+import type { SpnArray } from "@datune/core/spns/chromatic";
 import type { StepGroup } from "../generators/StepsGenerator";
 import { voiceCrossingFilter, voiceOverlappingFilter } from "../appliers/voices-interaction-filters";
 import { Combination } from "../combiners/types";
@@ -20,11 +20,11 @@ type Props = {
   multipleGenConfig?: MultipleGenConfig;
   combinationApplierConfig?: CombinationApplierConfig;
 };
-export function generateVoiceLeading(initialSpnArray: SPNArray, props?: Props) {
+export function generateVoiceLeading(initialSpnArray: SpnArray, props?: Props) {
   return new VoiceLeading(initialSpnArray, props).generate();
 }
 class VoiceLeading {
-  #base: SPNArray;
+  #base: SpnArray;
 
   #stepCombinerConfig?: StepCombinerConfig;
 
@@ -32,7 +32,7 @@ class VoiceLeading {
 
   #multipleGenConfig?: MultipleGenConfig;
 
-  constructor(base: SPNArray, props?: Props) {
+  constructor(base: SpnArray, props?: Props) {
     this.#base = base,
 
     this.#stepCombinerConfig = props?.stepCombinerConfig,

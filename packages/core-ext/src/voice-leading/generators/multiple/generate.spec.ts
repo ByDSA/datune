@@ -1,4 +1,4 @@
-import { SPNArray, SPNs as N } from "@datune/core/spns/chromatic";
+import { SpnArray, Spns as N } from "@datune/core/spns/chromatic";
 import { rootChord3 } from "@datune/core/keys/chromatic/modifiers";
 import { Keys as K } from "@datune/core";
 import { TestInit } from "tests";
@@ -16,7 +16,7 @@ TestInit.loadAll();
 const { B3, B4, C4, D3, D4, F4, G3, G4, GG4 } = N;
 
 it("combinations - SUS in notes: C4, F4, G4", () => {
-  const base: SPNArray = [C4, F4, G4];
+  const base: SpnArray = [C4, F4, G4];
   const result = generateMultiple(base, {
     near: {
       enabled: false,
@@ -34,7 +34,7 @@ it("combinations - SUS in notes: C4, F4, G4", () => {
 } );
 
 it("combinations - near (1): C4, G4", () => {
-  const base: SPNArray = [C4, G4];
+  const base: SpnArray = [C4, G4];
   const result = generateMultiple(base, {
     maxInterval: 1,
   } );
@@ -54,7 +54,7 @@ it("combinations - near (1): C4, G4", () => {
 } );
 
 it("dIM in notes: D3, F4, B4", () => {
-  const notes: SPNArray = [D3, F4, B4];
+  const notes: SpnArray = [D3, F4, B4];
   const result = generateMultiple(notes, {
     near: {
       enabled: false,
@@ -81,7 +81,7 @@ it("dIM in notes: D3, F4, B4", () => {
 } );
 
 it("dIM in notes: G3, B3, D4, F4", () => {
-  const spnArray: SPNArray = [G3, B3, D4, F4];
+  const spnArray: SpnArray = [G3, B3, D4, F4];
   const result = generateMultiple(spnArray, {
     near: {
       enabled: false,
@@ -113,7 +113,7 @@ it("dIM in notes: G3, B3, D4, F4", () => {
 } );
 
 it("dIM in notes fill zeros last index: B3, F4, GG4", () => {
-  const spnArray: SPNArray = [B3, F4, GG4];
+  const spnArray: SpnArray = [B3, F4, GG4];
   const result = generateMultiple(spnArray, {
     near: {
       enabled: false,
@@ -141,7 +141,7 @@ it("dIM in notes fill zeros last index: B3, F4, GG4", () => {
 } );
 
 it("disableResolutions - DIM in notes: G3, B3, D4, F4", () => {
-  const notes: SPNArray = [G3, B3, D4, F4];
+  const notes: SpnArray = [G3, B3, D4, F4];
   const result = generateMultiple(notes, {
     near: {
       enabled: false,
@@ -157,7 +157,7 @@ it("disableResolutions - DIM in notes: G3, B3, D4, F4", () => {
 } );
 
 it("notes=[F4] C Major Key Resolution", () => {
-  const notes: SPNArray = [F4];
+  const notes: SpnArray = [F4];
   const result = generateMultiple(notes, {
     maxInterval: 1,
     near: {

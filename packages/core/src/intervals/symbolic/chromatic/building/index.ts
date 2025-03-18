@@ -1,5 +1,5 @@
 export {
-  between, betweenNext, betweenSPN,
+  between, betweenNext, betweenSpn,
 } from "./between";
 
 export {
