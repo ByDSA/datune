@@ -3,7 +3,7 @@ import type { Scale as IScale } from "../../Scale";
 import type { DegreeArray, Degree } from "degrees/alt";
 import type { IntervalArray as CIntervalArray } from "intervals/chromatic";
 import type { IntervalArray, Interval } from "intervals/alt";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { Degrees as D } from "degrees/alt";
 import { Voicings as V } from "voicings/alt";
 import { fromAltDegree } from "degrees/chromatic/building/fromAltDegree";

@@ -1,5 +1,5 @@
 import type { Degree } from "../Degree";
-import { cyclicMod } from "@datune/utils";
+import { cyclicMod } from "datils/math";
 import { Pitches as P } from "pitches/diatonic";
 import { I, II, III, IV, V, VI, VII } from "../constants";
 

@@ -1,8 +1,8 @@
-import type { CompositeArray } from "./building";
-import { KeyMappedFlyweightCache } from "@datune/utils";
+import type { CompositeStepArray } from "./building";
+import { KeyMappedFlyweightCache } from "datils/caching";
 import { CompositeStep } from "./CompositeStep";
 
-export type Key = CompositeArray;
+export type Key = CompositeStepArray;
 
 export const cache = new KeyMappedFlyweightCache<CompositeStep, Key, string>( {
   getId(key: Key): string {

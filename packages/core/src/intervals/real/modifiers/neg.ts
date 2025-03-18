@@ -1,5 +1,5 @@
 import type { Interval } from "../Interval";
-import { pow as powExp } from "@datune/utils/math";
+import { pow as powExp } from "datils/math/num-exp";
 import { from } from "../building";
 import { UNISON } from "../constants";
 

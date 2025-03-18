@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import type { Voicing } from "../Voicing";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { getAllInversions } from "../utils";
 import { M2, M3, m2, m3, POWER_CHORD, TRITONE } from "./n2";
 import { TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_QUARTAL, TRIAD_SUS2, TRIAD_SUS4 } from "./n3";

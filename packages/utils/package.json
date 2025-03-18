@@ -20,7 +20,6 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "hashids": "2.3.0",
     "ts-treemap": "1.1.0"
   },
   "devDependencies": {}

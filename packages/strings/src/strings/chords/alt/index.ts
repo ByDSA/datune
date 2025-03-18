@@ -1,4 +1,4 @@
-import { cyclicMod } from "@datune/utils";
+import { cyclicMod } from "datils/math";
 import { Chord } from "@datune/core/chords/alt";
 import { Pitch } from "@datune/core/pitches/alt";
 import { inv } from "@datune/core/voicings/relative/alt/modifiers/inv";

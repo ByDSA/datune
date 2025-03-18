@@ -1,5 +1,5 @@
 import type { Interval } from "../Interval";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { fromInt } from "../building";
 
 export function initialize() {

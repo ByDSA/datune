@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import type { Interval } from "../Interval";
-import { lock } from "@datune/utils/immutables";
+import { lock } from "datils/datatypes";
 import { from, fromCents } from "../building";
 import { initialize as commasInitialize } from "./Commas";
 import { initialize as et12Initialize } from "./ET12";

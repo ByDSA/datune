@@ -1,6 +1,6 @@
 import type { Spn } from "../Spn";
 import type { SpnArray } from "../Array";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import * as DP from "pitches/diatonic/constants";
 import * as P from "pitches/alt/constants";
 import { fromDPitchAlts } from "pitches/alt/building/diatonicAlts";

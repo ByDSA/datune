@@ -2,8 +2,9 @@
 import { MainFunc, TonalApproach } from "@datune/analyzer";
 import { MusicalDuration } from "@datune/core";
 import { WHOLE, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
-import { random, TemporalNode } from "@datune/utils";
-import { intervalOf } from "@datune/utils/math";
+import { TemporalNode } from "@datune/utils";
+import { intervalOf } from "datils/math";
+import { randomN } from "datils/math";
 import { GenSeq } from "./GenSeq";
 import { limitTime } from "./utils";
 
@@ -44,7 +45,7 @@ export class GenMainFuncSeq extends GenSeq {
     prevMainFunc: Node | undefined,
     currentTime: MusicalDuration,
   ): MusicalDuration {
-    const duration = WHOLE * (1 + random(2));
+    const duration = WHOLE * (1 + randomN(2));
 
     return this.limitNextMeasure(duration, currentTime);
   }
@@ -87,7 +88,7 @@ export class GenMainFuncSeq extends GenSeq {
       default: break;
     }
 
-    const ret = availableMainFuncs[random(availableMainFuncs.length)];
+    const ret = availableMainFuncs[randomN(availableMainFuncs.length)];
 
     return ret;
   }

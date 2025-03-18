@@ -1,6 +1,6 @@
 import type { Voicing } from "../Voicing";
 import type { IntervalArray, Interval } from "intervals/chromatic";
-import { cyclicMod } from "@datune/utils";
+import { cyclicMod } from "datils/math";
 import { NUMBER as CNUMBER } from "pitches/chromatic/constants/Number";
 import { fromRootIntervals } from "../building/rootIntervals";
 

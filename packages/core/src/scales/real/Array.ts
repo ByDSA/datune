@@ -1,4 +1,4 @@
-import type { Arrays } from "@datune/utils";
 import type { Scale } from "./Scale";
+import { NonEmptyArray } from "datils";
 
-export type ScaleArray = Arrays.NonEmpty<Scale>;
+export type ScaleArray = NonEmptyArray<Scale>;

@@ -1,5 +1,5 @@
 import type { Key } from "./caching/cache";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { Intervals as I } from "intervals/alt";
 import { fromAltDegree } from "degrees/chromatic/building";
 import { Degree as DiatonicDegree } from "degrees/diatonic";

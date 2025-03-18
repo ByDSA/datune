@@ -1,5 +1,5 @@
 import type { MidiPitch } from "./MidiPitch";
-import { lock, lockr } from "@datune/utils";
+import { lock, lockr } from "datils/datatypes";
 import { Spns as N } from "@datune/core";
 import { from } from "./building";
 

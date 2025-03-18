@@ -2,7 +2,7 @@ import type { Pitch as DPitch } from "../diatonic";
 import type { Key } from "./caching/cache";
 import type { OctavePitch } from "../OctavePitch";
 import type { Pitch as CPitch } from "chromatic";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { Pitches as CP } from "pitches/chromatic";
 
 export class Pitch implements OctavePitch {

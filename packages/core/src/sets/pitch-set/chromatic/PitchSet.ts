@@ -1,6 +1,6 @@
 import type { Key } from "./caching/cache";
 import type { Pitch } from "pitches/chromatic";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 
 export class PitchSet {
   pitches: Set<Pitch>;

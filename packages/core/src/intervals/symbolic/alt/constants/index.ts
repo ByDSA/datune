@@ -1,5 +1,5 @@
 import type { Interval } from "../Interval";
-import { lock } from "@datune/utils/immutables";
+import { lock } from "datils/datatypes";
 import * as DI from "../../diatonic/constants";
 import { fromIntervalQuality } from "../building/intervalQuality";
 import { a, d, da, dd, M, m, P } from "../quality/constants";

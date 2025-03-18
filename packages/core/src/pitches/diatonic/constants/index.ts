@@ -1,5 +1,5 @@
 import type { PitchArray } from "../Array";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { Pitch } from "../Pitch";
 
 export const NUMBER = 7;

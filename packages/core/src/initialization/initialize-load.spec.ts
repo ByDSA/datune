@@ -1,5 +1,5 @@
-import type { Arrays } from "@datune/utils";
 import type { Chord } from "chords/chromatic";
+import { NonEmptyNumberArray } from "datils";
 import { cache as chromaticChordCache } from "chords/octave/chromatic/caching/cache";
 import { Pitches as CP } from "pitches/chromatic";
 import { cache as chromaticScaleCache } from "scales/symbolic/chromatic/caching/cache";
@@ -10,7 +10,7 @@ import { Data } from "./types";
 describe("initialize", () => {
   describe("before", () => {
     it("chords chromatic", () => {
-      const dto = [CP.C, CP.E, CP.G].map((p) => +p) as Arrays.Number;
+      const dto = [CP.C, CP.E, CP.G].map((p) => +p) as NonEmptyNumberArray;
       const got = chromaticChordCache.get(dto);
 
       expect(got).toBeUndefined();
@@ -36,14 +36,14 @@ describe("initialize", () => {
 
     describe("chords chromatic", () => {
       it("cache", () => {
-        const dto = [CP.C, CP.E, CP.G].map((p) => +p) as Arrays.Number;
+        const dto = [CP.C, CP.E, CP.G].map((p) => +p) as NonEmptyNumberArray;
         const got = chromaticChordCache.get(dto);
 
         expect(got).toBeDefined();
       } );
 
       it("pitches", () => {
-        const dto = [CP.C, CP.E, CP.G].map((p) => +p) as Arrays.Number;
+        const dto = [CP.C, CP.E, CP.G].map((p) => +p) as NonEmptyNumberArray;
         const got = chromaticChordCache.get(dto) as Chord;
         const [p0, p1, p2] = got.pitches;
 

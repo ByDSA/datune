@@ -1,4 +1,4 @@
-import type { Arrays } from "@datune/utils";
 import type { Degree } from "./Degree";
+import { NonEmptyArray } from "datils";
 
-export type DegreeArray = Arrays.NonEmpty<Degree>;
+export type DegreeArray = NonEmptyArray<Degree>;

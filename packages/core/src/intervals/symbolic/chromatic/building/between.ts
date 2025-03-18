@@ -3,7 +3,7 @@ import type { Interval } from "../Interval";
 import type { Pitch } from "pitches/chromatic/Pitch";
 import type { Spn } from "spns/symbolic/chromatic/Spn";
 import type { Degree } from "chromatic";
-import { cyclicMod } from "@datune/utils";
+import { cyclicMod } from "datils/math";
 import { NUMBER as CNUMBER } from "pitches/chromatic/constants/Number";
 import { P8 } from "../constants";
 

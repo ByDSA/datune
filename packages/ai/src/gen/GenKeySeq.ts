@@ -2,8 +2,8 @@ import { TonalApproach } from "@datune/analyzer";
 import { MusicalDuration } from "@datune/core";
 import { Key } from "@datune/core/keys/chromatic";
 import { LONGA, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
-import { random } from "@datune/utils";
-import { intervalOf } from "@datune/utils/math";
+import { intervalOf } from "datils/math";
+import { randomN } from "datils/math";
 import { GenSeq } from "./GenSeq";
 
 export class GenKeySeq extends GenSeq {
@@ -34,7 +34,7 @@ export class GenKeySeq extends GenSeq {
   }
 
   #pickKey(_prevKey: Key | undefined, _time: MusicalDuration): Key {
-    return this.keys[random(this.keys.length)];
+    return this.keys[randomN(this.keys.length)];
   }
 }
 
@@ -42,5 +42,5 @@ function pickDuration(
   _prevDuration: MusicalDuration | undefined,
   _time: MusicalDuration,
 ): MusicalDuration {
-  return LONGA * (40 * (2 + random(2)));
+  return LONGA * (40 * (2 + randomN(2)));
 }

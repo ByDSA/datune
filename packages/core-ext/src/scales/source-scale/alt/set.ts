@@ -1,5 +1,5 @@
 import type { Scale } from "@datune/core/scales/symbolic/alt/Scale";
-import { lock } from "@datune/utils/immutables";
+import { lock } from "datils/datatypes";
 import { DOUBLE_HARMONIC, HARMONIC_MAJOR, HARMONIC_MINOR, MAJOR, MELODIC_MINOR, PENTATONIC } from "@datune/core/scales/symbolic/alt/constants";
 import { cache } from "./cache";
 

@@ -4,7 +4,7 @@ import type { Chord } from "chords/chromatic";
 import type { Degree } from "degrees/chromatic";
 import type { Key } from "keys/chromatic";
 import type { Pitch } from "pitches/chromatic";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { Chords as C } from "chords/chromatic";
 import { Pitches as P } from "pitches/chromatic";
 import { Func } from "../Func";

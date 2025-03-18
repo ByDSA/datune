@@ -1,7 +1,7 @@
 import type { Key } from "./caching/cache";
 import type { ConcertPitch } from "concert-pitches/chromatic";
 import type { Temperament } from "temperaments/chromatic";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 
 export class Tuning {
   concertPitch: ConcertPitch;

@@ -1,5 +1,5 @@
 /* eslint-disable accessor-pairs */
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { LangId, Language, loadFromFile } from "lang";
 
 export class TestLang {

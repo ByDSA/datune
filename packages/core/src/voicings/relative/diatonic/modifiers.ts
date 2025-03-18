@@ -1,6 +1,6 @@
-import type { Arrays } from "@datune/utils";
 import type { Voicing } from "./Voicing";
 import type { Interval } from "diatonic";
+import { NonEmptyNumberArray } from "datils";
 import { Pitches as P } from "pitches/diatonic";
 import { abs } from "intervals/symbolic/diatonic/modifiers/abs";
 import { OCTAVE } from "intervals/symbolic/diatonic/constants";
@@ -16,7 +16,7 @@ export function inv(obj: Voicing, n: number = 1): Voicing {
     const [firstValueAfterShift] = rootIntervalInts;
 
     rootIntervalInts.push(firstValueBeforeShift + P.NUMBER);
-    rootIntervalInts = <Arrays.Number>rootIntervalInts.map(
+    rootIntervalInts = <NonEmptyNumberArray>rootIntervalInts.map(
       (value: number) => value - firstValueAfterShift,
     );
   }
@@ -25,13 +25,13 @@ export function inv(obj: Voicing, n: number = 1): Voicing {
 }
 
 export function add(obj: Voicing, n: number): Voicing {
-  const rootIntervalInts = obj.rootIntervalInts.map(i=>i + n) as Arrays.Number;
+  const rootIntervalInts = obj.rootIntervalInts.map(i=>i + n) as NonEmptyNumberArray;
 
   return fromRootIntervalInts(...rootIntervalInts);
 }
 
 export function sub(obj: Voicing, n: number): Voicing {
-  const rootIntervalInts = obj.rootIntervalInts.map(i=>i - n) as Arrays.Number;
+  const rootIntervalInts = obj.rootIntervalInts.map(i=>i - n) as NonEmptyNumberArray;
 
   return fromRootIntervalInts(...rootIntervalInts);
 }

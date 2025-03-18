@@ -1,6 +1,6 @@
 import type { MusicalDuration } from "../musical-duration";
 import type { Key } from "./caching/cache";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 
 export class TimeSignature {
   numerators: number[];

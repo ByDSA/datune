@@ -1,4 +1,4 @@
-import type { Arrays } from "@datune/utils";
 import type { Voicing } from "./Voicing";
+import { NonEmptyArray } from "datils";
 
-export type VoicingArray = Arrays.NonEmpty<Voicing>;
+export type VoicingArray = NonEmptyArray<Voicing>;

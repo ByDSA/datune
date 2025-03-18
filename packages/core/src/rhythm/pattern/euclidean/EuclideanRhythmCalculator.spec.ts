@@ -1,5 +1,5 @@
-import type { Arrays } from "@datune/utils";
 import type { ArrayRhythm } from "../array";
+import { NonEmptyNumberArray } from "datils";
 import { RhythmPatterns } from "..";
 import { calculateEuclideanRhythm } from "./EuclideanRhythmCalculator";
 
@@ -58,7 +58,7 @@ describe.each([
 
   it(`calculate ${params[0]}_${params[1]}`, () => {
     const rhythm = calculateEuclideanRhythm(params[0], params[1]);
-    const expected = RhythmPatterns.from(...<Arrays.Number>expectedPattern);
+    const expected = RhythmPatterns.from(...<NonEmptyNumberArray>expectedPattern);
 
     expect(expected).toEqual(rhythm);
   } );

@@ -1,6 +1,6 @@
 import type { ConcertPitch } from "concert-pitches/chromatic";
 import type { Temperament } from "temperaments/chromatic";
-import { KeyMappedFlyweightCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "datils/caching";
 import { getObjId as concertPitchesGetObjId } from "concert-pitches/chromatic/caching/cache";
 import { getObjId as temperamentGetObjId } from "temperaments/chromatic/id";
 import { Tuning } from "../Tuning";

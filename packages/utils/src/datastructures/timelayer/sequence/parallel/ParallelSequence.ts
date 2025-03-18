@@ -1,10 +1,10 @@
 /* eslint-disable accessor-pairs */
 import TreeMap from "ts-treemap";
+import { contains } from "datils/math/interval";
+import { intervalContains, intervalIntersects, intervalOf } from "datils/math";
+import { Interval } from "datils/math";
 import { Time } from "time/Time";
 import { add, divCell, mult, sub } from "time";
-import { contains } from "math/interval";
-import { intervalContains, intervalIntersects, intervalOf } from "math";
-import { Interval } from "../../../../math/interval/Interval";
 import { Constructor as TemporalNodeConstructorType, from as temporalNode, isTemporalNodeConstructorType, TemporalNode } from "../../temporal-node";
 import { TimeLayer } from "../../TimeLayer";
 import { AddType, GetType, isAddLayerType, isGetNodesAtType, isGetNodesFromToType, isNodeType, NodeType, RemoveType, SequenceAddListener, SequenceChangeListener, SequenceRemoveListener } from "../../types";

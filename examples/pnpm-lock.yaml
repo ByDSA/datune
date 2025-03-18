@@ -4,6 +4,8 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+pnpmfileChecksum: sha256-7jZF1GFPmpRtjZ9I5O2/HIXJ+3bTYKRLWWDWOUnscpY=
+
 importers:
 
   .:
@@ -20,6 +22,9 @@ importers:
       '@datune/utils':
         specifier: file:../packages/utils/dist
         version: file:../packages/utils/dist
+      datils:
+        specifier: file:../../../datils-ts/build
+        version: file:../../../datils-ts/build
     devDependencies:
       tslib:
         specifier: 2.8.1
@@ -204,6 +209,9 @@ packages:
   array-flatten@3.0.0:
     resolution: {integrity: sha512-zPMVc3ZYlGLNk4mpK1NzP2wg0ml9t7fUgDsayR5Y5rSzxQilzR9FGu/EH2jQOcKSAeAfWeylyW8juy3OkWRvNA==}
 
+  datils@file:../../../datils-ts/build:
+    resolution: {directory: ../../../datils-ts/build, type: directory}
+
   esbuild@0.25.0:
     resolution: {integrity: sha512-BXq5mqc8ltbaN34cDqWuYKyNhX8D/Z0J1xdtdQ8UcIIIyJyz+ZMKUt58tF3SrZ85jcfN/PZYhjR5uDQAYNVbuw==}
     engines: {node: '>=18'}
@@ -216,9 +224,6 @@ packages:
 
   get-tsconfig@4.10.0:
     resolution: {integrity: sha512-kGzZ3LWWQcGIAmg6iWvXn0ei6WDtV26wzHRMwDSzmAbcXrTEXxHy6IehI6/4eT6VRKyMP1eF1VqwrVUmE/LR7A==}
-
-  hashids@2.3.0:
-    resolution: {integrity: sha512-ljM73TE/avEhNnazxaj0Dw3BbEUuLC5yYCQ9RSkSUcT4ZSU6ZebdKCIBJ+xT/DnSYW36E9k82GH1Q6MydSIosQ==}
 
   immutable@5.0.3:
     resolution: {integrity: sha512-P8IdPQHq3lA1xVeBRi5VPqUm5HDgKnx0Ru51wZz5mjxHr5n3RWhjIpOFU7ybkUxfB+5IToy+OLaHYDBIWsv+uw==}
@@ -273,7 +278,6 @@ snapshots:
 
   '@datune/utils@file:../packages/utils/dist':
     dependencies:
-      hashids: 2.3.0
       ts-treemap: 1.1.0
 
   '@esbuild/aix-ppc64@0.25.0':
@@ -358,6 +362,8 @@ snapshots:
 
   array-flatten@3.0.0: {}
 
+  datils@file:../../../datils-ts/build: {}
+
   esbuild@0.25.0:
     optionalDependencies:
       '@esbuild/aix-ppc64': 0.25.0
@@ -392,8 +398,6 @@ snapshots:
   get-tsconfig@4.10.0:
     dependencies:
       resolve-pkg-maps: 1.0.0
-
-  hashids@2.3.0: {}
 
   immutable@5.0.3: {}
 

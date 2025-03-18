@@ -1,8 +1,8 @@
-import type { Arrays } from "@datune/utils";
+import { NonEmptyArray } from "datils";
 import { Spn } from "../Spn";
 import { overtones } from "./calcs";
 
-type SpnArray = Arrays.NonEmpty<Spn>;
+type SpnArray = NonEmptyArray<Spn>;
 
 const mod = {
   overtones,

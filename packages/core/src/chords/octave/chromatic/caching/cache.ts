@@ -1,12 +1,12 @@
-import type { Arrays } from "@datune/utils";
-import { KeyMappedFlyweightCache } from "@datune/utils";
+import type { NonEmptyNumberArray } from "datils/datatypes";
+import { KeyMappedFlyweightCache } from "datils/caching";
 import { getKey as pitchGetKey } from "pitches/chromatic/caching/id";
 import { Chord } from "../Chord";
 
-export type Key = Arrays.Number;
+export type Key = NonEmptyNumberArray;
 
 export const getKey = (chord: Chord): Key => {
-  return chord.pitches.map(pitchGetKey) as Arrays.Number;
+  return chord.pitches.map(pitchGetKey) as NonEmptyNumberArray;
 };
 
 export function getId(key: Key): string {

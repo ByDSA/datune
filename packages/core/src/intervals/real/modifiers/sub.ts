@@ -1,5 +1,5 @@
 import type { Interval } from "../Interval";
-import { mult as multExp } from "@datune/utils/math";
+import { mult as multExp } from "datils/math/num-exp";
 import { from } from "../building";
 
 export function sub(self: Interval, other: Interval): Interval {

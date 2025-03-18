@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 import type { Key } from "./caching/cache";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { IntervalArray, Interval } from "intervals/symbolic/chromatic";
 import { Voicing as IVoicing } from "../Voicing";
 import { Voicings as V } from ".";

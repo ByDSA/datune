@@ -1,5 +1,5 @@
 import type { IntervalArray } from "intervals/alt";
-import { KeyMappedFlyweightCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "datils/caching";
 import { getObjId as intervalGetObjId } from "intervals/symbolic/alt/caching/cache";
 import { Voicing } from "../Voicing";
 

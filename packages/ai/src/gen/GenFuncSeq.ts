@@ -4,8 +4,9 @@ import { Func, Funcs as F } from "@datune/core/functions/chromatic";
 import { MAJOR, MINOR } from "@datune/core/scales/symbolic/chromatic/constants";
 import { HALF, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { MusicalDuration } from "@datune/core/rhythm";
-import { random, TemporalNode } from "@datune/utils";
-import { intervalOf } from "@datune/utils/math";
+import { TemporalNode } from "@datune/utils";
+import { randomN } from "datils/math";
+import { intervalOf } from "datils/math";
 import { GenSeq } from "./GenSeq";
 import { limitTime } from "./utils";
 
@@ -42,7 +43,7 @@ export class GenFuncSeq extends GenSeq {
   }
 
   #pickDuration(_prevNode: Node | undefined, time: MusicalDuration): MusicalDuration {
-    const ret = HALF * (1 + random(2));
+    const ret = HALF * (1 + randomN(2));
     const nextMainFuncChange = <MusicalDuration> this.tonalApporach.mainFuncSequence.get( {
       at: time,
     } )[0]?.interval.to;
@@ -158,6 +159,6 @@ export class GenFuncSeq extends GenSeq {
       // return prevNode.event;
     }
 
-    return availableFuncs[random(availableFuncs.length)];
+    return availableFuncs[randomN(availableFuncs.length)];
   }
 }

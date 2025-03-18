@@ -1,4 +1,4 @@
-import { NumExp } from "@datune/utils/math";
+import { NumExp } from "datils/math";
 
 export class Interval {
   ratio: NumExp;

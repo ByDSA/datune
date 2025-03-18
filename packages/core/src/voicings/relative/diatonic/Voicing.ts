@@ -1,14 +1,13 @@
-import type { Arrays } from "@datune/utils";
 import type { Voicing as IVoicing } from "../Voicing";
 import type { IntervalArray, Interval } from "intervals/diatonic";
 import type { Key } from "./building";
-import { lockr } from "@datune/utils/immutables";
+import { lockr, NonEmptyNumberArray } from "datils/datatypes";
 import { Intervals } from "intervals/diatonic";
 
 export class Voicing implements IVoicing<Interval> {
   rootIndex: number;
 
-  rootIntervalInts: Arrays.Number;
+  rootIntervalInts: NonEmptyNumberArray;
 
   rootIntervals: IntervalArray;
 

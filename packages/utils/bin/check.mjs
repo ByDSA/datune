@@ -13,6 +13,6 @@ try {
   await spinner("Testing ...", ()=> $`pnpm test`);
   await spinner("Building ...", ()=> $`pnpm build`);
 } catch (e) {
-  console.log(e.stdout ?? e.toString());
+  console.log(e.stderr ?? e.toString());
   process.exit(1);
 }

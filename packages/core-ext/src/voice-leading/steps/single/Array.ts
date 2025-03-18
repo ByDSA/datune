@@ -1,7 +1,7 @@
-import type { Arrays } from "@datune/utils";
+import { NonEmptyArray } from "datils";
 import { SingleStep } from "./SingleStep";
 
-export type SingleStepArray = Arrays.NonEmpty<SingleStep>;
+export type SingleStepArray = NonEmptyArray<SingleStep>;
 
 export function sortByIndex(a: SingleStep | null, b: SingleStep | null) {
   if (a === null)

@@ -1,5 +1,5 @@
 import type { Spn } from "chromatic";
-import { KeyMappedFlyweightCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "datils/caching";
 import { getId as spnGetId } from "spns/symbolic/chromatic/building/caching/key";
 import { ConcertPitch } from "../ConcertPitch";
 

@@ -1,5 +1,4 @@
-import { Arrays } from "@datune/utils";
 
-export type ChromaticChordSingleData = { h: string; n: Arrays.Number; p: Arrays.Number };
+export type ChromaticChordSingleData = { h: string; n: NonEmptyNumberArray; p: NonEmptyNumberArray };
 
 export type ChromaticChordData = ChromaticChordSingleData[];

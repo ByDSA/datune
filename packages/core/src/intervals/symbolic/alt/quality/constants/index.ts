@@ -1,4 +1,4 @@
-import { lock } from "@datune/utils/immutables";
+import { lock } from "datils/datatypes";
 import { Quality } from "../Quality";
 
 export const P: Quality = lock(new (Quality as any)("P"));

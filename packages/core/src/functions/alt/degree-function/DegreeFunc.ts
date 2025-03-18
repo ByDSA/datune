@@ -4,7 +4,7 @@ import type { Degree } from "degrees/alt";
 import type { Key } from "keys/alt";
 import type { Pitch } from "pitches/alt";
 import type { Voicing } from "voicings/alt";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { Pitches as P } from "pitches/alt";
 import { Chords as C } from "chords/alt";
 import { Intervals as I } from "intervals/alt";

@@ -1,6 +1,6 @@
 import type { Key as ScaleKey } from "scales/symbolic/chromatic/caching/cache";
 import type { Key as PitchKey } from "pitches/chromatic/caching/id";
-import { KeyMappedFlyweightCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "datils/caching";
 import { getKey as scaleGetKey } from "scales/symbolic/chromatic/caching/cache";
 import { getKey as pitchGetKey } from "pitches/chromatic/caching/id";
 import { Key } from "../";

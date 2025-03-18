@@ -1,6 +1,6 @@
 import type { SpnArray } from "../Array";
 import type { Spn } from "../Spn";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { ALL as ALL_PITCHES } from "pitches/chromatic/constants";
 import { fromPitchOctave } from "../building/pitch-octave";
 

@@ -1,4 +1,4 @@
-import { intervalOf } from "math";
+import { intervalOf } from "datils/math";
 import { add } from "../../../time";
 import { isEventFromDurationType, isEventFromToType, isEventIntervalType, isNodeCopyType } from "./guards/constructor";
 import { TemporalNode } from "./TemporalNode";

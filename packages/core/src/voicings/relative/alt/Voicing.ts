@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 import type { Voicing as IVoicing } from "../Voicing";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { IntervalArray, Interval } from "intervals/alt";
 import { Voicings as V } from ".";
 

@@ -1,6 +1,6 @@
 import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
-import { lock } from "@datune/utils";
-import { intervalOf } from "@datune/utils/math";
+import { lock } from "datils/datatypes";
+import { intervalOf } from "datils/math";
 import { add } from "@datune/utils/time";
 import { MidiNode } from "../MidiNode";
 import { EventFromType } from "./EventFromType";

@@ -3,8 +3,9 @@ import { fromPitches } from "@datune/core/chords/octave/chromatic/building/pitch
 import { PitchArray as ChromaticArray } from "@datune/core/pitches/chromatic";
 import { Spn } from "@datune/core/spns/chromatic";
 import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
-import { Interval, TemporalNode } from "@datune/utils";
-import { intervalOf } from "@datune/utils/math";
+import { TemporalNode } from "@datune/utils";
+import { Interval } from "datils/math";
+import { intervalOf } from "datils/math";
 import { NotesSequence } from "..";
 import { ChordSequence } from "./chordsequence/ChordSequence";
 import { RhythmSequence } from "./rhythmsequence/RhythmSequence";

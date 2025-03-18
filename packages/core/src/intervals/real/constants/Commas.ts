@@ -1,6 +1,6 @@
 import type { Interval } from "../Interval";
-import { lockr } from "@datune/utils/immutables";
-import { frac } from "@datune/utils/math";
+import { lockr } from "datils/datatypes";
+import { frac } from "datils/math/num-exp";
 import { from } from "../building";
 
 export function initialize() {

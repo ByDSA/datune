@@ -1,5 +1,5 @@
 import type { PitchArray, Pitch } from "pitches/chromatic";
-import { Arrays } from "@datune/utils";
+import { Arrays } from "datils/datatypes";
 import { Pitches as P } from "pitches/chromatic";
 import { fromPitches } from "../building/pitches";
 import { Chord } from "../Chord";

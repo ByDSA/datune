@@ -3,7 +3,7 @@ import type { Key } from "./caching/cache";
 import type { PitchArray, Pitch } from "pitches/chromatic";
 import type { Interval, Voicing } from "chromatic";
 import type { Chord as AChord } from "chords/alt";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { Voicings as V } from "voicings/relative/chromatic";
 import { fromInt } from "pitches/chromatic/building/int";
 import { Chords as AC } from "chords/alt";

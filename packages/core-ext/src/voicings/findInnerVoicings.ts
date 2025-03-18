@@ -1,11 +1,11 @@
-import type { Arrays } from "@datune/utils";
 import type { VoicingArray, Voicing } from "@datune/core/voicings/chromatic";
-import { countCombinations, getCombinations } from "@datune/utils/math";
+import { countCombinations, getCombinations } from "datils/math";
 import { Interval, IntervalArray, Voicings as V } from "@datune/core";
+import { NonEmptyNumberArray } from "datils";
 import { voicingIncludesInnerVoicing } from "./includesInnerVoicing";
 
 export type InnerVoicingResult = {
-  indexMap: Arrays.Number; // InnerVoicing -> BaseVoicing
+  indexMap: NonEmptyNumberArray; // InnerVoicing -> BaseVoicing
   innerVoicing: Voicing;
  };
 
@@ -53,7 +53,7 @@ export function getAllInnerVoicings(voicing: Voicing): InnerVoicingResult[] {
   const results: InnerVoicingResult[] = [];
 
   for (const c of combinations) {
-    const indexMap = c.map(interval=>intervalToIndex[interval]) as Arrays.Number;
+    const indexMap = c.map(interval=>intervalToIndex[interval]) as NonEmptyNumberArray;
     const newRootIntervals = c.map(interval=>interval - c[0]) as IntervalArray;
 
     results.push( {

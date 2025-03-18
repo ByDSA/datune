@@ -1,4 +1,4 @@
-import type { Arrays } from "@datune/utils";
 import type { Chord } from "./Chord";
+import { NonEmptyArray } from "datils";
 
-export type ChordArray = Arrays.NonEmpty<Chord>;
+export type ChordArray = NonEmptyArray<Chord>;

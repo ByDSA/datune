@@ -1,4 +1,4 @@
-import { random } from "@datune/utils";
+import { randomN } from "datils/math";
 
 export class Picker<T> {
   #possibilities: T[];
@@ -19,7 +19,7 @@ export class Picker<T> {
       return ret;
     }
 
-    const index = random(this.#possibilities.length);
+    const index = randomN(this.#possibilities.length);
     const ret = this.#possibilities[index];
 
     this.#possibilities.splice(index, 1);

@@ -1,6 +1,6 @@
-import type { Arrays } from "@datune/utils";
 import type { ArrayRhythm } from "./array";
 import type { RhythmPattern } from "./Pattern";
+import { NonEmptyNumberArray } from "datils";
 import { cache } from "./cache";
 
 export function fromArray(...ints: ArrayRhythm): RhythmPattern {
@@ -10,21 +10,21 @@ export function fromArray(...ints: ArrayRhythm): RhythmPattern {
   return rhythm;
 }
 
-export function from(...values: Arrays.Number): RhythmPattern {
+export function from(...values: NonEmptyNumberArray): RhythmPattern {
   checkPattern(values);
   const rhythm = cache.getOrCreate(values);
 
   return rhythm;
 }
 
-function checkPattern(ints: Arrays.Number) {
+function checkPattern(ints: NonEmptyNumberArray) {
   for (const i of ints) {
     if (i < 1)
       throw new Error();
   }
 }
 
-function rhythmArray2Values(ints: ArrayRhythm): Arrays.Number {
+function rhythmArray2Values(ints: ArrayRhythm): NonEmptyNumberArray {
   const ret: number[] = [];
   let current = 1;
 
@@ -39,5 +39,5 @@ function rhythmArray2Values(ints: ArrayRhythm): Arrays.Number {
 
   ret.push(current);
 
-  return ret as Arrays.Number;
+  return ret as NonEmptyNumberArray;
 }

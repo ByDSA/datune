@@ -1,5 +1,5 @@
 import type { Interval } from "../Interval";
-import { frac, Pow2Exp } from "@datune/utils/math";
+import { frac, Pow2Exp } from "datils/math/num-exp";
 
 export function cents2ratio(cents: number): Pow2Exp {
   const f = frac(cents, 1200);

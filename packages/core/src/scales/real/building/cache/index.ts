@@ -1,10 +1,10 @@
-import type { Arrays } from "@datune/utils";
 import type { Interval as IntervalPitch } from "intervals/real";
-import { KeyMappedFlyweightCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "datils/caching";
+import { NonEmptyArray } from "datils";
 import { getObjId as intervalGetObjId } from "intervals/real/building/cache";
 import { Scale } from "../../Scale";
 
-export type Key = Arrays.NonEmpty<IntervalPitch>;
+export type Key = NonEmptyArray<IntervalPitch>;
 
 export function getId(key: Key): string {
   return key.map(intervalGetObjId).join("-");

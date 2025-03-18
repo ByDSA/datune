@@ -1,5 +1,5 @@
 import type { Scale } from "../../Scale";
-import { frac, FracExp, mult } from "@datune/utils/math";
+import { frac, FracExp, mult } from "datils/math/num-exp";
 import { IntervalArray, Intervals, Interval } from "intervals/real";
 import { fromIntervals } from "../intervals";
 

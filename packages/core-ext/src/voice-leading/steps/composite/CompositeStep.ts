@@ -1,15 +1,16 @@
 import type { SingleStepArray } from "../single/Array";
 import type { Step } from "../Step";
 import { Interval, Spns as N } from "@datune/core";
-import { Arrays, lockr } from "@datune/utils";
+import { lockr } from "datils/datatypes";
+import { NonEmptyArray } from "datils/datatypes";
 import { from } from "../single/building";
 import { Target } from "../Target";
 import { compositeStepToSingleSteps } from "./cacheMaps";
 
 export class CompositeStep implements Step {
-  array: Arrays.NonEmpty<Interval | undefined>;
+  array: NonEmptyArray<Interval | undefined>;
 
-  private constructor(array: Arrays.NonEmpty<Interval | undefined>) {
+  private constructor(array: NonEmptyArray<Interval | undefined>) {
     this.array = array;
     lockr(this.array);
   }

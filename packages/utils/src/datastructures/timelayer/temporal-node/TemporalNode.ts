@@ -1,4 +1,4 @@
-import { Interval } from "math/interval";
+import { Interval } from "datils/math/interval";
 import { Time } from "time";
 
 type Dto<E> = {

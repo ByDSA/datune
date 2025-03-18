@@ -1,4 +1,4 @@
-import type { Arrays } from "@datune/utils";
+import { NonEmptyArray } from "datils";
 import { Key } from "./Key";
 
-export type KeyArray = Arrays.NonEmpty<Key>;
+export type KeyArray = NonEmptyArray<Key>;

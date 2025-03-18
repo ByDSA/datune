@@ -1,6 +1,6 @@
 import type { Key } from "./building/cache";
 import type { Pitch } from "pitches/alt";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { SymbolicSpn as ISpn } from "../SymbolicSpn";
 
 export class Spn implements ISpn<Pitch> {

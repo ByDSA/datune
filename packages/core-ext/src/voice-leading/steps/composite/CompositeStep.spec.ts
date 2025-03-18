@@ -1,5 +1,5 @@
 import type { SpnArray } from "@datune/core/spns/chromatic";
-import type { CompositeArray } from "./building";
+import type { CompositeStepArray } from "./building";
 import { Spns as N } from "@datune/core/spns/chromatic";
 import { Intervals as I } from "@datune/core";
 import { TestInit } from "tests";
@@ -171,7 +171,7 @@ describe("special values:null vs undefined vs zero", () => {
   } );
 
   it("array with zero, undefined, null and interval", () => {
-    const arrayBase: CompositeArray = [undefined, I.m2, 0, null];
+    const arrayBase: CompositeStepArray = [undefined, I.m2, 0, null];
     const base = fromIntervals(...arrayBase);
     const { array } = base;
 

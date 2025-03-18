@@ -1,5 +1,5 @@
 import type { Degree } from "../Degree";
-import { cyclicMod } from "@datune/utils";
+import { cyclicMod } from "datils/math";
 import { NUMBER } from "pitches/chromatic/constants";
 
 export function fromInt(n: number): Degree {

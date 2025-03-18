@@ -1,5 +1,5 @@
 import type { Scale } from "../../chromatic/Scale";
-import { cyclicMod } from "@datune/utils";
+import { cyclicMod } from "datils/math";
 import { Degree as ChromaticDegree } from "degrees/chromatic";
 import { Degrees as DDegrees } from "degrees/diatonic";
 import { calcAlts } from "pitches/alt/calcAlts";

@@ -1,9 +1,9 @@
-import type { Arrays } from "@datune/utils";
+import { NonEmptyArray } from "datils";
 
 export interface Scale<INTERVAL, DEGREE> {
-  rootIntervals: Arrays.NonEmpty<INTERVAL>;
+  rootIntervals: NonEmptyArray<INTERVAL>;
 
-  degrees: Arrays.NonEmpty<DEGREE>;
+  degrees: NonEmptyArray<DEGREE>;
 
   length: number;
 }

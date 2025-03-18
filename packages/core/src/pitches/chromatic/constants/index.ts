@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { lock, lockr } from "@datune/utils/immutables";
+import { lock, lockr } from "datils/datatypes";
 import { Pitch } from "../Pitch";
 
 export const C: Pitch = new (Pitch as any)(0);

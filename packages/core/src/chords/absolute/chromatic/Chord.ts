@@ -1,6 +1,6 @@
 import type { Pitch } from "pitches/chromatic";
 import type { Key } from "./building/cache";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes/immutables";
 import { SpnArray, Spn } from "spns/chromatic";
 import { AbsoluteChord } from "../AbsoluteChord";
 

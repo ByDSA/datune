@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 import type { Scale } from "../Scale";
-import type { Arrays } from "@datune/utils";
-import { lockr } from "@datune/utils/immutables";
+import { lockr, NonEmptyNumberArray } from "datils/datatypes";
 import { fromIntraIntervals, fromRootIntervals } from "../building";
 import { mode } from "../modifiers";
 import { MAJOR_SCALE_DEGREES } from "./majorScaleDegrees";
@@ -10,7 +9,7 @@ export function initialize() {
   if (MAJOR)
     throw new Error("Already initialized");
 
-  MAJOR = fromRootIntervals(...MAJOR_SCALE_DEGREES as Arrays.Number);
+  MAJOR = fromRootIntervals(...MAJOR_SCALE_DEGREES as NonEmptyNumberArray);
   MAJOR.toString = (): string => "Major";
   IONIAN = MAJOR;
 

@@ -1,9 +1,9 @@
-import type { Arrays } from "@datune/utils";
+import { NonEmptyNumberArray } from "datils";
 import { Voicing } from "../Voicing";
 
-export type Key = Arrays.Number;
+export type Key = NonEmptyNumberArray;
 
-export function fromRootIntervalInts(...ints: Arrays.Number): Voicing {
+export function fromRootIntervalInts(...ints: NonEmptyNumberArray): Voicing {
   const key: Key = ints;
 
   return new (Voicing as any)(key);

@@ -1,5 +1,5 @@
 import type { ConcertPitch } from "../ConcertPitch";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { Spns as N } from "spns/chromatic";
 import { fromFrequencySpn } from "../building/frequencySpn";
 

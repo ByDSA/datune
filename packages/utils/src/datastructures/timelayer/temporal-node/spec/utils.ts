@@ -1,5 +1,5 @@
+import { intervalOf } from "datils/math";
 import { TemporalNode } from "index";
-import { intervalOf } from "math";
 import { EventTest } from "./EventTest";
 
 export function newNode1(): TemporalNode<EventTest> {

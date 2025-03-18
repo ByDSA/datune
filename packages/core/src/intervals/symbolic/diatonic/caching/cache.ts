@@ -1,4 +1,4 @@
-import { KeyMappedFlyweightCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "datils/caching";
 import { Interval } from "../Interval";
 import { getId, getKey, type Key } from "./key-id";
 

@@ -2,7 +2,7 @@
 import type { Interval } from "../Interval";
 import type { Interval as ChromaticInterval } from "intervals/chromatic";
 import type { Pitch } from "pitches/alt";
-import { cyclicMod } from "@datune/utils";
+import { cyclicMod } from "datils/math";
 import { Intervals as DIntervals, Interval as DInterval } from "intervals/diatonic";
 import { Pitches as CP } from "pitches/chromatic";
 import { Pitches as DP } from "pitches/diatonic";

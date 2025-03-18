@@ -14,13 +14,14 @@ import { EIGHTH, HALF, LONGA, QUARTER, SIXTEENTH } from "@datune/core/rhythm/tem
 import { from as BPMFrom } from "@datune/core/rhythm/tempo/bpm/building";
 import { initialize as initMidi, Instrument, MidiFile, MidiNode, MidiNote, nodeFrom, noteFrom } from "@datune/midi";
 import { from as midiPitchFrom } from "@datune/midi/pitch/building";
-import { Arrays, random } from "@datune/utils";
+import { randomN } from "datils/math";
 import { IntervalArray } from "@datune/core/intervals/chromatic";
 import { betweenSpn } from "@datune/core/intervals/symbolic/chromatic/building";
 import { fromRootIntervals } from "@datune/core/voicings/relative/chromatic/building/rootIntervals";
 import { Track } from "@datune/midi/files/track/Track";
 import { Channel } from "@datune/midi/files/track/Channel";
 import { Chord as SpnChord } from "@datune/core/chords/absolute/chromatic/Chord";
+import { NonEmptyArray } from "datils";
 import { ActionGen } from "./actions/ActionGen";
 import { ActionGenState } from "./actions/ActionGenState";
 import { ActionManager } from "./actions/ActionManager";
@@ -101,7 +102,7 @@ function getAvailablePitches(
   if (!currentChordNode)
     return [];
 
-  let currentChordPitches: Arrays.NonEmpty<Pitch>;
+  let currentChordPitches: NonEmptyArray<Pitch>;
   const isNewChord = chordSequence.get( {
     at: time,
   } )[0]?.interval.from === time;
@@ -412,7 +413,7 @@ function getDuration(time: MusicalDuration, tonalApproach: TonalApproach): Music
     return durations[0];
 
   if (durations.length > 1)
-    duration = durations[random(durations.length)];
+    duration = durations[randomN(durations.length)];
   else
     duration = (1 - (time - Math.floor(time)));
 

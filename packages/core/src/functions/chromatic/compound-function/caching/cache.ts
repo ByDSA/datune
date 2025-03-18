@@ -1,4 +1,4 @@
-import { KeyMappedFlyweightCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "datils/caching";
 import { CompoundFunc } from "../CompoundFunc";
 import { getId, getKey, type Key } from "./key-id";
 

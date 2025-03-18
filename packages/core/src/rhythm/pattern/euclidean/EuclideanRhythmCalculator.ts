@@ -1,11 +1,12 @@
 import type { ArrayRhythm } from "../array";
 import type { RhythmPattern } from "../Pattern";
-import { Arrays } from "@datune/utils";
+import { NonEmptyArray } from "datils/datatypes";
+import { Arrays } from "datils/datatypes";
 import { fromArray } from "../building";
 import { reverse } from "../modifiers";
 
-type Group = Arrays.NonEmpty<0 | 1>;
-type Groups = Arrays.NonEmpty<Group>;
+type Group = NonEmptyArray<0 | 1>;
+type Groups = NonEmptyArray<Group>;
 export class EuclideanRhythmCalculator {
   #onNotes: number;
 

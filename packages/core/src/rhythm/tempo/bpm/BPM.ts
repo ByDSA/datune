@@ -1,6 +1,6 @@
 import type { MusicalDuration } from "../musical-duration";
 import type { Key } from "./building";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { Tempo } from "../Tempo";
 
 export class BPM extends Tempo<MusicalDuration> {

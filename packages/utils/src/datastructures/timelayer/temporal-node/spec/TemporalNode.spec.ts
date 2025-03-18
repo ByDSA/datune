@@ -1,4 +1,4 @@
-import { intervalOf } from "math";
+import { intervalOf } from "datils/math";
 import { EventTest } from "./EventTest";
 import { newNode1 } from "./utils";
 

@@ -1,7 +1,7 @@
 import type { Combination, RawCombination } from "./types";
 import type { StepCombinerTransform } from "./transforms";
 import type { StepGroup } from "voice-leading/generators/StepsGenerator";
-import { getCartesianProduct } from "@datune/utils/math";
+import { getCartesianProduct } from "datils/math";
 import { SingleStep } from "voice-leading/steps";
 import { flattenStep } from "voice-leading/steps/flattenSteps";
 import { StepCombinerFilter } from "./filters";

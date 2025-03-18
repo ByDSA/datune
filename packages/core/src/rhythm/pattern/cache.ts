@@ -1,7 +1,8 @@
-import { Arrays, KeyMappedFlyweightCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "datils/caching";
+import { NonEmptyNumberArray } from "datils";
 import { RhythmPattern } from "./Pattern";
 
-export type Key = Arrays.Number;
+export type Key = NonEmptyNumberArray;
 
 export const cache = new KeyMappedFlyweightCache<RhythmPattern, Key, string>( {
   getId(key: Key): string {

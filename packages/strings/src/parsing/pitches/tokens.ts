@@ -1,4 +1,4 @@
-import { ProcessCache } from "@datune/utils";
+import { ProcessCache } from "datils/caching";
 import { createToken, TokenType } from "chevrotain";
 import { LangId } from "lang";
 

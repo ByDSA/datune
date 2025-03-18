@@ -1,4 +1,4 @@
-import type { Arrays } from "@datune/utils";
 import type { Pitch } from "./Pitch";
+import { NonEmptyArray } from "datils";
 
-export type PitchArray = Arrays.NonEmpty<Pitch>;
+export type PitchArray = NonEmptyArray<Pitch>;

@@ -10,6 +10,6 @@ try {
   } );
   await spinner("Linting ...", ()=> $`pnpm lint`);
 } catch (e) {
-  console.log(e.stdout ?? e.toString());
+  console.log(e.stderr ?? e.toString());
   process.exit(1);
 }

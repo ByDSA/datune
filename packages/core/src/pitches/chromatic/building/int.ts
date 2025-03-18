@@ -1,5 +1,5 @@
 import type { Pitch } from "../Pitch";
-import { cyclicMod } from "@datune/utils";
+import { cyclicMod } from "datils/math";
 import { A, AA, B, C, CC, D, DD, E, F, FF, G, GG, NUMBER } from "../constants";
 
 export function fromInt(intValue: number): Pitch {

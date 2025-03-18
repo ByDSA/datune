@@ -1,5 +1,5 @@
 import type { Spn as ISpn } from "../Spn";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 
 export class Spn implements ISpn {
   #frequency: number;

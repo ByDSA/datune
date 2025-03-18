@@ -1,4 +1,4 @@
-import { KeyMappedFlyweightCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "datils/caching";
 import { SpnArray } from "spns/chromatic";
 import { Chord } from "../../Chord";
 

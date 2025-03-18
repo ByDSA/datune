@@ -1,5 +1,5 @@
 import { Scale, Voicing, Degree, Intervals } from "@datune/core";
-import { cyclicMod } from "@datune/utils";
+import { cyclicMod } from "datils/math";
 
 export function findVoicings(scale: Scale, voicings: Voicing[]): Degree[][] {
   const { degrees } = scale;

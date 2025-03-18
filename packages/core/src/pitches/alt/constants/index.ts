@@ -1,6 +1,6 @@
 import type { PitchArray } from "../Array";
 import type { Pitch } from "../Pitch";
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import * as DP from "pitches/diatonic/constants";
 import { fromDPitchAlts } from "../building/diatonicAlts";
 

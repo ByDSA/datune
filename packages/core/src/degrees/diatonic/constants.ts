@@ -1,4 +1,4 @@
-import { lockr } from "@datune/utils/immutables";
+import { lockr } from "datils/datatypes";
 import { Degree } from "./Degree";
 
 export const I = new (Degree as any)(0);

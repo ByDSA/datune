@@ -1,4 +1,4 @@
-import { KeyMappedFlyweightCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "datils/caching";
 import { IntervalArray } from "intervals/chromatic";
 import { getObjId as intervalGetObjId } from "intervals/symbolic/chromatic/caching/id";
 import { Scale } from "../Scale";

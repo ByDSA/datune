@@ -1,5 +1,5 @@
 import type { Voicing } from "../Voicing";
-import { cyclicMod } from "@datune/utils";
+import { cyclicMod } from "datils/math";
 import { Intervals as CI } from "intervals/symbolic/chromatic";
 import { IntervalArray, Interval } from "intervals/symbolic/alt";
 import { add } from "intervals/symbolic/alt/modifiers/add";

@@ -1,12 +1,11 @@
-import type { Arrays } from "@datune/utils";
 import type { ArrayRhythm } from "./array";
 import type { Key } from "./cache";
-import { lockr } from "@datune/utils/immutables";
+import { lockr, NonEmptyNumberArray } from "datils/datatypes";
 
 export class RhythmPattern implements Iterable<number> {
   array: ArrayRhythm;
 
-  values: Arrays.Number;
+  values: NonEmptyNumberArray;
 
   private constructor(key: Key) {
     this.values = key;
@@ -20,7 +19,7 @@ export class RhythmPattern implements Iterable<number> {
   }
 }
 
-function calcArray(values: Arrays.Number): ArrayRhythm {
+function calcArray(values: NonEmptyNumberArray): ArrayRhythm {
   let newInts: number[] = [];
 
   for (const i of values)

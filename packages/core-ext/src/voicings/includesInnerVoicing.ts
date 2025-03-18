@@ -1,6 +1,6 @@
 import type { Voicing } from "@datune/core";
-import type { Arrays } from "@datune/utils";
 import type { InnerVoicingResult } from "./findInnerVoicings";
+import { NonEmptyNumberArray } from "datils";
 
 export function voicingIncludesInnerVoicing(
   base: Voicing,
@@ -11,7 +11,7 @@ export function voicingIncludesInnerVoicing(
 
   // eslint-disable-next-line no-restricted-syntax
   baseFor: for (const intervalInBase of base) {
-    const indexMap = [] as unknown as Arrays.Number;
+    const indexMap = [] as unknown as NonEmptyNumberArray;
 
     for (const interval of innerVoicing) {
       const shiftedInterval = intervalInBase + interval;

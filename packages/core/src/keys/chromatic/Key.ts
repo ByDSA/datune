@@ -1,6 +1,5 @@
 import type { Key as K } from "./caching/cache";
 import type { Interval } from "intervals/chromatic";
-import type { Arrays } from "@datune/utils";
 import type { Chord } from "chords/chromatic";
 import type { PitchArray, Pitch } from "pitches/chromatic";
 import type { Scale } from "scales/chromatic";
@@ -11,7 +10,7 @@ import { fromInt as pitchFromInt } from "pitches/chromatic/building";
 
 export class Key implements
   IKey<Interval, Pitch, Scale, Chord> {
-  pitches: Arrays.NonEmpty<Pitch>;
+  pitches: PitchArray;
 
   root: Pitch;
 

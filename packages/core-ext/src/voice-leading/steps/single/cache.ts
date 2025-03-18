@@ -1,5 +1,5 @@
 import type { Interval } from "@datune/core/intervals/chromatic";
-import { KeyMappedFlyweightCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "datils/caching";
 import { SingleStep } from "./SingleStep";
 
 export type Key = {

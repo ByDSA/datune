@@ -6,7 +6,6 @@ import { stringifyDegree, stringifyScale } from "@datune/strings/chromatic";
 import { parseChord as parseAChord } from "@datune/strings/alt";
 import { LangId } from "@datune/strings/lang";
 import { scaleFindVoicings } from "@datune/core-ext/scales";
-import { countAllCombinations, getCombinations, countCombinations } from "@datune/utils/math/combinatorics";
 import { TRIAD_MINOR, TRIAD_SUS4 } from "@datune/core/voicings/relative/chromatic/constants";
 import { VoiceLeadings as VL } from "@datune/core-ext/voice-leading";
 
@@ -86,22 +85,7 @@ console.log(
   "Which voicing has a chord that has C-F-G pitches?",
   V.fromPitches(P.C, P.F, P.G).toString(), // -> Sus4
 );
-console.log(
-  "How many different chords with any number of pitches I can do in C Major key (pitch order doesn't matters)?",
-  countAllCombinations(K.C.pitches.length), // -> 128n (BigInt)
-  "(Empty set included)",
-);
-console.log(
-  "How many different chords with 3 pitches I can do in C Major key (pitch order doesn't matters)?",
-  countCombinations(K.C.pitches.length, 3), // -> 35n (BigInt)
-);
-console.log(
-  "I want all 3-note chords in C Major that includes C pitch (pitch order doesn't matter)",
-  getCombinations(K.C.pitches, 3)
-    .filter(p=>p.includes(P.C))
-    .map(pitches=>C.fromPitches(...pitches))
-    .map(String),
-);
+
 console.log(
   "Which Major and Minor triads are there in a minor scale?",
   scaleFindVoicings(S.MINOR, [V.TRIAD_MAJOR, TRIAD_MINOR])

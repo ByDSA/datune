@@ -1,5 +1,5 @@
 import type { MusicalDuration } from "./MusicalDuration";
-import { lock } from "@datune/utils/immutables";
+import { lock } from "datils/datatypes";
 import { from } from "./building/from";
 
 export function initialize() {

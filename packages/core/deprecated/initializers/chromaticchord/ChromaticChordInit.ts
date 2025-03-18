@@ -1,5 +1,4 @@
 /* eslint-disable accessor-pairs */
-import { Arrays } from "@datune/utils";
 import { Chord } from "index";
 import Initializer from "initializers";
 import MainInit from "initializers/main/MainInit";
@@ -69,7 +68,7 @@ function map2ChromaticChordData(): ChromaticChordData {
 
   map.forEach((v, k) => {
     const h = k;
-    const n = <Arrays.Number>v.notes.map(notes2Num);
+    const n = <NonEmptyNumberArray>v.notes.map(notes2Num);
     const p = v.pattern.rootIntervals;
 
     ret.push( {

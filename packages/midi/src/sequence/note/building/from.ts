@@ -1,4 +1,4 @@
-import { lock } from "@datune/utils";
+import { lock } from "datils/datatypes";
 import { DEFAULT } from "../Default";
 import { MidiNote } from "../MidiNote";
 import { PartialMidiNote } from "../PartialMidiNote";

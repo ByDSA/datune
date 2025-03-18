@@ -1,5 +1,5 @@
-import type { Arrays } from "@datune/utils";
 import type { Scale } from "scales/Scale";
+import { NonEmptyArray } from "datils";
 import { OctavePitch } from "pitches/OctavePitch";
 import { Chord } from "../chords/Chord";
 
@@ -8,7 +8,7 @@ INTERVAL,
 P extends OctavePitch,
 S extends Scale<INTERVAL, any>,
 C extends Chord<P>> {
-  pitches: Arrays.NonEmpty<P>;
+  pitches: NonEmptyArray<P>;
 
   root: P;
 
@@ -18,5 +18,5 @@ C extends Chord<P>> {
 
   hasChord(chord: C): boolean;
 
-  hasPitches(...pitches: Arrays.NonEmpty<P>): boolean;
+  hasPitches(...pitches: NonEmptyArray<P>): boolean;
 }

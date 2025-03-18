@@ -1,4 +1,4 @@
-import type { Arrays } from "@datune/utils";
+import { NonEmptyArray } from "datils";
 import { Spn } from "./Spn";
 
-export type SpnArray = Arrays.NonEmpty<Spn>;
+export type SpnArray = NonEmptyArray<Spn>;

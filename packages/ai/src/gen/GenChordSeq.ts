@@ -4,9 +4,9 @@ import { Func } from "@datune/core/functions/chromatic";
 import { Key } from "@datune/core/keys/chromatic";
 import { from } from "@datune/core/keys/chromatic/building";
 import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
-import { random } from "@datune/utils";
-import { intervalOf } from "@datune/utils/math";
+import { intervalOf } from "datils/math";
 import { CHROMATIC, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN } from "@datune/core/scales/symbolic/chromatic/constants";
+import { randomN } from "datils/math";
 import { GenSeq } from "./GenSeq";
 
 export class GenChordSeq extends GenSeq {
@@ -120,5 +120,5 @@ function pickKeyChord(originalKey: Key, func: Func, _chord: Chord): Key {
   if (available.length === 0)
     return originalKey;
 
-  return available[random(available.length)];
+  return available[randomN(available.length)];
 }

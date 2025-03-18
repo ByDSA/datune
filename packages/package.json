@@ -20,6 +20,9 @@
     "prepare": "cd .. && husky packages/.husky",
     "test:all": "bin/test-all.sh"
   },
+  "dependencies": {
+    "datils": "github:ByDSA/datils-ts"
+  },
   "devDependencies": {
     "@commitlint/cli": "19.7.1",
     "@commitlint/config-conventional": "19.7.1",

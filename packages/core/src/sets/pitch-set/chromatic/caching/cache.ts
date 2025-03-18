@@ -1,5 +1,5 @@
 import type { Pitch } from "pitches/chromatic";
-import { KeyMappedFlyweightCache } from "@datune/utils";
+import { KeyMappedFlyweightCache } from "datils/caching";
 import { Pitches } from "pitches/chromatic";
 import { PitchSet } from "../PitchSet";
 

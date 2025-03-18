@@ -1,6 +1,6 @@
-import type { Arrays } from "@datune/utils";
+import { NonEmptyArray } from "datils";
 
 export interface Voicing<INTERVAL> extends Iterable<INTERVAL> {
-    rootIntervals: Arrays.NonEmpty<INTERVAL>;
+    rootIntervals: NonEmptyArray<INTERVAL>;
     length: number;
 }
