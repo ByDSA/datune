@@ -1,6 +1,6 @@
 import type * as Constants from "./constants";
 import type * as Conversions from "./conversions";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { Spn } from "./Spn";
 import { SpnArray } from "./Array";
 import * as Building from "./building";

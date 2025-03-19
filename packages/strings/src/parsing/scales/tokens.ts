@@ -1,4 +1,4 @@
-import { ProcessCache } from "datils/caching";
+import { ProcessCache } from "datils/patterns/caching";
 import { COMMON } from "@datune/core/scales/symbolic/chromatic/constants";
 import { Scales as S } from "@datune/core";
 import { createToken, TokenType } from "chevrotain";

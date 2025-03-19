@@ -1,4 +1,4 @@
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { Spn } from "@datune/core/spns/chromatic";
 import { MidiPitch } from "../MidiPitch";
 

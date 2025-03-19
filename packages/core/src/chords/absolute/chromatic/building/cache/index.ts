@@ -1,4 +1,4 @@
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { SpnArray } from "spns/chromatic";
 import { Chord } from "../../Chord";
 

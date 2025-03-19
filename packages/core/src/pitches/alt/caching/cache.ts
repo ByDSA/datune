@@ -1,5 +1,5 @@
 import type { Pitch as DPitch } from "pitches/diatonic";
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { Pitch } from "../Pitch";
 
 export type Key = {

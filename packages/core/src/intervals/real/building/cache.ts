@@ -1,5 +1,5 @@
 import type { NumExp } from "datils/math";
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { Interval } from "../Interval";
 
 export type Key = NumExp;

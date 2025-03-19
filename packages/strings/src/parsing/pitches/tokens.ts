@@ -1,4 +1,4 @@
-import { ProcessCache } from "datils/caching";
+import { ProcessCache } from "datils/patterns/caching";
 import { createToken, TokenType } from "chevrotain";
 import { LangId } from "lang";
 

@@ -1,5 +1,5 @@
 import type { Degree as DDegree } from "degrees/diatonic";
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { Degree } from "../Degree";
 
 export type Key = {

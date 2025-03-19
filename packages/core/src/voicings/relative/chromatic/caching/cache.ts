@@ -1,4 +1,4 @@
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { getObjId as intervalGetObjId } from "intervals/symbolic/chromatic/caching/id";
 import { IntervalArray } from "intervals/chromatic";
 import { Voicing } from "../Voicing";

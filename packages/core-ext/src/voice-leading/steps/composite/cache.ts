@@ -1,5 +1,5 @@
 import type { CompositeStepArray } from "./building";
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { CompositeStep } from "./CompositeStep";
 
 export type Key = CompositeStepArray;

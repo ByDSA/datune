@@ -1,5 +1,5 @@
 #!/usr/bin/env zx
-/* eslint-disable no-undef */
+
 try {
   process.env.FORCE_COLOR = "1";
   $.verbose = true;

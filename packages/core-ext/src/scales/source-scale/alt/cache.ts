@@ -1,4 +1,4 @@
-import { ProcessCache } from "datils/caching";
+import { ProcessCache } from "datils/patterns/caching";
 import { Scales, Scale } from "@datune/core/scales/alt";
 import { SourceScaleNode } from "./SourceScaleNode";
 

@@ -1,6 +1,6 @@
 import type * as Constants from "./constants";
 import type { ScaleArray } from "./Array";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { Scale } from "./Scale";
 import * as Building from "./building";
 

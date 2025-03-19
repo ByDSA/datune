@@ -1,5 +1,5 @@
 import type * as Building from "./building";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { TimeSignature } from "./TimeSignature";
 import * as Constants from "./constants";
 

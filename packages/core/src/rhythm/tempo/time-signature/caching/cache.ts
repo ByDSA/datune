@@ -1,5 +1,5 @@
 import type { MusicalDuration } from "../../musical-duration";
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { TimeSignature } from "../TimeSignature";
 
 export type Key = {

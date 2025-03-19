@@ -1,7 +1,7 @@
 import type { PitchArray } from "./Array";
 import type * as Building from "./building";
 import type * as Modifiers from "./modifiers";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { Pitch } from "./Pitch";
 import * as Constants from "./constants";
 

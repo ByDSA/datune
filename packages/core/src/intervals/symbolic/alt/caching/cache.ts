@@ -1,6 +1,6 @@
 import type { Quality } from "../quality/Quality";
 import type { Interval as DiatonicInterval } from "intervals/diatonic";
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { getObjId as dIntervalGetObjId } from "intervals/symbolic/diatonic/caching/key-id";
 import { Interval } from "../Interval";
 import { getObjId as qualityGetObjId } from "../quality/building/id";

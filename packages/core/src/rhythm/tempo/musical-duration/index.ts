@@ -1,7 +1,7 @@
 import type * as fromType from "./building/from";
 import type * as fromMillisAndBPM from "./building/fromMillisAndBPM";
 import type * as Constants from "./constants";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { MusicalDuration } from "./MusicalDuration";
 import * as Modifiers from "./modifiers";
 

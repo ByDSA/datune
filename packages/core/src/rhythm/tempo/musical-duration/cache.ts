@@ -1,5 +1,5 @@
 import type { MusicalDuration } from "./MusicalDuration";
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 
 export type Key = number;
 

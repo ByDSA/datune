@@ -1,5 +1,5 @@
 import type * as Constants from "./constants";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { Degree } from "./Degree";
 import * as Modifiers from "./modifiers";
 import * as Building from "./building";

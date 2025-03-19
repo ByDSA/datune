@@ -15,7 +15,6 @@ $.verbose = true;
 for (const folder of foldersWithLintScript) {
   const label = folder === "." ? "Infrastructure" : folder;
 
-  // eslint-disable-next-line no-undef
   echo`\n${"=".repeat(30)}\n${label}\n${"=".repeat(30)}`;
 
   await $`cd ${folder} && pnpm lint`;

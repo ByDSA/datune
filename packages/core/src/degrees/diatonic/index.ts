@@ -1,6 +1,6 @@
 import type { Degree } from "./Degree";
 import type * as Conversions from "./conversions";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { DegreeArray } from "./Array";
 import * as Building from "./building";
 import * as Contants from "./constants";

@@ -1,5 +1,5 @@
 import type { Interval as IntervalPitch } from "intervals/real";
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { NonEmptyArray } from "datils";
 import { getObjId as intervalGetObjId } from "intervals/real/building/cache";
 import { Scale } from "../../Scale";

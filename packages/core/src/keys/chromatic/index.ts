@@ -1,7 +1,7 @@
 import type { from } from "./building/rootScale";
 import type * as Constants from "./constants";
 import type { KeyArray } from "./Array";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { Key } from "./Key";
 import * as Modifiers from "./modifiers";
 import { fromAltKey } from "./building";

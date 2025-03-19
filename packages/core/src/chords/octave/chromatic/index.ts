@@ -4,7 +4,7 @@ import type { fromPitches } from "./building/pitches";
 import type { fromRootVoicing } from "./building/root-voicing";
 import type * as Constants from "./constants";
 import type * as Modifiers from "./modifiers";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { Chord } from "./Chord";
 import { ChordArray } from "./Array";
 import { fromAltChord } from "./building/fromAltChord";

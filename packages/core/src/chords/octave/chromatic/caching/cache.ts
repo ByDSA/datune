@@ -1,5 +1,5 @@
 import type { NonEmptyNumberArray } from "datils/datatypes";
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { getKey as pitchGetKey } from "pitches/chromatic/caching/id";
 import { Chord } from "../Chord";
 

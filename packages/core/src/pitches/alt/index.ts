@@ -3,7 +3,7 @@ import type { fromChromatic } from "./building/chromatic";
 import type { fromDPitchAlts } from "./building/diatonicAlts";
 import type { fromChromaticInPitchArray } from "./building/chromaticInPitchArray";
 import type * as Constants from "./constants";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import * as Modifiers from "./modifiers";
 import { Pitch } from "./Pitch";
 import { fromChromaticAndDiatonic } from "./building/chromaticAndDiatonic";

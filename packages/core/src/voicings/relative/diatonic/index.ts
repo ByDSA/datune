@@ -1,6 +1,6 @@
 import type { VoicingArray } from "./Array";
 import type * as Constants from "./constants";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { Voicing } from "./Voicing";
 import * as Building from "./building";
 import * as Modifiers from "./modifiers";

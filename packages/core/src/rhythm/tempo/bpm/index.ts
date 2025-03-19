@@ -1,6 +1,6 @@
 import type * as Building from "./building";
 import type * as Constants from "./constants";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { BPM } from "./BPM";
 
 const staticModule = {};

@@ -1,6 +1,6 @@
 import type { fromPitchOctave } from "./building/pitch-octave";
 import type * as Constants from "./constants";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import * as Modifiers from "./modifiers";
 import { Spn } from "./Spn";
 import { SpnArray } from "./Array";

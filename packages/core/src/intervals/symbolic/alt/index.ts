@@ -12,7 +12,7 @@ import type { neg } from "./modifiers/neg";
 import type { simplify } from "./modifiers/simplify";
 import type { serie } from "./modifiers/calcSerie";
 import type { sub } from "./modifiers/sub";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { Quality } from "./quality/Quality";
 import { Interval } from "./Interval";
 import * as QualityBuilding from "./quality/building";

@@ -1,6 +1,6 @@
 import type { Pitch } from "pitches/alt";
 import type { Scale } from "scales/alt";
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { getObjId as pitchGetObjId } from "pitches/alt/id";
 import { getObjId as scaleGetObjId } from "scales/symbolic/alt/caching/cache";
 import { Key } from "../../Key";

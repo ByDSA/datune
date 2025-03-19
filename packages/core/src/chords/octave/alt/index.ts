@@ -1,6 +1,6 @@
 import type { ChordArray } from "./Array";
 import type * as Constants from "./constants";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { Chord } from "./Chord";
 import * as Modifiers from "./modifiers";
 import * as Building from "./building";

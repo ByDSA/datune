@@ -3,7 +3,7 @@ import type * as Constants from "./constants";
 import type * as ModifierShiftOctaves from "./modifiers/shiftOctaves";
 import type * as ModifierNeg from "./modifiers/neg";
 import type * as ModifierMult from "./modifiers/mult";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { Interval } from "./Interval";
 import * as IndependentModifiers from "./modifiers/independentModifiers";
 import * as Building from "./building";

@@ -1,5 +1,5 @@
 import type { Pitch } from "pitches/alt";
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { getObjId as pitchGetObjId } from "pitches/alt/id";
 import { Spn } from "../../Spn";
 

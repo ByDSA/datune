@@ -1,4 +1,4 @@
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { type PitchArray } from "pitches/alt";
 import { getObjId as pitchGetId } from "pitches/alt/id";
 import { Chord } from "../Chord";

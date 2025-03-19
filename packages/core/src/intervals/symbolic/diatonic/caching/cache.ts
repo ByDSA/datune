@@ -1,4 +1,4 @@
-import { KeyMappedFlyweightCache } from "datils/caching";
+import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { Interval } from "../Interval";
 import { getId, getKey, type Key } from "./key-id";
 

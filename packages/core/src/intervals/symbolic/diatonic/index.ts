@@ -6,7 +6,7 @@ import type { add } from "./modifiers/add";
 import type { neg } from "./modifiers/neg";
 import type { simplify } from "./modifiers/simplify";
 import type { sub } from "./modifiers/sub";
-import { createProxyBarrel } from "lazy-load";
+import { createProxyBarrel } from "datils/patterns/proxy";
 import { Interval } from "./Interval";
 import { Direction } from "./Direction";
 import { fromChromaticInterval, fromInt } from "./building";
