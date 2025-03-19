@@ -1,6 +1,8 @@
 #!/usr/bin/env zx
 
-await $`rm -rf dist`;
-await $`tsc -p tsconfig-build.json && tsc-alias -p tsconfig-build.json`;
-await $`cp package.json pnpm-lock.yaml ./dist`;
-await $`sed -i -E 's|"file:\.\./|\"file:\.\./\.\./|g' ./dist/package.json`;
+import { defaultBuild } from "daproj/zx/build.mjs";
+
+const { outDir } = await defaultBuild();
+
+$.verbose = true;
+await $`sed -i -E 's|"file:\.\./|\"file:\.\./\.\./|g' ${outDir}/package.json`;

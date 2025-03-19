@@ -1,20 +1,22 @@
 #!/usr/bin/env zx
 /* eslint-disable no-undef */
+import { defaultBuild } from "daproj/zx/build.mjs";
+
+const { outDir } = await defaultBuild();
+
 $.verbose = true;
+await $`sed -i -E 's|"file:\.\./|\"file:\.\./\.\./|g' ${outDir}/package.json`;
 
-await $`rm -rf dist`;
-await $`tsc -p tsconfig-build.json && tsc-alias -p tsconfig-build.json`;
-await $`cp package.json pnpm-lock.yaml ./dist`;
-await $`sed -i -E 's|"file:\.\./|\"file:\.\./\.\./|g' ./dist/package.json`;
+await $`sed -i -E '/"chevrotain":.*/d' ${outDir}/package.json`;
+await $`cp lib/chevrotain/lib/chevrotain.min.cjs ${outDir}/`;
+const outFolder = outDir.substring(2); // Quitar "./"
 
-await $`sed -i -E '/"chevrotain":.*/d' ./dist/package.json`;
-await $`cp lib/chevrotain/lib/chevrotain.min.cjs dist/`;
 await replace( {
-  glob: ["dist/**/*.js", "!dist/chevrotain/**"],
+  glob: [`${outFolder}/**/*.js`, `!${outFolder}/chevrotain/**`],
   flag: "chevrotain",
   regex: /require\(("|')chevrotain("|')\)/g,
   doReplace: (file) => {
-    const rootFolderRelativePath = path.relative(path.dirname(file), "dist");
+    const rootFolderRelativePath = path.relative(path.dirname(file), outFolder);
 
     return `require("${rootFolderRelativePath}/chevrotain.min.cjs")`;
   },
