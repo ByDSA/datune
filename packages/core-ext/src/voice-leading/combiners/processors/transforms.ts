@@ -1,5 +1,5 @@
 import { SingleStepArray } from "voice-leading/steps";
-import { from as singleStepFrom } from "../steps/single/building";
+import { singleStepFrom } from "../../steps/single/building";
 
 export type StepCombinerTransformProps = {
   combination: SingleStepArray;

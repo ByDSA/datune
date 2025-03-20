@@ -1,10 +1,10 @@
 import type { Combination, RawCombination } from "./types";
-import type { StepCombinerTransform } from "./transforms";
+import type { StepCombinerTransform } from "./processors/transforms";
 import type { StepGroup } from "voice-leading/generators/StepsGenerator";
 import { getCartesianProduct } from "datils/math/combinatorics";
 import { SingleStep } from "voice-leading/steps";
 import { flattenStep } from "voice-leading/steps/flattenSteps";
-import { StepCombinerFilter } from "./filters";
+import { StepCombinerFilter } from "./processors/filters";
 import { CombinationToRawsMap } from "./CombinationsToRawMap";
 
 export type StepCombinerProps = {

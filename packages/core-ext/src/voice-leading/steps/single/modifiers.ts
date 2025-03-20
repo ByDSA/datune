@@ -1,11 +1,11 @@
 import type { Interval } from "@datune/core";
 import type { SingleStep } from "./SingleStep";
-import { from } from "./building";
+import { singleStepFrom } from "./building";
 
-export function reIndex(singleStep: SingleStep, newIndex: number): SingleStep {
-  return from(newIndex, singleStep.interval);
+export function singleStepReIndex(singleStep: SingleStep, newIndex: number): SingleStep {
+  return singleStepFrom(newIndex, singleStep.interval);
 }
 
-export function reInterval(singleStep: SingleStep, newInterval: Interval): SingleStep {
-  return from(singleStep.index, newInterval);
+export function singleStepReInterval(singleStep: SingleStep, newInterval: Interval): SingleStep {
+  return singleStepFrom(singleStep.index, newInterval);
 }

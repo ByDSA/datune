@@ -1,7 +1,7 @@
 import { Spn, SpnArray } from "@datune/core/spns/chromatic";
 import { Target, targetGetId } from "voice-leading/steps/Target";
 import { Combination } from "../combiners/types";
-import { CombinationApplierFilter } from "./filters";
+import { CombinationApplierFilter } from "./processors/filters";
 
 export type CombinationApplierProps = {
   afterFilters?: CombinationApplierFilter[];

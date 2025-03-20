@@ -1,8 +1,8 @@
 import type { Interval } from "@datune/core";
 import type { StepGroup, StepsGenerator } from "../StepsGenerator";
 import type { SingleStep } from "voice-leading/steps";
-import type { StepFilter } from "../filters";
-import { from } from "../../steps/single/building";
+import type { StepFilter } from "../processors/filters";
+import { singleStepFrom } from "../../steps/single/building";
 
 export type NearGeneratorProps = {
   maxInterval?: Interval;
@@ -10,7 +10,7 @@ export type NearGeneratorProps = {
   filters?: StepFilter[];
 };
 
-export const generate: StepsGenerator<NearGeneratorProps> = (props)=> {
+export const toNear: StepsGenerator<NearGeneratorProps> = (props)=> {
   return {
     groups: new NearStepsGen(props).generateGroups(),
   };
@@ -68,7 +68,7 @@ class Generator {
       if (j === 0)
         continue;
 
-      const singleStep = from(index, j);
+      const singleStep = singleStepFrom(index, j);
 
       if (!this.#shouldAdd(singleStep))
         continue;

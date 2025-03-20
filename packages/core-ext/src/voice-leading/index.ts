@@ -1,23 +1,20 @@
-import type { StepCombinerFilter } from "./combiners/filters";
+import type { StepCombinerFilter, StepCombinerTransform } from "./combiners";
 import { StepReason } from "./generators/multiple/step-reason/StepReason";
-import { StepCombinerTransform } from "./combiners/transforms";
-import { type CombinationApplierFilter } from "./appliers/filters";
-import { generateVoiceLeading } from "./forward/VoiceLeading";
+import { type CombinationApplierFilter } from "./appliers/processors/filters";
+import { generate } from "./forward/VoiceLeading";
 import { CompositeStep, SingleStep, Steps } from "./steps";
 import { StepsGen } from "./generators";
-import { StepCombiners } from "./combiners";
-import { StepAppliers } from "./appliers";
+import { Combiners } from "./combiners";
+import { Appliers } from "./appliers";
 import { handleResult } from "./forward/Result";
 
 const staticModule = {
   Steps,
   StepsGen,
-  Combiners: StepCombiners,
-  Appliers: StepAppliers,
-  generate: generateVoiceLeading,
+  Combiners,
+  Appliers,
+  generate,
   handleResult,
-  SingleStep,
-  CompositeStep,
 };
 
 export type {
@@ -32,6 +29,8 @@ export type * from "./combiners";
 export type * from "./appliers";
 
 export {
+  SingleStep,
+  CompositeStep,
   StepReason,
   StepCombinerFilter,
   StepCombinerTransform,

@@ -1,23 +1,19 @@
 import { combineStepGroups } from "./combine-groups";
-import { effectiveStepsFilter } from "./filters";
-import { createFillZerosTransform } from "./transforms";
+import { processors } from "./processors";
 
 const staticModule = {
   combineStepGroups,
-  processors: {
-    effectiveStepsFilter,
-    createFillZerosTransform,
-  },
+  processors,
 };
 
 export {
-  staticModule as StepCombiners,
+  staticModule as Combiners,
 };
 
 export type {
   StepCombinerFilter,
-} from "./filters";
+} from "./processors/filters";
 
 export type {
   StepCombinerTransform,
-} from "./transforms";
+} from "./processors/transforms";

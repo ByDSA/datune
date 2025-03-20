@@ -3,7 +3,7 @@ import type { Step } from "../Step";
 import { Interval, Spns as N } from "@datune/core";
 import { NonEmptyArray } from "datils/datatypes";
 import { deepFreeze } from "datils/datatypes/objects";
-import { from } from "../single/building";
+import { singleStepFrom } from "../single/building";
 import { Target } from "../Target";
 import { compositeStepToSingleSteps } from "./cacheMaps";
 
@@ -28,7 +28,7 @@ export class CompositeStep implements Step {
         if (interval === undefined)
           continue;
 
-        ret.push(from(index, interval));
+        ret.push(singleStepFrom(index, interval));
       }
 
       compositeStepToSingleSteps.set(this, ret);

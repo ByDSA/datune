@@ -1,11 +1,11 @@
 import type { Step, StepArray } from "voice-leading/steps/Step";
 import type { StepsGenerator } from "../StepsGenerator";
-import type { StepFilter } from "../filters";
+import type { StepFilter } from "../processors/filters";
 import { IntervalArray, Voicing, SpnArray, Voicings as V, VoicingArray } from "@datune/core";
 import { betweenSpn } from "@datune/core/intervals/symbolic/chromatic/building";
 import { SingleStepArray } from "voice-leading/steps";
 import { compactCombinationsUnsafe } from "../compact-combinations";
-import { reIndex } from "../../steps/single/modifiers";
+import { singleStepReIndex } from "../../steps/single/modifiers";
 import { findInnerVoicings, InnerVoicingResult } from "../../../voicings/findInnerVoicings";
 import { DEFAULT_AUGMENTED_RESOLUTION, DEFAULT_M2_RESOLUTION, DEFAULT_MINOR7_RESOLUTION, DEFAULT_TRITONE_RESOLUTION, ResolutionSteps } from "./constants";
 
@@ -20,7 +20,7 @@ type Meta = {
     innerVoicing: InnerVoicingResult;
   }[];
 };
-export const generate: StepsGenerator<VoicingResolutionGeneratorProps, Meta> = (props) => {
+export const toVoicingResolution: StepsGenerator<VoicingResolutionGeneratorProps, Meta> = (props) => {
   const obj = new IntervalStepsGen(props);
 
   return obj.generateGroups();
@@ -63,7 +63,7 @@ class IntervalStepsGen {
     // Mapear de índice de voicing tensión-resolución a índice de voicing original
     resolutionSteps = resolutionSteps
       .map(c=> (c.map((s)=> {
-        return reIndex(s, indexMapping[s.index]);
+        return singleStepReIndex(s, indexMapping[s.index]);
       } ))) as ResolutionSteps;
 
     return resolutionSteps;
@@ -78,11 +78,11 @@ class IntervalStepsGen {
     return true;
   }
 
-  generateGroups(): ReturnType<typeof generate> {
-    const meta: ReturnType<typeof generate>["meta"] = {
+  generateGroups(): ReturnType<typeof toVoicingResolution> {
+    const meta: ReturnType<typeof toVoicingResolution>["meta"] = {
       results: [],
     };
-    const groups: ReturnType<typeof generate>["groups"] = [];
+    const groups: ReturnType<typeof toVoicingResolution>["groups"] = [];
     const innerVoicings = findInnerVoicings(this.#voicing, this.#tensionVoicings);
 
     for (const innerVoicing of innerVoicings) {
@@ -113,7 +113,7 @@ class IntervalStepsGen {
         continue;
 
       groups.push(resolutionTensionVoicingAtomicSteps);
-      const result: ReturnType<typeof generate>["meta"]["results"][0] = {
+      const result: ReturnType<typeof toVoicingResolution>["meta"]["results"][0] = {
         innerVoicing,
         steps: resolutionTensionVoicingAtomicSteps,
       };

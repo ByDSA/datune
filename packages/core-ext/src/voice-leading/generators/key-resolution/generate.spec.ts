@@ -4,10 +4,10 @@ import { type SpnArray, Spns as N } from "@datune/core/spns/chromatic";
 import { Intervals as I } from "@datune/core";
 import { TestInit } from "tests";
 import { expectSteps } from "voice-leading/steps/tests/steps";
-import { X1_1, X2_2, X2_S2 } from "voice-leading/steps/single/constants";
+import { SS_1_1, SS_2_2, SS_2_S2 } from "voice-leading/steps/single/constants";
 import { VoiceLeadings as VL } from "voice-leading";
-import { from as singleStepFrom } from "../../steps/single/building";
-import { generate } from "./generate";
+import { singleStepFrom } from "../../steps/single/building";
+import { toKeyResolution } from "./generate";
 
 TestInit.loadAll();
 
@@ -19,7 +19,7 @@ it("base=[B4] in Key=C (root=3)", () => {
   const key = K.C;
   const root3 = rootChord3(key);
   const restingNotes = root3?.pitches as PitchArray;
-  const actual = generate( {
+  const actual = toKeyResolution( {
     base: spns,
     restingPitches: restingNotes,
   } ).groups;
@@ -37,7 +37,7 @@ it("base=[B4, F5] in Key=C (root=3), maxInterval=1", () => {
   const key = K.C;
   const root3 = rootChord3(key);
   const restingNotes = root3?.pitches as PitchArray;
-  const actual = generate( {
+  const actual = toKeyResolution( {
     maxInterval: I.m2,
     base: spns,
     restingPitches: restingNotes,
@@ -60,7 +60,7 @@ it("base=[B4, F5] in Key=C (root=3), maxInterval=2 (default)", () => {
   const key = K.C;
   const root3 = rootChord3(key);
   const restingNotes = root3?.pitches as PitchArray;
-  const actual = generate( {
+  const actual = toKeyResolution( {
     base: spns,
     restingPitches: restingNotes,
   } ).groups;
@@ -83,7 +83,7 @@ it("base=[B4, D5, F5] in Key=C (root=3), maxInterval=1", () => {
   const key = K.C;
   const root3 = rootChord3(key);
   const restingNotes = root3?.pitches as PitchArray;
-  const actual = generate( {
+  const actual = toKeyResolution( {
     maxInterval: I.m2,
     base: spns,
     restingPitches: restingNotes,
@@ -104,7 +104,7 @@ it("base=[B4, D5, F5] in Key=C (root=3), maxInterval=1", () => {
 it("base=[D5] in Key=C (root=3)", () => {
   const notes: SpnArray = [D5];
   const restingNotes = <PitchArray>rootChord3(K.C)?.pitches;
-  const actual = generate( {
+  const actual = toKeyResolution( {
     base: notes,
     restingPitches: restingNotes,
   } ).groups;
@@ -121,7 +121,7 @@ it("base=[D5] in Key=C (root=3)", () => {
 it("base=[C5] in Key=C (root=3)", () => {
   const notes: SpnArray = [C5];
   const restingPitches = rootChord3(K.C)?.pitches as PitchArray;
-  const actual = generate( {
+  const actual = toKeyResolution( {
     base: notes,
     restingPitches,
   } ).groups;
@@ -132,7 +132,7 @@ it("base=[C5] in Key=C (root=3)", () => {
 it("base=[C5] in Key=C (root=4)", () => {
   const notes: SpnArray = [C5];
   const restingPitches = rootChord4(K.C)?.pitches as PitchArray;
-  const actual = generate( {
+  const actual = toKeyResolution( {
     base: notes,
     restingPitches,
   } ).groups;
@@ -148,7 +148,7 @@ it("base=[C5] in Key=C (root=4)", () => {
 it("base=[D5] in Key=C (root=4, maxInterval=3)", () => {
   const base: SpnArray = [D5];
   const restingPitches = rootChord4(K.C)?.pitches as PitchArray;
-  const actual = generate( {
+  const actual = toKeyResolution( {
     base,
     maxInterval: 3,
     restingPitches,
@@ -167,14 +167,14 @@ it("base=[D5] in Key=C (root=4, maxInterval=3)", () => {
 it("base=[G4, B4, D5, F4] (G7) in Key=C (root=3, maxInterval=2)", () => {
   const base: SpnArray = [N.G4, N.B4, N.D5, N.F4];
   const restingPitches = rootChord3(K.C)?.pitches as PitchArray;
-  const actual = generate( {
+  const actual = toKeyResolution( {
     base,
     restingPitches,
   } ).groups;
   const expected = [
-    X1_1,
-    X2_S2,
-    X2_2,
+    SS_1_1,
+    SS_2_S2,
+    SS_2_2,
     VL.Steps.singleStepFrom(3, -1),
     VL.Steps.singleStepFrom(3, 2),
   ];

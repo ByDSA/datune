@@ -1,20 +1,20 @@
 import type { StepGroup } from "voice-leading/generators/StepsGenerator";
-import { fromIntervals as compositeStepFromIntervals } from "../steps/composite/building";
-import * as SingleSteps from "../steps/single/constants";
+import { compositeStepFromIntervals } from "../steps/composite/building";
+import * as SS from "../steps/single/constants";
 import { combineStepGroups } from "./combine-groups";
 import { expectCombinations } from "./tests/combination";
 
 it("expectCombinations should ignore sorting in combinations", () => {
   const groups: StepGroup[] = [
-    [SingleSteps.X0_1, SingleSteps.X0_S1],
-    [SingleSteps.X1_1, SingleSteps.X1_S1],
+    [SS.SS_0_1, SS.SS_0_S1],
+    [SS.SS_1_1, SS.SS_1_S1],
   ];
   const actual = combineStepGroups(groups).combinations;
   const unsortedExpected = [
-    [SingleSteps.X0_1, SingleSteps.X1_1],
-    [SingleSteps.X0_1, SingleSteps.X1_S1],
-    [SingleSteps.X0_S1, SingleSteps.X1_S1],
-    [SingleSteps.X1_1, SingleSteps.X0_S1],
+    [SS.SS_0_1, SS.SS_1_1],
+    [SS.SS_0_1, SS.SS_1_S1],
+    [SS.SS_0_S1, SS.SS_1_S1],
+    [SS.SS_1_1, SS.SS_0_S1],
   ];
 
   expectCombinations(actual, unsortedExpected);
@@ -22,15 +22,15 @@ it("expectCombinations should ignore sorting in combinations", () => {
 
 it("single steps, two groups", () => {
   const groups: StepGroup[] = [
-    [SingleSteps.X0_1, SingleSteps.X0_S1],
-    [SingleSteps.X1_1, SingleSteps.X1_S1],
+    [SS.SS_0_1, SS.SS_0_S1],
+    [SS.SS_1_1, SS.SS_1_S1],
   ];
   const actual = combineStepGroups(groups).combinations;
   const expected = [
-    [SingleSteps.X0_1, SingleSteps.X1_1],
-    [SingleSteps.X0_1, SingleSteps.X1_S1],
-    [SingleSteps.X0_S1, SingleSteps.X1_S1],
-    [SingleSteps.X0_S1, SingleSteps.X1_1],
+    [SS.SS_0_1, SS.SS_1_1],
+    [SS.SS_0_1, SS.SS_1_S1],
+    [SS.SS_0_S1, SS.SS_1_S1],
+    [SS.SS_0_S1, SS.SS_1_1],
   ];
 
   expectCombinations(actual, expected);
@@ -38,15 +38,15 @@ it("single steps, two groups", () => {
 
 it("single steps and null", () => {
   const groups: StepGroup[] = [
-    [SingleSteps.X0_1, null],
-    [SingleSteps.X1_1, SingleSteps.X1_S1],
+    [SS.SS_0_1, null],
+    [SS.SS_1_1, SS.SS_1_S1],
   ];
   const actual = combineStepGroups(groups).combinations;
   const expected = [
-    [SingleSteps.X0_1, SingleSteps.X1_1],
-    [SingleSteps.X0_1, SingleSteps.X1_S1],
-    [SingleSteps.X1_S1],
-    [SingleSteps.X1_1],
+    [SS.SS_0_1, SS.SS_1_1],
+    [SS.SS_0_1, SS.SS_1_S1],
+    [SS.SS_1_S1],
+    [SS.SS_1_1],
   ];
 
   expectCombinations(actual, expected);
@@ -54,12 +54,12 @@ it("single steps and null", () => {
 
 it("null is not the same as not put", () => {
   const groupsWithNull: StepGroup[] = [
-    [SingleSteps.X0_1, null],
-    [SingleSteps.X1_1, SingleSteps.X1_S1],
+    [SS.SS_0_1, null],
+    [SS.SS_1_1, SS.SS_1_S1],
   ];
   const groupsWithoutNull: StepGroup[] = [
-    [SingleSteps.X0_1],
-    [SingleSteps.X1_1, SingleSteps.X1_S1],
+    [SS.SS_0_1],
+    [SS.SS_1_1, SS.SS_1_S1],
   ];
   const actualWithNull = combineStepGroups(groupsWithNull).combinations;
   const actualWithoutNull = combineStepGroups(groupsWithoutNull).combinations;
@@ -69,19 +69,19 @@ it("null is not the same as not put", () => {
 
 it("single step and composite step without", () => {
   const groups: StepGroup[] = [
-    [SingleSteps.X2_1, SingleSteps.X2_S1],
+    [SS.SS_2_1, SS.SS_2_S1],
     [compositeStepFromIntervals(1, 1)],
   ];
   const actual = combineStepGroups(groups).combinations;
   const expected = [[
-    SingleSteps.X2_1,
-    SingleSteps.X0_1,
-    SingleSteps.X1_1,
+    SS.SS_2_1,
+    SS.SS_0_1,
+    SS.SS_1_1,
   ],
   [
-    SingleSteps.X2_S1,
-    SingleSteps.X0_1,
-    SingleSteps.X1_1,
+    SS.SS_2_S1,
+    SS.SS_0_1,
+    SS.SS_1_1,
   ]];
 
   expectCombinations(actual, expected);
@@ -89,13 +89,13 @@ it("single step and composite step without", () => {
 
 it("single step and composite step with overlapping", () => {
   const groups: StepGroup[] = [
-    [SingleSteps.X0_1, null],
+    [SS.SS_0_1, null],
     [compositeStepFromIntervals(1, 1)],
   ];
   const actual = combineStepGroups(groups).combinations;
   const expected = [[
-    SingleSteps.X0_1,
-    SingleSteps.X1_1,
+    SS.SS_0_1,
+    SS.SS_1_1,
   ]];
 
   expectCombinations(actual, expected);

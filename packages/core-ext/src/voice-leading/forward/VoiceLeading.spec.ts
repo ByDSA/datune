@@ -6,9 +6,9 @@ import { SpnArray, Spns as N } from "@datune/core/spns/chromatic";
 import { VoicingArray, Voicings as V } from "@datune/core/voicings/chromatic";
 import { getAllInversions } from "@datune/core/voicings/relative/chromatic/utils";
 import { TestInit } from "tests";
-import { createHasSomeVoicingFilter } from "voice-leading/appliers/filters";
+import { createHasSomeVoicingFilter } from "voice-leading/appliers/processors/filters";
 import { VoiceLeadings as VL } from "voice-leading";
-import { generateVoiceLeading } from "./VoiceLeading";
+import { generate } from "./VoiceLeading";
 import { expectTargets, removeDuplicatedSpnArrays } from "./tests/targets";
 
 TestInit.loadAll();
@@ -21,7 +21,7 @@ const COMMON_TRIADS_ARRAY = [...COMMON_TRIADS] as VoicingArray;
 
 it("voice leading C (default=near)", () => {
   const base: SpnArray = [C5, E5, G5];
-  const result = generateVoiceLeading(base);
+  const result = generate(base);
 
   expect(result.meta.combinerResult.combinations).toHaveLength((5 * 5 * 5) - 1);
   expect(result.targets).toHaveLength(104); // Quitando voice crossing y overlapping
@@ -29,7 +29,7 @@ it("voice leading C (default=near)", () => {
 
 it("voice leading C (near + voice filters off)", () => {
   const base: SpnArray = [C5, E5, G5];
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     combinationApplierConfig: {
       voiceCrossing: true,
       voiceOverlapping: true,
@@ -43,7 +43,7 @@ it("voice leading C (near + voice filters off)", () => {
 
 it("voice leading C (near off) should be empty", () => {
   const base: SpnArray = [C5, E5, G5];
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     multipleGenConfig: {
       near: {
         enabled: false,
@@ -61,7 +61,7 @@ it("c near Key.C", () => {
     ...getAllInversions(TRIAD_MINOR),
     TRIAD_DIMINISHED,
   ] as VoicingArray;
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     multipleGenConfig: {
       filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
     },
@@ -86,7 +86,7 @@ it("c near Key.C", () => {
 
 it("csus4 resolution no key", () => {
   const base: SpnArray = [C5, F5, G5];
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     multipleGenConfig: {
       voicingResolution: {
         required: true,
@@ -116,7 +116,7 @@ it("csus4 resolution no key", () => {
 
 it("csus4 resolution in C", () => {
   const base: SpnArray = [C5, F5, G5];
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     multipleGenConfig: {
       filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       voicingResolution: {
@@ -145,7 +145,7 @@ it("bº resolution", () => {
     ...getAllInversions(TRIAD_MAJOR),
     ...getAllInversions(TRIAD_MINOR),
   ];
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     multipleGenConfig: {
       maxInterval: 3,
       voicingResolution: {
@@ -176,7 +176,7 @@ it("bº resolution", () => {
 
 it("c+ resolution", () => {
   const base: SpnArray = [C5, E5, GG5];
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     multipleGenConfig: {
       voicingResolution: {
         required: true,
@@ -220,7 +220,7 @@ it("c+ resolution", () => {
 
 it("bº resolution in Key C", () => {
   const base: SpnArray = [B4, D5, F5];
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     multipleGenConfig: {
       filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       voicingResolution: {
@@ -248,7 +248,7 @@ it("dm resolution in Key C (resting=root3) common triads", () => {
   const base: SpnArray = [D5, F5, A5];
   const rootChord = rootChord3(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     multipleGenConfig: {
       filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       keyResolution: {
@@ -282,7 +282,7 @@ it("d5 note resolution in Key C (resting=root3)", () => {
   const base: SpnArray = [D5];
   const rootChord = rootChord3(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     multipleGenConfig: {
       filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       keyResolution: {
@@ -303,7 +303,7 @@ it("c5 note resolution in Key C (resting=root4)", () => {
   const base: SpnArray = [C5];
   const rootChord = rootChord4(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     multipleGenConfig: {
       filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       keyResolution: {
@@ -323,7 +323,7 @@ it("d5 note resolution in Key C (resting=root4, maxInterval=3)", () => {
   const base: SpnArray = [D5];
   const rootChord = rootChord4(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     multipleGenConfig: {
       filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       maxInterval: 3,
@@ -346,7 +346,7 @@ it("dm resolution in Key C (resting=root3) triads major minor", () => {
   const base: SpnArray = [D5, F5, A5];
   const rootChord = rootChord3(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     multipleGenConfig: {
       filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       keyResolution: {
@@ -375,7 +375,7 @@ it("dm resolution in Key C (resting=root4)", () => {
   const base: SpnArray = [D5, F5, A5];
   const rootChord = rootChord4(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     multipleGenConfig: {
       filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
       keyResolution: {
@@ -413,7 +413,7 @@ it("dm7 resolution in Key C (resting=root4 required, near=true)", () => {
     ...getAllInversions(SEVENTH_MAJ7_b5),
     ...getAllInversions(SEVENTH_MINOR_a5),
   ];
-  const result = generateVoiceLeading(base, {
+  const result = generate(base, {
     multipleGenConfig: {
       filters: [
         VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray),

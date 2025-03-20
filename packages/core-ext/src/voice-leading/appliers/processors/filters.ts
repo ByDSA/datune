@@ -2,7 +2,7 @@ import type { Target } from "voice-leading/steps/Target";
 import { PitchArray, SpnArray, VoicingArray } from "@datune/core";
 import { fromPitches } from "@datune/core/voicings/relative/chromatic/building/pitches";
 import { findInnerVoicings } from "voicings/findInnerVoicings";
-import { voicingFromSpnArray } from "../generators/voicing-resolution/generate";
+import { voicingFromSpnArray } from "../../generators/voicing-resolution/generate";
 
 type CombinationApplierFilterProps = {
   base: SpnArray;

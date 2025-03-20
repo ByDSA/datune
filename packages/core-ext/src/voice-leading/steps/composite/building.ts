@@ -12,16 +12,16 @@ export function fromSingleStepsSafe(...singleSteps: SingleStepArray): CompositeS
   if (array === null)
     return null;
 
-  return fromIntervals(...array);
+  return compositeStepFromIntervals(...array);
 }
 
-export function fromSingleSteps(...singleSteps: SingleStepArray): CompositeStep {
+export function compositeStepFromSingleSteps(...singleSteps: SingleStepArray): CompositeStep {
   const array = singleStepsToArrayWithOverwrite(singleSteps);
 
-  return fromIntervals(...array);
+  return compositeStepFromIntervals(...array);
 }
 
-export function fromIntervals(...intervals: CompositeStepArray): CompositeStep {
+export function compositeStepFromIntervals(...intervals: CompositeStepArray): CompositeStep {
   return cache.getOrCreate(intervals);
 }
 

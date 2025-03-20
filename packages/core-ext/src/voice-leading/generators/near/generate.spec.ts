@@ -1,13 +1,13 @@
 import { Spns as N } from "@datune/core/spns/chromatic";
 import { TestInit } from "tests";
-import { generate } from "./generate";
+import { toNear } from "./generate";
 
 TestInit.loadAll();
 const { C5, E5, G5 } = N;
 
 it("near motion C5-E5-G5 in C", () => {
   const fromNotes = [C5, E5, G5];
-  const { groups } = generate( {
+  const { groups } = toNear( {
     arrayLength: fromNotes.length,
     maxInterval: 2,
   } );

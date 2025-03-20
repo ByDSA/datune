@@ -1,11 +1,11 @@
 import type { StepGroup, StepsGenerator } from "../StepsGenerator";
 import type { StepOrNull } from "voice-leading/steps/Step";
 import type { SingleStep } from "voice-leading/steps";
-import type { StepFilter } from "../filters";
+import type { StepFilter } from "../processors/filters";
 import { PitchArray } from "@datune/core/pitches/chromatic";
 import { SpnArray } from "@datune/core/spns/chromatic";
 import { add as spnAdd } from "@datune/core/spns/symbolic/chromatic/modifiers";
-import { from as singleStepFrom } from "../../steps/single/building";
+import { singleStepFrom } from "../../steps/single/building";
 
 export type KeyResolutionGeneratorProps = {
   base: SpnArray;
@@ -15,7 +15,7 @@ export type KeyResolutionGeneratorProps = {
   filters?: StepFilter[];
 };
 
-export const generate: StepsGenerator<KeyResolutionGeneratorProps> = (props) => {
+export const toKeyResolution: StepsGenerator<KeyResolutionGeneratorProps> = (props) => {
   return {
     groups: new RestingNotesStepsGen(props).generateGroups(),
   };

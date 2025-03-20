@@ -1,6 +1,6 @@
 import { SingleStep } from "voice-leading/steps";
 import { Combination } from "../types";
-import { sortByIndex } from "../../steps/single/Array";
+import { singleStepsSortByIndex } from "../../steps/single/Array";
 
 export function ensureIsCombination(a: unknown): a is Combination {
   if (!Array.isArray(a) || a.length === 0)
@@ -33,8 +33,8 @@ export function expectCombinations(
 ) {
   ensureIsCombination(actual);
   ensureIsCombination(expected);
-  const actual2 = actual.map(c=>c.sort(sortByIndex));
-  const expected2 = expected.map(c=>c.sort(sortByIndex));
+  const actual2 = actual.map(c=>c.sort(singleStepsSortByIndex));
+  const expected2 = expected.map(c=>c.sort(singleStepsSortByIndex));
 
   try {
     expect(actual2.sort()).toEqual(expected2.sort());

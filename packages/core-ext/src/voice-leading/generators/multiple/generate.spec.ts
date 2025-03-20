@@ -2,14 +2,14 @@ import { SpnArray, Spns as N } from "@datune/core/spns/chromatic";
 import { rootChord3 } from "@datune/core/keys/chromatic/modifiers";
 import { Keys as K } from "@datune/core";
 import { TestInit } from "tests";
-import { createFillZerosTransform } from "voice-leading/combiners/transforms";
+import { createFillZerosTransform } from "voice-leading/combiners/processors/transforms";
 import { expectCombinations } from "voice-leading/combiners/tests/combination";
 import { StepReason, VoiceLeadings as VL } from "voice-leading";
 import { combineStepGroups } from "../../combiners/combine-groups";
-import { fromIntervals as compositeStepFromIntervals } from "../../steps/composite/building";
-import { from as singleStepFrom } from "../../steps/single/building";
+import { compositeStepFromIntervals } from "../../steps/composite/building";
+import { singleStepFrom } from "../../steps/single/building";
 import { SingleStep } from "../../steps/single/SingleStep";
-import { generateMultiple } from "./generate";
+import { multiple } from "./generate";
 
 TestInit.loadAll();
 
@@ -17,7 +17,7 @@ const { B3, B4, C4, D3, D4, F4, G3, G4, GG4 } = N;
 
 it("combinations - SUS in notes: C4, F4, G4", () => {
   const base: SpnArray = [C4, F4, G4];
-  const result = generateMultiple(base, {
+  const result = multiple(base, {
     near: {
       enabled: false,
     },
@@ -35,7 +35,7 @@ it("combinations - SUS in notes: C4, F4, G4", () => {
 
 it("combinations - near (1): C4, G4", () => {
   const base: SpnArray = [C4, G4];
-  const result = generateMultiple(base, {
+  const result = multiple(base, {
     maxInterval: 1,
   } );
   const actual = combineStepGroups(result.groups).combinations;
@@ -55,7 +55,7 @@ it("combinations - near (1): C4, G4", () => {
 
 it("dIM in notes: D3, F4, B4", () => {
   const notes: SpnArray = [D3, F4, B4];
-  const result = generateMultiple(notes, {
+  const result = multiple(notes, {
     near: {
       enabled: false,
     },
@@ -82,7 +82,7 @@ it("dIM in notes: D3, F4, B4", () => {
 
 it("dIM in notes: G3, B3, D4, F4", () => {
   const spnArray: SpnArray = [G3, B3, D4, F4];
-  const result = generateMultiple(spnArray, {
+  const result = multiple(spnArray, {
     near: {
       enabled: false,
     },
@@ -114,7 +114,7 @@ it("dIM in notes: G3, B3, D4, F4", () => {
 
 it("dIM in notes fill zeros last index: B3, F4, GG4", () => {
   const spnArray: SpnArray = [B3, F4, GG4];
-  const result = generateMultiple(spnArray, {
+  const result = multiple(spnArray, {
     near: {
       enabled: false,
     },
@@ -142,7 +142,7 @@ it("dIM in notes fill zeros last index: B3, F4, GG4", () => {
 
 it("disableResolutions - DIM in notes: G3, B3, D4, F4", () => {
   const notes: SpnArray = [G3, B3, D4, F4];
-  const result = generateMultiple(notes, {
+  const result = multiple(notes, {
     near: {
       enabled: false,
     },
@@ -158,7 +158,7 @@ it("disableResolutions - DIM in notes: G3, B3, D4, F4", () => {
 
 it("notes=[F4] C Major Key Resolution", () => {
   const notes: SpnArray = [F4];
-  const result = generateMultiple(notes, {
+  const result = multiple(notes, {
     maxInterval: 1,
     near: {
       enabled: false,
@@ -175,7 +175,7 @@ it("notes=[F4] C Major Key Resolution", () => {
 
   expect(resultGroups).toHaveLength(1);
   expect(resultGroups[0]).toHaveLength(1);
-  expect(resultGroups[0][0]).toBe(VL.Steps.X0_S1); // [0] => -1
+  expect(resultGroups[0][0]).toBe(VL.Steps.SS_0_S1); // [0] => -1
 
   const reasons = result.meta.reasonsMap.get(resultGroups[0][0] as SingleStep)!;
 

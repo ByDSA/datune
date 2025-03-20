@@ -1,12 +1,12 @@
 import type { SpnArray } from "@datune/core/spns/chromatic";
 import type { StepGroup } from "../generators/StepsGenerator";
-import { voiceCrossingFilter, voiceOverlappingFilter } from "../appliers/voices-interaction-filters";
+import { voiceCrossingFilter, voiceOverlappingFilter } from "../appliers/processors/voices-interaction-filters";
 import { Combination } from "../combiners/types";
-import { CombinationApplierFilter } from "../appliers/filters";
-import { generateMultiple, MultipleGenProps } from "../generators/multiple/generate";
+import { CombinationApplierFilter } from "../appliers/processors/filters";
+import { multiple, MultipleGenProps } from "../generators/multiple/generate";
 import { applyCombinations, CombinationApplierProps } from "../appliers/combination-appliers";
 import { combineStepGroups, StepCombinerProps } from "../combiners/combine-groups";
-import { effectiveStepsFilter } from "../combiners/filters";
+import { effectiveStepsFilter } from "../combiners/processors/filters";
 import { VoiceLeadingResult } from "./Result";
 
 type CombinationApplierConfig = CombinationApplierProps & {
@@ -20,7 +20,7 @@ type Props = {
   multipleGenConfig?: MultipleGenConfig;
   combinationApplierConfig?: CombinationApplierConfig;
 };
-export function generateVoiceLeading(initialSpnArray: SpnArray, props?: Props) {
+export function generate(initialSpnArray: SpnArray, props?: Props) {
   return new VoiceLeading(initialSpnArray, props).generate();
 }
 class VoiceLeading {
@@ -43,7 +43,7 @@ class VoiceLeading {
   }
 
   generate(): VoiceLeadingResult {
-    const multipleGenResult = generateMultiple(this.#base, this.#multipleGenConfig);
+    const multipleGenResult = multiple(this.#base, this.#multipleGenConfig);
     const combinerResult = this.#combineGroups(multipleGenResult.groups);
     const applyCombinationsResult = this.#applyCombinations(combinerResult.combinations);
     const { targets, ...applyCombinationsResultRest } = applyCombinationsResult;

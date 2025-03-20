@@ -1,14 +1,14 @@
 import type { StepGroup } from "../StepsGenerator";
 import type { StepOrNull } from "../../steps/Step";
 import type { StepReasonNearInfo, StepReasonRestNotesInfo, StepReasonVoicingResolutionInfo } from "./step-reason/StepReasonInfo";
-import type { StepFilter } from "../filters";
+import type { StepFilter } from "../processors/filters";
 import { Spn, SpnArray } from "@datune/core/spns/chromatic";
 import { type CombinerResult, combineStepGroups } from "voice-leading/combiners/combine-groups";
 import { SingleStep } from "voice-leading/steps";
 import { filterNonNullSteps, type StepArray } from "../../steps/Step";
-import { generate as generateToKeyResolution, KeyResolutionGeneratorProps } from "../key-resolution/generate";
-import { generate as generateToVoicingResolution, VoicingResolutionGeneratorProps } from "../voicing-resolution/generate";
-import { generate as generateToNear, NearGeneratorProps } from "../near/generate";
+import { toKeyResolution as generateToKeyResolution, KeyResolutionGeneratorProps } from "../key-resolution/generate";
+import { toVoicingResolution as generateToVoicingResolution, VoicingResolutionGeneratorProps } from "../voicing-resolution/generate";
+import { toNear as generateToNear, NearGeneratorProps } from "../near/generate";
 import { voicingFromSpnArray } from "../voicing-resolution/generate";
 import { compactCombinationsUnsafe } from "../compact-combinations";
 import { StepReason } from "./step-reason/StepReason";
@@ -36,7 +36,7 @@ export type MultipleGenProps = {
   };
 };
 
-export const generateMultiple = (base: SpnArray, props?: MultipleGenProps) => {
+export const multiple = (base: SpnArray, props?: MultipleGenProps) => {
   ensureSpnArrayIsDefinedAndSorted(base);
 
   return new MultipleGen(base, props).generate();

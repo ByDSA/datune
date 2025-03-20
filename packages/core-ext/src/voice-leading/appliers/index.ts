@@ -1,23 +1,17 @@
 import { applyCombination, applyCombinations, applyCombinationsWithMeta } from "./combination-appliers";
-import { createDisallowInnerVoicingsFilter, createHasSomeVoicingFilter } from "./filters";
-import { voiceCrossingFilter, voiceOverlappingFilter } from "./voices-interaction-filters";
+import { processors } from "./processors";
 
 const staticModule = {
   applyCombination,
   applyCombinations,
   applyCombinationsWithMeta,
-  processors: {
-    createHasSomeVoicingFilter,
-    createDisallowInnerVoicingsFilter,
-    voiceCrossingFilter,
-    voiceOverlappingFilter,
-  },
+  processors,
 };
 
 export type {
   CombinationApplierFilter,
-} from "./filters";
+} from "./processors/filters";
 
 export {
-  staticModule as StepAppliers,
+  staticModule as Appliers,
 };

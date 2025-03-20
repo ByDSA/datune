@@ -3,7 +3,7 @@ import { SingleStep } from "./SingleStep";
 
 export type SingleStepArray = NonEmptyArray<SingleStep>;
 
-export function sortByIndex(a: SingleStep | null, b: SingleStep | null) {
+export function singleStepsSortByIndex(a: SingleStep | null, b: SingleStep | null) {
   if (a === null)
     return -1;
 

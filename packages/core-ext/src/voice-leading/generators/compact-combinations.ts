@@ -1,6 +1,6 @@
 import type { SingleStepArray } from "../steps/single/Array";
 import type { Step } from "../steps/Step";
-import { fromSingleSteps as compositeStepFromSingleSteps } from "../steps/composite/building";
+import { compositeStepFromSingleSteps } from "../steps/composite/building";
 import { Combination } from "../combiners/types";
 
 /* Unsafe: no comprueba contradicciones.
