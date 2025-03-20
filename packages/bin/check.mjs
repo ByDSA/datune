@@ -1,15 +1,13 @@
 #!/usr/bin/env zx
 
-try {
-  process.env.FORCE_COLOR = "1";
-  $.verbose = true;
+import { spinnerVerbose } from "daproj/zx/spinnerVerbose.mjs";
 
-  await spinner("Installing dependencies ...", async () => {
+try {
+  await spinnerVerbose("Installing dependencies ...", async () => {
     await $`rm -rf node_modules`;
     await $`pnpm i --ignore-workspace`;
   } );
-  await spinner("Linting ...", ()=> $`pnpm lint`);
-} catch (e) {
-  console.log(e.stderr ?? e.toString());
+  await spinnerVerbose("Linting ...", ()=> $`pnpm lint`);
+} catch {
   process.exit(1);
 }

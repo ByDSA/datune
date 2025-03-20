@@ -1,6 +1,6 @@
 import type { IntervalArray } from "intervals/alt";
 import type { Scale } from "../Scale";
-import { Arrays } from "datils";
+import { Arrays } from "datils/datatypes/arrays";
 import { calcIntraIntervals } from "./intraIntervals";
 
 export function getModeIntraIntervals(

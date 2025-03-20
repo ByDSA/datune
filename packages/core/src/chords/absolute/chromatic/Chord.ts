@@ -1,6 +1,6 @@
 import type { Pitch } from "pitches/chromatic";
 import type { Key } from "./building/cache";
-import { lockr } from "datils/datatypes/immutables";
+import { deepFreeze } from "datils/datatypes/objects";
 import { SpnArray, Spn } from "spns/chromatic";
 import { AbsoluteChord } from "../AbsoluteChord";
 
@@ -17,7 +17,7 @@ export class Chord implements AbsoluteChord<Pitch, Spn> {
     this.root = this.pitches[0];
     this.length = this.pitches.length;
 
-    lockr(this);
+    deepFreeze(this);
   }
 
   has(note: Spn): boolean {

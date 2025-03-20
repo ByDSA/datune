@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 import type { Key } from "./caching/cache";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { IntervalArray, Interval } from "intervals/symbolic/chromatic";
 import { Voicing as IVoicing } from "../Voicing";
 import { Voicings as V } from ".";
@@ -13,7 +13,7 @@ export class Voicing implements IVoicing<Interval> {
   private constructor(key: Key) {
     this.rootIntervals = key;
     this.length = this.rootIntervals.length;
-    lockr(this);
+    deepFreeze(this);
   }
 
   [Symbol.iterator](): Iterator<Interval> {

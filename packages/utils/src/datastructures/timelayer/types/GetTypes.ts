@@ -1,4 +1,4 @@
-import { Interval } from "datils/math";
+import { Interval } from "datils/math/intervals";
 import { Time } from "time";
 
 export type GetNodesAtIntervalType = {

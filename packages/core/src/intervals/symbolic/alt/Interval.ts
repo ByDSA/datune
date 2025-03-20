@@ -1,7 +1,7 @@
 import type { Interval as DInterval } from "../diatonic";
 import type { Quality } from "./quality/Quality";
 import type { Key } from "./caching/cache";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { Intervals as CI } from "intervals/chromatic";
 import { Degrees as D } from "degrees/alt";
 
@@ -13,7 +13,7 @@ export class Interval {
   private constructor(key: Key) {
     this.diatonicInterval = key.diatonicInterval;
     this.quality = key.quality;
-    lockr(this);
+    deepFreeze(this);
   }
 
   toString() {

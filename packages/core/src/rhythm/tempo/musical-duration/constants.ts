@@ -1,5 +1,5 @@
 import type { MusicalDuration } from "./MusicalDuration";
-import { lock } from "datils/datatypes";
+import { freeze } from "datils/datatypes/objects";
 import { from } from "./building/from";
 
 export function initialize() {
@@ -21,18 +21,18 @@ export function initialize() {
 
   ZERO = from(0);
 
-  lock(MAXIMA);
-  lock(LONGA);
-  lock(DOUBLE);
-  lock(WHOLE);
-  lock(HALF);
-  lock(QUARTER);
-  lock(EIGHTH);
-  lock(SIXTEENTH);
-  lock(THIRTYSECOND);
-  lock(SIXTYFOURTH);
-  lock(MIN);
-  lock(ZERO);
+  freeze(MAXIMA);
+  freeze(LONGA);
+  freeze(DOUBLE);
+  freeze(WHOLE);
+  freeze(HALF);
+  freeze(QUARTER);
+  freeze(EIGHTH);
+  freeze(SIXTEENTH);
+  freeze(THIRTYSECOND);
+  freeze(SIXTYFOURTH);
+  freeze(MIN);
+  freeze(ZERO);
 }
 
 export let MIN: MusicalDuration;

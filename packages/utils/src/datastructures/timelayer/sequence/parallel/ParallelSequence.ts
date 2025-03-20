@@ -1,8 +1,8 @@
 /* eslint-disable accessor-pairs */
 import TreeMap from "ts-treemap";
-import { contains } from "datils/math/interval";
-import { intervalContains, intervalIntersects, intervalOf } from "datils/math";
-import { Interval } from "datils/math";
+import { contains } from "datils/math/intervals";
+import { contains as intervalContains, intersects as intervalIntersects, of as intervalOf } from "datils/math/intervals";
+import { Interval } from "datils/math/intervals";
 import { Time } from "time/Time";
 import { add, divCell, mult, sub } from "time";
 import { Constructor as TemporalNodeConstructorType, from as temporalNode, isTemporalNodeConstructorType, TemporalNode } from "../../temporal-node";

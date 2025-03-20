@@ -1,6 +1,6 @@
 import type { PitchArray } from "../Array";
 import type { Pitch } from "../Pitch";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import * as DP from "pitches/diatonic/constants";
 import { fromDPitchAlts } from "../building/diatonicAlts";
 
@@ -65,7 +65,7 @@ export function initialize() {
       ALL.push(fromDPitchAlts(diatonic, i));
   }
 
-  lockr(ALL);
+  deepFreeze(ALL);
 }
 
 export let C: Pitch;

@@ -1,7 +1,7 @@
 import type { ArrayRhythm } from "../array";
 import type { RhythmPattern } from "../Pattern";
 import { NonEmptyArray } from "datils/datatypes";
-import { Arrays } from "datils/datatypes";
+import { Arrays } from "datils/datatypes/arrays";
 import { fromArray } from "../building";
 import { reverse } from "../modifiers";
 

@@ -4,7 +4,7 @@ import { Func } from "@datune/core/functions/chromatic";
 import { Key } from "@datune/core/keys/chromatic";
 import { from } from "@datune/core/keys/chromatic/building";
 import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
-import { intervalOf } from "datils/math";
+import { of as intervalOf } from "datils/math/intervals";
 import { CHROMATIC, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN } from "@datune/core/scales/symbolic/chromatic/constants";
 import { randomN } from "datils/math";
 import { GenSeq } from "./GenSeq";

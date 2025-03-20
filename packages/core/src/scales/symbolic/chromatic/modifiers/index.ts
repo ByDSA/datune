@@ -1,6 +1,6 @@
 import type { IntervalArray } from "intervals/chromatic";
 import type { Scale } from "../Scale";
-import { Arrays } from "datils";
+import { Arrays } from "datils/datatypes/arrays";
 import { fromIntraIntervals } from "../building";
 import { calcIntraIntervals } from "./intraIntervals";
 

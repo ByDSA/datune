@@ -3,7 +3,7 @@ import type { Key } from "./caching/cache";
 import type { PitchArray, Pitch } from "pitches/chromatic";
 import type { Interval, Voicing } from "chromatic";
 import type { Chord as AChord } from "chords/alt";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { Voicings as V } from "voicings/relative/chromatic";
 import { fromInt } from "pitches/chromatic/building/int";
 import { Chords as AC } from "chords/alt";
@@ -23,7 +23,7 @@ export class Chord implements SymbolicChord<Pitch> {
 
     this.length = this.pitches.length;
 
-    lockr(this);
+    deepFreeze(this);
   }
 
   has(pitch: Pitch): boolean {

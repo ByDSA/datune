@@ -2,7 +2,7 @@ import { TonalApproach } from "@datune/analyzer";
 import { MusicalDuration } from "@datune/core";
 import { Key } from "@datune/core/keys/chromatic";
 import { LONGA, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
-import { intervalOf } from "datils/math";
+import { of as intervalOf } from "datils/math/intervals";
 import { randomN } from "datils/math";
 import { GenSeq } from "./GenSeq";
 

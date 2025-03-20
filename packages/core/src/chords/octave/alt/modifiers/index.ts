@@ -1,7 +1,7 @@
 import type { Interval } from "intervals/alt";
 import type { PitchArray, Pitch } from "pitches/alt";
 import type { Chord } from "../Chord";
-import { Arrays } from "datils";
+import { Arrays } from "datils/datatypes/arrays";
 import { Pitches as P } from "pitches/alt";
 import { fromPitches } from "../building";
 

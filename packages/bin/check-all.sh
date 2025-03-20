@@ -18,3 +18,6 @@ check analyzer
 check midi
 check ai
 check strings
+
+cd ../examples
+pnpm test:errors

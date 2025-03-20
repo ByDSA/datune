@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import type { Interval } from "../Interval";
-import { lock } from "datils/datatypes";
+import { freeze } from "datils/datatypes/objects";
 import { from, fromCents } from "../building";
 import { initialize as commasInitialize } from "./Commas";
 import { initialize as et12Initialize } from "./ET12";
@@ -11,11 +11,11 @@ export function initialize() {
     throw new Error("Already initialized");
 
   UNISON = from(1);
-  lock(UNISON);
+  freeze(UNISON);
   OCTAVE = from(2);
-  lock(OCTAVE);
+  freeze(OCTAVE);
   CENT = fromCents(1);
-  lock(CENT);
+  freeze(CENT);
 
   commasInitialize();
   et12Initialize();

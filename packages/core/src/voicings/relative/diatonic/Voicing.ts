@@ -1,7 +1,8 @@
 import type { Voicing as IVoicing } from "../Voicing";
 import type { IntervalArray, Interval } from "intervals/diatonic";
 import type { Key } from "./building";
-import { lockr, NonEmptyNumberArray } from "datils/datatypes";
+import { NonEmptyNumberArray } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { Intervals } from "intervals/diatonic";
 
 export class Voicing implements IVoicing<Interval> {
@@ -30,7 +31,7 @@ export class Voicing implements IVoicing<Interval> {
     this.inversionNumber = (this.rootIntervalInts.length - this.rootIndex)
     % this.rootIntervalInts.length;
     this.length = this.rootIntervalInts.length;
-    lockr(this);
+    deepFreeze(this);
   }
 
   [Symbol.iterator](): Iterator<Interval> {

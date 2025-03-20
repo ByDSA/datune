@@ -1,7 +1,7 @@
 import type { Key } from "./caching/cache";
 import type { ConcertPitch } from "concert-pitches/chromatic";
 import type { Temperament } from "temperaments/chromatic";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 
 export class Tuning {
   concertPitch: ConcertPitch;
@@ -12,7 +12,7 @@ export class Tuning {
     this.concertPitch = key.concertPitch;
     this.temperament = key.temperament;
 
-    lockr(this);
+    deepFreeze(this);
   }
 
   toString(): string {

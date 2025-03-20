@@ -1,6 +1,6 @@
 import type { MusicalDuration } from "../musical-duration";
 import type { Key } from "./building";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { Tempo } from "../Tempo";
 
 export class BPM extends Tempo<MusicalDuration> {
@@ -17,7 +17,7 @@ export class BPM extends Tempo<MusicalDuration> {
     this.beat = key.beat;
     this.wholeMillisDuration = calcWholeMillisDuration(this.bpm, this.beat);
 
-    lockr(this);
+    deepFreeze(this);
   }
 
   getMillis(musicalDuration: MusicalDuration): number {

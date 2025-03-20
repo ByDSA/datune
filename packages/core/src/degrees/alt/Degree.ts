@@ -1,5 +1,5 @@
 import type { Key } from "./caching/cache";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { Intervals as I } from "intervals/alt";
 import { fromAltDegree } from "degrees/chromatic/building";
 import { Degree as DiatonicDegree } from "degrees/diatonic";
@@ -13,7 +13,7 @@ export class Degree {
     this.diatonicDegree = key.diatonicDegree;
     this.alts = key.alts;
 
-    lockr(this);
+    deepFreeze(this);
   }
 
   valueOf(): number {

@@ -1,5 +1,5 @@
 import type { ConcertPitch } from "../ConcertPitch";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { Spns as N } from "spns/chromatic";
 import { fromFrequencySpn } from "../building/frequencySpn";
 
@@ -8,11 +8,11 @@ export function initialize(): void {
     throw new Error("Already initialized");
 
   A440 = fromFrequencySpn(440, N.A4);
-  lockr(A440);
+  deepFreeze(A440);
   A432 = fromFrequencySpn(432, N.A4);
-  lockr(A432);
+  deepFreeze(A432);
   A444 = fromFrequencySpn(444, N.A4);
-  lockr(A444);
+  deepFreeze(A444);
 }
 
 export let A444: ConcertPitch;

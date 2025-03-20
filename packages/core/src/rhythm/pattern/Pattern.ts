@@ -1,6 +1,7 @@
 import type { ArrayRhythm } from "./array";
 import type { Key } from "./cache";
-import { lockr, NonEmptyNumberArray } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
+import { NonEmptyNumberArray } from "datils/datatypes";
 
 export class RhythmPattern implements Iterable<number> {
   array: ArrayRhythm;
@@ -11,7 +12,7 @@ export class RhythmPattern implements Iterable<number> {
     this.values = key;
     this.array = calcArray(key);
 
-    lockr(this);
+    deepFreeze(this);
   }
 
   [Symbol.iterator]() {

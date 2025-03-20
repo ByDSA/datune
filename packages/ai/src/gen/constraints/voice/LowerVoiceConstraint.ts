@@ -1,7 +1,7 @@
 import { MusicalDuration } from "@datune/core";
 import { MidiNote } from "@datune/midi";
 import { TemporalNode } from "@datune/utils";
-import { intervalOf } from "datils/math";
+import { of as intervalOf } from "datils/math/intervals";
 import { Spn } from "@datune/core/spns/chromatic";
 import { Voice } from "../../voice/Voice";
 import { VoiceConstraint } from "./VoiceConstraint";

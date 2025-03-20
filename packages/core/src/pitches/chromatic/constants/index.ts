@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { lock, lockr } from "datils/datatypes";
+import { deepFreeze, freeze } from "datils/datatypes/objects";
 import { Pitch } from "../Pitch";
 
 export const C: Pitch = new (Pitch as any)(0);
@@ -27,27 +27,27 @@ export const AA: Pitch = new (Pitch as any)(10);
 export const B: Pitch = new (Pitch as any)(11);
 
 export const Cb = B;
-lock(Cb);
+freeze(Cb);
 export const Db = CC;
-lock(Db);
+freeze(Db);
 export const Eb = DD;
-lock(Eb);
+freeze(Eb);
 export const Fb = E;
-lock(Fb);
+freeze(Fb);
 export const Gb = FF;
-lock(Gb);
+freeze(Gb);
 export const Ab = GG;
-lock(Ab);
+freeze(Ab);
 export const Bb = AA;
-lock(Bb);
+freeze(Bb);
 
 export const EE = F;
-lock(EE);
+freeze(EE);
 export const BB = C;
-lock(BB);
+freeze(BB);
 
 export const ALL = [C, CC, D, DD, E, F, FF, G, GG, A, AA, B];
-lockr(ALL);
+deepFreeze(ALL);
 
 export {
   NUMBER,

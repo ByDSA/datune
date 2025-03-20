@@ -1,4 +1,4 @@
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { Degree } from "./Degree";
 
 export const I = new (Degree as any)(0);
@@ -15,7 +15,7 @@ export const VI = new (Degree as any)(5);
 
 export const VII = new (Degree as any)(6);
 
-export const ALL = lockr([
+export const ALL = deepFreeze([
   I,
   II,
   III,

@@ -1,6 +1,6 @@
 import type { Scale } from "@datune/core/scales/symbolic/alt/Scale";
-import { lock } from "datils/datatypes";
 import { DOUBLE_HARMONIC, HARMONIC_MAJOR, HARMONIC_MINOR, MAJOR, MELODIC_MINOR, PENTATONIC } from "@datune/core/scales/symbolic/alt/constants";
+import { freeze } from "datils/datatypes/objects";
 import { cache } from "./cache";
 
 export let SOURCE_SCALES: Set<Scale>;
@@ -18,7 +18,7 @@ export function initialize() {
     PENTATONIC,
   ]);
 
-  lock(SOURCE_SCALES);
+  freeze(SOURCE_SCALES);
 
   for (const sourceScale of SOURCE_SCALES)
     cache.getOrProcess(sourceScale);

@@ -6,7 +6,7 @@ import { HALF, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants
 import { MusicalDuration } from "@datune/core/rhythm";
 import { TemporalNode } from "@datune/utils";
 import { randomN } from "datils/math";
-import { intervalOf } from "datils/math";
+import { of as intervalOf } from "datils/math/intervals";
 import { GenSeq } from "./GenSeq";
 import { limitTime } from "./utils";
 

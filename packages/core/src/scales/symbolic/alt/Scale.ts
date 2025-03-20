@@ -3,7 +3,7 @@ import type { Scale as IScale } from "../../Scale";
 import type { DegreeArray, Degree } from "degrees/alt";
 import type { IntervalArray as CIntervalArray } from "intervals/chromatic";
 import type { IntervalArray, Interval } from "intervals/alt";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { Degrees as D } from "degrees/alt";
 import { Voicings as V } from "voicings/alt";
 import { fromAltDegree } from "degrees/chromatic/building/fromAltDegree";
@@ -29,7 +29,7 @@ export class Scale implements IScale<Interval, Degree> {
     this.rootIntervals = voicing.rootIntervals;
     this.degrees = calcDegrees(this);
 
-    lockr(this);
+    deepFreeze(this);
   }
 
   toChromatic(): CScale {

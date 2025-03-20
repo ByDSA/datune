@@ -5,7 +5,7 @@ import { Spn } from "@datune/core/spns/chromatic";
 import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { TemporalNode } from "@datune/utils";
 import { Interval } from "datils/math";
-import { intervalOf } from "datils/math";
+import { of as intervalOf } from "datils/math/intervals";
 import { NotesSequence } from "..";
 import { ChordSequence } from "./chordsequence/ChordSequence";
 import { RhythmSequence } from "./rhythmsequence/RhythmSequence";

@@ -1,5 +1,5 @@
 /* eslint-disable accessor-pairs */
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { LangId, Language, loadFromFile } from "lang";
 
 export class TestLang {
@@ -27,7 +27,7 @@ export class TestLang {
     if (!LANG_EN)
       throw new Error("Error loading lang");
 
-    lockr(LANG_EN);
+    deepFreeze(LANG_EN);
   }
 
   static loadES() {
@@ -40,7 +40,7 @@ export class TestLang {
     if (!LANG_EN)
       throw new Error("Error loading lang");
 
-    lockr(LANG_EN);
+    deepFreeze(LANG_EN);
   }
 
   static loadAll() {

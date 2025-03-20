@@ -1,5 +1,5 @@
 import type { PitchArray } from "../Array";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { Pitch } from "../Pitch";
 
 export const NUMBER = 7;
@@ -18,4 +18,4 @@ export const A: Pitch = new (Pitch as any)(5);
 
 export const B: Pitch = new (Pitch as any)(6);
 
-export const ALL: Readonly<PitchArray> = lockr([C, D, E, F, G, A, B]) as Readonly<PitchArray>;
+export const ALL: Readonly<PitchArray> = deepFreeze([C, D, E, F, G, A, B]) as Readonly<PitchArray>;

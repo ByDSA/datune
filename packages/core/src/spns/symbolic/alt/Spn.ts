@@ -1,6 +1,6 @@
 import type { Key } from "./building/cache";
 import type { Pitch } from "pitches/alt";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { SymbolicSpn as ISpn } from "../SymbolicSpn";
 
 export class Spn implements ISpn<Pitch> {
@@ -11,7 +11,7 @@ export class Spn implements ISpn<Pitch> {
   private constructor(key: Key) {
     this.pitch = key.pitch;
     this.octave = key.octave;
-    lockr(this);
+    deepFreeze(this);
   }
 
   valueOf(): number {

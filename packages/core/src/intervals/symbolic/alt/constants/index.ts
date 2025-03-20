@@ -1,5 +1,5 @@
 import type { Interval } from "../Interval";
-import { lock } from "datils/datatypes";
+import { freeze } from "datils/datatypes/objects";
 import * as DI from "../../diatonic/constants";
 import { fromIntervalQuality } from "../building/intervalQuality";
 import { a, d, da, dd, M, m, P } from "../quality/constants";
@@ -18,228 +18,228 @@ export function initialize() {
     UNISON,
     d,
   ) as Interval;
-  lock(d1);
+  freeze(d1);
   P1 = fromIntervalQuality(
     UNISON,
     P,
   ) as Interval;
-  lock(P1);
+  freeze(P1);
 
   d2 = fromIntervalQuality(
     SECOND,
     d,
   ) as Interval;
-  lock(d2);
+  freeze(d2);
 
   m2 = fromIntervalQuality(
     SECOND,
     m,
   ) as Interval;
-  lock(m2);
+  freeze(m2);
 
   a1 = fromIntervalQuality(
     UNISON,
     a,
   ) as Interval;
-  lock(a1);
+  freeze(a1);
 
   da1 = fromIntervalQuality(
     UNISON,
     da,
   ) as Interval;
-  lock(da1);
+  freeze(da1);
 
   M2 = fromIntervalQuality(
     SECOND,
     M,
   ) as Interval;
-  lock(M2);
+  freeze(M2);
 
   d3 = fromIntervalQuality(
     THIRD,
     d,
   ) as Interval;
-  lock(d3);
+  freeze(d3);
 
   dd3 = fromIntervalQuality(
     THIRD,
     dd,
   ) as Interval;
-  lock(dd3);
+  freeze(dd3);
 
   m3 = fromIntervalQuality(
     THIRD,
     m,
   ) as Interval;
-  lock(m3);
+  freeze(m3);
 
   a2 = fromIntervalQuality(
     SECOND,
     a,
   ) as Interval;
-  lock(a2);
+  freeze(a2);
 
   da2 = fromIntervalQuality(
     SECOND,
     da,
   ) as Interval;
-  lock(da2);
+  freeze(da2);
 
   M3 = fromIntervalQuality(
     THIRD,
     M,
   ) as Interval;
-  lock(M3);
+  freeze(M3);
 
   d4 = fromIntervalQuality(
     FOURTH,
     d,
   ) as Interval;
-  lock(d4);
+  freeze(d4);
 
   dd4 = fromIntervalQuality(
     FOURTH,
     dd,
   ) as Interval;
-  lock(dd4);
+  freeze(dd4);
 
   P4 = fromIntervalQuality(
     FOURTH,
     P,
   ) as Interval;
-  lock(P4);
+  freeze(P4);
 
   a3 = fromIntervalQuality(
     THIRD,
     a,
   ) as Interval;
-  lock(a3);
+  freeze(a3);
 
   da3 = fromIntervalQuality(
     THIRD,
     da,
   ) as Interval;
-  lock(da3);
+  freeze(da3);
 
   d5 = fromIntervalQuality(
     FIFTH,
     d,
   ) as Interval;
-  lock(d5);
+  freeze(d5);
 
   dd5 = fromIntervalQuality(
     FIFTH,
     dd,
   ) as Interval;
-  lock(dd5);
+  freeze(dd5);
 
   a4 = fromIntervalQuality(
     FOURTH,
     a,
   ) as Interval;
-  lock(a4);
+  freeze(a4);
 
   da4 = fromIntervalQuality(
     FOURTH,
     da,
   ) as Interval;
-  lock(da4);
+  freeze(da4);
 
   P5 = fromIntervalQuality(
     FIFTH,
     P,
   ) as Interval;
-  lock(P5);
+  freeze(P5);
 
   d6 = fromIntervalQuality(
     SIXTH,
     d,
   ) as Interval;
-  lock(d6);
+  freeze(d6);
 
   dd6 = fromIntervalQuality(
     SIXTH,
     dd,
   ) as Interval;
-  lock(dd6);
+  freeze(dd6);
 
   m6 = fromIntervalQuality(
     SIXTH,
     m,
   ) as Interval;
-  lock(m6);
+  freeze(m6);
 
   a5 = fromIntervalQuality(
     FIFTH,
     a,
   ) as Interval;
-  lock(a5);
+  freeze(a5);
 
   da5 = fromIntervalQuality(
     FIFTH,
     da,
   ) as Interval;
-  lock(da5);
+  freeze(da5);
 
   M6 = fromIntervalQuality(
     SIXTH,
     M,
   ) as Interval;
-  lock(M6);
+  freeze(M6);
 
   d7 = fromIntervalQuality(
     SEVENTH,
     d,
   ) as Interval;
-  lock(d7);
+  freeze(d7);
 
   dd7 = fromIntervalQuality(
     SEVENTH,
     dd,
   ) as Interval;
-  lock(dd7);
+  freeze(dd7);
 
   m7 = fromIntervalQuality(
     SEVENTH,
     m,
   ) as Interval;
-  lock(m7);
+  freeze(m7);
 
   a6 = fromIntervalQuality(
     SIXTH,
     a,
   ) as Interval;
-  lock(a6);
+  freeze(a6);
 
   da6 = fromIntervalQuality(
     SIXTH,
     da,
   ) as Interval;
-  lock(da6);
+  freeze(da6);
 
   M7 = fromIntervalQuality(
     SEVENTH,
     M,
   ) as Interval;
-  lock(M7);
+  freeze(M7);
 
   d8 = fromIntervalQuality(
     OCTAVE,
     d,
   ) as Interval;
-  lock(d8);
+  freeze(d8);
 
   dd8 = fromIntervalQuality(
     OCTAVE,
     dd,
   ) as Interval;
-  lock(dd8);
+  freeze(dd8);
 
   P8 = fromIntervalQuality(
     OCTAVE,
     P,
   ) as Interval;
-  lock(P8);
+  freeze(P8);
 
   a7 = fromIntervalQuality(
     SEVENTH,

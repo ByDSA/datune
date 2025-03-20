@@ -1,4 +1,4 @@
-import { Interval } from "datils/math";
+import { Interval } from "datils/math/intervals";
 import { Time } from "time";
 import { TemporalNode } from "../temporal-node";
 import { NodesType, NodeType } from "./types";

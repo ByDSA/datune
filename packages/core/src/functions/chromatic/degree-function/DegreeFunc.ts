@@ -4,7 +4,7 @@ import type { Chord } from "chords/chromatic";
 import type { Degree } from "degrees/chromatic";
 import type { Key } from "keys/chromatic";
 import type { Pitch } from "pitches/chromatic";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { Chords as C } from "chords/chromatic";
 import { Pitches as P } from "pitches/chromatic";
 import { Func } from "../Func";
@@ -20,7 +20,7 @@ export class DegreeFunc extends Func {
 
     this.degree = key.degree;
     this.voicing = key.voicing;
-    lockr(this);
+    deepFreeze(this);
   }
 
   protected calculateChord(key: Key): Chord {

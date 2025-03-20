@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 import type { Voicing as IVoicing } from "../Voicing";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { IntervalArray, Interval } from "intervals/alt";
 import { Voicings as V } from ".";
 
@@ -14,7 +14,7 @@ export class Voicing implements IVoicing<Interval> {
 
     this.length = this.rootIntervals.length;
 
-    lockr(this);
+    deepFreeze(this);
   }
 
   [Symbol.iterator](): Iterator<Interval> {

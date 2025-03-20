@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import type { Scale } from "../Scale";
-import { lockr, NonEmptyNumberArray } from "datils/datatypes";
+import { NonEmptyNumberArray } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { fromIntraIntervals, fromRootIntervals } from "../building";
 import { mode } from "../modifiers";
 import { MAJOR_SCALE_DEGREES } from "./majorScaleDegrees";
@@ -190,7 +191,7 @@ export function initialize() {
   );
 
   initializeSets();
-  lockr(COMMON);
+  deepFreeze(COMMON);
 }
 
 export let MAJOR: Scale;
@@ -423,7 +424,7 @@ function initializeSets() {
     ...BEBOP_SCALES,
     ...SYMMETRIC_SCALES,
   ]);
-  lockr(COMMON);
+  deepFreeze(COMMON);
 }
 
 export let DIATONIC_SCALES: Set<Scale>;

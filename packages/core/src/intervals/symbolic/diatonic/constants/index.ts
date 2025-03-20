@@ -1,5 +1,5 @@
 import type { Interval } from "../Interval";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { fromInt } from "../building";
 
 export function initialize() {
@@ -7,33 +7,33 @@ export function initialize() {
     throw new Error("Already initialized");
 
   UNISON = fromInt(0);
-  lockr(UNISON);
+  deepFreeze(UNISON);
   SECOND = fromInt(1);
-  lockr(SECOND);
+  deepFreeze(SECOND);
   THIRD = fromInt(2);
-  lockr(THIRD);
+  deepFreeze(THIRD);
   FOURTH = fromInt(3);
-  lockr(FOURTH);
+  deepFreeze(FOURTH);
   FIFTH = fromInt(4);
-  lockr(FIFTH);
+  deepFreeze(FIFTH);
   SIXTH = fromInt(5);
-  lockr(SIXTH);
+  deepFreeze(SIXTH);
   SEVENTH = fromInt(6);
-  lockr(SEVENTH);
+  deepFreeze(SEVENTH);
   OCTAVE = fromInt(7);
-  lockr(OCTAVE);
+  deepFreeze(OCTAVE);
   NINTH = fromInt(8);
-  lockr(NINTH);
+  deepFreeze(NINTH);
   TENTH = fromInt(9);
-  lockr(TENTH);
+  deepFreeze(TENTH);
   ELEVENTH = fromInt(10);
-  lockr(ELEVENTH);
+  deepFreeze(ELEVENTH);
   TWELFTH = fromInt(11);
-  lockr(TWELFTH);
+  deepFreeze(TWELFTH);
   THIRTEENTH = fromInt(12);
-  lockr(THIRTEENTH);
+  deepFreeze(THIRTEENTH);
   FOURTEENTH = fromInt(13);
-  lockr(FOURTEENTH);
+  deepFreeze(FOURTEENTH);
   FIFTEENTH = fromInt(14);
 }
 

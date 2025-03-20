@@ -1,9 +1,9 @@
 import type { OctavePitch } from "pitches/OctavePitch";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 
 export class RelativePitch<P extends OctavePitch> {
   private constructor(public pitch: P, public octaveRelative: number) {
-    lockr(this);
+    deepFreeze(this);
   }
 
   static from<P extends OctavePitch>(pitch: P, octaveRelative: number): RelativePitch<P> {

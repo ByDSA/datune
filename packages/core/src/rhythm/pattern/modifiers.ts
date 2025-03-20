@@ -1,5 +1,6 @@
 import type { RhythmPattern } from "./Pattern";
-import { type NonEmptyNumberArray, Arrays } from "datils/datatypes";
+import { type NonEmptyNumberArray } from "datils/datatypes";
+import { Arrays } from "datils/datatypes/arrays";
 import { from } from "./building";
 import { cache } from "./cache";
 

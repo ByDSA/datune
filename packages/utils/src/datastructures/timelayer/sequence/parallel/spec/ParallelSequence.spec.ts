@@ -1,5 +1,5 @@
 /* eslint-disable prefer-destructuring */
-import { intervalOf } from "datils/math";
+import { of as intervalOf } from "datils/math/intervals";
 import { add } from "time";
 import { from as temporalNode } from "../../../temporal-node";
 import { EventTest } from "../../../temporal-node/spec/EventTest";

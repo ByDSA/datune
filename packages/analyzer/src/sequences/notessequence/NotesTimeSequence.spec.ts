@@ -1,7 +1,7 @@
 import { Keys as K } from "@datune/core/keys/chromatic";
 import { Pitches as P } from "@datune/core/pitches/chromatic";
 import { Spns as N, Spn } from "@datune/core/spns/chromatic";
-import { intervalOf } from "datils/math";
+import { of as intervalOf } from "datils/math/intervals";
 import { MusicalDurations as MD } from "@datune/core";
 import { TestInit } from "tests";
 import { NotesSequence } from "./NotesSequence";

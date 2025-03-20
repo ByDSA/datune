@@ -1,8 +1,8 @@
 import type { SingleStepArray } from "../single/Array";
 import type { Step } from "../Step";
 import { Interval, Spns as N } from "@datune/core";
-import { lockr } from "datils/datatypes";
 import { NonEmptyArray } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import { from } from "../single/building";
 import { Target } from "../Target";
 import { compositeStepToSingleSteps } from "./cacheMaps";
@@ -12,7 +12,7 @@ export class CompositeStep implements Step {
 
   private constructor(array: NonEmptyArray<Interval | undefined>) {
     this.array = array;
-    lockr(this.array);
+    deepFreeze(this.array);
   }
 
   // eslint-disable-next-line accessor-pairs

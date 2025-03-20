@@ -1,6 +1,6 @@
 import type { Key } from "./caching/cache";
 import type { Pitch } from "pitches/chromatic";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 
 export class PitchSet {
   pitches: Set<Pitch>;
@@ -11,7 +11,7 @@ export class PitchSet {
     this.pitches = new Set(key);
     this.size = this.pitches.size;
 
-    lockr(this);
+    deepFreeze(this);
   }
 
   has(pitch: Pitch): boolean {

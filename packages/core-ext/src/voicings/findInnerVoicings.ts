@@ -1,5 +1,5 @@
 import type { VoicingArray, Voicing } from "@datune/core/voicings/chromatic";
-import { countCombinations, getCombinations } from "datils/math";
+import { countCombinations, getCombinations } from "datils/math/combinatorics";
 import { Interval, IntervalArray, Voicings as V } from "@datune/core";
 import { NonEmptyNumberArray } from "datils";
 import { voicingIncludesInnerVoicing } from "./includesInnerVoicing";

@@ -1,6 +1,6 @@
 import type { Spn } from "../Spn";
 import type { SpnArray } from "../Array";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 import * as DP from "pitches/diatonic/constants";
 import * as P from "pitches/alt/constants";
 import { fromDPitchAlts } from "pitches/alt/building/diatonicAlts";
@@ -151,7 +151,7 @@ export function initialize() {
 
   COMMON = calcCommon();
 
-  lockr(COMMON);
+  deepFreeze(COMMON);
 }
 
 function calcCommon(): SpnArray {

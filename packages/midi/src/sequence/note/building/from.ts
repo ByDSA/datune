@@ -1,4 +1,4 @@
-import { lock } from "datils/datatypes";
+import { freeze } from "datils/datatypes/objects";
 import { DEFAULT } from "../Default";
 import { MidiNote } from "../MidiNote";
 import { PartialMidiNote } from "../PartialMidiNote";
@@ -12,7 +12,7 @@ export const from = (partialMidiNote: PartialMidiNote): MidiNote => {
   if (partialMidiNote.velocity !== undefined)
     note.velocity = fixVelocityValue(partialMidiNote.velocity);
 
-  return lock(note);
+  return freeze(note);
 };
 
 function fixVelocityValue(value: number): number {

@@ -1,4 +1,4 @@
-import { isInterval } from "datils/math/interval/guards";
+import { isInterval } from "datils/math/intervals";
 import { TemporalNode } from "../TemporalNode";
 
 export function isTemporalNode<E>(obj: any): obj is TemporalNode<E> {

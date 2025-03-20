@@ -3,7 +3,7 @@ import { MainFunc, TonalApproach } from "@datune/analyzer";
 import { MusicalDuration } from "@datune/core";
 import { WHOLE, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { TemporalNode } from "@datune/utils";
-import { intervalOf } from "datils/math";
+import { of as intervalOf } from "datils/math/intervals";
 import { randomN } from "datils/math";
 import { GenSeq } from "./GenSeq";
 import { limitTime } from "./utils";

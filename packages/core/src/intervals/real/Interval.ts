@@ -1,4 +1,4 @@
-import { NumExp } from "datils/math";
+import { NumExp } from "datils/math/num-exp";
 
 export class Interval {
   ratio: NumExp;

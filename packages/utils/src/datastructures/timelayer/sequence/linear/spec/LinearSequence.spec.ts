@@ -1,4 +1,4 @@
-import { intervalOf } from "datils/math";
+import { of as intervalOf } from "datils/math/intervals";
 import { TemporalNode } from "datastructures/timelayer/temporal-node";
 import { EventTest } from "datastructures/timelayer/temporal-node/spec/EventTest";
 import { LinearSequenceTest } from "./LinearSequenceTest";

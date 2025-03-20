@@ -1,4 +1,4 @@
-import type { NumExp } from "datils/math";
+import type { NumExp } from "datils/math/num-exp";
 import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { Interval } from "../Interval";
 

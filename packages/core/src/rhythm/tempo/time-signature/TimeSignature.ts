@@ -1,6 +1,6 @@
 import type { MusicalDuration } from "../musical-duration";
 import type { Key } from "./caching/cache";
-import { lockr } from "datils/datatypes";
+import { deepFreeze } from "datils/datatypes/objects";
 
 export class TimeSignature {
   numerators: number[];
@@ -17,7 +17,7 @@ export class TimeSignature {
     this.numerators = key.nums;
     this.numerator = calcNumerator(this.numerators);
 
-    lockr(this);
+    deepFreeze(this);
   }
 }
 
