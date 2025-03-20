@@ -1,4 +1,4 @@
-import type { Key } from "./caching/cache";
+import type { Key } from "./building/cache";
 import { Spn } from "@datune/core/spns/chromatic";
 
 export class MidiPitch {

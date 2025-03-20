@@ -17,14 +17,10 @@ export class MidiFile {
 
   ppq: number | undefined;
 
-  private constructor() {
+  constructor() {
     this.bpmEvents = [];
     this.tracks = [];
     this.timeSignatureEvents = [];
-  }
-
-  static create(): MidiFile {
-    return new MidiFile();
   }
 
   addTrack(t: Track): MidiFile {

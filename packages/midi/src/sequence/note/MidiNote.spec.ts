@@ -1,18 +1,16 @@
 import { MusicalDuration, MusicalDurations as MD } from "@datune/core";
-import { TestInit } from "tests";
-import { C5 } from "pitch/constants";
+import { MidiPitches as M } from "pitch";
 import { MidiPitch } from "../../pitch/MidiPitch";
-import { from } from "./building";
-import { PartialMidiNote } from "./PartialMidiNote";
+import { noteFrom } from "./building/from";
+import { MidiNote } from "./MidiNote";
 
-TestInit.initAll();
 const { QUARTER } = MD;
 
 it("from - C5 QUARTER 90", () => {
-  const pitch: MidiPitch = C5;
+  const pitch: MidiPitch = M.C5;
   const duration: MusicalDuration = QUARTER;
   const velocity = 90;
-  const midiNote: PartialMidiNote = from( {
+  const midiNote: Partial<MidiNote> = noteFrom( {
     pitch,
     duration,
     velocity,
@@ -25,7 +23,7 @@ it("from - C5 QUARTER 90", () => {
 
 it("from - vel 200 (vel to 127)", () => {
   const velocity = 200;
-  const midiNote = from( {
+  const midiNote = noteFrom( {
     velocity,
   } );
 
@@ -34,7 +32,7 @@ it("from - vel 200 (vel to 127)", () => {
 
 it("from - vel -12 (vel to 0)", () => {
   const velocity = -12;
-  const midiNote = from( {
+  const midiNote = noteFrom( {
     velocity,
   } );
 
@@ -42,7 +40,7 @@ it("from - vel -12 (vel to 0)", () => {
 } );
 
 it("immutability", () => {
-  const note = from( {
+  const note = noteFrom( {
     velocity: 50,
   } );
 

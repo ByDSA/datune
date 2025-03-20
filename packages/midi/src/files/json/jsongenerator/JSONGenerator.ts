@@ -5,17 +5,17 @@ import { MidiNode } from "sequence";
 import { MidiFile, getInnerTick } from "../../midi-file/MidiFile";
 
 export class JSONGenerator {
-  private mf: MidiFile;
+  #midiFile: MidiFile;
 
   constructor(mf: MidiFile) {
-    this.mf = mf;
+    this.#midiFile = mf;
   }
 
-  generate() {
+  generate(): MidiJSON {
     const json: MidiJSON = {
       header: {
         name: "name",
-        ppq: <number> this.mf.ppq,
+        ppq: this.#midiFile.ppq as number,
         meta: [],
         tempos: this.#tempos(),
         timeSignatures: this.#timeSignatures(),
@@ -28,14 +28,14 @@ export class JSONGenerator {
   }
 
   #tempos() {
-    return this.mf.bpmEvents.map((bpmEvent) => ( {
+    return this.#midiFile.bpmEvents.map((bpmEvent) => ( {
       ticks: getInnerTick(bpmEvent.time),
       bpm: bpmEvent.bpm.bpm,
     } ));
   }
 
   #timeSignatures() {
-    return this.mf.timeSignatureEvents.map((timeSignatureEvent) => ( {
+    return this.#midiFile.timeSignatureEvents.map((timeSignatureEvent) => ( {
       ticks: timeSignatureEvent.time,
       timeSignature: [
         timeSignatureEvent.timeSignaure.numerator,
@@ -62,7 +62,7 @@ export class JSONGenerator {
     // eslint-disable-next-line @stylistic/ts/object-curly-newline
     };
 
-    return this.mf.tracks.map((t) => ( {
+    return this.#midiFile.tracks.map((t) => ( {
       name: t.name,
       notes: t.nodes.map((node: MidiNode) => ( {
         duration: 0,

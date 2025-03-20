@@ -1,9 +1,8 @@
 import { freeze } from "datils/datatypes/objects";
 import { DEFAULT } from "../Default";
 import { MidiNote } from "../MidiNote";
-import { PartialMidiNote } from "../PartialMidiNote";
 
-export const from = (partialMidiNote: PartialMidiNote): MidiNote => {
+export const noteFrom = (partialMidiNote: Partial<MidiNote>): MidiNote => {
   const note = {
     ...DEFAULT,
     ...partialMidiNote,

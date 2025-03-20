@@ -1,9 +1,7 @@
 import { BPMs, MusicalDurations as MD } from "@datune/core";
-import { TestInit } from "tests";
 import { MidiFile } from "../../midi-file/MidiFile";
 import { JSONGenerator } from "./JSONGenerator";
 
-TestInit.initAll();
 const { QUARTER_120 } = BPMs;
 const { EIGHTH, SIXTYFOURTH, WHOLE } = MD;
 
@@ -18,7 +16,7 @@ it("tempo", () => {
       bpm: 80,
     },
   ];
-  const midiFile = MidiFile.create()
+  const midiFile = new MidiFile()
     .addBPM(QUARTER_120)
     .addBPM(BPMs.from(80, EIGHTH), WHOLE);
   const jsonGenerator = new JSONGenerator(midiFile);

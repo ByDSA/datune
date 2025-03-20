@@ -12,3 +12,14 @@ export type MidiCode =
     100 | 101 | 102 | 103 | 104 | 105 | 106 | 107 | 108 | 109 |
     110 | 111 | 112 | 113 | 114 | 115 | 116 | 117 | 118 | 119 |
     120 | 121 | 122 | 123 | 124 | 125 | 126 | 127;
+
+export function assertIsMidiCode(n: any): asserts n is MidiCode {
+  if (typeof n !== "number")
+    throw new Error("Type is not number");
+
+  if (n % 1 !== 0)
+    throw new Error("Number is not integer");
+
+  if (n < 0 && n > 127)
+    throw new Error("Range invalid. Received: " + n + " Valid range: 0-127");
+}

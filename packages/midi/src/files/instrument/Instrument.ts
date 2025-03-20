@@ -128,3 +128,9 @@ export enum Instrument {
     APPLAUSE,
     GUNSHOT
 }
+
+export function instrumentFromNumber(instrumentNumber: number): Instrument | null {
+  return instrumentNumber >= 0 && instrumentNumber <= 127 && instrumentNumber % 1 === 0
+    ? instrumentNumber
+    : null;
+}

@@ -1,9 +1,28 @@
-export {
-  Instrument,
-} from "./instrument/Instrument";
+import type { Instrument } from "./instrument/Instrument";
+import type { Channel } from "./track/Channel";
+import { createProxyBarrel } from "datils/patterns/proxy";
+import { load,
+  MidiFile,
+  save } from "./midi-file";
+
+const staticModule = {
+  load,
+  save,
+};
+
+type LazyType = object;
+
+const mod = createProxyBarrel<LazyType & typeof staticModule>( {
+  staticModule,
+  paths: [
+  ],
+  // eslint-disable-next-line no-undef
+  dirname: __dirname,
+} );
 
 export {
-  load as loadMidiFile,
+  mod as MidiFiles,
   MidiFile,
-  save as saveMidifile,
-} from "./midi-file";
+  Instrument,
+  Channel,
+};

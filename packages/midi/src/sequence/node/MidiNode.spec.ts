@@ -1,19 +1,16 @@
 import { MusicalDurations as MD } from "@datune/core";
-import { TestInit } from "tests";
-import { C5 } from "../../pitch/constants";
-import { from as noteFrom, MidiNote } from "../note";
-import { from } from "./building";
+import { MidiPitches as M } from "../../pitch";
+import { MidiSequences as MS, type MidiNote } from "..";
 
-TestInit.initAll();
 const { HALF, QUARTER, WHOLE, ZERO } = MD;
 
 describe("from - ZERO (C5 QUARTER 90)", () => {
-  const note: MidiNote = noteFrom( {
-    pitch: C5,
+  const note: MidiNote = MS.noteFrom( {
+    pitch: M.C5,
     duration: QUARTER,
     velocity: 90,
   } );
-  const node = from( {
+  const node = MS.nodeFrom( {
     note,
   } );
 
@@ -31,12 +28,12 @@ describe("from - ZERO (C5 QUARTER 90)", () => {
 } );
 
 describe("from - QUARTER (C5 QUARTER 90)", () => {
-  const note: MidiNote = noteFrom( {
-    pitch: C5,
+  const note: MidiNote = MS.noteFrom( {
+    pitch: M.C5,
     duration: QUARTER,
     velocity: 90,
   } );
-  const node = from( {
+  const node = MS.nodeFrom( {
     note,
     at: QUARTER,
   } );
@@ -55,10 +52,10 @@ describe("from - QUARTER (C5 QUARTER 90)", () => {
 } );
 
 it("immutability", () => {
-  const note = noteFrom( {
+  const note = MS.noteFrom( {
     velocity: 50,
   } );
-  const node = from( {
+  const node = MS.nodeFrom( {
     note,
   } );
 

@@ -1,3 +1,0 @@
-export {
-  cache,
-} from "./cache";

@@ -1,10 +1,10 @@
 import { MusicalDuration, MusicalDurations } from "@datune/core";
 import { TestInit } from "tests";
-import { C5, E5, G5 } from "pitch/constants";
+import { MidiPitches as M } from "pitch";
 import { MidiSequence } from "./MidiSequence";
-import { from as nodeFrom } from "./node";
+import { nodeFrom } from "./node/building";
 import { MidiNode } from "./node/MidiNode";
-import { from as noteFrom } from "./note";
+import { noteFrom } from "./note/building/from";
 import { MidiNote } from "./note/MidiNote";
 
 TestInit.initAll();
@@ -23,7 +23,7 @@ it("from - cellSize=EIGHTH", () => {
 
 it("add - ZERO [C5 QUARTER]", () => {
   const note = noteFrom( {
-    pitch: C5,
+    pitch: M.C5,
     duration: QUARTER,
   } );
   const node: MidiNode = nodeFrom( {
@@ -174,21 +174,21 @@ function generateSample(): MidiSequence {
   const midiSequence: MidiSequence = new MidiSequence();
   const duration: MusicalDuration = QUARTER;
   const midiNote: MidiNote = noteFrom( {
-    pitch: C5,
+    pitch: M.C5,
     duration,
   } );
   const midiEvent: MidiNode = nodeFrom( {
     note: midiNote,
   } );
   const midiNote2: MidiNote = noteFrom( {
-    pitch: E5,
+    pitch: M.E5,
     duration,
   } );
   const midiEvent2: MidiNode = nodeFrom( {
     note: midiNote2,
   } );
   const midiNote3: MidiNote = noteFrom( {
-    pitch: G5,
+    pitch: M.G5,
     duration,
   } );
   const midiEvent3: MidiNode = nodeFrom( {
@@ -206,7 +206,7 @@ function generateSampleArp(): MidiSequence {
   const midiSequence: MidiSequence = new MidiSequence();
   const duration: MusicalDuration = QUARTER;
   const note1 = noteFrom( {
-    pitch: C5,
+    pitch: M.C5,
     duration,
   } );
   const node1 = nodeFrom( {
@@ -214,7 +214,7 @@ function generateSampleArp(): MidiSequence {
     note: note1,
   } );
   const note2: MidiNote = noteFrom( {
-    pitch: E5,
+    pitch: M.E5,
     duration,
   } );
   const node2: MidiNode = nodeFrom( {
@@ -222,7 +222,7 @@ function generateSampleArp(): MidiSequence {
     at: QUARTER,
   } );
   const note3: MidiNote = noteFrom( {
-    pitch: G5,
+    pitch: M.G5,
     duration,
   } );
   const node3: MidiNode = nodeFrom( {

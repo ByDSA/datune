@@ -1,11 +1,11 @@
 import * as fs from "node:fs";
-import { QUARTER_120 } from "@datune/core/rhythm/tempo/bpm/constants";
+import { BPMs } from "@datune/core/rhythm/tempo/bpm";
 import { fromFrac } from "@datune/core/rhythm/tempo/time-signature/building";
 import { Midi } from "@tonejs/midi";
 import { JSONGenerator } from "../json/jsongenerator/JSONGenerator";
 import { MidiFile } from "./MidiFile";
 
-export const save = (mf: MidiFile, path: string): boolean => {
+export const save = async (mf: MidiFile, path: string): Promise<void> => {
   const midi = new Midi();
 
   initializeUninitializedValues(mf);
@@ -14,18 +14,12 @@ export const save = (mf: MidiFile, path: string): boolean => {
   midi.fromJSON(json);
   const array = midi.toArray();
 
-  try {
-    fs.writeFileSync(path, array);
-  } catch {
-    return false;
-  }
-
-  return true;
+  await fs.promises.writeFile(path, array);
 };
 
 function initializeUninitializedValues(mf: MidiFile): void {
   if (mf.bpmEvents.length === 0)
-    mf.addBPM(QUARTER_120);
+    mf.addBPM(BPMs.QUARTER_120);
 
   if (mf.timeSignatureEvents.length === 0)
     mf.addTimeSignature(fromFrac(4));

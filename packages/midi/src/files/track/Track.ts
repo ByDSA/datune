@@ -1,6 +1,6 @@
-import { MidiNode } from "../../sequence/node";
+import type { MidiNode } from "../../sequence/node/MidiNode";
+import type { Channel } from "./Channel";
 import { Instrument } from "../instrument";
-import { Channel } from "./Channel";
 
 export type Track = {
   name: string;
