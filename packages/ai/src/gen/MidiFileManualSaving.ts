@@ -1,18 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 /* eslint-disable camelcase */
+import type { SpnArray, Spn } from "@datune/core/spns/chromatic";
 import { ChordSequence, TonalApproach } from "@datune/analyzer";
-import { init as initCore, type Key, type MusicalDuration } from "@datune/core";
+import { type Key, type MusicalDuration } from "@datune/core";
 import { fromRootVoicing } from "@datune/core/chords/absolute/chromatic/building";
-import { A as T_A, AA as T_AA, AAm as T_AAm, Am as T_Am, B as T_B, Bm as T_Bm, C as T_C, CC as T_CC, CCm as T_CCm, Cm as T_Cm, D as T_D, DD as T_DD, DDm as T_DDm, Dm as T_Dm, E as T_E, Em as T_Em, F as T_F, FF as T_FF, FFm as T_FFm, Fm as T_Fm, G as T_G, GG as T_GG, GGm as T_GGm, Gm as T_Gm } from "@datune/core/keys/chromatic/constants";
-import { Pitch } from "@datune/core/pitches/chromatic";
-import { A2, B3, C4, C7, G4 } from "@datune/core/spns/symbolic/chromatic/constants";
-import { SpnArray, Spn } from "@datune/core/spns/chromatic";
+import { Keys as K, type Pitch, Spns as N, MusicalDurations as MD } from "@datune/core";
 import { add, sub } from "@datune/core/spns/symbolic/chromatic/modifiers";
 import { fromPitchOctave as spnFrom } from "@datune/core/spns/symbolic/chromatic/building/pitch-octave";
-import { EIGHTH, HALF, LONGA, QUARTER, SIXTEENTH } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { from as BPMFrom } from "@datune/core/rhythm/tempo/bpm/building";
-import { initialize as initMidi, Instrument, MidiFile, MidiNode, MidiNote, nodeFrom, noteFrom } from "@datune/midi";
+import { Instrument, MidiFile, MidiNode, MidiNote, MidiSequences as MS } from "@datune/midi";
 import { from as midiPitchFrom } from "@datune/midi/pitch/building";
 import { randomN } from "datils/math";
 import { IntervalArray } from "@datune/core/intervals/chromatic";
@@ -46,11 +43,11 @@ function initializeVoices() {
     voices.push(new Voice());
 
     if (i === 0) {
-      voices[i].addPitchConstraint(new PitchMaxConstraint(G4));
-      voices[i].addPitchConstraint(new PitchMinConstraint(C4));
+      voices[i].addPitchConstraint(new PitchMaxConstraint(N.G4));
+      voices[i].addPitchConstraint(new PitchMinConstraint(N.C4));
     } else {
-      voices[i].addPitchConstraint(new PitchMaxConstraint(C7));
-      voices[i].addPitchConstraint(new PitchMinConstraint(C4));
+      voices[i].addPitchConstraint(new PitchMaxConstraint(N.C7));
+      voices[i].addPitchConstraint(new PitchMinConstraint(N.C4));
 
       voices[i].addVoiceConstraint(new LowerVoiceConstraint(voices[i - 1]));
     }
@@ -144,52 +141,50 @@ function getAvailableNotes(
     voice,
   );
 
-  const notes = availableSpns.map((spn) => noteFrom( {
+  const notes = availableSpns.map((spn) => MS.noteFrom( {
     pitch: midiPitchFrom(spn),
-    duration: QUARTER,
+    duration: MD.QUARTER,
   } ));
 
   return notes;
 }
 
 export function sample4(): MidiFile {
-  initCore();
-  initMidi();
   initializeVoices();
 
   const possibleKeysInitial = [
-    T_C,
-    T_CC,
-    T_D,
-    T_DD,
-    T_E,
-    T_F,
-    T_FF,
-    T_G,
-    T_GG,
-    T_A,
-    T_AA,
-    T_B,
-    T_Cm,
-    T_CCm,
-    T_Dm,
-    T_DDm,
-    T_Em,
-    T_Fm,
-    T_FFm,
-    T_Gm,
-    T_GGm,
-    T_Am,
-    T_AAm,
-    T_Bm,
+    K.C,
+    K.CC,
+    K.D,
+    K.DD,
+    K.E,
+    K.F,
+    K.FF,
+    K.G,
+    K.GG,
+    K.A,
+    K.AA,
+    K.B,
+    K.Cm,
+    K.CCm,
+    K.Dm,
+    K.DDm,
+    K.Em,
+    K.Fm,
+    K.FFm,
+    K.Gm,
+    K.GGm,
+    K.Am,
+    K.AAm,
+    K.Bm,
   ];
-  const midiFile = MidiFile.create();
+  const midiFile = new MidiFile();
 
-  midiFile.addBPM(BPMFrom(100, QUARTER));
+  midiFile.addBPM(BPMFrom(100, MD.QUARTER));
 
   const tonalApproach = new TonalApproach();
 
-  tonalApproach.maxDuration = LONGA * (1);
+  tonalApproach.maxDuration = MD.LONGA * (1);
   new GenKeySeq(tonalApproach, possibleKeysInitial).generate();
   new GenMainFuncSeq(tonalApproach).generate();
   new GenFuncSeq(tonalApproach).generate();
@@ -226,7 +221,7 @@ export function sample4(): MidiFile {
 
     const keyChord = keyChordNode.event;
 
-    for (const d of [EIGHTH, QUARTER, SIXTEENTH]) {
+    for (const d of [MD.EIGHTH, MD.QUARTER, MD.SIXTEENTH]) {
       const notes = getAvailableNotes(
         time,
         tonalApproach.chordSequence,
@@ -262,8 +257,8 @@ export function sample4(): MidiFile {
   midiFile.addTrack(accompTrack);
   let prevNotes: SpnArray | undefined;
   const chordConstraints = [
-    new PitchMaxConstraint(B3),
-    new PitchMinConstraint(A2),
+    new PitchMaxConstraint(N.B3),
+    new PitchMinConstraint(N.A2),
   ];
 
   tonalApproach.chordSequence.nodes.forEach((node) => {
@@ -285,11 +280,11 @@ export function sample4(): MidiFile {
     prevNotes = pitches;
     const midiNodes = pitches.map((spn: Spn) => {
       const pitch = midiPitchFrom(spn);
-      const note = noteFrom( {
+      const note = MS.noteFrom( {
         pitch,
         duration: (timeTo - (time)),
       } );
-      const node2 = nodeFrom( {
+      const node2 = MS.nodeFrom( {
         note,
         at: time,
       } );
@@ -402,9 +397,9 @@ function getDuration(time: MusicalDuration, tonalApproach: TonalApproach): Music
   let durations: MusicalDuration[];
 
   durations = [
-    HALF,
-    QUARTER,
-    EIGHTH,
+    MD.HALF,
+    MD.QUARTER,
+    MD.EIGHTH,
   ];
 
   durations = durations.filter((m) => time - Math.floor(time) + m <= 1);

@@ -5,10 +5,11 @@ import { MidiSequence } from "./MidiSequence";
 import { MidiNode } from "./node/MidiNode";
 import { nodeFrom } from "./node/building";
 
-export const staticModule = {
+const staticModule = {
   noteFrom,
   nodeFrom,
 };
+
 type LazyType = object;
 
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {

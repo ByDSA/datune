@@ -1,16 +1,22 @@
-lockfileVersion: '6.0'
+lockfileVersion: '9.0'
 
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  ts-treemap:
-    specifier: 1.1.0
-    version: 1.1.0
+importers:
+
+  .:
+    dependencies:
+      ts-treemap:
+        specifier: 1.1.0
+        version: 1.1.0
 
 packages:
 
-  /ts-treemap@1.1.0:
+  ts-treemap@1.1.0:
     resolution: {integrity: sha512-0rWi12x7Y3vLG0bsgPZxeb/GClCcK0JE2L3O00VUhhxP8z+5rVBtUyeCdHcIUl8bEANdCT/D5bjKMW+CnfUZlw==}
-    dev: false
+
+snapshots:
+
+  ts-treemap@1.1.0: {}

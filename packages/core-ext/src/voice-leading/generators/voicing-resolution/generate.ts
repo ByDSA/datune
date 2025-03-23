@@ -20,7 +20,10 @@ type Meta = {
     innerVoicing: InnerVoicingResult;
   }[];
 };
-export const toVoicingResolution: StepsGenerator<VoicingResolutionGeneratorProps, Meta> = (props) => {
+export const toVoicingResolution: StepsGenerator<
+  VoicingResolutionGeneratorProps,
+  Meta
+> = (props) => {
   const obj = new IntervalStepsGen(props);
 
   return obj.generateGroups();

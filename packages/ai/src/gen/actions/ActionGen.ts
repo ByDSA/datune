@@ -1,5 +1,5 @@
 import { MusicalDuration } from "@datune/core";
-import { MidiNode, MidiNote, nodeFrom } from "@datune/midi";
+import { MidiNode, MidiNote, MidiSequences as MS } from "@datune/midi";
 import { TemporalNode } from "@datune/utils";
 import { ActionGenState } from "./ActionGenState";
 import { ActionNote } from "./ActionNote";
@@ -78,7 +78,7 @@ export class ActionGen extends ActionNote {
     if (!midiNote)
       return false;
 
-    this.node = nodeFrom( {
+    this.node = MS.nodeFrom( {
       note: midiNote,
       at: this.time,
     } );

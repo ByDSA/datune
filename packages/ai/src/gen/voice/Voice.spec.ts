@@ -1,27 +1,25 @@
-import { C5, D5, E5, nodeFrom, noteFrom } from "@datune/midi";
+import { MidiPitches as M, MidiSequences as MS } from "@datune/midi";
 import { MusicalDurations as MD } from "@datune/core";
-import { TestInit } from "tests";
 import { LowerVoiceConstraint } from "../constraints/voice/LowerVoiceConstraint";
 import { Voice } from "./Voice";
 
-TestInit.initAll();
 const { HALF, QUARTER, ZERO } = MD;
 
 function initializeVoice() {
   const voice = new Voice();
-  const note1 = noteFrom( {
-    pitch: E5,
+  const note1 = MS.noteFrom( {
+    pitch: M.E5,
     duration: QUARTER,
   } );
   const note2 = {
     ...note1,
-    pitch: D5,
+    pitch: M.D5,
   };
-  const node1 = nodeFrom( {
+  const node1 = MS.nodeFrom( {
     note: note1,
     at: ZERO,
   } );
-  const node2 = nodeFrom( {
+  const node2 = MS.nodeFrom( {
     note: note2,
     at: QUARTER,
   } );
@@ -34,19 +32,19 @@ function initializeVoice() {
 
 function initializeLowerVoice() {
   const lowerVoice = new Voice();
-  const note1 = noteFrom( {
-    pitch: C5,
+  const note1 = MS.noteFrom( {
+    pitch: M.C5,
     duration: QUARTER,
   } );
   const note2 = {
     ...note1,
-    pitch: D5,
+    pitch: M.D5,
   };
-  const node1 = nodeFrom( {
+  const node1 = MS.nodeFrom( {
     note: note1,
     at: ZERO,
   } );
-  const node2 = nodeFrom( {
+  const node2 = MS.nodeFrom( {
     note: note2,
     at: QUARTER,
   } );
@@ -87,7 +85,7 @@ it("lower voice Spn", () => {
 
   voice.addVoiceConstraint(new LowerVoiceConstraint(lowerVoice));
 
-  const actual = voice.checkVoiceConstraintsPitch(C5.spn, QUARTER, HALF);
+  const actual = voice.checkVoiceConstraintsPitch(M.C5.spn, QUARTER, HALF);
   const expected = false;
 
   expect(actual).toBe(expected);
@@ -99,7 +97,7 @@ it("lower voice Spn 2", () => {
 
   voice.addVoiceConstraint(new LowerVoiceConstraint(lowerVoice));
 
-  const actual = voice.checkVoiceConstraintsPitch(E5.spn, QUARTER, HALF);
+  const actual = voice.checkVoiceConstraintsPitch(M.E5.spn, QUARTER, HALF);
   const expected = true;
 
   expect(actual).toBe(expected);

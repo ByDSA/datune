@@ -19,7 +19,6 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@datune/analyzer": "file:../analyzer/dist",
     "@datune/core": "file:../core/dist",
     "@datune/utils": "file:../utils/dist",
     "@tonejs/midi": "2.0.28"

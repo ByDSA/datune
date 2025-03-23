@@ -1,6 +1,6 @@
-import type { Instrument } from "./instrument/Instrument";
 import type { Channel } from "./track/Channel";
 import { createProxyBarrel } from "datils/patterns/proxy";
+import { Instrument } from "./instrument/Instrument";
 import { load,
   MidiFile,
   save } from "./midi-file";
