@@ -1,33 +1,13 @@
-import { Keys as K } from "@datune/core/keys/chromatic";
 import { Pitches as P } from "@datune/core/pitches/chromatic";
-import { Spns as N, Spn } from "@datune/core/spns/chromatic";
 import { of as intervalOf } from "datils/math/intervals";
 import { MusicalDurations as MD } from "@datune/core";
-import { TestInit } from "tests";
-import { NotesSequence } from "./NotesSequence";
+import { generateNotesTimeSequenceSampleCMajor } from "./tests/notes-sequence-samples";
 
-TestInit.initAll();
 const { QUARTER, WHOLE, ZERO } = MD;
-const { add, C: P_C, D: P_D, E: P_E, F: P_F, G: P_G } = P;
-
-function generateCMajorTest() {
-  const s = new NotesSequence();
-
-  for (const n of K.C.pitches) {
-    const spn = N.fromPitchOctave(n, 4) as Spn;
-
-    s.add( {
-      event: spn,
-      from: s.duration,
-      to: s.duration + QUARTER,
-    } );
-  }
-
-  return s;
-}
+const { D: P_D, E: P_E, F: P_F, G: P_G } = P;
 
 it("every note time marks", () => {
-  const s = generateCMajorTest();
+  const s = generateNotesTimeSequenceSampleCMajor();
 
   for (let n = 0; n < 7; n++) {
     const node = s.nodes[n];
@@ -40,19 +20,19 @@ it("every note time marks", () => {
 } );
 
 it("musical length", () => {
-  const s = generateCMajorTest();
+  const s = generateNotesTimeSequenceSampleCMajor();
 
   expect(s.duration).toEqual(QUARTER * (7));
 } );
 
 it("number of notes", () => {
-  const s = generateCMajorTest();
+  const s = generateNotesTimeSequenceSampleCMajor();
 
   expect(s.nodes).toHaveLength(7);
 } );
 
 it("remove", () => {
-  const s = generateCMajorTest();
+  const s = generateNotesTimeSequenceSampleCMajor();
   // eslint-disable-next-line prefer-destructuring
   const n2 = s.nodes[2];
 
@@ -71,20 +51,13 @@ it("remove", () => {
 } );
 
 it("pick by node position", () => {
-  const s = generateCMajorTest();
+  const s = generateNotesTimeSequenceSampleCMajor();
 
   expect(s.nodes[4].event.pitch).toBe(P_G);
 } );
 
-it("a", () => {
-  const expected = P_D;
-  const actual = add(P_C, 2);
-
-  expect(actual).toBe(expected);
-} );
-
 it("pick by interval", () => {
-  const s = generateCMajorTest();
+  const s = generateNotesTimeSequenceSampleCMajor();
   const interval = intervalOf(QUARTER, WHOLE);
   const nodes = s.get( {
     interval,

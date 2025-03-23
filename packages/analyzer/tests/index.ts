@@ -1,3 +1,0 @@
-export {
-  TestInit,
-} from "./TestInit";

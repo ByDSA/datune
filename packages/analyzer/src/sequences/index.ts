@@ -1,31 +1,28 @@
 export {
   ChordSequence,
-} from "./chordsequence/ChordSequence";
+} from "./ChordSequence";
 
 export {
   FuncSequence,
-} from "./functionssequence/FuncSequence";
+} from "./FuncSequence";
 
 export {
   KeySequence,
-} from "./keysequence/KeySequence";
-
-export {
-  MainFunc,
-} from "./mainfuncseq/MainFunc";
+} from "./KeySequence";
 
 export {
   MainFuncSequence,
-} from "./mainfuncseq/MainFuncSequence";
+  MainFunc,
+} from "./MainFuncSequence";
 
 export {
   MusicalSequence,
-} from "./musicalsequence/MusicalSequence";
+} from "./musical-sequence/MusicalSequence";
 
 export {
   NotesSequence,
-} from "./notessequence/NotesSequence";
+} from "./NotesSequence";
 
 export {
   RhythmSequence,
-} from "./rhythmsequence/RhythmSequence";
+} from "./RhythmSequence";

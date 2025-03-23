@@ -6,9 +6,9 @@ import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
 import { TemporalNode } from "@datune/utils";
 import { Interval } from "datils/math";
 import { of as intervalOf } from "datils/math/intervals";
-import { NotesSequence } from "..";
-import { ChordSequence } from "./chordsequence/ChordSequence";
-import { RhythmSequence } from "./rhythmsequence/RhythmSequence";
+import { NotesSequence } from "../..";
+import { ChordSequence } from "../../sequences/ChordSequence";
+import { RhythmSequence } from "../../sequences/RhythmSequence";
 
 export class ChordSequenceCalculator {
   #notesTimeSequence: NotesSequence;
