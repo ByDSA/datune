@@ -1,5 +1,4 @@
 import { ProcessCache } from "datils/patterns/caching";
-import { COMMON } from "@datune/core/scales/symbolic/chromatic/constants";
 import { Scales as S } from "@datune/core";
 import { createToken, TokenType } from "chevrotain";
 import { LangId } from "lang";
@@ -28,7 +27,7 @@ function generateVoicing(langId: LangId): RegExp {
 function getAllNamesByLang(langId: LangId): string[] {
   const names = [];
 
-  for (const scale of (COMMON || S.COMMON)) {
+  for (const scale of S.COMMON) {
     const name = getName(scale, {
       langId,
     } );

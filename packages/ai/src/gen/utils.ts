@@ -1,11 +1,11 @@
-import { bIII, bVI, bVII, I, II, III, IV, V, VI, VII } from "@datune/core/degrees/chromatic/constants";
-import { Degree as DegreeAlt } from "@datune/core/degrees/chromatic";
+import { Degrees as D } from "@datune/core";
+import { Degree } from "@datune/core/degrees/chromatic";
 import { DegreeFunc } from "@datune/core/functions/chromatic/degree-function/DegreeFunc";
 import { Funcs as F, MusicalDuration } from "@datune/core";
 
 export const commonDegreesWith = (
   degreeFunc: DegreeFunc,
-  withDegrees: DegreeAlt[],
+  withDegrees: Degree[],
 ): boolean => {
   let common = 0;
 
@@ -23,28 +23,28 @@ export const commonDegreesWith = (
 export const isTonic = (
   degreeFunc: DegreeFunc,
 ): boolean => commonDegreesWith(degreeFunc, [
-  I,
-  bIII,
-  III,
-  V,
+  D.I,
+  D.bIII,
+  D.III,
+  D.V,
 ]);
 
 export const isSubDominant = (
   degreeFunc: DegreeFunc,
 ): boolean => commonDegreesWith(degreeFunc, [
-  IV,
-  bVI,
-  VI,
-  I,
+  D.IV,
+  D.bVI,
+  D.VI,
+  D.I,
 ]);
 
 export const isDominant = (
   degreeFunc: DegreeFunc,
 ): boolean => commonDegreesWith(degreeFunc, [
-  V,
-  VII,
-  bVII,
-  II,
+  D.V,
+  D.VII,
+  D.bVII,
+  D.II,
 ]);
 
 export function limitTime(m: MusicalDuration, limit: MusicalDuration): MusicalDuration {

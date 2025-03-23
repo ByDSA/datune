@@ -1,5 +1,5 @@
 import { MusicalDuration } from "@datune/core";
-import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { MusicalDurations as MD } from "@datune/core";
 import { MidiNote } from "@datune/midi";
 import { Voice } from "../voice/Voice";
 
@@ -18,7 +18,7 @@ export class ActionGenState {
     this.voices = voices;
     this.voicesNumber = voices.length;
     this.lasts = [null, null, null];
-    this.times = [ZERO, ZERO, ZERO];
+    this.times = [MD.ZERO, MD.ZERO, MD.ZERO];
   }
 
   toString() {

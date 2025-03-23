@@ -1,7 +1,7 @@
 import type { ChordArray, Chord } from "@datune/core/chords/chromatic";
 import type { KeyArray } from "@datune/core/keys/chromatic";
 import type { PitchArray, Pitch } from "@datune/core/pitches/chromatic";
-import { ALL, ALL_NON_INVERSIONS } from "@datune/core/chords/octave/chromatic/constants";
+import { Chords as C } from "@datune/core/chords/octave/chromatic";
 
 export class Finder {
   // TODO: por qué no se usa?
@@ -37,7 +37,7 @@ export class Finder {
   }
 
   find(): Chord[] {
-    let chords = this.#notInversions ? ALL_NON_INVERSIONS : ALL;
+    let chords = this.#notInversions ? C.ALL_NON_INVERSIONS : C.ALL;
 
     if (this.#bass)
       chords = this.#filterBass(chords);

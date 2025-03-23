@@ -1,5 +1,5 @@
 import { from } from "@datune/core/keys/alt/building";
-import { MAJOR } from "@datune/core/scales/symbolic/alt/constants";
+import { Scales as S } from "@datune/core/alt";
 import { getLangIdFromOptions, Options } from "lang";
 import { getLangTokens, tokenize } from "parsing";
 import { parsePitch } from "parsing/pitches/alt";
@@ -27,7 +27,7 @@ export function parseKey(input: string, options?: Options) {
       return null;
 
     const pitch = parsePitch(parsed.pitch, options);
-    const scale = parsed.scale ? parseScale(parsed.scale, options) : MAJOR;
+    const scale = parsed.scale ? parseScale(parsed.scale, options) : S.MAJOR;
 
     if (pitch && scale)
       return from(pitch, scale);

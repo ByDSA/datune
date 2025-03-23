@@ -1,8 +1,8 @@
-import { Chord } from "@datune/core/chords/octave/alt/Chord";
-import { ChordArray } from "@datune/core/chords/octave/alt/Array";
-import { ALL, ALL_NON_INVERSIONS } from "@datune/core/chords/octave/alt/constants";
-import { KeyArray } from "@datune/core/keys/alt";
-import { PitchArray, Pitch } from "@datune/core/pitches/alt";
+import type { Chord } from "@datune/core/chords/octave/alt/Chord";
+import type { ChordArray } from "@datune/core/chords/octave/alt/Array";
+import type { KeyArray } from "@datune/core/keys/alt";
+import type { PitchArray, Pitch } from "@datune/core/pitches/alt";
+import { Chords as C } from "@datune/core/alt";
 
 export class Finder {
   // TODO: por qué no se usa?
@@ -38,7 +38,7 @@ export class Finder {
   }
 
   find(): Chord[] {
-    let chords = this.#notInversions ? ALL_NON_INVERSIONS : ALL;
+    let chords = this.#notInversions ? C.ALL_NON_INVERSIONS : C.ALL;
 
     if (this.#bass)
       chords = this.#filterBass(chords);

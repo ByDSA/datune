@@ -1,11 +1,11 @@
 import { Chord } from "@datune/core/chords/chromatic";
-import { bIII, bVI, bVII, I, II0, IIIm, IIm, Im, IV, IVm, V, V7, VII0, VIm } from "@datune/core/functions/chromatic/degree-function/constants";
+import { Funcs as F } from "@datune/core";
 import { Func } from "@datune/core/functions/chromatic";
 import { Key } from "@datune/core/keys/chromatic";
 import { from } from "@datune/core/keys/chromatic/building";
-import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { MusicalDurations as MD } from "@datune/core";
 import { of as intervalOf } from "datils/math/intervals";
-import { CHROMATIC, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN } from "@datune/core/scales/symbolic/chromatic/constants";
+import { Scales as S } from "@datune/core";
 import { randomN } from "datils/math";
 import { GenSeq } from "./GenSeq";
 
@@ -13,7 +13,11 @@ export class GenChordSeq extends GenSeq {
   generate() {
     const tonalApproach = this.tonalApporach;
 
-    for (let time = ZERO, toTime = time; time < tonalApproach.keySequence.duration; time = toTime) {
+    for (
+      let time = MD.ZERO, toTime = time;
+      time < tonalApproach.keySequence.duration;
+      time = toTime
+    ) {
       const [keyNode] = tonalApproach.keySequence.get( {
         at: time,
       } );
@@ -51,36 +55,36 @@ function pickKeyChord(originalKey: Key, func: Func, _chord: Chord): Key {
   const available: Key[] = [];
 
   switch (func) {
-    case I:
-    case bIII:
-      available.push(from(root, MAJOR));
+    case F.I:
+    case F.bIII:
+      available.push(from(root, S.MAJOR));
       break;
-    case IIm:
-      available.push(from(root, DORIAN));
+    case F.IIm:
+      available.push(from(root, S.DORIAN));
       break;
-    case IIIm:
-    case IVm:
-      available.push(from(root, PHRYGIAN));
+    case F.IIIm:
+    case F.IVm:
+      available.push(from(root, S.PHRYGIAN));
       break;
-    case IV:
-    case bVI:
-      available.push(from(root, LYDIAN));
+    case F.IV:
+    case F.bVI:
+      available.push(from(root, S.LYDIAN));
       break;
-    case V:
-    case bVII:
-    case V7:
-      available.push(from(root, MIXOLYDIAN));
+    case F.V:
+    case F.bVII:
+    case F.V7:
+      available.push(from(root, S.MIXOLYDIAN));
       break;
-    case VIm:
-    case Im:
-      available.push(from(root, MINOR));
+    case F.VIm:
+    case F.Im:
+      available.push(from(root, S.MINOR));
       break;
-    case VII0:
-    case II0:
-      available.push(from(root, LOCRIAN));
+    case F.VII0:
+    case F.II0:
+      available.push(from(root, S.LOCRIAN));
       break;
     default:
-      available.push(from(root, CHROMATIC));
+      available.push(from(root, S.CHROMATIC));
       break;
   }
 

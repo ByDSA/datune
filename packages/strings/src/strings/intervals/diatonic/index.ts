@@ -1,5 +1,5 @@
 import { Interval, IntervalDirection } from "@datune/core/intervals/diatonic";
-import { ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH, FOURTH, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH, TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } from "@datune/core/intervals/symbolic/diatonic/constants";
+import { Intervals as I } from "@datune/core/diatonic";
 
 export function stringifyInterval(obj: Interval): string {
   if (obj.direction === IntervalDirection.DESCENDENT)
@@ -12,21 +12,21 @@ function absName(obj: Interval): string {
   const absInt = obj.magnitude;
 
   switch (absInt) {
-    case UNISON.magnitude: return "UNISON";
-    case SECOND.magnitude: return "SECOND";
-    case THIRD.magnitude: return "THIRD";
-    case FOURTH.magnitude: return "FOURTH";
-    case FIFTH.magnitude: return "FIFTH";
-    case SIXTH.magnitude: return "SIXTH";
-    case SEVENTH.magnitude: return "SEVENTH";
-    case OCTAVE.magnitude: return "OCTAVE";
-    case NINTH.magnitude: return "NINTH";
-    case TENTH.magnitude: return "TENTH";
-    case ELEVENTH.magnitude: return "ELEVENTH";
-    case TWELFTH.magnitude: return "TWELFTH";
-    case THIRTEENTH.magnitude: return "THIRTEENTH";
-    case FOURTEENTH.magnitude: return "FOURTEENTH";
-    case FIFTEENTH.magnitude: return "FIFTEENTH";
-    default: return `(IntervalDiatonic: ${absInt})`;
+    case I.UNISON.magnitude: return "UNISON";
+    case I.SECOND.magnitude: return "SECOND";
+    case I.THIRD.magnitude: return "THIRD";
+    case I.FOURTH.magnitude: return "FOURTH";
+    case I.FIFTH.magnitude: return "FIFTH";
+    case I.SIXTH.magnitude: return "SIXTH";
+    case I.SEVENTH.magnitude: return "SEVENTH";
+    case I.OCTAVE.magnitude: return "OCTAVE";
+    case I.NINTH.magnitude: return "NINTH";
+    case I.TENTH.magnitude: return "TENTH";
+    case I.ELEVENTH.magnitude: return "ELEVENTH";
+    case I.TWELFTH.magnitude: return "TWELFTH";
+    case I.THIRTEENTH.magnitude: return "THIRTEENTH";
+    case I.FOURTEENTH.magnitude: return "FOURTEENTH";
+    case I.FIFTEENTH.magnitude: return "FIFTEENTH";
+    default: return `(DiatonicInterval: ${absInt})`;
   }
 }

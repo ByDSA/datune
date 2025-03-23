@@ -6,7 +6,6 @@ import { stringifyDegree, stringifyScale } from "@datune/strings/chromatic";
 import { parseChord as parseAChord } from "@datune/strings/alt";
 import { LangId } from "@datune/strings/lang";
 import { scaleFindVoicings } from "@datune/core-ext/scales";
-import { TRIAD_MINOR, TRIAD_SUS4 } from "@datune/core/voicings/relative/chromatic/constants";
 import { VoiceLeadings as VL } from "@datune/core-ext/voice-leading";
 
 useStringify();
@@ -88,12 +87,12 @@ console.log(
 
 console.log(
   "Which Major and Minor triads are there in a minor scale?",
-  scaleFindVoicings(S.MINOR, [V.TRIAD_MAJOR, TRIAD_MINOR])
+  scaleFindVoicings(S.MINOR, [V.TRIAD_MAJOR, V.TRIAD_MINOR])
     .map(a=>a.map(stringifyDegree).join("-")),
 );
 console.log(
   "Which sus4 and sus2 triads are there in C minor key?",
-  scaleFindVoicings(S.MINOR, [V.TRIAD_SUS2, TRIAD_SUS4])
+  scaleFindVoicings(S.MINOR, [V.TRIAD_SUS2, V.TRIAD_SUS4])
     .map(a=>Funcs.fromDegrees(...a).getChord(K.C))
     .map(String),
 );

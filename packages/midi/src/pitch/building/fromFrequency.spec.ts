@@ -1,17 +1,15 @@
 import { Spns as N, Spn } from "@datune/core/spns/chromatic";
 import { Tunings } from "@datune/core/tunings/chromatic";
-import { TestInit } from "tests";
 import { calcFrequency } from "../calcs";
-import { A5 } from "../constants";
 import { MidiPitch } from "../MidiPitch";
+import { MidiPitches as M } from "../";
 import { fromFrequency } from ".";
 
-TestInit.initAll();
 const { calcFrequency: tuningCalcFrequency, LIMIT_5_SYMMETRIC_N1_440 } = Tunings;
 
 it("midiPitch - fromFrequency - 440 = A5", () => {
   const midiNote = fromFrequency(440);
-  const expected: MidiPitch = A5;
+  const expected: MidiPitch = M.A5;
 
   expect(midiNote).toEqual(expected);
 } );

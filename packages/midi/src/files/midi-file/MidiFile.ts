@@ -1,6 +1,6 @@
 import type { BPM, MusicalDuration, TimeSignature } from "@datune/core";
 import type { Track } from "../track/Track";
-import { SIXTYFOURTH, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { MusicalDurations as MD } from "@datune/core";
 
 export class MidiFile {
   bpmEvents: {
@@ -29,7 +29,7 @@ export class MidiFile {
     return this;
   }
 
-  addTimeSignature(t: TimeSignature, atTime: MusicalDuration = ZERO): MidiFile {
+  addTimeSignature(t: TimeSignature, atTime: MusicalDuration = MD.ZERO): MidiFile {
     this.#initPPQIfNeeded(t.denominatorBeat);
 
     this.timeSignatureEvents.push( {
@@ -45,7 +45,7 @@ export class MidiFile {
       this.ppq = getInnerTick(md);
   }
 
-  addBPM(bpm: BPM, atTime: MusicalDuration = ZERO): MidiFile {
+  addBPM(bpm: BPM, atTime: MusicalDuration = MD.ZERO): MidiFile {
     this.#initPPQIfNeeded(bpm.beat);
 
     this.bpmEvents.push( {
@@ -58,5 +58,5 @@ export class MidiFile {
 }
 
 export function getInnerTick(m: MusicalDuration): number {
-  return m / SIXTYFOURTH;
+  return m / MD.SIXTYFOURTH;
 }

@@ -1,8 +1,8 @@
 import { FuncSequence, MainFunc, TonalApproach } from "@datune/analyzer";
-import { bIII, bIIIMaj7, bVI, bVIm7, I, IIIm, IIIm7, IIm, IIm7, Im, Im7, IMaj7, ISUS4, IV, IVm, IVm7, IVMaj7, V, V7, VII0, VIm, VIm7, Vm, Vm7 } from "@datune/core/functions/chromatic/degree-function/constants";
-import { Func, Funcs as F } from "@datune/core/functions/chromatic";
-import { MAJOR, MINOR } from "@datune/core/scales/symbolic/chromatic/constants";
-import { HALF, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { Funcs as F } from "@datune/core";
+import { Func } from "@datune/core/functions/chromatic";
+import { Scales as S } from "@datune/core";
+import { MusicalDurations as MD } from "@datune/core";
 import { MusicalDuration } from "@datune/core/rhythm";
 import { TemporalNode } from "@datune/utils";
 import { randomN } from "datils/math";
@@ -24,7 +24,7 @@ export class GenFuncSeq extends GenSeq {
     let prevNode: Node | undefined;
     let toTime: MusicalDuration;
 
-    for (let time = ZERO; time < this.tonalApporach.maxDuration; time = toTime) {
+    for (let time = MD.ZERO; time < this.tonalApporach.maxDuration; time = toTime) {
       const duration = this.#pickDuration(prevNode, time);
 
       toTime = time + duration;
@@ -43,7 +43,7 @@ export class GenFuncSeq extends GenSeq {
   }
 
   #pickDuration(_prevNode: Node | undefined, time: MusicalDuration): MusicalDuration {
-    const ret = HALF * (1 + randomN(2));
+    const ret = MD.HALF * (1 + randomN(2));
     const nextMainFuncChange = <MusicalDuration> this.tonalApporach.mainFuncSequence.get( {
       at: time,
     } )[0]?.interval.to;
@@ -61,7 +61,7 @@ export class GenFuncSeq extends GenSeq {
     } );
     const currentScale = keyAtTime?.event.scale;
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const funcIDegrees = F.getDegrees(I);
+    const funcIDegrees = F.getDegrees(F.I);
     const includesAll = (
       superArray: any[],
       subArray: any[],
@@ -69,9 +69,9 @@ export class GenFuncSeq extends GenSeq {
 
     if (this.hasNewKeyAt(time) || !prevNode) {
       if (includesAll(currentScale.degrees, funcIDegrees))
-        return I;
+        return F.I;
 
-      return Im;
+      return F.Im;
     }
 
     let availableFuncs: Func[] = [];
@@ -86,59 +86,59 @@ export class GenFuncSeq extends GenSeq {
 
     switch (currentMainFunc) {
       case MainFunc.TONIC:
-        if (currentScale === MAJOR) {
+        if (currentScale === S.MAJOR) {
           if (triads)
-            availableFuncs.push(I, IIIm, VIm);
+            availableFuncs.push(F.I, F.IIIm, F.VIm);
           else
-            availableFuncs.push(IMaj7, IIIm7, VIm7);
-        } else if (currentScale === MINOR) {
+            availableFuncs.push(F.IMaj7, F.IIIm7, F.VIm7);
+        } else if (currentScale === S.MINOR) {
           if (triads)
-            availableFuncs.push(Im, bIII);
+            availableFuncs.push(F.Im, F.bIII);
           else
-            availableFuncs.push(Im7, bIIIMaj7);
+            availableFuncs.push(F.Im7, F.bIIIMaj7);
         }
 
         break;
       case MainFunc.SUBDOMINANT:
-        if (currentScale === MAJOR) {
+        if (currentScale === S.MAJOR) {
           if (triads) {
-            availableFuncs.push(IIm, IV);
+            availableFuncs.push(F.IIm, F.IV);
 
             if (isLastFunc)
-              availableFuncs.push(IVm);
+              availableFuncs.push(F.IVm);
           } else {
-            availableFuncs.push(IIm7, IVMaj7);
+            availableFuncs.push(F.IIm7, F.IVMaj7);
 
             if (isLastFunc)
-              availableFuncs.push(IVm7);
+              availableFuncs.push(F.IVm7);
           }
-        } else if (currentScale === MINOR) {
+        } else if (currentScale === S.MINOR) {
           if (triads)
-            availableFuncs.push(IVm, bVI);
+            availableFuncs.push(F.IVm, F.bVI);
           else
-            availableFuncs.push(IVm7, bVIm7);
+            availableFuncs.push(F.IVm7, F.bVIm7);
         }
 
         break;
       case MainFunc.DOMINANT:
-        if (currentScale === MAJOR) {
+        if (currentScale === S.MAJOR) {
           if (triads)
-            availableFuncs.push(V, ISUS4);
-        } else if (currentScale === MINOR) {
+            availableFuncs.push(F.V, F.ISUS4);
+        } else if (currentScale === S.MINOR) {
           if (triads) {
-            availableFuncs.push(Vm);
+            availableFuncs.push(F.Vm);
 
             if (isLastFunc)
-              availableFuncs.push(V, V7);
+              availableFuncs.push(F.V, F.V7);
           } else
-            availableFuncs.push(Vm7);
+            availableFuncs.push(F.Vm7);
         }
 
         if (isLastFunc) {
           if (triads)
-            availableFuncs.push(VII0);
+            availableFuncs.push(F.VII0);
 
-          availableFuncs.push(V7);
+          availableFuncs.push(F.V7);
         }
 
         break;

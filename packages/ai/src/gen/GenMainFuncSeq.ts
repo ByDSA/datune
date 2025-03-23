@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { MainFunc, TonalApproach } from "@datune/analyzer";
 import { MusicalDuration } from "@datune/core";
-import { WHOLE, ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { MusicalDurations as MD } from "@datune/core";
 import { TemporalNode } from "@datune/utils";
 import { of as intervalOf } from "datils/math/intervals";
 import { randomN } from "datils/math";
@@ -23,7 +23,7 @@ export class GenMainFuncSeq extends GenSeq {
     let prevMainFunc: Node | undefined;
     let toTime: MusicalDuration;
 
-    for (let time = ZERO; time < this.tonalApporach.maxDuration; time = toTime) {
+    for (let time = MD.ZERO; time < this.tonalApporach.maxDuration; time = toTime) {
       const duration = this.#pickDuration(prevMainFunc, time);
 
       toTime = time + (duration);
@@ -45,7 +45,7 @@ export class GenMainFuncSeq extends GenSeq {
     prevMainFunc: Node | undefined,
     currentTime: MusicalDuration,
   ): MusicalDuration {
-    const duration = WHOLE * (1 + randomN(2));
+    const duration = MD.WHOLE * (1 + randomN(2));
 
     return this.limitNextMeasure(duration, currentTime);
   }
@@ -55,7 +55,7 @@ export class GenMainFuncSeq extends GenSeq {
     time: MusicalDuration,
     toTime: MusicalDuration,
   ): MainFunc {
-    const maxLastTonicTime = WHOLE * (4);
+    const maxLastTonicTime = MD.WHOLE * (4);
 
     if (this.hasNewKeyAt(time)
     || (this.lastTonicTime && (time - this.lastTonicTime) >= maxLastTonicTime) || !prevMainFunc) {

@@ -1,5 +1,5 @@
 import type { Scale } from "@datune/core/scales/chromatic";
-import { COMMON, DORIAN, LOCRIAN, LYDIAN, MAJOR, MINOR, MIXOLYDIAN, PHRYGIAN } from "@datune/core/scales/symbolic/chromatic/constants";
+import { Scales as S } from "@datune/core";
 import { Options } from "lang";
 import { stringifyScale } from "strings/scales/chromatic";
 import { normalizeInputName } from "../normalizeNameInput";
@@ -13,16 +13,16 @@ export function parseFromName(input: string, options?: Options): Scale | null {
 function parseRaw(str: string, options?: Options): Scale | null {
   switch (str) {
     case "":
-    case stringifyScale(MAJOR, options).toLowerCase(): return MAJOR;
+    case stringifyScale(S.MAJOR, options).toLowerCase(): return S.MAJOR;
     case "m":
-    case stringifyScale(MINOR, options).toLowerCase(): return MINOR;
-    case stringifyScale(DORIAN, options).toLowerCase(): return DORIAN;
-    case stringifyScale(PHRYGIAN, options).toLowerCase(): return PHRYGIAN;
-    case stringifyScale(LYDIAN, options).toLowerCase(): return LYDIAN;
-    case stringifyScale(MIXOLYDIAN, options).toLowerCase(): return MIXOLYDIAN;
-    case stringifyScale(LOCRIAN, options).toLowerCase(): return LOCRIAN;
+    case stringifyScale(S.MINOR, options).toLowerCase(): return S.MINOR;
+    case stringifyScale(S.DORIAN, options).toLowerCase(): return S.DORIAN;
+    case stringifyScale(S.PHRYGIAN, options).toLowerCase(): return S.PHRYGIAN;
+    case stringifyScale(S.LYDIAN, options).toLowerCase(): return S.LYDIAN;
+    case stringifyScale(S.MIXOLYDIAN, options).toLowerCase(): return S.MIXOLYDIAN;
+    case stringifyScale(S.LOCRIAN, options).toLowerCase(): return S.LOCRIAN;
     default:
-      for (const scale of COMMON) {
+      for (const scale of S.COMMON) {
         const name = stringifyScale(scale, options);
 
         if (name !== null && str === normalizeInputName(name))

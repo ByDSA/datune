@@ -1,5 +1,5 @@
 import type { Scale } from "@datune/core/scales/symbolic/alt/Scale";
-import { DOUBLE_HARMONIC, HARMONIC_MAJOR, HARMONIC_MINOR, MAJOR, MELODIC_MINOR, PENTATONIC } from "@datune/core/scales/symbolic/alt/constants";
+import { Scales as S } from "@datune/core/scales/symbolic/alt";
 import { freeze } from "datils/datatypes/objects";
 import { cache } from "./cache";
 
@@ -10,12 +10,12 @@ export function initialize() {
     throw new Error("Already initialized");
 
   SOURCE_SCALES = new Set([
-    MAJOR,
-    HARMONIC_MINOR,
-    MELODIC_MINOR,
-    HARMONIC_MAJOR,
-    DOUBLE_HARMONIC,
-    PENTATONIC,
+    S.MAJOR,
+    S.HARMONIC_MINOR,
+    S.MELODIC_MINOR,
+    S.HARMONIC_MAJOR,
+    S.DOUBLE_HARMONIC,
+    S.PENTATONIC,
   ]);
 
   freeze(SOURCE_SCALES);

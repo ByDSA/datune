@@ -1,13 +1,10 @@
 import { MusicalDuration, MusicalDurations } from "@datune/core";
-import { TestInit } from "tests";
 import { MidiPitches as M } from "pitch";
 import { MidiSequence } from "./MidiSequence";
 import { nodeFrom } from "./node/building";
 import { MidiNode } from "./node/MidiNode";
 import { noteFrom } from "./note/building/from";
 import { MidiNote } from "./note/MidiNote";
-
-TestInit.initAll();
 
 const { dotted, EIGHTH, HALF, QUARTER, WHOLE, ZERO } = MusicalDurations;
 

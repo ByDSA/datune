@@ -1,5 +1,5 @@
 import { TimeSignature } from "@datune/core";
-import { S4_4 } from "@datune/core/rhythm/tempo/time-signature/constants";
+import { TimeSignatures as TS } from "@datune/core";
 
 export type ConstructorObjType = {
   initial: {
@@ -9,6 +9,6 @@ export type ConstructorObjType = {
 
 export const DEFAULT_CONSTRUCTOR_OBJ: ConstructorObjType = {
   initial: {
-    timeSignature: S4_4,
+    timeSignature: TS.S4_4,
   },
 };

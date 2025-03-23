@@ -3,12 +3,10 @@ import * as fs from "node:fs";
 import { MusicalDurations as MD } from "@datune/core";
 import { MidiPitches as M } from "pitch";
 import { MidiSequences as MS } from "sequence";
-import { TestInit } from "tests";
 import { Instrument } from "../instrument";
 import { load } from "./load";
 import { MidiFile } from "./MidiFile";
 
-TestInit.initAll();
 const { EIGHTH, QUARTER, SIXTEENTH, WHOLE, ZERO } = MD;
 const LOAD_SAMPLE = "./tests/sample.mid";
 

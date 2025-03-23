@@ -1,6 +1,6 @@
 import { TonalApproach } from "@datune/analyzer";
 import { MusicalDuration, TimeSignature } from "@datune/core";
-import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { MusicalDurations as MD } from "@datune/core";
 import { divCell } from "@datune/utils/time";
 import { limitTime } from "./utils";
 
@@ -29,7 +29,7 @@ export abstract class GenSeq {
       at: time,
     } )[0]
       || this.tonalApporach.rhythmSequence.get( {
-        at: ZERO,
+        at: MD.ZERO,
       } )[0];
     const measureDuration = this.getMeasureDuration(time);
     const currentRelativeMeasure = time
@@ -45,7 +45,7 @@ export abstract class GenSeq {
       at: time,
     } )[0]
       || this.tonalApporach.rhythmSequence.get( {
-        at: ZERO,
+        at: MD.ZERO,
       } )[0];
     const currentRythm = <TimeSignature>currentRythmNode?.event;
 
@@ -57,7 +57,7 @@ export abstract class GenSeq {
       at: time,
     } )[0]
       || this.tonalApporach.rhythmSequence.get( {
-        at: ZERO,
+        at: MD.ZERO,
       } )[0];
     const measureDuration = this.getMeasureDuration(time);
     const currentRelativeMeasure = time

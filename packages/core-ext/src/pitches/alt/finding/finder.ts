@@ -2,7 +2,7 @@ import type { Pitch as CPitch } from "@datune/core/pitches/chromatic";
 import type { PitchArray as DPitchArray } from "@datune/core/pitches/diatonic";
 import { Pitches as P, type Pitch } from "@datune/core/pitches/alt";
 import { fromAltPitch } from "@datune/core/pitches/chromatic/building";
-import { ALL as D_ALL } from "@datune/core/pitches/diatonic/constants";
+import { Pitches as DP } from "@datune/core/pitches/diatonic";
 
 type Props = {
   possibleDPitches: DPitchArray;
@@ -32,7 +32,7 @@ type FindCPitchAndAltRangeProps = {
 export function find( { cPitch,
   maxFlats = 2,
   maxSharps = 2,
-  possibleDPitches = [...D_ALL] as DPitchArray }: FindCPitchAndAltRangeProps) {
+  possibleDPitches = [...DP.ALL] as DPitchArray }: FindCPitchAndAltRangeProps) {
   if (!cPitch) {
     return findByDiatonicsAndAlts( {
       maxFlats,

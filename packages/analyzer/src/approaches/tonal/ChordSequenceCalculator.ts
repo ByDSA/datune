@@ -2,7 +2,7 @@ import { MusicalDuration } from "@datune/core";
 import { fromPitches } from "@datune/core/chords/octave/chromatic/building/pitches";
 import { PitchArray as ChromaticArray } from "@datune/core/pitches/chromatic";
 import { Spn } from "@datune/core/spns/chromatic";
-import { ZERO } from "@datune/core/rhythm/tempo/musical-duration/constants";
+import { MusicalDurations as MD } from "@datune/core";
 import { TemporalNode } from "@datune/utils";
 import { Interval } from "datils/math";
 import { of as intervalOf } from "datils/math/intervals";
@@ -47,7 +47,7 @@ export class ChordSequenceCalculator {
 
   #forEachPart(f: (interval: Interval<MusicalDuration>)=> void) {
     const [timeSignatureAtBegin] = this.#rhythmSequence.get( {
-      at: ZERO,
+      at: MD.ZERO,
     } );
 
     if (!timeSignatureAtBegin)
@@ -55,7 +55,7 @@ export class ChordSequenceCalculator {
 
     const compasDuration = timeSignatureAtBegin.event.denominatorBeat
     * timeSignatureAtBegin.event.numerator;
-    const intervalIni = intervalOf(ZERO, compasDuration);
+    const intervalIni = intervalOf(MD.ZERO, compasDuration);
     const ceilDuration = getCeilDuration(this.#notesTimeSequence.duration, compasDuration);
 
     for (let interval = intervalIni;
