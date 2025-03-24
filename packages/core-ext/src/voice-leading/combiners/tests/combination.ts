@@ -33,8 +33,8 @@ export function expectCombinations(
 ) {
   ensureIsCombination(actual);
   ensureIsCombination(expected);
-  const actual2 = actual.map(c=>c.sort(singleStepsSortByIndex));
-  const expected2 = expected.map(c=>c.sort(singleStepsSortByIndex));
+  const actual2 = actual.map(c=>[...c].sort(singleStepsSortByIndex));
+  const expected2 = expected.map(c=>[...c].sort(singleStepsSortByIndex));
 
   try {
     expect(actual2.sort()).toEqual(expected2.sort());

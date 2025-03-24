@@ -1,61 +1,62 @@
 import type { SingleStepArray } from "voice-leading/steps";
 import { NonEmptyArray } from "datils/datatypes";
 import { deepFreeze } from "datils/datatypes/objects";
-import { compositeStepFromIntervals } from "voice-leading/steps/composite/building";
-import { SS_0_1, SS_0_2, SS_0_S1, SS_0_S2, SS_1_1, SS_1_2, SS_1_S1, SS_1_S2, SS_2_1, SS_2_S1 } from "voice-leading/steps/single/constants";
+import { compositeStepFromIntervals as cs } from "voice-leading/steps/composite/building";
 
 export type ResolutionSteps = NonEmptyArray<SingleStepArray>;
 
 export const DEFAULT_TRITONE_RESOLUTION: ResolutionSteps = [
-  [SS_0_1, SS_1_2],
-  [SS_0_1, SS_1_S1],
-  [SS_0_1, SS_1_S2],
-  [SS_0_2, SS_1_1],
-  [SS_0_2, SS_1_S1],
-  [SS_0_2, SS_1_S2],
-  [SS_0_S1, SS_1_1],
-  [SS_0_S1, SS_1_2],
-  [SS_0_S1, SS_1_S2],
-  [SS_0_S2, SS_1_1],
-  [SS_0_S2, SS_1_2],
-  [SS_0_S2, SS_1_S1],
-];
+  cs(1, 2),
+  cs(1, -1),
+  cs(1, -2),
+  cs(2, 1),
+  cs(2, -1),
+  cs(2, -2),
+  cs(-1, 1),
+  cs(-1, 2),
+  cs(-1, -2),
+  cs(-2, 1),
+  cs(-2, 2),
+  cs(-2, -1),
+].map(c=>c.singleSteps) as ResolutionSteps;
 deepFreeze(DEFAULT_TRITONE_RESOLUTION);
 
+const _ = undefined;
+
 export const DEFAULT_AUGMENTED_RESOLUTION: ResolutionSteps = [
-  [SS_0_1],
-  [SS_0_S1],
-  [SS_1_1],
-  [SS_1_S1],
-  [SS_2_1],
-  [SS_2_S1],
-  [SS_0_1, SS_1_1],
-  [SS_1_1, SS_2_1],
-  [SS_0_1, SS_2_1],
-  [SS_0_S1, SS_1_S1],
-  [SS_1_S1, SS_2_S1],
-  [SS_0_S1, SS_2_S1],
-  [SS_0_1, SS_1_S1],
-  [SS_0_S1, SS_1_1],
-  [SS_1_1, SS_2_S1],
-  [SS_1_S1, SS_2_1],
-  [SS_0_1, SS_2_S1],
-  [SS_0_S1, SS_2_1],
-];
+  cs(1, _, _),
+  cs(-1, _, _),
+  cs(_, 1, _),
+  cs(_, -1, _),
+  cs(_, _, 1),
+  cs(_, _, -1),
+  cs(1, 1, _),
+  cs(_, 1, 1),
+  cs(1, _, 1),
+  cs(-1, -1, _),
+  cs(_, -1, -1),
+  cs(-1, _, -1),
+  cs(1, -1, _),
+  cs(-1, 1, _),
+  cs(_, 1, -1),
+  cs(_, -1, 1),
+  cs(1, _, -1),
+  cs(-1, _, 1),
+].map(c=>c.singleSteps) as ResolutionSteps;
 deepFreeze(DEFAULT_AUGMENTED_RESOLUTION);
 
 export const DEFAULT_M2_RESOLUTION: ResolutionSteps = [
-  compositeStepFromIntervals(-1, 0).singleSteps,
-  compositeStepFromIntervals(-2, 0).singleSteps,
-  compositeStepFromIntervals(0, 1).singleSteps,
-  compositeStepFromIntervals(0, 2).singleSteps,
-];
+  cs(-1, 0),
+  cs(-2, 0),
+  cs(0, 1),
+  cs(0, 2),
+].map(c=>c.singleSteps) as ResolutionSteps;
 deepFreeze(DEFAULT_M2_RESOLUTION);
 
 export const DEFAULT_MINOR7_RESOLUTION: ResolutionSteps = [
-  compositeStepFromIntervals(1, 0).singleSteps,
-  compositeStepFromIntervals(2, 0).singleSteps,
-  compositeStepFromIntervals(0, -1).singleSteps,
-  compositeStepFromIntervals(0, -2).singleSteps,
-];
+  cs(1, 0),
+  cs(2, 0),
+  cs(0, -1),
+  cs(0, -2),
+].map(c=>c.singleSteps) as ResolutionSteps;
 deepFreeze(DEFAULT_MINOR7_RESOLUTION);

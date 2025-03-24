@@ -2,7 +2,7 @@ import { SingleStepArray } from "./Array";
 import { SingleStep } from "./SingleStep";
 
 export function singleStepsGetObjId(singleSteps: SingleStepArray): string {
-  return singleSteps
+  return [...singleSteps]
     .sort((a, b) => a.index - b.index) // Ordenar por índice
     .map(singleStepGetObjId) // Id de cada SingleStep
     .join(",");

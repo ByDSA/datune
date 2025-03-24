@@ -75,7 +75,7 @@ it("dIM in notes: D3, F4, B4", () => {
     compositeStepFromIntervals(undefined, -2, 1),
     compositeStepFromIntervals(undefined, -2, 2),
     compositeStepFromIntervals(undefined, -2, -1),
-  ].map((cm) => cm.singleSteps.sort());
+  ].map((cm) => [...cm.singleSteps].sort());
 
   expectCombinations(actual, expected);
 } );
