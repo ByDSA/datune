@@ -1,7 +1,7 @@
 import type { Track } from "../../track/Track";
 import type { MidiNode } from "../../../sequence/node/MidiNode";
 import type { Midi as ToneJsMidi, Track as ToneJsTrack } from "@tonejs/midi";
-import { MusicalDuration } from "@datune/core";
+import { BPMs, MusicalDuration } from "@datune/core";
 import { Note as ToneJsNote } from "@tonejs/midi/dist/Note";
 import { Instrument } from "files/instrument";
 import { type Channel, channelFromNumber } from "files/track/Channel";
@@ -11,6 +11,7 @@ import { noteFrom } from "sequence/note/building/from";
 import { nodeFrom } from "sequence/node/building";
 import { instrumentFromNumber } from "files/instrument/Instrument";
 import { MidiFile } from "../MidiFile";
+import { getMidiTempo } from "./tonejs-utils";
 
 export function fromToneJsMidi(toneJsMidi: ToneJsMidi): MidiFile {
   return new MidiAdapter(toneJsMidi).adapt();
@@ -25,6 +26,10 @@ class MidiAdapter {
   adapt(): MidiFile {
     const { toneJsMidi } = this;
     const midiFile = new MidiFile();
+    const tempo = getMidiTempo(toneJsMidi);
+
+    if (tempo !== null)
+      midiFile.addBPM(BPMs.from(tempo));
 
     toneJsMidi.tracks.forEach((toneJsTrack) => {
       if (isPointlessTrack(toneJsTrack))
