@@ -2,7 +2,7 @@ import { TonalApproach } from "@datune/analyzer";
 import { MusicalDuration } from "@datune/core";
 import { Key } from "@datune/core/keys/chromatic";
 import { MusicalDurations as MD } from "@datune/core";
-import { of as intervalOf } from "datils/math/intervals";
+import { intervalBetween } from "datils/math/intervals";
 import { randomN } from "datils/math";
 import { GenSeq } from "./GenSeq";
 
@@ -28,7 +28,7 @@ export class GenKeySeq extends GenSeq {
       toTime = this.limitMaxDuration(toTime);
       keySeq.add( {
         event: key,
-        interval: intervalOf(time, toTime),
+        interval: intervalBetween(time, toTime),
       } );
     }
   }

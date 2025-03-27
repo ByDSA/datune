@@ -5,7 +5,7 @@ import { ChordSequence, FuncSequence, KeySequence, MainFuncSequence, NotesSequen
 import { ChordSequenceCalculator } from "./ChordSequenceCalculator";
 import { ConstructorObjType, DEFAULT_CONSTRUCTOR_OBJ } from "./Constructor";
 
-export class TonalApproach {
+export type TonalApproach = {
   keySequence: KeySequence;
 
   keyChordSequence: KeySequence;
@@ -21,31 +21,35 @@ export class TonalApproach {
   chordSequence: ChordSequence;
 
   maxDuration: MusicalDuration;
+};
 
-  constructor(obj?: Partial<ConstructorObjType>) {
-    const input: ConstructorObjType = deepMerge(DEFAULT_CONSTRUCTOR_OBJ, obj) as ConstructorObjType;
+export function newTonalApproach(obj?: Partial<ConstructorObjType>): TonalApproach {
+  const input: ConstructorObjType = deepMerge(DEFAULT_CONSTRUCTOR_OBJ, obj) as ConstructorObjType;
+  const ret: TonalApproach = {
+    maxDuration: MD.ZERO,
+    mainFuncSequence: new MainFuncSequence(),
+    funcSequence: new FuncSequence(),
+    keyChordSequence: new KeySequence(),
+    keySequence: new KeySequence(),
+    notesSequence: new NotesSequence(),
+    chordSequence: new ChordSequence(),
+    rhythmSequence: new RhythmSequence(),
+  };
 
-    this.maxDuration = MD.ZERO;
-    this.mainFuncSequence = new MainFuncSequence();
-    this.funcSequence = new FuncSequence();
-    this.keyChordSequence = new KeySequence();
-    this.keySequence = new KeySequence();
-    this.notesSequence = new NotesSequence();
-    this.chordSequence = new ChordSequence();
-    this.rhythmSequence = new RhythmSequence();
-    this.rhythmSequence.add( {
-      event: input.initial.timeSignature,
-      from: MD.ZERO,
-      to: MD.WHOLE,
-    } );
-  }
+  ret.rhythmSequence.add( {
+    event: input.initial.timeSignature,
+    from: MD.ZERO,
+    to: MD.WHOLE,
+  } );
 
-  calculateChords() {
-    const chordSequenceCalculator = new ChordSequenceCalculator(
-      this.notesSequence,
-      this.rhythmSequence,
-    );
+  return ret;
+}
 
-    this.chordSequence = chordSequenceCalculator.calculate();
-  }
+export function calculateChords(tonalApproach: TonalApproach) {
+  const chordSequenceCalculator = new ChordSequenceCalculator(
+    tonalApproach.notesSequence,
+    tonalApproach.rhythmSequence,
+  );
+
+  tonalApproach.chordSequence = chordSequenceCalculator.calculate();
 }

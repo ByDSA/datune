@@ -1,8 +1,7 @@
 #!/usr/bin/env zx
 import path from "node:path";
 
-// eslint-disable-next-line no-undef
-const files = await glob("../**/[0-9][0-9]*.ts");
+const files = await glob("./[0-9][0-9]*.ts");
 
 $.verbose = false;
 

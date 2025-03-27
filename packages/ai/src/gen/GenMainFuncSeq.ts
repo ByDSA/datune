@@ -3,7 +3,7 @@ import { MainFunc, TonalApproach } from "@datune/analyzer";
 import { MusicalDuration } from "@datune/core";
 import { MusicalDurations as MD } from "@datune/core";
 import { TemporalNode } from "@datune/utils";
-import { of as intervalOf } from "datils/math/intervals";
+import { intervalBetween } from "datils/math/intervals";
 import { randomN } from "datils/math";
 import { GenSeq } from "./GenSeq";
 import { limitTime } from "./utils";
@@ -32,7 +32,7 @@ export class GenMainFuncSeq extends GenSeq {
 
       [prevMainFunc] = mainFuncSeq.add( {
         event: mainFunc,
-        interval: intervalOf(time, toTime),
+        interval: intervalBetween(time, toTime),
       } );
     }
   }

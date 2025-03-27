@@ -26,6 +26,9 @@ packages:
   '@datune/analyzer@file:../analyzer/dist':
     resolution: {directory: ../analyzer/dist, type: directory}
 
+  '@datune/core-ext@file:../core-ext/dist':
+    resolution: {directory: ../core-ext/dist, type: directory}
+
   '@datune/core@file:../core/dist':
     resolution: {directory: ../core/dist, type: directory}
 
@@ -53,6 +56,13 @@ packages:
 snapshots:
 
   '@datune/analyzer@file:../analyzer/dist':
+    dependencies:
+      '@datune/core': file:../core/dist
+      '@datune/core-ext': file:../core-ext/dist
+      '@datune/midi': file:../midi/dist
+      '@datune/utils': file:../utils/dist
+
+  '@datune/core-ext@file:../core-ext/dist':
     dependencies:
       '@datune/core': file:../core/dist
       '@datune/utils': file:../utils/dist

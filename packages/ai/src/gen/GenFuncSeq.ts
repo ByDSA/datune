@@ -6,7 +6,7 @@ import { MusicalDurations as MD } from "@datune/core";
 import { MusicalDuration } from "@datune/core/rhythm";
 import { TemporalNode } from "@datune/utils";
 import { randomN } from "datils/math";
-import { of as intervalOf } from "datils/math/intervals";
+import { intervalBetween } from "datils/math/intervals";
 import { GenSeq } from "./GenSeq";
 import { limitTime } from "./utils";
 
@@ -36,7 +36,7 @@ export class GenFuncSeq extends GenSeq {
       if (func) {
         [prevNode] = this.funcSeq.add( {
           event: func,
-          interval: intervalOf(time, toTime),
+          interval: intervalBetween(time, toTime),
         } );
       }
     }
@@ -152,7 +152,7 @@ export class GenFuncSeq extends GenSeq {
 
       this.funcSeq.add( {
         event: prevNode.event,
-        interval: intervalOf(prevNode.interval.from, toTime),
+        interval: intervalBetween(prevNode.interval.from, toTime),
       } );
 
       return null;

@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "@datune/core": "file:../core/dist",
+    "@datune/core-ext": "file:../core-ext/dist",
+    "@datune/midi": "file:../midi/dist",
     "@datune/utils": "file:../utils/dist"
   },
   "devDependencies": {},

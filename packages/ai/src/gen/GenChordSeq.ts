@@ -4,7 +4,7 @@ import { Func } from "@datune/core/functions/chromatic";
 import { Key } from "@datune/core/keys/chromatic";
 import { from } from "@datune/core/keys/chromatic/building";
 import { MusicalDurations as MD } from "@datune/core";
-import { of as intervalOf } from "datils/math/intervals";
+import { intervalBetween } from "datils/math/intervals";
 import { Scales as S } from "@datune/core";
 import { randomN } from "datils/math";
 import { GenSeq } from "./GenSeq";
@@ -37,14 +37,14 @@ export class GenChordSeq extends GenSeq {
 
       tonalApproach.chordSequence.add( {
         event: chord,
-        interval: intervalOf(time, toTime),
+        interval: intervalBetween(time, toTime),
       } );
 
       const keyChord = pickKeyChord(key, func, chord);
 
       tonalApproach.keyChordSequence.add( {
         event: keyChord,
-        interval: intervalOf(time, toTime),
+        interval: intervalBetween(time, toTime),
       } );
     }
   }

@@ -1,5 +1,5 @@
 import { Pitches as P } from "@datune/core/pitches/chromatic";
-import { of as intervalOf } from "datils/math/intervals";
+import { intervalBetween } from "datils/math/intervals";
 import { MusicalDurations as MD } from "@datune/core";
 import { generateNotesTimeSequenceSampleCMajor } from "./tests/notes-sequence-samples";
 
@@ -58,7 +58,7 @@ it("pick by node position", () => {
 
 it("pick by interval", () => {
   const s = generateNotesTimeSequenceSampleCMajor();
-  const interval = intervalOf(QUARTER, WHOLE);
+  const interval = intervalBetween(QUARTER, WHOLE);
   const nodes = s.get( {
     interval,
   } );
