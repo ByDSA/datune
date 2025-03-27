@@ -2,7 +2,7 @@ import { Chords as C } from "@datune/core/chords/chromatic";
 import { Pitches as P } from "@datune/core/pitches/chromatic";
 import { TimeSignatures as TS } from "@datune/core/rhythm";
 import { calculateChords, newTonalApproach } from "../approaches/tonal/TonalApproach";
-import { notesTimelineSample1 } from "./tests/notes-sequence-samples";
+import { notesTimelineSample1 } from "./tests/notes-timeline-samples";
 
 it.skip("chord Analyser 4/4", () => {
   const notesTimeline = notesTimelineSample1();

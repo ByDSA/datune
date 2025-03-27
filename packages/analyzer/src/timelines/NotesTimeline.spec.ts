@@ -1,7 +1,7 @@
 import { Pitches as P } from "@datune/core/pitches/chromatic";
 import { intervalBetween } from "datils/math/intervals";
 import { MusicalDurations as MD } from "@datune/core";
-import { generateNotesTimelineSampleCMajor } from "./tests/notes-sequence-samples";
+import { generateNotesTimelineSampleCMajor } from "./tests/notes-timeline-samples";
 
 const { QUARTER, WHOLE, ZERO } = MD;
 const { D: P_D, E: P_E, F: P_F, G: P_G } = P;
