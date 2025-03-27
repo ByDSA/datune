@@ -9,16 +9,16 @@ import { ParallelTimelineTest } from "./ParallelTimelineTest";
 describe("initial state", () => {
   it("initial state - nodes", () => {
     const expected = 0;
-    const seq = new ParallelTimelineTest();
-    const actual = seq.nodes.length;
+    const tl = new ParallelTimelineTest();
+    const actual = tl.nodes.length;
 
     expect(actual).toStrictEqual(expected);
   } );
 
   it("initial state - duration", () => {
     const expected = 0;
-    const seq = new ParallelTimelineTest();
-    const actual = seq.duration;
+    const tl = new ParallelTimelineTest();
+    const actual = tl.duration;
 
     expect(actual).toStrictEqual(expected);
   } );
@@ -27,16 +27,16 @@ describe("initial state", () => {
 describe("add", () => {
   describe("event", () => {
     it("returns node", () => {
-      const seq = new ParallelTimelineTest();
-      const node = seq.add(newNode1())[0];
+      const tl = new ParallelTimelineTest();
+      const node = tl.add(newNode1())[0];
 
       expect(node).toBeDefined();
     } );
 
     it("node info", () => {
-      const seq = new ParallelTimelineTest();
+      const tl = new ParallelTimelineTest();
       const obj = newNode1();
-      const node = seq.add(obj)[0];
+      const node = tl.add(obj)[0];
 
       expect(node.interval.from).toStrictEqual(obj.interval.from);
       expect(node.interval.to).toStrictEqual(obj.interval.to);
@@ -45,28 +45,28 @@ describe("add", () => {
 
     it("length nodes", () => {
       const expected = 2;
-      const seq = new ParallelTimelineTest();
+      const tl = new ParallelTimelineTest();
 
-      seq.add(newNode1());
-      seq.add(newNode1());
-      const actual = seq.nodes.length;
+      tl.add(newNode1());
+      tl.add(newNode1());
+      const actual = tl.nodes.length;
 
       expect(actual).toBe(expected);
     } );
 
     it("duration", () => {
       const expected = 2;
-      const seq = new ParallelTimelineTest();
+      const tl = new ParallelTimelineTest();
 
-      seq.add(newNode1());
-      seq.add( {
+      tl.add(newNode1());
+      tl.add( {
         event: new EventTest(),
         interval: intervalBetween(
-          seq.duration,
-          add(seq.duration, 1),
+          tl.duration,
+          add(tl.duration, 1),
         ),
       } );
-      const actual = seq.duration;
+      const actual = tl.duration;
 
       expect(actual).toStrictEqual(expected);
     } );
@@ -74,11 +74,11 @@ describe("add", () => {
 
   describe("nodes", () => {
     it("node info", () => {
-      const seq = new ParallelTimelineTest();
+      const tl = new ParallelTimelineTest();
       const ev = new EventTest();
       const node = fromBetween(ev, 5, 10);
 
-      seq.add(node);
+      tl.add(node);
 
       expect(node.interval.from).toBe(5);
       expect(node.interval.to).toBe(10);
@@ -87,11 +87,11 @@ describe("add", () => {
 
     it("length nodes", () => {
       const expected = 1;
-      const seq = new ParallelTimelineTest();
+      const tl = new ParallelTimelineTest();
       const node = newNode1();
 
-      seq.add(node);
-      const actual = seq.nodes.length;
+      tl.add(node);
+      const actual = tl.nodes.length;
 
       expect(actual).toBe(expected);
     } );
@@ -143,45 +143,45 @@ describe("add", () => {
 describe("remove", () => {
   it("length nodes", () => {
     const expected = 0;
-    const seq = new ParallelTimelineTest();
-    const node = seq.add(newNode1())[0];
+    const tl = new ParallelTimelineTest();
+    const node = tl.add(newNode1())[0];
 
-    seq.remove(node);
-    const actual = seq.nodes.length;
+    tl.remove(node);
+    const actual = tl.nodes.length;
 
     expect(actual).toBe(expected);
   } );
 
   it("length nodes2", () => {
     const expected = 0;
-    const seq = new ParallelTimelineTest();
-    const node = seq.add(newNode1())[0];
+    const tl = new ParallelTimelineTest();
+    const node = tl.add(newNode1())[0];
 
-    seq.remove(node);
-    const actual = seq.nodes.length;
+    tl.remove(node);
+    const actual = tl.nodes.length;
 
     expect(actual).toBe(expected);
   } );
 
   it("re-add in same time layer", () => {
     const expected = 1;
-    const seq = new ParallelTimelineTest();
-    const node = seq.add(newNode1())[0];
+    const tl = new ParallelTimelineTest();
+    const node = tl.add(newNode1())[0];
 
-    seq.remove(node);
-    seq.add(node);
-    const actual = seq.nodes.length;
+    tl.remove(node);
+    tl.add(node);
+    const actual = tl.nodes.length;
 
     expect(actual).toBe(expected);
   } );
 
   it("re-add in different time layer", () => {
     const expected = 1;
-    const seq = new ParallelTimelineTest();
+    const tl = new ParallelTimelineTest();
     const seq2 = new ParallelTimelineTest();
-    const node = seq.add(newNode1())[0];
+    const node = tl.add(newNode1())[0];
 
-    seq.remove(node);
+    tl.remove(node);
     seq2.add(node);
     const actual = seq2.nodes.length;
 
@@ -189,9 +189,9 @@ describe("remove", () => {
   } );
 
   it("returns old node", () => {
-    const seq = new ParallelTimelineTest();
-    const expected = seq.add(newNode1());
-    const actual = seq.remove(...expected);
+    const tl = new ParallelTimelineTest();
+    const expected = tl.add(newNode1());
+    const actual = tl.remove(...expected);
 
     expect(actual).toEqual(expected);
     expect(actual[0]).toBe(expected[0]);
@@ -201,24 +201,24 @@ describe("remove", () => {
 describe("onremove", () => {
   it("node found", () => {
     let count = 0;
-    const seq = new ParallelTimelineTest();
+    const tl = new ParallelTimelineTest();
 
-    seq.add(newNode1());
-    seq.onRemove(() => count++);
-    const nodeToRemove = seq.nodes[0];
+    tl.add(newNode1());
+    tl.onRemove(() => count++);
+    const nodeToRemove = tl.nodes[0];
 
-    seq.remove(nodeToRemove);
+    tl.remove(nodeToRemove);
 
     expect(count).toBe(1);
   } );
 
   it("node not found", () => {
     let count = 0;
-    const seq = new ParallelTimelineTest();
+    const tl = new ParallelTimelineTest();
     const node = newNode1();
 
-    seq.onRemove(() => count++);
-    seq.remove(node);
+    tl.onRemove(() => count++);
+    tl.remove(node);
 
     expect(count).toBe(0);
   } );
@@ -226,12 +226,12 @@ describe("onremove", () => {
   describe("clear", () => {
     it("call once per node", () => {
       let count = 0;
-      const seq = new ParallelTimelineTest();
+      const tl = new ParallelTimelineTest();
 
-      seq.add(newNode1());
-      seq.add(newNode1());
-      seq.onRemove(() => count++);
-      seq.clear();
+      tl.add(newNode1());
+      tl.add(newNode1());
+      tl.onRemove(() => count++);
+      tl.clear();
 
       expect(count).toBe(2);
     } );
@@ -239,16 +239,16 @@ describe("onremove", () => {
     it("cleared before call any listener", () => {
       const expected = 0;
       let count = 0;
-      const seq = new ParallelTimelineTest();
+      const tl = new ParallelTimelineTest();
 
-      seq.add(newNode1());
-      seq.add(newNode1());
-      seq.onRemove(() => {
-        count += seq.nodes.length;
+      tl.add(newNode1());
+      tl.add(newNode1());
+      tl.onRemove(() => {
+        count += tl.nodes.length;
 
         return count;
       } );
-      seq.clear();
+      tl.clear();
 
       expect(count).toBe(expected);
     } );
@@ -258,11 +258,11 @@ describe("onremove", () => {
 describe("clear", () => {
   it("length nodes", () => {
     const expected = 0;
-    const seq = new ParallelTimelineTest();
+    const tl = new ParallelTimelineTest();
 
-    seq.add(newNode1());
-    seq.clear();
-    const actual = seq.nodes.length;
+    tl.add(newNode1());
+    tl.clear();
+    const actual = tl.nodes.length;
 
     expect(actual).toBe(expected);
   } );
@@ -270,11 +270,11 @@ describe("clear", () => {
 
 it("move node begin", () => {
   const expectedInterval = intervalBetween(3, 4);
-  const seq = new ParallelTimelineTest();
+  const tl = new ParallelTimelineTest();
   const oldNode = newNode1();
 
-  seq.add(oldNode);
-  const actualNode = seq.moveNode(oldNode, 3);
+  tl.add(oldNode);
+  const actualNode = tl.moveNode(oldNode, 3);
 
   expect(actualNode.interval).toEqual(expectedInterval);
 } );
@@ -282,11 +282,11 @@ it("move node begin", () => {
 it("move node end", () => {
   const expectedFrom = 4;
   const expectedTo = 5;
-  const seq = new ParallelTimelineTest();
+  const tl = new ParallelTimelineTest();
   const oldNode = newNode1();
 
-  seq.add(oldNode);
-  const newNode = seq.moveNodeEndTo(oldNode, 5);
+  tl.add(oldNode);
+  const newNode = tl.moveNodeEndTo(oldNode, 5);
   const actualFrom = newNode.interval.from;
   const actualTo = newNode.interval.to;
 
@@ -295,16 +295,16 @@ it("move node end", () => {
 } );
 
 describe("get", () => {
-  let seq: ParallelTimelineTest;
+  let tl: ParallelTimelineTest;
 
   beforeEach(() => {
-    seq = new ParallelTimelineTest();
+    tl = new ParallelTimelineTest();
   } );
 
   describe("at", () => {
     beforeEach(() => {
-      seq.add(newNode1());
-      seq.add( {
+      tl.add(newNode1());
+      tl.add( {
         interval: intervalBetween(10, 11, {
           from: IntervalBound.OPEN,
           to: IntervalBound.CLOSED,
@@ -314,31 +314,31 @@ describe("get", () => {
     } );
 
     it("0 (left included)", () => {
-      const got = seq.getAt(0);
+      const got = tl.getAt(0);
 
       expect(got).toHaveLength(1);
     } );
 
     it("0.5 (middle)", () => {
-      const got = seq.getAt(0.5);
+      const got = tl.getAt(0.5);
 
       expect(got).toHaveLength(1);
     } );
 
     it("1 (right not included)", () => {
-      const got = seq.getAt(1);
+      const got = tl.getAt(1);
 
       expect(got).toHaveLength(0);
     } );
 
     it("10 (left not included)", () => {
-      const got = seq.getAt(10);
+      const got = tl.getAt(10);
 
       expect(got).toHaveLength(0);
     } );
 
     it("11 (right included)", () => {
-      const got = seq.getAt(11);
+      const got = tl.getAt(11);
 
       expect(got).toHaveLength(1);
     } );
@@ -347,15 +347,15 @@ describe("get", () => {
 
 it("onchange", () => {
   const expected = 1;
-  const seq = new ParallelTimelineTest();
+  const tl = new ParallelTimelineTest();
   let actual = 0;
 
-  seq.onChange(() => {
+  tl.onChange(() => {
     actual++;
   } );
-  const node = seq.add(newNode1())[0];
+  const node = tl.add(newNode1())[0];
 
-  seq.moveNode(node, 3);
+  tl.moveNode(node, 3);
 
   expect(actual).toBe(expected);
 } );

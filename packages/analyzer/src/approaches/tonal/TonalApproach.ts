@@ -8,7 +8,7 @@ import { ChordTimeline, KeyTimeline, NotesTimeline, TimeSignatureTimeline } from
 import { ChordTimelineCalculator } from "./ChordTimelineCalculator";
 import { ConstructorObjType, DEFAULT_CONSTRUCTOR_OBJ } from "./Constructor";
 
-export class TonalApproach {
+export type TonalApproach = {
   keyTimeline: KeyTimeline;
 
   keyChordTimeline: KeyTimeline;
@@ -24,33 +24,45 @@ export class TonalApproach {
   chordTimeline: ChordTimeline;
 
   maxDuration: MusicalDuration;
+};
 
-  constructor(obj?: Partial<ConstructorObjType>) {
-    const input: ConstructorObjType = deepMerge(DEFAULT_CONSTRUCTOR_OBJ, obj) as ConstructorObjType;
+export function newTonalApproach(obj?: Partial<ConstructorObjType>): TonalApproach {
+  const input: ConstructorObjType = deepMerge(DEFAULT_CONSTRUCTOR_OBJ, obj) as ConstructorObjType;
+  const ret: TonalApproach = {
+    maxDuration: MD.ZERO,
+    mainFuncTimeline: new MainFuncTimeline(),
+    funcTimeline: new FuncTimeline(),
+    keyChordTimeline: new KeyTimeline(),
+    keyTimeline: new KeyTimeline(),
+    notesTimeline: new NotesTimeline(),
+    chordTimeline: new ChordTimeline(),
+    timeSignatureTimeline: new TimeSignatureTimeline(),
+  };
 
-    this.maxDuration = MD.ZERO;
-    this.mainFuncTimeline = new MainFuncTimeline();
-    this.funcTimeline = new FuncTimeline();
-    this.keyChordTimeline = new KeyTimeline();
-    this.keyTimeline = new KeyTimeline();
-    this.notesTimeline = new NotesTimeline();
-    this.chordTimeline = new ChordTimeline();
-    this.timeSignatureTimeline = new TimeSignatureTimeline();
-    this.timeSignatureTimeline.add( {
-      event: input.initial.timeSignature,
-      interval: intervalBetween(
-        MD.ZERO,
-        MD.WHOLE,
-      ),
-    } );
-  }
+  ret.maxDuration = MD.ZERO;
+  ret.mainFuncTimeline = new MainFuncTimeline();
+  ret.funcTimeline = new FuncTimeline();
+  ret.keyChordTimeline = new KeyTimeline();
+  ret.keyTimeline = new KeyTimeline();
+  ret.notesTimeline = new NotesTimeline();
+  ret.chordTimeline = new ChordTimeline();
+  ret.timeSignatureTimeline = new TimeSignatureTimeline();
+  ret.timeSignatureTimeline.add( {
+    event: input.initial.timeSignature,
+    interval: intervalBetween(
+      MD.ZERO,
+      MD.WHOLE,
+    ),
+  } );
 
-  calculateChords() {
-    const chordTimelineCalculator = new ChordTimelineCalculator(
-      this.notesTimeline,
-      this.timeSignatureTimeline,
-    );
+  return ret;
+}
 
-    this.chordTimeline = chordTimelineCalculator.calculate();
-  }
+export function calculateChords(tonalApproach: TonalApproach) {
+  const chordTimelineCalculator = new ChordTimelineCalculator(
+    tonalApproach.notesTimeline,
+    tonalApproach.timeSignatureTimeline,
+  );
+
+  tonalApproach.chordTimeline = chordTimelineCalculator.calculate();
 }

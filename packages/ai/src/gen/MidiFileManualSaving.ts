@@ -19,6 +19,7 @@ import { Track } from "@datune/midi/files/track/Track";
 import { Channel } from "@datune/midi/files/track/Channel";
 import { Chord as SpnChord } from "@datune/core/chords/absolute/chromatic/Chord";
 import { NonEmptyArray } from "datils";
+import { newTonalApproach } from "@datune/analyzer/approaches/tonal/TonalApproach";
 import { ActionGen } from "./actions/ActionGen";
 import { ActionGenState } from "./actions/ActionGenState";
 import { ActionManager } from "./actions/ActionManager";
@@ -178,7 +179,7 @@ export function sample4(): MidiFile {
 
   midiFile.addBPM(BPMFrom(100, MD.QUARTER));
 
-  const tonalApproach = new TonalApproach();
+  const tonalApproach = newTonalApproach();
 
   tonalApproach.maxDuration = MD.LONGA * (1);
   new GenKeySeq(tonalApproach, possibleKeysInitial).generate();

@@ -1,11 +1,10 @@
 import { MusicalDuration } from "@datune/core";
 import { fromPitches } from "@datune/core/chords/octave/chromatic/building/pitches";
-import { PitchArray as ChromaticArray } from "@datune/core/pitches/chromatic";
-import { Spn } from "@datune/core/spns/chromatic";
+import { PitchArray } from "@datune/core/pitches/chromatic";
 import { MusicalDurations as MD } from "@datune/core";
 import { Interval } from "datils/math";
 import { intervalBetween } from "datils/math/intervals";
-import { TimelineNode } from "@datune/utils";
+import { sortNodesBySpn } from "approaches/utils";
 import { NotesTimeline } from "../..";
 import { ChordTimeline } from "../../timelines/ChordTimeline";
 import { TimeSignatureTimeline } from "../../timelines/TimeSignatureTimeline";
@@ -25,8 +24,8 @@ export class ChordTimelineCalculator {
 
     this.#forEachPart((interval) => {
       const nodes = this.#notesTimeline.getAtInterval(interval);
-      const nodesSorted = sortNodesByPitch(nodes);
-      const pitches = nodesSorted.map((node) => node.event.pitch) as ChromaticArray;
+      const nodesSorted = sortNodesBySpn(nodes);
+      const pitches = nodesSorted.map((node) => node.event.pitch) as PitchArray;
       const pitchesUnique = pitches;
 
       if (pitchesUnique.length < 2)
@@ -59,23 +58,6 @@ export class ChordTimelineCalculator {
       interval = intervalBetween(interval.to, interval.to + compasDuration))
       f(interval);
   }
-}
-
-function sortNodesByPitch(
-  nodes: TimelineNode<Spn>[],
-): TimelineNode<Spn>[] {
-  return nodes.sort((a, b) => {
-    const valueA = a.event.valueOf();
-    const valueB = b.event.valueOf();
-
-    if (valueA < valueB)
-      return -1;
-
-    if (valueA > valueB)
-      return 1;
-
-    return 0;
-  } );
 }
 
 function getCeilDuration(duration: MusicalDuration, compas: MusicalDuration): MusicalDuration {
