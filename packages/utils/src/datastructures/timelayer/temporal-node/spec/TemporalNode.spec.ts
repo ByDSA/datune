@@ -1,10 +1,10 @@
-import { of as intervalOf } from "datils/math/intervals";
+import { intervalBetween } from "datils/math/intervals";
 import { EventTest } from "./EventTest";
 import { newNode1 } from "./utils";
 
 it("info", () => {
   const node = newNode1();
-  const expectedInterval = intervalOf(0, 1);
+  const expectedInterval = intervalBetween(0, 1);
 
   expect(node.interval).toEqual(expectedInterval);
   expect(node.event).toEqual(new EventTest());

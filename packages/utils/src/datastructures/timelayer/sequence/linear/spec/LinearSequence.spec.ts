@@ -1,4 +1,4 @@
-import { of as intervalOf } from "datils/math/intervals";
+import { intervalBetween } from "datils/math/intervals";
 import { TemporalNode } from "datastructures/timelayer/temporal-node";
 import { EventTest } from "datastructures/timelayer/temporal-node/spec/EventTest";
 import { LinearSequenceTest } from "./LinearSequenceTest";
@@ -20,11 +20,11 @@ describe("add", () => {
     const expected = [
       {
         event: new EventTest(),
-        interval: intervalOf(10, 20),
+        interval: intervalBetween(10, 20),
       },
       {
         event: new EventTest(),
-        interval: intervalOf(1, 9),
+        interval: intervalBetween(1, 9),
       },
     ];
 
@@ -42,7 +42,7 @@ describe("add", () => {
       const expected = [
         {
           event: new EventTest(),
-          interval: intervalOf(0, 10),
+          interval: intervalBetween(0, 10),
         },
       ];
 
@@ -59,11 +59,11 @@ describe("add", () => {
       const expected = [
         {
           event: new EventTest(),
-          interval: intervalOf(0, 5),
+          interval: intervalBetween(0, 5),
         },
         {
           event: new EventTest(),
-          interval: intervalOf(5, 9),
+          interval: intervalBetween(5, 9),
         },
       ];
 
@@ -80,11 +80,11 @@ describe("add", () => {
       const expected = [
         {
           event: new EventTest(),
-          interval: intervalOf(1, 6),
+          interval: intervalBetween(1, 6),
         },
         {
           event: new EventTest(),
-          interval: intervalOf(6, 15),
+          interval: intervalBetween(6, 15),
         },
       ];
 
@@ -101,15 +101,15 @@ describe("add", () => {
       const expected = [
         {
           event: new EventTest(),
-          interval: intervalOf(1, 3),
+          interval: intervalBetween(1, 3),
         },
         {
           event: new EventTest(),
-          interval: intervalOf(3, 6),
+          interval: intervalBetween(3, 6),
         },
         {
           event: new EventTest(),
-          interval: intervalOf(6, 9),
+          interval: intervalBetween(6, 9),
         },
       ];
 

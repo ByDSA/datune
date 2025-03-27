@@ -1,5 +1,5 @@
 /* eslint-disable prefer-destructuring */
-import { of as intervalOf } from "datils/math/intervals";
+import { intervalBetween, IntervalBound } from "datils/math/intervals";
 import { add } from "time";
 import { from as temporalNode } from "../../../temporal-node";
 import { EventTest } from "../../../temporal-node/spec/EventTest";
@@ -104,7 +104,7 @@ describe("add", () => {
       const seq1 = new ParalelSequenceTest();
       const node = {
         event: new EventTest(),
-        interval: intervalOf(0, 1),
+        interval: intervalBetween(0, 1),
       };
 
       seq1.add(node);
@@ -123,7 +123,7 @@ describe("add", () => {
       const seq1 = new ParalelSequenceTest();
       const node = {
         event: new EventTest(),
-        interval: intervalOf(0, 1),
+        interval: intervalBetween(0, 1),
       };
 
       seq1.add(node);
@@ -137,7 +137,7 @@ describe("add", () => {
 
       const expectedNode = {
         event: new EventTest(),
-        interval: intervalOf(1, 2),
+        interval: intervalBetween(1, 2),
       };
 
       expect(seq2.nodes).toHaveLength(1);
@@ -275,7 +275,7 @@ describe("clear", () => {
 } );
 
 it("move node begin", () => {
-  const expectedInterval = intervalOf(3, 4);
+  const expectedInterval = intervalBetween(3, 4);
   const seq = new ParalelSequenceTest();
   const oldNode = newNode1();
 
@@ -311,9 +311,9 @@ describe("get", () => {
     beforeEach(() => {
       seq.add(newNode1());
       seq.add( {
-        interval: intervalOf(10, 11, {
-          fromInclusive: false,
-          toInclusive: true,
+        interval: intervalBetween(10, 11, {
+          from: IntervalBound.OPEN,
+          to: IntervalBound.CLOSED,
         } ),
         event: new EventTest(),
       } );

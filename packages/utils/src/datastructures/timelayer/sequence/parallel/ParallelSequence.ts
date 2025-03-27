@@ -1,7 +1,6 @@
 /* eslint-disable accessor-pairs */
 import TreeMap from "ts-treemap";
-import { contains } from "datils/math/intervals";
-import { contains as intervalContains, intersects as intervalIntersects, of as intervalOf } from "datils/math/intervals";
+import { intervalContains, intervalIntersects, intervalBetween } from "datils/math/intervals";
 import { Interval } from "datils/math/intervals";
 import { Time } from "time/Time";
 import { add, divCell, mult, sub } from "time";
@@ -254,7 +253,7 @@ export class ParallelSequence<E> implements TimeLayer<E> {
 
     if (isGetNodesFromToType(obj)) {
       const { from, to } = obj;
-      const interval = intervalOf(from, to);
+      const interval = intervalBetween(from, to);
 
       return this.getNodesAtInterval(interval);
     }
@@ -281,7 +280,7 @@ export class ParallelSequence<E> implements TimeLayer<E> {
     const cell: TemporalNode<E>[] = this.#getCellFromTime(time);
 
     for (const musicalEvent of cell) {
-      if (contains(musicalEvent.interval, time))
+      if (intervalContains(musicalEvent.interval, time))
         ret.push(musicalEvent);
     }
 
@@ -357,7 +356,7 @@ export class ParallelSequence<E> implements TimeLayer<E> {
 
     if (isRemoveNodesFromToType(obj)) {
       const { from, to } = obj as RemoveNodesFromToType;
-      const interval = intervalOf(from, to);
+      const interval = intervalBetween(from, to);
 
       return this.removeNodesAtInterval(interval);
     }

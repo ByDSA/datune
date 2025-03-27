@@ -14,8 +14,8 @@ pnpm check
 check utils
 check core
 check core-ext
-check analyzer
 check midi
+check analyzer
 check ai
 check strings
 

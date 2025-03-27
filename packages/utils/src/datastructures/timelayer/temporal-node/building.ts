@@ -1,4 +1,4 @@
-import { of as intervalOf } from "datils/math/intervals";
+import { intervalBetween } from "datils/math/intervals";
 import { add } from "../../../time";
 import { isEventFromDurationType, isEventFromToType, isEventIntervalType, isNodeCopyType } from "./guards/constructor";
 import { TemporalNode } from "./TemporalNode";
@@ -11,7 +11,7 @@ export function from<E>(obj: Constructor<E>): TemporalNode<E> {
 function innerFrom<E>(obj: Constructor<E>): TemporalNode<E> {
   if (isEventFromToType(obj)) {
     const { event, from: timeFrom, to } = obj;
-    const interval = intervalOf(timeFrom, to);
+    const interval = intervalBetween(timeFrom, to);
 
     return {
       event,
@@ -31,7 +31,7 @@ function innerFrom<E>(obj: Constructor<E>): TemporalNode<E> {
 
     return {
       event,
-      interval: intervalOf(timeFrom, to),
+      interval: intervalBetween(timeFrom, to),
     };
   }
 
