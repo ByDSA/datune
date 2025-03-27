@@ -4,7 +4,7 @@ import { Func } from "@datune/core/functions/chromatic";
 import { Key } from "@datune/core/keys/chromatic";
 import { from } from "@datune/core/keys/chromatic/building";
 import { MusicalDurations as MD } from "@datune/core";
-import { of as intervalOf } from "datils/math/intervals";
+import { intervalBetween } from "datils/math/intervals";
 import { Scales as S } from "@datune/core";
 import { randomN } from "datils/math";
 import { GenSeq } from "./GenSeq";
@@ -15,19 +15,15 @@ export class GenChordSeq extends GenSeq {
 
     for (
       let time = MD.ZERO, toTime = time;
-      time < tonalApproach.keySequence.duration;
+      time < tonalApproach.keyTimeline.duration;
       time = toTime
     ) {
-      const [keyNode] = tonalApproach.keySequence.get( {
-        at: time,
-      } );
+      const keyNode = tonalApproach.keyTimeline.getAt(time);
       const key: Key = <Key>keyNode?.event;
-      const [fNode] = tonalApproach.funcSequence.get( {
-        at: time,
-      } );
+      const fNode = tonalApproach.funcTimeline.getAt(time);
 
       if (!fNode)
-        throw new Error(`${time} ${tonalApproach.funcSequence.duration}`);
+        throw new Error(`${time} ${tonalApproach.funcTimeline.duration}`);
 
       const func = fNode.event as Func;
 
@@ -35,16 +31,16 @@ export class GenChordSeq extends GenSeq {
 
       const chord = func.getChord(key);
 
-      tonalApproach.chordSequence.add( {
+      tonalApproach.chordTimeline.add( {
         event: chord,
-        interval: intervalOf(time, toTime),
+        interval: intervalBetween(time, toTime),
       } );
 
       const keyChord = pickKeyChord(key, func, chord);
 
-      tonalApproach.keyChordSequence.add( {
+      tonalApproach.keyChordTimeline.add( {
         event: keyChord,
-        interval: intervalOf(time, toTime),
+        interval: intervalBetween(time, toTime),
       } );
     }
   }

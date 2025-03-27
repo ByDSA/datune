@@ -2,6 +2,7 @@ import { TonalApproach } from "@datune/analyzer";
 import { MusicalDuration, TimeSignature } from "@datune/core";
 import { MusicalDurations as MD } from "@datune/core";
 import { divCell } from "@datune/utils/time";
+import { assertIsDefined } from "datils/datatypes/nullish";
 import { limitTime } from "./utils";
 
 export abstract class GenSeq {
@@ -25,15 +26,13 @@ export abstract class GenSeq {
   }
 
   protected getNextMeasureTime(time: MusicalDuration): MusicalDuration {
-    const currentRythmNode = this.tonalApporach.rhythmSequence.get( {
-      at: time,
-    } )[0]
-      || this.tonalApporach.rhythmSequence.get( {
-        at: MD.ZERO,
-      } )[0];
+    const currentRythmNode = this.tonalApporach.timeSignatureTimeline.getAt(time)
+      ?? this.tonalApporach.timeSignatureTimeline.getAt(MD.ZERO);
+
+    assertIsDefined(currentRythmNode);
     const measureDuration = this.getMeasureDuration(time);
     const currentRelativeMeasure = time
-      - divCell(currentRythmNode?.interval.from, measureDuration);
+      - divCell(currentRythmNode.interval.from, measureDuration);
     const nextMeasureRelativeTime = measureDuration * (currentRelativeMeasure + 1);
     const nextMeasureTime = currentRythmNode.interval.from + (nextMeasureRelativeTime);
 
@@ -41,24 +40,18 @@ export abstract class GenSeq {
   }
 
   private getMeasureDuration(time: MusicalDuration): MusicalDuration {
-    const currentRythmNode = this.tonalApporach.rhythmSequence.get( {
-      at: time,
-    } )[0]
-      || this.tonalApporach.rhythmSequence.get( {
-        at: MD.ZERO,
-      } )[0];
+    const currentRythmNode = this.tonalApporach.timeSignatureTimeline.getAt(time)
+      ?? this.tonalApporach.timeSignatureTimeline.getAt(MD.ZERO);
     const currentRythm = <TimeSignature>currentRythmNode?.event;
 
     return currentRythm.denominatorBeat * (currentRythm.numerator);
   }
 
   protected getStartMeasureTime(time: MusicalDuration): MusicalDuration {
-    const currentRythmNode = this.tonalApporach.rhythmSequence.get( {
-      at: time,
-    } )[0]
-      || this.tonalApporach.rhythmSequence.get( {
-        at: MD.ZERO,
-      } )[0];
+    const currentRythmNode = this.tonalApporach.timeSignatureTimeline.getAt(time)
+      ?? this.tonalApporach.timeSignatureTimeline.getAt(MD.ZERO);
+
+    assertIsDefined(currentRythmNode);
     const measureDuration = this.getMeasureDuration(time);
     const currentRelativeMeasure = time
       - divCell(currentRythmNode?.interval.from, measureDuration);
@@ -69,9 +62,7 @@ export abstract class GenSeq {
   }
 
   protected hasNewKeyAt(time: MusicalDuration): boolean {
-    const [currentKeyNode] = this.tonalApporach.keySequence.get( {
-      at: time,
-    } );
+    const currentKeyNode = this.tonalApporach.keyTimeline.getAt(time);
 
     return currentKeyNode?.interval.from === time;
   }

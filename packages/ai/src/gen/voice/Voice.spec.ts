@@ -1,4 +1,4 @@
-import { MidiPitches as M, MidiSequences as MS } from "@datune/midi";
+import { MidiPitches as M, MidiTimelines as MT } from "@datune/midi";
 import { MusicalDurations as MD } from "@datune/core";
 import { LowerVoiceConstraint } from "../constraints/voice/LowerVoiceConstraint";
 import { Voice } from "./Voice";
@@ -7,7 +7,7 @@ const { HALF, QUARTER, ZERO } = MD;
 
 function initializeVoice() {
   const voice = new Voice();
-  const note1 = MS.noteFrom( {
+  const note1 = MT.noteFrom( {
     pitch: M.E5,
     duration: QUARTER,
   } );
@@ -15,24 +15,24 @@ function initializeVoice() {
     ...note1,
     pitch: M.D5,
   };
-  const node1 = MS.nodeFrom( {
+  const node1 = MT.nodeFrom( {
     note: note1,
     at: ZERO,
   } );
-  const node2 = MS.nodeFrom( {
+  const node2 = MT.nodeFrom( {
     note: note2,
     at: QUARTER,
   } );
 
-  voice.notesSequence.add(node1);
-  voice.notesSequence.add(node2);
+  voice.notesTimeline.add(node1);
+  voice.notesTimeline.add(node2);
 
   return voice;
 }
 
 function initializeLowerVoice() {
   const lowerVoice = new Voice();
-  const note1 = MS.noteFrom( {
+  const note1 = MT.noteFrom( {
     pitch: M.C5,
     duration: QUARTER,
   } );
@@ -40,17 +40,17 @@ function initializeLowerVoice() {
     ...note1,
     pitch: M.D5,
   };
-  const node1 = MS.nodeFrom( {
+  const node1 = MT.nodeFrom( {
     note: note1,
     at: ZERO,
   } );
-  const node2 = MS.nodeFrom( {
+  const node2 = MT.nodeFrom( {
     note: note2,
     at: QUARTER,
   } );
 
-  lowerVoice.notesSequence.add(node1);
-  lowerVoice.notesSequence.add(node2);
+  lowerVoice.notesTimeline.add(node1);
+  lowerVoice.notesTimeline.add(node2);
 
   return lowerVoice;
 }

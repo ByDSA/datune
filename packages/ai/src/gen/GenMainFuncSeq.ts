@@ -2,13 +2,13 @@
 import { MainFunc, TonalApproach } from "@datune/analyzer";
 import { MusicalDuration } from "@datune/core";
 import { MusicalDurations as MD } from "@datune/core";
-import { TemporalNode } from "@datune/utils";
-import { of as intervalOf } from "datils/math/intervals";
+import { TimelineNode } from "@datune/utils";
+import { intervalBetween } from "datils/math/intervals";
 import { randomN } from "datils/math";
 import { GenSeq } from "./GenSeq";
 import { limitTime } from "./utils";
 
-type Node = TemporalNode<MainFunc>;
+type Node = TimelineNode<MainFunc>;
 export class GenMainFuncSeq extends GenSeq {
   constructor(tonalApporach: TonalApproach) {
     super(tonalApporach);
@@ -17,7 +17,7 @@ export class GenMainFuncSeq extends GenSeq {
   private lastTonicTime: MusicalDuration | undefined;
 
   generate() {
-    const mainFuncSeq = this.tonalApporach.mainFuncSequence;
+    const mainFuncSeq = this.tonalApporach.mainFuncTimeline;
 
     mainFuncSeq.clear();
     let prevMainFunc: Node | undefined;
@@ -32,7 +32,7 @@ export class GenMainFuncSeq extends GenSeq {
 
       [prevMainFunc] = mainFuncSeq.add( {
         event: mainFunc,
-        interval: intervalOf(time, toTime),
+        interval: intervalBetween(time, toTime),
       } );
     }
   }

@@ -1,24 +1,27 @@
 import { MusicalDuration } from "@datune/core";
 import { MusicalDurations as MD } from "@datune/core";
 import { deepMerge } from "datils/datatypes/objects";
-import { ChordSequence, FuncSequence, KeySequence, MainFuncSequence, NotesSequence, RhythmSequence } from "../../sequences";
-import { ChordSequenceCalculator } from "./ChordSequenceCalculator";
+import { intervalBetween } from "datils/math";
+import { MainFuncTimeline } from "timelines/MainFuncTimeline";
+import { FuncTimeline } from "timelines/FuncTimeline";
+import { ChordTimeline, KeyTimeline, NotesTimeline, TimeSignatureTimeline } from "../../timelines";
+import { ChordTimelineCalculator } from "./ChordTimelineCalculator";
 import { ConstructorObjType, DEFAULT_CONSTRUCTOR_OBJ } from "./Constructor";
 
 export class TonalApproach {
-  keySequence: KeySequence;
+  keyTimeline: KeyTimeline;
 
-  keyChordSequence: KeySequence;
+  keyChordTimeline: KeyTimeline;
 
-  mainFuncSequence: MainFuncSequence;
+  mainFuncTimeline: MainFuncTimeline;
 
-  funcSequence: FuncSequence;
+  funcTimeline: FuncTimeline;
 
-  rhythmSequence: RhythmSequence;
+  timeSignatureTimeline: TimeSignatureTimeline;
 
-  notesSequence: NotesSequence;
+  notesTimeline: NotesTimeline;
 
-  chordSequence: ChordSequence;
+  chordTimeline: ChordTimeline;
 
   maxDuration: MusicalDuration;
 
@@ -26,26 +29,28 @@ export class TonalApproach {
     const input: ConstructorObjType = deepMerge(DEFAULT_CONSTRUCTOR_OBJ, obj) as ConstructorObjType;
 
     this.maxDuration = MD.ZERO;
-    this.mainFuncSequence = new MainFuncSequence();
-    this.funcSequence = new FuncSequence();
-    this.keyChordSequence = new KeySequence();
-    this.keySequence = new KeySequence();
-    this.notesSequence = new NotesSequence();
-    this.chordSequence = new ChordSequence();
-    this.rhythmSequence = new RhythmSequence();
-    this.rhythmSequence.add( {
+    this.mainFuncTimeline = new MainFuncTimeline();
+    this.funcTimeline = new FuncTimeline();
+    this.keyChordTimeline = new KeyTimeline();
+    this.keyTimeline = new KeyTimeline();
+    this.notesTimeline = new NotesTimeline();
+    this.chordTimeline = new ChordTimeline();
+    this.timeSignatureTimeline = new TimeSignatureTimeline();
+    this.timeSignatureTimeline.add( {
       event: input.initial.timeSignature,
-      from: MD.ZERO,
-      to: MD.WHOLE,
+      interval: intervalBetween(
+        MD.ZERO,
+        MD.WHOLE,
+      ),
     } );
   }
 
   calculateChords() {
-    const chordSequenceCalculator = new ChordSequenceCalculator(
-      this.notesSequence,
-      this.rhythmSequence,
+    const chordTimelineCalculator = new ChordTimelineCalculator(
+      this.notesTimeline,
+      this.timeSignatureTimeline,
     );
 
-    this.chordSequence = chordSequenceCalculator.calculate();
+    this.chordTimeline = chordTimelineCalculator.calculate();
   }
 }

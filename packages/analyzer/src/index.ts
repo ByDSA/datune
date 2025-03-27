@@ -1,6 +1,6 @@
 import { TonalApproach } from "./approaches/tonal/TonalApproach";
 
-export * from "./sequences";
+export * from "./timelines";
 
 export {
   TonalApproach,

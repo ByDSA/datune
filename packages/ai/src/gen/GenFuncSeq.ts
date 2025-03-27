@@ -1,26 +1,26 @@
-import { FuncSequence, MainFunc, TonalApproach } from "@datune/analyzer";
-import { Funcs as F } from "@datune/core";
+import { FuncTimeline, MainFunc, TonalApproach } from "@datune/analyzer";
+import { Funcs as F, Scale } from "@datune/core";
 import { Func } from "@datune/core/functions/chromatic";
 import { Scales as S } from "@datune/core";
 import { MusicalDurations as MD } from "@datune/core";
 import { MusicalDuration } from "@datune/core/rhythm";
-import { TemporalNode } from "@datune/utils";
+import { TimelineNode } from "@datune/utils";
 import { randomN } from "datils/math";
-import { of as intervalOf } from "datils/math/intervals";
+import { intervalBetween } from "datils/math/intervals";
 import { GenSeq } from "./GenSeq";
 import { limitTime } from "./utils";
 
-type Node = TemporalNode<Func>;
+type Node = TimelineNode<Func>;
 export class GenFuncSeq extends GenSeq {
-  private funcSeq: FuncSequence;
+  private funcTimeline: FuncTimeline;
 
   constructor(tonalApporach: TonalApproach) {
     super(tonalApporach);
-    this.funcSeq = this.tonalApporach.funcSequence;
+    this.funcTimeline = this.tonalApporach.funcTimeline;
   }
 
   generate() {
-    this.funcSeq.clear();
+    this.funcTimeline.clear();
     let prevNode: Node | undefined;
     let toTime: MusicalDuration;
 
@@ -34,9 +34,9 @@ export class GenFuncSeq extends GenSeq {
       const func: Func | null = this.#pickFunc(prevNode, time, toTime);
 
       if (func) {
-        [prevNode] = this.funcSeq.add( {
+        [prevNode] = this.funcTimeline.add( {
           event: func,
-          interval: intervalOf(time, toTime),
+          interval: intervalBetween(time, toTime),
         } );
       }
     }
@@ -44,9 +44,8 @@ export class GenFuncSeq extends GenSeq {
 
   #pickDuration(_prevNode: Node | undefined, time: MusicalDuration): MusicalDuration {
     const ret = MD.HALF * (1 + randomN(2));
-    const nextMainFuncChange = <MusicalDuration> this.tonalApporach.mainFuncSequence.get( {
-      at: time,
-    } )[0]?.interval.to;
+    const nextMainFuncChange = <MusicalDuration> this.tonalApporach.mainFuncTimeline
+      .getAt(time)?.interval.to;
 
     return limitTime(ret, nextMainFuncChange);
   }
@@ -56,10 +55,8 @@ export class GenFuncSeq extends GenSeq {
     time: MusicalDuration,
     toTime: MusicalDuration,
   ): Func | null {
-    const [keyAtTime] = this.tonalApporach.keySequence.get( {
-      at: time,
-    } );
-    const currentScale = keyAtTime?.event.scale;
+    const keyAtTime = this.tonalApporach.keyTimeline.getAt(time);
+    const currentScale = keyAtTime?.event.scale as Scale;
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const funcIDegrees = F.getDegrees(F.I);
     const includesAll = (
@@ -75,12 +72,8 @@ export class GenFuncSeq extends GenSeq {
     }
 
     let availableFuncs: Func[] = [];
-    const currentMainFunc = this.tonalApporach.mainFuncSequence.get( {
-      at: time,
-    } )[0]?.event;
-    const endTimeMainFunc = this.tonalApporach.mainFuncSequence.get( {
-      at: time,
-    } )[0]?.interval.to;
+    const currentMainFunc = this.tonalApporach.mainFuncTimeline.getAt(time)?.event;
+    const endTimeMainFunc = this.tonalApporach.mainFuncTimeline.getAt(time)?.interval.to;
     const isLastFunc = toTime === endTimeMainFunc;
     const triads = true;
 
@@ -148,11 +141,11 @@ export class GenFuncSeq extends GenSeq {
     availableFuncs = availableFuncs.filter((f) => f !== prevNode.event);
 
     if (availableFuncs.length === 0) {
-      this.funcSeq.remove(prevNode);
+      this.funcTimeline.remove(prevNode);
 
-      this.funcSeq.add( {
+      this.funcTimeline.add( {
         event: prevNode.event,
-        interval: intervalOf(prevNode.interval.from, toTime),
+        interval: intervalBetween(prevNode.interval.from, toTime),
       } );
 
       return null;

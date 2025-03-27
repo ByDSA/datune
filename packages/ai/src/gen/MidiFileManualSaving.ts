@@ -2,14 +2,14 @@
 
 /* eslint-disable camelcase */
 import type { SpnArray, Spn } from "@datune/core/spns/chromatic";
-import { ChordSequence, TonalApproach } from "@datune/analyzer";
+import { ChordTimeline, TonalApproach } from "@datune/analyzer";
 import { type Key, type MusicalDuration } from "@datune/core";
 import { fromRootVoicing } from "@datune/core/chords/absolute/chromatic/building";
 import { Keys as K, type Pitch, Spns as N, MusicalDurations as MD } from "@datune/core";
 import { add, sub } from "@datune/core/spns/symbolic/chromatic/modifiers";
 import { fromPitchOctave as spnFrom } from "@datune/core/spns/symbolic/chromatic/building/pitch-octave";
 import { from as BPMFrom } from "@datune/core/rhythm/tempo/bpm/building";
-import { Instrument, MidiFile, MidiNode, MidiNote, MidiSequences as MS } from "@datune/midi";
+import { Instrument, MidiFile, MidiNote, MidiTimelineNode, MidiTimelines as MT } from "@datune/midi";
 import { from as midiPitchFrom } from "@datune/midi/pitch/building";
 import { randomN } from "datils/math";
 import { IntervalArray } from "@datune/core/intervals/chromatic";
@@ -89,20 +89,16 @@ function filterPitchesByVoiceConstraint(
 
 function getAvailablePitches(
   time: MusicalDuration,
-  chordSequence: ChordSequence,
+  chordTimeline: ChordTimeline,
   key: Key,
 ): Pitch[] {
-  const [currentChordNode] = chordSequence.get( {
-    at: time,
-  } );
+  const currentChordNode = chordTimeline.getAt(time);
 
   if (!currentChordNode)
     return [];
 
   let currentChordPitches: NonEmptyArray<Pitch>;
-  const isNewChord = chordSequence.get( {
-    at: time,
-  } )[0]?.interval.from === time;
+  const isNewChord = chordTimeline.getAt(time)?.interval.from === time;
 
   if (isNewChord)
     currentChordPitches = currentChordNode.event.pitches;
@@ -114,14 +110,14 @@ function getAvailablePitches(
 
 function getAvailableNotes(
   time: MusicalDuration,
-  chordSequence: ChordSequence,
+  chordTimeline: ChordTimeline,
   key: Key,
   lastNote: MidiNote | null,
   voice: Voice,
   from: MusicalDuration,
   to: MusicalDuration,
 ): MidiNote[] {
-  const currentChordNotes = getAvailablePitches(time, chordSequence, key);
+  const currentChordNotes = getAvailablePitches(time, chordTimeline, key);
   let availableSpns: Spn[] = [];
 
   for (const n of currentChordNotes) {
@@ -141,7 +137,7 @@ function getAvailableNotes(
     voice,
   );
 
-  const notes = availableSpns.map((spn) => MS.noteFrom( {
+  const notes = availableSpns.map((spn) => MT.noteFrom( {
     pitch: midiPitchFrom(spn),
     duration: MD.QUARTER,
   } ));
@@ -205,26 +201,24 @@ export function sample4(): MidiFile {
 
   const actionManager = new ActionManager<ActionGen, MidiNote>();
   const state = new ActionGenState(voices);
-  const cond = () => state.times[0] < tonalApproach.keySequence.duration
-            && state.times[1] < tonalApproach.keySequence.duration
-            && state.times[2] < tonalApproach.keySequence.duration;
+  const cond = () => state.times[0] < tonalApproach.keyTimeline.duration
+            && state.times[1] < tonalApproach.keyTimeline.duration
+            && state.times[2] < tonalApproach.keyTimeline.duration;
 
   while (cond() && !actionManager.end) {
     const time = state.times[state.i];
     const availableNotes: MidiNote[] = [];
-    const [keyChordNode] = tonalApproach.keyChordSequence.get( {
-      at: time,
-    } );
+    const keyChordNode = tonalApproach.keyChordTimeline.getAt(time);
 
     if (!keyChordNode)
-      throw new Error(`${time} ${tonalApproach.keyChordSequence.duration}`);
+      throw new Error(`${time} ${tonalApproach.keyChordTimeline.duration}`);
 
     const keyChord = keyChordNode.event;
 
     for (const d of [MD.EIGHTH, MD.QUARTER, MD.SIXTEENTH]) {
       const notes = getAvailableNotes(
         time,
-        tonalApproach.chordSequence,
+        tonalApproach.chordTimeline,
         keyChord,
         state.lasts[state.i],
         voices[state.i],
@@ -243,7 +237,7 @@ export function sample4(): MidiFile {
   for (let i = 0; i < tracks.length; i++) {
     const track = tracks[i];
 
-    for (const node of state.voices[i].notesSequence.nodes)
+    for (const node of state.voices[i].notesTimeline.nodes)
       track.nodes.push(node);
   }
 
@@ -261,7 +255,7 @@ export function sample4(): MidiFile {
     new PitchMinConstraint(N.A2),
   ];
 
-  tonalApproach.chordSequence.nodes.forEach((node) => {
+  tonalApproach.chordTimeline.nodes.forEach((node) => {
     const chord = node.event;
     const time = node.interval.from;
     const timeTo = node.interval.to;
@@ -280,17 +274,17 @@ export function sample4(): MidiFile {
     prevNotes = pitches;
     const midiNodes = pitches.map((spn: Spn) => {
       const pitch = midiPitchFrom(spn);
-      const note = MS.noteFrom( {
+      const note = MT.noteFrom( {
         pitch,
         duration: (timeTo - (time)),
       } );
-      const node2 = MS.nodeFrom( {
+      const node2 = MT.nodeFrom( {
         note,
         at: time,
       } );
 
       return node2;
-    } ).filter((midiNote: MidiNode) => midiNote) as MidiNode[];
+    } ).filter((midiNote: MidiTimelineNode) => midiNote) as MidiTimelineNode[];
 
     accompTrack.nodes.push(...midiNodes);
   } );

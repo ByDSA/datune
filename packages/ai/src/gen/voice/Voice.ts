@@ -2,7 +2,7 @@
 import type { VoiceConstraint } from "../constraints/voice/VoiceConstraint";
 import { Spn } from "@datune/core/spns/chromatic";
 import { MusicalDuration } from "@datune/core/rhythm";
-import { MidiSequence } from "@datune/midi";
+import { MidiTimeline } from "@datune/midi";
 import { ConstraintSpn } from "../constraints/pitch/ConstraintSpn";
 
 export class Voice {
@@ -10,7 +10,7 @@ export class Voice {
 
   pitchConstraints: ConstraintSpn[];
 
-  notesSequence: MidiSequence;
+  notesTimeline: MidiTimeline;
 
   addPitchConstraint(c: ConstraintSpn) {
     this.pitchConstraints.push(c);
@@ -63,6 +63,6 @@ export class Voice {
   constructor() {
     this.pitchConstraints = [];
     this.voiceConstraints = [];
-    this.notesSequence = new MidiSequence();
+    this.notesTimeline = new MidiTimeline();
   }
 }

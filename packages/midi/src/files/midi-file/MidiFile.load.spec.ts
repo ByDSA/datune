@@ -2,7 +2,7 @@
 import * as fs from "node:fs";
 import { MusicalDurations as MD } from "@datune/core";
 import { MidiPitches as M } from "pitch";
-import { MidiSequences as MS } from "sequence";
+import { MidiTimelines as MT } from "timeline";
 import { Instrument } from "../instrument";
 import { load } from "./load";
 import { MidiFile } from "./MidiFile";
@@ -51,9 +51,9 @@ describe("load sample.mid", () => {
 
   it("load notes info", () => {
     const { nodes } = midiFile.tracks[0];
-    const node0 = MS.nodeFrom( {
+    const node0 = MT.nodeFrom( {
       at: ZERO,
-      note: MS.noteFrom( {
+      note: MT.noteFrom( {
         pitch: M.C5,
         duration: MD.dotted(QUARTER),
         velocity: 100,
@@ -62,9 +62,9 @@ describe("load sample.mid", () => {
 
     expect(nodes[0]).toStrictEqual(node0);
 
-    const node1 = MS.nodeFrom( {
+    const node1 = MT.nodeFrom( {
       at: QUARTER * 1.5,
-      note: MS.noteFrom( {
+      note: MT.noteFrom( {
         pitch: M.D5,
         duration: EIGHTH,
         velocity: 100,
@@ -73,9 +73,9 @@ describe("load sample.mid", () => {
 
     expect(nodes[1]).toStrictEqual(node1);
 
-    const node2 = MS.nodeFrom( {
+    const node2 = MT.nodeFrom( {
       at: QUARTER * 2,
-      note: MS.noteFrom( {
+      note: MT.noteFrom( {
         pitch: M.E5,
         duration: QUARTER - SIXTEENTH,
         velocity: 127,
@@ -84,9 +84,9 @@ describe("load sample.mid", () => {
 
     expect(nodes[2]).toStrictEqual(node2);
 
-    const node3 = MS.nodeFrom( {
+    const node3 = MT.nodeFrom( {
       at: SIXTEENTH * 11,
-      note: MS.noteFrom( {
+      note: MT.noteFrom( {
         pitch: M.F5,
         duration: QUARTER,
         velocity: 100,
@@ -95,9 +95,9 @@ describe("load sample.mid", () => {
 
     expect(nodes[3]).toStrictEqual(node3);
 
-    const node4 = MS.nodeFrom( {
+    const node4 = MT.nodeFrom( {
       at: WHOLE - SIXTEENTH,
-      note: MS.noteFrom( {
+      note: MT.noteFrom( {
         pitch: M.G5,
         duration: QUARTER + SIXTEENTH,
         velocity: 100,
@@ -106,9 +106,9 @@ describe("load sample.mid", () => {
 
     expect(nodes[4]).toStrictEqual(node4);
 
-    const node5 = MS.nodeFrom( {
+    const node5 = MT.nodeFrom( {
       at: QUARTER * 5,
-      note: MS.noteFrom( {
+      note: MT.noteFrom( {
         pitch: M.A5,
         duration: SIXTEENTH,
         velocity: 100,
@@ -117,9 +117,9 @@ describe("load sample.mid", () => {
 
     expect(nodes[5]).toStrictEqual(node5);
 
-    const node6 = MS.nodeFrom( {
+    const node6 = MT.nodeFrom( {
       at: (QUARTER * 5) + SIXTEENTH,
-      note: MS.noteFrom( {
+      note: MT.noteFrom( {
         pitch: M.B5,
         duration: QUARTER,
         velocity: 100,
@@ -128,9 +128,9 @@ describe("load sample.mid", () => {
 
     expect(nodes[6]).toStrictEqual(node6);
 
-    const node7 = MS.nodeFrom( {
+    const node7 = MT.nodeFrom( {
       at: (QUARTER * 6) + SIXTEENTH,
-      note: MS.noteFrom( {
+      note: MT.noteFrom( {
         pitch: M.C6,
         duration: SIXTEENTH * 7,
         velocity: 127,

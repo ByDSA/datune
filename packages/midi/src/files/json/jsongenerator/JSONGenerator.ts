@@ -1,7 +1,7 @@
 import { MidiJSON } from "@tonejs/midi";
 import { ControlChangeJSON } from "@tonejs/midi/dist/ControlChange";
 import { ControlChangesJSON } from "@tonejs/midi/dist/ControlChanges";
-import { MidiNode } from "sequence";
+import { MidiTimelineNode } from "timeline";
 import { MidiFile, getInnerTick } from "../../midi-file/MidiFile";
 
 export class JSONGenerator {
@@ -64,7 +64,7 @@ export class JSONGenerator {
 
     return this.#midiFile.tracks.map((t) => ( {
       name: t.name,
-      notes: t.nodes.map((node: MidiNode) => ( {
+      notes: t.nodes.map((node: MidiTimelineNode) => ( {
         duration: 0,
         durationTicks: getInnerTick(node.event.duration),
         midi: +node.event.pitch,

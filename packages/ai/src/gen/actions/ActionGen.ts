@@ -1,13 +1,12 @@
 import { MusicalDuration } from "@datune/core";
-import { MidiNode, MidiNote, MidiSequences as MS } from "@datune/midi";
-import { TemporalNode } from "@datune/utils";
+import { MidiTimelineNode, MidiNote, MidiTimelines as MT } from "@datune/midi";
 import { ActionGenState } from "./ActionGenState";
 import { ActionNote } from "./ActionNote";
 
-type Node = TemporalNode<MidiNote>;
+type Node = MidiTimelineNode;
 
 export class ActionGen extends ActionNote {
-  private node: MidiNode | undefined;
+  private node: MidiTimelineNode | undefined;
 
   private last: MidiNote | null;
 
@@ -78,19 +77,19 @@ export class ActionGen extends ActionNote {
     if (!midiNote)
       return false;
 
-    this.node = MS.nodeFrom( {
+    this.node = MT.nodeFrom( {
       note: midiNote,
       at: this.time,
     } );
 
-    this.state.voices[this.state.i].notesSequence.add(this.node);
+    this.state.voices[this.state.i].notesTimeline.add(this.node);
     this.state.lasts[this.state.i] = midiNote;
 
     return true;
   }
 
   untry(): void {
-    this.state.voices[this.state.i].notesSequence.remove(<Node> this.node);
+    this.state.voices[this.state.i].notesTimeline.remove(<Node> this.node);
     this.node = undefined;
     this.state.lasts[this.state.i] = this.last;
     console.log("untry");

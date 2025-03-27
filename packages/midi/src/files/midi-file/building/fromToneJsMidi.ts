@@ -1,5 +1,5 @@
 import type { Track } from "../../track/Track";
-import type { MidiNode } from "../../../sequence/node/MidiNode";
+import type { MidiTimelineNode } from "../../../timeline/node/MidiNode";
 import type { Midi as ToneJsMidi, Track as ToneJsTrack } from "@tonejs/midi";
 import { BPMs, MusicalDuration } from "@datune/core";
 import { Note as ToneJsNote } from "@tonejs/midi/dist/Note";
@@ -7,8 +7,8 @@ import { Instrument } from "files/instrument";
 import { type Channel, channelFromNumber } from "files/track/Channel";
 import { fromCode } from "pitch/building";
 import { assertIsMidiCode } from "pitch/MidiCode";
-import { noteFrom } from "sequence/note/building/from";
-import { nodeFrom } from "sequence/node/building";
+import { noteFrom } from "timeline/note/building/from";
+import { nodeFrom } from "timeline/node/building";
 import { instrumentFromNumber } from "files/instrument/Instrument";
 import { MidiFile } from "../MidiFile";
 import { getMidiTempo } from "./tonejs-utils";
@@ -66,7 +66,7 @@ function trackFunc(toneJsTrack: ToneJsTrack, toneJsMidi: ToneJsMidi): Track {
   };
 }
 
-function toneJsNoteToNode(toneJsNote: ToneJsNote, toneJsMidi: ToneJsMidi): MidiNode {
+function toneJsNoteToNode(toneJsNote: ToneJsNote, toneJsMidi: ToneJsMidi): MidiTimelineNode {
   const duration = timeFunc(toneJsNote.durationTicks, toneJsMidi.header.ppq);
 
   assertIsMidiCode(toneJsNote.midi);

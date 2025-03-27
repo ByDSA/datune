@@ -1,7 +1,6 @@
-import { LinearSequence } from "./datastructures/timelayer/sequence/linear/LinearSequence";
-import { ParallelSequence } from "./datastructures/timelayer/sequence/parallel/ParallelSequence";
-import { TemporalNode } from "./datastructures/timelayer/temporal-node";
-import { TimeLayer } from "./datastructures/timelayer/TimeLayer";
+import type { TimelineNode } from "./datastructures/timeline";
+import { SequentialTimeline } from "./datastructures/timeline/structures/sequential/Sequential";
+import { ParallelTimeline } from "./datastructures/timeline/structures/parallel/Parallel";
 
 export {
   Backtracking,
@@ -20,6 +19,6 @@ export {
 } from "./time";
 
 export {
-  TemporalNode,
-  ParallelSequence, LinearSequence, TimeLayer,
+  TimelineNode,
+  ParallelTimeline, SequentialTimeline,
 };
