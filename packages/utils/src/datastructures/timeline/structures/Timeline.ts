@@ -27,6 +27,7 @@ export interface Timeline<E> {
     nodes: readonly TimelineNode<E>[];
     duration: Time;
     startTime: Time;
+    cellSize: Time;
 
     onChange(listener: ChangeListener<E>): void;
     onAdd(listener: AddListener<E>): void;

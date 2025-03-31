@@ -1,16 +1,21 @@
 /* eslint-disable max-len */
 import { Time, TimelineNode } from "@datune/utils";
 import { Interval, intervalBetween, intervalContains } from "datils/math/intervals";
-import { Chords, Key, Keys, PitchArray, Scales, Spn, Voicings } from "@datune/core";
+import { Chord, Chords, Key, Keys, PitchArray, Scales, Voicings } from "@datune/core";
 import { Timeline } from "@datune/utils/datastructures/timeline/structures/Timeline";
-import { sortNodesByFrom, sortNodesBySpn } from "approaches/utils";
+import { MidiTimelineNode } from "@datune/midi";
+import { sortNodesByFrom } from "approaches/utils";
 import { type Analyzer } from "./ListenerAnalyzer";
+import { classifyPerception, withPerceptualNotes } from "./perception/perception";
 
 type Props = {
-  windowNodes: Readonly<TimelineNode<Spn>[]>;
+  windowNodes: Readonly<MidiTimelineNode[]>;
   window: Interval<number>;
   analyzer: Analyzer;
 };
+
+const newChordThrehold = 400;
+
 export class UpdateProcess {
   props: Props;
 
@@ -34,34 +39,151 @@ export class UpdateProcess {
   }
 
   update() {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const time = this.props.window.from;
     const startNoteNodesWindow = this.props.windowNodes
       .filter(n => {
         return intervalContains(this.props.window, n.interval.from);
       } );
     const hasAnyNewNotes = startNoteNodesWindow.length > 0;
-
-    if (this.analyzer.listenerState.currentChordNode) {
-      if (this.analyzer.listenerState.currentChordNode.interval.to < this.props.window.from) {
-        this.analyzer.listenerState.currentChordNode = extendsNode(
-          this.analyzer.results.chordTimeline,
-          this.analyzer.listenerState.currentChordNode,
-          this.props.window.from,
-        );
-      }
-    }
+    const { currentChordNode: currentChordNodeAtWindowFrom } = this.analyzer.listenerState;
 
     if (hasAnyNewNotes) {
       // if (!this.hasAnyBeat())
       this.addBeatNow();
 
-      const pitches = sortNodesBySpn(startNoteNodesWindow)
-        .map(n=>n.event.pitch) as PitchArray;
+      const playingNoteNodes = this.props.windowNodes
+        .filter(n => {
+          return !intervalContains(this.props.window, n.interval.to);
+        } );
+      const perceptualMidiNotes = withPerceptualNotes(playingNoteNodes.map(n=>n.event));
+      const selectedPerceptualMidiNotesClassified = classifyPerception(perceptualMidiNotes);
+      const selectedPerceptualMidiNotes = selectedPerceptualMidiNotesClassified.sure;
+      const selectedPerceptualMidiPitch = selectedPerceptualMidiNotes.map(n=>n.pitch);
+      const selectedPerceptualMidiNotesNodes = playingNoteNodes
+        .filter(n=>selectedPerceptualMidiPitch.includes(n.event.pitch))
+        .sort((a, b) => +a.event.pitch - +b.event.pitch);
+      const pitches = selectedPerceptualMidiNotesNodes
+        .map(n=>n.event.pitch.spn.pitch)
+        .filter(
+          (value, index, self) => self.indexOf(value) === index,
+        ) as PitchArray;
 
-      this.addChordNow(pitches);
+      if (this.shouldAddNewChould(pitches))
+        this.addChordNow(pitches);
     }
+
+    // Extender acorde que se estaba escuchando
+    if (currentChordNodeAtWindowFrom)
+      this.extendsPrevListeningChord(currentChordNodeAtWindowFrom);
 
     if (this.props.window.to % 300 === 0)
       this.analyzer.showListenerState();
+  }
+
+  extendsPrevListeningChord(currentChordNodeAtWindowFrom: TimelineNode<Chord>) {
+    const currentChordNodeAtWindowTo = this.analyzer.listenerState.currentChordNode;
+    const chordHasChanged = currentChordNodeAtWindowTo !== currentChordNodeAtWindowFrom;
+
+    if (currentChordNodeAtWindowFrom.interval.to <= this.props.window.from) {
+      let newTo: Time | undefined;
+
+      if (chordHasChanged)
+        newTo = currentChordNodeAtWindowTo!.interval.from;
+      else {
+        const endInThisWindow = this.getChordEndsTime(currentChordNodeAtWindowFrom.event);
+
+        if (endInThisWindow !== null)
+          newTo = endInThisWindow;
+        else {
+          const isStillListeningAtWindowTo = this.props.windowNodes.some(n=>currentChordNodeAtWindowFrom.event.pitches.includes(n.event.pitch.spn.pitch));
+
+          if (isStillListeningAtWindowTo)
+            newTo = this.props.window.to;
+        }
+      }
+
+      if (newTo === undefined)
+        return;
+
+      if (newTo < currentChordNodeAtWindowFrom.interval.from)
+        throw new Error();
+
+      const extendedChordNode = changeNodeIntervalTo(
+        this.analyzer.results.chordTimeline,
+        currentChordNodeAtWindowFrom,
+        newTo,
+      );
+
+      if (!chordHasChanged)
+        this.analyzer.listenerState.currentChordNode = extendedChordNode;
+    }
+  }
+
+  getChordEndsTime(chord: Chord): Time | null {
+    const notesInChordNodes = this.props.windowNodes
+      .filter(n => chord.pitches.includes(n.event.pitch.spn.pitch));
+
+    if (notesInChordNodes.length === 0)
+      return null;
+
+    const maxTo = Math.max(...notesInChordNodes.map(n => n.interval.to));
+
+    if (maxTo < this.props.window.to)
+      return maxTo;
+
+    return null;
+  }
+
+  shouldAddNewChould(pitches: PitchArray): boolean {
+    if (!this.analyzer.listenerState.currentChordNode)
+      return true;
+
+    if (pitches.length < 2)
+      return false;
+
+    const { currentChordNode } = this.analyzer.listenerState;
+    const duration = this.analyzer.currentWindow.from
+    - currentChordNode.interval.from;
+
+    if (duration < newChordThrehold)
+      return false;
+
+    const checkedSamePitches = isSamePitches(pitches, currentChordNode.event.pitches);
+    const newPitchesIncludedInCurrentChord = pitches
+      .every(pitch => currentChordNode.event.pitches.includes(pitch));
+    const samePitchesOrIncluded = checkedSamePitches || newPitchesIncludedInCurrentChord;
+    const nextBar = this.analyzer.listenerState.bar.next;
+
+    if (nextBar !== undefined) {
+      const beatDuration = this.analyzer.listenerState.bar.duration! / 4;
+      const isOnBeat = checkIsOnBeat(nextBar, beatDuration, 50);
+      const startNoteNodesWindow = this.props.windowNodes
+        .filter(n => {
+          return intervalContains(this.props.window, n.interval.from);
+        } );
+      const startPitches = new Set(startNoteNodesWindow.map(n=>n.event.pitch));
+      const numberOfCurrentChordsPitchesNotInPitches = currentChordNode.event.pitches
+        .filter(pitch => !pitches.includes(pitch))
+        .length;
+
+      if (startPitches.size < 2)
+        return false;
+
+      if (numberOfCurrentChordsPitchesNotInPitches < 2 && nextBar <= beatDuration)
+        return false;
+
+      if (startNoteNodesWindow.length < 3)
+        return false;
+
+      if (!isOnBeat)
+        return false;
+    }
+
+    if (samePitchesOrIncluded && duration < newChordThrehold * 2)
+      return false;
+
+    return !samePitchesOrIncluded;
   }
 
   addChordNow(pitches: PitchArray) {
@@ -73,8 +195,11 @@ export class UpdateProcess {
       interval: this.props.window,
     } )[0];
 
+    this.analyzer.log("Updated currentChord to " + this.analyzer.listenerState.currentChordNode.event);
+
     if (!this.hasAnyKey()) {
       this.analyzer.listenerState.tonal.rootChord = chord;
+      this.analyzer.log("Updated rootChord to " + this.analyzer.listenerState.tonal.rootChord);
 
       const voicing = chord.toVoicing();
       let newKey: Key | undefined = undefined;
@@ -95,6 +220,8 @@ export class UpdateProcess {
           event: newKey,
           interval: this.props.window,
         } )[0];
+
+        this.analyzer.log("Updated Key to " + this.analyzer.listenerState.currentKeyNode.event);
       }
     }
   }
@@ -118,7 +245,7 @@ export class UpdateProcess {
       this.props.window.to - this.analyzer.listenerState.bar.last!,
       this.props.window.to,
     );
-    const beatNodesInBar = Array.from(new Set(
+    let beatNodesInBar = Array.from(new Set(
       this.analyzer.results.beatTimeline.getAtInterval(interval),
     ));
 
@@ -138,11 +265,67 @@ export class UpdateProcess {
           this.analyzer.addBeatAt(newBeatFrom);
         }
       }
+
+      beatNodesInBar = Array.from(new Set(
+        this.analyzer.results.beatTimeline.getAtInterval(interval),
+      ));
+
+      let newBar = false;
+
+      if (this.analyzer.listenerState.bar.next === undefined) {
+        const isDivision4 = this.checkDivision4();
+
+        if (isDivision4)
+          newBar = true;
+      } else if (Math.abs(this.analyzer.listenerState.bar.next) < 20)
+        newBar = true;
+
+      if (newBar) {
+        this.analyzer.log("Add bar");
+        this.analyzer.listenerState.bar.duration = this.analyzer.listenerState.bar.last! - this.analyzer.step;
+        this.analyzer.listenerState.bar.next = this.analyzer.listenerState.bar.duration - this.analyzer.step;
+        this.analyzer.listenerState.bar.last = this.analyzer.step;
+      }
     }
+  }
+
+  checkDivision4() {
+    const lastBar = this.analyzer.listenerState.bar.last;
+
+    if (lastBar === undefined)
+      return false;
+
+    let division4 = false;
+    const { beatTimeline } = this.analyzer.results;
+    const now = this.props.window.to;
+    let testTime = now - lastBar;
+    let i = 0;
+    const threhold = 20;
+
+    while (!division4) {
+      let got = beatTimeline.getAtInterval(
+        intervalBetween(
+          testTime - threhold,
+          testTime + threhold,
+        ),
+      );
+
+      if (got.length > 0) {
+        i++;
+
+        if (i === 4)
+          division4 = true;
+
+        testTime += lastBar / 4;
+      } else
+        return false;
+    }
+
+    return division4;
   }
 }
 
-function extendsNode<T>(
+function changeNodeIntervalTo<T>(
   timeline: Timeline<T>,
   node: TimelineNode<T>,
   to: Time,
@@ -162,4 +345,26 @@ function extendsNode<T>(
   const [ret] = timeline.add(newNode);
 
   return ret;
+}
+
+function isSamePitches(a: PitchArray, b: PitchArray) {
+  if (a.length !== b.length)
+    return false;
+
+  const aSet = new Set(a);
+  const bSet = new Set(b);
+
+  for (const pitch of aSet) {
+    if (!bSet.has(pitch))
+      return false;
+  }
+
+  return true;
+}
+
+function checkIsOnBeat(distanceToNextBar: Time, beat: Time, threshold: Time) {
+  const remainder = distanceToNextBar % beat;
+
+  // Comprobamos si el remainder está lo suficientemente cerca de 0 o de beat
+  return remainder <= threshold || (beat - remainder) <= threshold;
 }

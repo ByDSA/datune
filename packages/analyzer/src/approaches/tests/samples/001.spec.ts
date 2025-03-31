@@ -1,38 +1,40 @@
-import { MidiFiles as MF } from "@datune/midi";
-import { BPM, Chords } from "@datune/core";
-import { MidiFile } from "@datune/midi";
-import { NotesTimeline } from "timelines/NotesTimeline";
-import { midiFileToNoteTimeline } from "timelines/midi/midifile-to-notes-timeline";
+import { Chords } from "@datune/core";
+import { MidiFile, MidiTimeline } from "@datune/midi";
+import { midiFileToTimelines, midiTimelineToNotesTimeline } from "timelines/midi/midifile-to-notes-timeline";
 import { sortNodesByFrom } from "approaches/utils";
 import { calculateChords, newTonalApproach } from "approaches/tonal/TonalApproach";
+import { loadMidiSample } from "tests/loadMidiSample";
+import { symbolicTimelineToReal } from "approaches/listener/utils";
+import { expectChordTimeline } from "timelines/tests/chord-timeline";
 import { Analyzer } from "../../listener/ListenerAnalyzer";
 import { expectSample1ChordTimeline } from "./001-expect";
 
 describe("sample midi 1", () => {
+  let timeline: MidiTimeline;
   let midiFile: MidiFile;
 
   beforeAll(async () => {
-    const midiPath = "../midi/tests/samples/001.mid";
+    midiFile = await loadMidiSample("001");
 
-    midiFile = await MF.load(midiPath);
+    timeline = midiFileToTimelines(midiFile).pitched!;
   } );
 
   it.skip("calculateChord", () => {
     const tonalApproach = newTonalApproach();
 
-    tonalApproach.notesTimeline = midiFileToNoteTimeline(midiFile);
+    tonalApproach.notesTimeline = midiTimelineToNotesTimeline(timeline);
     calculateChords(tonalApproach);
 
     expectSample1ChordTimeline(tonalApproach.chordTimeline);
   } );
 
-  it("test", () => {
-    const notesTimelineSymbolic = midiFileToNoteTimeline(midiFile);
+  it("listener", () => {
+    const notesTimelineSymbolic = timeline;
     // eslint-disable-next-line prefer-destructuring
     const { bpm } = midiFile.bpmEvents[0];
-    const notesTimelineReal = symbolicTimelineToReal(notesTimelineSymbolic, bpm);
+    const midiTimelineReal = symbolicTimelineToReal(notesTimelineSymbolic, bpm);
     const analyzer = new Analyzer( {
-      notesTimeline: notesTimelineReal,
+      midiTimeline: midiTimelineReal,
     } );
     const results = analyzer.analyze();
     const beatNodes = sortNodesByFrom(results.beatTimeline.nodes);
@@ -50,26 +52,9 @@ describe("sample midi 1", () => {
     expect(chordNodes[0].interval.to).toBe(1000);
     expect(chordNodes[0].event).toBe(Chords.C);
 
+    expectChordTimeline(results.chordTimeline).toHaveDuration(bpm.getMillis(
+      notesTimelineSymbolic.duration,
+    ));
     expectSample1ChordTimeline(results.chordTimeline, bpm);
   } );
 } );
-
-function symbolicTimelineToReal(notesTimelineSymbolic: NotesTimeline, bpm: BPM): NotesTimeline {
-  const notesTimelineReal = new NotesTimeline( {
-    startTime: bpm.getMillis(notesTimelineSymbolic.startTime),
-    cellSize: bpm.getMillis(notesTimelineSymbolic.cellSize),
-  } );
-
-  for (const n of notesTimelineSymbolic.nodes) {
-    notesTimelineReal.add( {
-      event: n.event,
-      interval: {
-        ...n.interval,
-        from: bpm.getMillis(n.interval.from),
-        to: bpm.getMillis(n.interval.to),
-      },
-    } );
-  }
-
-  return notesTimelineReal;
-}

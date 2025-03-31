@@ -1,16 +1,34 @@
-import { MidiFile } from "@datune/midi";
+import { MidiFile, MidiTimeline } from "@datune/midi";
 import { Time } from "@datune/utils";
 import { NotesTimeline } from "timelines/NotesTimeline";
 
+// TODO: mover a datune/midi
 type Settings = {
   offset: Time;
 };
-export function midiFileToNoteTimeline(midiFile: MidiFile, settings?: Settings): NotesTimeline {
-  const nSeq = new NotesTimeline();
+type Result = {
+  pitched: MidiTimeline | null;
+  drums: MidiTimeline | null;
+};
+export function midiFileToTimelines(midiFile: MidiFile, settings?: Settings): Result {
+  let pitchedTl = null;
+  let drumsTl = null;
 
   for (const track of midiFile.tracks) {
-    if (track.channel === 9) // drums
-      continue;
+    let timeline;
+    const isDrums = track.channel === 9;
+
+    if (isDrums) {
+      if (!drumsTl)
+        drumsTl = new MidiTimeline();
+
+      timeline = drumsTl;
+    } else {
+      if (!pitchedTl)
+        pitchedTl = new MidiTimeline();
+
+      timeline = pitchedTl;
+    }
 
     for (const midiNode of track.nodes) {
       const interval = {
@@ -22,12 +40,28 @@ export function midiFileToNoteTimeline(midiFile: MidiFile, settings?: Settings):
         interval.to += settings.offset;
       }
 
-      nSeq.add( {
-        event: midiNode.event.pitch.spn,
+      timeline.add( {
+        event: midiNode.event,
         interval,
       } );
     }
   }
 
-  return nSeq;
+  return {
+    drums: drumsTl,
+    pitched: pitchedTl,
+  };
+}
+
+export function midiTimelineToNotesTimeline(midiTl: MidiTimeline) {
+  const nTl = new NotesTimeline();
+
+  for (const n of midiTl.nodes) {
+    nTl.add( {
+      event: n.event.pitch.spn,
+      interval: n.interval,
+    } );
+  }
+
+  return nTl;
 }

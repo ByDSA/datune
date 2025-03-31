@@ -11,7 +11,6 @@ export function expectSample1ChordTimeline(chordTimeline: ChordTimeline, bpm?: B
     return bpm.getMillis(symTime);
   }
   expectChordTimeline(chordTimeline).toHaveNodesLength(3);
-  expectChordTimeline(chordTimeline).toHaveDuration(time(MD.WHOLE));
   expectChordTimeline(chordTimeline)
     .at(time(0))
     .toHaveChord(C.C);

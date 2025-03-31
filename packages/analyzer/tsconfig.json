@@ -24,6 +24,6 @@
   "exclude": ["dist", "node_modules"],
   "files": ["src/index.ts"],
   "filesGlob": ["src/**/*.ts", "tests/**/*.ts"],
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "tests/**/*.ts"],
   "types": ["node"]
 }

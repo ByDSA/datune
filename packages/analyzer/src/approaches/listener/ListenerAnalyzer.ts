@@ -1,21 +1,26 @@
 import { Time } from "@datune/utils";
 import { deepCopy } from "datils/datatypes/objects";
-import { intervalBetween } from "datils/math/intervals";
+import { Interval, intervalBetween } from "datils/math/intervals";
 import { Spns } from "@datune/core";
 import { stringifyTimelineNode } from "@datune/utils/datastructures/timeline";
+import { MidiTimeline } from "@datune/midi";
 import { ChordTimeline, KeyTimeline, NotesTimeline } from "timelines";
 import { Results } from "approaches/Results";
 import { INITIAL_LISTENER, ListenerState } from "./Listener";
 import { UpdateProcess } from "./UpdateProcess";
 
 type Props = {
-  notesTimeline: NotesTimeline;
+  midiTimeline: MidiTimeline;
   startTime?: Time;
   initialListener?: ListenerState;
 };
+type LogEntry = {
+  at: Time;
+  message: string;
+};
 
 export class Analyzer {
-  notesTimeline: NotesTimeline;
+  midiTimeline: MidiTimeline;
 
   listenerState: ListenerState;
 
@@ -23,16 +28,20 @@ export class Analyzer {
 
   step: Time = 10; // 10 ms
 
+  currentWindow!: Interval<Time>;
+
   results: Results;
 
+  logEntries: LogEntry[] = [];
+
   constructor(props: Props) {
-    this.notesTimeline = props.notesTimeline;
+    this.midiTimeline = props.midiTimeline;
     this.listenerState = props.initialListener ?? deepCopy(INITIAL_LISTENER);
     this.currentTime = props.startTime ?? -1;
 
     const seqProps = {
-      cellSize: this.notesTimeline.cellSize,
-      startTime: this.notesTimeline.startTime,
+      cellSize: this.midiTimeline.cellSize,
+      startTime: this.midiTimeline.startTime,
     };
 
     this.results = {
@@ -44,7 +53,7 @@ export class Analyzer {
 
   analyze() {
     for (this.currentTime = 0;
-      this.currentTime <= this.notesTimeline.duration + this.step;
+      this.currentTime <= this.midiTimeline.duration + this.step;
       this.currentTime += this.step)
       this.update();
 
@@ -55,7 +64,9 @@ export class Analyzer {
     this.#updateRelativeTimes();
     const previousTime = this.currentTime - this.step;
     const window = intervalBetween(previousTime, this.currentTime);
-    const noteNodesWindow = this.notesTimeline.getAtInterval(window);
+
+    this.currentWindow = window;
+    const noteNodesWindow = this.midiTimeline.getAtInterval(window);
     const updater = new UpdateProcess( {
       windowNodes: noteNodesWindow,
       window,
@@ -66,10 +77,29 @@ export class Analyzer {
   }
 
   addBeatAt(at: Time) {
+    let msg = "Add beat at " + at;
+
+    if (this.listenerState.bar.next !== undefined)
+      msg += " Next bar: " + this.listenerState.bar.next;
+
+    this.log(msg);
     this.results.beatTimeline.add( {
       event: Spns.C4,
       interval: intervalBetween(at, at + this.step),
     } );
+  }
+
+  log(msg: string) {
+    this.logEntries.push( {
+      at: this.currentWindow.to,
+      message: msg,
+    } );
+  }
+
+  showLog() {
+    const logEntries = this.logEntries.filter(l=>l.at < 8000);
+
+    console.log(logEntries.map(l=>l.at + ": " + l.message).join("\n"));
   }
 
   showListenerState() {
@@ -77,14 +107,17 @@ export class Analyzer {
   }
 
   #updateRelativeTimes() {
-    if (this.listenerState.beat.last)
+    if (this.listenerState.beat.last !== undefined)
       this.listenerState.beat.last += this.step;
 
-    if (this.listenerState.bar.last)
+    if (this.listenerState.bar.last !== undefined)
       this.listenerState.bar.last += this.step;
 
-    if (this.listenerState.beat.next)
+    if (this.listenerState.beat.next !== undefined)
       this.listenerState.beat.next -= this.step;
+
+    if (this.listenerState.bar.next !== undefined)
+      this.listenerState.bar.next -= this.step;
   }
 }
 

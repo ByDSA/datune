@@ -4,7 +4,7 @@ import { PitchArray } from "@datune/core/pitches/chromatic";
 import { MusicalDurations as MD } from "@datune/core";
 import { Interval } from "datils/math";
 import { intervalBetween } from "datils/math/intervals";
-import { sortNodesBySpn } from "approaches/utils";
+import { sortSpnNodesBySpn } from "approaches/utils";
 import { NotesTimeline } from "../..";
 import { ChordTimeline } from "../../timelines/ChordTimeline";
 import { TimeSignatureTimeline } from "../../timelines/TimeSignatureTimeline";
@@ -24,7 +24,7 @@ export class ChordTimelineCalculator {
 
     this.#forEachPart((interval) => {
       const nodes = this.#notesTimeline.getAtInterval(interval);
-      const nodesSorted = sortNodesBySpn(nodes);
+      const nodesSorted = sortSpnNodesBySpn(nodes);
       const pitches = nodesSorted.map((node) => node.event.pitch) as PitchArray;
       const pitchesUnique = pitches;
 

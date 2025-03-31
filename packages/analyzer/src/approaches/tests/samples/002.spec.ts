@@ -1,24 +1,46 @@
-import { MidiFiles as MF, MidiFile } from "@datune/midi";
-import { midiFileToNoteTimeline } from "timelines/midi/midifile-to-notes-timeline";
-import { calculateChords, newTonalApproach, TonalApproach } from "../../tonal/TonalApproach";
+import { MidiFile, MidiTimeline } from "@datune/midi";
+import { midiFileToTimelines, midiTimelineToNotesTimeline } from "timelines/midi/midifile-to-notes-timeline";
+import { loadMidiSample } from "tests/loadMidiSample";
+import { Analyzer } from "approaches/listener/ListenerAnalyzer";
+import { symbolicTimelineToReal } from "approaches/listener/utils";
+import { expectChordTimeline } from "timelines/tests/chord-timeline";
+import { calculateChords, newTonalApproach } from "../../tonal/TonalApproach";
 import { expectSample1ChordTimeline } from "./001-expect";
 
-describe.skip("sample midi 1", () => {
-  let mf: MidiFile;
+describe("002", () => {
+  let timeline: MidiTimeline;
+  let midiFile: MidiFile;
 
   beforeAll(async () => {
-    const midiPath = "../midi/tests/samples/002.mid";
+    midiFile = await loadMidiSample("002");
 
-    mf = await MF.load(midiPath);
+    timeline = midiFileToTimelines(midiFile).pitched!;
   } );
 
-  it("calculateChord", () => {
-    let tonalApproach: TonalApproach;
+  it.skip("calculateChord", () => {
+    const tonalApproach = newTonalApproach();
 
-    tonalApproach = newTonalApproach();
-    tonalApproach.notesTimeline = midiFileToNoteTimeline(mf);
+    tonalApproach.notesTimeline = midiTimelineToNotesTimeline(timeline);
     calculateChords(tonalApproach);
 
     expectSample1ChordTimeline(tonalApproach.chordTimeline);
+  } );
+
+  it("listener", () => {
+    const notesTimelineSymbolic = timeline;
+    // eslint-disable-next-line prefer-destructuring
+    const { bpm } = midiFile.bpmEvents[0];
+    const notesTimelineReal = symbolicTimelineToReal(notesTimelineSymbolic, bpm);
+    const analyzer = new Analyzer( {
+      midiTimeline: notesTimelineReal,
+    } );
+    const results = analyzer.analyze();
+
+    analyzer.showLog();
+    expectChordTimeline(results.chordTimeline).toHaveDuration(
+      bpm.getMillis(notesTimelineSymbolic.duration),
+    );
+
+    expectSample1ChordTimeline(results.chordTimeline, bpm);
   } );
 } );
