@@ -1,6 +1,7 @@
 import { Chord, Key } from "@datune/core";
 import { TimelineNode, Time } from "@datune/utils";
 import { deepFreeze } from "datils/datatypes/objects";
+import { Gravitation } from "timelines/GravitationTimeline";
 
 export type ListenerState = {
   bar: {
@@ -19,6 +20,7 @@ export type ListenerState = {
   };
   currentChordNode?: TimelineNode<Chord>;
   currentKeyNode?: TimelineNode<Key>;
+  currentGravitationNodes: TimelineNode<Gravitation>[];
 };
 
 export const INITIAL_LISTENER: ListenerState = deepFreeze( {
@@ -37,4 +39,5 @@ export const INITIAL_LISTENER: ListenerState = deepFreeze( {
     key: undefined,
     rootChord: undefined,
   },
+  currentGravitationNodes: [],
 } );

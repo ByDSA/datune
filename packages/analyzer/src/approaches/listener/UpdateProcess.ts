@@ -1,10 +1,14 @@
 /* eslint-disable max-len */
 import { Time, TimelineNode } from "@datune/utils";
 import { Interval, intervalBetween, intervalContains } from "datils/math/intervals";
-import { Chord, Chords, Key, Keys, PitchArray, Scales, Voicings } from "@datune/core";
+import { Chord, Chords, Intervals, Key, Keys, Pitch, PitchArray, Scales, SpnArray, Spns, Voicings } from "@datune/core";
 import { Timeline } from "@datune/utils/datastructures/timeline/structures/Timeline";
 import { MidiTimelineNode } from "@datune/midi";
+import { SingleStep, VoiceLeadings } from "@datune/core-ext/voice-leading";
+import { rootChord3 } from "@datune/core/keys/chromatic/modifiers";
+import { assertIsDefined } from "datils/datatypes/nullish";
 import { sortNodesByFrom } from "approaches/utils";
+import { Gravitation } from "timelines/GravitationTimeline";
 import { type Analyzer } from "./ListenerAnalyzer";
 import { classifyPerception, withPerceptualNotes } from "./perception/perception";
 
@@ -45,13 +49,22 @@ export class UpdateProcess {
       .filter(n => {
         return intervalContains(this.props.window, n.interval.from);
       } );
+    const endNoteNodesWindow = this.props.windowNodes
+      .filter(n => {
+        return intervalContains(this.props.window, n.interval.to);
+      } );
     const hasAnyNewNotes = startNoteNodesWindow.length > 0;
-    const { currentChordNode: currentChordNodeAtWindowFrom } = this.analyzer.listenerState;
+    const hasAnyEndNotes = endNoteNodesWindow.length > 0;
 
     if (hasAnyNewNotes) {
       // if (!this.hasAnyBeat())
       this.addBeatNow();
+    }
 
+    if (hasAnyEndNotes || hasAnyNewNotes)
+      this.updateGravitationTimeline();
+
+    if (hasAnyNewNotes) {
       const playingNoteNodes = this.props.windowNodes
         .filter(n => {
           return !intervalContains(this.props.window, n.interval.to);
@@ -73,12 +86,89 @@ export class UpdateProcess {
         this.addChordNow(pitches);
     }
 
+    // Se hace al final por si el timeline ha cambiado durante el step
+    const currentChordNodeAtWindowFrom = this.analyzer.results.chordTimeline.getAt(this.props.window.from - this.analyzer.step);
+
     // Extender acorde que se estaba escuchando
     if (currentChordNodeAtWindowFrom)
       this.extendsPrevListeningChord(currentChordNodeAtWindowFrom);
 
     if (this.props.window.to % 300 === 0)
       this.analyzer.showListenerState();
+  }
+
+  updateGravitationTimeline() {
+    const startNoteNodesWindow = this.props.windowNodes
+      .filter(n => {
+        return intervalContains(this.props.window, n.interval.from);
+      } );
+    const endNoteNodesWindow = this.props.windowNodes
+      .filter(n => {
+        return intervalContains(this.props.window, n.interval.to);
+      } );
+    const { currentGravitationNodes } = this.analyzer.listenerState;
+
+    if (startNoteNodesWindow.length > 0) {
+      const gravitations: Gravitation[] = [];
+      const spns = startNoteNodesWindow.map(n=>n.event.pitch.spn) as SpnArray;
+
+      if (this.analyzer.listenerState.currentKeyNode) {
+        const key = this.analyzer.listenerState.currentKeyNode.event;
+        const rootChord = rootChord3(key);
+
+        assertIsDefined(rootChord);
+        const { groups } = VoiceLeadings.StepsGen.toKeyResolution( {
+          restingPitches: rootChord.pitches,
+          base: spns,
+        } );
+
+        for (let i = 0; i < groups.length; i++) {
+          const gp = groups[i];
+
+          for (const singleGravityStep of gp) {
+            const gravitation: Gravitation = {
+              type: "key",
+              spn: spns[i],
+              stepInterval: (singleGravityStep as SingleStep).interval,
+            };
+
+            gravitations.push(gravitation);
+          }
+        }
+      }
+
+      if (gravitations.length > 0) {
+        const interval = this.props.window;
+
+        for (const g of gravitations) {
+          this.analyzer.results.gravitationTimeline.add( {
+            event: g,
+            interval,
+          } );
+        }
+      }
+    }
+
+    const endSpns = endNoteNodesWindow.map(n=>n.event.pitch.spn);
+
+    for (const n of currentGravitationNodes) {
+      switch (n.event.type) {
+        case "key":
+        {
+          const { spn } = n.event;
+
+          if (!endSpns.includes(spn)) {
+            changeNodeIntervalTo(
+              this.analyzer.results.gravitationTimeline,
+              n,
+              this.props.window.to,
+            );
+          }
+        }
+      }
+    }
+
+    this.analyzer.listenerState.currentGravitationNodes = this.analyzer.results.gravitationTimeline.getAt(this.props.window.to);
   }
 
   extendsPrevListeningChord(currentChordNodeAtWindowFrom: TimelineNode<Chord>) {
@@ -142,18 +232,18 @@ export class UpdateProcess {
     if (pitches.length < 2)
       return false;
 
-    const { currentChordNode } = this.analyzer.listenerState;
+    const { currentChordNode: lastChordNode } = this.analyzer.listenerState;
     const duration = this.analyzer.currentWindow.from
-    - currentChordNode.interval.from;
+    - lastChordNode.interval.from;
+    const nextBar = this.analyzer.listenerState.bar.next;
 
-    if (duration < newChordThrehold)
+    if (nextBar === undefined && duration < newChordThrehold)
       return false;
 
-    const checkedSamePitches = isSamePitches(pitches, currentChordNode.event.pitches);
-    const newPitchesIncludedInCurrentChord = pitches
-      .every(pitch => currentChordNode.event.pitches.includes(pitch));
-    const samePitchesOrIncluded = checkedSamePitches || newPitchesIncludedInCurrentChord;
-    const nextBar = this.analyzer.listenerState.bar.next;
+    const checkedSamePitches = isSamePitches(pitches, lastChordNode.event.pitches);
+    const newPitchesIncludedInLastChord = pitches
+      .every(pitch => lastChordNode.event.pitches.includes(pitch));
+    const samePitchesOrIncluded = checkedSamePitches || newPitchesIncludedInLastChord;
 
     if (nextBar !== undefined) {
       const beatDuration = this.analyzer.listenerState.bar.duration! / 4;
@@ -163,14 +253,24 @@ export class UpdateProcess {
           return intervalContains(this.props.window, n.interval.from);
         } );
       const startPitches = new Set(startNoteNodesWindow.map(n=>n.event.pitch));
-      const numberOfCurrentChordsPitchesNotInPitches = currentChordNode.event.pitches
+      const numberOfLastChordPitchesNotInNewPitches = lastChordNode.event.pitches
         .filter(pitch => !pitches.includes(pitch))
         .length;
+      const currentChordIsAmbiguous = this.analyzer.listenerState.currentChordNode.event.length < 3;
+
+      if (currentChordIsAmbiguous && !checkedSamePitches)
+        return true;
+
+      if (this.analyzer.listenerState.bar.last! < beatDuration * 1.25 && !samePitchesOrIncluded && numberOfLastChordPitchesNotInNewPitches > 0)
+        return true;
+
+      if (duration < newChordThrehold)
+        return false;
 
       if (startPitches.size < 2)
         return false;
 
-      if (numberOfCurrentChordsPitchesNotInPitches < 2 && nextBar <= beatDuration)
+      if (numberOfLastChordPitchesNotInNewPitches < 2 && nextBar <= beatDuration)
         return false;
 
       if (startNoteNodesWindow.length < 3)
@@ -196,6 +296,17 @@ export class UpdateProcess {
     } )[0];
 
     this.analyzer.log("Updated currentChord to " + this.analyzer.listenerState.currentChordNode.event);
+
+    if (this.analyzer.listenerState.bar.next) {
+      const barBeginning = this.analyzer.listenerState.bar.next + 50 > this.analyzer.listenerState.bar.duration!;
+
+      if (!barBeginning) {
+        const changed = this.fixChordsInCurrentBar();
+
+        if (changed)
+          this.analyzer.listenerState.currentChordNode = this.analyzer.results.chordTimeline.getAt(this.props.window.from);
+      }
+    }
 
     if (!this.hasAnyKey()) {
       this.analyzer.listenerState.tonal.rootChord = chord;
@@ -224,6 +335,124 @@ export class UpdateProcess {
         this.analyzer.log("Updated Key to " + this.analyzer.listenerState.currentKeyNode.event);
       }
     }
+  }
+
+  fixChordsInCurrentBar(): boolean {
+    let changed = false;
+    const interval = intervalBetween(
+      this.analyzer.currentTime - this.analyzer.listenerState.bar.last!,
+      this.analyzer.currentTime,
+    );
+    const chordNodes = this.analyzer.results.chordTimeline.getAtInterval(interval);
+    let lastIsAmbiguos = false;
+
+    for (let i = 0; i < chordNodes.length; i++) {
+      const chordNode = chordNodes[i];
+
+      if (lastIsAmbiguos) {
+        const lastChordNode = chordNodes[i - 1];
+        const currentHasAnyThird = chordHasAnyThird(
+          lastChordNode.event.root,
+          chordNode.event,
+        );
+
+        if (currentHasAnyThird) {
+          // TODO: para hacerlo bien manteniendo el orden habría que tener en cuenta los SPN
+          const pitches = uniquePitches(
+            ...lastChordNode.event.pitches,
+            ...chordNode.event.pitches,
+          ) as PitchArray;
+          const fusedChord = Chords.fromPitches(...pitches);
+
+          fuseNodes(
+            fusedChord,
+            this.analyzer.results.chordTimeline,
+            chordNode,
+            lastChordNode,
+          );
+
+          changed = true;
+          break;
+        }
+      }
+
+      // TODO:
+      // bug: después de haber borrado los nodos fusionados, al hacer getInterval duplica el nodo que coge.
+      let bug = false;
+
+      if (chordNodes.length > 1 && chordNodes[0].event === chordNodes[1].event)
+        bug = true;
+
+      if (
+        !bug
+        && i > 0
+        && this.analyzer.listenerState.beat.last !== undefined) {
+        const lastChordNode = chordNodes[i - 1];
+        const lastBarAbs = this.analyzer.listenerState.beat.last + this.analyzer.currentTime;
+        const canBeApoyature = this.analyzer.listenerState.bar.duration
+        && chordNode.interval.from < lastBarAbs + (this.analyzer.listenerState.bar.duration / 4 * 1.25);
+        let isApoyature = false;
+
+        if (canBeApoyature) {
+          const lastChordGravitations = this.analyzer.results.gravitationTimeline.getAt(lastChordNode.interval.from);
+          const notesAtChord = this.analyzer.midiTimeline.getAtInterval(chordNode.interval).filter(n=> {
+            return !intervalContains(chordNode.interval, n.interval.to);
+          } );
+          const startingNotes = notesAtChord.filter(n=> {
+            return intervalContains(chordNode.interval, n.interval.from);
+          } );
+          const startingSpns = startingNotes.map(n=>n.event.pitch.spn);
+          const playingSpns = notesAtChord.map(n=>n.event.pitch.spn);
+          const playingPitches = playingSpns.map(n=>n.pitch);
+
+          if (lastChordGravitations) {
+            for (const g of lastChordGravitations) {
+              if (g.event.type === "key" && g.event.stepInterval !== null) {
+                const { spn } = g.event;
+                const spnResolution = Spns.add(spn, g.event.stepInterval);
+
+                if (spnResolution === null)
+                  continue;
+
+                const isSolvingSpn = startingSpns.includes(spnResolution) && !playingSpns.includes(spn);
+                const isSolvingPitches = !playingPitches.includes(spn.pitch);
+
+                if (isSolvingSpn && isSolvingPitches)
+                  isApoyature = true;
+
+                break;
+              }
+            }
+          }
+        }
+
+        if (isApoyature) {
+          fuseNodes(
+            chordNode.event,
+            this.analyzer.results.chordTimeline,
+            lastChordNode,
+            chordNode,
+          );
+        } else {
+          fuseNodes(
+            lastChordNode.event,
+            this.analyzer.results.chordTimeline,
+            lastChordNode,
+            chordNode,
+          );
+        }
+
+        changed = true;
+        break;
+      }
+
+      lastIsAmbiguos = !chordHasAnyThird(chordNode.event.root, chordNode.event);
+    }
+
+    if (changed)
+      this.fixChordsInCurrentBar();
+
+    return changed;
   }
 
   addBeatNow() {
@@ -367,4 +596,40 @@ function checkIsOnBeat(distanceToNextBar: Time, beat: Time, threshold: Time) {
 
   // Comprobamos si el remainder está lo suficientemente cerca de 0 o de beat
   return remainder <= threshold || (beat - remainder) <= threshold;
+}
+
+function chordHasAnyThird(root: Pitch, chord: Chord): boolean {
+  const minor = root.withAdd(Intervals.m3);
+  const major = root.withAdd(Intervals.M3);
+  const fourth = root.withAdd(Intervals.P4);
+
+  if (!chord.hasAny(minor, major, fourth))
+    return true;
+
+  return false;
+}
+
+function uniquePitches(...pitches: Pitch[]): Pitch[] {
+  const uniquePitchesSet = new Set<Pitch>();
+
+  for (const pitch of pitches) {
+    if (!uniquePitchesSet.has(pitch))
+      uniquePitchesSet.add(pitch);
+  }
+
+  return Array.from(uniquePitchesSet);
+}
+
+function fuseNodes<E>(newEvent: E, timeline: Timeline<E>, ...oldNodes: TimelineNode<E>[]) {
+  const min = oldNodes.reduce((acc, node) => Math.min(acc, node.interval.from), Infinity);
+  const max = oldNodes.reduce((acc, node) => Math.max(acc, node.interval.to), -Infinity);
+  const fusedInterval = intervalBetween(min, max);
+
+  timeline.remove(...oldNodes);
+  timeline.add(
+    {
+      event: newEvent,
+      interval: fusedInterval,
+    },
+  );
 }

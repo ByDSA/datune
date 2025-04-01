@@ -101,7 +101,6 @@ describe("004 012-Theme01", () => {
     expectChordTimeline(results.chordTimeline).toHaveDuration(
       bpm.getMillis(notesTimelineSymbolic.duration),
     );
-
     const nodes = sortNodesByFrom([...results.chordTimeline.nodes]);
 
     analyzer.showLog();
@@ -261,5 +260,13 @@ function checkPartB(timeline: ChordTimeline) {
       C.fromPitches(P.E, P.GG, P.B),
     );
 
-  expect(intervalDuration(timeline.getAt(42500)!.interval)).toBe(6000);
+  expect(intervalDuration(timeline.getAt(42500)!.interval)).toBe(2000);
+
+  expectChordTimeline(timeline).at(44500)
+    .toHaveChord(
+      // (D debería tomarse como apoyatura, no como parte del acorde)
+      C.fromPitches(P.A, P.GG, P.CC, P.FF),
+    );
+
+  expect(intervalDuration(timeline.getAt(44500)!.interval)).toBe(4000);
 }

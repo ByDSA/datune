@@ -6,6 +6,7 @@ import { stringifyTimelineNode } from "@datune/utils/datastructures/timeline";
 import { MidiTimeline } from "@datune/midi";
 import { ChordTimeline, KeyTimeline, NotesTimeline } from "timelines";
 import { Results } from "approaches/Results";
+import { GravitationTimeline } from "timelines/GravitationTimeline";
 import { INITIAL_LISTENER, ListenerState } from "./Listener";
 import { UpdateProcess } from "./UpdateProcess";
 
@@ -48,6 +49,7 @@ export class Analyzer {
       beatTimeline: new NotesTimeline(seqProps),
       chordTimeline: new ChordTimeline(seqProps),
       keyTimeline: new KeyTimeline(seqProps),
+      gravitationTimeline: new GravitationTimeline(seqProps),
     };
   }
 
