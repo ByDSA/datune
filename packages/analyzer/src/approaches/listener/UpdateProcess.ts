@@ -4,7 +4,7 @@ import { Interval, intervalBetween, intervalContains } from "datils/math/interva
 import { Chord, Chords, Intervals, Key, Keys, Pitch, PitchArray, Scales, SpnArray, Spns, Voicings } from "@datune/core";
 import { Timeline } from "@datune/utils/datastructures/timeline/structures/Timeline";
 import { MidiTimelineNode } from "@datune/midi";
-import { SingleStep, VoiceLeadings } from "@datune/core-ext/voice-leading";
+import { SingleStepArray, VoiceLeadings } from "@datune/core-ext/voice-leading";
 import { rootChord3 } from "@datune/core/keys/chromatic/modifiers";
 import { assertIsDefined } from "datils/datatypes/nullish";
 import { sortNodesByFrom } from "approaches/utils";
@@ -123,13 +123,13 @@ export class UpdateProcess {
         } );
 
         for (let i = 0; i < groups.length; i++) {
-          const gp = groups[i];
+          const gp = groups[i] as SingleStepArray;
 
           for (const singleGravityStep of gp) {
             const gravitation: Gravitation = {
               type: "key",
-              spn: spns[i],
-              stepInterval: (singleGravityStep as SingleStep).interval,
+              spn: spns[singleGravityStep.index],
+              stepInterval: singleGravityStep.interval,
             };
 
             gravitations.push(gravitation);
@@ -256,13 +256,22 @@ export class UpdateProcess {
       const numberOfLastChordPitchesNotInNewPitches = lastChordNode.event.pitches
         .filter(pitch => !pitches.includes(pitch))
         .length;
-      const currentChordIsAmbiguous = this.analyzer.listenerState.currentChordNode.event.length < 3;
 
-      if (currentChordIsAmbiguous && !checkedSamePitches)
+      if (this.analyzer.listenerState.bar.last! < beatDuration * 1.25 && !samePitchesOrIncluded && numberOfLastChordPitchesNotInNewPitches > 0
+        && intervalDuration(this.analyzer.listenerState.currentChordNode.interval) < beatDuration * 1.25
+      )
         return true;
 
-      if (this.analyzer.listenerState.bar.last! < beatDuration * 1.25 && !samePitchesOrIncluded && numberOfLastChordPitchesNotInNewPitches > 0)
-        return true;
+      if (this.analyzer.listenerState.bar.last! > this.analyzer.step) {
+        const pitchDisambiguation = Object.values(checkSolveDisambiguation(
+          this.analyzer.listenerState.currentChordNode.event,
+          pitches,
+        ));
+        const isDisambiguation = pitchDisambiguation.length > 0;
+
+        if (isDisambiguation)
+          return true;
+      }
 
       if (duration < newChordThrehold)
         return false;
@@ -343,52 +352,23 @@ export class UpdateProcess {
       this.analyzer.currentTime - this.analyzer.listenerState.bar.last!,
       this.analyzer.currentTime,
     );
-    const chordNodes = this.analyzer.results.chordTimeline.getAtInterval(interval);
+    let chordNodes = this.analyzer.results.chordTimeline.getAtInterval(interval);
+
+    // TODO:
+    // bug: después de haber borrado los nodos fusionados, al hacer getInterval duplica el nodo que coge.
+    // filtrar: el evento no existe en chordNodes[]., excepto en el nodo actual
+    chordNodes = chordNodes.filter((n, i) => {
+      return chordNodes.findIndex(n2 => n2.event === n.event) === i;
+    } );
     let lastIsAmbiguos = false;
 
     for (let i = 0; i < chordNodes.length; i++) {
       const chordNode = chordNodes[i];
 
-      if (lastIsAmbiguos) {
+      if (i > 0
+        && this.analyzer.listenerState.bar.last !== undefined) {
         const lastChordNode = chordNodes[i - 1];
-        const currentHasAnyThird = chordHasAnyThird(
-          lastChordNode.event.root,
-          chordNode.event,
-        );
-
-        if (currentHasAnyThird) {
-          // TODO: para hacerlo bien manteniendo el orden habría que tener en cuenta los SPN
-          const pitches = uniquePitches(
-            ...lastChordNode.event.pitches,
-            ...chordNode.event.pitches,
-          ) as PitchArray;
-          const fusedChord = Chords.fromPitches(...pitches);
-
-          fuseNodes(
-            fusedChord,
-            this.analyzer.results.chordTimeline,
-            chordNode,
-            lastChordNode,
-          );
-
-          changed = true;
-          break;
-        }
-      }
-
-      // TODO:
-      // bug: después de haber borrado los nodos fusionados, al hacer getInterval duplica el nodo que coge.
-      let bug = false;
-
-      if (chordNodes.length > 1 && chordNodes[0].event === chordNodes[1].event)
-        bug = true;
-
-      if (
-        !bug
-        && i > 0
-        && this.analyzer.listenerState.beat.last !== undefined) {
-        const lastChordNode = chordNodes[i - 1];
-        const lastBarAbs = this.analyzer.listenerState.beat.last + this.analyzer.currentTime;
+        const lastBarAbs = this.analyzer.currentTime - this.analyzer.listenerState.bar.last;
         const canBeApoyature = this.analyzer.listenerState.bar.duration
         && chordNode.interval.from < lastBarAbs + (this.analyzer.listenerState.bar.duration / 4 * 1.25);
         let isApoyature = false;
@@ -414,39 +394,78 @@ export class UpdateProcess {
                 if (spnResolution === null)
                   continue;
 
-                const isSolvingSpn = startingSpns.includes(spnResolution) && !playingSpns.includes(spn);
-                const isSolvingPitches = !playingPitches.includes(spn.pitch);
+                const [nodeBase] = notesAtChord.filter(n=>n.event.pitch.spn === spn);
+                // TODO: trampa! en verdad habría que esperar a que la nota deje de sonar
+                const soonEnd = nodeBase && this.analyzer.listenerState.bar.duration && nodeBase.interval.to < chordNode.interval.from + (this.analyzer.listenerState.bar.duration / 8);
+                const isSolvingSpn = startingSpns.includes(spnResolution) && (
+                  !playingSpns.includes(spn)
+                  || soonEnd
+                );
+                const isSolvingPitches = !playingPitches.includes(spn.pitch)
+                && chordNode.event.has(spnResolution.pitch); // Porque puede estar en el timeline pero no percibirse (o sea, no en chordNode)
 
-                if (isSolvingSpn && isSolvingPitches)
+                if (isSolvingSpn && isSolvingPitches) {
                   isApoyature = true;
 
-                break;
+                  break;
+                }
               }
             }
           }
-        }
 
-        if (isApoyature) {
-          fuseNodes(
-            chordNode.event,
-            this.analyzer.results.chordTimeline,
-            lastChordNode,
-            chordNode,
-          );
-        } else {
-          fuseNodes(
-            lastChordNode.event,
-            this.analyzer.results.chordTimeline,
-            lastChordNode,
-            chordNode,
-          );
-        }
+          if (isApoyature) {
+            fuseNodes(
+              chordNode.event,
+              this.analyzer.results.chordTimeline,
+              lastChordNode,
+              chordNode,
+            );
+            changed = true;
+            break;
+          } else if (!lastIsAmbiguos) {
+            fuseNodes(
+              lastChordNode.event,
+              this.analyzer.results.chordTimeline,
+              lastChordNode,
+              chordNode,
+            );
 
-        changed = true;
-        break;
+            changed = true;
+            break;
+          }
+        }
       }
 
-      lastIsAmbiguos = !chordHasAnyThird(chordNode.event.root, chordNode.event);
+      if (lastIsAmbiguos) {
+        const lastChordNode = chordNodes[i - 1];
+        const solvePitchesObj = checkSolveDisambiguation(lastChordNode.event, chordNode.event.pitches);
+        const solvePitchesArray = Object.values(solvePitchesObj);
+
+        if (solvePitchesArray.length > 0) {
+          // TODO: para hacerlo bien manteniendo el orden habría que tener en cuenta los SPN
+          const pitches = uniquePitches(
+            ...lastChordNode.event.pitches,
+            ...solvePitchesArray,
+          ) as PitchArray;
+          const fusedChord = Chords.fromPitches(...pitches);
+
+          fuseNodes(
+            fusedChord,
+            this.analyzer.results.chordTimeline,
+            chordNode,
+            lastChordNode,
+          );
+
+          changed = true;
+          break;
+        }
+      }
+
+      if (i < chordNodes.length - 1) {
+        const nextChord = chordNodes[i + 1];
+
+        lastIsAmbiguos = Object.values(checkSolveDisambiguation(chordNode.event, nextChord.event.pitches)).length > 0;
+      }
     }
 
     if (changed)
@@ -598,15 +617,68 @@ function checkIsOnBeat(distanceToNextBar: Time, beat: Time, threshold: Time) {
   return remainder <= threshold || (beat - remainder) <= threshold;
 }
 
-function chordHasAnyThird(root: Pitch, chord: Chord): boolean {
+type DisambiguationReturn = {
+  third?: Pitch;
+  fifth?: Pitch;
+  seventh?: Pitch;
+};
+function checkSolveDisambiguation(chord: Chord, newPitches: Pitch[]): DisambiguationReturn {
+  const sameRoot = chord.root === newPitches[0];
+  const ret: DisambiguationReturn = {};
+
+  if (!sameRoot)
+    return ret;
+
+  const { root } = chord;
   const minor = root.withAdd(Intervals.m3);
   const major = root.withAdd(Intervals.M3);
-  const fourth = root.withAdd(Intervals.P4);
+  const sus2 = root.withAdd(Intervals.M2);
+  const sus4 = root.withAdd(Intervals.P4);
 
-  if (!chord.hasAny(minor, major, fourth))
-    return true;
+  if (!chord.hasAny(minor, major, sus4)) {
+    if (newPitches.includes(major))
+      ret.third = major;
+    else if (newPitches.includes(minor))
+      ret.third = minor;
+    else if (newPitches.includes(sus4))
+      ret.third = sus4;
+    else if (newPitches.includes(sus2))
+      ret.third = sus2;
 
-  return false;
+    const retArray = Object.values(ret);
+    const restOfPitches = newPitches.filter(p=>!retArray.includes(p));
+    const currentChordHaveRestOfPitches = restOfPitches.length === 0
+      ? true
+      : chord.hasAll(...restOfPitches as PitchArray);
+
+    if (!currentChordHaveRestOfPitches)
+      return {};
+
+    return ret;
+  }
+
+  const diminished = root.withAdd(Intervals.d5);
+  const perfect = root.withAdd(Intervals.P5);
+  const augmented = root.withAdd(Intervals.m6);
+
+  if (!chord.hasAny(diminished, perfect, augmented)) {
+    if (newPitches.includes(perfect))
+      ret.fifth = perfect;
+    else if (newPitches.includes(diminished))
+      ret.fifth = diminished;
+    else if (newPitches.includes(augmented))
+      ret.fifth = augmented;
+  }
+
+  // const minor7 = root.withAdd(Intervals.m7);
+  // const major7 = root.withAdd(Intervals.M7);
+  // if (!chord.hasAny(minor7, major7)) {
+  //   if (newPitches.includes(major7))
+  //     ret.seventh = major7;
+  //   else if (newPitches.includes(minor7))
+  //     ret.seventh = minor7;
+  // }
+  return ret;
 }
 
 function uniquePitches(...pitches: Pitch[]): Pitch[] {
@@ -632,4 +704,8 @@ function fuseNodes<E>(newEvent: E, timeline: Timeline<E>, ...oldNodes: TimelineN
       interval: fusedInterval,
     },
   );
+}
+
+function intervalDuration(interval: Interval<Time>): Time {
+  return interval.to - interval.from;
 }

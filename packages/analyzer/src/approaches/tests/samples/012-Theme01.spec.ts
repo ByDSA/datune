@@ -246,9 +246,11 @@ function checkPartA(timeline: ChordTimeline) {
 }
 
 function checkPartB(timeline: ChordTimeline) {
+  // 21
   expectChordTimeline(timeline).at(40500)
-    .toHaveChord(
-      C.fromPitches(P.D, P.CC, P.FF),
+    .toHavePitches(
+      // (5a (A) ambigua hasta 21.5)
+      ...C.fromPitches(P.D, P.A, P.CC, P.FF).pitches,
     );
 
   expect(intervalDuration(timeline.getAt(40500)!.interval)).toBe(2000);
@@ -262,11 +264,159 @@ function checkPartB(timeline: ChordTimeline) {
 
   expect(intervalDuration(timeline.getAt(42500)!.interval)).toBe(2000);
 
+  // 23
   expectChordTimeline(timeline).at(44500)
     .toHaveChord(
       // (D debería tomarse como apoyatura, no como parte del acorde)
       C.fromPitches(P.A, P.GG, P.CC, P.FF),
     );
 
-  expect(intervalDuration(timeline.getAt(44500)!.interval)).toBe(4000);
+  expect(intervalDuration(timeline.getAt(44500)!.interval)).toBe(1000);
+
+  // 23.5
+  expectChordTimeline(timeline).at(45500)
+    .toHaveChord(
+      C.fromPitches(P.GG, P.E, P.CC),
+    );
+
+  expect(intervalDuration(timeline.getAt(45500)!.interval)).toBe(1000);
+
+  // 24
+  expectChordTimeline(timeline).at(46500)
+    .toHaveChord(
+      C.fromPitches(P.FF, P.A, P.CC),
+    );
+
+  expect(intervalDuration(timeline.getAt(46500)!.interval)).toBe(1000);
+
+  // 24.5
+  expectChordTimeline(timeline).at(47500)
+    .toHaveChord(
+      C.fromPitches(P.E, P.GG),
+    );
+
+  expect(intervalDuration(timeline.getAt(47500)!.interval)).toBe(1000);
+
+  // 25
+  expectChordTimeline(timeline).at(48500)
+    .toHaveChord(
+      C.fromPitches(P.D, P.A, P.CC, P.FF),
+    );
+
+  expect(intervalDuration(timeline.getAt(48500)!.interval)).toBe(2000);
+
+  // 26
+  expectChordTimeline(timeline).at(50500)
+    .toHaveChord(
+      C.fromPitches(P.E, P.B, P.GG),
+    );
+
+  expect(intervalDuration(timeline.getAt(50500)!.interval)).toBe(2000);
+
+  // 27
+  expectChordTimeline(timeline).at(52500)
+    .toHaveChord(
+      // TODO:
+      // (G#->A no es apoyatura porque en 27.5 A->B)
+      // Para que sea una apoyatura se tiene que alargar hasta el tercer tiempo o más
+      C.fromPitches(P.FF, P.CC, P.A),
+    );
+
+  expect(intervalDuration(timeline.getAt(52500)!.interval)).toBe(2000);
+
+  // 28
+  expectChordTimeline(timeline).at(54500)
+    .toHaveChord(
+      C.fromPitches(P.FF, P.CC, P.A, P.E),
+    );
+
+  expect(intervalDuration(timeline.getAt(54500)!.interval)).toBe(1000);
+
+  // 28.5
+  expectChordTimeline(timeline).at(55500)
+    .toHaveChord(
+      C.fromPitches(P.E, P.B, P.FF, P.A),
+    );
+
+  expect(intervalDuration(timeline.getAt(55500)!.interval)).toBe(1000);
+
+  // 29
+  expectChordTimeline(timeline).at(56500)
+    .toHaveChord(
+      C.fromPitches(P.D, P.A, P.FF, P.CC),
+    );
+
+  expect(intervalDuration(timeline.getAt(56500)!.interval)).toBe(2000);
+
+  // 30
+  expectChordTimeline(timeline).at(58500)
+    .toHaveChord(
+      C.fromPitches(P.E, P.B, P.GG),
+    );
+
+  expect(intervalDuration(timeline.getAt(58500)!.interval)).toBe(2000);
+
+  // 31
+  expectChordTimeline(timeline).at(60500)
+    .toHaveChord(
+      C.fromPitches(P.A, P.CC, P.E, P.FF),
+    );
+
+  expect(intervalDuration(timeline.getAt(60500)!.interval)).toBe(1000);
+
+  // 31.5
+  expectChordTimeline(timeline).at(61500)
+    .toHaveChord(
+      C.fromPitches(P.GG, P.CC, P.E, P.B),
+    );
+
+  expect(intervalDuration(timeline.getAt(61500)!.interval)).toBe(1000);
+
+  // 32
+  expectChordTimeline(timeline).at(62500)
+    .toHaveChord(
+      C.fromPitches(P.FF, P.CC, P.GG, P.A),
+    );
+
+  expect(intervalDuration(timeline.getAt(62500)!.interval)).toBe(1000);
+
+  // 32.5
+  expectChordTimeline(timeline).at(63500)
+    .toHavePitches(
+      ...C.fromPitches(P.E, P.B, P.GG, P.FF).pitches,
+    );
+
+  expect(intervalDuration(timeline.getAt(63500)!.interval)).toBe(1000);
+
+  // 33
+  expectChordTimeline(timeline).at(64500)
+    .toHaveChord(
+      C.fromPitches(P.D, P.A, P.FF),
+    );
+
+  expect(intervalDuration(timeline.getAt(64500)!.interval)).toBe(2000);
+
+  // 34
+  expectChordTimeline(timeline).at(66500)
+    .toHaveChord(
+      C.fromPitches(P.E, P.B, P.GG),
+    );
+
+  expect(intervalDuration(timeline.getAt(66500)!.interval)).toBe(2000);
+
+  // 35
+  expectChordTimeline(timeline).at(68500)
+    .toHaveChord(
+      C.fromPitches(P.FF, P.B, P.CC),
+    );
+
+  expect(intervalDuration(timeline.getAt(68500)!.interval)).toBe(2000);
+
+  // 36
+  expectChordTimeline(timeline).at(70500)
+    .toHaveChord(
+      C.fromPitches(P.FF, P.CC, P.AA),
+    );
+
+  expect(intervalDuration(timeline.getAt(70500)!.interval)).toBe(2000);
 }
