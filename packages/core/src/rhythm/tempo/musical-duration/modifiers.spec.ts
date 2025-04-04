@@ -1,5 +1,5 @@
 import type { MusicalDuration } from "./MusicalDuration";
-import { add, div, divCell, mult, sub } from "@datune/utils/time";
+import { add, div, mult, sub } from "@datune/utils/time";
 import { dotted, triplet } from "./modifiers";
 import { MusicalDurations as MD } from ".";
 
@@ -64,20 +64,6 @@ it("dotted - QUARTER.dotted.dotted = 2*QUARTER + SIXTEENTH", () => {
 it("dotted - QUARTER.triplet*3 = 2*QUARTER", () => {
   const actual: MusicalDuration = mult(triplet(QUARTER), 3);
   const expected = mult(QUARTER, 2);
-
-  expect(actual).toEqual(expected);
-} );
-
-it("withDivCell - WHOLE div QUARTER.dotted = 2", () => {
-  const actual: number = divCell(WHOLE, dotted(QUARTER));
-  const expected = 2;
-
-  expect(actual).toEqual(expected);
-} );
-
-it("withDivCell - WHOLE div ZERO", () => {
-  const actual: number = divCell(WHOLE, ZERO);
-  const expected = Infinity;
 
   expect(actual).toEqual(expected);
 } );

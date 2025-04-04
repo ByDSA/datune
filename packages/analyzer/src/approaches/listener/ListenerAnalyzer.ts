@@ -2,13 +2,13 @@ import { Time } from "@datune/utils";
 import { deepCopy } from "datils/datatypes/objects";
 import { Interval, intervalBetween } from "datils/math/intervals";
 import { Spns } from "@datune/core";
-import { stringifyTimelineNode } from "@datune/utils/datastructures/timeline";
+import { SequentialTimeline, stringifyTimelineNode } from "@datune/utils/datastructures/timeline";
 import { MidiTimeline } from "@datune/midi";
 import { ChordTimeline, KeyTimeline, NotesTimeline } from "timelines";
 import { Results } from "approaches/Results";
 import { GravitationTimeline } from "timelines/GravitationTimeline";
 import { INITIAL_LISTENER, ListenerState } from "./Listener";
-import { UpdateProcess } from "./UpdateProcess";
+import { WindowProcess } from "./WindowProcess";
 
 type Props = {
   midiTimeline: MidiTimeline;
@@ -47,9 +47,11 @@ export class Analyzer {
 
     this.results = {
       beatTimeline: new NotesTimeline(seqProps),
+      readNotesTimeline: new MidiTimeline(seqProps),
       chordTimeline: new ChordTimeline(seqProps),
       keyTimeline: new KeyTimeline(seqProps),
       gravitationTimeline: new GravitationTimeline(seqProps),
+      perceptualMidiTimeline: new SequentialTimeline(seqProps),
     };
   }
 
@@ -65,13 +67,12 @@ export class Analyzer {
   update() {
     this.#updateRelativeTimes();
     const previousTime = this.currentTime - this.step;
-    const window = intervalBetween(previousTime, this.currentTime);
+    const windowInterval = intervalBetween(previousTime, this.currentTime);
 
-    this.currentWindow = window;
-    const noteNodesWindow = this.midiTimeline.getAtInterval(window);
-    const updater = new UpdateProcess( {
-      windowNodes: noteNodesWindow,
-      window,
+    this.currentWindow = windowInterval;
+
+    const updater = new WindowProcess( {
+      interval: windowInterval,
       analyzer: this,
     } );
 
