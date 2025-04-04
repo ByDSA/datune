@@ -15,21 +15,30 @@ export class SequentialTimeline<E> implements ISequentialTimeline<E> {
   }
 
   add(...nodes: TimelineNode<E>[]): TimelineNode<E>[] {
-    this.#fixOverlappingNodes(...nodes);
+    const added: TimelineNode<E>[] = [];
 
-    return this.#parallelTimeline.add(...nodes);
+    for (const n of nodes) {
+      this.#fixOverlappingNode(n);
+
+      added.push(
+        ...this.#parallelTimeline.add(n),
+      );
+    }
+
+    return added;
   }
 
   addTimeline(layer: Timeline<E>, at?: Time): TimelineNode<E>[] {
-    const { nodes } = layer;
-
-    this.#fixOverlappingNodes(...nodes);
-
     return this.#parallelTimeline.addTimeline(layer, at);
   }
 
   removeAt(at: Time): TimelineNode<E> | undefined {
-    return this.#parallelTimeline.removeAt(at)[0];
+    const removedNodes = this.#parallelTimeline.removeAt(at);
+
+    if (removedNodes.length > 1)
+      throw ERROR_SEQUENTIAL_INCONSISTENCY;
+
+    return removedNodes[0];
   }
 
   removeAtInterval(interval: Interval<Time>): TimelineNode<E>[] {
@@ -41,11 +50,25 @@ export class SequentialTimeline<E> implements ISequentialTimeline<E> {
   }
 
   remove(...nodes: TimelineNode<E>[]): TimelineNode<E>[] {
-    return this.#parallelTimeline.remove(...nodes);
+    const removedNodes = this.#parallelTimeline.remove(...nodes);
+
+    if (removedNodes.length > nodes.length)
+      throw ERROR_SEQUENTIAL_INCONSISTENCY;
+
+    return removedNodes;
   }
 
   getAt(time: Time): TimelineNode<E> | undefined {
-    return this.#parallelTimeline.getAt(time)[0];
+    const gotNodes = this.#parallelTimeline.getAt(time);
+
+    if (gotNodes.length > 1)
+      throw ERROR_SEQUENTIAL_INCONSISTENCY;
+
+    return gotNodes[0];
+  }
+
+  extendNode(node: TimelineNode<E>, interval: Partial<Interval<Time>>): TimelineNode<E> {
+    return this.#parallelTimeline.extendNode(node, interval);
   }
 
   clear(): void {
@@ -82,11 +105,6 @@ export class SequentialTimeline<E> implements ISequentialTimeline<E> {
 
   onRemove(listener: RemoveListener<E>): void {
     this.#parallelTimeline.onRemove(listener);
-  }
-
-  #fixOverlappingNodes(...newNodes: TimelineNode<E>[]) {
-    for (const n of newNodes)
-      this.#fixOverlappingNode(n);
   }
 
   #fixOverlappingNode(newNode: TimelineNode<E>) {
@@ -164,3 +182,5 @@ function isSubOverlapping<E>(oldNode: TimelineNode<E>, newNode: TimelineNode<E>)
   return newNode.interval.from > oldNode.interval.from
   && newNode.interval.to < oldNode.interval.to;
 }
+
+const ERROR_SEQUENTIAL_INCONSISTENCY = new Error("Sequential timeline inconsistency");

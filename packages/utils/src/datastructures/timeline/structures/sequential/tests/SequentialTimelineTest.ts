@@ -15,3 +15,12 @@ export class SequentialTimelineTest extends SequentialTimeline<EventTest> {
     } );
   }
 }
+
+export class EmptySequentialTimeline extends SequentialTimeline<EventTest> {
+  constructor() {
+    super( {
+      startTime: 0,
+      cellSize: 10,
+    } );
+  }
+}

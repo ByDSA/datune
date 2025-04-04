@@ -2,10 +2,11 @@
 import type { TimelineNode } from "../..";
 import type { Timeline, AddListener, ChangeListener, RemoveListener } from "../Timeline";
 import TreeMap from "ts-treemap";
-import { intervalContains, intervalIntersects, intervalBetween } from "datils/math/intervals";
+import { intervalContains, intervalIntersects, intervalBetween, IntervalBound } from "datils/math/intervals";
 import { Interval } from "datils/math/intervals";
+import { deepFreeze } from "datils/datatypes/objects";
 import { Time } from "time/Time";
-import { add, divCell, mult, sub } from "time";
+import { add, sub } from "time";
 import { Props } from "../props";
 
 type FunctionEach<E> = (
@@ -48,12 +49,24 @@ export class ParallelTimeline<E> implements Timeline<E> {
     return this.#startTime;
   }
 
-  #getCellIndexFromTime(time: Time): number {
-    return divCell(time, this.#cellSize as Time);
+  #getCellIndexesFromInterval(interval: Interval<Time>) {
+    let from = divCell(interval.from, this.#cellSize as Time);
+    let to = divCell(interval.to, this.#cellSize as Time);
+    const isToCellSizeBound = interval.to % this.#cellSize === 0;
+
+    if (isToCellSizeBound) {
+      if (interval.toBound === IntervalBound.OPEN)
+        to--;
+    }
+
+    return {
+      from,
+      to,
+    };
   }
 
   #getCellFromTime(time: Time): TimelineNode<E>[] {
-    const index: number = this.#getCellIndexFromTime(time);
+    const index: number = divCell(time, this.#cellSize);
 
     return this.#getCellFromIndex(index);
   }
@@ -67,6 +80,27 @@ export class ParallelTimeline<E> implements Timeline<E> {
     }
 
     return cell;
+  }
+
+  extendNode(node: TimelineNode<E>, interval: Partial<Interval<Time>>): TimelineNode<E> {
+    const [oldNode] = this.remove(node);
+
+    if (!oldNode)
+      throw NOT_FOUND_ERROR;
+
+    const newInterval: Interval<Time> = {
+      from: interval.from ?? oldNode.interval.from,
+      to: interval.to ?? oldNode.interval.to,
+      fromBound: interval.fromBound ?? oldNode.interval.fromBound,
+      toBound: interval.toBound ?? oldNode.interval.toBound,
+    };
+    const newNode = {
+      ...oldNode,
+      interval: newInterval,
+    };
+    const [ret] = this.add(newNode);
+
+    return ret;
   }
 
   onChange(listener: ChangeListener<E>) {
@@ -118,13 +152,10 @@ export class ParallelTimeline<E> implements Timeline<E> {
     const ret = [];
 
     for (const n of nodes) {
-      const node: TimelineNode<E> = {
-        interval: n.interval,
-        event: n.event,
-      };
+      deepFreeze(n);
 
-      this.#addNode(node);
-      ret.push(node);
+      this.#addNode(n);
+      ret.push(n);
     }
 
     return ret;
@@ -190,12 +221,7 @@ export class ParallelTimeline<E> implements Timeline<E> {
   }
 
   #forEachCellsAtInterval(interval: Interval<Time>, f: (cell: TimelineNode<E>[])=> void) {
-    const iniCell: number = this.#getCellIndexFromTime(interval.from);
-    let endCell: number = this.#getCellIndexFromTime(interval.to);
-
-    // Fix open Interval
-    if (interval.to === mult(this.cellSize as Time, endCell))
-      endCell--;
+    const { from: iniCell, to: endCell } = this.#getCellIndexesFromInterval(interval);
 
     for (let i: number = iniCell; i <= endCell; i++) {
       const cell: TimelineNode<E>[] = this.#getCellFromIndex(i);
@@ -205,15 +231,17 @@ export class ParallelTimeline<E> implements Timeline<E> {
   }
 
   #forEachCellNodesAtInterval(interval: Interval<Time>, f: FEach<E>): void {
-    const iniCell: number = this.#getCellIndexFromTime(interval.from);
-    const endCell: number = this.#getCellIndexFromTime(interval.to);
+    const { from: iniCell, to: endCell } = this.#getCellIndexesFromInterval(interval);
+    const processed = new Set();
 
     for (let i: number = iniCell; i <= endCell; i++) {
       const cell: TimelineNode<E>[] = this.#getCellFromIndex(i);
 
       for (const node of cell) {
-        if (intervalIntersects(interval, node.interval))
+        if (!processed.has(node) && intervalIntersects(interval, node.interval)) {
           f(node, cell);
+          processed.add(node);
+        }
       }
     }
   }
@@ -381,4 +409,12 @@ function removeNodeFromCell<E>(
 
   if (index !== -1)
     cell.splice(index, 1);
+}
+
+const NOT_FOUND_ERROR = new Error("Node not found");
+
+function divCell<T extends Time>(self: T, cellSize: T): number {
+  const div = +self / +cellSize;
+
+  return Math.trunc(div);
 }

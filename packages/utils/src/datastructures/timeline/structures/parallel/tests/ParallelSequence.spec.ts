@@ -113,7 +113,7 @@ describe("add", () => {
 
       expect(seq2.nodes).toHaveLength(1);
       expect(seq2.nodes[0]).toStrictEqual(node);
-      expect(seq2.nodes[0]).not.toBe(node);
+      expect(seq2.nodes[0]).toBe(node);
     } );
 
     it("at 1", () => {
