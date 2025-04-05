@@ -1,6 +1,6 @@
 /* eslint-disable accessor-pairs */
 import type { TimelineNode } from "../..";
-import type { Timeline, AddListener, ChangeListener, RemoveListener } from "../Timeline";
+import type { Timeline } from "../Timeline";
 import TreeMap from "ts-treemap";
 import { intervalContains, intervalIntersects, intervalBetween, IntervalBound } from "datils/math/intervals";
 import { Interval } from "datils/math/intervals";
@@ -9,40 +9,36 @@ import { Time } from "time/Time";
 import { add, sub } from "time";
 import { Props } from "../props";
 
+type Cell<E> = Set<TimelineNode<E>>;
 type FunctionEach<E> = (
     node: TimelineNode<E>,
-    cell: TimelineNode<E>[]
+    cell: Cell<E>
     )=> boolean;
 
 type FEach<E> = (
     node: TimelineNode<E>,
-    cell: TimelineNode<E>[]
+    cell: Cell<E>
     )=> void;
 
 export class ParallelTimeline<E> implements Timeline<E> {
-  #cells: TreeMap<number, TimelineNode<E>[]>;
+  #cells: TreeMap<number, Cell<E>>;
 
-  #nodes: TimelineNode<E>[];
-
-  #onChangeListeners: ChangeListener<E>[];
-
-  #onAddListeners: AddListener<E>[];
-
-  #onRemoveListeners: RemoveListener<E>[];
+  #nodes: Set<TimelineNode<E>>;
 
   #startTime: Time;
 
   #cellSize: Time;
 
+  #duration: Time | null;
+
   constructor(props: Props) {
     this.#cells = new TreeMap();
-    this.#nodes = [];
+    this.#nodes = new Set();
 
     this.#startTime = props.startTime;
     this.#cellSize = props.cellSize;
-    this.#onChangeListeners = [];
-    this.#onAddListeners = [];
-    this.#onRemoveListeners = [];
+
+    this.#duration = 0;
   }
 
   get startTime(): Time {
@@ -65,17 +61,17 @@ export class ParallelTimeline<E> implements Timeline<E> {
     };
   }
 
-  #getCellFromTime(time: Time): TimelineNode<E>[] {
+  #getCellFromTime(time: Time): Cell<E> {
     const index: number = divCell(time, this.#cellSize);
 
     return this.#getCellFromIndex(index);
   }
 
-  #getCellFromIndex(index: number): TimelineNode<E>[] {
+  #getCellFromIndex(index: number): Cell<E> {
     let cell = this.#cells.get(index);
 
     if (!cell) {
-      cell = [];
+      cell = new Set();
       this.#cells.set(index, cell);
     }
 
@@ -103,33 +99,6 @@ export class ParallelTimeline<E> implements Timeline<E> {
     return ret;
   }
 
-  onChange(listener: ChangeListener<E>) {
-    this.#onChangeListeners.push(listener);
-  }
-
-  #callOnChangeListeners(oldNode: TimelineNode<E>, newNode: TimelineNode<E>) {
-    for (const f of this.#onChangeListeners)
-      f(oldNode, newNode);
-  }
-
-  #callOnAddListeners(node: TimelineNode<E>) {
-    for (const f of this.#onAddListeners)
-      f(node);
-  }
-
-  #callOnRemoveListeners(node: TimelineNode<E>) {
-    for (const f of this.#onRemoveListeners)
-      f(node);
-  }
-
-  onAdd(listener: AddListener<E>) {
-    this.#onAddListeners.push(listener);
-  }
-
-  onRemove(listener: RemoveListener<E>) {
-    this.#onRemoveListeners.push(listener);
-  }
-
   add(...nodes: TimelineNode<E>[]): TimelineNode<E>[] {
     return this.#addNodes(...nodes);
   }
@@ -139,11 +108,12 @@ export class ParallelTimeline<E> implements Timeline<E> {
   }
 
   #addNode(node: TimelineNode<E>): TimelineNode<E> {
-    this.#forEachCellsAtInterval(node.interval, (cell) => cell.push(node));
+    this.#forEachCellsAtInterval(node.interval, (cell) => cell.add(node));
 
-    this.#nodes.push(node);
+    this.#nodes.add(node);
 
-    this.#callOnAddListeners(node);
+    if (this.#duration !== null)
+      this.#duration = Math.max(this.#duration, node.interval.to);
 
     return node;
   }
@@ -201,30 +171,26 @@ export class ParallelTimeline<E> implements Timeline<E> {
   }
 
   moveNode(node: TimelineNode<E>, time: Time): TimelineNode<E> {
-    this.removeNode(node);
+    this.#removeNode(node);
     const { to } = node.interval;
     const ret = this.addEvent(node.event, time, add(to, time));
-
-    this.#callOnChangeListeners(node, ret);
 
     return ret;
   }
 
   moveNodeEndTo(node: TimelineNode<E>, time: Time): TimelineNode<E> {
-    this.removeNode(node);
+    this.#removeNode(node);
     const { to } = node.interval;
     const ret = this.addEvent(node.event, sub(time, to), time);
-
-    this.#callOnChangeListeners(node, ret);
 
     return ret;
   }
 
-  #forEachCellsAtInterval(interval: Interval<Time>, f: (cell: TimelineNode<E>[])=> void) {
+  #forEachCellsAtInterval(interval: Interval<Time>, f: (cell: Cell<E>)=> void) {
     const { from: iniCell, to: endCell } = this.#getCellIndexesFromInterval(interval);
 
     for (let i: number = iniCell; i <= endCell; i++) {
-      const cell: TimelineNode<E>[] = this.#getCellFromIndex(i);
+      const cell: Cell<E> = this.#getCellFromIndex(i);
 
       f(cell);
     }
@@ -235,7 +201,7 @@ export class ParallelTimeline<E> implements Timeline<E> {
     const processed = new Set();
 
     for (let i: number = iniCell; i <= endCell; i++) {
-      const cell: TimelineNode<E>[] = this.#getCellFromIndex(i);
+      const cell: Cell<E> = this.#getCellFromIndex(i);
 
       for (const node of cell) {
         if (!processed.has(node) && intervalIntersects(interval, node.interval)) {
@@ -264,7 +230,7 @@ export class ParallelTimeline<E> implements Timeline<E> {
 
   private getNodesAt(time: Time): TimelineNode<E>[] {
     const ret: TimelineNode<E>[] = [];
-    const cell: TimelineNode<E>[] = this.#getCellFromTime(time);
+    const cell: Cell<E> = this.#getCellFromTime(time);
 
     for (const musicalEvent of cell) {
       if (intervalContains(musicalEvent.interval, time))
@@ -275,49 +241,28 @@ export class ParallelTimeline<E> implements Timeline<E> {
   }
 
   get duration(): Time {
-    const lastEntry = this.#lastEntryWithNodes();
+    if (this.#duration === null)
+      this.#recalcDuration();
 
-    if (!lastEntry)
-      return this.startTime;
-
-    // eslint-disable-next-line prefer-destructuring
-    const lastCell: TimelineNode<E>[] = lastEntry[1];
-    let max: Time = lastCell[0].interval.to;
-
-    for (let i: number = 1; i < lastCell.length; i++) {
-      const c: TimelineNode<E> = lastCell[i];
-
-      if (c.interval.to > max)
-        max = c.interval.to;
-    }
-
-    return max;
+    return this.#duration!;
   }
 
-  #lastEntryWithNodes(): [number, TimelineNode<E>[]] | undefined {
-    do {
-      const lastEntry = this.#cells.lastEntry();
+  #recalcDuration() {
+    this.#duration = 0;
 
-      if (!lastEntry)
-        return undefined;
-
-      if (lastEntry[1].length === 0)
-        this.#cells.popEntry();
-      else
-        return lastEntry;
-    // eslint-disable-next-line no-constant-condition
-    } while (true);
+    for (const node of this.#nodes)
+      this.#duration = Math.max(this.#duration, node.interval.to);
   }
 
   get nodes(): TimelineNode<E>[] {
-    return this.#nodes;
+    return [...this.#nodes];
   }
 
   remove(...nodes: TimelineNode<E>[]): TimelineNode<E>[] {
     const ret: TimelineNode<E>[] = [];
 
     for (const n of nodes) {
-      const removedNode = this.removeNode(n);
+      const removedNode = this.#removeNode(n);
 
       if (removedNode)
         ret.push(removedNode);
@@ -326,27 +271,19 @@ export class ParallelTimeline<E> implements Timeline<E> {
     return ret;
   }
 
-  removeAt(at: Time): TimelineNode<E>[] {
-    return this.#removeNodesAt(at);
-  }
-
-  removeAtInterval(interval: Interval<Time>): TimelineNode<E>[] {
-    return this.#removeNodesAtInterval(interval);
-  }
-
-  #removeNodesAt(time: Time): TimelineNode<E>[] {
-    const cell: TimelineNode<E>[] = this.#getCellFromTime(time);
+  removeAt(time: Time): TimelineNode<E>[] {
+    const cell: Cell<E> = this.#getCellFromTime(time);
     const f = (node: TimelineNode<E>) => !intervalContains(node.interval, time);
     const removedNodes = this.#cellRemoveNodesIf(cell, f);
 
     return removedNodes;
   }
 
-  #removeNodesAtInterval(intervalTime: Interval<Time>): TimelineNode<E>[] {
+  removeAtInterval(interval: Interval<Time>): TimelineNode<E>[] {
     const removedNodes: TimelineNode<E>[] = [];
 
-    this.#forEachCellNodesAtInterval(intervalTime, (node, cell) => {
-      removeNodeFromCell(node, cell);
+    this.#forEachCellNodesAtInterval(interval, (node, cell) => {
+      cell.delete(node);
       removedNodes.push(node);
     } );
 
@@ -354,17 +291,15 @@ export class ParallelTimeline<E> implements Timeline<E> {
   }
 
   #cellRemoveNodesIf(
-    cell: TimelineNode<E>[],
+    cell: Set<TimelineNode<E>>,
     f: FunctionEach<E>,
   ): TimelineNode<E>[] {
     const removedNodes: TimelineNode<E>[] = [];
 
-    for (let i = 0; i < cell.length; i++) {
-      const node: TimelineNode<E> = cell[i];
-
+    for (const node of [...cell]) {
       if (!f(node, cell)) {
-        this.removeNode(node);
-        i--;
+        this.#removeNode(node);
+        cell.delete(node);
         removedNodes.push(node);
       }
     }
@@ -372,43 +307,25 @@ export class ParallelTimeline<E> implements Timeline<E> {
     return removedNodes;
   }
 
-  private removeNode(node: TimelineNode<E>): TimelineNode<E> | null {
-    const index = this.#nodes.indexOf(node);
+  #removeNode(node: TimelineNode<E>): TimelineNode<E> | null {
+    this.#forEachCellsAtInterval(node.interval, (cell) => cell.delete(node));
 
-    if (index === -1)
-      return null;
+    if (node.interval.to === this.#duration)
+      this.#duration = null;
 
-    this.#forEachCellsAtInterval(node.interval, (cell) => removeNodeFromCell(node, cell));
-    this.#nodes.splice(index, 1);
-
-    this.#callOnRemoveListeners(node);
+    this.#nodes.delete(node);
 
     return node;
   }
 
   clear() {
-    const oldNodes = this.#nodes;
-
-    this.#nodes = [];
+    this.#nodes = new Set();
     this.#cells = new TreeMap();
-
-    for (const oldNode of oldNodes)
-      this.#callOnRemoveListeners(oldNode);
   }
 
   get cellSize(): Time {
     return this.#cellSize;
   }
-}
-
-function removeNodeFromCell<E>(
-  node: TimelineNode<E>,
-  cell: TimelineNode<E>[],
-): void {
-  const index = cell.indexOf(node);
-
-  if (index !== -1)
-    cell.splice(index, 1);
 }
 
 const NOT_FOUND_ERROR = new Error("Node not found");

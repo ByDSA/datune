@@ -1,6 +1,6 @@
 /* eslint-disable accessor-pairs */
 import type { TimelineNode } from "../..";
-import type { Timeline, AddListener, ChangeListener, RemoveListener } from "../Timeline";
+import type { Timeline } from "../Timeline";
 import { Interval, intervalBetween } from "datils/math/intervals";
 import { Time } from "time";
 import { ParallelTimeline } from "../parallel/Parallel";
@@ -29,6 +29,7 @@ export class SequentialTimeline<E> implements ISequentialTimeline<E> {
   }
 
   addTimeline(layer: Timeline<E>, at?: Time): TimelineNode<E>[] {
+    // TODO: fix overloap
     return this.#parallelTimeline.addTimeline(layer, at);
   }
 
@@ -68,6 +69,14 @@ export class SequentialTimeline<E> implements ISequentialTimeline<E> {
   }
 
   extendNode(node: TimelineNode<E>, interval: Partial<Interval<Time>>): TimelineNode<E> {
+    this.#fixOverlappingNode( {
+      ...node,
+      interval: {
+        ...node.interval,
+        ...interval,
+      },
+    } );
+
     return this.#parallelTimeline.extendNode(node, interval);
   }
 
@@ -95,18 +104,6 @@ export class SequentialTimeline<E> implements ISequentialTimeline<E> {
     return this.#parallelTimeline.startTime;
   }
 
-  onChange(listener: ChangeListener<E>): void {
-    this.#parallelTimeline.onChange(listener);
-  }
-
-  onAdd(listener: AddListener<E>): void {
-    this.#parallelTimeline.onAdd(listener);
-  }
-
-  onRemove(listener: RemoveListener<E>): void {
-    this.#parallelTimeline.onRemove(listener);
-  }
-
   #fixOverlappingNode(newNode: TimelineNode<E>) {
     const oldNodes = this.getAtInterval(newNode.interval);
 
@@ -114,36 +111,17 @@ export class SequentialTimeline<E> implements ISequentialTimeline<E> {
       if (isTotalOverlapping(oldNode, newNode))
         this.remove(oldNode);
       else if (isRightOverlapping(oldNode, newNode)) {
-        this.remove(oldNode);
-        const newOldNode = {
-          event: oldNode.event,
-          interval: intervalBetween(
-            oldNode.interval.from,
-            newNode.interval.from,
-          ),
-        };
-
-        this.add(newOldNode);
+        this.#parallelTimeline.extendNode(oldNode, {
+          to: newNode.interval.from,
+        } );
       } else if (isLeftOverlapping(oldNode, newNode)) {
-        this.remove(oldNode);
-        const newOldNode = {
-          event: oldNode.event,
-          interval: intervalBetween(
-            newNode.interval.to,
-            oldNode.interval.to,
-          ),
-        };
-
-        this.add(newOldNode);
+        this.#parallelTimeline.extendNode(oldNode, {
+          from: newNode.interval.to,
+        } );
       } else if (isSubOverlapping(oldNode, newNode)) {
-        this.remove(oldNode);
-        const firstHalf = {
-          event: oldNode.event,
-          interval: intervalBetween(
-            oldNode.interval.from,
-            newNode.interval.from,
-          ),
-        };
+        this.#parallelTimeline.extendNode(oldNode, {
+          to: newNode.interval.from,
+        } );
         const secondHalf = {
           event: oldNode.event,
           interval: intervalBetween(
@@ -152,7 +130,6 @@ export class SequentialTimeline<E> implements ISequentialTimeline<E> {
           ),
         };
 
-        this.add(firstHalf);
         this.add(secondHalf);
       }
     }
@@ -174,8 +151,8 @@ function isRightOverlapping<E>(oldNode: TimelineNode<E>, newNode: TimelineNode<E
 }
 
 function isTotalOverlapping<E>(oldNode: TimelineNode<E>, newNode: TimelineNode<E>): boolean {
-  return newNode.interval.from < oldNode.interval.from
-  && newNode.interval.to > oldNode.interval.to;
+  return newNode.interval.from <= oldNode.interval.from
+  && newNode.interval.to >= oldNode.interval.to;
 }
 
 function isSubOverlapping<E>(oldNode: TimelineNode<E>, newNode: TimelineNode<E>): boolean {

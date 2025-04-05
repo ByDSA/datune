@@ -30,8 +30,4 @@ export interface Timeline<E> {
     cellSize: Time;
 
     extendNode(node: TimelineNode<E>, interval: Partial<Interval<Time>>): TimelineNode<E>;
-
-    onChange(listener: ChangeListener<E>): void;
-    onAdd(listener: AddListener<E>): void;
-    onRemove(listener: RemoveListener<E>): void;
 }

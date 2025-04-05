@@ -116,22 +116,6 @@ describe("sequentialTimeline", () => {
       expect(removed).toBe(node);
       expect(timeline.nodes).toHaveLength(0);
     } );
-
-    it("should throw if multiple nodes at time", () => {
-      const node1 = {
-        event: "test1",
-        interval: intervalBetween(0, 1),
-      };
-      const node2 = {
-        event: "test2",
-        interval: intervalBetween(0, 1),
-      };
-
-      timeline.add(node1);
-      timeline.add(node2);
-
-      expect(() => timeline.removeAt(0)).toThrow();
-    } );
   } );
 
   describe("getAt", () => {
@@ -145,21 +129,155 @@ describe("sequentialTimeline", () => {
 
       expect(timeline.getAt(1)).toBe(node);
     } );
+  } );
 
-    it("should throw if multiple nodes at time", () => {
-      const node1 = {
-        event: "test1",
-        interval: intervalBetween(0, 1),
-      };
-      const node2 = {
-        event: "test2",
-        interval: intervalBetween(0, 1),
+  describe("extendsNode", () => {
+    it("should extend node interval", () => {
+      const node = {
+        event: "test",
+        interval: intervalBetween(1, 2),
       };
 
-      timeline.add(node1);
-      timeline.add(node2);
+      timeline.add(node);
 
-      expect(() => timeline.getAt(0)).toThrow();
+      const extended = timeline.extendNode(node, {
+        to: 3,
+      } );
+
+      expect(extended.interval.from).toBe(1);
+      expect(extended.interval.to).toBe(3);
+      expect(extended.event).toBe("test");
+    } );
+
+    it("should allow extending start time", () => {
+      const node = {
+        event: "test",
+        interval: intervalBetween(2, 3),
+      };
+
+      timeline.add(node);
+
+      const extended = timeline.extendNode(node, {
+        from: 1,
+      } );
+
+      expect(extended.interval.from).toBe(1);
+      expect(extended.interval.to).toBe(3);
+    } );
+
+    it("should allow shrinking interval", () => {
+      const node = {
+        event: "test",
+        interval: intervalBetween(1, 4),
+      };
+
+      timeline.add(node);
+
+      const extended = timeline.extendNode(node, {
+        from: 2,
+        to: 3,
+      } );
+
+      expect(extended.interval.from).toBe(2);
+      expect(extended.interval.to).toBe(3);
+    } );
+  } );
+
+  describe("extendNode with overlapping", () => {
+    it("should handle total overlap by removing overlapped nodes", () => {
+      const existingNode = {
+        event: "existing",
+        interval: intervalBetween(1, 3),
+      };
+      const targetNode = {
+        event: "target",
+        interval: intervalBetween(2, 3),
+      };
+
+      timeline.add(existingNode);
+      timeline.add(targetNode);
+
+      const extended = timeline.extendNode(targetNode, {
+        from: 0,
+        to: 4,
+      } );
+
+      expect(timeline.nodes).toHaveLength(1);
+      expect(extended.interval.from).toBe(0);
+      expect(extended.interval.to).toBe(4);
+      expect(extended.event).toBe("target");
+    } );
+
+    it("should handle right overlap by trimming existing node", () => {
+      const existingNode = {
+        event: "existing",
+        interval: intervalBetween(0, 3),
+      };
+      const targetNode = {
+        event: "target",
+        interval: intervalBetween(2, 3),
+      };
+
+      timeline.add(existingNode);
+      timeline.add(targetNode);
+
+      const extended = timeline.extendNode(targetNode, {
+        from: 1,
+        to: 4,
+      } );
+
+      expect(timeline.nodes).toHaveLength(2);
+      expect(timeline.getAt(0)?.event).toBe("existing");
+      expect(extended.interval.from).toBe(1);
+      expect(extended.interval.to).toBe(4);
+    } );
+
+    it("should handle left overlap by trimming existing node", () => {
+      const existingNode = {
+        event: "existing",
+        interval: intervalBetween(2, 4),
+      };
+      const targetNode = {
+        event: "target",
+        interval: intervalBetween(1, 2),
+      };
+
+      timeline.add(existingNode);
+      timeline.add(targetNode);
+
+      const extended = timeline.extendNode(targetNode, {
+        to: 3,
+      } );
+
+      expect(timeline.nodes).toHaveLength(2);
+      expect(timeline.getAt(3)?.event).toBe("existing");
+      expect(extended.interval.from).toBe(1);
+      expect(extended.interval.to).toBe(3);
+    } );
+
+    it("should handle sub overlap by splitting existing node", () => {
+      const existingNode = {
+        event: "existing",
+        interval: intervalBetween(0, 4),
+      };
+      const targetNode = {
+        event: "target",
+        interval: intervalBetween(2, 3),
+      };
+
+      timeline.add(existingNode);
+      timeline.add(targetNode);
+
+      const extended = timeline.extendNode(targetNode, {
+        from: 1,
+        to: 3,
+      } );
+
+      expect(timeline.nodes).toHaveLength(3);
+      expect(timeline.getAt(0)?.event).toBe("existing");
+      expect(extended.interval.from).toBe(1);
+      expect(extended.interval.to).toBe(3);
+      expect(timeline.getAt(3)?.event).toBe("existing");
     } );
   } );
 } );

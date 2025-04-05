@@ -198,63 +198,6 @@ describe("remove", () => {
   } );
 } );
 
-describe("onremove", () => {
-  it("node found", () => {
-    let count = 0;
-    const tl = new ParallelTimelineTest();
-
-    tl.add(newNode1());
-    tl.onRemove(() => count++);
-    const nodeToRemove = tl.nodes[0];
-
-    tl.remove(nodeToRemove);
-
-    expect(count).toBe(1);
-  } );
-
-  it("node not found", () => {
-    let count = 0;
-    const tl = new ParallelTimelineTest();
-    const node = newNode1();
-
-    tl.onRemove(() => count++);
-    tl.remove(node);
-
-    expect(count).toBe(0);
-  } );
-
-  describe("clear", () => {
-    it("call once per node", () => {
-      let count = 0;
-      const tl = new ParallelTimelineTest();
-
-      tl.add(newNode1());
-      tl.add(newNode1());
-      tl.onRemove(() => count++);
-      tl.clear();
-
-      expect(count).toBe(2);
-    } );
-
-    it("cleared before call any listener", () => {
-      const expected = 0;
-      let count = 0;
-      const tl = new ParallelTimelineTest();
-
-      tl.add(newNode1());
-      tl.add(newNode1());
-      tl.onRemove(() => {
-        count += tl.nodes.length;
-
-        return count;
-      } );
-      tl.clear();
-
-      expect(count).toBe(expected);
-    } );
-  } );
-} );
-
 describe("clear", () => {
   it("length nodes", () => {
     const expected = 0;
@@ -343,19 +286,4 @@ describe("get", () => {
       expect(got).toHaveLength(1);
     } );
   } );
-} );
-
-it("onchange", () => {
-  const expected = 1;
-  const tl = new ParallelTimelineTest();
-  let actual = 0;
-
-  tl.onChange(() => {
-    actual++;
-  } );
-  const node = tl.add(newNode1())[0];
-
-  tl.moveNode(node, 3);
-
-  expect(actual).toBe(expected);
 } );
