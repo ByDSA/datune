@@ -6,4 +6,5 @@ export const DEFAULT: Readonly<MidiNote> = Object.freeze( {
   pitch: M.C5,
   duration: MD.QUARTER,
   velocity: 100,
+  panning: 64,
 } );

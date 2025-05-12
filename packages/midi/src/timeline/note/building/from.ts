@@ -9,12 +9,15 @@ export const noteFrom = (partialMidiNote: Partial<MidiNote>): MidiNote => {
   };
 
   if (partialMidiNote.velocity !== undefined)
-    note.velocity = fixVelocityValue(partialMidiNote.velocity);
+    note.velocity = fix127Value(partialMidiNote.velocity);
+
+  if (partialMidiNote.panning !== undefined)
+    note.panning = fix127Value(partialMidiNote.panning);
 
   return freeze(note);
 };
 
-function fixVelocityValue(value: number): number {
+function fix127Value(value: number): number {
   if (value < 0)
     return 0;
 

@@ -5,4 +5,5 @@ export type MidiNote = {
   pitch: MidiPitch;
   duration: Time;
   velocity: number;
+  panning: number;
 };

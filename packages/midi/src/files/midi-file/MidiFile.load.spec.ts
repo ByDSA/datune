@@ -57,6 +57,7 @@ describe("load sample.mid", () => {
         pitch: M.C5,
         duration: MD.dotted(QUARTER),
         velocity: 100,
+        panning: 64,
       } ),
     } );
 
@@ -68,6 +69,7 @@ describe("load sample.mid", () => {
         pitch: M.D5,
         duration: EIGHTH,
         velocity: 100,
+        panning: 64,
       } ),
     } );
 
@@ -79,6 +81,7 @@ describe("load sample.mid", () => {
         pitch: M.E5,
         duration: QUARTER - SIXTEENTH,
         velocity: 127,
+        panning: 64,
       } ),
     } );
 
@@ -90,6 +93,7 @@ describe("load sample.mid", () => {
         pitch: M.F5,
         duration: QUARTER,
         velocity: 100,
+        panning: 64,
       } ),
     } );
 
@@ -101,6 +105,7 @@ describe("load sample.mid", () => {
         pitch: M.G5,
         duration: QUARTER + SIXTEENTH,
         velocity: 100,
+        panning: 64,
       } ),
     } );
 
@@ -112,6 +117,7 @@ describe("load sample.mid", () => {
         pitch: M.A5,
         duration: SIXTEENTH,
         velocity: 100,
+        panning: 64,
       } ),
     } );
 
@@ -123,6 +129,7 @@ describe("load sample.mid", () => {
         pitch: M.B5,
         duration: QUARTER,
         velocity: 100,
+        panning: 64,
       } ),
     } );
 
@@ -134,6 +141,7 @@ describe("load sample.mid", () => {
         pitch: M.C6,
         duration: SIXTEENTH * 7,
         velocity: 127,
+        panning: 64,
       } ),
     } );
 
