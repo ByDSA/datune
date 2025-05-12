@@ -70,6 +70,7 @@ export class Analyzer {
       barTimeline: new SequentialPointTimeline(seqProps),
       beatTimeline: new SequentialPointTimeline(seqProps),
       chordTimeline: new ChordTimeline(seqProps),
+      firstChordTimeline: new ChordTimeline(seqProps),
       keyTimeline: new KeyTimeline(seqProps),
       gravitationTimeline: new GravitationTimeline(seqProps),
     };

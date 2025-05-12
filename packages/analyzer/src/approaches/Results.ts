@@ -7,6 +7,7 @@ export type Results = {
   barTimeline: SequentialPointTimeline<null>;
   beatTimeline: SequentialPointTimeline<null>;
   chordTimeline: ChordTimeline;
+  firstChordTimeline: ChordTimeline; // Conforme se va oyendo, sin corregir por bar
   keyTimeline: KeyTimeline;
 
   gravitationTimeline: GravitationTimeline;

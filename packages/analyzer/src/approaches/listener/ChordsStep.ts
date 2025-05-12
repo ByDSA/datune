@@ -136,7 +136,7 @@ export class ChordsStep {
         const beatChord = this.processBeatChord(this.lastChordNode, nodes, subinterval.from);
 
         if (beatChord)
-          this.addPointChord(beatChord, subinterval.from);
+          this.addBeatChord(beatChord, subinterval.from);
       }
 
       this.processMiddleChord(this.lastChordNode, nodes, subinterval);
@@ -173,10 +173,15 @@ export class ChordsStep {
 
     if (pitchesToAdd.length > 0) {
       const newChord = Chords.fromPitches(...lastChordPitches, ...pitchesToAdd);
+      const newInterval = intervalBetween(lastChordNode.interval.from, interval.to);
 
+      this.analyzer.results.firstChordTimeline.add( {
+        interval: newInterval,
+        event: newChord,
+      } );
       this.addChord(
         newChord,
-        intervalBetween(lastChordNode.interval.from, interval.to),
+        newInterval,
       );
     }
   }
@@ -191,8 +196,13 @@ export class ChordsStep {
     this.analyzer.log(`Add chord: ( ${chord.toString()} ) at ${stringifyInterval(interval)}`);
   }
 
-  addPointChord(chord: Chord, time: Time) {
+  addBeatChord(chord: Chord, time: Time) {
     const interval = intervalBetween(time, time + this.analyzer.step);
+
+    this.analyzer.results.firstChordTimeline.add( {
+      interval,
+      event: chord,
+    } );
 
     return this.addChord(chord, interval);
   }
@@ -248,13 +258,23 @@ export class ChordsStep {
     if (attackingAtBeat.length === 0)
       return null;
 
-    const attackingAtBeatPitches = attackingAtBeat
+    const lastChord = lastChordNode.event;
+    const validNodes = [...attackingAtBeat];
+
+    for (const n of nodes) {
+      if (n.interval.from > time || n.interval.to < time)
+        continue;
+
+      if (lastChord.has(n.event.pitch.spn.pitch))
+        validNodes.push(n);
+    }
+
+    const attackingAtBeatPitches = validNodes
       .sort((a, b) => +a.event.pitch - +b.event.pitch)
       .map(n=>n.event.pitch.spn.pitch)
       .filter(
         (value, index, self) => self.indexOf(value) === index,
       ) as PitchArray;
-    const lastChord = lastChordNode.event;
     const changedRoot = attackingAtBeatPitches[0] !== lastChord.root;
     const changedThird = isChangedThird(lastChord, attackingAtBeatPitches);
     const changedFifth = isChangedFifth(lastChord, attackingAtBeatPitches);
