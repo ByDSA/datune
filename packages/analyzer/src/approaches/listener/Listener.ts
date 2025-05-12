@@ -18,7 +18,6 @@ export type ListenerState = {
     key: Key | undefined;
     rootChord: Chord | undefined;
   };
-  currentChordNode?: TimelineNode<Chord>;
   currentKeyNode?: TimelineNode<Key>;
   currentGravitationNodes: TimelineNode<Gravitation>[];
 };

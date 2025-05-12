@@ -1,18 +1,13 @@
-import { SequentialTimeline } from "@datune/utils/datastructures/timeline";
-import { MidiTimeline } from "@datune/midi";
 import { ChordTimeline } from "timelines/ChordTimeline";
-import { NotesTimeline, KeyTimeline } from "timelines";
+import { KeyTimeline } from "timelines";
 import { GravitationTimeline } from "timelines/GravitationTimeline";
-import { classifyPerception } from "./listener/perception/perception";
+import { SequentialPointTimeline } from "./listener/SequentialPointTimeline";
 
 export type Results = {
-  beatTimeline: NotesTimeline;
-
-  readNotesTimeline: MidiTimeline;
+  barTimeline: SequentialPointTimeline<null>;
+  beatTimeline: SequentialPointTimeline<null>;
   chordTimeline: ChordTimeline;
   keyTimeline: KeyTimeline;
 
   gravitationTimeline: GravitationTimeline;
-
-  perceptualMidiTimeline: SequentialTimeline<ReturnType<typeof classifyPerception>>;
 };

@@ -26,7 +26,7 @@ describe("002", () => {
     expectSample1ChordTimeline(tonalApproach.chordTimeline);
   } );
 
-  it("listener", () => {
+  it("listener", async () => {
     const notesTimelineSymbolic = timeline;
     // eslint-disable-next-line prefer-destructuring
     const { bpm } = midiFile.bpmEvents[0];
@@ -36,7 +36,7 @@ describe("002", () => {
     } );
     const results = analyzer.analyze();
 
-    analyzer.showLog();
+    await analyzer.saveLog();
     expectChordTimeline(results.chordTimeline).toHaveDuration(
       bpm.getMillis(notesTimelineSymbolic.duration),
     );

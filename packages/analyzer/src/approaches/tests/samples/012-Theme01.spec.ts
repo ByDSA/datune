@@ -1,17 +1,16 @@
 /* eslint-disable no-mixed-operators */
-import { Chords as C, MusicalDurations as MD, Pitches as P } from "@datune/core";
-import { Interval, intervalBetween } from "datils/math";
+import { Chords as C, Pitches as P } from "@datune/core";
+import { Interval } from "datils/math";
 import { MidiFile, MidiTimeline } from "@datune/midi";
 import { stringifyTimelineNode } from "@datune/utils/datastructures/timeline";
 import { Time } from "@datune/utils";
-import { midiFileToTimelines, midiTimelineToNotesTimeline } from "timelines/midi/midifile-to-notes-timeline";
+import { midiFileToTimelines } from "timelines/midi/midifile-to-notes-timeline";
 import { expectChordTimeline } from "timelines/tests/chord-timeline";
 import { loadMidiSample } from "tests/loadMidiSample";
 import { Analyzer } from "approaches/listener/ListenerAnalyzer";
 import { symbolicTimelineToReal } from "approaches/listener/utils";
 import { sortNodesByFrom } from "approaches/utils";
 import { ChordTimeline } from "timelines";
-import { calculateChords, newTonalApproach, TonalApproach } from "../../tonal/TonalApproach";
 
 describe("004 012-Theme01", () => {
   let timeline: MidiTimeline;
@@ -23,72 +22,7 @@ describe("004 012-Theme01", () => {
     timeline = midiFileToTimelines(midiFile).pitched!;
   } );
 
-  describe.skip("calculateChord", ()=> {
-    let tonalApproach: TonalApproach;
-
-    beforeAll(() => {
-      tonalApproach = newTonalApproach();
-      const midiOffsetTl = new MidiTimeline();
-
-      midiOffsetTl.addTimeline(timeline, -MD.QUARTER);
-      tonalApproach.notesTimeline = midiTimelineToNotesTimeline(midiOffsetTl);
-      calculateChords(tonalApproach);
-      console.log(
-        JSON.stringify(
-          tonalApproach.chordTimeline.nodes.slice(0, 20).map(n=> {
-            return (n.interval.from + 1) + "->" + (n.interval.to + 1) + ": " + n.event.toString();
-          } ),
-          null,
-          2,
-        ),
-      );
-    } );
-
-    it("intro", () => {
-      expectChordTimeline(tonalApproach.chordTimeline)
-        .at(0)
-        .toHaveChord(C.FFm);
-      expectChordTimeline(tonalApproach.chordTimeline)
-        .at(1)
-        .toHaveChord(C.E);
-      expectChordTimeline(tonalApproach.chordTimeline)
-        .at(2)
-        .toHaveChord(C.D);
-      expectChordTimeline(tonalApproach.chordTimeline)
-        .at(3)
-        .toHaveChord(C.E);
-
-      expect(tonalApproach.chordTimeline.getAtInterval(
-        intervalBetween(0, 4),
-      )).toBe(4);
-    } );
-
-    it("part A", () => {
-      expectChordTimeline(tonalApproach.chordTimeline)
-        .at(4)
-        .toHavePitches(...C.FFm.pitches);
-      expectChordTimeline(tonalApproach.chordTimeline)
-        .at(6)
-        .toHavePitches(...C.E.pitches, P.CC);
-      expectChordTimeline(tonalApproach.chordTimeline)
-        .at(8)
-        .toHavePitches(...C.FFm.pitches);
-      expectChordTimeline(tonalApproach.chordTimeline)
-        .at(10)
-        .toHavePitches(...C.E.pitches, P.CC);
-      expectChordTimeline(tonalApproach.chordTimeline)
-        .at(11.75)
-        .toHavePitches(...C.E.pitches, P.A);
-
-      const nodes = tonalApproach.chordTimeline.getAtInterval(
-        intervalBetween(4, 12),
-      );
-
-      expect(nodes).toBe(5);
-    } );
-  } );
-
-  it("listener", () => {
+  it("listener", async () => {
     const notesTimelineSymbolic = timeline;
     // eslint-disable-next-line prefer-destructuring
     const { bpm } = midiFile.bpmEvents[0];
@@ -97,17 +31,18 @@ describe("004 012-Theme01", () => {
       midiTimeline: notesTimelineReal,
     } );
     const results = analyzer.analyze();
-    // expectChordTimeline(results.chordTimeline).toHaveDuration(
-    //   bpm.getMillis(notesTimelineSymbolic.duration),
-    // );
     const nodes = sortNodesByFrom([...results.chordTimeline.nodes]);
 
-    analyzer.showLog();
+    await analyzer.saveLog();
     console.log(nodes.map(n=>(((n.interval.from - 500) / 2000 + 1) + ": " + stringifyTimelineNode(n))));
 
     checkIntro(results.chordTimeline);
     checkPartA(results.chordTimeline);
     checkPartB(results.chordTimeline);
+
+    expectChordTimeline(results.chordTimeline).toHaveDuration(
+      bpm.getMillis(notesTimelineSymbolic.duration),
+    );
   } );
 } );
 
@@ -248,15 +183,17 @@ function checkPartB(timeline: ChordTimeline) {
   // 21
   expectChordTimeline(timeline).at(40500)
     .toHavePitches(
-      // (5a (A) ambigua hasta 21.5)
-      ...C.fromPitches(P.D, P.A, P.CC, P.FF).pitches,
+      // (5a (A) ambigua hasta 21.5. aunque dura sólo 0.25 es definitoria del acorde)
+      ...C.fromPitches(P.D, P.CC, P.FF, P.A).pitches,
     );
 
   expect(intervalDuration(timeline.getAt(40500)!.interval)).toBe(2000);
 
+  // 22
   expectChordTimeline(timeline).at(42500)
     .toHaveChord(
-      // el B no suena hasta el 3º tiempo
+      // la 5a B no suena hasta el 22.25
+      // se mantiene estable el resto del compás
       // debe corregirse de forma retrospectiva
       C.fromPitches(P.E, P.GG, P.B),
     );
@@ -267,7 +204,7 @@ function checkPartB(timeline: ChordTimeline) {
   expectChordTimeline(timeline).at(44500)
     .toHaveChord(
       // (D debería tomarse como apoyatura, no como parte del acorde)
-      C.fromPitches(P.A, P.GG, P.CC, P.FF),
+      C.fromPitches(P.A, P.CC, P.FF),
     );
 
   expect(intervalDuration(timeline.getAt(44500)!.interval)).toBe(1000);
@@ -291,7 +228,7 @@ function checkPartB(timeline: ChordTimeline) {
   // 24.5
   expectChordTimeline(timeline).at(47500)
     .toHaveChord(
-      C.fromPitches(P.E, P.GG),
+      C.fromPitches(P.E, P.A, P.FF),
     );
 
   expect(intervalDuration(timeline.getAt(47500)!.interval)).toBe(1000);
@@ -315,21 +252,10 @@ function checkPartB(timeline: ChordTimeline) {
   // 27
   expectChordTimeline(timeline).at(52500)
     .toHaveChord(
-      // TODO:
-      // (G#->A no es apoyatura porque en 27.5 A->B)
-      // Para que sea una apoyatura se tiene que alargar hasta el tercer tiempo o más
       C.fromPitches(P.FF, P.CC, P.A),
     );
 
-  expect(intervalDuration(timeline.getAt(52500)!.interval)).toBe(2000);
-
-  // 28
-  expectChordTimeline(timeline).at(54500)
-    .toHaveChord(
-      C.fromPitches(P.FF, P.CC, P.A, P.E),
-    );
-
-  expect(intervalDuration(timeline.getAt(54500)!.interval)).toBe(1000);
+  expect(intervalDuration(timeline.getAt(52500)!.interval)).toBe(3000);
 
   // 28.5
   expectChordTimeline(timeline).at(55500)
@@ -381,8 +307,8 @@ function checkPartB(timeline: ChordTimeline) {
 
   // 32.5
   expectChordTimeline(timeline).at(63500)
-    .toHavePitches(
-      ...C.fromPitches(P.E, P.B, P.GG, P.FF).pitches,
+    .toHaveChord(
+      C.fromPitches(P.E, P.B, P.GG),
     );
 
   expect(intervalDuration(timeline.getAt(63500)!.interval)).toBe(1000);

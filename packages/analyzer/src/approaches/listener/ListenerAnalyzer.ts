@@ -1,14 +1,17 @@
+import { writeFile } from "node:fs/promises";
 import { Time } from "@datune/utils";
 import { deepCopy } from "datils/datatypes/objects";
 import { Interval, intervalBetween } from "datils/math/intervals";
-import { Spns } from "@datune/core";
-import { SequentialTimeline, stringifyTimelineNode } from "@datune/utils/datastructures/timeline";
+import { stringifyTimelineNode } from "@datune/utils/datastructures/timeline";
 import { MidiTimeline } from "@datune/midi";
-import { ChordTimeline, KeyTimeline, NotesTimeline } from "timelines";
+import { ChordTimeline, KeyTimeline } from "timelines";
 import { Results } from "approaches/Results";
 import { GravitationTimeline } from "timelines/GravitationTimeline";
 import { INITIAL_LISTENER, ListenerState } from "./Listener";
 import { WindowProcess } from "./WindowProcess";
+import { PerceptualTimeline } from "./PerceptualTimeline";
+import { ChordsStep } from "./ChordsStep";
+import { SequentialPointTimeline } from "./SequentialPointTimeline";
 
 type Props = {
   midiTimeline: MidiTimeline;
@@ -35,29 +38,46 @@ export class Analyzer {
 
   logEntries: LogEntry[] = [];
 
+  realtimeMidiNotesTimeline: MidiTimeline;
+
+  realtimeChordTimeline: ChordTimeline;
+
+  perceptualTimeline: PerceptualTimeline;
+
+  chordsStep: ChordsStep;
+
   constructor(props: Props) {
     this.midiTimeline = props.midiTimeline;
     this.listenerState = props.initialListener ?? deepCopy(INITIAL_LISTENER);
     this.currentTime = props.startTime ?? -1;
+
+    this.perceptualTimeline = new PerceptualTimeline( {
+      step: this.step,
+    } );
+
+    this.chordsStep = new ChordsStep( {
+      analyzer: this,
+    } );
 
     const seqProps = {
       cellSize: this.midiTimeline.cellSize,
       startTime: this.midiTimeline.startTime,
     };
 
+    this.realtimeMidiNotesTimeline = new MidiTimeline(seqProps),
+    this.realtimeChordTimeline = new ChordTimeline(seqProps),
     this.results = {
-      beatTimeline: new NotesTimeline(seqProps),
-      readNotesTimeline: new MidiTimeline(seqProps),
+      barTimeline: new SequentialPointTimeline(seqProps),
+      beatTimeline: new SequentialPointTimeline(seqProps),
       chordTimeline: new ChordTimeline(seqProps),
       keyTimeline: new KeyTimeline(seqProps),
       gravitationTimeline: new GravitationTimeline(seqProps),
-      perceptualMidiTimeline: new SequentialTimeline(seqProps),
     };
   }
 
   analyze() {
     for (this.currentTime = 0;
-      this.currentTime <= this.midiTimeline.duration + this.step;
+      this.currentTime <= this.midiTimeline.duration;
       this.currentTime += this.step)
       this.update();
 
@@ -80,15 +100,19 @@ export class Analyzer {
   }
 
   addBeatAt(at: Time) {
+    // TODO: hack provisional!!!
+    if ((at) % 500 !== 0)
+      return;
+
     let msg = "Add beat at " + at;
 
-    if (this.listenerState.bar.next !== undefined)
-      msg += " Next bar: " + this.listenerState.bar.next;
+    if (this.listenerState.beat.next !== undefined)
+      msg += ` Expect next beat: ${this.currentWindow.to + this.listenerState.beat.next} (in ${this.listenerState.beat.next} ms)`;
 
     this.log(msg);
     this.results.beatTimeline.add( {
-      event: Spns.C4,
-      interval: intervalBetween(at, at + this.step),
+      event: null,
+      time: at,
     } );
   }
 
@@ -99,10 +123,12 @@ export class Analyzer {
     } );
   }
 
-  showLog() {
-    const logEntries = this.logEntries.filter(l=>l.at < 8000);
+  async saveLog() {
+    const logEntries = this.logEntries.filter(l=>l.at >= 0);
+    const file = "tests/.log";
+    const data = logEntries.map(l=>l.at + ": " + l.message).join("\n");
 
-    console.log(logEntries.map(l=>l.at + ": " + l.message).join("\n"));
+    await writeFile(file, data);
   }
 
   showListenerState() {
@@ -126,9 +152,6 @@ export class Analyzer {
 
 function humanize(listenerState: ListenerState) {
   const ret: Record<string, string> = {};
-
-  if (listenerState.currentChordNode)
-    ret.currentChordNode = stringifyTimelineNode(listenerState.currentChordNode);
 
   if (listenerState.currentKeyNode)
     ret.currentKeyNode = stringifyTimelineNode(listenerState.currentKeyNode);
