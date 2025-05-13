@@ -1,11 +1,11 @@
 import { ParallelTimeline, SequentialTimeline, Time } from "@datune/utils";
 import { intervalBetween } from "datils/math";
-import { classifyPerception, PerceptualMidiNote, withPerceptualNotes } from "./perception/perception";
+import { classifyPerception, PerceptualMidiNote, PerceptualMidiNoteWithPanning, withPerceptualNotes } from "./perception/perception";
 
 const recentWindow = 50;
 
 type TickProps = {
-  events: PerceptualMidiNote[];
+  events: PerceptualMidiNoteWithPanning[];
   time: Time;
 };
 
@@ -34,7 +34,9 @@ export class PerceptualTimeline {
 
   tick( { events, time }: TickProps) {
     const allPerceptualMidiNotes = withPerceptualNotes(events);
-    const classifiedPerceptualMidiNotes = classifyPerception(allPerceptualMidiNotes);
+    const sortedNotes = [...allPerceptualMidiNotes]
+      .sort((a, b) => +a.pitch - +b.pitch); // TODO: no sé si realmente hace falta ordenarlas
+    const classifiedPerceptualMidiNotes = classifyPerception(sortedNotes);
     const intervalThisStep = intervalBetween(
       time - this.step,
       time,

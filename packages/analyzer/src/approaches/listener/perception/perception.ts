@@ -2,7 +2,11 @@
 import { MidiNote, MidiPitch } from "@datune/midi";
 import { applyLoudnessLevelIso226rev2023 } from "./fletcherMunson";
 
-export type PerceptualMidiNote = Omit<MidiNote, "duration">;
+const PAN_CENTER = 64;
+
+export type PerceptualMidiNoteWithPanning = Omit<MidiNote, "duration">;
+
+export type PerceptualMidiNote = Omit<PerceptualMidiNoteWithPanning, "panning">;
 
 export function midiToFrequency(midi: MidiPitch): number {
   return 440 * (2 ** ((+midi - 69) / 12));
@@ -20,7 +24,7 @@ function maskingEffect(note: PerceptualMidiNote, competitor: PerceptualMidiNote,
   return competitor.velocity * Math.exp(-alpha * semitoneDiff);
 }
 
-export function mergeDuplicateNotesLogarithmic(notes: PerceptualMidiNote[]): PerceptualMidiNote[] {
+export function mergeDuplicatedNotesLogarithmic(notes: PerceptualMidiNote[]): PerceptualMidiNote[] {
   const noteMap = new Map<MidiPitch, number>();
   const ret: PerceptualMidiNote[] = [];
 
@@ -47,16 +51,96 @@ export function mergeDuplicateNotesLogarithmic(notes: PerceptualMidiNote[]): Per
   } );
 }
 
-export function withPerceptualNotes(notes: PerceptualMidiNote[]) {
-  const sortedNotes = mergeDuplicateNotesLogarithmic([...notes])
-    .sort((a, b) => +a.pitch - +b.pitch);
-  const notesSingleFixed: PerceptualMidiNote[] = sortedNotes.map(n=>( {
+export function withPerceptualNotes(notes: PerceptualMidiNoteWithPanning[]): PerceptualMidiNote[] {
+  const fixedVelocityLeftSideNotes = notes.map(n=> {
+    const { panning, ...allButPanning } = n;
+    const leftGain = panning <= PAN_CENTER
+      ? 1
+      : 1 - ((panning - PAN_CENTER) / (127 - PAN_CENTER));
+
+    return {
+      ...allButPanning,
+      velocity: n.velocity * leftGain,
+    };
+  } );
+  const fixedVelocityRightSideNotes = notes.map(n=> {
+    const { panning, ...allButPanning } = n;
+    const rightGain = panning >= PAN_CENTER
+      ? 1
+      : panning / PAN_CENTER;
+
+    return {
+      ...allButPanning,
+      velocity: n.velocity * rightGain,
+    };
+  } );
+  const leftSidePerceptualNotes = withPerceptualNotesSide(fixedVelocityLeftSideNotes);
+  const rightSidePerceptualNotes = withPerceptualNotesSide(fixedVelocityRightSideNotes);
+  const mergedNotes = mergeBinauralNotes(leftSidePerceptualNotes, rightSidePerceptualNotes);
+
+  return mergedNotes;
+}
+
+export function withPerceptualNotesSide(notes: PerceptualMidiNote[]) {
+  const mergedNotes = mergeDuplicatedNotesLogarithmic([...notes]);
+  const notesSingleFixed: PerceptualMidiNote[] = mergedNotes.map(n=>( {
     ...n,
     pitch: n.pitch,
     velocity: singlePerceptualVelocity(n),
   } ));
 
   return withMaskingApplied(notesSingleFixed);
+}
+
+/**
+ * Combina dos listas de notas binaurales (izquierda y derecha) en un único
+ * conjunto de notas con velocities combinados mediante el modelo de
+ * Sivonen & Ellermeier (2006), usando un exponente empírico α.
+ *
+ * @param left  Conjunto ordenado de notas percibidas en oído izquierdo
+ * @param right Conjunto ordenado de notas percibidas en oído derecho
+ * @returns      Conjunto ordenado de notas con velocity combinado
+ */
+export function mergeBinauralNotes(left: PerceptualMidiNote[], right: PerceptualMidiNote[]): PerceptualMidiNote[] {
+  const alpha = 0.23; // Exponente empírico de Sivonen & Ellermeier
+  const map = new Map<MidiPitch, { vL: number;
+vR: number; }>();
+
+  // Rellenar con oído izquierdo
+  for (const { pitch, velocity } of left) {
+    map.set(pitch, {
+      vL: velocity,
+      vR: 0,
+    } );
+  }
+
+  // Añadir/o actualizar con oído derecho
+  for (const { pitch, velocity } of right) {
+    const entry = map.get(pitch);
+
+    if (entry)
+      entry.vR = velocity;
+    else {
+      map.set(pitch, {
+        vL: 0,
+        vR: velocity,
+      } );
+    }
+  }
+
+  // Construir resultado usando Sivonen & Ellermeier
+  const merged: PerceptualMidiNote[] = [];
+
+  for (const [pitch, { vL, vR }] of map.entries()) {
+    const combined = ((vL ** alpha) + (vR ** alpha)) ** (1 / alpha);
+
+    merged.push( {
+      pitch,
+      velocity: combined,
+    } );
+  }
+
+  return merged;
 }
 
 function singlePerceptualVelocity(note: PerceptualMidiNote) {

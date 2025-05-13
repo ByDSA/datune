@@ -2,7 +2,7 @@ import { Instrument, MidiNote } from "@datune/midi";
 import { getHarmonicSpectrum } from "./instrumentSpectre";
 import { midiToFrequency } from "./perception";
 
-export type Perceptual2MidiNote = Omit<MidiNote, "duration"> & {
+export type Perceptual2MidiNote = Omit<MidiNote, "duration" | "panning"> & {
   instrument: Instrument;
 };
 
