@@ -66,6 +66,8 @@ function trackFunc(toneJsTrack: ToneJsTrack, toneJsMidi: ToneJsMidi): Track {
   };
 }
 
+// eslint-disable-next-line max-len
+// TODO: cachear control changes y convertirlo a una estructura que permita búsqueda binaria para acelerar la búsqueda
 function toneJsNoteToNode(
   toneJsNote: ToneJsNote,
   toneJsMidi: ToneJsMidi,
@@ -76,7 +78,12 @@ function toneJsNoteToNode(
   assertIsMidiCode(toneJsNote.midi);
   const pitch = fromCode(toneJsNote.midi);
   const time = timeFunc(toneJsNote.ticks, toneJsMidi.header.ppq);
-  const velocity = toneJsNote.velocity * 127;
+  const volumeNormalized = getVolumeForChannelAt(
+    toneJsMidi,
+    channel,
+    toneJsNote.ticks,
+  );
+  const velocity = toneJsNote.velocity * 127 * volumeNormalized;
   const panNormalized = getPanForChannelAt(
     toneJsMidi,
     channel,
@@ -102,6 +109,11 @@ function timeFunc(ticks: number, ppq: number): MusicalDuration {
   return value;
 }
 
+enum ControlChange {
+  VOLUME = 7,
+  PANNING = 10
+}
+
 function getPanForChannelAt(
   midi: ToneJsMidi,
   channel: number,
@@ -111,12 +123,11 @@ function getPanForChannelAt(
   //    dependiendo de la versión de @tonejs/midi puede estar en:
   //    a) midi.tracks[channel].controlChanges[10]
   //    b) midi.controlChanges[10]  // global, pero con .channel en cada evento
-  const ccList = midi.tracks[channel]?.controlChanges[10]
-    ?? midi.tracks.flatMap((t, i) => (t.controlChanges[10] ?? []).map(cc => ( {
-      ...cc,
-      channel: i,
-    } ))).filter(evt => evt.channel === channel)
-    ?? [];
+  const ccList = getControlChanges( {
+    channel,
+    toneJsMidi: midi,
+    controlChange: ControlChange.PANNING,
+  } );
   // 2) filtramos sólo los eventos ocurridos en o antes de este tick
   const past = ccList.filter(evt => evt.ticks <= tick);
 
@@ -130,4 +141,51 @@ function getPanForChannelAt(
 
   // evt.value va de 0…1  → transformamos a –1…+1
   return (last.value * 2) - 1;
+}
+
+type ToneJsControlChange = ToneJsMidi["tracks"][0]["controlChanges"][0][0];
+type ControlChangesProps = {
+  toneJsMidi: ToneJsMidi;
+  controlChange: ControlChange;
+  channel: number;
+};
+function getControlChanges( { controlChange,
+  toneJsMidi: midi,
+  channel }: ControlChangesProps): ToneJsControlChange[] {
+  const ccList: ToneJsControlChange[] = midi.tracks[channel]?.controlChanges[controlChange]
+    ?? midi.tracks
+      .flatMap((t, i) => (t.controlChanges[controlChange] ?? []).map(cc => ( {
+        ...cc,
+        channel: i,
+      } )))
+      .filter(evt => evt.channel === channel)
+    ?? [];
+
+  return ccList;
+}
+
+function getVolumeForChannelAt(
+  midi: ToneJsMidi,
+  channel: number,
+  tick: number,
+): number {
+  // 1) recogemos la lista de CC7 (volume) para ese canal
+  const ccList = getControlChanges( {
+    channel,
+    toneJsMidi: midi,
+    controlChange: ControlChange.VOLUME,
+  } );
+  // 2) filtramos solo los eventos ocurridos en o antes del tick dado
+  const past = ccList.filter(evt => evt.ticks <= tick);
+
+  if (past.length === 0) {
+    // sin evento previo → volumen por defecto al máximo (1)
+    return 1;
+  }
+
+  // 3) tomamos el último evento
+  const last = past.reduce((a, b) => (a.ticks > b.ticks ? a : b));
+
+  // evt.value va de 0…1 → devolvemos directamente ese rango
+  return last.value;
 }
