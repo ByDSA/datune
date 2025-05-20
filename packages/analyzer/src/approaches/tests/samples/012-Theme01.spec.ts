@@ -70,7 +70,7 @@ describe("004 012-Theme01", () => {
       {
         time: 7, // 12500
         // C#5 encima de B4, se percibe ese sus2
-        chord: C.fromPitches(P.E, P.B, P.CC, P.GG),
+        chord: C.fromPitches(P.E, P.B, P.GG, P.CC),
       },
       {
         time: 9, // 16500
@@ -79,7 +79,7 @@ describe("004 012-Theme01", () => {
       {
         time: 11, // 20500
         // ídem compás 7
-        chord: C.fromPitches(P.E, P.B, P.CC, P.GG),
+        chord: C.fromPitches(P.E, P.B, P.GG, P.CC),
       },
       {
         time: 13, // 24500
@@ -126,7 +126,7 @@ describe("004 012-Theme01", () => {
       {
         time: 21, // 40500
         // 5a (A) ambigua hasta 21.5. aunque dura sólo 0.25 es definitoria del acorde
-        chord: C.fromPitches(P.D, P.CC, P.FF, P.A),
+        chord: C.fromPitches(P.D, P.A, P.CC, P.FF),
       },
       {
         time: 22, // 42500
@@ -137,13 +137,12 @@ describe("004 012-Theme01", () => {
       },
       {
         time: 23, // 44500
-        // D debería tomarse como apoyatura, no como parte del acorde
-        // G#->A también debería ser apoyatura
+        // Apoyaturas D->C y G#->A
         chord: C.fromPitches(P.A, P.CC, P.FF),
       },
       {
         time: 23.5, // 45500
-        chord: C.fromPitches(P.GG, P.E, P.CC),
+        chord: C.CCm.withInv(2), // C#m/G#
       },
       {
         time: 24, // 46500
@@ -158,7 +157,7 @@ describe("004 012-Theme01", () => {
       },
       {
         time: 25, // 48500
-        chord: C.fromPitches(P.D, P.A, P.CC, P.FF),
+        chord: C.fromPitches(P.D, P.A, P.FF, P.CC),
       },
       {
         time: 26, // 50500
@@ -185,19 +184,22 @@ describe("004 012-Theme01", () => {
       },
       {
         time: 31, // 60500
-        chord: C.fromPitches(P.A, P.CC, P.E, P.FF),
+        // Aparece E3 como nota más grave en el segundo tiempo
+        // Pero el root es A: A/E
+        chord: C.A.withBass(P.E), // E-A-C#
       },
       {
         time: 31.5, // 61500
-        chord: C.fromPitches(P.GG, P.CC, P.E, P.B),
+        chord: C.fromPitches(P.E, P.GG, P.B, P.CC).withRootIndex(1),
       },
       {
         time: 32, // 62500
-        chord: C.fromPitches(P.FF, P.CC, P.GG, P.A),
+        chord: C.fromPitches(P.FF, P.CC, P.A, P.GG),
       },
       {
         time: 32.5, // 63500
-        // F# no se considera nota del acorde porque resuelve en E
+        // Apoyatura F#6 -> E6
+        // G#4 aparece a mitad de tiempo
         chord: C.fromPitches(P.E, P.B, P.GG),
       },
       {
@@ -210,7 +212,7 @@ describe("004 012-Theme01", () => {
       },
       {
         time: 35, // 68500
-        chord: C.fromPitches(P.FF, P.B, P.CC),
+        chord: C.fromPitches(P.FF, P.CC, P.B),
       },
       {
         time: 36, // 70500
