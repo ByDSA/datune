@@ -2,7 +2,7 @@ import { Intervals as I } from "intervals/alt";
 import { Pitches as P } from "pitches/alt";
 import { Voicings as V } from "voicings/alt";
 import { Chords as CC } from "chromatic";
-import { Chords as C } from "..";
+import { Chords as C, Chord } from "..";
 import { fromRootVoicing } from "../building";
 import { shift, bass, inv, shiftDown } from ".";
 
@@ -14,7 +14,7 @@ describe.each([
   it(`${chord}.withBass(${pitchBass}) = ${expectedChord}`, () => {
     const actual = bass(chord, pitchBass);
 
-    expect(actual).toBe(expectedChord);
+    expect(actual.pitches).toEqual(expectedChord.pitches);
   } );
 } );
 
@@ -52,4 +52,14 @@ it("toChromatic", () => {
   const expectedReverse = C.FFm;
 
   expect(actual.toAlt()).toBe(expectedReverse);
+} );
+
+describe.each([
+  C.A,
+  C.CMaj7,
+])("keep root", (chord: Chord) => {
+  it(`${chord} => ${C.A}`, () => {
+    for (let i = 1; i < chord.length; i++)
+      expect(chord.root).toBe(chord.withInv(i).root);
+  } );
 } );

@@ -4,6 +4,7 @@ export {
 
 export {
   fromPitches,
+  from,
 } from "./pitches";
 
 export {

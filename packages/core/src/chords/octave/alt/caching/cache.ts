@@ -3,14 +3,20 @@ import { type PitchArray } from "pitches/alt";
 import { getObjId as pitchGetId } from "pitches/alt/id";
 import { Chord } from "../Chord";
 
-export type Key = PitchArray;
+export type Key = {
+  pitches: PitchArray;
+  rootIndex: number;
+};
 
 function getKey(chord: Chord): Key {
-  return chord.pitches;
+  return {
+    pitches: chord.pitches,
+    rootIndex: chord.rootIndex,
+  };
 }
 
 export function getId(key: Key): string {
-  return key.map(pitchGetId).join("-");
+  return key.rootIndex + "|" + key.pitches.map(pitchGetId).join("-");
 }
 
 export const cache = new KeyMappedFlyweightCache<Chord, Key, string>( {

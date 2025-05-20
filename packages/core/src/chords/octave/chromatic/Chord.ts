@@ -5,7 +5,6 @@ import type { Interval, Voicing } from "chromatic";
 import type { Chord as AChord } from "chords/alt";
 import { deepFreeze } from "datils/datatypes/objects";
 import { Voicings as V } from "voicings/relative/chromatic";
-import { fromInt } from "pitches/chromatic/building/int";
 import { Chords as AC } from "chords/alt";
 import { SymbolicChord } from "../SymbolicChord";
 import { Chords as C } from ".";
@@ -15,15 +14,25 @@ export class Chord implements SymbolicChord<Pitch> {
 
   length: number;
 
-  root: Pitch;
+  #root?: Pitch;
+
+  rootIndex: number;
 
   private constructor(key: Key) {
-    this.pitches = key.map(fromInt) as PitchArray;
-    [this.root] = this.pitches;
+    this.pitches = key.pitches;
+    this.rootIndex = key.rootIndex;
 
     this.length = this.pitches.length;
 
     deepFreeze(this);
+  }
+
+  // eslint-disable-next-line accessor-pairs
+  get root() {
+    if (this.#root === undefined)
+      this.#root = this.pitches[this.rootIndex];
+
+    return this.#root;
   }
 
   has(pitch: Pitch): boolean {
@@ -64,6 +73,10 @@ export class Chord implements SymbolicChord<Pitch> {
     return C.bass(this, pitch);
   }
 
+  withRootIndex(index: number) {
+    return C.rootIndex(this, index);
+  }
+
   toVoicing(): Voicing {
     return V.fromChord(this);
   }
@@ -73,6 +86,6 @@ export class Chord implements SymbolicChord<Pitch> {
   }
 
   toString(): string {
-    return `${this.pitches.join("-")}`;
+    return `${this.pitches.join("-")} (rootIndex=${this.rootIndex})`;
   }
 }

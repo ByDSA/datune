@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 import type { fromKeyFunc } from "./building/key-function";
-import type { fromPitches } from "./building/pitches";
+import type { from, fromPitches } from "./building/pitches";
 import type { fromRootVoicing } from "./building/root-voicing";
 import type * as Constants from "./constants";
 import type * as Modifiers from "./modifiers";
@@ -13,6 +13,7 @@ export const staticModule = {};
 type LazyType = Omit<typeof Constants, "initialize"> & typeof Modifiers & {
   fromKeyFunc: typeof fromKeyFunc;
   fromPitches: typeof fromPitches;
+  from: typeof from;
   fromRootVoicing: typeof fromRootVoicing;
   fromAltChord: typeof fromAltChord;
 };

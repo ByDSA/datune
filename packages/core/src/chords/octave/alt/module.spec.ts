@@ -210,6 +210,7 @@ const vars: string[] = [
 const functions: string[] = [
   // Building
   Chords.fromKeyFunc.name,
+  Chords.from.name,
   Chords.fromPitches.name,
   Chords.fromRootVoicing.name,
   Chords.fromChromaticChord.name,
@@ -219,6 +220,7 @@ const functions: string[] = [
   Chords.shift.name,
   Chords.shiftDown.name,
   Chords.bass.name,
+  Chords.rootIndex.name,
 ];
 
 it("module should export functions and vars", async () => {

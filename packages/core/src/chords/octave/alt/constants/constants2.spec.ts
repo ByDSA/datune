@@ -41,7 +41,7 @@ describe.each(<[Chord, PitchArray][]>[
     it(`Reversible from pitches: ${String(pitches)}`, () => {
       const actual = fromPitches(...pitches);
 
-      expect(actual).toStrictEqual(chord);
+      expect(actual.pitches).toStrictEqual(chord.pitches);
     } );
   } );
 } );

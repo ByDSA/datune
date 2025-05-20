@@ -13,14 +13,24 @@ export class Chord implements SymbolicChord<Pitch> {
 
   length: number;
 
-  root: Pitch;
+  #root?: Pitch;
+
+  rootIndex: number;
 
   private constructor(key: Key) {
-    this.pitches = key;
-    [this.root] = this.pitches;
+    this.pitches = key.pitches;
+    this.rootIndex = key.rootIndex;
     this.length = this.pitches.length;
 
     deepFreeze(this);
+  }
+
+  // eslint-disable-next-line accessor-pairs
+  get root(): Pitch {
+    if (this.#root === undefined)
+      this.#root = this.pitches[this.rootIndex];
+
+    return this.#root;
   }
 
   has(pitch: Pitch): boolean {
@@ -61,6 +71,10 @@ export class Chord implements SymbolicChord<Pitch> {
     return C.bass(this, pitch);
   }
 
+  withRootIndex(index: number): Chord {
+    return C.rootIndex(this, index);
+  }
+
   toVoicing(): Voicing {
     return V.fromChord(this);
   }
@@ -70,6 +84,6 @@ export class Chord implements SymbolicChord<Pitch> {
   }
 
   toString(): string {
-    return `${this.pitches.join("-")}`;
+    return `${this.pitches.join("-")} (rootIndex=${this.rootIndex})`;
   }
 }

@@ -9,7 +9,7 @@ describe.each([
   [K.C, C.C],
   [K.Am, C.Am],
   [K.from(P.C, S.LOCRIAN), C.C0],
-  [K.from(P.C, S.ORIENTAL), C.bass(C.Am, P.C)],
+  [K.from(P.C, S.ORIENTAL), C.bass(C.Am, P.C).withRootIndex(0)],
 ])("rootChord3", (k, c)=> {
   it(`${k} -> ${c}`, () => {
     const chord = rootChord3(k);

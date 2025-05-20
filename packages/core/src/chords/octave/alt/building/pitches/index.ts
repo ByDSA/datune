@@ -1,7 +1,14 @@
 import type { PitchArray } from "pitches/alt";
-import { cache } from "../../caching/cache";
+import { cache, Key } from "../../caching/cache";
 import { Chord } from "../../Chord";
 
 export function fromPitches(...pitches: PitchArray): Chord {
-  return cache.getOrCreate(pitches);
+  return from( {
+    pitches,
+    rootIndex: 0,
+  } );
+}
+
+export function from(key: Key): Chord {
+  return cache.getOrCreate(key);
 }

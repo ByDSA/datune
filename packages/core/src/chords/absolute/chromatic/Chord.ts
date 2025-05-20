@@ -7,17 +7,27 @@ import { AbsoluteChord } from "../AbsoluteChord";
 export class Chord implements AbsoluteChord<Pitch, Spn> {
   pitches: SpnArray;
 
-  root: Spn;
+  #root?: Spn;
+
+  rootIndex: number;
 
   length: number;
 
   private constructor(key: Key) {
-    this.pitches = key;
-    // eslint-disable-next-line prefer-destructuring
-    this.root = this.pitches[0];
+    this.pitches = key.pitches;
+
+    this.rootIndex = key.rootIndex;
     this.length = this.pitches.length;
 
     deepFreeze(this);
+  }
+
+  // eslint-disable-next-line accessor-pairs
+  get root(): Spn {
+    if (this.#root === undefined)
+      this.#root = this.pitches[this.rootIndex];
+
+    return this.#root;
   }
 
   has(note: Spn): boolean {

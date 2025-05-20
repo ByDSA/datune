@@ -4,13 +4,19 @@ import type { Chord } from "../Chord";
 import { Arrays } from "datils/datatypes/arrays";
 import { Pitches as P } from "pitches/alt";
 import { fromPitches } from "../building";
+import { from } from "../building/pitches";
 
 export function inv(chord: Chord, n: number = 1): Chord {
   const notes: PitchArray = [...chord.pitches];
 
   Arrays.rotateLeft(notes, n);
 
-  return fromPitches(...notes);
+  const rIndex = (chord.rootIndex - (n % chord.length) + chord.length) % chord.length;
+
+  return from( {
+    pitches: notes,
+    rootIndex: rIndex,
+  } );
 }
 
 export function shift(chord: Chord, interval: Interval): Chord {
@@ -18,7 +24,10 @@ export function shift(chord: Chord, interval: Interval): Chord {
     (p) => P.add(p, interval),
   ) as PitchArray;
 
-  return fromPitches(...notes);
+  return from( {
+    pitches: notes,
+    rootIndex: chord.rootIndex,
+  } );
 }
 
 export function shiftDown(chord: Chord, interval: Interval): Chord {
@@ -26,7 +35,10 @@ export function shiftDown(chord: Chord, interval: Interval): Chord {
     (p) => P.sub(p, interval),
   ) as PitchArray;
 
-  return fromPitches(...notes);
+  return from( {
+    pitches: notes,
+    rootIndex: chord.rootIndex,
+  } );
 }
 
 export function bass(chord: Chord, pitchBass: Pitch): Chord {
@@ -36,4 +48,11 @@ export function bass(chord: Chord, pitchBass: Pitch): Chord {
     return fromPitches(pitchBass, ...chord.pitches);
 
   return inv(chord, oldIndexOfNewBass);
+}
+
+export function rootIndex(obj: Chord, index: number): Chord {
+  return from( {
+    pitches: obj.pitches,
+    rootIndex: index,
+  } );
 }

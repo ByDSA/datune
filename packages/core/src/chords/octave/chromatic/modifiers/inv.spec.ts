@@ -13,3 +13,13 @@ describe.each([
     expect(voicing).toBe(chord.toVoicing());
   } );
 } );
+
+describe.each([
+  C.A,
+  C.CMaj7,
+])("keep root", (chord: Chord) => {
+  it(`${chord} => ${C.A}`, () => {
+    for (let i = 1; i < chord.length; i++)
+      expect(chord.root).toBe(chord.withInv(i).root);
+  } );
+} );

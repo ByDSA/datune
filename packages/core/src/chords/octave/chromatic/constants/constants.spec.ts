@@ -27,7 +27,7 @@ it("trying edit property notes", () => {
 } );
 
 it("all", () => {
-  expect(ALL).toHaveLength(3468);
+  expect(ALL).toHaveLength(3516);
 } );
 
 it("all non inversions", () => {
