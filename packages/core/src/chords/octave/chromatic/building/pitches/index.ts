@@ -10,5 +10,8 @@ export function fromPitches(...pitches: PitchArray): Chord {
 }
 
 export function from(key: Key): Chord {
+  if (key.rootIndex < 0)
+    throw new Error("Invalid root index");
+
   return cache.getOrCreate(key);
 }
