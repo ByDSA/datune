@@ -3,7 +3,7 @@
 /* eslint-disable max-len */
 import { Interval, intervalBetween, stringifyInterval } from "datils/math/intervals";
 import { Time, TimelineNode } from "@datune/utils";
-import { Chord, PitchArray, Chords, Intervals as I, Pitch, Spn, Interval as CInterval, Spns } from "@datune/core";
+import { Chord, PitchArray, Chords, Intervals as I, Pitch, Spn, Interval as CInterval, Spns, Intervals, Scales, Keys, Pitches } from "@datune/core";
 import { type Analyzer } from "./ListenerAnalyzer";
 import { PerceptualMidiNote } from "./perception/perception";
 import { WindowProcess } from "./WindowProcess";
@@ -537,6 +537,24 @@ type Resolution = {
   to: Spn;
 };
 
+// TODO: provisional hasta Tonal Pitch Space
+function getChordInHarmony(chord: Chord): Chord {
+  const scale = Scales.MINOR;
+  const key = Keys.FFm;
+  const index = key.pitches.indexOf(chord.root);
+  const array = scale.rootIntervals;
+  const rootIndex = index;
+  const thirdIndex = (index + 2) % array.length;
+  const fifthIndex = (index + 4) % array.length;
+  const triad = [array[rootIndex], array[thirdIndex], array[fifthIndex]];
+  const pitches = triad.map(i=>Pitches.add(key.root, i)) as PitchArray;
+
+  return Chords.from( {
+    pitches,
+    rootIndex: 0,
+  } );
+}
+
 function getResolution(chord: Chord, chordNodes: TimelineNode<PerceptualMidiNote>[], nodes: TimelineNode<PerceptualMidiNote>[]): Resolution[] {
   const ret: Resolution[] = [];
   const chordSpn = chordNodes
@@ -545,9 +563,10 @@ function getResolution(chord: Chord, chordNodes: TimelineNode<PerceptualMidiNote
   const nodesSpn = nodes
     .map(n=>n.event.pitch.spn)
     .sort((a, b) => +a - +b);
-  const pitchRoot = chord.root;
+  const chordInHarmony = getChordInHarmony(chord);
+  const pitchRoot = chordInHarmony.root;
   const noRootSpns = chordSpn.filter(n=>n.pitch !== pitchRoot);
-  const ta = getTensionApoyature(chord.root, chordSpn);
+  const ta = getTensionApoyature(chordInHarmony, chordSpn);
 
   for (const t of ta) {
     const tensionSpn = t.tension;
@@ -575,32 +594,19 @@ type TensionApoyature = {
   tension: Spn;
   interval: CInterval;
 };
-function getTensionApoyature(pitchRoot: Pitch, chordSpn: Spn[]): TensionApoyature[] {
+function getTensionApoyature(chord: Chord, chordSpn: Spn[]): TensionApoyature[] {
   const ret: TensionApoyature[] = [];
-  const intervals = [
-    I.m2,
-    I.M2,
-    I.P4,
-    I.d5,
-    I.m6,
-    I.M6,
-    I.m7,
-    I.M7,
-    I.m9,
-    I.M9,
-    I.P11,
-  ];
+  const root = chord.root;
 
-  for (const i of intervals) {
-    const tensionPitch = pitchRoot.withAdd(i);
+  for (const spn of chordSpn) {
+    const spnPitch = spn.pitch;
 
-    for (const spn of chordSpn) {
-      if (spn.pitch === tensionPitch) {
-        ret.push( {
-          interval: i,
-          tension: spn,
-        } );
-      }
+    if (!chord.pitches.includes(spnPitch)
+      && chord.pitches.some(p=>Math.abs(Intervals.between(p, spnPitch)) <= 2)) {
+      ret.push( {
+        interval: Intervals.betweenNext(root, spnPitch) % 12,
+        tension: spn,
+      } );
     }
   }
 
