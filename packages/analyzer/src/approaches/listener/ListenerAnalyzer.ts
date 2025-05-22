@@ -7,6 +7,7 @@ import { MidiTimeline } from "@datune/midi";
 import { ChordTimeline, KeyTimeline } from "timelines";
 import { Results } from "approaches/Results";
 import { GravitationTimeline } from "timelines/GravitationTimeline";
+import { sortNodesByFrom } from "approaches/utils";
 import { INITIAL_LISTENER, ListenerState } from "./Listener";
 import { WindowProcess } from "./WindowProcess";
 import { PerceptualTimeline } from "./PerceptualTimeline";
@@ -36,7 +37,9 @@ export class Analyzer {
 
   results: Results;
 
-  logEntries: LogEntry[] = [];
+  #logs: {
+    global: LogEntry[];
+  };
 
   realtimeMidiNotesTimeline: MidiTimeline;
 
@@ -73,6 +76,10 @@ export class Analyzer {
       firstChordTimeline: new ChordTimeline(seqProps),
       keyTimeline: new KeyTimeline(seqProps),
       gravitationTimeline: new GravitationTimeline(seqProps),
+    };
+
+    this.#logs = {
+      global: [],
     };
   }
 
@@ -118,18 +125,25 @@ export class Analyzer {
   }
 
   log(msg: string) {
-    this.logEntries.push( {
+    this.#logs.global.push( {
       at: this.currentWindow.to,
       message: msg,
     } );
   }
 
-  async saveLog() {
-    const logEntries = this.logEntries.filter(l=>l.at >= 0);
-    const file = "tests/.log";
-    const data = logEntries.map(l=>l.at + ": " + l.message).join("\n");
+  async saveLogs() {
+    const globalLogEntries = this.#logs.global.filter(l=>l.at >= 0);
+    const data = globalLogEntries.map(l=>l.at + ": " + l.message).join("\n");
 
-    await writeFile(file, data);
+    await writeFile("tests/.log", data);
+    const chordNodes = sortNodesByFrom([...this.results.chordTimeline.nodes]);
+    const chordsData = chordNodes.map(n=>((((n.interval.from - 500) / 2000) + 1) + ": " + stringifyTimelineNode(n))).join("\n");
+
+    await writeFile("tests/chords.log", chordsData);
+    const firstChordNodes = sortNodesByFrom([...this.results.firstChordTimeline.nodes]);
+    const firstChordsData = firstChordNodes.map(n=>((((n.interval.from - 500) / 2000) + 1) + ": " + stringifyTimelineNode(n))).join("\n");
+
+    await writeFile("tests/first-chords.log", firstChordsData);
   }
 
   showListenerState() {

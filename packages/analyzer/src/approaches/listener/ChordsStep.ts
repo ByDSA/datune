@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable max-len */
 import { Interval, intervalBetween, stringifyInterval } from "datils/math/intervals";
@@ -187,28 +188,8 @@ export class ChordsStep {
       }
     }
 
-    let newChord = fromSpnsGuessRoot(...spns);
-    // TODO: quitar esto adhock cuando se implemente Tonal Pitch Space
-    const newChordRI = newChord.toVoicing().rootIntervals.map(ri=>ri % 12);
-    const arrays1 = [[0, 5, 9, 4, 2], [0, 5, 3], [0, 5, 8], [0, 4, 7, 9]];
-    const arrays2 = [[0, 8, 5]];
-    const includes1 = arrays1.some(a=>a.every((ic, i)=>newChordRI.indexOf(ic) === i));
-    const includes2 = arrays2.some(a=>a.every((ic, i)=>newChordRI.indexOf(ic) === i));
-
-    if (includes1)
-      newChord = newChord.withRootIndex(1);
-
-    if (includes2)
-      newChord = newChord.withRootIndex(2);
-
-    if (!changeChord) {
-      const isSameOrder = respetaOrden(newChord.pitches, lastChord.pitches);
-
-      if (!isSameOrder)
-        changeChord = true;
-    }
-
     if (changeChord) {
+      let newChord = fromSpnsGuessChord(lastChord, ...spns);
       const newInterval = intervalBetween(lastChordNode.interval.from, interval.to);
 
       this.analyzer.results.firstChordTimeline.add( {
@@ -223,7 +204,6 @@ export class ChordsStep {
   }
 
   addChord(chord: Chord, interval: Interval<Time>) {
-    // eslint-disable-next-line prefer-destructuring
     this.lastChordNode = this.analyzer.results.chordTimeline.add( {
       interval,
       event: chord,
@@ -261,30 +241,6 @@ export class ChordsStep {
     return beatInBar;
   }
 
-  getResolutionToRootChanges(lastChordNode: TimelineNode<Chord>, playingAtBeat: TimelineNode<PerceptualMidiNote>[]): TimelineNode<PerceptualMidiNote>[] {
-    const lastChordNodes = this.analyzer.perceptualTimeline.timeline.getAtInterval(lastChordNode.interval);
-    const playingAtLastChordBeat = this.getAttackNodes(lastChordNode.interval.from, lastChordNodes);
-    const changes = playingAtLastChordBeat.filter(lastNode => {
-      const lastSpn = lastNode.event.pitch.spn;
-
-      return playingAtBeat.some(node => {
-        const { spn } = node.event.pitch;
-
-        if (lastSpn === spn)
-          return false;
-
-        if (!lastChordNode.event.pitches.includes(lastSpn.pitch))
-          return false;
-
-        const distance = Math.abs(+spn - +lastSpn);
-
-        return distance <= 2 && spn.pitch === lastChordNode.event.root;
-      } );
-    } );
-
-    return changes;
-  }
-
   processBeatChord(
     lastChordNode: TimelineNode<Chord>,
     nodes: TimelineNode<PerceptualMidiNote>[],
@@ -309,28 +265,7 @@ export class ChordsStep {
 
     const attackingSpns = validNodes
       .map(n=>n.event.pitch.spn);
-    let attackingChord = fromSpnsGuessRoot(...attackingSpns);
-    // TODO: quitar esto adhock cuando se implemente Tonal Pitch Space
-    const newChordRI = attackingChord.toVoicing().rootIntervals.map(ri=>ri % 12);
-    const arrays1 = [[0, 5, 3], [0, 5, 9], [0, 4, 7, 9]];
-    const arrays2 = [[0, 8, 5]];
-    const includes1 = arrays1.some(a=>a.every((ic, i)=>newChordRI.indexOf(ic) === i));
-    const includes2 = arrays2.some(a=>a.every((ic, i)=>newChordRI.indexOf(ic) === i));
-
-    if (includes1)
-      attackingChord = attackingChord.withRootIndex(1);
-
-    if (includes2)
-      attackingChord = attackingChord.withRootIndex(2);
-
-    const changedRoot = attackingChord.root !== lastChord.root;
-    const changedThird = isChangedThird(lastChord, attackingChord.pitches);
-    const changedFifth = isChangedFifth(lastChord, attackingChord.pitches);
-    const change = (changedRoot || changedThird || changedFifth);
-
-    if (change)
-      return attackingChord;
-
+    let attackingChord = fromSpnsGuessChord(lastChord, ...attackingSpns);
     const { root } = attackingChord;
     const thirdDissambiguation = getThirdDissambiguation(lastChord, attackingAtBeat);
     const fifthDissambiguation = getFifthDissambiguation(lastChord, attackingAtBeat);
@@ -350,20 +285,38 @@ export class ChordsStep {
     if (isPossibleApoyature) {
       const pitches = getPitchesFromNodes(attackingAtBeat, dissToAdd) as PitchArray;
 
+      if (!pitches.includes(root))
+        pitches.unshift(root);
+
+      const rootIndex = pitches.indexOf(root);
+
       return Chords.from( {
         pitches,
-        rootIndex: pitches.indexOf(root),
+        rootIndex,
       } );
     }
 
     if (dissToAdd.length > 0) {
       const pitches = getPitchesFromNodes(lastChordNodes, dissToAdd) as PitchArray;
 
+      if (!pitches.includes(root))
+        pitches.unshift(root);
+
+      const rootIndex = pitches.indexOf(root);
+
       return Chords.from( {
         pitches,
-        rootIndex: pitches.indexOf(root),
+        rootIndex,
       } );
     }
+
+    const changedRoot = root !== lastChord.root;
+    const changedThird = isChangedThird(lastChord, attackingChord.pitches);
+    const changedFifth = isChangedFifth(lastChord, attackingChord.pitches);
+    const change = (changedRoot || changedThird || changedFifth);
+
+    if (change)
+      return attackingChord;
 
     return null;
   }
@@ -409,17 +362,8 @@ export class ChordsStep {
           Math.min(time, currentChordNode.interval.to),
         ),
       );
-      const playingAtBeat = this.getAttackNodes(currentChordNode.interval.from, nodes);
       const lastChordPitchesNodes = this.#getPerceptualMidiNodesFromChord(lastChordNode, chords[j].interval.from);
-      // get lowest +spn from lastChordPitchesNodes:
-      const [lastChordBassSpn] = lastChordPitchesNodes
-        .filter(n=>n.event.pitch.spn.pitch === lastChord.root)
-        .map(n=>n.event.pitch.spn)
-        .sort((a, b) => +a - +b);
-      const rootChanged = lastChordBassSpn
-        && !playingAtBeat
-          .map(n=>n.event.pitch.spn)
-          .includes(lastChordBassSpn);
+      const rootChanged = currentChordNode.event.root !== lastChord.root;
 
       if (rootChanged)
         continue;
@@ -436,7 +380,7 @@ export class ChordsStep {
       const perfectApoyatureResolution = [I.P1, I.m3, I.M3, I.P5, I.P8];
       const isApoyatureResolution = apoyatureResolutions.length > 0
       && (currentChordLength > lastChordLength
-        || (currentChordLength === lastChordLength && apoyatureResolutions.some(r=>lastChordPitchesNodes.some(n=>n.event.pitch.spn.pitch === lastChordBassSpn.pitch && perfectApoyatureResolution.includes(+r.to - +n.event.pitch))))
+        || (currentChordLength === lastChordLength && apoyatureResolutions.some(r=>lastChordPitchesNodes.some(n=> perfectApoyatureResolution.includes(+r.to - +n.event.pitch))))
       );
       let newPitches: Spn[] = [] as any;
       const lastChordWithDissambiguationsNodesSpn = lastChordWithDissambiguationsNodes
@@ -482,25 +426,20 @@ export class ChordsStep {
         continue;
       }
 
-      const beatInBar = this.getBeatInBar(chords[j].interval.from);
-      const isWeakTime = (beatInBar >= 1.75 && beatInBar < 2.75) || beatInBar >= 3.75;
+      // Principalmente, que se ha cambiado tercera o quinta en tiempo débil y no es apoyatura, y se está inspeccionando desde un tiempo no-débil
+      const beatInBarChecking = this.getBeatInBar(time);
+      const isWeakTimeChecking = (beatInBarChecking >= 1.75 && beatInBarChecking < 2.75) || beatInBarChecking >= 3.75;
 
-      if (true) {
-        // Principalmente, que se ha cambiado tercera o quinta en tiempo débil y no es apoyatura, y se está inspeccionando desde un tiempo no-débil
-        const beatInBarChecking = this.getBeatInBar(time);
-        const isWeakTimeChecking = (beatInBarChecking >= 1.75 && beatInBarChecking < 2.75) || beatInBarChecking >= 3.75;
+      if (!isWeakTimeChecking) {
+        const realInterval = intervalBetween(
+          chords[j - 1].interval.from,
+          chords[j].interval.to,
+        );
+        const addedChordNode = this.addChord(lastChord, realInterval);
 
-        if (!isWeakTimeChecking) {
-          const realInterval = intervalBetween(
-            chords[j - 1].interval.from,
-            chords[j].interval.to,
-          );
-          const addedChordNode = this.addChord(lastChord, realInterval);
-
-          chords.splice(j - 1, 2, addedChordNode);
-          j--;
-          continue;
-        }
+        chords.splice(j - 1, 2, addedChordNode);
+        j--;
+        continue;
       }
     }
   }
@@ -606,10 +545,9 @@ function getResolution(chord: Chord, chordNodes: TimelineNode<PerceptualMidiNote
   const nodesSpn = nodes
     .map(n=>n.event.pitch.spn)
     .sort((a, b) => +a - +b);
-  const rootSpn = chordSpn.find(s=>s.pitch === chord.root)!;
-  const pitchRoot = rootSpn.pitch;
+  const pitchRoot = chord.root;
   const noRootSpns = chordSpn.filter(n=>n.pitch !== pitchRoot);
-  const ta = getTensionApoyature(rootSpn, chordSpn);
+  const ta = getTensionApoyature(chord.root, chordSpn);
 
   for (const t of ta) {
     const tensionSpn = t.tension;
@@ -637,10 +575,8 @@ type TensionApoyature = {
   tension: Spn;
   interval: CInterval;
 };
-function getTensionApoyature(rootSpn: Spn, chordSpn: Spn[]): TensionApoyature[] {
+function getTensionApoyature(pitchRoot: Pitch, chordSpn: Spn[]): TensionApoyature[] {
   const ret: TensionApoyature[] = [];
-  const pitchRoot = rootSpn.pitch;
-  const rootSpns = chordSpn.filter(n=>n.pitch === pitchRoot);
   const intervals = [
     I.m2,
     I.M2,
@@ -655,17 +591,14 @@ function getTensionApoyature(rootSpn: Spn, chordSpn: Spn[]): TensionApoyature[] 
     I.P11,
   ];
 
-  for (const rn of rootSpns) {
-    for (const i of intervals) {
-      const tensionSpn = Spns.add(rn, i);
+  for (const i of intervals) {
+    const tensionPitch = pitchRoot.withAdd(i);
 
-      if (tensionSpn === null)
-        continue;
-
-      if (chordSpn.includes(tensionSpn)) {
+    for (const spn of chordSpn) {
+      if (spn.pitch === tensionPitch) {
         ret.push( {
           interval: i,
-          tension: tensionSpn,
+          tension: spn,
         } );
       }
     }
@@ -820,58 +753,52 @@ function getLengthInBar(interval: Interval<Time>, barInterval: Interval<Time>): 
   return to - from;
 }
 
-/**
- * Comprueba que, para los valores comunes entre subset y superset,
- * el orden relativo en superset respeta el orden dado en subset.
- *
- * @param subset  Array “patrón” cuyos valores deben seguir su orden.
- * @param superset Array en el que buscamos respetar ese orden.
- * @returns true si no hay inversión de orden; false en caso contrario.
- */
-function respetaOrden(subset: Pitch[], superset: Pitch[]): boolean {
-  // Índice del último elemento “anclado” de subset
-  let lastIndex = -1;
-
-  for (const x of superset) {
-    // Encuentra todas las posiciones de x en subset
-    const posiciones = subset
-      .map((v, i) => (v === x ? i : -1))
-      .filter(i => i !== -1);
-
-    if (posiciones.length === 0) {
-      // x no está en subset → lo ignoramos
-      continue;
-    }
-
-    // De las posiciones donde aparece x, nos quedamos
-    // solo con las que vienen a partir de lastIndex
-    const validas = posiciones.filter(i => i >= lastIndex);
-
-    if (validas.length === 0) {
-      // x aparece en subset pero siempre antes de lastIndex:
-      // hay inversión de orden
-      return false;
-    }
-
-    // Anclamos en la posición más temprana válida
-    // eslint-disable-next-line prefer-destructuring
-    lastIndex = validas[0];
-  }
-
-  return true;
-}
-
-function fromSpnsGuessRoot(...spns: Spn[]): Chord {
+// TODO: quitar esto adhock cuando se implemente Tonal Pitch Space
+function fromSpnsGuessChord(lastChord: Chord, ...spns: Spn[]): Chord {
   // TODO: lo más causal y no heurístico sería usar Tonal Pitch Space. Elegir la interpretación de menor coste
   const pitches = spns
     .sort((a, b) => +a - +b)
     .map(n=>n.pitch) as PitchArray;
-  const root = pitches[0];// detectRootParker(pitches);
-  const pitchesNoRepeat = pitches.filter((value, index, self) => self.indexOf(value) === index) as PitchArray;
-  const rootIndex = pitchesNoRepeat.indexOf(root);
+  let root = pitches[0];// detectRootParker(pitches);
+  let pitchesNoRepeat = pitches.filter((value, index, self) => self.indexOf(value) === index) as PitchArray;
 
-  return Chords.from( {
+  if (lastChord.hasAll(...pitchesNoRepeat)) {
+    root = lastChord.root;
+
+    if (!pitchesNoRepeat.includes(lastChord.root))
+      pitchesNoRepeat = [root, ...pitchesNoRepeat];
+  }
+
+  const rootIndex = pitchesNoRepeat.indexOf(root);
+  let ret = Chords.from( {
     pitches: pitchesNoRepeat,
     rootIndex,
   } );
+
+  if (ret.root === lastChord.root)
+    return ret;
+
+  const newChordRI = ret.toVoicing().rootIntervals.map(ri=>ri % 12);
+  const arrays1 = [[0, 5, 3], [0, 5, 9], [0, 4, 7, 9]];
+  const arrays2 = [[0, 8, 5], [0, 4, 9]];
+  const arrays3 = [[0, 11, 5, 9]];
+  const arrays4 = [[0, 11, 4, 5, 9]];
+  const includes1 = arrays1.some(a=>a.every((ic, i)=>newChordRI.indexOf(ic) === i));
+  const includes2 = arrays2.some(a=>a.every((ic, i)=>newChordRI.indexOf(ic) === i));
+  const includes3 = arrays3.some(a=>a.every((ic, i)=>newChordRI.indexOf(ic) === i));
+  const includes4 = arrays4.some(a=>a.every((ic, i)=>newChordRI.indexOf(ic) === i));
+
+  if (includes1)
+    ret = ret.withRootIndex(1);
+
+  if (includes2)
+    ret = ret.withRootIndex(2);
+
+  if (includes3)
+    ret = ret.withRootIndex(3);
+
+  if (includes4)
+    ret = ret.withRootIndex(4);
+
+  return ret;
 }

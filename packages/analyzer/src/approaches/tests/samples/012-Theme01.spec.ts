@@ -3,14 +3,12 @@
 import { Chords as C, Chord, Pitches as P } from "@datune/core";
 import { Interval } from "datils/math";
 import { MidiFile, MidiTimeline } from "@datune/midi";
-import { stringifyTimelineNode } from "@datune/utils/datastructures/timeline";
 import { Time } from "@datune/utils";
 import { midiFileToTimelines } from "timelines/midi/midifile-to-notes-timeline";
 import { expectChordTimeline } from "timelines/tests/chord-timeline";
 import { loadMidiSample } from "tests/loadMidiSample";
 import { Analyzer } from "approaches/listener/ListenerAnalyzer";
 import { symbolicTimelineToReal } from "approaches/listener/utils";
-import { sortNodesByFrom } from "approaches/utils";
 import { ChordTimeline } from "timelines";
 
 describe("004 012-Theme01", () => {
@@ -32,16 +30,14 @@ describe("004 012-Theme01", () => {
       midiTimeline: notesTimelineReal,
     } );
     const results = analyzer.analyze();
-    const nodes = sortNodesByFrom([...results.chordTimeline.nodes]);
 
-    await analyzer.saveLog();
-    console.log(nodes.map(n=>(((n.interval.from - 500) / 2000 + 1) + ": " + stringifyTimelineNode(n))));
+    await analyzer.saveLogs();
 
     const intro: CheckProps["array"] = [
       {
         time: 1, // 500
         // A4 se percibe pero muy tenue
-        chord: C.fromPitches(P.FF, P.A, P.CC),
+        chord: C.FFm, // F#-A-C#
       },
       {
         time: 2, // 2500
@@ -53,7 +49,7 @@ describe("004 012-Theme01", () => {
         time: 3, // 4500
         // F#6 no debería considerarse del acorde por distancia con B4,
         // pero como la 3ª es ambigua, se incluye
-        chord: C.fromPitches(P.D, P.FF, P.A),
+        chord: C.D, // D-F#-A
       },
       {
         time: 4, // 6500
@@ -65,7 +61,7 @@ describe("004 012-Theme01", () => {
     const partA: CheckProps["array"] = [
       {
         time: 5, // 8500
-        chord: C.fromPitches(P.FF, P.CC, P.A),
+        chord: C.FFm, // F#-C#-A
       },
       {
         time: 7, // 12500
@@ -74,7 +70,7 @@ describe("004 012-Theme01", () => {
       },
       {
         time: 9, // 16500
-        chord: C.fromPitches(P.FF, P.CC, P.A),
+        chord: C.FFm, // F#-C#-A
       },
       {
         time: 11, // 20500
@@ -83,20 +79,20 @@ describe("004 012-Theme01", () => {
       },
       {
         time: 13, // 24500
-        chord: C.fromPitches(P.D, P.A, P.FF),
+        chord: C.D, // D-A-F#
       },
       {
         time: 14, // 26500
-        chord: C.fromPitches(P.E, P.B, P.GG),
+        chord: C.E, // E-B-G#
       },
       {
         time: 15, // 28500
         // E5 es nota de paso justo antes y lo que termina al principio del compás no se escucha
-        chord: C.fromPitches(P.FF, P.CC, P.A),
+        chord: C.FFm, // F#-C#-A
       },
       {
         time: 15.5, // 29500
-        chord: C.fromPitches(P.E, P.B, P.GG),
+        chord: C.E, // E-B-G#
       },
       {
         time: 16, // 30500
@@ -110,16 +106,16 @@ describe("004 012-Theme01", () => {
       },
       {
         time: 17, // 32500
-        chord: C.fromPitches(P.D, P.A, P.FF),
+        chord: C.D, // D-A-F#
       },
       {
         time: 18, // 33500
-        chord: C.fromPitches(P.E, P.B, P.GG),
+        chord: C.E, // E-B-G#
       },
       {
         time: 19, // 36500
         // -E5
-        chord: C.fromPitches(P.FF, P.CC, P.A),
+        chord: C.FFm, // F#-C#-A
       },
     ];
     const partB: CheckProps["array"] = [
@@ -133,12 +129,12 @@ describe("004 012-Theme01", () => {
         // la 5a B no suena hasta el 22.25
         // se mantiene estable el resto del compás
         // debe corregirse de forma retrospectiva
-        chord: C.fromPitches(P.E, P.GG, P.B),
+        chord: C.E, // E-G#-B
       },
       {
         time: 23, // 44500
         // Apoyaturas D->C y G#->A
-        chord: C.fromPitches(P.A, P.CC, P.FF),
+        chord: C.FFm.withInv(), // FF#m/A: A-C#-F#
       },
       {
         time: 23.5, // 45500
@@ -147,13 +143,13 @@ describe("004 012-Theme01", () => {
       {
         time: 24, // 46500
         // Resolución apoyatura G#->A en 24.1875
-        chord: C.fromPitches(P.FF, P.A, P.CC),
+        chord: C.FFm, // F#-A-C#
       },
       {
         time: 24.5, // 47500
         // NO es apoyatura G#5->F#5 en 24.625
         // porque F# no es una nota de acorde mayor o menor sobre E
-        chord: C.fromPitches(P.E, P.GG),
+        chord: C.fromPitches(P.E, P.GG), // E-G#
       },
       {
         time: 25, // 48500
@@ -162,13 +158,13 @@ describe("004 012-Theme01", () => {
       {
         time: 26, // 50500
         // G#->A no es apoyatura porque en 26.5 A->B
-        chord: C.fromPitches(P.E, P.B, P.GG),
+        chord: C.E, // E-B-G#
       },
       {
         time: 27, // 52500
         // G#->A es apoyatura, aunque sea breve y luego A5->B5 en 27.5, no se nota como continuidad,
         // E empieza en 27.5 y termina en 28.5
-        chord: C.fromPitches(P.FF, P.CC, P.A),
+        chord: C.FFm, // F#-C#-A
       },
       {
         time: 28.5, // 55500
@@ -180,13 +176,13 @@ describe("004 012-Theme01", () => {
       },
       {
         time: 30, // 58500
-        chord: C.fromPitches(P.E, P.B, P.GG),
+        chord: C.E, // E-B-G#
       },
       {
         time: 31, // 60500
         // Aparece E3 como nota más grave en el segundo tiempo
         // Pero el root es A: A/E
-        chord: C.A.withBass(P.E), // E-A-C#
+        chord: C.A.withInv(2), // E-A-C#
       },
       {
         time: 31.5, // 61500
@@ -200,23 +196,23 @@ describe("004 012-Theme01", () => {
         time: 32.5, // 63500
         // Apoyatura F#6 -> E6
         // G#4 aparece a mitad de tiempo
-        chord: C.fromPitches(P.E, P.B, P.GG),
+        chord: C.E, // E-B-G#
       },
       {
         time: 33, // 64500
-        chord: C.fromPitches(P.D, P.A, P.FF),
+        chord: C.D, // D-A-F#
       },
       {
         time: 34, // 66500
-        chord: C.fromPitches(P.E, P.B, P.GG),
+        chord: C.E, // E-B-G#
       },
       {
         time: 35, // 68500
-        chord: C.fromPitches(P.FF, P.CC, P.B),
+        chord: C.FFsus4, // F#-C#-B
       },
       {
         time: 36, // 70500
-        chord: C.fromPitches(P.FF, P.CC, P.AA),
+        chord: C.FF, // F#-C#-A#
         length: 1,
       },
     ];

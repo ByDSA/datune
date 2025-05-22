@@ -1,7 +1,46 @@
-import { Chord, Pitch } from "@datune/core";
+import { Chord, Pitch, PitchSets } from "@datune/core";
+import { PitchArray } from "@datune/core";
 import { Time } from "@datune/utils";
 import { throwErrorPopStack } from "datils/errors";
 import { ChordTimeline } from "timelines/ChordTimeline";
+
+export function expectChord(chord: Chord) {
+  return {
+    toBe(c2: Chord) {
+      tryJestExpect(
+        ()=> {
+          expectChord(chord).toHavePitches(...c2.pitches);
+
+          expect(chord.pitches[chord.rootIndex]).toBe(c2.pitches[c2.rootIndex]);
+        },
+        () => {
+          const e = new Error();
+
+          e.message = "Expected: " + chord + "\nActual: " + c2;
+
+          return e;
+        },
+      );
+    },
+    toHavePitches(...pitches: PitchArray) {
+      tryJestExpect(
+        () => expect(
+          PitchSets.from(...chord.pitches),
+        ).toBe(
+          PitchSets.from(...pitches),
+        ),
+        (e1) => {
+          const e = new Error("Expected: " + e1.matcherResult.expected.pitches + "\nActual: " + e1.matcherResult.actual.pitches);
+
+          return e;
+        },
+      );
+    },
+    toHaveRootIndex(index: number) {
+      tryJestExpect(() => expect(chord.rootIndex).toBe(index));
+    },
+  };
+}
 
 export function expectChordTimeline(cTl: ChordTimeline) {
   return {
@@ -13,14 +52,7 @@ export function expectChordTimeline(cTl: ChordTimeline) {
         toHaveChord(chord: Chord | undefined) {
           const node = cTl.getAt(time);
 
-          tryJestExpect(
-            ()=>expect(node?.event).toBe(chord),
-            (e1) => {
-              const e = new Error("At: " + time + "\n\nExpected: " + e1.matcherResult.expected + "\nActual: " + e1.matcherResult.actual);
-
-              return e;
-            },
-          );
+          expectChord(chord!).toBe(node!.event);
         },
         toHavePitches(...pitches: Pitch[]) {
           const node = cTl.getAt(time);
@@ -48,7 +80,7 @@ type JestError<E=any, A=E> = {
 
 function tryJestExpect(
   f: ()=> void,
-  p: (jestError: JestError)=> Error = (e)=>e as any,
+  p?: (jestError: JestError)=> Error,
   extraLevels: number = 1,
 ) {
   try {
@@ -57,7 +89,7 @@ function tryJestExpect(
     if (!(e1 instanceof Error))
       throw e1;
 
-    const e = p(e1 as unknown as JestError);
+    const e = p?.(e1 as unknown as JestError) ?? e1;
 
     throwErrorPopStack(e, 2 + extraLevels);
   }

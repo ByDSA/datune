@@ -36,7 +36,7 @@ describe("002", () => {
     } );
     const results = analyzer.analyze();
 
-    await analyzer.saveLog();
+    await analyzer.saveLogs();
     expectChordTimeline(results.chordTimeline).toHaveDuration(
       bpm.getMillis(notesTimelineSymbolic.duration),
     );
