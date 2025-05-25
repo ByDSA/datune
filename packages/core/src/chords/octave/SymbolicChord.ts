@@ -1,7 +1,17 @@
-import { OctavePitch } from "pitches/OctavePitch";
-import { Chord } from "../Chord";
+import { NonEmptyArray } from "datils/datatypes";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface SymbolicChord<
-P extends OctavePitch> extends Chord<P> {
+export interface SymbolicChord<P, I> {
+    has(pitch: P): boolean;
+    hasAny(...pitches: NonEmptyArray<P>): boolean;
+    hasAll(...pitches: NonEmptyArray<P>): boolean;
+    withRoot(root: P): SymbolicChord<P, I>;
+    withBass(bass: P): SymbolicChord<P, I>;
+    withShift(interval: I): SymbolicChord<P, I>;
+    withShiftDown(interval: I): SymbolicChord<P, I>;
+    withInv(n?: number): SymbolicChord<P, I>;
+    withAdd(...pitches: NonEmptyArray<P>): SymbolicChord<P, I>;
+    withRemove(...pitches: NonEmptyArray<P>): SymbolicChord<P, I>;
+    size: number;
+    root: P;
+    bass: P;
 }

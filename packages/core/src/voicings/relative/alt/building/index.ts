@@ -11,7 +11,7 @@ export {
 } from "./rootIntervals";
 
 export {
-  fromChord,
+  fromRootChord,
 } from "./fromChord";
 
 export {

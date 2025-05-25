@@ -33,6 +33,10 @@ export class Voicing implements IVoicing<Interval> {
     return V.inv(this, n);
   }
 
+  withClose(): Voicing {
+    return V.close(this);
+  }
+
   toString(): string {
     return this.rootIntervals.map(String).join("-");
   }

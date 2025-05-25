@@ -98,6 +98,6 @@ console.log("stringify CMaj13b5a9", C.CMaj13b5a9.toString()); // -> "CMaj13♭5�
 console.log("stringify C13b5", C.fromRootVoicing(P.C, V.THIRTEENTH_b5).toString()); // -> "C13♭5"
 
 /* Others */
-console.log("toVoicing", C.G7.toVoicing()); // -> SEVENTH
+console.log("toRootVoicing", C.G7.toRootVoicing()); // -> SEVENTH
 console.log("ALL_NON_INVERSIONS", C.ALL_NON_INVERSIONS.length); // -> 2695
 console.log("ALL", C.ALL.length); // -> 14357

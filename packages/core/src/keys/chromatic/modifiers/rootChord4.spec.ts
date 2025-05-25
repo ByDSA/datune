@@ -16,7 +16,7 @@ describe.each([
 
     expect(c).not.toBeNull();
 
-    expect(chord).toHaveLength(4);
+    expect(chord?.size).toBe(4);
 
     expectChord(chord, c);
   } );

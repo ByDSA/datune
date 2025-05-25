@@ -1,56 +1,71 @@
-import type { PitchArray, Pitch } from "pitches/chromatic";
+import type { Pitch, PitchArray } from "pitches/chromatic";
+import type { Interval } from "intervals/chromatic";
 import { Arrays } from "datils/datatypes/arrays";
-import { Pitches as P } from "pitches/chromatic";
-import { from, fromPitches } from "../building/pitches";
+import { from } from "../building/pitches";
 import { Chord } from "../Chord";
 
-export function inv(chord: Chord, n: number = 1): Chord {
-  const pitches: PitchArray = [...chord.pitches] as PitchArray;
+export function inv(obj: Chord, n: number = 1): Chord {
+  if (n === 0)
+    return obj;
 
-  Arrays.rotateLeft(pitches, n);
+  const prevBass = obj.bass;
+  const pitchSet = obj.pitchSet.withAdd(prevBass);
+  const { pitches } = pitchSet;
+  const bassIndex = pitches.indexOf(prevBass);
 
-  const rIndex = (chord.rootIndex - (n % chord.length) + chord.length) % chord.length;
+  Arrays.rotateLeft(pitches, bassIndex + n);
 
   return from( {
-    pitches,
-    rootIndex: rIndex,
+    pitchSet,
+    root: obj.root,
+    bass: pitches[0],
   } );
 }
 
-export function shift(chord: Chord, interval: number): Chord {
-  const notes: PitchArray = <PitchArray> chord.pitches.map(
-    (chromatic: Pitch) => P.add(chromatic, interval),
-  );
-
+export function shift(obj: Chord, interval: Interval): Chord {
   return from( {
-    pitches: notes,
-    rootIndex: chord.rootIndex,
+    pitchSet: obj.pitchSet.withShift(interval),
+    root: obj.root.withAdd(interval),
+    bass: obj.bass.withAdd(interval),
   } );
 }
 
-export function shiftDown(chord: Chord, interval: number): Chord {
-  const notes: PitchArray = <PitchArray> chord.pitches.map(
-    (chromatic: Pitch) => P.sub(chromatic, interval),
-  );
-
+export function shiftDown(obj: Chord, interval: Interval): Chord {
   return from( {
-    pitches: notes,
-    rootIndex: chord.rootIndex,
+    pitchSet: obj.pitchSet.withShiftDown(interval),
+    root: obj.root.withSub(interval),
+    bass: obj.bass.withSub(interval),
   } );
 }
 
-export function bass(obj: Chord, bassNote: Pitch): Chord {
-  const oldIndexOfNewBass = obj.pitches.indexOf(bassNote);
-
-  if (oldIndexOfNewBass < 0)
-    return fromPitches(bassNote, ...obj.pitches);
-
-  return inv(obj, oldIndexOfNewBass);
+export function bass(obj: Chord, pitchBass: Pitch): Chord {
+  return from( {
+    pitchSet: obj.pitchSet.withAdd(pitchBass),
+    root: obj.root,
+    bass: pitchBass,
+  } );
 }
 
-export function rootIndex(obj: Chord, index: number): Chord {
+export function root(obj: Chord, pitchRoot: Pitch): Chord {
   return from( {
-    pitches: obj.pitches,
-    rootIndex: index,
+    pitchSet: obj.pitchSet,
+    root: pitchRoot,
+    bass: obj.bass,
+  } );
+}
+
+export function add(obj: Chord, ...pitches: PitchArray): Chord {
+  return from( {
+    pitchSet: obj.pitchSet.withAdd(...pitches),
+    root: obj.root,
+    bass: obj.bass,
+  } );
+}
+
+export function remove(obj: Chord, ...pitches: PitchArray): Chord {
+  return from( {
+    pitchSet: obj.pitchSet.withRemove(...pitches),
+    root: obj.root,
+    bass: obj.bass,
   } );
 }

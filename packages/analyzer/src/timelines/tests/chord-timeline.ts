@@ -1,5 +1,6 @@
 import { Chord, Pitch, PitchSets } from "@datune/core";
 import { PitchArray } from "@datune/core";
+import { PitchSet } from "@datune/core/chromatic";
 import { Time } from "@datune/utils";
 import { throwErrorPopStack } from "datils/errors";
 import { ChordTimeline } from "timelines/ChordTimeline";
@@ -9,9 +10,9 @@ export function expectChord(chord: Chord) {
     toBe(c2: Chord) {
       tryJestExpect(
         ()=> {
-          expectChord(chord).toHavePitches(...c2.pitches);
-
-          expect(chord.pitches[chord.rootIndex]).toBe(c2.pitches[c2.rootIndex]);
+          expectChord(chord).toHavePitchSet(c2.pitchSet);
+          expectChord(chord).toHaveRoot(c2.root);
+          expectChord(chord).toHaveBass(c2.bass);
         },
         () => {
           const e = new Error();
@@ -23,12 +24,11 @@ export function expectChord(chord: Chord) {
       );
     },
     toHavePitches(...pitches: PitchArray) {
+      return this.toHavePitchSet(PitchSets.fromPitches(...pitches));
+    },
+    toHavePitchSet(pitchSet: PitchSet) {
       tryJestExpect(
-        () => expect(
-          PitchSets.from(...chord.pitches),
-        ).toBe(
-          PitchSets.from(...pitches),
-        ),
+        () => expect(chord.pitchSet).toBe(pitchSet),
         (e1) => {
           const e = new Error("Expected: " + e1.matcherResult.expected.pitches + "\nActual: " + e1.matcherResult.actual.pitches);
 
@@ -36,8 +36,11 @@ export function expectChord(chord: Chord) {
         },
       );
     },
-    toHaveRootIndex(index: number) {
-      tryJestExpect(() => expect(chord.rootIndex).toBe(index));
+    toHaveRoot(root: Pitch) {
+      tryJestExpect(() => expect(chord.root).toBe(root));
+    },
+    toHaveBass(bass: Pitch) {
+      tryJestExpect(() => expect(chord.bass).toBe(bass));
     },
   };
 }

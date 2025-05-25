@@ -1,18 +1,18 @@
 import { Pitches as P } from "pitches/chromatic";
-import { from } from "../building";
+import { fromPitches } from "../building";
 
 const { C, G } = P;
 
 it("cache works correctly", () => {
-  const noteSet1 = from(C, G);
-  const noteSet2 = from(C, G);
+  const pitchSet1 = fromPitches(C, G);
+  const pitchSet2 = fromPitches(C, G);
 
-  expect(noteSet1).toBe(noteSet2);
+  expect(pitchSet1).toBe(pitchSet2);
 } );
 
 it("no matter order", () => {
-  const noteSet1 = from(C, G);
-  const noteSet2 = from(G, C);
+  const pitchSet1 = fromPitches(C, G);
+  const pitchSet2 = fromPitches(G, C);
 
-  expect(noteSet1).toBe(noteSet2);
+  expect(pitchSet1).toBe(pitchSet2);
 } );

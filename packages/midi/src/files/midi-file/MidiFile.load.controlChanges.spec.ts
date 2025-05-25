@@ -1,9 +1,7 @@
 import * as fs from "node:fs";
-import { MusicalDurations as MD } from "@datune/core";
 import { load } from "./load";
 import { MidiFile } from "./MidiFile";
 
-const { EIGHTH, QUARTER, SIXTEENTH, WHOLE, ZERO } = MD;
 const LOAD_SAMPLE = "./tests/samples/004.mid";
 
 it("load exists", () => {

@@ -10,7 +10,7 @@ import { singleStepFrom } from "../../steps/single/building";
 export type KeyResolutionGeneratorProps = {
   base: SpnArray;
   required?: boolean;
-  restingPitches: PitchArray;
+  restingPitches: Readonly<PitchArray>;
   maxInterval?: number;
   filters?: StepFilter[];
 };
@@ -21,15 +21,15 @@ export const toKeyResolution: StepsGenerator<KeyResolutionGeneratorProps> = (pro
   };
 };
 class RestingNotesStepsGen {
-  #base: SpnArray; // Notas a evaluar
+  #base: Readonly<SpnArray>; // Notas a evaluar
 
-  #restingPitches: PitchArray; // Notas de reposo. Ej: acorde de C (C-E-G) en C Mayor
+  #restingPitches: Readonly<PitchArray>; // Notas de reposo. Ej: acorde de C (C-E-G) en C Mayor
 
   #maxInterval: number; // Distancia máxima (arriba o abajo) a evaluar
 
   #required: boolean;
 
-  #filters?: StepFilter[];
+  #filters?: Readonly<StepFilter[]>;
 
   constructor(props: KeyResolutionGeneratorProps) {
     this.#base = props.base;

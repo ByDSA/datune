@@ -1,7 +1,7 @@
 import type { Chord } from "../../../../chords/octave/chromatic/Chord";
 import type { Voicing } from "voicings/chromatic";
-import { fromPitches } from "./pitches";
+import { fromRootIntervals } from "./rootIntervals";
 
-export function fromChord(chord: Chord): Voicing {
-  return fromPitches(...chord.pitches);
+export function fromRootChord(chord: Chord): Voicing {
+  return fromRootIntervals(...chord.rootIntervals);
 }

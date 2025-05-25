@@ -100,6 +100,6 @@ console.log("stringify C13b5a9", C.C13b5a9.toString()); // -> "C13♭5♯9"
 console.log("stringify C13b5", C.fromRootVoicing(P.C, V.THIRTEENTH_b5).toString()); // -> "C13♭5"
 
 /* Others */
-console.log("toVoicing", C.G7.toVoicing().toString()); // -> 0-4-7-10 (SEVENTH)
+console.log("toRootVoicing", C.G7.toRootVoicing().toString()); // -> 0-4-7-10 (SEVENTH)
 console.log("ALL_NON_INVERSIONS", C.ALL_NON_INVERSIONS.length); // -> 660
 console.log("ALL", C.ALL.length); // -> 3468

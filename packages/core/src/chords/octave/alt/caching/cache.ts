@@ -1,22 +1,25 @@
 import { KeyMappedFlyweightCache } from "datils/patterns/caching";
-import { type PitchArray } from "pitches/alt";
-import { getObjId as pitchGetId } from "pitches/alt/id";
+import { PitchSet } from "sets/pitch-set/alt/PitchSet";
+import { Pitch } from "pitches/alt";
+import { getId as getPitchSetId, getKey as getPitchSetKey } from "sets/pitch-set/alt/caching/cache";
 import { Chord } from "../Chord";
 
 export type Key = {
-  pitches: PitchArray;
-  rootIndex: number;
+  pitchSet: PitchSet;
+  root: Pitch;
+  bass: Pitch;
 };
 
 function getKey(chord: Chord): Key {
   return {
-    pitches: chord.pitches,
-    rootIndex: chord.rootIndex,
+    pitchSet: chord.pitchSet,
+    root: chord.root,
+    bass: chord.bass,
   };
 }
 
 export function getId(key: Key): string {
-  return key.rootIndex + "|" + key.pitches.map(pitchGetId).join("-");
+  return +key.root + "|" + +key.bass + "|" + getPitchSetId(getPitchSetKey(key.pitchSet));
 }
 
 export const cache = new KeyMappedFlyweightCache<Chord, Key, string>( {

@@ -6,11 +6,11 @@ import { inv } from ".";
 
 describe.each([
   [C.C, V.TRIAD_MAJOR],
-  [inv(C.C, 2), V.inv(V.TRIAD_MAJOR, 2)],
-  [inv(C.C), V.inv(V.TRIAD_MAJOR)],
-])("inv voicing", (chord: Chord, voicing: Voicing) => {
+  [inv(C.C, 2), V.TRIAD_MAJOR],
+  [inv(C.C), V.TRIAD_MAJOR],
+])("invs have same rootIntervals voicing", (chord: Chord, voicing: Voicing) => {
   it(`${chord} => ${voicing}`, () => {
-    expect(voicing).toBe(chord.toVoicing());
+    expect(voicing).toBe(chord.toRootVoicing());
   } );
 } );
 
@@ -19,7 +19,7 @@ describe.each([
   C.CMaj7,
 ])("keep root", (chord: Chord) => {
   it(`${chord} => ${C.A}`, () => {
-    for (let i = 1; i < chord.length; i++)
+    for (let i = 1; i < chord.size; i++)
       expect(chord.root).toBe(chord.withInv(i).root);
   } );
 } );

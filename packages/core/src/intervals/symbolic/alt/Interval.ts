@@ -23,6 +23,10 @@ export class Interval {
     return `${sign}${this.quality}${dIntervalIntAbs + 1}`;
   }
 
+  valueOf() {
+    return this.toChromaticInterval();
+  }
+
   toChromaticInterval() {
     return CI.fromAltInterval(this);
   }

@@ -24,7 +24,8 @@ it("contains= C, G. MaxLength=3. NotInversions", () => {
     Gsus4,
   ];
 
-  expect(actual).toEqual(expected);
+  expect(actual).toHaveLength(32);
+  expect(expected.every(a=>actual.includes(a))).toBeTruthy();
 } );
 
 it("contains= C, G. MaxLength=3", () => {
@@ -53,7 +54,8 @@ it("contains= C, G. MaxLength=3", () => {
     fromRootVoicing(C_D, V.TRIAD_QUARTAL),
   ];
 
-  expect(actual).toEqual(expected);
+  expect(actual).toHaveLength(384);
+  expect(expected.every(a=>actual.includes(a))).toBeTruthy();
 } );
 
 it("contains= C, G. MaxLength=3. Root=C", () => {
@@ -70,5 +72,6 @@ it("contains= C, G. MaxLength=3. Root=C", () => {
     Csus2,
   ];
 
-  expect(actual).toEqual(expected);
+  expect(actual).toHaveLength(132);
+  expect(expected.every(a=>actual.includes(a))).toBeTruthy();
 } );

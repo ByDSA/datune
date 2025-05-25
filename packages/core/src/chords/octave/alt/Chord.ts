@@ -1,36 +1,48 @@
+/* eslint-disable accessor-pairs */
 import type { SymbolicChord } from "../SymbolicChord";
 import type { Key } from "./caching/cache";
 import type { PitchArray, Pitch } from "pitches/alt";
-import type { Interval, Voicing } from "alt";
-import type { Chord as CChord } from "chromatic";
 import { deepFreeze } from "datils/datatypes/objects";
+import { Arrays } from "datils/datatypes/arrays";
+import { type Interval, type IntervalArray, type Voicing } from "alt";
+import { Intervals as I } from "intervals/alt";
+import { type Chord as CChord } from "chords/octave/chromatic";
 import { Chords as CC } from "chords/octave/chromatic";
 import { Chords as C } from "chords/alt";
 import { Voicings as V } from "voicings/alt";
+import { PitchSet } from "sets/pitch-set/alt/PitchSet";
 
-export class Chord implements SymbolicChord<Pitch> {
-  pitches: PitchArray;
+export class Chord implements SymbolicChord<Pitch, Interval> {
+  #pitches?: Readonly<PitchArray>;
 
-  length: number;
+  #rootIntervals?: Readonly<IntervalArray>;
 
-  #root?: Pitch;
+  pitchSet: PitchSet;
 
-  rootIndex: number;
+  root: Pitch;
+
+  bass: Pitch;
 
   private constructor(key: Key) {
-    this.pitches = key.pitches;
-    this.rootIndex = key.rootIndex;
-    this.length = this.pitches.length;
+    if (key.pitchSet.size === 0)
+      throw new Error("Empty pitch set");
+
+    this.pitchSet = key.pitchSet;
+    this.root = key.root;
+    this.bass = key.bass;
 
     deepFreeze(this);
   }
 
-  // eslint-disable-next-line accessor-pairs
-  get root(): Pitch {
-    if (this.#root === undefined)
-      this.#root = this.pitches[this.rootIndex];
+  get pitches(): Readonly<PitchArray> {
+    if (!this.#pitches)
+      this.#pitches = getPitches(this);
 
-    return this.#root;
+    return this.#pitches;
+  }
+
+  get size() {
+    return this.pitchSet.size;
   }
 
   has(pitch: Pitch): boolean {
@@ -38,21 +50,11 @@ export class Chord implements SymbolicChord<Pitch> {
   }
 
   hasAll(...pitches: PitchArray): boolean {
-    for (const c of pitches) {
-      if (!this.pitches.includes(c))
-        return false;
-    }
-
-    return true;
+    return this.pitchSet.hasAll(...pitches);
   }
 
   hasAny(...pitches: PitchArray): boolean {
-    for (const c of pitches) {
-      if (this.pitches.includes(c))
-        return true;
-    }
-
-    return false;
+    return this.pitchSet.hasAny(...pitches);
   }
 
   withShift(interval: Interval): Chord {
@@ -67,16 +69,31 @@ export class Chord implements SymbolicChord<Pitch> {
     return C.inv(this, n);
   }
 
-  withBass(pitch: Pitch): Chord {
-    return C.bass(this, pitch);
+  withBass(bass: Pitch): Chord {
+    return C.bass(this, bass);
   }
 
-  withRootIndex(index: number): Chord {
-    return C.rootIndex(this, index);
+  withRoot(root: Pitch): Chord {
+    return C.root(this, root);
   }
 
-  toVoicing(): Voicing {
-    return V.fromChord(this);
+  withAdd(...pitches: PitchArray): Chord {
+    return C.add(this, ...pitches);
+  }
+
+  withRemove(...pitches: PitchArray): Chord {
+    return C.remove(this, ...pitches);
+  }
+
+  get rootIntervals(): Readonly<IntervalArray> {
+    if (!this.#rootIntervals)
+      this.#rootIntervals = getRootIntervals(this);
+
+    return this.#rootIntervals;
+  }
+
+  toRootVoicing(): Voicing {
+    return V.fromRootChord(this);
   }
 
   toChromatic(): CChord {
@@ -84,6 +101,45 @@ export class Chord implements SymbolicChord<Pitch> {
   }
 
   toString(): string {
-    return `${this.pitches.join("-")} (rootIndex=${this.rootIndex})`;
+    return `${this.pitches.map(p=>p === this.root ? `[${p}]` : p).join("-")}`;
   }
+}
+
+function getPitches(key: Key): Readonly<PitchArray> {
+  let pitches = [...key.pitchSet.pitches] as PitchArray;
+  const bassIndex = pitches.indexOf(key.bass);
+
+  pitches.splice(bassIndex, 1);
+  let rootIndex = pitches.indexOf(key.root);
+
+  if (rootIndex < 0) {
+    const chromaticPitches = pitches.map(p=>p.toChromatic());
+
+    for (let i = 1; i < 12; i++) {
+      const p = key.root.toChromatic().withAdd(i);
+
+      rootIndex = chromaticPitches.findIndex(c=>c === p);
+
+      if (rootIndex >= 0)
+        break;
+    }
+  }
+
+  Arrays.rotateLeft(pitches, rootIndex);
+  pitches = [key.bass, ...pitches];
+
+  return Object.freeze(pitches);
+}
+
+function getRootIntervals(chord: Chord): IntervalArray {
+  const rootIntervals: IntervalArray = [] as unknown as IntervalArray;
+  const { pitches } = chord;
+
+  for (let i = 0; i < pitches.length; i++) {
+    let rootInterval = chord.root === pitches[i] ? I.P1 : I.betweenNext(chord.root, pitches[i]);
+
+    rootIntervals.push(rootInterval);
+  }
+
+  return rootIntervals.sort((a, b)=>+a - +b);
 }

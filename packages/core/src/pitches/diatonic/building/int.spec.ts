@@ -1,3 +1,5 @@
+import { inspect } from "node:util";
+import { Pitches as P } from "diatonic";
 import { A, B, C, D, E, F, G } from "../constants";
 import { fromInt } from ".";
 
@@ -26,4 +28,11 @@ describe("fromInt", () => {
       expect(actual).toBe(expected);
     } );
   } );
+} );
+
+it("should get custom inspect", () => {
+  const ps = P.C;
+  const output = inspect(ps);
+
+  expect(output).toBe("Pitch(C)");
 } );

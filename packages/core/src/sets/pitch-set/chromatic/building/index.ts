@@ -1,9 +1,13 @@
 import type { PitchSet } from "../PitchSet";
-import type { PitchArray } from "pitches/chromatic";
+import type { Pitch } from "pitches/chromatic";
 import { cache } from "../caching/cache";
 
-export function from(...pitches: PitchArray): PitchSet {
+export function fromPitches(...pitches: Pitch[]): PitchSet {
   const set = new Set(pitches);
 
+  return from(set);
+}
+
+export function from(set: Set<Pitch>): PitchSet {
   return cache.getOrCreate(set);
 }

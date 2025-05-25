@@ -1,3 +1,4 @@
+import { inspect } from "node:util";
 import { Intervals as I } from "intervals/chromatic";
 import { Pitches as AP } from "pitches/alt";
 import { Pitches as P } from ".";
@@ -53,4 +54,11 @@ it("toALt", () => {
   const actual = P.AA.toAlt();
 
   expect(actual).toBe(expected);
+} );
+
+it("should get custom inspect", () => {
+  const ps = P.CC;
+  const output = inspect(ps);
+
+  expect(output).toBe("Pitch(C#)");
 } );

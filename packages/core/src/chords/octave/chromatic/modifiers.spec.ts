@@ -57,9 +57,9 @@ describe("withBass", ()=> {
   } );
 } );
 
-describe("toVoicing", ()=> {
+describe("toRootVoicing", ()=> {
   it("test", () => {
-    const expected = C.C.toVoicing();
+    const expected = C.C.toRootVoicing();
     const actual = V.TRIAD_MAJOR;
 
     expect(actual).toBe(expected);

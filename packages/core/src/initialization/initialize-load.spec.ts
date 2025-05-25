@@ -2,7 +2,7 @@ import type { Chord } from "chords/chromatic";
 import { cache as chromaticChordCache } from "chords/octave/chromatic/caching/cache";
 import { Pitches as CP } from "pitches/chromatic";
 import { cache as chromaticScaleCache } from "scales/symbolic/chromatic/caching/cache";
-import { PitchArray } from "chromatic";
+import { PitchSets as PS } from "chromatic";
 import { initialize } from "./initialize";
 import { load } from "./io";
 import { Data } from "./types";
@@ -11,8 +11,9 @@ describe("initialize", () => {
   describe("before", () => {
     it("chords chromatic", () => {
       const dto = {
-        pitches: [CP.C, CP.E, CP.G] as PitchArray,
-        rootIndex: 0,
+        pitchSet: PS.fromPitches(CP.C, CP.E, CP.G),
+        root: CP.C,
+        bass: CP.C,
       };
       const got = chromaticChordCache.get(dto);
 
@@ -40,8 +41,9 @@ describe("initialize", () => {
     describe("chords chromatic", () => {
       it("cache", () => {
         const dto = {
-          pitches: [CP.C, CP.E, CP.G] as PitchArray,
-          rootIndex: 0,
+          pitchSet: PS.fromPitches(CP.C, CP.E, CP.G),
+          root: CP.C,
+          bass: CP.C,
         };
         const got = chromaticChordCache.get(dto);
 
@@ -50,8 +52,9 @@ describe("initialize", () => {
 
       it("pitches", () => {
         const dto = {
-          pitches: [CP.C, CP.E, CP.G] as PitchArray,
-          rootIndex: 0,
+          pitchSet: PS.fromPitches(CP.C, CP.E, CP.G),
+          root: CP.C,
+          bass: CP.C,
         };
         const got = chromaticChordCache.get(dto) as Chord;
         const [p0, p1, p2] = got.pitches;

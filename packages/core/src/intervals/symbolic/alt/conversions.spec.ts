@@ -17,3 +17,16 @@ it("toDegree", () => {
 
   expect(actual).toBe(expected);
 } );
+
+describe.each([
+  [I.d5, 6],
+  [I.P5, 7],
+])("valueOf", (base, expected) => {
+  it("test", () => {
+    const actual1 = base.valueOf();
+    const actual2 = +base;
+
+    expect(actual1).toBe(expected);
+    expect(actual2).toBe(expected);
+  } );
+} );

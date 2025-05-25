@@ -1,36 +1,40 @@
 import type { PitchSet } from "../PitchSet";
 import * as P from "pitches/chromatic/constants";
-import { from } from "../building";
-import { add } from "../modifiers";
+import { fromPitches } from "../building";
+import { shift } from "../modifiers";
 
 export function initialize() {
   if (C5)
     throw new Error("Already initialized");
 
-  C5 = from(P.C, P.G);
+  EMPTY = fromPitches();
 
-  CC5 = add(C5, 1);
+  C5 = fromPitches(P.C, P.G);
 
-  D5 = add(C5, 2);
+  CC5 = shift(C5, 1);
 
-  DD5 = add(C5, 3);
+  D5 = shift(C5, 2);
 
-  E5 = add(C5, 4);
+  DD5 = shift(C5, 3);
 
-  F5 = add(C5, 5);
+  E5 = shift(C5, 4);
 
-  FF5 = add(C5, 6);
+  F5 = shift(C5, 5);
 
-  G5 = add(C5, 7);
+  FF5 = shift(C5, 6);
 
-  GG5 = add(C5, 8);
+  G5 = shift(C5, 7);
 
-  A5 = add(C5, 9);
+  GG5 = shift(C5, 8);
 
-  AA5 = add(C5, 10);
+  A5 = shift(C5, 9);
 
-  B5 = add(C5, 11);
+  AA5 = shift(C5, 10);
+
+  B5 = shift(C5, 11);
 }
+
+export let EMPTY: PitchSet;
 
 export let C5: PitchSet;
 

@@ -249,7 +249,7 @@ function calcAll(): ChordArray {
       set.add(chord);
       let chordInv = chord;
 
-      for (let i = 1; i < chord.length; i++) {
+      for (let i = 1; i < chord.size; i++) {
         chordInv = inv(chordInv);
         set.add(chordInv);
       }

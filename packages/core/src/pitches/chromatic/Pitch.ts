@@ -1,7 +1,9 @@
+/* eslint-disable accessor-pairs */
 /* eslint-disable import/no-cycle */
 import type { OctavePitch } from "../OctavePitch";
 import type { Interval } from "intervals/chromatic";
 import type { Pitch as APitch } from "pitches/alt";
+import { inspect } from "node:util";
 import { Pitches as AP } from "pitches/alt";
 import { Pitches as P } from ".";
 
@@ -44,5 +46,13 @@ export class Pitch implements OctavePitch {
 
   withSub(interval: Interval): Pitch {
     return P.sub(this, interval);
+  }
+
+  get [Symbol.toStringTag](): string {
+    return "Pitch";
+  }
+
+  [inspect.custom](): string {
+    return `${this[Symbol.toStringTag]}(${this.toString()})`;
   }
 }

@@ -1,4 +1,4 @@
-import { Chord, Spn } from "@datune/core";
+import { PitchSet, Spn } from "@datune/core";
 import { Target, targetsToSpnsArray, targetsToChords, targetGetId } from "voice-leading/steps/Target";
 
 export function expectTargets(targets: Target[]) {
@@ -8,33 +8,35 @@ export function expectTargets(targets: Target[]) {
 
       expect(new Set(actual)).toEqual(new Set(expected));
     },
-    toEqualChords: (expected: Chord[]) => {
-      const actual = targetsToChords(targets);
+    toEqualPitchSets: (expected: PitchSet[]) => {
+      const actual = targetsToChords(targets).map(c=>c.pitchSet);
+      const actualSet = new Set(actual);
+      const expectedSet = new Set(expected);
 
-      expect(new Set(actual)).toEqual(new Set(expected));
+      expect(actualSet).toEqual(expectedSet);
     },
     toEqual: (expected: Target[]) => {
       expect(new Set(targets)).toEqual(new Set(expected));
     },
-    toContainChord: (chord: Chord) => {
-      const chords = targetsToChords(targets);
+    toContainPitchSet: (ps: PitchSet) => {
+      const pitchSets = targetsToChords(targets).map(c=>c.pitchSet);
 
-      expect(chords).toContain(chord);
+      expect(pitchSets).toContain(ps);
     },
-    toContainChords: (...chords: Chord[]) => {
-      const targetChords = targetsToChords(targets);
+    toContainPitchSets: (...pitchSets: PitchSet[]) => {
+      const targetPitchSets = targetsToChords(targets).map(c=>c.pitchSet);
       const notFound = [];
 
-      for (const c of chords) {
+      for (const c of pitchSets) {
         try {
-          expect(targetChords).toContain(c);
+          expect(targetPitchSets).toContain(c);
         } catch {
           notFound.push(c);
         }
       }
 
       if (notFound.length > 0)
-        throw new Error(["Not found chords:", "\n" + notFound.map(String).join("\n"), "\n\nReceived chords:", "\n" + targetChords.map(String).join("\n")].join(" "));
+        throw new Error(["Not found chords:", "\n" + notFound.map(String).join("\n"), "\n\nReceived chords:", "\n" + targetPitchSets.map(String).join("\n")].join(" "));
     },
   };
 }

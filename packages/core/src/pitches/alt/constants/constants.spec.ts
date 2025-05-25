@@ -1,3 +1,4 @@
+import { inspect } from "node:util";
 import { A, AA, B, BBB, C, Cb, Cbb, CC, D, DD, E, F, FF, G, GG, initialize } from ".";
 
 it("before initialization, constant should be uninitialized", () => {
@@ -34,4 +35,11 @@ describe("after initialization", () => {
     expect(C.alts).toBe(0);
     expect(BBB.alts).toBe(2);
   } );
+} );
+
+it("should get custom inspect", () => {
+  const ps = Cb;
+  const output = inspect(ps);
+
+  expect(output).toBe("Pitch(C♭)");
 } );

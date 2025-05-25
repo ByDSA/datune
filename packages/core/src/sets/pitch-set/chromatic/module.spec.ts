@@ -4,14 +4,19 @@ import { PitchSets as PS } from ".";
 
 const vars: string[] = [
   ...CHAROMATIC_PITCHES12_SHARPS_VARNAMES.map(n=>n + "5"),
+  "EMPTY",
 ];
 const functions: string[] = [
   // building
   PS.from.name,
+  PS.fromPitches.name,
 
   // modifiers
   PS.add.name,
-  PS.sub.name,
+  PS.remove.name,
+  PS.shift.name,
+  PS.shiftDown.name,
+  PS.reverse.name,
 ];
 
 it("module should export functions and vars", async () => {

@@ -108,12 +108,13 @@ const functions: string[] = [
   V.fromVoicings.name,
   V.fromDegrees.name,
   V.fromPitches.name,
-  V.fromChord.name,
+  V.fromRootChord.name,
 
   // modifiers
   V.inv.name,
   V.add.name,
   V.omit.name,
+  V.close.name,
 
   // conversions
   V.toChromaticInterval.name,

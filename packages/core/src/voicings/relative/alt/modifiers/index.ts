@@ -5,3 +5,7 @@ export {
 export {
   add, omit,
 } from "./add-omit";
+
+export {
+  close,
+} from "./close";

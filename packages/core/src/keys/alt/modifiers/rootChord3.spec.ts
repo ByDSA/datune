@@ -13,7 +13,7 @@ describe("tests", () => {
   it("rootChord3: C -> C", () => {
     const chord = rootChord3(K.C);
 
-    expect(chord?.length).toBe(3);
+    expect(chord?.size).toBe(3);
     expect(chord).toBe(C_C);
   } );
 
@@ -21,7 +21,7 @@ describe("tests", () => {
     const key = from(P.C, S.ORIENTAL);
     const chord = rootChord3(key);
 
-    expect(chord?.length).toBe(3);
+    expect(chord?.size).toBe(3);
     expect(chord).toBe(C_Am);
   } );
 } );

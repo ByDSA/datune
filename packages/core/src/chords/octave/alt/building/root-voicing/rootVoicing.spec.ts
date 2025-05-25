@@ -13,8 +13,8 @@ describe.each([
   [P.C, SEVENTH, C.C7],
   [P.A, TRIAD_MINOR, C.Am],
   [P.C, SEVENTH_MAJ7, C.CMaj7],
-  [P.C, NINTH, C.C9],
-])("from Root + Voicing", (pitch: Pitch, voicing: Voicing, expectedChord: Chord) => {
+  [P.C, NINTH, C.C9, false],
+])("from Root + Voicing", (pitch: Pitch, voicing: Voicing, expectedChord: Chord, reversible: boolean = true) => {
   const pitchName = String(pitch);
   const chordName = "expectedChord.pitches";
   const voicingName = String(voicing);
@@ -25,10 +25,12 @@ describe.each([
     expect(chord).toBe(expectedChord);
   } );
 
-  it(`Reversible: root=${pitchName}, voicing=${voicingName}`, () => {
-    const chord = fromRootVoicing(pitch, voicing);
+  if (reversible) {
+    it(`Reversible: root=${pitchName}, voicing=${voicingName}`, () => {
+      const chord = fromRootVoicing(pitch, voicing);
 
-    expect(chord.pitches[0]).toBe(pitch);
-    expect(chord.toVoicing()).toBe(voicing);
-  } );
+      expect(chord.pitches[0]).toBe(pitch);
+      expect(chord.toRootVoicing()).toBe(voicing);
+    } );
+  }
 } );

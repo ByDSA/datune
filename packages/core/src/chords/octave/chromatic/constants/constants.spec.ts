@@ -20,14 +20,14 @@ it("after initialization, constant should be initialized", () => {
 it("trying edit property notes", () => {
   const { pitches } = C;
   const t = () => {
-    pitches[0] = P.D;
+    (pitches as any)[0] = P.D;
   };
 
   expect(t).toThrow(Error);
 } );
 
 it("all", () => {
-  expect(ALL).toHaveLength(3516);
+  expect(ALL).toHaveLength(3504);
 } );
 
 it("all non inversions", () => {

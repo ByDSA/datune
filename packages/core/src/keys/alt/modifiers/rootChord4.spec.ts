@@ -5,6 +5,6 @@ import { rootChord4 } from "./rootChord4";
 it("rootChord4: C -> CMaj7", () => {
   const chord = rootChord4(K.C);
 
-  expect(chord?.length).toBe(4);
+  expect(chord?.size).toBe(4);
   expect(chord).toBe(C.CMaj7);
 } );

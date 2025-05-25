@@ -1,3 +1,5 @@
+/* eslint-disable accessor-pairs */
+import { inspect } from "node:util";
 import { OctavePitch } from "../OctavePitch";
 
 export class Pitch implements OctavePitch {
@@ -20,7 +22,15 @@ export class Pitch implements OctavePitch {
       case 4: return "G";
       case 5: return "A";
       case 6: return "B";
-      default: return "[Diatonic]";
+      default: throw new Error(`Invalid pitch value: ${this.intValue}`);
     }
+  }
+
+  get [Symbol.toStringTag](): string {
+    return "Pitch";
+  }
+
+  [inspect.custom](): string {
+    return `${this[Symbol.toStringTag]}(${this.toString()})`;
   }
 }

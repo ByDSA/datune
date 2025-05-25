@@ -1,15 +1,15 @@
 import type { Chord } from "chromatic";
+import { throwErrorPopStack } from "datils/errors";
 
 export function expectChord(actual: Chord | null, expected: Chord | null) {
   try {
-    if (actual !== null && expected !== null)
-      expect(actual).toHaveLength(expected.length);
-
-    expect(actual).toEqual(expected);
+    expect(actual).toBe(expected);
   } catch {
-    throw new Error(JSON.stringify( {
+    const e = new Error(JSON.stringify( {
       actual: actual?.toString(),
       expected: expected?.toString(),
     }, null, 2));
+
+    throwErrorPopStack(e, 1);
   }
 }

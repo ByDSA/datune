@@ -6,20 +6,21 @@ import { fromPitches } from "../building";
 import { inv } from "../modifiers";
 import { Chords } from "..";
 
-const { B, Bb, C, D, E, Eb, G } = P;
+const { B, Bb, C, E, Eb, G } = P;
 const { C: AC_C, C9, CMaj7, CmMaj7, C7 } = Chords;
 
 describe.each(<[Chord, PitchArray][]>[
   [AC_C, [C, E, G]],
   [C7, [C, E, G, Bb]],
-  [C9, [C, E, G, Bb, D]],
   [CMaj7, [C, E, G, B]],
   [CmMaj7, [C, Eb, G, B]],
-  [inv(C7), [E, G, Bb, C]],
-  [inv(C7, 2), [G, Bb, C, E]],
+  [inv(C7), [E, C, G, Bb]],
+  [inv(C7, 2), [G, C, E, Bb]],
   [inv(C7, 3), [Bb, C, E, G]],
+  [C9, [P.C, P.D, P.E, P.G, P.Bb]],
 ])("pitches", (chord: Chord, pitches: PitchArray) => {
   const chordName = chord ? String(chord) : "undefined";
+  const { root } = chord;
 
   describe("name: " + chordName, () => {
     it("defined chord", () => {
@@ -33,13 +34,13 @@ describe.each(<[Chord, PitchArray][]>[
     } );
 
     it(`length = ${pitches.length}`, () => {
-      const actual = chord.length;
+      const actual = chord.size;
 
       expect(actual).toBe(pitches.length);
     } );
 
-    it(`Reversible from pitches: ${String(pitches)}`, () => {
-      const actual = fromPitches(...pitches);
+    it(`Reversible from pitches (${String(pitches)}) and root (${root})`, () => {
+      const actual = fromPitches(...pitches).withRoot(root);
 
       expect(actual.pitches).toStrictEqual(chord.pitches);
     } );

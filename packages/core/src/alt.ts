@@ -12,6 +12,8 @@ export * from "./pitches/alt";
 
 export * from "./scales/alt";
 
+export * from "./sets/pitch-set/alt";
+
 export * from "./spns/alt";
 
 export * from "./voicings/alt";

@@ -1,12 +1,12 @@
-import type { ChordArray, Chord } from "@datune/core/chords/chromatic";
-import type { KeyArray } from "@datune/core/keys/chromatic";
-import type { PitchArray, Pitch } from "@datune/core/pitches/chromatic";
-import { Chords as C } from "@datune/core/chords/octave/chromatic";
+import type { Chord } from "@datune/core/chords/chromatic";
+import { type PitchArray, type Pitch, Pitches } from "@datune/core/pitches/chromatic";
+import { Chords } from "@datune/core/chords/octave/chromatic";
+import { PitchSets as PS } from "@datune/core";
+import { PitchSet } from "@datune/core/sets/pitch-set/chromatic/PitchSet";
+import { getCombinations } from "datils/math/combinatorics";
 
 export class Finder {
-  // TODO: por qué no se usa?
-  // eslint-disable-next-line no-unused-private-class-members
-  #tonalities?: KeyArray;
+  #notInversions: boolean;
 
   #notes?: PitchArray;
 
@@ -14,18 +14,21 @@ export class Finder {
 
   #minLength: number;
 
-  #notInversions: boolean;
-
   #bass?: Pitch;
 
+  #root?: Pitch;
+
+  #bassInPitchSet: boolean;
+
   constructor() {
-    this.#maxLength = 100;
-    this.#minLength = 1;
+    this.#maxLength = 12;
+    this.#minLength = 2;
     this.#notInversions = false;
+    this.#bassInPitchSet = true;
   }
 
-  key(...keys: KeyArray): Finder {
-    this.#tonalities = keys;
+  notInversions() {
+    this.#notInversions = true;
 
     return this;
   }
@@ -36,22 +39,56 @@ export class Finder {
     return this;
   }
 
-  find(): Chord[] {
-    let chords = this.#notInversions ? C.ALL_NON_INVERSIONS : C.ALL;
-
-    if (this.#bass)
-      chords = this.#filterBass(chords);
-
-    chords = this.#filterContainsAndNote(chords);
-    chords = this.#filterLength(chords);
-
-    return chords;
-  }
-
-  notInversions(): Finder {
-    this.#notInversions = true;
+  bassInPitchSetNotRequired(): Finder {
+    this.#bassInPitchSet = false;
 
     return this;
+  }
+
+  find(): Chord[] {
+    const pitches = Pitches.ALL;
+    const pitchSets: PitchSet[] = [];
+
+    for (let i = this.#minLength; i <= this.#maxLength; i++) {
+      let pss = getCombinations(pitches, i).map(a=>PS.fromPitches(...a));
+
+      if (this.#notes !== undefined) {
+        pss = pss.filter(ps=>{
+          const withBass = this.#bass ? ps.withAdd(this.#bass) : ps;
+
+          return withBass.hasAll(...this.#notes as PitchArray);
+        } );
+      }
+
+      pitchSets.push(...pss);
+    }
+
+    const chordsSet = new Set<Chord>();
+
+    for (const ps of pitchSets) {
+      const possibleRoots = this.#root ? [this.#root] : Pitches.ALL;
+      const possibleBass = this.#bass ? [this.#bass] : Pitches.ALL;
+
+      for (const root of possibleRoots) {
+        for (const bass of possibleBass) {
+          if (this.#bassInPitchSet && !ps.has(bass))
+            continue;
+
+          if (this.#notInversions && ps.has(bass) && bass !== root)
+            continue;
+
+          const chord = Chords.from( {
+            bass,
+            pitchSet: ps,
+            root,
+          } );
+
+          chordsSet.add(chord);
+        }
+      }
+    }
+
+    return [...chordsSet];
   }
 
   maxChordLength(n: number): Finder {
@@ -66,33 +103,15 @@ export class Finder {
     return this;
   }
 
-  minChordLength(n: number): Finder {
-    this.#minLength = n;
+  root(r: Pitch): Finder {
+    this.#bass = r;
 
     return this;
   }
 
-  #filterContainsAndNote(chords: ChordArray): ChordArray {
-    if (!this.#notes)
-      return chords;
+  minChordLength(n: number): Finder {
+    this.#minLength = n;
 
-    return chords.filter((c) => {
-      for (const n of <PitchArray> this.#notes) {
-        if (!c.has(n))
-          return false;
-      }
-
-      return true;
-    } ) as ChordArray;
-  }
-
-  #filterLength(chords: Chord[]): ChordArray {
-    return chords.filter(
-      (c) => c.length >= this.#minLength && c.length <= this.#maxLength,
-    ) as ChordArray;
-  }
-
-  #filterBass(chords: Chord[]): ChordArray {
-    return chords.filter((c) => c.pitches[0] === this.#bass) as ChordArray;
+    return this;
   }
 }

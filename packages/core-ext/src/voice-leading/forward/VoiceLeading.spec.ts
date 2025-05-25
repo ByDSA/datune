@@ -79,9 +79,9 @@ it("c near Key.C", () => {
     C.G.withInv(),
     C.Am.withInv(),
     C.B0,
-  ];
+  ].map(c=>c.pitchSet);
 
-  expectTargets(result.targets).toEqualChords(expected);
+  expectTargets(result.targets).toEqualPitchSets(expected);
 } );
 
 it("csus4 resolution no key", () => {
@@ -107,9 +107,9 @@ it("csus4 resolution no key", () => {
     C.Em.withInv(2), // near -1, res -1, res 0
     C.F.withInv(2),
     C.Fm.withInv(2),
-  ];
+  ].map(c=>c.pitchSet);
 
-  expectTargets(result.targets).toContainChords(...expected);
+  expectTargets(result.targets).toContainPitchSets(...expected);
 
   expect(result.targets).toHaveLength(8);
 } );
@@ -134,9 +134,9 @@ it("csus4 resolution in C", () => {
     C.Dm,
     C.Em.withInv(2),
     C.F.withInv(2),
-  ];
+  ].map(c=>c.pitchSet);
 
-  expectTargets(result.targets).toEqualChords(expected);
+  expectTargets(result.targets).toEqualPitchSets(expected);
 } );
 
 it("bº resolution", () => {
@@ -169,9 +169,9 @@ it("bº resolution", () => {
     C.D.withInv(2),
     C.Am,
     C.A,
-  ];
+  ].map(c=>c.pitchSet);
 
-  expectTargets(result.targets).toEqualChords(expected);
+  expectTargets(result.targets).toEqualPitchSets(expected);
 } );
 
 it("c+ resolution", () => {
@@ -213,9 +213,9 @@ it("c+ resolution", () => {
     C.Gm.withInv(),
     C.GG.withInv(),
     C.GGm.withInv(),
-  ];
+  ].map(c=>c.pitchSet);
 
-  expectTargets(result.targets).toEqualChords(expected);
+  expectTargets(result.targets).toEqualPitchSets(expected);
 } );
 
 it("bº resolution in Key C", () => {
@@ -239,9 +239,9 @@ it("bº resolution in Key C", () => {
     C.Csus2,
     C.Asus4,
     C.Gsus2.withInv(), // Aquartal
-  ];
+  ].map(c=>c.pitchSet);
 
-  expectTargets(result.targets).toEqualChords(expected);
+  expectTargets(result.targets).toEqualPitchSets(expected);
 } );
 
 it("dm resolution in Key C (resting=root3) common triads", () => {
@@ -273,9 +273,9 @@ it("dm resolution in Key C (resting=root3) common triads", () => {
     C.Em,
     C.F.withInv(2),
     C.G.withInv(2),
-  ];
+  ].map(c=>c.pitchSet);
 
-  expectTargets(result.targets).toEqualChords(expected);
+  expectTargets(result.targets).toEqualPitchSets(expected);
 } );
 
 it("d5 note resolution in Key C (resting=root3)", () => {
@@ -366,9 +366,9 @@ it("dm resolution in Key C (resting=root3) triads major minor", () => {
     C.F.withInv(2),
     C.G.withInv(2),
     C.Em,
-  ];
+  ].map(c=>c.pitchSet);
 
-  expectTargets(result.targets).toEqualChords(expected);
+  expectTargets(result.targets).toEqualPitchSets(expected);
 } );
 
 it("dm resolution in Key C (resting=root4)", () => {
@@ -395,9 +395,9 @@ it("dm resolution in Key C (resting=root4)", () => {
     C.F.withInv(2),
     C.G.withInv(2),
     C.Em,
-  ];
+  ].map(c=>c.pitchSet);
 
-  expectTargets(result.targets).toEqualChords(expected);
+  expectTargets(result.targets).toEqualPitchSets(expected);
 } );
 
 it("dm7 resolution in Key C (resting=root4 required, near=true)", () => {
@@ -448,9 +448,9 @@ it("dm7 resolution in Key C (resting=root4 required, near=true)", () => {
     C.fromRootVoicing(P.E, SEVENTH_MINOR_a5).withInv(3),
     C.fromRootVoicing(P.D, SEVENTH_SUS4),
     C.fromRootVoicing(P.G, SEVENTH_SUS4).withInv(2),
-  ];
+  ].map(c=>c.pitchSet);
 
-  expectTargets(result.targets).toEqualChords(expected);
+  expectTargets(result.targets).toEqualPitchSets(expected);
 } );
 
 it("chord G resolution in C Major Key should not have duplicates", () => {
@@ -491,10 +491,10 @@ it("chord G7 resolution in C Major Key (near=false)", () => {
 
   expect(result.targets).toHaveLength(3);
 
-  expectTargets(result.targets).toContainChords(
-    C.fromPitches(...C.C.withInv(2).pitches, P.G), // G-C-E-G
-    C.fromPitches(...C.Em.withInv().pitches, P.G), // G-B-E-G
-    C.fromPitches(...C.G.pitches, P.G), // G-B-E-G
+  expectTargets(result.targets).toContainPitchSets(
+    C.fromPitches(...C.C.withInv(2).pitches, P.G).pitchSet, // G-C-E-G
+    C.fromPitches(...C.Em.withInv().pitches, P.G).pitchSet, // G-B-E-G
+    C.fromPitches(...C.G.pitches, P.G).pitchSet, // G-B-E-G
   );
 } );
 
@@ -515,11 +515,11 @@ it("chord G7 (near=true, keyResolution=C, requireAnyResolution=true)", () => {
     },
   } );
 
-  expectTargets(result.targets).toContainChords(
-    C.fromPitches(...C.C.withInv(2).pitches, P.G), // G-C-E-G
-    C.fromPitches(P.G, ...C.Em.withInv(2).pitches), // G-B-E-G
-    C.fromPitches(...C.G.pitches, P.G), // G-B-D-G
-    C.fromPitches(P.F, ...C.F.withInv().pitches), // F-A-C-F
+  expectTargets(result.targets).toContainPitchSets(
+    C.fromPitches(...C.C.withInv(2).pitches, P.G).pitchSet, // G-C-E-G
+    C.fromPitches(P.G, ...C.Em.withInv(2).pitches).pitchSet, // G-B-E-G
+    C.fromPitches(...C.G.pitches, P.G).pitchSet, // G-B-D-G
+    C.fromPitches(P.F, ...C.F.withInv().pitches).pitchSet, // F-A-C-F
   );
 
   expect(result.targets).toHaveLength(4);

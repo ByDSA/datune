@@ -1,4 +1,5 @@
 import type { Voicing } from "../Voicing";
+import { Intervals as I } from "alt";
 import { Voicings as V } from "..";
 import { inv } from "./inv";
 
@@ -17,4 +18,22 @@ describe.each([
 
     expect(actual).toBe(expected);
   } );
+} );
+
+it("inv", () => {
+  const base = V.MINOR_OVER_d5;
+  const invv = base.withInv();
+  const closed = invv.withClose();
+
+  expect(invv).toBe(V.fromRootIntervals(I.P1, I.m3, I.P5, I.d12));
+  expect(closed).toBe(V.fromRootIntervals(I.P1, I.m3, I.d5, I.P5));
+} );
+
+it("inv2", () => {
+  const base = V.MAJOR_OVER_a5;
+  const invv = base.withInv();
+  const closed = invv.withClose();
+
+  expect(invv).toBe(V.fromRootIntervals(I.P1, I.M3, I.P5, I.a5));
+  expect(closed).toBe(V.fromRootIntervals(I.P1, I.M3, I.P5, I.a5));
 } );

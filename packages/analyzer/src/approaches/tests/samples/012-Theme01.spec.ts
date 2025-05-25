@@ -101,8 +101,9 @@ describe("004 012-Theme01", () => {
       },
       {
         time: 16.75, // 32000
-        // -E
-        chord: C.fromPitches(P.CC, P.GG, P.B, P.FF),
+        // No se oye el E
+        // El F# sólo está en la melodía
+        chord: C.fromPitches(P.CC, P.GG, P.B, P.FF), // C#7sus4: C#-G#-B-F#
       },
       {
         time: 17, // 32500
@@ -122,7 +123,7 @@ describe("004 012-Theme01", () => {
       {
         time: 21, // 40500
         // 5a (A) ambigua hasta 21.5. aunque dura sólo 0.25 es definitoria del acorde
-        chord: C.fromPitches(P.D, P.A, P.CC, P.FF),
+        chord: C.fromPitches(P.D, P.FF, P.A, P.CC), // F#m / D : D-F#-A-C#
       },
       {
         time: 22, // 42500
@@ -153,7 +154,7 @@ describe("004 012-Theme01", () => {
       },
       {
         time: 25, // 48500
-        chord: C.fromPitches(P.D, P.A, P.FF, P.CC),
+        chord: C.fromPitches(P.D, P.FF, P.A, P.CC), // DMaj7: D-F#-A-C#
       },
       {
         time: 26, // 50500
@@ -186,7 +187,7 @@ describe("004 012-Theme01", () => {
       },
       {
         time: 31.5, // 61500
-        chord: C.fromPitches(P.E, P.GG, P.B, P.CC).withRootIndex(1),
+        chord: C.fromPitches(P.E, P.GG, P.B, P.CC).withRoot(P.CC),
       },
       {
         time: 32, // 62500

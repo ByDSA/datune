@@ -186,7 +186,9 @@ const functions: string[] = [
   Chords.shift.name,
   Chords.shiftDown.name,
   Chords.bass.name,
-  Chords.rootIndex.name,
+  Chords.root.name,
+  Chords.remove.name,
+  Chords.add.name,
 ];
 
 it("module should export functions and vars", async () => {

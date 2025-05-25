@@ -217,7 +217,7 @@ export class WindowProcess {
     this.analyzer.listenerState.tonal.rootChord = chord;
     this.analyzer.log("Updated rootChord to " + this.analyzer.listenerState.tonal.rootChord);
 
-    const voicing = chord.toVoicing();
+    const voicing = chord.toRootVoicing();
     let newKey: Key | undefined = undefined;
 
     switch (voicing) {
