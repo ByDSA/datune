@@ -1,16 +1,15 @@
 /* eslint-disable accessor-pairs */
-/* eslint-disable import/no-cycle */
+import type { SymbolicChord } from "../SymbolicChord";
 import type { Key } from "./caching/cache";
 import type { PitchArray, Pitch } from "pitches/chromatic";
+import type { PitchSet } from "sets/pitch-set/chromatic/PitchSet";
 import type { Interval, IntervalArray, Voicing } from "chromatic";
-import type { Chord as AChord } from "chords/alt";
-import type { SymbolicChord } from "../SymbolicChord";
+import type { Chord as AChord } from "chords/octave/alt";
 import { deepFreeze } from "datils/datatypes/objects";
 import { Arrays } from "datils/datatypes/arrays";
-import { Voicings as V } from "voicings/relative/chromatic";
-import { Chords as AC } from "chords/alt";
-import { PitchSet } from "sets/pitch-set/chromatic/PitchSet";
-import { Chords as C } from ".";
+import { Chords as AC } from "chords/octave/alt";
+import { Chords as C } from "chords/chromatic";
+import { Voicings as V } from "voicings/chromatic";
 
 export class Chord implements SymbolicChord<Pitch, Interval> {
   #pitches?: Readonly<PitchArray>;
@@ -33,6 +32,9 @@ export class Chord implements SymbolicChord<Pitch, Interval> {
 
     deepFreeze(this);
   }
+
+  // eslint-disable-next-line no-use-before-define
+  private static _from: (key: Key)=> Chord;
 
   get pitches(): Readonly<PitchArray> {
     if (!this.#pitches)
@@ -73,7 +75,7 @@ export class Chord implements SymbolicChord<Pitch, Interval> {
     return C.bass(this, bass);
   }
 
-  withRoot(root: Pitch) {
+  withRoot(root: Pitch): Chord {
     return C.root(this, root);
   }
 

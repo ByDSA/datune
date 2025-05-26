@@ -1,7 +1,7 @@
-/* eslint-disable import/no-cycle */
-import type { fromKeyFunc } from "./building/key-function";
-import type { from, fromPitches } from "./building/pitches";
-import type { fromRootVoicing } from "./building/root-voicing";
+import type { fromKeyFunc } from "./building/keyFunc";
+import type { from } from "./building/from";
+import type { fromPitches } from "./building/pitches";
+import type { fromRootVoicing } from "./building/rootVoicing";
 import type * as Constants from "./constants";
 import type * as Modifiers from "./modifiers";
 import { createProxyBarrel } from "datils/patterns/proxy";
@@ -21,10 +21,11 @@ type LazyType = Omit<typeof Constants, "initialize"> & typeof Modifiers & {
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
-    "building/key-function",
-    "building/pitches",
-    "building/root-voicing",
+    "building/from",
     "building/fromAltChord",
+    "building/keyFunc",
+    "building/pitches",
+    "building/rootVoicing",
     "modifiers",
     {
       path: "constants",

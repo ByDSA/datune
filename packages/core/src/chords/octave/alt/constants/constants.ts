@@ -3,7 +3,7 @@ import { Voicings as V } from "voicings/alt";
 import { Pitches as P } from "pitches/alt";
 import { ELEVENTH_MINOR, NINTH, POWER_CHORD, SEVENTH, SEVENTH_b5, SEVENTH_MAJ7, SEVENTH_MINOR, SEVENTH_MINOR_MAJ7, THIRTEENTH_MAJ13_b5a9, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_SUS2, TRIAD_SUS4, ELEVENTH, NINTH_MINOR, initialize as initializeVoicings } from "voicings/relative/alt/constants";
 import { ChordArray } from "../Array";
-import { fromRootVoicing } from "../building/root-voicing";
+import { fromRootVoicing } from "../building/rootVoicing";
 import { Chord } from "../Chord";
 import { inv } from "../modifiers";
 

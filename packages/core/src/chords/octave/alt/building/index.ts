@@ -1,16 +1,20 @@
 export {
   fromKeyFunc,
-} from "./key-function";
+} from "./keyFunc";
 
 export {
   fromPitches,
-  from,
+
 } from "./pitches";
 
 export {
+  from,
+} from "./from";
+
+export {
   fromRootVoicing,
-} from "./root-voicing";
+} from "./rootVoicing";
 
 export {
   fromChromaticChord,
-} from "./fromCChord";
+} from "./chromaticChord";

@@ -20,7 +20,7 @@ describe.each(<[Chord, PitchArray][]>[
   [C9, [P.C, P.D, P.E, P.G, P.Bb]],
 ])("pitches", (chord: Chord, pitches: PitchArray) => {
   const chordName = chord ? String(chord) : "undefined";
-  const { root } = chord;
+  const { root: pitchRoot } = chord;
 
   describe("name: " + chordName, () => {
     it("defined chord", () => {
@@ -39,8 +39,8 @@ describe.each(<[Chord, PitchArray][]>[
       expect(actual).toBe(pitches.length);
     } );
 
-    it(`Reversible from pitches (${String(pitches)}) and root (${root})`, () => {
-      const actual = fromPitches(...pitches).withRoot(root);
+    it(`Reversible from pitches (${String(pitches)}) and root (${pitchRoot})`, () => {
+      const actual = fromPitches(...pitches).withRoot(pitchRoot);
 
       expect(actual.pitches).toStrictEqual(chord.pitches);
     } );

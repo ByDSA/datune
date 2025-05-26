@@ -1,4 +1,6 @@
 import { NonEmptyArray } from "datils/datatypes";
+import { Voicing } from "voicings/relative/Voicing";
+import { PitchSet } from "sets/pitch-set/PitchSet";
 
 export interface SymbolicChord<P, I> {
     has(pitch: P): boolean;
@@ -11,6 +13,10 @@ export interface SymbolicChord<P, I> {
     withInv(n?: number): SymbolicChord<P, I>;
     withAdd(...pitches: NonEmptyArray<P>): SymbolicChord<P, I>;
     withRemove(...pitches: NonEmptyArray<P>): SymbolicChord<P, I>;
+    rootIntervals: Readonly<NonEmptyArray<I>>;
+    toRootVoicing: ()=> Voicing<I>;
+    pitchSet: PitchSet<P, I>;
+    pitches: Readonly<NonEmptyArray<P>>;
     size: number;
     root: P;
     bass: P;

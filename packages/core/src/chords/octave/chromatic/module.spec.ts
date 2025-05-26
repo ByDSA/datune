@@ -200,10 +200,11 @@ it("module should export functions and vars", async () => {
     barrel: Chords,
     modules: [
       "modifiers",
-      "building/key-function",
-      "building/pitches",
-      "building/root-voicing",
+      "building/from",
       "building/fromAltChord",
+      "building/keyFunc",
+      "building/pitches",
+      "building/rootVoicing",
       "constants",
     ],
     // eslint-disable-next-line no-undef

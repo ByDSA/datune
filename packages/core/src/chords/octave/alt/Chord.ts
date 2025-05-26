@@ -2,15 +2,15 @@
 import type { SymbolicChord } from "../SymbolicChord";
 import type { Key } from "./caching/cache";
 import type { PitchArray, Pitch } from "pitches/alt";
+import type { PitchSet } from "sets/pitch-set/alt/PitchSet";
+import type { Interval, IntervalArray, Voicing } from "alt";
+import type { Chord as CChord } from "chords/octave/chromatic";
 import { deepFreeze } from "datils/datatypes/objects";
 import { Arrays } from "datils/datatypes/arrays";
-import { type Interval, type IntervalArray, type Voicing } from "alt";
 import { Intervals as I } from "intervals/alt";
-import { type Chord as CChord } from "chords/octave/chromatic";
 import { Chords as CC } from "chords/octave/chromatic";
 import { Chords as C } from "chords/alt";
 import { Voicings as V } from "voicings/alt";
-import { PitchSet } from "sets/pitch-set/alt/PitchSet";
 
 export class Chord implements SymbolicChord<Pitch, Interval> {
   #pitches?: Readonly<PitchArray>;
@@ -22,6 +22,9 @@ export class Chord implements SymbolicChord<Pitch, Interval> {
   root: Pitch;
 
   bass: Pitch;
+
+  // eslint-disable-next-line no-use-before-define
+  private static _from: (key: Key)=> Chord;
 
   private constructor(key: Key) {
     if (key.pitchSet.size === 0)

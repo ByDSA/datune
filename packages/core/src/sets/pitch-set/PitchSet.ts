@@ -6,9 +6,12 @@ type ImmutableSet<T> = Omit<Set<T>, "add" | "clear" | "delete"> & {
   withRemove: (...array: T[])=> ImmutableSet<T>;
 };
 
-export type IPitchSet<T, I> = ImmutableSet<T> & {
+export type PitchSet<T, I> = Omit<ImmutableSet<T>, "withAdd" | "withRemove"> & {
   pitches: T[];
-  withShift: (interval: I)=> ImmutableSet<T>;
-  withShiftDown: (interval: I)=> ImmutableSet<T>;
+  withShift: (interval: I)=> PitchSet<T, I>;
+  withShiftDown: (interval: I)=> PitchSet<T, I>;
   set: Readonly<Set<T>>;
+  // Overload:
+  withAdd: (...pitches: T[])=> PitchSet<T, I>;
+  withRemove: (...pitches: T[])=> PitchSet<T, I>;
 };

@@ -43,7 +43,7 @@ describe("004 012-Theme01", () => {
         time: 2, // 2500
         // G#4 se percibe muy tenue.
         // TODO: F#6 no debería considerarse del acorde por la distancia con B4
-        chord: C.fromPitches(P.E, P.GG, P.B, P.FF),
+        chord: C.E.withAdd(P.FF), // E-G#-B-F#
       },
       {
         time: 3, // 4500
@@ -54,8 +54,7 @@ describe("004 012-Theme01", () => {
       {
         time: 4, // 6500
         // ídem compás 2
-        chord: C.fromPitches(P.E, P.GG, P.B, P.FF),
-        length: 1,
+        chord: C.E.withAdd(P.FF),
       },
     ];
     const partA: CheckProps["array"] = [
@@ -66,7 +65,7 @@ describe("004 012-Theme01", () => {
       {
         time: 7, // 12500
         // C#5 encima de B4, se percibe ese sus2
-        chord: C.fromPitches(P.E, P.B, P.GG, P.CC),
+        chord: C.E.withAdd(P.CC), // E-B-G#-C#
       },
       {
         time: 9, // 16500
@@ -75,7 +74,7 @@ describe("004 012-Theme01", () => {
       {
         time: 11, // 20500
         // ídem compás 7
-        chord: C.fromPitches(P.E, P.B, P.GG, P.CC),
+        chord: C.E.withAdd(P.CC),
       },
       {
         time: 13, // 24500
@@ -97,7 +96,7 @@ describe("004 012-Theme01", () => {
       {
         time: 16, // 30500
         // C#5 de french horn, apantalla a D5
-        chord: C.fromPitches(P.D, P.A, P.CC, P.FF),
+        chord: C.DMaj7, // D-A-C#-F#
       },
       {
         time: 16.75, // 32000
@@ -122,8 +121,8 @@ describe("004 012-Theme01", () => {
     const partB: CheckProps["array"] = [
       {
         time: 21, // 40500
-        // 5a (A) ambigua hasta 21.5. aunque dura sólo 0.25 es definitoria del acorde
-        chord: C.fromPitches(P.D, P.FF, P.A, P.CC), // F#m / D : D-F#-A-C#
+        // 3a (A) ambigua hasta 21.5. aunque dura sólo 0.25 es definitoria del acorde
+        chord: C.DMaj7, // D-F#-A-C#
       },
       {
         time: 22, // 42500
@@ -187,11 +186,11 @@ describe("004 012-Theme01", () => {
       },
       {
         time: 31.5, // 61500
-        chord: C.fromPitches(P.E, P.GG, P.B, P.CC).withRoot(P.CC),
+        chord: C.CCm.withBass(P.E).withAdd(P.B), // E-G#-B-C#
       },
       {
         time: 32, // 62500
-        chord: C.fromPitches(P.FF, P.CC, P.A, P.GG),
+        chord: C.FFm.withAdd(P.GG), // F#-C#-A-G#
       },
       {
         time: 32.5, // 63500

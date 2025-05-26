@@ -4,7 +4,7 @@ import type { Chord } from "../Chord";
 import { initialize as initializeVoicings, TRIAD_MAJOR } from "voicings/relative/chromatic/constants";
 import { Voicings as V } from "voicings/chromatic";
 import { Pitches as P } from "pitches/chromatic";
-import { fromRootVoicing } from "../building/root-voicing";
+import { fromRootVoicing } from "../building/rootVoicing";
 import { inv } from "../modifiers";
 
 export function initialize() {
