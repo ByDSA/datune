@@ -1,4 +1,6 @@
+import { NonEmptyArray } from "datils";
 import { TestCoreModule, testCoreModules } from "tests/testCoreModules";
+import { ERROR_REMOVING_BASS } from "../errors";
 
 describe.each(testCoreModules)("modifiers", (obj)=>{
   testsBass(obj);
@@ -6,6 +8,9 @@ describe.each(testCoreModules)("modifiers", (obj)=>{
   testsShift(obj);
   testsRoots(obj);
   testsRemove(obj);
+  testsAddRemoveRootIntervals(obj);
+
+  testsSus(obj);
 } );
 
 function testsBass(obj: TestCoreModule) {
@@ -206,6 +211,116 @@ function testsRemove(obj: TestCoreModule) {
           expect(actual).toBe(original);
         } );
       }
+    } );
+  } );
+
+  it("should cannot remove bass", () => {
+    expect(() => C.C.withRemove(P.C)).toThrow(ERROR_REMOVING_BASS);
+  } );
+
+  it("should can remove root (if it's not the bass)", () => {
+    const actual = C.C.withInv().withRemove(P.C);
+
+    expect(actual.has(P.C)).toBeFalsy();
+
+    expect(actual).toBe(C.fromPitches(P.E, P.G).withRoot(P.C));
+  } );
+
+  it("remove all pitches should throw an error", () => {
+    expect(() => C.C.withRemove(...C.C.pitches)).toThrow(ERROR_REMOVING_BASS);
+  } );
+}
+
+function testsAddRemoveRootIntervals(obj: TestCoreModule) {
+  const { Intervals: I, Chords: C, type: moduleType } = obj;
+
+  describe.each([
+    [C.C, [I.M3], C.C5],
+    [C.C, [I.M2], C.C],
+    [C.CMaj7, [I.M3, I.M7], C.C5],
+  ] as [typeof C.C, NonEmptyArray<typeof I.P1>, typeof C.C][])("removeRootIntervals tests", (original, intervals, expected) => {
+    describe.each([
+      ["removeRootIntervals", (c: typeof original, i: typeof intervals) => C.removeRootIntervals(c, ...i)],
+      ["withRemoveRootIntervals", (c: typeof original, i: typeof intervals) => c.withRemoveRootIntervals(...i)],
+    ])(moduleType + ": remove using %s", (_methodName, method) => {
+      const actual = method(original, intervals);
+
+      it(`should chord has not the intervals ${intervals} from root`, () => {
+        for (const i of intervals) {
+          const pitch = actual.root.withAdd(i);
+
+          expect(actual.has(pitch)).toBeFalsy();
+        }
+      } );
+
+      it("should chord to be as expected", () => {
+        expect(actual).toBe(expected);
+      } );
+
+      if (original.hasRootIntervals(...intervals)) {
+        it("should be reversible", () => {
+          const reversed = actual.withAddRootIntervals(...intervals);
+
+          expect(reversed).toBe(original);
+        } );
+      }
+    } );
+  } );
+
+  describe.each([
+    [C.C, [I.M7], C.CMaj7],
+    [C.C5, [I.M2], C.Csus2],
+    [C.C, [I.M3], C.C],
+  ] as [typeof C.C, NonEmptyArray<typeof I.P1>, typeof C.C][])("addRootIntervals tests", (original, intervals, expected) => {
+    describe.each([
+      ["addRootIntervals", (c: typeof original, i: typeof intervals) => C.addRootIntervals(c, ...i)],
+      ["withAddRootIntervals", (c: typeof original, i: typeof intervals) => c.withAddRootIntervals(...i)],
+    ])(moduleType + ": remove using %s", (_methodName, method) => {
+      const actual = method(original, intervals);
+
+      it(`should chord has the intervals ${intervals} from root`, () => {
+        for (const i of intervals) {
+          const pitch = actual.root.withAdd(i);
+
+          expect(actual.has(pitch)).toBeTruthy();
+        }
+      } );
+
+      it("should chord to be as expected", () => {
+        expect(actual).toBe(expected);
+      } );
+    } );
+  } );
+}
+
+function testsSus(obj: TestCoreModule) {
+  const { Chords: C, type: moduleType, Pitches: P } = obj;
+
+  describe(moduleType + ": sus tests", () => {
+    it("should be Csus4", () => {
+      const actual = C.C.withSus4();
+      const expected = C.Csus4;
+
+      expect(actual).toBe(expected);
+    } );
+
+    it("should replace bass third->fourth", () => {
+      const actual = C.C.withInv().withSus4();
+
+      expect(actual.bass).toBe(P.F);
+    } );
+
+    it("should be Csus2", () => {
+      const actual = C.C.withSus2();
+      const expected = C.Csus2;
+
+      expect(actual).toBe(expected);
+    } );
+
+    it("should replace bass third->second", () => {
+      const actual = C.C.withInv().withSus2();
+
+      expect(actual.bass).toBe(P.D);
     } );
   } );
 }

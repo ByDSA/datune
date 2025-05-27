@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-mixed-operators */
-import { Chords as C, Chord, Pitches as P } from "@datune/core";
+import { Chords as C, Chord, Intervals as I, Pitches as P } from "@datune/core";
 import { Interval } from "datils/math";
 import { MidiFile, MidiTimeline } from "@datune/midi";
 import { Time } from "@datune/utils";
@@ -102,7 +102,7 @@ describe("004 012-Theme01", () => {
         time: 16.75, // 32000
         // No se oye el E
         // El F# sólo está en la melodía
-        chord: C.fromPitches(P.CC, P.GG, P.B, P.FF), // C#7sus4: C#-G#-B-F#
+        chord: C.CC7.withSus4(), // C#7sus4: C#-G#-B-F#
       },
       {
         time: 17, // 32500
@@ -149,11 +149,11 @@ describe("004 012-Theme01", () => {
         time: 24.5, // 47500
         // NO es apoyatura G#5->F#5 en 24.625
         // porque F# no es una nota de acorde mayor o menor sobre E
-        chord: C.fromPitches(P.E, P.GG), // E-G#
+        chord: C.E.withRemoveRootIntervals(I.P5), // E-G#
       },
       {
         time: 25, // 48500
-        chord: C.fromPitches(P.D, P.FF, P.A, P.CC), // DMaj7: D-F#-A-C#
+        chord: C.DMaj7, // DMaj7: D-F#-A-C#
       },
       {
         time: 26, // 50500
@@ -168,11 +168,13 @@ describe("004 012-Theme01", () => {
       },
       {
         time: 28.5, // 55500
-        chord: C.fromPitches(P.E, P.B, P.FF, P.A),
+        chord: C.E
+          .withSus4()
+          .withAddRootIntervals(I.M9), // Esus4add9: E-B-F#-A
       },
       {
         time: 29, // 56500
-        chord: C.fromPitches(P.D, P.A, P.FF, P.CC),
+        chord: C.DMaj7, // D-A-F#-C#
       },
       {
         time: 30, // 58500

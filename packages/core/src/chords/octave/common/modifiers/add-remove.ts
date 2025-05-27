@@ -1,6 +1,7 @@
 import { NonEmptyArray } from "datils";
 import { SymbolicChord } from "../../SymbolicChord";
 import { ChordPitch } from "../types";
+import { ERROR_REMOVING_BASS } from "../errors";
 
 export function add<C extends SymbolicChord<any, any>>(
   obj: C,
@@ -19,6 +20,9 @@ export function remove<C extends SymbolicChord<any, any>>(
   obj: C,
   ...pitches: NonEmptyArray<ChordPitch<C>>
 ): C {
+  if (pitches.includes(obj.bass))
+    throw ERROR_REMOVING_BASS;
+
   const { _from: from } = (obj.constructor as any);
 
   return from( {

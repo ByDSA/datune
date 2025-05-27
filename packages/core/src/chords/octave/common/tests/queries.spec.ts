@@ -2,7 +2,7 @@ import { NonEmptyArray } from "datils";
 import { testCoreModules } from "tests/testCoreModules";
 
 describe.each(testCoreModules)("queries", (obj)=>{
-  const { Chords: C, Pitches: P, type: moduleType } = obj;
+  const { Chords: C, Pitches: P, type: moduleType, Intervals: I } = obj;
 
   describe.each([
     [C.C.withBass(P.GG), [P.GG, P.C, P.E, P.G]],
@@ -22,5 +22,17 @@ describe.each(testCoreModules)("queries", (obj)=>{
     const actual = C.fromPitches(...initPitches);
 
     expect(actual.hasAll(...initPitches)).toBeTruthy();
+  } );
+
+  it(`${moduleType}: hasAny`, () => {
+    expect(C.C.hasAny(P.C, P.D)).toBeTruthy();
+  } );
+
+  it(`${moduleType}: hasRootIntervals`, () => {
+    expect(C.C.hasRootIntervals(I.P1, I.M3, I.P5)).toBeTruthy();
+  } );
+
+  it(`${moduleType}: hasAnyRootIntervals`, () => {
+    expect(C.C.hasAnyRootIntervals(I.M2, I.M3)).toBeTruthy();
   } );
 } );

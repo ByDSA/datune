@@ -60,6 +60,18 @@ export class Chord implements SymbolicChord<Pitch, Interval> {
     return this.pitchSet.hasAny(...pitches);
   }
 
+  hasRootIntervals(...rootIntervals: IntervalArray): boolean {
+    const pitches = fromRootIntervals(this.root, rootIntervals);
+
+    return this.pitchSet.hasAll(...pitches);
+  }
+
+  hasAnyRootIntervals(...rootIntervals: IntervalArray): boolean {
+    const pitches = fromRootIntervals(this.root, rootIntervals);
+
+    return this.pitchSet.hasAny(...pitches);
+  }
+
   withShift(interval: Interval): Chord {
     return C.shift(this, interval);
   }
@@ -86,6 +98,38 @@ export class Chord implements SymbolicChord<Pitch, Interval> {
 
   withRemove(...pitches: PitchArray): Chord {
     return C.remove(this, ...pitches);
+  }
+
+  withAddRootIntervals(...rootIntervals: IntervalArray): Chord {
+    return C.addRootIntervals(this, ...rootIntervals);
+  }
+
+  withRemoveRootIntervals(...rootIntervals: IntervalArray): Chord {
+    return C.removeRootIntervals(this, ...rootIntervals);
+  }
+
+  withSus4(): Chord {
+    const THIRDS = [I.M3, I.m3] as IntervalArray;
+    let ret: Chord = this;
+    const fourthPitch = this.root.withAdd(I.P4);
+    const bassRootInterval = I.betweenNext(this.root, this.bass);
+
+    if (THIRDS.includes(bassRootInterval))
+      ret = ret.withBass(fourthPitch);
+
+    return ret.withRemoveRootIntervals(...THIRDS).withAdd(fourthPitch);
+  }
+
+  withSus2(): Chord {
+    const THIRDS = [I.M3, I.m3] as IntervalArray;
+    let ret: Chord = this;
+    const secondPitch = this.root.withAdd(I.M2);
+    const bassRootInterval = I.betweenNext(this.root, this.bass);
+
+    if (THIRDS.includes(bassRootInterval))
+      ret = ret.withBass(secondPitch);
+
+    return ret.withRemoveRootIntervals(...THIRDS).withAdd(secondPitch);
   }
 
   get rootIntervals(): Readonly<IntervalArray> {
@@ -145,4 +189,8 @@ function getRootIntervals(chord: Chord): IntervalArray {
   }
 
   return rootIntervals.sort((a, b)=>+a - +b);
+}
+
+function fromRootIntervals(root: Pitch, rootIntervals: IntervalArray): PitchArray {
+  return rootIntervals.map(i=>root.withAdd(i)) as PitchArray;
 }
