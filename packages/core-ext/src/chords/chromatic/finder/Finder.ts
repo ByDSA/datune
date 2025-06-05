@@ -54,7 +54,7 @@ export class Finder {
 
       if (this.#notes !== undefined) {
         pss = pss.filter(ps=>{
-          const withBass = this.#bass ? ps.withAdd(this.#bass) : ps;
+          const withBass = this.#bass ? ps.withAdded(this.#bass) : ps;
 
           return withBass.hasAll(...this.#notes as PitchArray);
         } );

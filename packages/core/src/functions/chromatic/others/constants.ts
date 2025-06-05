@@ -12,7 +12,7 @@ export function initialize() {
 
   V7ALT = new (class A extends Func {
     protected calculateChord(key: Key): Chord {
-      const pitchV = P.add(key.root, I.P5);
+      const pitchV = P.shift(key.root, I.P5);
 
       return C.fromRootVoicing(pitchV, V.SEVENTH_b5);
     }

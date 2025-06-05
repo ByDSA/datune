@@ -5,7 +5,7 @@ export function bass<C extends SymbolicChord<any, any>>(obj: C, pitchBass: Chord
   const { _from: from } = (obj.constructor as any);
 
   return from( {
-    pitchSet: obj.pitchSet.withAdd(pitchBass),
+    pitchSet: obj.pitchSet.withAdded(pitchBass),
     root: obj.root,
     bass: pitchBass,
   } );

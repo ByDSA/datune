@@ -4,7 +4,7 @@ import type { SingleStep } from "voice-leading/steps";
 import type { StepFilter } from "../processors/filters";
 import { PitchArray } from "@datune/core/pitches/chromatic";
 import { SpnArray } from "@datune/core/spns/chromatic";
-import { add as spnAdd } from "@datune/core/spns/symbolic/chromatic/modifiers";
+import { shift as spnShift } from "@datune/core/spns/symbolic/chromatic/modifiers";
 import { singleStepFrom } from "../../steps/single/building";
 
 export type KeyResolutionGeneratorProps = {
@@ -61,7 +61,7 @@ class RestingNotesStepsGen {
         if (i === 0)
           continue;
 
-        const shiftedNote = spnAdd(n, i);
+        const shiftedNote = spnShift(n, i);
 
         if (shiftedNote && this.#restingPitches.includes(shiftedNote.pitch)) {
           const singleStep = singleStepFrom(index, i);

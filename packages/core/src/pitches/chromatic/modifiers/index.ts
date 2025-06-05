@@ -1,11 +1,11 @@
 export {
-  add,
-} from "./add";
+  shift,
+} from "./shift";
 
 export {
   rootIntervals,
 } from "./rootIntervals";
 
 export {
-  sub,
-} from "./sub";
+  shiftDown,
+} from "./shift-down";

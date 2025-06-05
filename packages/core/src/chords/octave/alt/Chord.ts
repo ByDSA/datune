@@ -72,11 +72,11 @@ export class Chord implements SymbolicChord<Pitch, Interval> {
     return this.pitchSet.hasAny(...pitches);
   }
 
-  withShift(interval: Interval): Chord {
+  withShifted(interval: Interval): Chord {
     return C.shift(this, interval);
   }
 
-  withShiftDown(interval: Interval): Chord {
+  withShiftedDown(interval: Interval): Chord {
     return C.shiftDown(this, interval);
   }
 
@@ -92,44 +92,44 @@ export class Chord implements SymbolicChord<Pitch, Interval> {
     return C.root(this, root);
   }
 
-  withAdd(...pitches: PitchArray): Chord {
+  withAdded(...pitches: PitchArray): Chord {
     return C.add(this, ...pitches);
   }
 
-  withRemove(...pitches: PitchArray): Chord {
+  withRemoved(...pitches: PitchArray): Chord {
     return C.remove(this, ...pitches);
   }
 
-  withAddRootIntervals(...rootIntervals: IntervalArray): Chord {
+  withRootIntervalsAdded(...rootIntervals: IntervalArray): Chord {
     return C.addRootIntervals(this, ...rootIntervals);
   }
 
-  withRemoveRootIntervals(...rootIntervals: IntervalArray): Chord {
+  withRootIntervalsRemoved(...rootIntervals: IntervalArray): Chord {
     return C.removeRootIntervals(this, ...rootIntervals);
   }
 
   withSus4(): Chord {
     const THIRDS = [I.M3, I.m3] as IntervalArray;
     let ret: Chord = this;
-    const fourthPitch = this.root.withAdd(I.P4);
+    const fourthPitch = this.root.withShifted(I.P4);
     const bassRootInterval = I.betweenNext(this.root, this.bass);
 
     if (THIRDS.includes(bassRootInterval))
       ret = ret.withBass(fourthPitch);
 
-    return ret.withRemoveRootIntervals(...THIRDS).withAdd(fourthPitch);
+    return ret.withRootIntervalsRemoved(...THIRDS).withAdded(fourthPitch);
   }
 
   withSus2(): Chord {
     const THIRDS = [I.M3, I.m3] as IntervalArray;
     let ret: Chord = this;
-    const secondPitch = this.root.withAdd(I.M2);
+    const secondPitch = this.root.withShifted(I.M2);
     const bassRootInterval = I.betweenNext(this.root, this.bass);
 
     if (THIRDS.includes(bassRootInterval))
       ret = ret.withBass(secondPitch);
 
-    return ret.withRemoveRootIntervals(...THIRDS).withAdd(secondPitch);
+    return ret.withRootIntervalsRemoved(...THIRDS).withAdded(secondPitch);
   }
 
   get rootIntervals(): Readonly<IntervalArray> {
@@ -163,7 +163,7 @@ function getPitches(key: Key): Readonly<PitchArray> {
     const chromaticPitches = pitches.map(p=>p.toChromatic());
 
     for (let i = 1; i < 12; i++) {
-      const p = key.root.toChromatic().withAdd(i);
+      const p = key.root.toChromatic().withShifted(i);
 
       rootIndex = chromaticPitches.findIndex(c=>c === p);
 
@@ -192,5 +192,5 @@ function getRootIntervals(chord: Chord): IntervalArray {
 }
 
 function fromRootIntervals(root: Pitch, rootIntervals: IntervalArray): PitchArray {
-  return rootIntervals.map(i=>root.withAdd(i)) as PitchArray;
+  return rootIntervals.map(i=>root.withShifted(i)) as PitchArray;
 }

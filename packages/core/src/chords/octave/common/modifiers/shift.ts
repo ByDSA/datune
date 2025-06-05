@@ -8,9 +8,9 @@ export function shift<C extends SymbolicChord<any, any>>(
   const { _from: from } = (obj.constructor as any);
 
   return from( {
-    pitchSet: obj.pitchSet.withShift(interval),
-    root: obj.root.withAdd(interval),
-    bass: obj.bass.withAdd(interval),
+    pitchSet: obj.pitchSet.withShifted(interval),
+    root: obj.root.withShifted(interval),
+    bass: obj.bass.withShifted(interval),
   } );
 }
 
@@ -21,8 +21,8 @@ export function shiftDown<C extends SymbolicChord<any, any>>(
   const { _from: from } = (obj.constructor as any);
 
   return from( {
-    pitchSet: obj.pitchSet.withShiftDown(interval),
-    root: obj.root.withSub(interval),
-    bass: obj.bass.withSub(interval),
+    pitchSet: obj.pitchSet.withShiftedDown(interval),
+    root: obj.root.withShiftedDown(interval),
+    bass: obj.bass.withShiftedDown(interval),
   } );
 }

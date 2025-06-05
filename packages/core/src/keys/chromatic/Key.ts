@@ -25,6 +25,10 @@ export class Key implements
     this.pitches = pitchesRootIntervals(this.root, this.scale.rootIntervals);
   }
 
+  [Symbol.iterator](): Iterator<Pitch, any, any> {
+    return this.pitches[Symbol.iterator]();
+  }
+
   hasChord(chord: Chord): boolean {
     return this.hasPitches(...chord.pitches as PitchArray);
   }

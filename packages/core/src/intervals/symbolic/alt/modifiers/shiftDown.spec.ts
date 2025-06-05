@@ -1,7 +1,7 @@
 import type { Interval } from "..";
 import { Intervals as I } from "..";
 import { expectInterval } from "../tests/interval";
-import { sub } from "./sub";
+import { shiftDown } from "./shiftDown";
 import { neg } from "./neg";
 
 describe.each([
@@ -17,7 +17,7 @@ describe.each([
   [I.P8, I.a8, neg(I.a1)],
 ])("test", (a, b, expected) => {
   it(a.toString() + " - " + b.toString() + " should be " + expected.toString(), () => {
-    const actual = sub(a, b);
+    const actual = shiftDown(a, b);
 
     expect(actual).not.toBeNull();
 

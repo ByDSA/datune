@@ -37,7 +37,7 @@ class Generator {
   }
 
   generate(): Scale {
-    const { sub } = I;
+    const { shiftDown: sub } = I;
     const unorderedIntervals = this.calculateUnorderedIntervals();
     const sortedIntervals = sortIntervals(unorderedIntervals);
     const [firstInterval] = sortedIntervals;

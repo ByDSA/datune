@@ -4,8 +4,8 @@ import { Intervals as I } from "intervals/chromatic";
 import { Pitches as P } from "pitches/chromatic";
 import { fromPitchOctave } from "../building/pitch-octave";
 import { Spns as N } from "..";
-import { sub } from "./sub";
-import { add } from "./add";
+import { shiftDown } from "./shiftDown";
+import { shift } from "./shift";
 
 const { C4, C5, CC5, FF4, G4 } = N;
 const { d5, P5, P8, P1 } = I;
@@ -25,13 +25,13 @@ describe.each(withShiftCases)("add-sub", (base: Spn, interval: CInterval, expect
   const expectedName = expected.toString();
 
   it(`add: ${baseName} + ${intervalName} = ${expectedName}`, () => {
-    const actual = add(base, interval);
+    const actual = shift(base, interval);
 
     expect(actual).toBe(expected);
   } );
 
   it(`sub: ${expectedName} - ${intervalName} = ${baseName}`, () => {
-    const actual = sub(expected, interval);
+    const actual = shiftDown(expected, interval);
 
     expect(actual).toBe(base);
   } );

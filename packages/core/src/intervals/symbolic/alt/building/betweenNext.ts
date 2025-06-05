@@ -36,7 +36,7 @@ export function betweenNext(from: Degree | Pitch, to: Degree | Pitch): Interval 
   const chromaticInterval: ChromaticInterval = cyclicMod(intervalChromaticInt, CP.NUMBER);
 
   if (diatonicInterval === DIntervals.UNISON && intervalChromaticInt < 0)
-    diatonicInterval = DIntervals.add(diatonicInterval, DIntervals.OCTAVE);
+    diatonicInterval = DIntervals.shift(diatonicInterval, DIntervals.OCTAVE);
 
   return fromIntervals( {
     chromaticInterval,

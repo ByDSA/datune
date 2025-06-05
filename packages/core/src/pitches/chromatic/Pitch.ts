@@ -7,7 +7,7 @@ import { inspect } from "node:util";
 import { Pitches as AP } from "pitches/alt";
 import { Pitches as P } from ".";
 
-export class Pitch implements OctavePitch {
+export class Pitch implements OctavePitch<Interval> {
   private intValue;
 
   private constructor(intValue: number) {
@@ -40,12 +40,12 @@ export class Pitch implements OctavePitch {
     }
   }
 
-  withAdd(interval: Interval): Pitch {
-    return P.add(this, interval);
+  withShifted(interval: Interval): Pitch {
+    return P.shift(this, interval);
   }
 
-  withSub(interval: Interval): Pitch {
-    return P.sub(this, interval);
+  withShiftedDown(interval: Interval): Pitch {
+    return P.shiftDown(this, interval);
   }
 
   get [Symbol.toStringTag](): string {

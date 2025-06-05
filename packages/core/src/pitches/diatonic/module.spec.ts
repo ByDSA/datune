@@ -12,8 +12,8 @@ const functions: string[] = [
   P.fromInt.name,
 
   // modifiers
-  P.add.name,
-  P.sub.name,
+  P.shift.name,
+  P.shiftDown.name,
 ];
 
 it("module should export functions and vars", async () => {

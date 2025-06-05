@@ -1,14 +1,14 @@
 import type { PitchSet } from "../PitchSet";
 import type { Interval } from "intervals/chromatic";
 import { type PitchArray, type Pitch, Pitches } from "pitches/chromatic";
-import { add as pitchAdd } from "pitches/chromatic/modifiers";
+import { shift as pitchShift } from "pitches/chromatic/modifiers";
 import { fromPitches } from "../building";
 
 export function shift(obj: PitchSet, interval: Interval): PitchSet {
   const newPitches: Pitch[] = [];
 
   obj.forEach((pitch) => {
-    const newPitch = pitchAdd(pitch, interval);
+    const newPitch = pitchShift(pitch, interval);
 
     newPitches.push(newPitch);
   } );

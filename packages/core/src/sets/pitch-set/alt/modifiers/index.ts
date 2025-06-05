@@ -1,8 +1,8 @@
 import type { PitchSet } from "../PitchSet";
 import type { Interval } from "intervals/alt";
 import { type PitchArray, type Pitch } from "pitches/alt";
-import { add as pitchAdd } from "pitches/alt/modifiers/add";
-import { sub as pitchSub } from "pitches/alt/modifiers/sub";
+import { shift as pitchAdd } from "pitches/alt/modifiers/shift";
+import { shiftDown as pitchSub } from "pitches/alt/modifiers/shift-down";
 import { fromPitches } from "../building";
 
 export function shift(obj: PitchSet, interval: Interval): PitchSet {

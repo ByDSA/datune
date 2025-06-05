@@ -50,14 +50,14 @@ it("precalc - SEVENTH MAJ7 b5", () => {
 
 it("withAdd", () => {
   const expected = V.SEVENTH_MAJ7;
-  const actual = V.POWER_CHORD.withAdd(I.M7, I.M3);
+  const actual = V.POWER_CHORD.withAdded(I.M7, I.M3);
 
   expect(actual).toBe(expected);
 } );
 
 it("withOmit", () => {
   const expected = V.POWER_CHORD;
-  const actual = V.SEVENTH_MAJ7.withOmit(I.M7, I.M3);
+  const actual = V.SEVENTH_MAJ7.withRemoved(I.M7, I.M3);
 
   expect(actual).toBe(expected);
 } );

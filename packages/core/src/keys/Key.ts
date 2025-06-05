@@ -5,9 +5,10 @@ import { SymbolicChord } from "../chords/octave/SymbolicChord";
 
 export interface IKey<
 INTERVAL,
-P extends OctavePitch,
+P extends OctavePitch<INTERVAL>,
 S extends Scale<INTERVAL, any>,
-C extends SymbolicChord<P, INTERVAL>> {
+C extends SymbolicChord<P, INTERVAL>>
+extends Iterable<P> {
   pitches: NonEmptyArray<P>;
 
   root: P;

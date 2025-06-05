@@ -5,7 +5,7 @@ import { Intervals as I } from "intervals/alt";
 import { Pitches as P } from "pitches/alt";
 import { fromPitchOctave } from "../building";
 import { Spns } from "..";
-import { add, sub } from ".";
+import { shift, shiftDown } from ".";
 
 const { C4, C5, CC5, FF4, G4 } = Spns;
 const { BBB, Dbb, Gb } = P;
@@ -26,13 +26,13 @@ describe.each(withShiftCases)("add-sub", (base: Spn, interval: Interval, expecte
   const expectedName = expected.toString();
 
   it(`add: ${baseName} + ${intervalName} = ${expectedName}`, () => {
-    const actual = add(base, interval);
+    const actual = shift(base, interval);
 
     expect(actual).toBe(expected);
   } );
 
   it(`sub: ${expectedName} - ${intervalName} = ${baseName}`, () => {
-    const actual = sub(expected, interval);
+    const actual = shiftDown(expected, interval);
 
     expect(actual).toBe(base);
   } );

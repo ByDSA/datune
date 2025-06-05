@@ -110,7 +110,9 @@ const functions: string[] = [
   // modifiers
   V.inv.name,
   V.add.name,
-  V.omit.name,
+  V.remove.name,
+  V.shift.name,
+  V.shiftDown.name,
 ];
 
 it("module should export functions and vars", async () => {

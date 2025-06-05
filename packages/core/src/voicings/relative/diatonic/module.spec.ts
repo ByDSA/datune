@@ -34,11 +34,14 @@ const vars: string[] = [
 const functions: string[] = [
   // Building
   V.fromRootIntervalInts.name,
+  V.fromRootIntervals.name,
 
   // Modifiers
   V.inv.name,
   V.add.name,
-  V.sub.name,
+  V.remove.name,
+  V.shift.name,
+  V.shiftDown.name,
   V.bass.name,
 ];
 

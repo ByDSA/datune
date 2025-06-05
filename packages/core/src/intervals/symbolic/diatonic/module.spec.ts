@@ -25,10 +25,10 @@ const functions: string[] = [
 
   // modifiers
   I.abs.name,
-  I.add.name,
+  I.shift.name,
   I.neg.name,
   I.simplify.name,
-  I.sub.name,
+  I.shiftDown.name,
 
   // isMainInterval
   I.isMainInterval.name,
@@ -44,10 +44,10 @@ it("module should export functions and vars", async () => {
     modules: [
       "building",
       "modifiers/abs",
-      "modifiers/add",
+      "modifiers/shift",
       "modifiers/neg",
       "modifiers/simplify",
-      "modifiers/sub",
+      "modifiers/shiftDown",
       "isMainInterval",
       "constants",
     ],

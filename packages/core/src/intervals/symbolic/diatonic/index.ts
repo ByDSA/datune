@@ -1,38 +1,40 @@
+/* eslint-disable import/no-cycle */
 import type * as Constants from "./constants";
 import type { IntervalArray } from "./Array";
 import type { isMainInterval } from "./isMainInterval";
 import type { abs } from "./modifiers/abs";
-import type { add } from "./modifiers/add";
+import type { shift } from "./modifiers/shift";
 import type { neg } from "./modifiers/neg";
 import type { simplify } from "./modifiers/simplify";
-import type { sub } from "./modifiers/sub";
+import type { shiftDown } from "./modifiers/shiftDown";
 import { createProxyBarrel } from "datils/patterns/proxy";
+import { fromInt } from "./building/int";
 import { Interval } from "./Interval";
 import { Direction } from "./Direction";
-import { fromChromaticInterval, fromInt } from "./building";
+import { fromChromaticInterval } from "./building";
 
 const staticModule = {
-  fromInt,
   fromChromaticInterval,
+  fromInt,
 };
 
 type LazyType = Omit<typeof Constants, "initialize"> & {
   isMainInterval: typeof isMainInterval;
   abs: typeof abs;
-  add: typeof add;
+  shift: typeof shift;
   neg: typeof neg;
   simplify: typeof simplify;
-  sub: typeof sub;
+  shiftDown: typeof shiftDown;
 };
 
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
     "modifiers/abs",
-    "modifiers/add",
+    "modifiers/shift",
     "modifiers/neg",
     "modifiers/simplify",
-    "modifiers/sub",
+    "modifiers/shiftDown",
     "isMainInterval",
     {
       path: "constants",

@@ -5,8 +5,8 @@ import { Intervals as I } from "..";
 import { d } from "../quality/constants";
 import { expectInterval } from "../tests/interval";
 import { neg } from "./neg";
-import { add } from "./add";
-import { sub } from "./sub";
+import { shift } from "./shift";
+import { shiftDown } from "./shiftDown";
 
 const { a5, a4, a2, a7, a1, d5, d9, M2, M7, M6, M3, m2, m7, m6, m3, P11, P4, P8, P12, P1, P5 } = I;
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -53,37 +53,37 @@ describe("a + B", () => {
     CASES_SUMA,
   )("tests", (a, b, c) => {
     it(`${String(a)} + ${String(b)} = ${String(c)}`, () => {
-      const actual = add(a, b);
+      const actual = shift(a, b);
 
       expectInterval(actual, c);
     } );
 
     it(`-${String(b)} + -${String(a)} = -${String(c)}`, () => {
-      const actual = add(neg(b), neg(a));
+      const actual = shift(neg(b), neg(a));
 
       expectInterval(actual, neg(c));
     } );
 
     it(`-${String(b)} + ${String(c)} = ${String(a)}`, () => {
-      const actual = add(neg(b), c);
+      const actual = shift(neg(b), c);
 
       expectInterval(actual, a);
     } );
 
     it(`${String(c)} + -${String(b)} = ${String(a)}`, () => {
-      const actual = add(c, neg(b));
+      const actual = shift(c, neg(b));
 
       expectInterval(actual, a);
     } );
 
     it(`${String(c)} - ${String(b)} = ${String(a)}`, () => {
-      const actual = sub(c, b);
+      const actual = shiftDown(c, b);
 
       expectInterval(actual, a);
     } );
 
     it(`${String(c)} - ${String(a)} = ${String(b)}`, () => {
-      const actual = sub(c, a);
+      const actual = shiftDown(c, a);
 
       expectInterval(actual, b);
     } );

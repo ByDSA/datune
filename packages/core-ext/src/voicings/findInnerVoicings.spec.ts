@@ -94,10 +94,10 @@ describe("getAllInnerVoicings", () => {
         innerVoicing: V.TRIAD_MAJOR,
       }, {
         indexMap: [0, 1, 3],
-        innerVoicing: V.SEVENTH_MAJ7.withOmit(I.P5) as Voicing,
+        innerVoicing: V.SEVENTH_MAJ7.withRemoved(I.P5) as Voicing,
       }, {
         indexMap: [0, 2, 3],
-        innerVoicing: V.SEVENTH_MAJ7.withOmit(I.M3) as Voicing,
+        innerVoicing: V.SEVENTH_MAJ7.withRemoved(I.M3) as Voicing,
       }, {
         indexMap: [1, 2, 3],
         innerVoicing: V.TRIAD_MINOR, // omit P1

@@ -10,7 +10,7 @@ export function add<C extends SymbolicChord<any, any>>(
   const { _from: from } = (obj.constructor as any);
 
   return from( {
-    pitchSet: obj.pitchSet.withAdd(...pitches),
+    pitchSet: obj.pitchSet.withAdded(...pitches),
     root: obj.root,
     bass: obj.bass,
   } );
@@ -26,7 +26,7 @@ export function remove<C extends SymbolicChord<any, any>>(
   const { _from: from } = (obj.constructor as any);
 
   return from( {
-    pitchSet: obj.pitchSet.withRemove(...pitches),
+    pitchSet: obj.pitchSet.withRemoved(...pitches),
     root: obj.root,
     bass: obj.bass,
   } );

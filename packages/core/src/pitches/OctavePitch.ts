@@ -1,3 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface OctavePitch {
+export interface OctavePitch<I> {
+  withShifted(interval: I): OctavePitch<I>;
+  withShiftedDown(interval: I): OctavePitch<I>;
 }

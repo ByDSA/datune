@@ -20,12 +20,20 @@ export class Voicing implements IVoicing<Interval> {
     return this.rootIntervals[Symbol.iterator]();
   }
 
-  withAdd(...intervals: Interval[]): Voicing {
+  withAdded(...intervals: Interval[]): Voicing {
     return V.add(this, ...intervals);
   }
 
-  withOmit(...intervals: Interval[]): Voicing | null {
-    return V.omit(this, ...intervals);
+  withRemoved(...intervals: Interval[]): Voicing | null {
+    return V.remove(this, ...intervals);
+  }
+
+  withShifted(interval: Interval): Voicing {
+    return V.shift(this, interval);
+  }
+
+  withShiftedDown(interval: Interval): Voicing {
+    return V.shiftDown(this, interval);
   }
 
   withInv(n: number = 1): Voicing {

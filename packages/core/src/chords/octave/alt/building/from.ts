@@ -5,7 +5,7 @@ export function from(key: Key): Chord {
   let { pitchSet } = key;
 
   if (key.bass === key.root)
-    pitchSet = pitchSet.withAdd(key.bass);
+    pitchSet = pitchSet.withAdded(key.bass);
 
   return cache.getOrCreate( {
     ...key,

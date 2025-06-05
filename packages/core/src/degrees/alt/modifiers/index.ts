@@ -6,7 +6,7 @@ import { calcAlts } from "pitches/alt/calcAlts";
 import { fromAltDegree } from "../../chromatic/building/fromAltDegree";
 import { from } from "../building";
 
-export function add(obj: Degree, interval: Interval): Degree {
+export function shift(obj: Degree, interval: Interval): Degree {
   const chromaticDegreeSum = fromAltDegree(obj) + CI.fromAltInterval(interval);
   const diatonicDegreeInt = +obj.diatonicDegree + +interval.diatonicInterval;
   const diatonicDegree = Degrees.fromInt(diatonicDegreeInt);
@@ -15,7 +15,7 @@ export function add(obj: Degree, interval: Interval): Degree {
   return from(diatonicDegree, alts);
 }
 
-export function sub(obj: Degree, interval: Interval): Degree {
+export function shiftDown(obj: Degree, interval: Interval): Degree {
   const chromaticDegreeSum = fromAltDegree(obj) - CI.fromAltInterval(interval);
   const diatonicDegreeInt = +obj.diatonicDegree - +interval.diatonicInterval;
   const diatonicDegree = Degrees.fromInt(diatonicDegreeInt);

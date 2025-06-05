@@ -1,6 +1,6 @@
 import type { DegreeArray } from "alt";
 import type { DegreeFunc } from "./DegreeFunc";
-import { add as aAdd } from "degrees/alt/modifiers";
+import { shift as aAdd } from "degrees/alt/modifiers";
 
 export function getDegrees(degreeFunc: DegreeFunc): DegreeArray {
   const ret = [];

@@ -6,7 +6,7 @@ export function fromRootIntervals(...rootIntervals: IntervalArray): Scale {
   const intraIntervals: Interval[] = [];
 
   for (let i = 1; i < rootIntervals.length; i++) {
-    const intraIntervalsI = Intervals.sub(rootIntervals[i], rootIntervals[i - 1]) as Interval;
+    const intraIntervalsI = Intervals.shiftDown(rootIntervals[i], rootIntervals[i - 1]) as Interval;
 
     intraIntervals.push(intraIntervalsI);
   }
@@ -19,7 +19,7 @@ export function fromRootIntervals(...rootIntervals: IntervalArray): Scale {
 }
 
 function getLastIntraInterval(rootIntervals: IntervalArray): Interval {
-  return Intervals.sub(
+  return Intervals.shiftDown(
     Intervals.P8,
     rootIntervals[rootIntervals.length - 1],
   ) as Interval;

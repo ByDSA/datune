@@ -18,9 +18,9 @@ const functions: string[] = [
   P.fromDPitch.name,
 
   // modifiers
-  P.add.name,
+  P.shift.name,
+  P.shiftDown.name,
   P.rootIntervals.name,
-  P.sub.name,
 ];
 
 it("module should export functions and vars", async () => {

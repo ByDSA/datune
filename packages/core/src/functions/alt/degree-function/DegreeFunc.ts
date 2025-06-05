@@ -24,7 +24,7 @@ export class DegreeFunc extends Func {
   }
 
   protected calculateChord(key: Key): Chord {
-    const noteBase: Pitch = P.add(key.root, I.fromDegree(this.degree));
+    const noteBase: Pitch = P.shift(key.root, I.fromDegree(this.degree));
 
     return C.fromRootVoicing(noteBase, this.voicing);
   }

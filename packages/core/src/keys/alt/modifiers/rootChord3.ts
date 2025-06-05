@@ -99,7 +99,7 @@ export function rootChord3(obj: Key): Chord | null {
   let ret = null;
 
   for (const o of chordRootVoicingPriority) {
-    const pitch = P.add(obj.root, o.interval);
+    const pitch = P.shift(obj.root, o.interval);
     const chord = C.fromRootVoicing(pitch, o.voicing);
 
     if (obj.hasChord(chord)) {

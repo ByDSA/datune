@@ -1,17 +1,17 @@
 import type { Pitch } from "../Pitch";
-import type { Pitch as DPitch } from "pitches/diatonic";
+import type { Interval } from "intervals/alt";
 import type { Pitch as CPitch } from "pitches/chromatic";
-import { type Interval } from "intervals/alt";
+import type { Pitch as DPitch } from "pitches/diatonic";
 import { fromAltInterval as cIntervalFromAltInterval } from "intervals/symbolic/chromatic/building";
+import { shift as cPitchShift } from "pitches/chromatic/modifiers/shift";
 import { fromAltPitch as cPitchFromAltPitch } from "pitches/chromatic/building";
-import { sub as cPitchSub } from "pitches/chromatic/modifiers/sub";
-import { sub as dPitchSub } from "pitches/diatonic/modifiers";
+import { shift as dPitchShift } from "pitches/diatonic/modifiers";
 import { fromChromaticAndDiatonic } from "../building/chromaticAndDiatonic";
 
-export function sub(obj: Pitch, interval: Interval): Pitch {
-  const dPitch: DPitch = dPitchSub(obj.diatonic, interval.diatonicInterval);
+export function shift(pitch: Pitch, interval: Interval): Pitch {
+  const dPitch: DPitch = dPitchShift(pitch.diatonic, interval.diatonicInterval);
   const intervalChromaticInterval = cIntervalFromAltInterval(interval);
-  const cPitch: CPitch = cPitchSub(cPitchFromAltPitch(obj), intervalChromaticInterval);
+  const cPitch: CPitch = cPitchShift(cPitchFromAltPitch(pitch), intervalChromaticInterval);
 
   return fromChromaticAndDiatonic(cPitch, dPitch);
 }

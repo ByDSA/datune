@@ -2,8 +2,8 @@ import type { Voicing } from "../Voicing";
 import { cyclicMod } from "datils/math";
 import { Intervals as CI } from "intervals/symbolic/chromatic";
 import { IntervalArray, Interval } from "intervals/symbolic/alt";
-import { add } from "intervals/symbolic/alt/modifiers/add";
-import { sub } from "intervals/symbolic/alt/modifiers/sub";
+import { shift } from "intervals/symbolic/alt/modifiers/shift";
+import { shiftDown } from "intervals/symbolic/alt/modifiers/shiftDown";
 import { P8 } from "intervals/symbolic/alt/constants";
 import { fromRootIntervals } from "../building/rootIntervals";
 
@@ -19,13 +19,13 @@ export function inv(obj: Voicing, n: number = 1): Voicing {
 
     while (CI.fromAltInterval(firstValue)
     < CI.fromAltInterval(rootIntervals[rootIntervals.length - 1]))
-      firstValue = add(firstValue, P8) as Interval;
+      firstValue = shift(firstValue, P8) as Interval;
 
     rootIntervals.push(firstValue);
     // eslint-disable-next-line prefer-destructuring
     firstValue = rootIntervals[0];
     rootIntervals = <IntervalArray>rootIntervals.map(
-      (value: Interval) => sub(value, firstValue),
+      (value: Interval) => shiftDown(value, firstValue),
     );
   }
 

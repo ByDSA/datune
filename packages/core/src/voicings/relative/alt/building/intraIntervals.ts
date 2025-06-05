@@ -8,7 +8,10 @@ export function fromIntraIntervals(
   const baseIntervals: IntervalArray = [Intervals.P1];
 
   for (let i = 0; i < intraIntervals.length - 1; i++) {
-    const baseIntervalI = Intervals.add(baseIntervals[baseIntervals.length - 1], intraIntervals[i]);
+    const baseIntervalI = Intervals.shift(
+      baseIntervals[baseIntervals.length - 1],
+      intraIntervals[i],
+    );
 
     baseIntervals.push(baseIntervalI);
   }

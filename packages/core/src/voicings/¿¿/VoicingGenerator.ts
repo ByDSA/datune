@@ -5,22 +5,22 @@ import { NonEmptyArray } from "datils";
 import { OctavePitch } from "pitches/OctavePitch";
 import { RelativePitch } from "./RelativePitch";
 
-export abstract class VoicingGenerator<D extends OctavePitch> {
-  static CLOSED: VoicingGenerator<OctavePitch> = new (
-    class V<D extends OctavePitch> extends VoicingGenerator<D> {
-      apply(...degrees: NonEmptyArray<D>): Voicing<D> {
+export abstract class VoicingGenerator<I, D extends OctavePitch<I>> {
+  static CLOSED: VoicingGenerator<any, OctavePitch<any>> = new (
+    class V<I, D extends OctavePitch<I>> extends VoicingGenerator<I, D> {
+      apply(...degrees: NonEmptyArray<D>): Voicing<I, D> {
         degrees = removeDuplicates(degrees);
         degrees = sort(degrees);
 
-        const ret: Voicing<D> = [];
-        let previous: OctavePitch | null = null;
+        const ret: Voicing<I, D> = [];
+        let previous: OctavePitch<I> | null = null;
         let octave: number = 0;
 
         for (const current of degrees) {
           if (previous !== null && current < previous)
             octave++;
 
-          const relativeVoice: RelativePitch<D> = RelativePitch.from(current, octave);
+          const relativeVoice: RelativePitch<I, D> = RelativePitch.from(current, octave);
 
           ret.push(relativeVoice);
 
@@ -31,20 +31,20 @@ export abstract class VoicingGenerator<D extends OctavePitch> {
       }
     } )();
 
-  static CLOSED_UNSORTED: VoicingGenerator<OctavePitch> = new (
-    class V<D extends OctavePitch> extends VoicingGenerator<D> {
-      apply(...degrees: NonEmptyArray<D>): Voicing<D> {
+  static CLOSED_UNSORTED: VoicingGenerator<any, OctavePitch<any>> = new (
+    class V<I, D extends OctavePitch<I>> extends VoicingGenerator<I, D> {
+      apply(...degrees: NonEmptyArray<D>): Voicing<I, D> {
         degrees = removeDuplicates(degrees);
 
-        const ret: Voicing<D> = [];
-        let previous: OctavePitch | null = null;
+        const ret: Voicing<I, D> = [];
+        let previous: OctavePitch<I> | null = null;
         let octave: number = 0;
 
         for (const current of degrees) {
           if (previous !== null && current < previous)
             octave++;
 
-          const relativeVoice: RelativePitch<D> = RelativePitch.from(current, octave);
+          const relativeVoice: RelativePitch<I, D> = RelativePitch.from(current, octave);
 
           ret.push(relativeVoice);
 
@@ -55,7 +55,7 @@ export abstract class VoicingGenerator<D extends OctavePitch> {
       }
     } )();
 
-    abstract apply(...degrees: NonEmptyArray<D>): Voicing<D>;
+    abstract apply(...degrees: NonEmptyArray<D>): Voicing<I, D>;
 }
 
 export function sort<T extends object>(degrees: NonEmptyArray<T>): NonEmptyArray<T> {

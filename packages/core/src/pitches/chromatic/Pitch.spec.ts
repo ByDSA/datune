@@ -35,14 +35,14 @@ it("sorting", () => {
 
 describe("modifiers", () => {
   it("add", () => {
-    const actual = C.withAdd(I.P5);
+    const actual = C.withShifted(I.P5);
     const expected = G;
 
     expect(actual).toBe(expected);
   } );
 
   it("sub", () => {
-    const actual = C.withSub(I.P5);
+    const actual = C.withShiftedDown(I.P5);
     const expected = F;
 
     expect(actual).toBe(expected);

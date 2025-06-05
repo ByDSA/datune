@@ -3,9 +3,11 @@ export {
 } from "./inv";
 
 export {
-  add, omit,
-} from "./add-omit";
+  add, remove,
+} from "./add-remove";
 
 export {
   close,
 } from "./close";
+
+export * from "./shift";

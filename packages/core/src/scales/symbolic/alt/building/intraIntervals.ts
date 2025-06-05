@@ -16,7 +16,7 @@ function checkSumOctave(intervals: IntervalArray): void {
     if (sum === null)
       break;
 
-    sum = I.add(sum, intervals[i]);
+    sum = I.shift(sum, intervals[i]);
   }
 
   if (sum !== I.P8)

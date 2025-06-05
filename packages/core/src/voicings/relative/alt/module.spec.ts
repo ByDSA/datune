@@ -113,7 +113,9 @@ const functions: string[] = [
   // modifiers
   V.inv.name,
   V.add.name,
-  V.omit.name,
+  V.remove.name,
+  V.shift.name,
+  V.shiftDown.name,
   V.close.name,
 
   // conversions

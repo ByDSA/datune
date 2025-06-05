@@ -1,12 +1,23 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable accessor-pairs */
+import type { Interval } from "intervals/symbolic/diatonic";
+import type { OctavePitch } from "../OctavePitch";
 import { inspect } from "node:util";
-import { OctavePitch } from "../OctavePitch";
+import { Pitches as P } from ".";
 
-export class Pitch implements OctavePitch {
+export class Pitch implements OctavePitch<Interval> {
   private intValue: number;
 
   private constructor(intValue: number) {
     this.intValue = intValue;
+  }
+
+  withShifted(interval: Interval): Pitch {
+    return P.shift(this, interval);
+  }
+
+  withShiftedDown(interval: Interval): Pitch {
+    return P.shiftDown(this, interval);
   }
 
   valueOf(): number {

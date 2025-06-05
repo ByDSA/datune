@@ -5,42 +5,42 @@ import { MusicalDurations as MD } from ".";
 
 const { EIGHTH, HALF, QUARTER, SIXTEENTH, WHOLE, ZERO } = MD;
 
-it("withAdd - QUARTER + QUARTER = HALF", () => {
+it("add - QUARTER + QUARTER = HALF", () => {
   const actual: MusicalDuration = add(QUARTER, QUARTER);
   const expected = HALF;
 
   expect(actual).toEqual(expected);
 } );
 
-it("withAdd - QUARTER + ZERO = QUARTER", () => {
+it("add - QUARTER + ZERO = QUARTER", () => {
   const actual: MusicalDuration = add(QUARTER, ZERO);
   const expected = QUARTER;
 
   expect(actual).toEqual(expected);
 } );
 
-it("withSub - HALF - QUARTER = QUARTER", () => {
+it("sub - HALF - QUARTER = QUARTER", () => {
   const actual: MusicalDuration = sub(HALF, QUARTER);
   const expected = QUARTER;
 
   expect(actual).toEqual(expected);
 } );
 
-it("withSub - QUARTER - QUARTER = ZERO", () => {
+it("sub - QUARTER - QUARTER = ZERO", () => {
   const actual: MusicalDuration = sub(QUARTER, QUARTER);
   const expected = ZERO;
 
   expect(actual).toEqual(expected);
 } );
 
-it("withMult - QUARTER * 3 = WHOLE-QUARTER", () => {
+it("mult - QUARTER * 3 = WHOLE-QUARTER", () => {
   const actual: MusicalDuration = mult(QUARTER, 3);
   const expected = sub(WHOLE, QUARTER);
 
   expect(actual).toEqual(expected);
 } );
 
-it("withDiv - WHOLE / 4 = QUARTER", () => {
+it("div - WHOLE / 4 = QUARTER", () => {
   const actual: MusicalDuration = div(WHOLE, 4);
   const expected = QUARTER;
 

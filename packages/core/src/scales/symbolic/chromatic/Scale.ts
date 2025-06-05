@@ -18,6 +18,10 @@ export class Scale implements IScale<Interval, Degree> {
     this.degrees = this.rootIntervals as DegreeArray;
   }
 
+  [Symbol.iterator](): Iterator<Interval, any, any> {
+    return this.rootIntervals[Symbol.iterator]();
+  }
+
   toAlt(): AScale {
     return AS.fromChromaticScale(this);
   }

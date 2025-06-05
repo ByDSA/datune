@@ -1,6 +1,6 @@
 import type { Interval } from "../Interval";
 import { P1 } from "../constants";
-import { add } from "./add";
+import { shift } from "./shift";
 import { neg } from "./neg";
 
 export function mult(self: Interval, num: number): Interval | null {
@@ -15,7 +15,7 @@ export function mult(self: Interval, num: number): Interval | null {
     if (!ret)
       return null;
 
-    ret = add(ret, self);
+    ret = shift(ret, self);
   }
 
   return ret;

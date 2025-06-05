@@ -4,7 +4,7 @@ import type { Pitch } from "pitches/alt";
 import type { Degree } from "alt";
 import { Intervals as I } from "intervals/diatonic";
 import { P8 } from "../constants";
-import { sub } from "../modifiers/sub";
+import { shiftDown } from "../modifiers/shiftDown";
 import { neg } from "../modifiers/neg";
 import { betweenNext } from "./betweenNext";
 
@@ -16,7 +16,7 @@ export function between(from: Degree | Pitch, to: Degree | Pitch): Interval {
   const init = betweenNext(from as any, to as any);
 
   if (init.diatonicInterval >= I.FIFTH) {
-    const s = sub(P8, init);
+    const s = shiftDown(P8, init);
 
     return neg(s);
   }

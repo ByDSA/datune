@@ -117,7 +117,7 @@ function testsShift(obj: TestCoreModule) {
 
   describe.each([
     ["shift", (c: typeof C.C7, n: number) => C.shift(c, n)],
-    ["withShift", (c: typeof C.C7, n: number) => c.withShift(n)],
+    ["withShifted", (c: typeof C.C7, n: number) => c.withShifted(n)],
   ])(moduleType + ": shift using %s", (_methodName, method) => {
     it("c7 + M2 = D7", () => {
       const actual = method(C.C7, I.M2);
@@ -136,7 +136,7 @@ function testsShift(obj: TestCoreModule) {
 
   describe.each([
     ["shiftDown", (c: typeof C.C7, n: number) => C.shiftDown(c, n)],
-    ["withShiftDown", (c: typeof C.C7, n: number) => c.withShiftDown(n)],
+    ["withShiftedDown", (c: typeof C.C7, n: number) => c.withShiftedDown(n)],
   ])(moduleType + ": shift using %s", (_methodName, method) => {
     it("c7 - 1 = B7", () => {
       const actual = method(C.C7, I.m2);
@@ -190,7 +190,7 @@ function testsRemove(obj: TestCoreModule) {
   ])("remove tests", (original, pitch, expected) => {
     describe.each([
       ["remove", (c: typeof original, p: typeof pitch) => C.remove(c, p)],
-      ["withRemove", (c: typeof original, p: typeof pitch) => c.withRemove(p)],
+      ["withRemoved", (c: typeof original, p: typeof pitch) => c.withRemoved(p)],
     ])(moduleType + ": remove using %s", (_methodName, method) => {
       const actual = method(original, pitch);
 
@@ -215,11 +215,11 @@ function testsRemove(obj: TestCoreModule) {
   } );
 
   it("should cannot remove bass", () => {
-    expect(() => C.C.withRemove(P.C)).toThrow(ERROR_REMOVING_BASS);
+    expect(() => C.C.withRemoved(P.C)).toThrow(ERROR_REMOVING_BASS);
   } );
 
   it("should can remove root (if it's not the bass)", () => {
-    const actual = C.C.withInv().withRemove(P.C);
+    const actual = C.C.withInv().withRemoved(P.C);
 
     expect(actual.has(P.C)).toBeFalsy();
 
@@ -227,7 +227,7 @@ function testsRemove(obj: TestCoreModule) {
   } );
 
   it("remove all pitches should throw an error", () => {
-    expect(() => C.C.withRemove(...C.C.pitches)).toThrow(ERROR_REMOVING_BASS);
+    expect(() => C.C.withRemoved(...C.C.pitches)).toThrow(ERROR_REMOVING_BASS);
   } );
 }
 
@@ -241,13 +241,13 @@ function testsAddRemoveRootIntervals(obj: TestCoreModule) {
   ] as [typeof C.C, NonEmptyArray<typeof I.P1>, typeof C.C][])("removeRootIntervals tests", (original, intervals, expected) => {
     describe.each([
       ["removeRootIntervals", (c: typeof original, i: typeof intervals) => C.removeRootIntervals(c, ...i)],
-      ["withRemoveRootIntervals", (c: typeof original, i: typeof intervals) => c.withRemoveRootIntervals(...i)],
+      ["withRootIntervalsRemoved", (c: typeof original, i: typeof intervals) => c.withRootIntervalsRemoved(...i)],
     ])(moduleType + ": remove using %s", (_methodName, method) => {
       const actual = method(original, intervals);
 
       it(`should chord has not the intervals ${intervals} from root`, () => {
         for (const i of intervals) {
-          const pitch = actual.root.withAdd(i);
+          const pitch = actual.root.withShifted(i);
 
           expect(actual.has(pitch)).toBeFalsy();
         }
@@ -259,7 +259,7 @@ function testsAddRemoveRootIntervals(obj: TestCoreModule) {
 
       if (original.hasRootIntervals(...intervals)) {
         it("should be reversible", () => {
-          const reversed = actual.withAddRootIntervals(...intervals);
+          const reversed = actual.withRootIntervalsAdded(...intervals);
 
           expect(reversed).toBe(original);
         } );
@@ -274,13 +274,13 @@ function testsAddRemoveRootIntervals(obj: TestCoreModule) {
   ] as [typeof C.C, NonEmptyArray<typeof I.P1>, typeof C.C][])("addRootIntervals tests", (original, intervals, expected) => {
     describe.each([
       ["addRootIntervals", (c: typeof original, i: typeof intervals) => C.addRootIntervals(c, ...i)],
-      ["withAddRootIntervals", (c: typeof original, i: typeof intervals) => c.withAddRootIntervals(...i)],
+      ["withRootIntervalsAdded", (c: typeof original, i: typeof intervals) => c.withRootIntervalsAdded(...i)],
     ])(moduleType + ": remove using %s", (_methodName, method) => {
       const actual = method(original, intervals);
 
       it(`should chord has the intervals ${intervals} from root`, () => {
         for (const i of intervals) {
-          const pitch = actual.root.withAdd(i);
+          const pitch = actual.root.withShifted(i);
 
           expect(actual.has(pitch)).toBeTruthy();
         }

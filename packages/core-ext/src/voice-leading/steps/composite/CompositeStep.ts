@@ -45,7 +45,7 @@ export class CompositeStep implements Step {
         return;
 
       if (interval !== null)
-        spnArray[index] = N.add(spnAtIndex, interval);
+        spnArray[index] = N.shift(spnAtIndex, interval);
       else
         spnArray[index] = null;
     } );

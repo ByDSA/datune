@@ -1,9 +1,11 @@
+/* eslint-disable import/no-cycle */
 import type { Voicing as IVoicing } from "../Voicing";
 import type { IntervalArray, Interval } from "intervals/diatonic";
 import type { Key } from "./building";
 import { NonEmptyNumberArray } from "datils/datatypes";
 import { deepFreeze } from "datils/datatypes/objects";
 import { Intervals } from "intervals/diatonic";
+import { Voicings as V } from ".";
 
 export class Voicing implements IVoicing<Interval> {
   rootIndex: number;
@@ -34,7 +36,23 @@ export class Voicing implements IVoicing<Interval> {
     deepFreeze(this);
   }
 
-  [Symbol.iterator](): Iterator<Interval> {
+  withAdded(...intervals: Interval[]): Voicing {
+    return V.add(this, ...intervals);
+  }
+
+  withRemoved(...intervals: Interval[]): Voicing | null {
+    return V.remove(this, ...intervals);
+  }
+
+  withShifted(interval: Interval): Voicing {
+    return V.shift(this, interval);
+  }
+
+  withShiftedDown(interval: Interval): Voicing {
+    return V.shiftDown(this, interval);
+  }
+
+  [Symbol.iterator](): Iterator<Interval, any, any> {
     return this.rootIntervals[Symbol.iterator]();
   }
 }

@@ -29,8 +29,8 @@ const functions: string[] = [
   D.fromInterval.name,
 
   // Modifiers
-  D.add.name,
-  D.sub.name,
+  D.shift.name,
+  D.shiftDown.name,
 ];
 
 it("module should export functions and vars", async () => {

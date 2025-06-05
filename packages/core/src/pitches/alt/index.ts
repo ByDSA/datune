@@ -1,10 +1,11 @@
+/* eslint-disable import/no-cycle */
 import type { PitchArray } from "./Array";
 import type { fromChromatic } from "./building/chromatic";
 import type { fromDPitchAlts } from "./building/diatonicAlts";
 import type { fromChromaticInPitchArray } from "./building/chromaticInPitchArray";
 import type * as Constants from "./constants";
-import type { Pitch } from "./Pitch";
 import { createProxyBarrel } from "datils/patterns/proxy";
+import { Pitch } from "./Pitch";
 import * as Modifiers from "./modifiers";
 import { fromChromaticAndDiatonic } from "./building/chromaticAndDiatonic";
 

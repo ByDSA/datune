@@ -13,8 +13,8 @@ const functions: string[] = [
   Spns.fromPitchOctave.name,
 
   // modifiers
-  Spns.add.name,
-  Spns.sub.name,
+  Spns.shift.name,
+  Spns.shiftDown.name,
 
   // conversions
   Spns.toChromatic.name,

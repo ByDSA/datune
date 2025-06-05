@@ -1,12 +1,12 @@
 import type { Voicing } from "./Voicing";
-import type { Interval } from "diatonic";
 import { NonEmptyNumberArray } from "datils";
+import { Intervals as I, type Interval, type IntervalArray } from "intervals/symbolic/diatonic";
 import { Pitches as P } from "pitches/diatonic";
 import { abs } from "intervals/symbolic/diatonic/modifiers/abs";
 import { OCTAVE } from "intervals/symbolic/diatonic/constants";
 import { simplify } from "intervals/symbolic/diatonic/modifiers/simplify";
 import { Direction } from "intervals/symbolic/diatonic/Direction";
-import { fromRootIntervalInts } from "./building";
+import { fromRootIntervals, fromRootIntervalInts } from "./building";
 
 export function inv(obj: Voicing, n: number = 1): Voicing {
   let { rootIntervalInts } = obj;
@@ -24,16 +24,32 @@ export function inv(obj: Voicing, n: number = 1): Voicing {
   return fromRootIntervalInts(...rootIntervalInts);
 }
 
-export function add(obj: Voicing, n: number): Voicing {
-  const rootIntervalInts = obj.rootIntervalInts.map(i=>i + n) as NonEmptyNumberArray;
+export function shift(obj: Voicing, interval: Interval): Voicing {
+  const rootIntervalInts = obj.rootIntervalInts.map(i=>i + +interval) as NonEmptyNumberArray;
 
   return fromRootIntervalInts(...rootIntervalInts);
 }
 
-export function sub(obj: Voicing, n: number): Voicing {
-  const rootIntervalInts = obj.rootIntervalInts.map(i=>i - n) as NonEmptyNumberArray;
+export function shiftDown(obj: Voicing, interval: Interval): Voicing {
+  const rootIntervalInts = obj.rootIntervalInts.map(i=>i - +interval) as NonEmptyNumberArray;
 
   return fromRootIntervalInts(...rootIntervalInts);
+}
+
+export function remove(voicing: Voicing, ...intervals: Interval[]): Voicing | null {
+  let newIntervals = voicing.rootIntervals.filter(i=>!intervals.includes(i));
+
+  if (newIntervals.length <= 1)
+    return null;
+
+  return fromRootIntervals(...newIntervals as IntervalArray);
+}
+
+export function add(voicing: Voicing, ...intervals: Interval[]): Voicing {
+  let newIntervals: IntervalArray = [...voicing.rootIntervals,
+    ...intervals].sort((a, b)=>+a - +b) as IntervalArray;
+
+  return fromRootIntervals(...newIntervals);
 }
 
 export function bass(obj: Voicing, int: Interval): Voicing {
@@ -50,6 +66,6 @@ export function bass(obj: Voicing, int: Interval): Voicing {
 
   return fromRootIntervalInts(
     0,
-    ...add(obj, OCTAVE.magnitude - int.magnitude).rootIntervalInts,
+    ...shift(obj, I.fromInt(OCTAVE.magnitude - int.magnitude)).rootIntervalInts,
   );
 }

@@ -94,12 +94,12 @@ const functions: string[] = [
   // modifiers
   Intervals.serie.name,
   Intervals.abs.name,
-  Intervals.add.name,
+  Intervals.shift.name,
   Intervals.cyclic.name,
   Intervals.mult.name,
   Intervals.neg.name,
   Intervals.simplify.name,
-  Intervals.sub.name,
+  Intervals.shiftDown.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -121,12 +121,12 @@ it("module should export functions and vars", async () => {
       "constants",
       "modifiers/calcSerie",
       "modifiers/abs",
-      "modifiers/add",
+      "modifiers/shift",
       "modifiers/cyclic",
       "modifiers/mult",
       "modifiers/neg",
       "modifiers/simplify",
-      "modifiers/sub",
+      "modifiers/shiftDown",
     ],
     // eslint-disable-next-line no-undef
     dirname: __dirname,

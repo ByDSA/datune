@@ -1,8 +1,8 @@
 import { Intervals as I } from "intervals/diatonic";
 import { A, B, C, D } from "../constants";
-import { add, sub } from ".";
+import { shift, shiftDown } from ".";
 
-describe("add", () => {
+describe("shift", () => {
   it("should be C+SECOND", () => {
     const base = C;
 
@@ -12,7 +12,7 @@ describe("add", () => {
 
     expect(interval).toBeDefined();
 
-    const diatonic = add(base, interval);
+    const diatonic = shift(base, interval);
     const expected = D;
 
     expect(expected).toBeDefined();
@@ -25,23 +25,23 @@ describe("add", () => {
 
     expect(interval).toBeDefined();
 
-    const diatonic = add(C, interval);
+    const diatonic = shift(C, interval);
     const expected = D;
 
     expect(diatonic).toBe(expected);
   } );
 } );
 
-describe("sub", () => {
+describe("shiftDown", () => {
   it("should be C-SECOND", () => {
-    const diatonic = sub(C, I.SECOND);
+    const diatonic = shiftDown(C, I.SECOND);
     const expected = B;
 
     expect(diatonic).toBe(expected);
   } );
 
   it("should be C-TENTH", () => {
-    const diatonic = sub(C, I.TENTH);
+    const diatonic = shiftDown(C, I.TENTH);
     const expected = A;
 
     expect(diatonic).toBe(expected);

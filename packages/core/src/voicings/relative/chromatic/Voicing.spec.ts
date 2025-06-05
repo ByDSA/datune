@@ -10,16 +10,16 @@ it("withInv: TRIAD MAJOR + 2inv", () => {
   expect(voicing).toBe(expected);
 } );
 
-it("withAdd", () => {
+it("withAdded", () => {
   const expected = V.SEVENTH_MAJ7;
-  const actual = V.POWER_CHORD.withAdd(I.M7, I.M3);
+  const actual = V.POWER_CHORD.withAdded(I.M7, I.M3);
 
   expect(actual).toBe(expected);
 } );
 
-it("withOmit", () => {
+it("withRemoved", () => {
   const expected = V.POWER_CHORD;
-  const actual = V.SEVENTH_MAJ7.withOmit(I.M7, I.M3);
+  const actual = V.SEVENTH_MAJ7.withRemoved(I.M7, I.M3);
 
   expect(actual).toBe(expected);
 } );

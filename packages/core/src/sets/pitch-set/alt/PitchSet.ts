@@ -71,19 +71,19 @@ export class PitchSet implements IPitchSet<Pitch, Interval> {
     this.#set.forEach(callbackfn, thisArg);
   }
 
-  withAdd(...pitches: PitchArray): PitchSet {
+  withAdded(...pitches: PitchArray): PitchSet {
     return add(this, ...pitches);
   }
 
-  withRemove(...pitches: PitchArray): PitchSet {
+  withRemoved(...pitches: PitchArray): PitchSet {
     return remove(this, ...pitches);
   }
 
-  withShift(interval: Interval): PitchSet {
+  withShifted(interval: Interval): PitchSet {
     return shift(this, interval);
   }
 
-  withShiftDown(interval: Interval): PitchSet {
+  withShiftedDown(interval: Interval): PitchSet {
     return shiftDown(this, interval);
   }
 

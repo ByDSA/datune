@@ -9,7 +9,7 @@ export function inv<C extends SymbolicChord<any, any>>(
     return obj;
 
   const prevBass = obj.bass;
-  const pitchSet = obj.pitchSet.withAdd(prevBass);
+  const pitchSet = obj.pitchSet.withAdded(prevBass);
   const { pitches } = pitchSet;
   const bassIndex = pitches.indexOf(prevBass);
 

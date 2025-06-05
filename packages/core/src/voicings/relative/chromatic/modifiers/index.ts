@@ -34,8 +34,8 @@ function getFixedOctaveRootInterval(lastRootInterval: Interval, rootInterval: In
   return ret;
 }
 
-export function omit(voicing: Voicing, ...intervals: Interval[]): Voicing | null {
-  let newIntervals = voicing.rootIntervals.filter(i=>!intervals.includes(i));
+export function remove(obj: Voicing, ...intervals: Interval[]): Voicing | null {
+  let newIntervals = obj.rootIntervals.filter(i=>!intervals.includes(i));
 
   if (newIntervals.length <= 1)
     return null;
@@ -43,8 +43,20 @@ export function omit(voicing: Voicing, ...intervals: Interval[]): Voicing | null
   return fromRootIntervals(...newIntervals as IntervalArray);
 }
 
-export function add(voicing: Voicing, ...intervals: Interval[]): Voicing {
-  let newIntervals: IntervalArray = [...voicing.rootIntervals, ...intervals];
+export function add(obj: Voicing, ...intervals: Interval[]): Voicing {
+  let newIntervals: IntervalArray = [...obj.rootIntervals, ...intervals];
 
   return fromRootIntervals(...newIntervals as IntervalArray);
+}
+
+export function shift(obj: Voicing, interval: Interval): Voicing {
+  const rootIntervals = obj.rootIntervals.map(i=>i + interval) as IntervalArray;
+
+  return fromRootIntervals(...rootIntervals);
+}
+
+export function shiftDown(obj: Voicing, interval: Interval): Voicing {
+  const rootIntervals = obj.rootIntervals.map(i=>i - interval) as IntervalArray;
+
+  return fromRootIntervals(...rootIntervals);
 }

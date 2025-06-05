@@ -1,15 +1,16 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable accessor-pairs */
 import type { Pitch as DPitch } from "../diatonic";
 import type { Key } from "./caching/cache";
 import type { OctavePitch } from "../OctavePitch";
 import type { Pitch as CPitch } from "chromatic";
+import type { Interval } from "intervals/symbolic/alt";
 import { inspect } from "node:util";
 import { deepFreeze } from "datils/datatypes/objects";
 import { Pitches as CP } from "pitches/chromatic";
-import { Pitches as P } from "pitches/alt";
-import { Interval } from "intervals/alt";
+import { Pitches as P } from ".";
 
-export class Pitch implements OctavePitch {
+export class Pitch implements OctavePitch<Interval> {
   diatonic: DPitch;
 
   alts: number;
@@ -36,12 +37,12 @@ export class Pitch implements OctavePitch {
     return `${this.diatonic}${"♭".repeat(-this.alts)}`;
   }
 
-  withAdd(interval: Interval): Pitch {
-    return P.add(this, interval);
+  withShifted(interval: Interval): Pitch {
+    return P.shift(this, interval);
   }
 
-  withSub(interval: Interval): Pitch {
-    return P.sub(this, interval);
+  withShiftedDown(interval: Interval): Pitch {
+    return P.shiftDown(this, interval);
   }
 
   get [Symbol.toStringTag](): string {

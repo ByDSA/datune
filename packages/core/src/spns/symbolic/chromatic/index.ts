@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import type { fromPitchOctave } from "./building/pitch-octave";
 import type * as Constants from "./constants";
 import { createProxyBarrel } from "datils/patterns/proxy";

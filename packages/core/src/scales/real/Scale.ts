@@ -18,4 +18,8 @@ export class Scale implements IScale<Interval, Degree> {
     this.degrees = [] as any; // TODO
     this.length = key.length;
   }
+
+  [Symbol.iterator](): Iterator<Interval, any, any> {
+    return this.rootIntervals[Symbol.iterator]();
+  }
 }

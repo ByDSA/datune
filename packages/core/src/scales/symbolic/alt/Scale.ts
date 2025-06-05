@@ -32,6 +32,10 @@ export class Scale implements IScale<Interval, Degree> {
     deepFreeze(this);
   }
 
+  [Symbol.iterator](): Iterator<Interval, any, any> {
+    return this.rootIntervals[Symbol.iterator]();
+  }
+
   toChromatic(): CScale {
     const rootcIntervals = this.rootIntervals.map(i=>CI.fromAltInterval(i)) as CIntervalArray;
 
@@ -67,7 +71,7 @@ function calcDegrees(obj: Scale): DegreeArray {
 
   for (let i = 0; i < intraIntervals.length - 1; i++) {
     const interval = intraIntervals[i];
-    const degree = D.add(ret[ret.length - 1], interval);
+    const degree = D.shift(ret[ret.length - 1], interval);
 
     ret.push(degree);
   }

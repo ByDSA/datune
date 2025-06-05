@@ -5,19 +5,19 @@ import { toInt } from "../quality/conversions/int";
 import { calcFixedQualityDifferentDirection } from "./calcQuality/differentDirection";
 import { calcFixedQualitySameDirection } from "./calcQuality/sameDirection";
 
-export function sub(
-  self: Interval,
+export function shiftDown(
+  obj: Interval,
   other: Interval,
 ): Interval {
-  let diatonicInterval = DIntervals.sub(self.diatonicInterval, other.diatonicInterval);
+  let diatonicInterval = DIntervals.shiftDown(obj.diatonicInterval, other.diatonicInterval);
 
   if (diatonicInterval.magnitude === 0
-    && (toInt(other.quality, false) || 0) > (toInt(self.quality, false) || 0))
+    && (toInt(other.quality, false) || 0) > (toInt(obj.quality, false) || 0))
     diatonicInterval = DIntervals.neg(diatonicInterval);
 
-  const quality = self.diatonicInterval.direction !== other.diatonicInterval.direction
-    ? calcFixedQualitySameDirection(self, other, diatonicInterval)
-    : calcFixedQualityDifferentDirection(self, other, diatonicInterval);
+  const quality = obj.diatonicInterval.direction !== other.diatonicInterval.direction
+    ? calcFixedQualitySameDirection(obj, other, diatonicInterval)
+    : calcFixedQualityDifferentDirection(obj, other, diatonicInterval);
 
   return fromIntervalQuality(diatonicInterval, quality) as Interval;
 }

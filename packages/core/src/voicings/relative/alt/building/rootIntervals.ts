@@ -1,7 +1,7 @@
 import type { Voicing } from "../Voicing";
 import { Interval, IntervalArray } from "intervals/alt";
 import { P1 } from "intervals/symbolic/alt/constants";
-import { sub } from "intervals/symbolic/alt/modifiers/sub";
+import { shiftDown } from "intervals/symbolic/alt/modifiers/shiftDown";
 import { cache } from "../caching/cache";
 
 export function fromRootIntervals(
@@ -19,6 +19,6 @@ export function fromRootIntervals(
 
 function getStartFromZero(array: IntervalArray): IntervalArray {
   return array.map(
-    (ic: Interval, _i: number, a: Interval[]) => sub(ic, a[0]),
+    (ic: Interval, _i: number, a: Interval[]) => shiftDown(ic, a[0]),
   ) as IntervalArray;
 }

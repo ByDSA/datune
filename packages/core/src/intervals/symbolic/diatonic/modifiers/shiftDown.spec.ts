@@ -1,100 +1,10 @@
 import { Intervals as I } from "..";
-import { add } from "./add";
+import { shiftDown } from "./shiftDown";
 import { neg } from "./neg";
 
 const { ELEVENTH, FIFTEENTH, FIFTH, FOURTEENTH,
   FOURTH, NINTH, OCTAVE, SECOND, SEVENTH, SIXTH,
   TENTH, THIRD, THIRTEENTH, TWELFTH, UNISON } = I;
-
-describe.each([
-  [UNISON, SECOND, SECOND],
-  [UNISON, THIRD, THIRD],
-  [UNISON, FOURTH, FOURTH],
-  [UNISON, FIFTH, FIFTH],
-  [UNISON, SIXTH, SIXTH],
-  [UNISON, SEVENTH, SEVENTH],
-  [UNISON, OCTAVE, OCTAVE],
-  [UNISON, NINTH, NINTH],
-  [UNISON, TENTH, TENTH],
-  [UNISON, ELEVENTH, ELEVENTH],
-  [UNISON, TWELFTH, TWELFTH],
-  [UNISON, THIRTEENTH, THIRTEENTH],
-  [UNISON, FOURTEENTH, FOURTEENTH],
-  [UNISON, FIFTEENTH, FIFTEENTH],
-  [SECOND, SECOND, THIRD],
-  [SECOND, THIRD, FOURTH],
-  [SECOND, FOURTH, FIFTH],
-  [SECOND, FIFTH, SIXTH],
-  [SECOND, SIXTH, SEVENTH],
-  [SECOND, SEVENTH, OCTAVE],
-  [SECOND, OCTAVE, NINTH],
-  [SECOND, NINTH, TENTH],
-  [SECOND, TENTH, ELEVENTH],
-  [SECOND, ELEVENTH, TWELFTH],
-  [SECOND, TWELFTH, THIRTEENTH],
-  [SECOND, THIRTEENTH, FOURTEENTH],
-  [SECOND, FOURTEENTH, FIFTEENTH],
-  [THIRD, THIRD, FIFTH],
-  [THIRD, FOURTH, SIXTH],
-  [THIRD, FIFTH, SEVENTH],
-  [THIRD, SIXTH, OCTAVE],
-  [THIRD, SEVENTH, NINTH],
-  [THIRD, OCTAVE, TENTH],
-  [THIRD, NINTH, ELEVENTH],
-  [THIRD, TENTH, TWELFTH],
-  [THIRD, ELEVENTH, THIRTEENTH],
-  [THIRD, TWELFTH, FOURTEENTH],
-  [THIRD, THIRTEENTH, FIFTEENTH],
-  [FOURTH, FOURTH, SEVENTH],
-  [FOURTH, FIFTH, OCTAVE],
-  [FOURTH, SIXTH, NINTH],
-  [FOURTH, SEVENTH, TENTH],
-  [FOURTH, OCTAVE, ELEVENTH],
-  [FOURTH, NINTH, TWELFTH],
-  [FOURTH, TENTH, THIRTEENTH],
-  [FOURTH, ELEVENTH, FOURTEENTH],
-  [FOURTH, TWELFTH, FIFTEENTH],
-  [FIFTH, FIFTH, NINTH],
-  [FIFTH, SIXTH, TENTH],
-  [FIFTH, SEVENTH, ELEVENTH],
-  [FIFTH, OCTAVE, TWELFTH],
-  [FIFTH, NINTH, THIRTEENTH],
-  [FIFTH, TENTH, FOURTEENTH],
-  [FIFTH, ELEVENTH, FIFTEENTH],
-  [SIXTH, SIXTH, ELEVENTH],
-  [SIXTH, SEVENTH, TWELFTH],
-  [SIXTH, OCTAVE, THIRTEENTH],
-  [SIXTH, NINTH, FOURTEENTH],
-  [SIXTH, TENTH, FIFTEENTH],
-  [SEVENTH, SEVENTH, THIRTEENTH],
-  [SEVENTH, OCTAVE, FOURTEENTH],
-  [SEVENTH, NINTH, FIFTEENTH],
-  [OCTAVE, OCTAVE, FIFTEENTH],
-])("two ascendent - two desc", (a, b, c) => {
-  it(`${a} + ${b} = ${c}`, () => {
-    const actual = add(a, b);
-
-    expect(actual).toBe(c);
-  } );
-
-  it(`${b} + ${a} = ${c}`, () => {
-    const actual = add(b, a);
-
-    expect(actual).toBe(c);
-  } );
-
-  it(`-${a} + -${b} = -${c}`, () => {
-    const actual = add(neg(a), neg(b));
-
-    expect(actual).toBe(neg(c));
-  } );
-
-  it(`-${b} + -${a} = -${c}`, () => {
-    const actual = add(neg(b), neg(a));
-
-    expect(actual).toBe(neg(c));
-  } );
-} );
 
 describe.each([
   [UNISON, SECOND, neg(SECOND)],
@@ -216,41 +126,119 @@ describe.each([
   [FOURTEENTH, FOURTEENTH, UNISON],
   [FOURTEENTH, FIFTEENTH, neg(SECOND)],
   [FIFTEENTH, FIFTEENTH, UNISON],
-])("asc - desc", (a, b, c) => {
-  it(`${a} + -${b} = ${c}`, () => {
-    const actual = add(a, neg(b));
+])("two ascendent", (a, b, c) => {
+  it(`${a} - ${b} = ${c}`, () => {
+    const actual = shiftDown(a, b);
 
     expect(actual).toBe(c);
   } );
 
-  it(`-${b} + ${a} = ${c}`, () => {
-    const actual = add(neg(b), a);
+  it(`${a} - ${c} = ${b}`, () => {
+    const actual = shiftDown(a, c);
+
+    expect(actual).toBe(b);
+  } );
+} );
+
+describe.each([
+  [UNISON, SECOND, SECOND],
+  [UNISON, THIRD, THIRD],
+  [UNISON, FOURTH, FOURTH],
+  [UNISON, FIFTH, FIFTH],
+  [UNISON, SIXTH, SIXTH],
+  [UNISON, SEVENTH, SEVENTH],
+  [UNISON, OCTAVE, OCTAVE],
+  [UNISON, NINTH, NINTH],
+  [UNISON, TENTH, TENTH],
+  [UNISON, ELEVENTH, ELEVENTH],
+  [UNISON, TWELFTH, TWELFTH],
+  [UNISON, THIRTEENTH, THIRTEENTH],
+  [UNISON, FOURTEENTH, FOURTEENTH],
+  [UNISON, FIFTEENTH, FIFTEENTH],
+  [SECOND, SECOND, THIRD],
+  [SECOND, THIRD, FOURTH],
+  [SECOND, FOURTH, FIFTH],
+  [SECOND, FIFTH, SIXTH],
+  [SECOND, SIXTH, SEVENTH],
+  [SECOND, SEVENTH, OCTAVE],
+  [SECOND, OCTAVE, NINTH],
+  [SECOND, NINTH, TENTH],
+  [SECOND, TENTH, ELEVENTH],
+  [SECOND, ELEVENTH, TWELFTH],
+  [SECOND, TWELFTH, THIRTEENTH],
+  [SECOND, THIRTEENTH, FOURTEENTH],
+  [SECOND, FOURTEENTH, FIFTEENTH],
+  [THIRD, THIRD, FIFTH],
+  [THIRD, FOURTH, SIXTH],
+  [THIRD, FIFTH, SEVENTH],
+  [THIRD, SIXTH, OCTAVE],
+  [THIRD, SEVENTH, NINTH],
+  [THIRD, OCTAVE, TENTH],
+  [THIRD, NINTH, ELEVENTH],
+  [THIRD, TENTH, TWELFTH],
+  [THIRD, ELEVENTH, THIRTEENTH],
+  [THIRD, TWELFTH, FOURTEENTH],
+  [THIRD, THIRTEENTH, FIFTEENTH],
+  [FOURTH, FOURTH, SEVENTH],
+  [FOURTH, FIFTH, OCTAVE],
+  [FOURTH, SIXTH, NINTH],
+  [FOURTH, SEVENTH, TENTH],
+  [FOURTH, OCTAVE, ELEVENTH],
+  [FOURTH, NINTH, TWELFTH],
+  [FOURTH, TENTH, THIRTEENTH],
+  [FOURTH, ELEVENTH, FOURTEENTH],
+  [FOURTH, TWELFTH, FIFTEENTH],
+  [FIFTH, FIFTH, NINTH],
+  [FIFTH, SIXTH, TENTH],
+  [FIFTH, SEVENTH, ELEVENTH],
+  [FIFTH, OCTAVE, TWELFTH],
+  [FIFTH, NINTH, THIRTEENTH],
+  [FIFTH, TENTH, FOURTEENTH],
+  [FIFTH, ELEVENTH, FIFTEENTH],
+  [SIXTH, SIXTH, ELEVENTH],
+  [SIXTH, SEVENTH, TWELFTH],
+  [SIXTH, OCTAVE, THIRTEENTH],
+  [SIXTH, NINTH, FOURTEENTH],
+  [SIXTH, TENTH, FIFTEENTH],
+  [SEVENTH, SEVENTH, THIRTEENTH],
+  [SEVENTH, OCTAVE, FOURTEENTH],
+  [SEVENTH, NINTH, FIFTEENTH],
+  [OCTAVE, OCTAVE, FIFTEENTH],
+])("asc - desc", (a, b, c) => {
+  it(`${a} - ${b} = ${c}`, () => {
+    const actual = shiftDown(a, neg(b));
 
     expect(actual).toBe(c);
+  } );
+
+  it(`${a} - ${c} = -${b}`, () => {
+    const actual = shiftDown(a, c);
+
+    expect(actual).toBe(neg(b));
   } );
 } );
 
 describe("uNISON", () => {
-  it(`${UNISON} + ${UNISON} = ${UNISON}`, () => {
-    const actual = add(UNISON, UNISON);
+  it(`${UNISON} - ${UNISON} = ${UNISON}`, () => {
+    const actual = shiftDown(UNISON, UNISON);
 
     expect(actual).toBe(UNISON);
   } );
 
-  it(`${UNISON} + -${UNISON} = ${UNISON}`, () => {
-    const actual = add(UNISON, neg(UNISON));
+  it(`-${UNISON} - ${UNISON} = ${UNISON}`, () => {
+    const actual = shiftDown(neg(UNISON), UNISON);
 
     expect(actual).toBe(UNISON);
   } );
 
-  it(`-${UNISON} + ${UNISON} = ${UNISON}`, () => {
-    const actual = add(neg(UNISON), UNISON);
+  it(`${UNISON} - -${UNISON} = ${UNISON}`, () => {
+    const actual = shiftDown(UNISON, neg(UNISON));
 
     expect(actual).toBe(UNISON);
   } );
 
-  it(`-${UNISON} + -${UNISON} = ${UNISON}`, () => {
-    const actual = add(neg(UNISON), neg(UNISON));
+  it(`-${UNISON} - -${UNISON} = ${UNISON}`, () => {
+    const actual = shiftDown(neg(UNISON), neg(UNISON));
 
     expect(actual).toBe(UNISON);
   } );
