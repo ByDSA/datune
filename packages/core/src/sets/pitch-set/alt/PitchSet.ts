@@ -4,7 +4,7 @@ import type { Pitch, PitchArray } from "pitches/alt";
 import type { Interval } from "intervals/alt";
 import { inspect } from "node:util";
 import { deepFreeze } from "datils/datatypes/objects";
-import { PitchSet as IPitchSet } from "../PitchSet";
+import { IPitchSet } from "../IPitchSet";
 import { add, remove, shift, shiftDown } from "./modifiers";
 
 export class PitchSet implements IPitchSet<Pitch, Interval> {

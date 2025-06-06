@@ -2,7 +2,7 @@
 import type { Key } from "./caching/cache";
 import type { Pitch } from "pitches/chromatic";
 import type { Interval, PitchArray } from "chromatic";
-import type { PitchSet as IPitchSet } from "../PitchSet";
+import type { IPitchSet } from "../IPitchSet";
 import { inspect } from "node:util";
 import { deepFreeze } from "datils/datatypes/objects";
 import { add, remove, reverse, shift, shiftDown } from "./modifiers";

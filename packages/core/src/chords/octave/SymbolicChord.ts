@@ -1,6 +1,6 @@
 import { NonEmptyArray } from "datils/datatypes";
 import { Voicing } from "voicings/relative/Voicing";
-import { PitchSet } from "sets/pitch-set/PitchSet";
+import { IPitchSet } from "sets/pitch-set/IPitchSet";
 
 export interface SymbolicChord<P, I> {
     // Queries
@@ -25,7 +25,7 @@ export interface SymbolicChord<P, I> {
 
     // Properties
     rootIntervals: Readonly<NonEmptyArray<I>>;
-    pitchSet: PitchSet<P, I>;
+    pitchSet: IPitchSet<P, I>;
     pitches: Readonly<NonEmptyArray<P>>;
     size: number;
     root: P;
