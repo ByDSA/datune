@@ -5,6 +5,8 @@ import type { Interval } from "intervals/alt";
 import { inspect } from "node:util";
 import { deepFreeze } from "datils/datatypes/objects";
 import { IPitchSet } from "../IPitchSet";
+import { PitchSet as CPitchSet } from "../chromatic";
+import { fromPitches as CPSfromPitches } from "../chromatic/building";
 import { add, remove, shift, shiftDown } from "./modifiers";
 
 export class PitchSet implements IPitchSet<Pitch, Interval> {
@@ -33,6 +35,12 @@ export class PitchSet implements IPitchSet<Pitch, Interval> {
 
   hasAll(...pitches: PitchArray): boolean {
     return pitches.every((pitch) => this.#set.has(pitch));
+  }
+
+  toChromatic(): CPitchSet {
+    const cPitches = this.pitches.map(p=>p.toChromatic());
+
+    return CPSfromPitches(...cPitches);
   }
 
   get set() {

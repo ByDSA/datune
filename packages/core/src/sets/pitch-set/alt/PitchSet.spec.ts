@@ -1,6 +1,8 @@
 import { inspect } from "node:util";
 import { Pitches as P } from "pitches/alt";
+import { Pitches as CP } from "pitches/chromatic";
 import { Intervals as I } from "intervals/alt";
+import { PitchSets as CPS } from "../chromatic";
 import { fromPitches } from "./building";
 import { PitchSet } from "./PitchSet";
 import { PitchSets as PS } from ".";
@@ -146,4 +148,11 @@ it("immutable set", () => {
   const expected = new Set([P.C, P.A, P.B]);
 
   expect(actual.set).toEqual(expected);
+} );
+
+it("toChromatic", () => {
+  const ps = PS.fromPitches(P.C, P.DD, P.Eb, P.FF, P.Gb, P.AA, P.Bb, P.Cb);
+  const actual = ps.toChromatic();
+
+  expect(actual).toBe(CPS.fromPitches(CP.C, CP.DD, CP.FF, CP.AA, CP.B));
 } );

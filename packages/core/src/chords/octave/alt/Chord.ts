@@ -48,8 +48,12 @@ export class Chord implements SymbolicChord<Pitch, Interval> {
     return this.pitchSet.size;
   }
 
+  [Symbol.iterator](): Iterator<Pitch, any, any> {
+    return this.pitchSet[Symbol.iterator]();
+  }
+
   has(pitch: Pitch): boolean {
-    return this.pitches.includes(pitch);
+    return this.pitchSet.has(pitch);
   }
 
   hasAll(...pitches: PitchArray): boolean {

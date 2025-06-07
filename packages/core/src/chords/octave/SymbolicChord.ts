@@ -2,7 +2,7 @@ import { NonEmptyArray } from "datils/datatypes";
 import { Voicing } from "voicings/relative/Voicing";
 import { IPitchSet } from "sets/pitch-set/IPitchSet";
 
-export interface SymbolicChord<P, I> {
+export interface SymbolicChord<P, I> extends Iterable<P> {
     // Queries
     has(pitch: P): boolean;
     hasAny(...pitches: NonEmptyArray<P>): boolean;

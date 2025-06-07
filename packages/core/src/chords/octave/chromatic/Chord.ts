@@ -44,7 +44,7 @@ export class Chord implements SymbolicChord<Pitch, Interval> {
   }
 
   get size() {
-    return this.pitches.length;
+    return this.pitchSet.size;
   }
 
   has(pitch: Pitch): boolean {
@@ -105,6 +105,10 @@ export class Chord implements SymbolicChord<Pitch, Interval> {
 
   withRootIntervalsRemoved(...rootIntervals: IntervalArray): Chord {
     return C.removeRootIntervals(this, ...rootIntervals);
+  }
+
+  [Symbol.iterator](): Iterator<Pitch, any, any> {
+    return this.pitchSet[Symbol.iterator]();
   }
 
   withSus4(): Chord {
