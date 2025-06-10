@@ -3,7 +3,6 @@ import type { Key as K } from "./caching/cache";
 import type { Chord } from "chords/alt";
 import type { DegreeArray } from "degrees/alt";
 import type { Key } from "keys/alt";
-import type { Interval } from "intervals/alt";
 import { Chords as C } from "chords/alt";
 import { Intervals as I } from "intervals/alt";
 import { Func } from "../Func";
@@ -20,21 +19,14 @@ export class CompoundFunc extends Func {
     this.degreeChain = key.degreeChain;
   }
 
-  protected calculateChord(key: Key): Chord | null {
+  protected calculateChord(key: Key): Chord {
     const baseChord = this.degreeFunc.getChord(key);
-
-    if (!baseChord)
-      return null;
-
     let accInterval = I.P1;
 
     for (const degree of this.degreeChain) {
       const rootInterval = degree;
 
-      accInterval = I.shift(accInterval, rootInterval) as Interval;
-
-      if (!accInterval)
-        return null;
+      accInterval = I.shift(accInterval, rootInterval);
     }
 
     return C.shift(baseChord, accInterval);
