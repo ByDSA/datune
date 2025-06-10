@@ -1,26 +1,49 @@
 import { deepFreeze } from "datils/datatypes/objects";
-import { Degree } from "./Degree";
+import { type Interval, Intervals } from "intervals/symbolic/diatonic";
 
-export const I = new (Degree as any)(0);
+export function initialize() {
+  if (I)
+    throw new Error("Already initialized");
 
-export const II = new (Degree as any)(1);
+  const { UNISON,
+    SECOND,
+    THIRD,
+    FOURTH,
+    FIFTH,
+    SIXTH,
+    SEVENTH } = Intervals;
 
-export const III = new (Degree as any)(2);
+  I = UNISON;
+  II = SECOND;
+  III = THIRD;
+  IV = FOURTH;
+  V = FIFTH;
+  VI = SIXTH;
+  VII = SEVENTH;
 
-export const IV = new (Degree as any)(3);
+  ALL = deepFreeze([
+    I,
+    II,
+    III,
+    IV,
+    V,
+    VI,
+    VII,
+  ]);
+}
 
-export const V = new (Degree as any)(4);
+export let I: Interval;
 
-export const VI = new (Degree as any)(5);
+export let II: Interval;
 
-export const VII = new (Degree as any)(6);
+export let III: Interval;
 
-export const ALL = deepFreeze([
-  I,
-  II,
-  III,
-  IV,
-  V,
-  VI,
-  VII,
-]);
+export let IV: Interval;
+
+export let V: Interval;
+
+export let VI: Interval;
+
+export let VII: Interval;
+
+export let ALL: Interval[];

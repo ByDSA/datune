@@ -1,7 +1,7 @@
 import type { DegreeFunc } from "../../degree-function/DegreeFunc";
 import type { DegreeArray } from "degrees/chromatic";
 import type { CompoundFunc } from "../CompoundFunc";
-import { getObjId as degreeGetObjId } from "degrees/chromatic/caching";
+import { getObjId as degreeGetObjId } from "intervals/symbolic/chromatic/caching/id";
 import { getObjId as degreeFuncGetObjId } from "../../degree-function/caching/key-id";
 
 export type Key = {

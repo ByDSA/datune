@@ -4,14 +4,17 @@ import type { Quality } from "./quality/Quality";
 import type { Key } from "./caching/cache";
 import { deepFreeze } from "datils/datatypes/objects";
 import { Intervals as CI } from "intervals/chromatic";
-import { Degrees as D } from "degrees/alt";
 import { IInterval } from "../IInterval";
+import { isMainInterval } from "../diatonic/isMainInterval";
+import { toInt } from "./quality/conversions";
 import { Intervals as I } from ".";
 
 export class Interval implements IInterval {
   diatonicInterval: DInterval;
 
   quality: Quality;
+
+  #alts?: number;
 
   private constructor(key: Key) {
     this.diatonicInterval = key.diatonicInterval;
@@ -27,6 +30,36 @@ export class Interval implements IInterval {
     return I.shiftDown(this, interval);
   }
 
+  withNeg(): Interval {
+    return I.neg(this);
+  }
+
+  withAbs(): Interval {
+    return I.abs(this);
+  }
+
+  withSimplified(): Interval {
+    return I.simplify(this);
+  }
+
+  withCyclicOctave(): Interval {
+    return I.cyclicOctave(this);
+  }
+
+  // eslint-disable-next-line accessor-pairs
+  get alts(): number {
+    if (this.#alts === undefined) {
+      const ret = toInt(this.quality, isMainInterval(this.diatonicInterval));
+
+      if (ret === null)
+        throw new Error("alts is null");
+
+      this.#alts = ret;
+    }
+
+    return this.#alts;
+  }
+
   toString() {
     const dIntervalIntAbs = Math.abs(+this.diatonicInterval);
     const sign = this.diatonicInterval.direction === 0 ? "" : "-";
@@ -40,9 +73,5 @@ export class Interval implements IInterval {
 
   toChromaticInterval() {
     return CI.fromAltInterval(this);
-  }
-
-  toDegree() {
-    return D.fromInterval(this);
   }
 }

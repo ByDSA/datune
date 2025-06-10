@@ -1,30 +1,29 @@
 import type { Degree } from "../Degree";
-import * as DD from "degrees/diatonic/constants";
-import { from } from "../building";
+import { Intervals } from "intervals/symbolic/alt";
 
 export function initialize() {
   if (I)
     throw new Error("Already initialized");
 
-  I = from(DD.I, 0);
-  aI = from(DD.I, 1);
-  bII = from(DD.II, -1);
-  II = from(DD.II, 0);
-  aII = from(DD.II, 1);
-  bIII = from(DD.III, -1);
-  III = from(DD.III, 0);
-  aIII = from(DD.III, 1);
-  IV = from(DD.IV, 0);
-  aIV = from(DD.IV, 1);
-  bV = from(DD.V, -1);
-  V = from(DD.V, 0);
-  aV = from(DD.V, 1);
-  bVI = from(DD.VI, -1);
-  VI = from(DD.VI, 0);
-  aVI = from(DD.VI, 1);
-  bVII = from(DD.VII, -1);
-  VII = from(DD.VII, 0);
-  aVII = from(DD.VII, 1);
+  I = Intervals.P1;
+  aI = Intervals.a1;
+  bII = Intervals.m2;
+  II = Intervals.M2;
+  aII = Intervals.a2;
+  bIII = Intervals.m3;
+  III = Intervals.M3;
+  aIII = Intervals.a3;
+  IV = Intervals.P4;
+  aIV = Intervals.a4;
+  bV = Intervals.d5;
+  V = Intervals.P5;
+  aV = Intervals.a5;
+  bVI = Intervals.m6;
+  VI = Intervals.M6;
+  aVI = Intervals.a6;
+  bVII = Intervals.m7;
+  VII = Intervals.M7;
+  aVII = Intervals.a7;
 }
 
 export let I: Degree;

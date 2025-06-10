@@ -3,7 +3,7 @@ import { P1 } from "../constants";
 import { shift } from "./shift";
 import { neg } from "./neg";
 
-export function mult(self: Interval, num: number): Interval | null {
+export function mult(self: Interval, num: number): Interval {
   const intNum = Math.trunc(num);
 
   if (intNum < 0)
@@ -11,12 +11,8 @@ export function mult(self: Interval, num: number): Interval | null {
 
   let ret: Interval | null = P1;
 
-  for (let i = 0; i < intNum; i++) {
-    if (!ret)
-      return null;
-
+  for (let i = 0; i < intNum; i++)
     ret = shift(ret, self);
-  }
 
   return ret;
 }

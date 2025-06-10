@@ -36,13 +36,13 @@ const functions: string[] = [
   I.betweenNext.name,
   I.betweenSpn.name,
   I.fromAltInterval.name,
-  I.fromDegree.name,
 
   // modifiers
-  I.add.name,
-  I.sub.name,
+  I.shift.name,
+  I.shiftDown.name,
   I.neg.name,
   I.simplify.name,
+  I.cyclicOctave.name,
   I.octaves.name,
   I.abs.name,
 ];

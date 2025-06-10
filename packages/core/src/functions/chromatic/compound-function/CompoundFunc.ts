@@ -3,6 +3,7 @@ import type { Key } from "keys/chromatic";
 import type { DegreeArray } from "degrees/chromatic";
 import { Chords as C, type Chord } from "chords/chromatic";
 import { Intervals as I } from "intervals/chromatic";
+import { stringifyDegree } from "degrees/chromatic/stringify";
 import { Func } from "../Func";
 import { type Key as K, getObjId } from "./caching/key-id";
 
@@ -10,6 +11,8 @@ export class CompoundFunc extends Func {
   degreeFunc: DegreeFunc;
 
   degreeChain: DegreeArray;
+
+  #string?: string;
 
   private constructor(key: K) {
     super();
@@ -23,9 +26,9 @@ export class CompoundFunc extends Func {
     let accInterval = I.P1;
 
     for (const degree of this.degreeChain) {
-      const rootInterval = I.fromDegree(degree);
+      const rootInterval = degree;
 
-      accInterval = I.add(accInterval, rootInterval);
+      accInterval = I.shift(accInterval, rootInterval);
     }
 
     return C.shift(baseChord, accInterval);
@@ -33,5 +36,12 @@ export class CompoundFunc extends Func {
 
   getId(): string {
     return getObjId(this);
+  }
+
+  toString() {
+    if (this.#string === undefined)
+      this.#string = this.degreeFunc + "/" + this.degreeChain.map(stringifyDegree).join("/");
+
+    return this.#string;
   }
 }

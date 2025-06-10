@@ -1,11 +1,12 @@
 import type { Interval } from "./Interval";
+import { cyclicMod } from "datils/math";
 import { NUMBER as CNUMBER } from "pitches/chromatic/constants/Number";
 
-export function add(obj: Interval, interval: Interval): Interval {
+export function shift(obj: Interval, interval: Interval): Interval {
   return obj + interval;
 }
 
-export function sub(obj: Interval, interval: Interval): Interval {
+export function shiftDown(obj: Interval, interval: Interval): Interval {
   return obj - interval;
 }
 
@@ -15,6 +16,10 @@ export function neg(obj: Interval): Interval {
 
 export function simplify(obj: Interval): Interval {
   return obj % CNUMBER;
+}
+
+export function cyclicOctave(obj: Interval): Interval {
+  return cyclicMod(obj, CNUMBER);
 }
 
 export function octaves(obj: Interval): Interval {

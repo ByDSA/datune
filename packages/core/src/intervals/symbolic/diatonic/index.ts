@@ -5,7 +5,7 @@ import type { isMainInterval } from "./isMainInterval";
 import type { abs } from "./modifiers/abs";
 import type { shift } from "./modifiers/shift";
 import type { neg } from "./modifiers/neg";
-import type { simplify } from "./modifiers/simplify";
+import type { simplify, cyclicOctave } from "./modifiers/simplify";
 import type { shiftDown } from "./modifiers/shiftDown";
 import { createProxyBarrel } from "datils/patterns/proxy";
 import { fromInt } from "./building/int";
@@ -21,10 +21,11 @@ const staticModule = {
 type LazyType = Omit<typeof Constants, "initialize"> & {
   isMainInterval: typeof isMainInterval;
   abs: typeof abs;
-  shift: typeof shift;
   neg: typeof neg;
-  simplify: typeof simplify;
+  shift: typeof shift;
   shiftDown: typeof shiftDown;
+  simplify: typeof simplify;
+  cyclicOctave: typeof cyclicOctave;
 };
 
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {

@@ -11,10 +11,10 @@ describe.each([
   [I.P1, I.m3, neg(I.m3)],
   [I.P1, I.P8, neg(I.P8)],
   [I.P1, I.a8, neg(I.a8)],
-  [I.P5, I.a5, neg(I.a1)],
+  [I.P5, I.a5, I.d1],
   [I.a5, I.P5, I.a1],
   [I.P1, I.d8, neg(I.d8)],
-  [I.P8, I.a8, neg(I.a1)],
+  [I.P8, I.a8, I.d1],
 ])("test", (a, b, expected) => {
   it(a.toString() + " - " + b.toString() + " should be " + expected.toString(), () => {
     const actual = shiftDown(a, b);

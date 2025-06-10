@@ -1,7 +1,7 @@
 import type { DegreeFunc } from "../../degree-function/DegreeFunc";
 import type { DegreeArray } from "degrees/alt";
 import { KeyMappedFlyweightCache } from "datils/patterns/caching";
-import { getObjId as degreeGetObjId } from "degrees/alt/caching/cache";
+import { getObjId as degreeGetObjId } from "intervals/symbolic/alt/caching/cache";
 import { CompoundFunc } from "../CompoundFunc";
 import { getObjId as degreeFuncGetObjId } from "../../degree-function/caching/cache";
 

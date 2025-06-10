@@ -3,6 +3,7 @@ import { Degrees as D } from "degrees/alt";
 import { Degrees as DD } from "degrees/diatonic";
 import { Funcs as F } from "functions/alt";
 import { Scales as CS } from "chromatic";
+import { Intervals as I } from "alt";
 import { getDegreeFuncs } from "./modifiers";
 import { Scales as S } from ".";
 
@@ -10,7 +11,7 @@ const { CHROMATIC } = S;
 
 it("hasEnharmonicDegrees - CHROMATIC - II# and bIII", () => {
   const degrees: DegreeArray = [
-    D.from(DD.II, 1),
+    I.fromDiatonicInterval(DD.II, 1),
     D.bIII,
   ];
 

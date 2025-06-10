@@ -14,6 +14,7 @@ const { FIFTH, FOURTH, neg: Dneg } = DIntervals;
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const CASES_AmB = [
   [d5, m3, m3],
+  [d5.withNeg(), m3.withNeg(), m3.withNeg()],
   [a5, M3, M3],
   [M3, M2, M2],
   [M3, m2, a2],
@@ -88,4 +89,46 @@ describe("a + B", () => {
       expectInterval(actual, b);
     } );
   } );
+} );
+
+describe("d8, P8, non commutative", () => {
+  it("d8 + a1 = P8", () => {
+    const actual = I.d8.withShifted(I.a1);
+
+    expect(actual).toBe(I.P8);
+  } );
+
+  it("p8 - d8 = a1", () => {
+    const actual = I.P8.withShiftedDown(I.d8);
+
+    expect(actual).toBe(I.a1);
+  } );
+
+  it("p8 - a8 = d1", () => {
+    const actual = I.P8.withShiftedDown(I.a8);
+
+    expect(actual).toBe(I.d1);
+  } );
+} );
+
+it("a1 + d1 = P1", () => {
+  const base1 = I.a1;
+  const base2 = I.d1;
+  const actual = base1.withShifted(base2);
+
+  expect(actual).toBe(I.P1);
+} );
+
+it("a1 == -d1 = 1", () => {
+  const a1Chromatic = I.a1.toChromaticInterval();
+
+  expect(a1Chromatic).toBe(1);
+  expect(a1Chromatic).toBe(I.d1.withNeg().toChromaticInterval());
+} );
+
+it("-a1 == d1 = -1", () => {
+  const d1Chromatic = I.d1.toChromaticInterval();
+
+  expect(d1Chromatic).toBe(-1);
+  expect(I.a1.withNeg().toChromaticInterval()).toBe(d1Chromatic);
 } );

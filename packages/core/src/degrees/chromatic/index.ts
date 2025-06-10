@@ -1,13 +1,9 @@
 import type { DegreeArray } from "./Array";
 import { createProxyBarrel } from "datils/patterns/proxy";
 import { Degree } from "./Degree";
-import * as Building from "./building";
 import * as Constants from "./constants";
-import * as Modifiers from "./modifiers";
 
 const staticModule = {
-  ...Building,
-  ...Modifiers,
   ...Constants,
 };
 

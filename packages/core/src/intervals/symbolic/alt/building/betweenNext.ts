@@ -7,7 +7,7 @@ import { Intervals as DIntervals, Interval as DInterval } from "intervals/diaton
 import { Pitches as CP } from "pitches/chromatic";
 import { Pitches as DP } from "pitches/diatonic";
 import { fromDPitchAlts } from "pitches/alt/building/diatonicAlts";
-import { Degree } from "degrees/alt/Degree";
+import { Interval as Degree } from "intervals/alt";
 import { MAJOR_SCALE_DEGREES } from "scales/symbolic/chromatic/constants/majorScaleDegrees";
 import { fromIntervals } from "./intervals";
 
@@ -20,8 +20,8 @@ export function betweenNext(from: Degree | Pitch, to: Degree | Pitch): Interval 
   let pitch2: Pitch;
 
   if (from instanceof Degree) {
-    pitch1 = fromDPitchAlts(DP.fromInt(+from.diatonicDegree), from.alts);
-    pitch2 = fromDPitchAlts(DP.fromInt(+(to as any).diatonicDegree), to.alts);
+    pitch1 = fromDPitchAlts(DP.fromInt(+from.diatonicInterval), from.alts);
+    pitch2 = fromDPitchAlts(DP.fromInt(+(to as Degree).diatonicInterval), to.alts);
   } else {
     pitch1 = from;
     pitch2 = to as any;

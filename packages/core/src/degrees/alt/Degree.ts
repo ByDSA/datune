@@ -1,37 +1,3 @@
-import type { Key } from "./caching/cache";
-import { deepFreeze } from "datils/datatypes/objects";
-import { Intervals as I } from "intervals/alt";
-import { fromAltDegree } from "degrees/chromatic/building";
-import { Degree as DiatonicDegree } from "degrees/diatonic";
+import { type Interval } from "intervals/alt";
 
-export class Degree {
-  diatonicDegree: DiatonicDegree;
-
-  alts: number;
-
-  private constructor(key: Key) {
-    this.diatonicDegree = key.diatonicDegree;
-    this.alts = key.alts;
-
-    deepFreeze(this);
-  }
-
-  valueOf(): number {
-    return fromAltDegree(this);
-  }
-
-  toString(): string {
-    if (this.alts >= 0)
-      return "♯".repeat(this.alts) + this.diatonicDegree.toString();
-
-    return `${"♭".repeat(-this.alts)}${this.diatonicDegree}`;
-  }
-
-  toChromatic() {
-    return fromAltDegree(this);
-  }
-
-  toInterval() {
-    return I.fromDegree(this);
-  }
-}
+export type Degree = Interval;

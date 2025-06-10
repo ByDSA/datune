@@ -5,7 +5,3 @@ export {
 export {
   fromAltInterval,
 } from "./altInterval";
-
-export {
-  fromDegree,
-} from "./degree";

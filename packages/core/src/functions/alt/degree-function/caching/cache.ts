@@ -1,7 +1,7 @@
 import type { Degree } from "degrees/alt";
 import type { Voicing } from "voicings/alt";
 import { KeyMappedFlyweightCache } from "datils/patterns/caching";
-import { getObjId as degreeGetObjId } from "degrees/alt/caching/cache";
+import { getObjId as degreeGetObjId } from "intervals/symbolic/alt/caching/cache";
 import { getObjId as voicingGetObjId } from "voicings/relative/alt/caching/cache";
 import { DegreeFunc } from "../DegreeFunc";
 

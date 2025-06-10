@@ -1,16 +1,17 @@
 import type { Scale } from "../Scale";
 import type { Pitch, PitchArray } from "pitches/alt";
-import { Degrees as DDegrees } from "degrees/diatonic";
-import { DegreeArray as DegreeAltArray, Degrees } from "../../../../degrees/alt";
+import { Intervals as DI } from "intervals/diatonic";
+import { Intervals as I } from "intervals/alt";
+import { DegreeArray as DegreeAltArray } from "../../../../degrees/alt";
 import { fromDegrees } from "./degrees";
 
 export function fromPitches(...pitches: PitchArray): Scale {
-  const degrees = <DegreeAltArray>pitches.map(
-    (p: Pitch) => Degrees.from(
-      DDegrees.fromInt(+p.diatonic),
+  const degrees = pitches.map(
+    (p: Pitch) => I.fromDiatonicInterval(
+      DI.fromInt(+p.diatonic),
       p.alts,
     ),
-  );
+  ) as DegreeAltArray;
   const scale = fromDegrees(...degrees);
 
   return scale;

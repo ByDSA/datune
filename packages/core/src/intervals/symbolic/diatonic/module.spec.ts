@@ -25,10 +25,11 @@ const functions: string[] = [
 
   // modifiers
   I.abs.name,
-  I.shift.name,
   I.neg.name,
-  I.simplify.name,
+  I.shift.name,
   I.shiftDown.name,
+  I.simplify.name,
+  I.cyclicOctave.name,
 
   // isMainInterval
   I.isMainInterval.name,

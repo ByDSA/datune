@@ -1,7 +1,7 @@
 import type { Degree } from "degrees/chromatic";
 import type { Voicing } from "voicings/chromatic";
 import type { DegreeFunc } from "../DegreeFunc";
-import { getObjId as degreeGetObjId } from "degrees/chromatic/caching";
+import { getObjId as degreeGetObjId } from "intervals/symbolic/chromatic/caching/id";
 import { getObjId as voicingGetObjId } from "voicings/relative/chromatic/caching/cache";
 
 export type Key = {

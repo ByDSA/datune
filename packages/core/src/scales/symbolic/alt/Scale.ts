@@ -1,12 +1,12 @@
 import type { Key } from "./caching/cache";
 import type { Scale as IScale } from "../../Scale";
-import type { DegreeArray, Degree } from "degrees/alt";
 import type { IntervalArray as CIntervalArray } from "intervals/chromatic";
 import type { IntervalArray, Interval } from "intervals/alt";
 import { deepFreeze } from "datils/datatypes/objects";
-import { Degrees as D } from "degrees/alt";
+import { type DegreeArray, type Degree, Degrees as D } from "degrees/alt";
+import { Intervals } from "intervals/symbolic/alt";
 import { Voicings as V } from "voicings/alt";
-import { fromAltDegree } from "degrees/chromatic/building/fromAltDegree";
+import { fromAltInterval } from "intervals/symbolic/chromatic/building/altInterval";
 import { Scale as CScale } from "scales/chromatic";
 import { Intervals as CI } from "intervals/chromatic";
 import { Scales as CS } from "scales/chromatic";
@@ -47,7 +47,7 @@ export class Scale implements IScale<Interval, Degree> {
       let found = false;
 
       for (const scaleDegree of this.degrees) {
-        if (fromAltDegree(scaleDegree) === fromAltDegree(degree)) {
+        if (fromAltInterval(scaleDegree) === fromAltInterval(degree)) {
           found = true;
           break;
         }
@@ -71,7 +71,7 @@ function calcDegrees(obj: Scale): DegreeArray {
 
   for (let i = 0; i < intraIntervals.length - 1; i++) {
     const interval = intraIntervals[i];
-    const degree = D.shift(ret[ret.length - 1], interval);
+    const degree = Intervals.shift(ret[ret.length - 1], interval);
 
     ret.push(degree);
   }

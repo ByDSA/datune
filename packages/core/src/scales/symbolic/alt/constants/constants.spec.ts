@@ -2,13 +2,14 @@
 import type { Scale } from "../Scale";
 import { Degrees as D } from "degrees/alt";
 import { Degrees as DD } from "degrees/diatonic";
+import { Intervals } from "intervals/alt";
 import { Scales as S } from "..";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const { BEBOP_DOMINANT, BLUES_a4, BLUES_b5, BLUES_MAJOR,
   BLUES_MINOR, EGYPCIAN, MAJOR, MINOR, PENTATONIC, PENTATONIC_MINOR, COMMON } = S;
   // eslint-disable-next-line @typescript-eslint/naming-convention
-const { bIII, bV, bVI, bVII, from, I, II, III, IV, V, VI, VII } = D;
+const { bIII, bV, bVI, bVII, I, II, III, IV, V, VI, VII } = D;
 
 describe("sets", () => {
   describe.each([...COMMON])("tests", (scale: Scale) => {
@@ -84,7 +85,7 @@ it("scale - degrees: BLUES_a4", () => {
     I,
     bIII,
     IV,
-    from(DD.IV, 1),
+    Intervals.fromDiatonicInterval(DD.IV, 1),
     V,
     bVII,
   ]);

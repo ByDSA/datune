@@ -7,13 +7,20 @@ import type { Voicing } from "voicings/alt";
 import { deepFreeze } from "datils/datatypes/objects";
 import { Pitches as P } from "pitches/alt";
 import { Chords as C } from "chords/alt";
-import { Intervals as I } from "intervals/alt";
+import { type Interval } from "intervals/alt";
+import { IDegreeFunc } from "functions/IDegreeFunc";
 import { Func } from "../Func";
+import { getDegrees } from "./conversions";
+import { degree, shift, shiftDown, voicing } from "./modifiers";
 
-export class DegreeFunc extends Func {
+export class DegreeFunc
+  extends Func
+  implements IDegreeFunc<Interval, Degree, Voicing> {
   degree: Degree;
 
   voicing: Voicing;
+
+  #degrees?: Degree[];
 
   protected constructor(key: K) {
     super();
@@ -23,8 +30,32 @@ export class DegreeFunc extends Func {
     deepFreeze(this);
   }
 
+  withShifted(interval: Interval): DegreeFunc {
+    return shift(this, interval);
+  }
+
+  withShiftedDown(interval: Interval): DegreeFunc {
+    return shiftDown(this, interval);
+  }
+
+  withDegree(newDegree: Degree): DegreeFunc {
+    return degree(this, newDegree);
+  }
+
+  withVoicing(newVoicing: Voicing): DegreeFunc {
+    return voicing(this, newVoicing);
+  }
+
+  // eslint-disable-next-line accessor-pairs
+  get degrees(): Degree[] {
+    if (this.#degrees === undefined)
+      this.#degrees = getDegrees(this);
+
+    return this.#degrees;
+  }
+
   protected calculateChord(key: Key): Chord {
-    const noteBase: Pitch = P.shift(key.root, I.fromDegree(this.degree));
+    const noteBase: Pitch = P.shift(key.root, this.degree);
 
     return C.fromRootVoicing(noteBase, this.voicing);
   }

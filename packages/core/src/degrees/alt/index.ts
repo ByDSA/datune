@@ -1,14 +1,9 @@
 import type * as Constants from "./constants";
 import { createProxyBarrel } from "datils/patterns/proxy";
 import { Degree } from "./Degree";
-import * as Modifiers from "./modifiers";
-import * as Building from "./building";
 import { DegreeArray } from "./Array";
 
-const staticModule = {
-  ...Building,
-  ...Modifiers,
-};
+const staticModule = {};
 
 type LazyType = Omit<typeof Constants, "initialize">;
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {

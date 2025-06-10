@@ -7,7 +7,7 @@ import type { fromIntervals } from "./building/intervals";
 import type * as Constants from "./constants";
 import type { abs } from "./modifiers/abs";
 import type { shift } from "./modifiers/shift";
-import type { cyclic } from "./modifiers/cyclic";
+import type { cyclicOctave } from "./modifiers/cyclic-octave";
 import type { mult } from "./modifiers/mult";
 import type { neg } from "./modifiers/neg";
 import type { simplify } from "./modifiers/simplify";
@@ -19,7 +19,7 @@ import { Interval } from "./Interval";
 import * as QualityBuilding from "./quality/building";
 import * as QualityConstants from "./quality/constants";
 import * as QualityConversions from "./quality/conversions";
-import { fromDegree } from "./building/degree";
+import { fromDiatonicInterval } from "./building/fromDInterval";
 import { fromChromaticInterval } from "./building/fromCInterval";
 
 const qualityModStatic = {
@@ -35,11 +35,11 @@ type LazyType = Omit<typeof Constants, "initialize"> & {
   betweenNext: typeof betweenNext;
   fromIntervalQuality: typeof fromIntervalQuality;
   fromIntervals: typeof fromIntervals;
-  fromDegree: typeof fromDegree;
+  fromDiatonicInterval: typeof fromDiatonicInterval;
   fromChromaticInterval: typeof fromChromaticInterval;
   abs: typeof abs;
   shift: typeof shift;
-  cyclic: typeof cyclic;
+  cyclicOctave: typeof cyclicOctave;
   mult: typeof mult;
   neg: typeof neg;
   simplify: typeof simplify;
@@ -54,7 +54,8 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "building/betweenNext",
     "building/intervalQuality",
     "building/intervals",
-    "building/degree",
+    "building/fromCInterval",
+    "building/fromDInterval",
     {
       path: "constants",
       omit: ["initialize"],
@@ -65,7 +66,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "modifiers/calcSerie",
     "modifiers/abs",
     "modifiers/shift",
-    "modifiers/cyclic",
+    "modifiers/cyclic-octave",
     "modifiers/mult",
     "modifiers/neg",
     "modifiers/simplify",

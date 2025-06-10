@@ -7,7 +7,7 @@ export function calcIntraIntervals(obj: Scale): IntervalArray {
   const rootIntervals = [...obj.rootIntervals, I.P8];
 
   for (let i = 1; i < rootIntervals.length; i++) {
-    const interval: Interval = I.sub(rootIntervals[i], rootIntervals[i - 1]);
+    const interval: Interval = I.shiftDown(rootIntervals[i], rootIntervals[i - 1]);
 
     ret.push(interval);
   }

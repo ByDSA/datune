@@ -2,7 +2,7 @@
 import type { Scale } from "../Scale";
 import { Degrees as D } from "degrees/alt";
 import { Degrees as DD } from "degrees/diatonic";
-import { Intervals as AI } from "intervals/alt";
+import { Intervals as AI, Intervals } from "intervals/alt";
 import { Scales as CS } from "scales/chromatic";
 import { initialize as initializeDegrees } from "degrees/alt/constants";
 import { mode } from "../modifiers";
@@ -13,7 +13,7 @@ export function initializeConstants() {
     throw new Error("MAJOR already defined");
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { bV, bVI, bVII, from: degreeFrom, I, II, III, IV, V, VI, VII } = D;
+  const { bV, bVI, bVII, I, II, III, IV, V, VI, VII } = D;
   const { a5, a1, d5, d7, M2, M3, m2, m3, P1 } = AI;
   // eslint-disable-next-line max-len, @typescript-eslint/naming-convention
   const { DOUBLE_HARMONIC: C_DOUBLE_HARMONIC, HALF_DIMINISHED: C_HALF_DIMINISHED, HARMONIC_MAJOR: C_HARMONIC_MAJOR, HARMONIC_MINOR: C_HARMONIC_MINOR, MELODIC_MINOR: C_MELODIC_MINOR, MESSIAEN_III_INV: C_MESSIAEN_III_INV, MESSIAEN_II_TRUNCATED_n3: C_MESSIAEN_II_TRUNCATED_n3, MESSIAEN_INV_III_V_TRUNCATED_n2: C_MESSIAEN_INV_III_V_TRUNCATED_n2, MESSIAEN_IV: C_MESSIAEN_IV, MESSIAEN_V: C_MESSIAEN_V, MESSIAEN_VI: C_MESSIAEN_VI, MESSIAEN_VII: C_MESSIAEN_VII, MESSIAEN_V_TRUNCATED: C_MESSIAEN_V_TRUNCATED, NEAPOLITAN_MAJOR: C_NEAPOLITAN_MAJOR, NEAPOLITAN_MINOR: C_NEAPOLITAN_MINOR, RAGA_INDRUPRIYA_INDIA: C_RAGA_INDRUPRIYA_INDIA } = CS;
@@ -146,31 +146,31 @@ export function initializeConstants() {
   // Symmetric
   CHROMATIC = fromDegrees(
     I,
-    degreeFrom(DD.I, 1),
+    Intervals.fromDiatonicInterval(DD.I, 1),
     II,
-    degreeFrom(DD.II, 1),
+    Intervals.fromDiatonicInterval(DD.II, 1),
     III,
     IV,
-    degreeFrom(DD.IV, 1),
+    Intervals.fromDiatonicInterval(DD.IV, 1),
     V,
-    degreeFrom(DD.V, 1),
+    Intervals.fromDiatonicInterval(DD.V, 1),
     VI,
-    degreeFrom(DD.VI, 1),
+    Intervals.fromDiatonicInterval(DD.VI, 1),
     VII,
   );
 
   CHROMATIC_BY_FIFTHS = fromDegrees(
     I,
-    degreeFrom(DD.I, 1),
+    Intervals.fromDiatonicInterval(DD.I, 1),
     II,
-    degreeFrom(DD.II, 1),
+    Intervals.fromDiatonicInterval(DD.II, 1),
     III,
-    degreeFrom(DD.III, 1),
-    degreeFrom(DD.IV, 1),
+    Intervals.fromDiatonicInterval(DD.III, 1),
+    Intervals.fromDiatonicInterval(DD.IV, 1),
     V,
-    degreeFrom(DD.V, 1),
+    Intervals.fromDiatonicInterval(DD.V, 1),
     VI,
-    degreeFrom(DD.VI, 1),
+    Intervals.fromDiatonicInterval(DD.VI, 1),
     VII,
   );
 

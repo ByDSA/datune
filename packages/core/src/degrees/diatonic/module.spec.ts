@@ -12,11 +12,6 @@ const vars: string[] = [
   "ALL",
 ];
 const functions: string[] = [
-  // Building
-  D.fromInt.name,
-
-  // Conversions
-  D.toChromatic.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -27,15 +22,9 @@ it("module should export functions and vars", async () => {
     },
     barrel: D,
     modules: [
-      "building",
       "constants",
-      "conversions",
     ],
     // eslint-disable-next-line no-undef
     dirname: __dirname,
   } );
-} );
-
-it("sets", () => {
-  expect(D.ALL).toHaveLength(7);
 } );

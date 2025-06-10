@@ -25,7 +25,7 @@ class Generator {
   }
 
   private calculateUnorderedIntervals(): IntervalArray {
-    const { cyclic, serie } = I;
+    const { cyclicOctave: cyclic, serie } = I;
     const serieIntervals = serie( {
       interval: this.interval,
       startIndex: this.startIndex,

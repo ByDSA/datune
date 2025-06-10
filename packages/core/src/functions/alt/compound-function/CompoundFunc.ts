@@ -29,7 +29,7 @@ export class CompoundFunc extends Func {
     let accInterval = I.P1;
 
     for (const degree of this.degreeChain) {
-      const rootInterval = I.fromDegree(degree);
+      const rootInterval = degree;
 
       accInterval = I.shift(accInterval, rootInterval) as Interval;
 

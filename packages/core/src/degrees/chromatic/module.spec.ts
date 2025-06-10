@@ -16,13 +16,6 @@ const vars: string[] = [
   "bVII",
 ];
 const functions: string[] = [
-  // Building
-  D.fromInt.name,
-  D.fromAltDegree.name,
-
-  // Modifiers
-  D.add.name,
-  D.sub.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -33,8 +26,6 @@ it("module should export functions and vars", async () => {
     },
     barrel: D,
     modules: [
-      "building",
-      "modifiers",
       "constants",
     ],
     // eslint-disable-next-line no-undef

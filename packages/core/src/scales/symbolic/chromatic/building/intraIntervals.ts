@@ -1,6 +1,6 @@
 import type { IntervalArray } from "intervals/chromatic";
 import type { Scale } from "../Scale";
-import { add as Iadd } from "intervals/symbolic/chromatic/modifiers";
+import { shift as Iadd } from "intervals/symbolic/chromatic/modifiers";
 import * as I from "intervals/symbolic/chromatic/constants";
 import { fromRootIntervals } from "./rootIntervals";
 

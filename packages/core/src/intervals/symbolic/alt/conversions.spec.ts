@@ -11,8 +11,7 @@ it("toChromaticInterval", () => {
 } );
 
 it("toDegree", () => {
-  const base = I.a7;
-  const actual = base.toDegree();
+  const actual = I.a7;
   const expected = D.aVII;
 
   expect(actual).toBe(expected);

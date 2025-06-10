@@ -14,7 +14,7 @@ export function findVoicings(scale: Scale, voicings: Voicing[]): Degree[][] {
     for (let j = 1; j < degrees.length; j++) {
       const jIndex = (indexAcc + j) % degrees.length;
       let newAccDegrees = [...accDegrees, degrees[jIndex]];
-      const rootInterval = cyclicMod(Intervals.sub(degrees[jIndex], accDegrees[0]), 12);
+      const rootInterval = cyclicMod(Intervals.shiftDown(degrees[jIndex], accDegrees[0]), 12);
       let newPossibleVoicings = [];
 
       for (const v of possibleVoicings) {

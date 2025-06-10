@@ -35,7 +35,7 @@ class Generator {
     const unorderedIntervals: IntervalArray = [lastInterval];
 
     for (let i = 1; i < this.length; i++) {
-      lastInterval = I.add(lastInterval, this.interval);
+      lastInterval = I.shift(lastInterval, this.interval);
       lastInterval = toSimpleInterval(lastInterval);
 
       if (unorderedIntervals.includes(lastInterval))
@@ -52,10 +52,10 @@ class Generator {
 
     if (this.startIndex > 0) {
       for (let i = 0; i < this.startIndex; i++)
-        initialInterval = I.add(initialInterval, this.interval);
+        initialInterval = I.shift(initialInterval, this.interval);
     } else if (this.startIndex < 0) {
       for (let i = this.startIndex; i < 0; i++)
-        initialInterval = I.sub(initialInterval, this.interval);
+        initialInterval = I.shiftDown(initialInterval, this.interval);
     }
 
     return toSimpleInterval(initialInterval);
@@ -77,13 +77,13 @@ function calculateIntraIntervals(rootIntervals: IntervalArray): IntervalArray {
   for (let i = 1; i < rootIntervals.length; i++) {
     const lastRootInterval = rootIntervals[i - 1];
     const currentRootInterval = rootIntervals[i];
-    const interval = I.sub(currentRootInterval, lastRootInterval);
+    const interval = I.shiftDown(currentRootInterval, lastRootInterval);
 
-    accumulated = I.add(accumulated, interval);
+    accumulated = I.shift(accumulated, interval);
     intraIntervals.push(interval);
   }
 
-  const remainingInterval = I.sub(I.P8, accumulated);
+  const remainingInterval = I.shiftDown(I.P8, accumulated);
 
   intraIntervals.push(remainingInterval);
 
@@ -94,10 +94,10 @@ function toSimpleInterval(input: Interval): Interval {
   let interval = input;
 
   while (interval >= P.NUMBER)
-    interval = I.sub(interval, I.P8);
+    interval = I.shiftDown(interval, I.P8);
 
   while (interval < 0)
-    interval = I.add(interval, I.P8);
+    interval = I.shift(interval, I.P8);
 
   return interval;
 }
