@@ -1,3 +1,4 @@
+import type { Degree } from "chromatic";
 import type { Interval } from "./Interval";
 import { cyclicMod } from "datils/math";
 import { NUMBER as CNUMBER } from "pitches/chromatic/constants/Number";
@@ -18,8 +19,8 @@ export function simplify(obj: Interval): Interval {
   return obj % CNUMBER;
 }
 
-export function cyclicOctave(obj: Interval): Interval {
-  return cyclicMod(obj, CNUMBER);
+export function cyclicOctave(obj: Interval): Degree {
+  return cyclicMod(obj, CNUMBER) as Degree;
 }
 
 export function octaves(obj: Interval): Interval {

@@ -42,7 +42,7 @@ describe("004 012-Theme01", () => {
         time: 2, // 2500
         // G#4 se percibe muy tenue.
         // TODO: F#6 no debería considerarse del acorde por la distancia con B4
-        chord: C.E.withAdd(P.FF), // E-G#-B-F#
+        chord: C.E.withAdded(P.FF), // E-G#-B-F#
       },
       {
         time: 3, // 4500
@@ -53,7 +53,7 @@ describe("004 012-Theme01", () => {
       {
         time: 4, // 6500
         // ídem compás 2
-        chord: C.E.withAdd(P.FF),
+        chord: C.E.withAdded(P.FF),
       },
     ];
     const partA: CheckProps["array"] = [
@@ -64,7 +64,7 @@ describe("004 012-Theme01", () => {
       {
         time: 7, // 12500
         // C#5 encima de B4, se percibe ese sus2
-        chord: C.E.withAdd(P.CC), // E-B-G#-C#
+        chord: C.E.withAdded(P.CC), // E-B-G#-C#
       },
       {
         time: 9, // 16500
@@ -73,7 +73,7 @@ describe("004 012-Theme01", () => {
       {
         time: 11, // 20500
         // ídem compás 7
-        chord: C.E.withAdd(P.CC),
+        chord: C.E.withAdded(P.CC),
       },
       {
         time: 13, // 24500
@@ -148,7 +148,7 @@ describe("004 012-Theme01", () => {
         time: 24.5, // 47500
         // NO es apoyatura G#5->F#5 en 24.625
         // porque F# no es una nota de acorde mayor o menor sobre E
-        chord: C.E.withRemoveRootIntervals(I.P5), // E-G#
+        chord: C.E.withRootIntervalsRemoved(I.P5), // E-G#
       },
       {
         time: 25, // 48500
@@ -169,7 +169,7 @@ describe("004 012-Theme01", () => {
         time: 28.5, // 55500
         chord: C.E
           .withSus4()
-          .withAddRootIntervals(I.M9), // Esus4add9: E-B-F#-A
+          .withRootIntervalsAdded(I.M9), // Esus4add9: E-B-F#-A
       },
       {
         time: 29, // 56500
@@ -187,11 +187,11 @@ describe("004 012-Theme01", () => {
       },
       {
         time: 31.5, // 61500
-        chord: C.CCm.withBass(P.E).withAdd(P.B), // E-G#-B-C#
+        chord: C.CCm.withBass(P.E).withAdded(P.B), // E-G#-B-C#
       },
       {
         time: 32, // 62500
-        chord: C.FFm.withAdd(P.GG), // F#-C#-A-G#
+        chord: C.FFm.withAdded(P.GG), // F#-C#-A-G#
       },
       {
         time: 32.5, // 63500

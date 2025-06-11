@@ -1,4 +1,5 @@
 import type { Interval } from "../Interval";
+import type { Degree } from "diatonic";
 import { cyclicMod } from "datils/math";
 import { NUMBER as DNUMBER } from "pitches/diatonic/constants";
 import { cache } from "../caching/cache";
@@ -11,7 +12,7 @@ export function simplify(obj: Interval): Interval {
   } );
 }
 
-export function cyclicOctave(obj: Interval): Interval {
+export function cyclicOctave(obj: Interval): Degree {
   const magnitude = cyclicMod(+obj, DNUMBER);
 
   return cache.getOrCreate( {

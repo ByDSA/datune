@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 import { Interval, intervalBetween, stringifyInterval } from "datils/math/intervals";
 import { Time, TimelineNode } from "@datune/utils";
-import { Chord, PitchArray, Chords, Intervals as I, Pitch, Spn, Interval as CInterval, Spns as N, Intervals, Scales, Keys as K, Pitches, PitchSets as PS, Key, IntervalArray, Scale, Degree, Degrees } from "@datune/core";
+import { Chord, PitchArray, Chords, Intervals as I, Pitch, Spn, Interval as CInterval, Spns as N, Scales, Keys as K, Pitches, PitchSets as PS, Key, IntervalArray, Scale, Degree } from "@datune/core";
 import { getHarmonicRegions, lowestDistanceChord } from "approaches/chord-distances";
 import { type Analyzer } from "./ListenerAnalyzer";
 import { PerceptualMidiNote } from "./perception/perception";
@@ -464,10 +464,10 @@ export class ChordsStep {
 
 function isThird(chord: Chord, p: Pitch): boolean {
   const { root } = chord;
-  const minor = root.withAdd(I.m3);
-  const major = root.withAdd(I.M3);
-  const sus2 = root.withAdd(I.M2);
-  const sus4 = root.withAdd(I.P4);
+  const minor = root.withShifted(I.m3);
+  const major = root.withShifted(I.M3);
+  const sus2 = root.withShifted(I.M2);
+  const sus4 = root.withShifted(I.P4);
 
   switch (p) {
     case minor:
@@ -482,10 +482,10 @@ function isThird(chord: Chord, p: Pitch): boolean {
 
 function isChangedThird(chord: Chord, pitches: Readonly<Pitch[]>): boolean {
   const { root } = chord;
-  const minor = root.withAdd(I.m3);
-  const major = root.withAdd(I.M3);
-  const sus2 = root.withAdd(I.M2);
-  const sus4 = root.withAdd(I.P4);
+  const minor = root.withShifted(I.m3);
+  const major = root.withShifted(I.M3);
+  const sus2 = root.withShifted(I.M2);
+  const sus4 = root.withShifted(I.P4);
   const third = [major, minor, sus2, sus4];
 
   for (const p of third) {
@@ -502,10 +502,10 @@ function isChangedThird(chord: Chord, pitches: Readonly<Pitch[]>): boolean {
 
 function getThirdDissambiguation(chord: Chord, nodes: TimelineNode<PerceptualMidiNote>[]): TimelineNode<PerceptualMidiNote>[] {
   const { root } = chord;
-  const minor = root.withAdd(I.m3);
-  const major = root.withAdd(I.M3);
-  const sus2 = root.withAdd(I.M2);
-  const sus4 = root.withAdd(I.P4);
+  const minor = root.withShifted(I.m3);
+  const major = root.withShifted(I.M3);
+  const sus2 = root.withShifted(I.M2);
+  const sus4 = root.withShifted(I.P4);
   const thirds: PitchArray = [major, minor, sus2, sus4];
   const ret: TimelineNode<PerceptualMidiNote>[] = [];
 
@@ -522,7 +522,7 @@ function getThirdDissambiguation(chord: Chord, nodes: TimelineNode<PerceptualMid
 }
 function getFifthDissambiguation(chord: Chord, nodes: TimelineNode<PerceptualMidiNote>[]): TimelineNode<PerceptualMidiNote>[] {
   const { root } = chord;
-  const P5 = root.withAdd(I.P5);
+  const P5 = root.withShifted(I.P5);
   const fifths: PitchArray = [P5];
   const ret: TimelineNode<PerceptualMidiNote>[] = [];
 
@@ -559,7 +559,7 @@ function getChordInHarmony(chord: Chord): Chord {
   const key = K.FFm;
   const index = key.pitches.indexOf(chord.root);
   const triad = getTriadFromScaleIndex(scale, index);
-  const pitches = triad.map(i=>Pitches.add(key.root, i)) as PitchArray;
+  const pitches = triad.map(i=>Pitches.shift(key.root, i)) as PitchArray;
 
   return Chords.from( {
     pitchSet: PS.fromPitches(...pitches),
@@ -615,9 +615,9 @@ function getTensionApoyature(chord: Chord, chordSpn: Spn[]): TensionApoyature[] 
     const spnPitch = spn.pitch;
 
     if (!chord.pitches.includes(spnPitch)
-      && chord.pitches.some(p=>Math.abs(Intervals.between(p, spnPitch)) <= 2)) {
+      && chord.pitches.some(p=>Math.abs(I.between(p, spnPitch)) <= 2)) {
       ret.push( {
-        interval: Intervals.betweenNext(root, spnPitch) % 12,
+        interval: I.betweenNext(root, spnPitch) % 12,
         tension: spn,
       } );
     }
@@ -632,50 +632,50 @@ function getApoyatureResolutions(spn: Spn, rootInterval: CInterval): Spn[] {
   switch (rootInterval) {
     case I.m2:
     case I.m9:
-      ret = [N.sub(spn, I.m2)];
+      ret = [N.shiftDown(spn, I.m2)];
       break;
     case I.M2:
     case I.M9:
       ret = [
-        N.add(spn, I.m2),
-        N.sub(spn, I.M2),
-        N.add(spn, I.M2),
+        N.shift(spn, I.m2),
+        N.shiftDown(spn, I.M2),
+        N.shift(spn, I.M2),
       ];
       break;
     case I.P4:
     case I.P11:
       ret = [
-        N.sub(spn, I.m2),
-        N.sub(spn, I.M2),
-        N.add(spn, I.M2),
+        N.shiftDown(spn, I.m2),
+        N.shiftDown(spn, I.M2),
+        N.shift(spn, I.M2),
       ];
       break;
     case I.d5:
       ret = [
-        N.add(spn, I.m2),
-        N.sub(spn, I.M2),
+        N.shift(spn, I.m2),
+        N.shiftDown(spn, I.M2),
       ];
       break;
     case I.m6:
       ret = [
-        N.sub(spn, I.m2),
+        N.shiftDown(spn, I.m2),
       ];
       break;
     case I.M6:
       ret = [
-        N.sub(spn, I.M2),
+        N.shiftDown(spn, I.M2),
       ];
       break;
     case I.m7:
       ret = [
-        N.sub(spn, I.m2),
-        N.add(spn, I.M2),
+        N.shiftDown(spn, I.m2),
+        N.shift(spn, I.M2),
       ];
       break;
     case I.M7:
       ret = [
-        N.add(spn, I.m2),
-        N.sub(spn, I.M2),
+        N.shift(spn, I.m2),
+        N.shiftDown(spn, I.M2),
       ];
       break;
     default:
@@ -687,10 +687,10 @@ function getApoyatureResolutions(spn: Spn, rootInterval: CInterval): Spn[] {
 
 function isFifth(chord: Chord, p: Pitch): boolean {
   const { root } = chord;
-  const diminished = root.withAdd(I.d5);
-  const perfect = root.withAdd(I.P5);
-  const augmented = root.withAdd(I.m6);
-  const M3 = root.withAdd(I.M3);
+  const diminished = root.withShifted(I.d5);
+  const perfect = root.withShifted(I.P5);
+  const augmented = root.withShifted(I.m6);
+  const M3 = root.withShifted(I.M3);
 
   switch (p) {
     case perfect:
@@ -708,9 +708,9 @@ function isFifth(chord: Chord, p: Pitch): boolean {
 
 function isChangedFifth(chord: Chord, pitches: Readonly<Pitch[]>): boolean {
   const { root } = chord;
-  const diminished = root.withAdd(I.d5);
-  const perfect = root.withAdd(I.P5);
-  const augmented = root.withAdd(I.m6);
+  const diminished = root.withShifted(I.d5);
+  const perfect = root.withShifted(I.P5);
+  const augmented = root.withShifted(I.m6);
   const fifth = [perfect, diminished, augmented];
 
   for (const p of fifth) {
@@ -794,9 +794,9 @@ function fromSpnsGuessChord(ctx: GuessChordContext, ...spns: Spn[]): Chord {
     let lastDegree: Degree | undefined;
 
     if (lastChord) {
-      const rootInterval = Intervals.betweenNext(key.root, lastChord.root);
+      const rootInterval = I.betweenNext(key.root, lastChord.root);
 
-      lastDegree = Degrees.fromInt(rootInterval);
+      lastDegree = I.cyclicOctave(rootInterval);
     }
 
     const chord = lowestDistanceChord(pitchSet, {
