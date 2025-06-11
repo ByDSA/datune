@@ -335,7 +335,6 @@ describe("sequentialPointTimeline", () => {
     } );
 
     it("should move node to new time", () => {
-      // eslint-disable-next-line prefer-destructuring
       const node = timeline.nodes[0];
       const moved = timeline.moveNode(node, 3);
 

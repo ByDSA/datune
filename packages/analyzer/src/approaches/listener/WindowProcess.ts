@@ -233,7 +233,7 @@ export class WindowProcess {
       return;
 
     this.analyzer.listenerState.tonal.key = newKey;
-    // eslint-disable-next-line prefer-destructuring
+
     this.analyzer.listenerState.currentKeyNode = this.analyzer.results.keyTimeline.add( {
       event: newKey,
       interval: this.interval,

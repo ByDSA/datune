@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 import * as fs from "node:fs";
 import { MusicalDurations as MD } from "@datune/core";
 import { MidiPitches as M } from "pitch";

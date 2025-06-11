@@ -198,7 +198,6 @@ export function lowestDistanceChord(
   if (currentDegreeChords.length > 0) {
     const res = getSortedCantidates(init, currentDegreeChords, ctx);
 
-    // eslint-disable-next-line prefer-destructuring
     bestInDegreeRegion = res[0];
   }
 
@@ -213,7 +212,6 @@ export function lowestDistanceChord(
   if (currentRegionChords.length !== 0) {
     const res = getSortedCantidates(init, currentRegionChords, ctx);
 
-    // eslint-disable-next-line prefer-destructuring
     bestInCurrentRegion = res[0];
   }
 
@@ -226,7 +224,6 @@ export function lowestDistanceChord(
     } );
   const res = getSortedCantidates(init, otherRegionsChords, ctx);
 
-  // eslint-disable-next-line prefer-destructuring
   bestInOtherRegions = res[0];
 
   if (bestInDegreeRegion && bestInDegreeRegion.dist < 2)

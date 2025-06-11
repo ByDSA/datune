@@ -28,7 +28,6 @@ describe("003", () => {
 
   it("listener", () => {
     const notesTimelineSymbolic = timeline;
-    // eslint-disable-next-line prefer-destructuring
     const { bpm } = midiFile.bpmEvents[0];
     const notesTimelineReal = symbolicTimelineToReal(notesTimelineSymbolic, bpm);
     const analyzer = new Analyzer( {

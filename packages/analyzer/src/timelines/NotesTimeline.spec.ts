@@ -33,7 +33,6 @@ it("number of notes", () => {
 
 it("remove", () => {
   const s = generateNotesTimelineSampleCMajor();
-  // eslint-disable-next-line prefer-destructuring
   const n2 = s.nodes[2];
 
   expect(s.nodes.includes(n2)).toBeTruthy();

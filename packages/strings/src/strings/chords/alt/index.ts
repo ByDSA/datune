@@ -59,7 +59,6 @@ function getDefaultName(chord: Chord, options?: Options): string {
 }
 
 function getInversionName(chord: Chord, options?: Options): string {
-  // eslint-disable-next-line prefer-destructuring
   const pitch: Pitch = chord.pitches[0];
   const pitchName = stringifyPitch(pitch, options);
   const str = `/${pitchName}`;

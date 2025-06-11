@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable max-len */
 import { Interval, intervalBetween, stringifyInterval } from "datils/math/intervals";
@@ -610,7 +609,7 @@ type TensionApoyature = {
 };
 function getTensionApoyature(chord: Chord, chordSpn: Spn[]): TensionApoyature[] {
   const ret: TensionApoyature[] = [];
-  const root = chord.root;
+  const { root } = chord;
 
   for (const spn of chordSpn) {
     const spnPitch = spn.pitch;

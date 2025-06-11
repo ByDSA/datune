@@ -28,7 +28,6 @@ class ScalePitchGenerator {
 
   private calculateUnreductedIntervals(): IntervalArray {
     this.#unreductedIntervals = [Intervals.UNISON, this.#interval];
-    // eslint-disable-next-line prefer-destructuring
     let lastInterval: Interval = this.#unreductedIntervals[1];
 
     for (let i = 2; i < this.#length; i++) {

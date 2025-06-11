@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 import { intervalBetween, IntervalBound } from "datils/math/intervals";
 import { add } from "time";
 import { fromBetween } from "../../../node/building";

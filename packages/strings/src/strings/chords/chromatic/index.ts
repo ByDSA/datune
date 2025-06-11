@@ -50,7 +50,6 @@ function removeRepeatedPitches(chord: Chord): Chord {
 }
 
 function getInversionName(chord: Chord): string {
-  // eslint-disable-next-line prefer-destructuring
   const pitch: Pitch = chord.pitches[0];
   const pitchName = stringifyPitch(pitch);
   const str = `/${pitchName}`;

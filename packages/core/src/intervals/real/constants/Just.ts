@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 /* eslint-disable camelcase */
 import type { Interval } from "../Interval";
 import { frac } from "datils/math/num-exp";

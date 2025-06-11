@@ -22,7 +22,6 @@ export function inv(obj: Voicing, n: number = 1): Voicing {
       firstValue = shift(firstValue, P8) as Interval;
 
     rootIntervals.push(firstValue);
-    // eslint-disable-next-line prefer-destructuring
     firstValue = rootIntervals[0];
     rootIntervals = <IntervalArray>rootIntervals.map(
       (value: Interval) => shiftDown(value, firstValue),
