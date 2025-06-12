@@ -1,12 +1,22 @@
-import { Chord, Intervals, Key, Keys as K, Scales as S } from "@datune/core/alt";
+import { Chord, Key, Keys as K, Scales as S, Voicings } from "@datune/core/alt";
 import { rootChord3 } from "@datune/core/keys/alt/modifiers";
 import { regionalDistanceRule } from "./regional-distance-rule";
 import { regionalLevelChordDistanceRule } from "./chord-distance-rule";
 
-function majorMinorKeyFromChord(chord: Chord): Key {
-  return chord.hasRootIntervals(Intervals.M3)
-    ? K.from(chord.root, S.MAJOR)
-    : K.from(chord.root, S.MINOR);
+export function majorMinorKeyFromChord(chord: Chord): Key {
+  let key: Key | null = null;
+
+  if (chord.hasRootIntervals(...Voicings.TRIAD_MAJOR.rootIntervals))
+    key = K.from(chord.root, S.MAJOR);
+  else if (chord.hasRootIntervals(...Voicings.TRIAD_MINOR.rootIntervals))
+    key = K.from(chord.root, S.MINOR);
+  else if (chord.hasRootIntervals(...Voicings.TRIAD_DIMINISHED.rootIntervals))
+    key = K.from(chord.root, S.LOCRIAN);
+
+  if (key === null)
+    throw new Error(`The chord ${chord} is not compatible with the key ${key}.`);
+
+  return key;
 }
 
 type ChordKey = {
