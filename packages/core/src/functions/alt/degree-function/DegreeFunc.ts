@@ -1,4 +1,3 @@
-import type { Key as K } from "./caching/cache";
 import type { Chord } from "chords/alt";
 import type { Degree } from "degrees/alt";
 import type { Pitch } from "pitches/alt";
@@ -9,12 +8,14 @@ import { Chords as C } from "chords/alt";
 import { type Interval } from "intervals/alt";
 import { IDegreeFunc } from "functions/IDegreeFunc";
 import { Func } from "../Func";
+import { getOrCalc } from "../cache";
 import { getDegrees } from "./conversions";
 import { degree, shift, shiftDown, voicing } from "./modifiers";
+import { getObjId, type Key as K } from "./caching/key-id";
 
 export class DegreeFunc
-  extends Func
-  implements IDegreeFunc<Interval, Degree, Voicing> {
+implements Func,
+   IDegreeFunc<Interval, Degree, Voicing> {
   degree: Degree;
 
   voicing: Voicing;
@@ -22,8 +23,6 @@ export class DegreeFunc
   #degrees?: Degree[];
 
   protected constructor(key: K) {
-    super();
-
     this.degree = key.degree;
     this.voicing = key.voicing;
     deepFreeze(this);
@@ -53,10 +52,15 @@ export class DegreeFunc
     return this.#degrees;
   }
 
-  protected calculateChord(root: Pitch): Chord {
-    const pitchBase: Pitch = P.shift(root, this.degree);
+  getChord(root: Pitch): Chord {
+    return getOrCalc( {
+      calc: () => {
+        const pitchBase = P.shift(root, this.degree);
 
-    return C.fromRootVoicing(pitchBase, this.voicing);
+        return C.fromRootVoicing(pitchBase, this.voicing);
+      },
+      getId: ()=> `(${+root})|(${getObjId(this)})`,
+    } );
   }
 
   toString() {

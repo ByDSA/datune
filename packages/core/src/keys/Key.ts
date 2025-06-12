@@ -2,6 +2,7 @@ import type { Scale } from "scales/Scale";
 import { NonEmptyArray } from "datils";
 import { OctavePitch } from "pitches/OctavePitch";
 import { IPitchSet } from "sets/pitch-set/IPitchSet";
+import { IFunc } from "functions/IFunc";
 import { SymbolicChord } from "../chords/octave/SymbolicChord";
 
 export interface IKey<
@@ -24,4 +25,6 @@ extends Iterable<P> {
   hasChord(chord: C): boolean;
 
   hasPitches(...pitches: NonEmptyArray<P>): boolean;
+
+  getChord(func: IFunc<P, C>): C;
 }

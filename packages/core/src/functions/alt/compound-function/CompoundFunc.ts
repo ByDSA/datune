@@ -1,35 +1,38 @@
 import type { DegreeFunc } from "../degree-function/DegreeFunc";
-import type { Key as K } from "./caching/cache";
 import type { Chord } from "chords/alt";
-import type { DegreeArray } from "degrees/alt";
+import type { Degree, DegreeArray } from "degrees/alt";
 import type { Pitch } from "alt";
+import type { Func } from "../Func";
+import type { ICompoundFunc } from "functions/ICompoundFunc";
 import { Chords as C } from "chords/alt";
 import { Intervals as I } from "intervals/alt";
-import { Func } from "../Func";
+import { getOrCalc } from "../cache";
+import { getId, type Key as K } from "./caching/key-id";
 
-export class CompoundFunc extends Func {
+export class CompoundFunc
+implements Func, ICompoundFunc<Degree, DegreeFunc> {
   degreeFunc: DegreeFunc;
 
   degreeChain: DegreeArray;
 
   private constructor(key: K) {
-    super();
-
     this.degreeFunc = key.degreeFunc;
     this.degreeChain = key.degreeChain;
   }
 
-  protected calculateChord(root: Pitch): Chord {
-    const baseChord = this.degreeFunc.getChord(root);
-    let accInterval = I.P1;
+  getChord(root: Pitch): Chord {
+    return getOrCalc( {
+      calc: () => {
+        const baseChord = this.degreeFunc.getChord(root);
+        let accInterval = I.P1;
 
-    for (const degree of this.degreeChain) {
-      const rootInterval = degree;
+        for (const degree of this.degreeChain)
+          accInterval = I.shift(accInterval, degree);
 
-      accInterval = I.shift(accInterval, rootInterval);
-    }
-
-    return C.shift(baseChord, accInterval);
+        return C.shift(baseChord, accInterval);
+      },
+      getId: ()=> `(${+root})|(${getId(this)})`,
+    } );
   }
 
   toString() {

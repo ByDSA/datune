@@ -1,8 +1,8 @@
 import type * as DegreeFuncConstants from "./degree-function/constants";
 import type * as CompoundFuncConstants from "./compound-function/constants";
+import type { Func } from "./Func";
 import { createProxyBarrel } from "datils/patterns/proxy";
 import { compose } from "./compound-function/building/compose";
-import { Func } from "./Func";
 import { fromDegreeVoicing } from "./degree-function/building/fromDegreeVoicing";
 import { fromDegrees } from "./degree-function/building/fromDegrees";
 import { getDegrees } from "./degree-function/conversions";

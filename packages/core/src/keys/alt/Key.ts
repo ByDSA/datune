@@ -7,6 +7,7 @@ import type { K } from "./building/caching/cache";
 import type { PitchSet } from "sets/pitch-set/alt";
 import { fromPitches as pitchSetFromPitches } from "sets/pitch-set/alt/building";
 import { rootIntervals as pitchesRootIntervals } from "pitches/alt/modifiers";
+import { IFunc } from "functions/IFunc";
 
 export class Key implements
   IKey<Interval, Pitch, Scale, Chord, PitchSet> {
@@ -30,6 +31,10 @@ export class Key implements
 
   [Symbol.iterator](): Iterator<Pitch, any, any> {
     return this.pitches[Symbol.iterator]();
+  }
+
+  getChord(func: IFunc<Pitch, Chord>): Chord {
+    return func.getChord(this.root);
   }
 
   hasChord(chord: Chord): boolean {

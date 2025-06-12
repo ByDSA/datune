@@ -9,6 +9,7 @@ import { fromPitches as pitchSetFromPitches } from "sets/pitch-set/chromatic/bui
 import { rootIntervals as pitchesRootIntervals } from "pitches/chromatic/modifiers";
 import { fromRootIntervals as scaleFromRootIntervals } from "scales/symbolic/chromatic/building/rootIntervals";
 import { fromInt as pitchFromInt } from "pitches/chromatic/building";
+import { IFunc } from "functions/IFunc";
 
 export class Key implements
   IKey<Interval, Pitch, Scale, Chord, PitchSet> {
@@ -36,6 +37,10 @@ export class Key implements
 
   hasChord(chord: Chord): boolean {
     return this.hasPitches(...chord.pitches as PitchArray);
+  }
+
+  getChord(func: IFunc<Pitch, Chord>): Chord {
+    return func.getChord(this.root);
   }
 
   hasPitches(...pitches: PitchArray): boolean {
