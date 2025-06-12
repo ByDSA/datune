@@ -1,7 +1,6 @@
 import type { Key as K } from "./caching/cache";
 import type { Chord } from "chords/alt";
 import type { Degree } from "degrees/alt";
-import type { Key } from "keys/alt";
 import type { Pitch } from "pitches/alt";
 import type { Voicing } from "voicings/alt";
 import { deepFreeze } from "datils/datatypes/objects";
@@ -38,7 +37,7 @@ export class DegreeFunc
     return shiftDown(this, interval);
   }
 
-  withDegree(newDegree: Degree): DegreeFunc {
+  withBaseDegree(newDegree: Degree): DegreeFunc {
     return degree(this, newDegree);
   }
 
@@ -54,10 +53,10 @@ export class DegreeFunc
     return this.#degrees;
   }
 
-  protected calculateChord(key: Key): Chord {
-    const noteBase: Pitch = P.shift(key.root, this.degree);
+  protected calculateChord(root: Pitch): Chord {
+    const pitchBase: Pitch = P.shift(root, this.degree);
 
-    return C.fromRootVoicing(noteBase, this.voicing);
+    return C.fromRootVoicing(pitchBase, this.voicing);
   }
 
   toString() {

@@ -74,7 +74,7 @@ describe.each([
   [SUBV7_VI, K.C, C.fromRootVoicing(P.Bb, V.SEVENTH)],
 ])("getChord", (func, key, expectedChord) => {
   it(`${String(func)} of ${key} = ${expectedChord}`, () => {
-    const actual = func.getChord(key);
+    const actual = func.getChord(key.root);
 
     expect(actual).toBe(expectedChord);
   } );

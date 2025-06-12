@@ -8,7 +8,7 @@ describe.each([
   [Funcs.IVm, I.P5, Funcs.Im],
   [Funcs.VIMaj7, I.P12, Funcs.IIIMaj7],
   [Funcs.IV, I.a4, Funcs.VII],
-  [Funcs.IV, I.d5, Funcs.I.withDegree(I.fromDiatonicInterval(DD.I, -1))], // IV + d5 = bI
+  [Funcs.IV, I.d5, Funcs.I.withBaseDegree(I.fromDiatonicInterval(DD.I, -1))], // IV + d5 = bI
   [Funcs.V, I.P4, Funcs.I],
   [Funcs.V, I.P4.withNeg(), Funcs.II],
 ])("shift, shiftDown", (obj, interval: Interval, expected) => {
@@ -41,7 +41,7 @@ describe.each([
 
 it("degree", () => {
   const expected = Funcs.I0;
-  const actual = Funcs.VII0.withDegree(D.I);
+  const actual = Funcs.VII0.withBaseDegree(D.I);
 
   expect(actual).toBe(expected);
 } );

@@ -227,7 +227,6 @@ it("module should export functions and vars", async () => {
       "compound-function/building/compose",
       "degree-function/constants",
       "compound-function/constants",
-      "others/constants",
     ],
     // eslint-disable-next-line no-undef
     dirname: __dirname,

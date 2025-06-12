@@ -34,9 +34,9 @@ describe.each([
   } );
 } );
 
-it("degree", () => {
+it("baseDegree", () => {
   const expected = Funcs.I0;
-  const actual = Funcs.VII0.withDegree(D.I);
+  const actual = Funcs.VII0.withBaseDegree(D.I);
 
   expect(actual).toBe(expected);
 } );

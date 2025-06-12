@@ -1,6 +1,5 @@
 import * as DegreeFuncConstants from "./degree-function/constants";
 import * as CompoundFuncsConstants from "./compound-function/constants";
-import * as OtherFuncsConstants from "./others/constants";
 
 export function initialize() {
   if (DegreeFuncConstants.I)
@@ -8,5 +7,4 @@ export function initialize() {
 
   DegreeFuncConstants.initialize();
   CompoundFuncsConstants.initialize();
-  OtherFuncsConstants.initialize();
 }

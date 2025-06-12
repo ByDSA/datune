@@ -7,17 +7,17 @@ export function shift(obj: DegreeFunc, interval: Interval): DegreeFunc {
   const { degree: oldDegree } = obj;
   const newDegree = cyclicOctave(shiftInterval(oldDegree, interval)) as Degree;
 
-  return degree(obj, newDegree);
+  return baseDegree(obj, newDegree);
 }
 
 export function shiftDown(obj: DegreeFunc, interval: Interval): DegreeFunc {
   const { degree: oldDegree } = obj;
   const newDegree = cyclicOctave(shiftDownInterval(oldDegree, interval)) as Degree;
 
-  return degree(obj, newDegree);
+  return baseDegree(obj, newDegree);
 }
 
-export function degree(obj: DegreeFunc, newDegree: Degree): DegreeFunc {
+export function baseDegree(obj: DegreeFunc, newDegree: Degree): DegreeFunc {
   return fromDegreeVoicing(newDegree, obj.voicing);
 }
 

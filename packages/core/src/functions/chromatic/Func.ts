@@ -1,16 +1,16 @@
-import { Chord } from "chords/chromatic";
-import { Key } from "keys/chromatic";
-import { getObjId as keyGetObjId } from "keys/chromatic/caching/cache";
+import type { Chord } from "chords/chromatic";
+import type { Pitch } from "chromatic";
+import { getObjId as pitchGetObjId } from "pitches/chromatic/caching/id";
 
 const functionCache = new Map<string, Chord>();
 
 export abstract class Func {
-  getChord(key: Key): Chord {
-    const id = `(${keyGetObjId(key)})|(${this.getId()})`;
+  getChord(root: Pitch): Chord {
+    const id = `(${pitchGetObjId(root)})|(${this.getId()})`;
     let chord = functionCache.get(id);
 
     if (chord === undefined) {
-      chord = this.calculateChord(key);
+      chord = this.calculateChord(root);
       functionCache.set(id, chord);
     }
 
@@ -19,5 +19,5 @@ export abstract class Func {
 
   abstract getId(): string;
 
-  protected abstract calculateChord(key: Key): Chord;
+  protected abstract calculateChord(root: Pitch): Chord;
 }

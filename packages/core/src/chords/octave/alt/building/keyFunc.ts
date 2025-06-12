@@ -6,5 +6,5 @@ export function fromKeyFunc(
   key: Key,
   func: Func,
 ): Chord | null {
-  return func.getChord(key);
+  return func.getChord(key.root);
 }

@@ -1,6 +1,5 @@
 import type * as DegreeFuncConstants from "./degree-function/constants";
 import type * as CompoundFuncsConstants from "./compound-function/constants";
-import type * as OtherFuncsConstants from "./others/constants";
 import { createProxyBarrel } from "datils/patterns/proxy";
 import { Func } from "./Func";
 import { compose } from "./compound-function/building/compose";
@@ -15,7 +14,7 @@ const staticModule = {
   getDegrees,
 };
 
-type LazyType = Omit<typeof CompoundFuncsConstants, "initialize"> & Omit<typeof DegreeFuncConstants, "initialize"> & Omit<typeof OtherFuncsConstants, "initialize">;
+type LazyType = Omit<typeof CompoundFuncsConstants, "initialize"> & Omit<typeof DegreeFuncConstants, "initialize">;
 const mod = createProxyBarrel<LazyType & typeof staticModule>( {
   staticModule,
   paths: [
@@ -31,13 +30,6 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
       omit: ["initialize"],
       hooks: {
         onLoadModule: (m: typeof CompoundFuncsConstants)=>!m.V_V && m.initialize(),
-      },
-    },
-    {
-      path: "others/constants",
-      omit: ["initialize"],
-      hooks: {
-        onLoadModule: (m: typeof OtherFuncsConstants)=>!m.V7ALT && m.initialize(),
       },
     },
   ],

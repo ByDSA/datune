@@ -12,7 +12,7 @@ export function initialize() {
     Voicings.initialize();
 
   // eslint-disable-next-line max-len, @typescript-eslint/naming-convention
-  const { POWER_CHORD, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_MINOR_b5, SEVENTH_SUS4, SEVENTH_SUS4_b9, SIXTH, SIXTH_MINOR, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_SUS4 } = Voicings;
+  const { POWER_CHORD, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_MINOR_b5, SEVENTH_b5, SEVENTH_SUS4, SEVENTH_SUS4_b9, SIXTH, SIXTH_MINOR, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_SUS4 } = Voicings;
 
   I5 = fromDegreeVoicing(D.I, POWER_CHORD);
   bII5 = fromDegreeVoicing(D.bII, POWER_CHORD);
@@ -210,6 +210,8 @@ export function initialize() {
   VIm7b5 = fromDegreeVoicing(D.VI, SEVENTH_MINOR_b5);
   bVIIm7b5 = fromDegreeVoicing(D.bVII, SEVENTH_MINOR_b5);
   VIIm7b5 = fromDegreeVoicing(D.VII, SEVENTH_MINOR_b5);
+
+  V7ALT = fromDegreeVoicing(D.V, SEVENTH_b5);
 }
 
 export let I5: DegreeFunc;
@@ -573,3 +575,5 @@ export let bVIIm7b5: DegreeFunc;
 export let VIIm7b5: DegreeFunc;
 
 export let SUBV7: DegreeFunc;
+
+export let V7ALT: DegreeFunc;
