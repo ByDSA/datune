@@ -1,17 +1,16 @@
-import type { IntervalArray } from "intervals/chromatic";
 import type { Scale } from "../Scale";
-import { shift as Iadd } from "intervals/symbolic/chromatic/modifiers";
-import * as I from "intervals/symbolic/chromatic/constants";
-import { fromRootIntervals } from "./rootIntervals";
+import { Degrees as D, type DegreeArray } from "degrees/chromatic";
+import { cyclicOctave, shift as Iadd } from "intervals/symbolic/chromatic/modifiers";
+import { fromDegrees } from "./degrees";
 
-export function fromIntraIntervals(...intraIntervals: IntervalArray): Scale {
-  const rootIntervals: IntervalArray = [I.P1];
+export function fromIntraIntervals(...intraIntervals: DegreeArray): Scale {
+  const rootIntervals: DegreeArray = [D.I];
   let [last] = rootIntervals;
 
   for (const intraInterval of intraIntervals) {
-    const newRootInterval = Iadd(last, intraInterval);
+    const newRootInterval = cyclicOctave(Iadd(last, intraInterval));
 
-    if (newRootInterval === I.P8)
+    if (newRootInterval === D.I)
       break;
 
     last = newRootInterval;
@@ -19,5 +18,5 @@ export function fromIntraIntervals(...intraIntervals: IntervalArray): Scale {
     rootIntervals.push(newRootInterval);
   }
 
-  return fromRootIntervals(...rootIntervals);
+  return fromDegrees(...rootIntervals);
 }

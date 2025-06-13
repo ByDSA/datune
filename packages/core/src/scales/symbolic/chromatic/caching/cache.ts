@@ -1,12 +1,12 @@
+import type { DegreeArray } from "chromatic";
 import { KeyMappedFlyweightCache } from "datils/patterns/caching";
-import { IntervalArray } from "intervals/chromatic";
 import { getObjId as intervalGetObjId } from "intervals/symbolic/chromatic/caching/id";
 import { Scale } from "../Scale";
 
-export type Key = IntervalArray;
+export type Key = DegreeArray | Readonly<DegreeArray>;
 
 export function getKey(scale: Scale): Key {
-  return scale.rootIntervals;
+  return scale.degrees;
 }
 
 export function getId(key: Key): string {

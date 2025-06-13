@@ -1,14 +1,13 @@
-import type { IntervalArray } from "intervals/alt";
 import type { Scale } from "../Scale";
+import type { DegreeArray } from "alt";
 import { Arrays } from "datils/datatypes/arrays";
-import { calcIntraIntervals } from "./intraIntervals";
 
 export function getModeIntraIntervals(
   obj: Scale,
   n: number,
-): IntervalArray {
-  const intraIntervals = calcIntraIntervals(obj);
-  const intervals: IntervalArray = [...intraIntervals];
+): DegreeArray {
+  const { intraIntervals } = obj;
+  const intervals: DegreeArray = [...intraIntervals];
 
   if (n > 0)
     Arrays.rotateLeft(intervals, n - 1);

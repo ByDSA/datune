@@ -15,7 +15,7 @@ export function getId(key: Key): string {
 
 export function getKey(func: DegreeFunc): Key {
   return {
-    degree: func.degree,
+    degree: func.baseDegree,
     voicing: func.voicing,
   };
 }

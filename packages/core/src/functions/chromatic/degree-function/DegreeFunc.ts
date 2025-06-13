@@ -1,6 +1,6 @@
 import type { Interval } from "intervals/chromatic";
 import type { Voicing } from "voicings/chromatic";
-import type { Degree } from "degrees/chromatic";
+import type { Degree, DegreeArray } from "degrees/chromatic";
 import type { IDegreeFunc } from "functions/IDegreeFunc";
 import type { Func } from "../Func";
 import type { Chord, Pitch } from "chromatic";
@@ -16,14 +16,14 @@ import { getDegrees } from "./conversions";
 export class DegreeFunc implements
 Func,
 IDegreeFunc<Interval, Degree, Voicing> {
-  degree: Degree;
+  baseDegree: Degree;
 
   voicing: Voicing;
 
-  #degrees?: Degree[];
+  #degrees?: Readonly<DegreeArray>;
 
   protected constructor(key: K) {
-    this.degree = key.degree;
+    this.baseDegree = key.degree;
     this.voicing = key.voicing;
     deepFreeze(this);
   }
@@ -31,7 +31,7 @@ IDegreeFunc<Interval, Degree, Voicing> {
   getChord(root: Pitch): Chord {
     return getOrCalc( {
       calc: () => {
-        const pitchBase = P.shift(root, this.degree);
+        const pitchBase = P.shift(root, this.baseDegree);
 
         return C.fromRootVoicing(pitchBase, this.voicing);
       },
@@ -56,14 +56,14 @@ IDegreeFunc<Interval, Degree, Voicing> {
   }
 
   // eslint-disable-next-line accessor-pairs
-  get degrees(): Degree[] {
+  get degrees(): Readonly<DegreeArray> {
     if (this.#degrees === undefined)
-      this.#degrees = getDegrees(this);
+      this.#degrees = Object.freeze(getDegrees(this));
 
     return this.#degrees;
   }
 
   toString() {
-    return `${stringifyDegree(this.degree)} (${this.voicing})`;
+    return `${stringifyDegree(this.baseDegree)} (${this.voicing})`;
   }
 }

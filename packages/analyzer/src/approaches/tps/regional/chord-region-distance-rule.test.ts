@@ -5,12 +5,12 @@ describe.each([
   // p. 70
   {
     start: {
-      chord: F.VIm.getChord(K.F),
+      chord: K.F.getChord(F.VIm),
       key: K.F,
       region: K.C,
     },
     goal: {
-      chord: F.V.getChord(K.Bm),
+      chord: K.Bm.getChord(F.V),
       key: K.Bm,
       region: K.Em,
     },

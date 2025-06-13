@@ -4,7 +4,7 @@ import { Pitches as CP, type Pitch as CPitch } from "pitches/chromatic";
 
 export function fromChromaticInPitchArray(
   cPitch: CPitch,
-  pitchArray: PitchArray,
+  pitchArray: PitchArray | Readonly<PitchArray>,
 ): Pitch | null {
   return pitchArray.find(p=>CP.fromAltPitch(p) === cPitch) ?? null;
 }

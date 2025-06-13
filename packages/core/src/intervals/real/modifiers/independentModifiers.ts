@@ -1,7 +1,7 @@
 export {
-  add,
-} from "./add";
+  shift,
+} from "./shift";
 
 export {
-  sub,
-} from "./sub";
+  shiftDown,
+} from "./shiftDown";

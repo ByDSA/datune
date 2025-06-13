@@ -1,5 +1,4 @@
 import { Chords as C, Chord, Funcs as F, Keys as K, Key, PitchSet } from "@datune/core/alt";
-import { rootChord3 } from "@datune/core/keys/alt/modifiers";
 import { regionalLevelChordDistanceRule } from "../regional/chord-distance-rule";
 import { findChordByPitchSet, getAllDiatonicChordsInRegion } from "./neighbor-chords";
 
@@ -8,7 +7,7 @@ it("test", () => {
   const actual = getAllDiatonicChordsInRegion(key);
   const distances = [...actual].map(c=> {
     const x = {
-      chord: rootChord3(key)!,
+      chord: key.triadRootChord!,
       key: key,
     };
     const y = {
@@ -48,12 +47,12 @@ describe.each([
   },
   {
     start: {
-      chord: F.VIm.getChord(K.F),
+      chord: K.F.getChord(F.VIm),
       region: K.C,
     },
-    goalPitchSet: F.V.getChord(K.Bm).pitchSet,
+    goalPitchSet: K.Bm.getChord(F.V).pitchSet,
     expectedDistance: 30,
-    expectedChord: F.V.getChord(K.Bm),
+    expectedChord: K.Bm.getChord(F.V),
     expectedKey: K.Bm,
   },
 ] as TestCase[])("findChordByPitchSet", ( { start, goalPitchSet, expectedDistance, expectedChord, expectedKey } ) => {

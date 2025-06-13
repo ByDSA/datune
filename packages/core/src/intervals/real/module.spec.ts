@@ -77,8 +77,8 @@ const functions: string[] = [
   I.from.name,
 
   // independent modifiers
-  I.add.name,
-  I.sub.name,
+  I.shift.name,
+  I.shiftDown.name,
 
   // modifiers
   I.shiftOctaves.name,

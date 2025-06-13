@@ -5,11 +5,11 @@ export function stringifyDegree(obj: Degree): string {
     case +Degrees.I:
       return "I";
     case +Degrees.bII:
-      return "bII";
+      return "♭II";
     case +Degrees.II:
       return "II";
     case +Degrees.bIII:
-      return "bIII";
+      return "♭III";
     case +Degrees.III:
       return "III";
     case +Degrees.IV:
@@ -19,11 +19,11 @@ export function stringifyDegree(obj: Degree): string {
     case +Degrees.V:
       return "V";
     case +Degrees.bVI:
-      return "bVI";
+      return "♭VI";
     case +Degrees.VI:
       return "VI";
     case +Degrees.bVII:
-      return "bVII";
+      return "♭VII";
     case +Degrees.VII:
       return "VII";
     default:

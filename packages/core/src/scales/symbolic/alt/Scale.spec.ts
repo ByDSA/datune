@@ -1,21 +1,19 @@
-import type { DegreeArray } from "degrees/alt";
+import type { DegreeArray as CDegreeArray } from "degrees/chromatic";
 import { Degrees as D } from "degrees/alt";
-import { Degrees as DD } from "degrees/diatonic";
 import { Funcs as F } from "functions/alt";
 import { Scales as CS } from "chromatic";
-import { Intervals as I } from "alt";
 import { getDegreeFuncs } from "./modifiers";
 import { Scales as S } from ".";
 
 const { CHROMATIC } = S;
 
-it("hasEnharmonicDegrees - CHROMATIC - II# and bIII", () => {
-  const degrees: DegreeArray = [
-    I.fromDiatonicInterval(DD.II, 1),
-    D.bIII,
+it("hasChromaticDegrees - CHROMATIC - II# and bIII", () => {
+  const degrees: CDegreeArray = [
+    D.aII.toChromaticDegree(),
+    D.bIII.toChromaticDegree(),
   ];
 
-  expect(CHROMATIC.hasEnharmonicDegrees(...degrees)).toBeTruthy();
+  expect(CHROMATIC.hasChromaticDegrees(...degrees)).toBeTruthy();
 } );
 
 it("degreeFuncs - CHROMATIC - I (mayor)", () => {

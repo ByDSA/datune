@@ -3,10 +3,6 @@ export {
 } from "./degreeFuncs";
 
 export {
-  calcIntraIntervals,
-} from "./intraIntervals";
-
-export {
   mode,
 } from "./mode";
 

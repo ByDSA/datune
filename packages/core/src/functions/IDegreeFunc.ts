@@ -1,7 +1,9 @@
+import type { NonEmptyArray } from "datils/datatypes/arrays";
+
 export interface IDegreeFunc<I, D, V> {
-  degree: D;
+  baseDegree: D;
   voicing: V;
-  degrees: D[];
+  degrees: Readonly<NonEmptyArray<D>>;
 
   withShifted(interval: I): IDegreeFunc<I, D, V>;
   withShiftedDown(interval: I): IDegreeFunc<I, D, V>;

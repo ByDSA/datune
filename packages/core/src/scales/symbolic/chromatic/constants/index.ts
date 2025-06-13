@@ -1,8 +1,7 @@
 /* eslint-disable camelcase */
 import type { Scale } from "../Scale";
-import { NonEmptyNumberArray } from "datils/datatypes";
 import { deepFreeze } from "datils/datatypes/objects";
-import { fromIntraIntervals, fromRootIntervals } from "../building";
+import { fromIntraIntervals, fromDegrees } from "../building";
 import { mode } from "../modifiers";
 import { MAJOR_SCALE_DEGREES } from "./majorScaleDegrees";
 
@@ -10,7 +9,7 @@ export function initialize() {
   if (MAJOR)
     throw new Error("Already initialized");
 
-  MAJOR = fromRootIntervals(...MAJOR_SCALE_DEGREES as NonEmptyNumberArray);
+  MAJOR = fromDegrees(...MAJOR_SCALE_DEGREES);
   MAJOR.toString = (): string => "Major";
   IONIAN = MAJOR;
 
@@ -135,7 +134,7 @@ export function initialize() {
   DOM7b5 = fromIntraIntervals(4, 2, 4, 2);
 
   // Bebop
-  BEBOP_MAJOR = fromRootIntervals(
+  BEBOP_MAJOR = fromDegrees(
     MAJOR.degrees[0],
     MAJOR.degrees[1],
     MAJOR.degrees[2],
@@ -146,7 +145,7 @@ export function initialize() {
     MAJOR.degrees[6],
   );
 
-  BEBOP_DORIAN = fromRootIntervals(
+  BEBOP_DORIAN = fromDegrees(
     DORIAN.degrees[0],
     DORIAN.degrees[1],
     DORIAN.degrees[2],
@@ -157,7 +156,7 @@ export function initialize() {
     DORIAN.degrees[6],
   );
 
-  BEBOP_DOMINANT = fromRootIntervals(
+  BEBOP_DOMINANT = fromDegrees(
     MIXOLYDIAN.degrees[0],
     MIXOLYDIAN.degrees[1],
     MIXOLYDIAN.degrees[2],
@@ -168,7 +167,7 @@ export function initialize() {
     11,
   );
 
-  BEBOP_MELODIC_MINOR = fromRootIntervals(
+  BEBOP_MELODIC_MINOR = fromDegrees(
     MELODIC_MINOR.degrees[0],
     MELODIC_MINOR.degrees[1],
     MELODIC_MINOR.degrees[2],
@@ -179,7 +178,7 @@ export function initialize() {
     MELODIC_MINOR.degrees[6],
   );
 
-  BEBOP_HARMONIC_MINOR = fromRootIntervals(
+  BEBOP_HARMONIC_MINOR = fromDegrees(
     HARMONIC_MINOR.degrees[0],
     HARMONIC_MINOR.degrees[1],
     HARMONIC_MINOR.degrees[2],
@@ -191,7 +190,6 @@ export function initialize() {
   );
 
   initializeSets();
-  deepFreeze(COMMON);
 }
 
 export let MAJOR: Scale;

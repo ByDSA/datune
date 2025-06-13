@@ -1,6 +1,6 @@
 import type { Interval } from "../Interval";
 import { Intervals as I } from "..";
-import { add } from "./add";
+import { shift } from "./shift";
 import { mult } from "./mult";
 import { neg } from "./neg";
 
@@ -13,7 +13,7 @@ describe.each([
   [UNISON, -123, UNISON],
   [OCTAVE, 1, OCTAVE],
   [OCTAVE, 0, UNISON],
-  [OCTAVE, 2, add(OCTAVE, OCTAVE)],
+  [OCTAVE, 2, shift(OCTAVE, OCTAVE)],
   [ET12_SEMITONE, 12, OCTAVE],
   [ET12_SEMITONE, -12, neg(OCTAVE)],
 ])("tests", (interval: Interval, factor: number, expected: Interval): void => {

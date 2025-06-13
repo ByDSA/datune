@@ -5,15 +5,15 @@ import { shiftDown as shiftDownInterval } from "intervals/symbolic/alt/modifiers
 import { fromDegreeVoicing } from "../building/fromDegreeVoicing";
 
 export function shift(obj: DegreeFunc, interval: Interval): DegreeFunc {
-  const { degree: oldDegree } = obj;
-  const newDegree = shiftInterval(oldDegree, interval).withCyclicOctave();
+  const { baseDegree: oldDegree } = obj;
+  const newDegree = shiftInterval(oldDegree, interval).toDegree();
 
   return degree(obj, newDegree);
 }
 
 export function shiftDown(obj: DegreeFunc, interval: Interval): DegreeFunc {
-  const { degree: oldDegree } = obj;
-  const newDegree = shiftDownInterval(oldDegree, interval).withCyclicOctave();
+  const { baseDegree: oldDegree } = obj;
+  const newDegree = shiftDownInterval(oldDegree, interval).toDegree();
 
   return degree(obj, newDegree);
 }
@@ -23,5 +23,5 @@ export function degree(obj: DegreeFunc, newDegree: Degree): DegreeFunc {
 }
 
 export function voicing(obj: DegreeFunc, newVoicing: Voicing): DegreeFunc {
-  return fromDegreeVoicing(obj.degree, newVoicing);
+  return fromDegreeVoicing(obj.baseDegree, newVoicing);
 }

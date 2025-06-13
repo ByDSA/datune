@@ -1,8 +1,10 @@
 import type { Chord } from "chords/alt";
-import type { Degree } from "degrees/alt";
+import type { Degree, DegreeArray } from "degrees/alt";
 import type { Pitch } from "pitches/alt";
 import type { Voicing } from "voicings/alt";
+import type { DegreeFunc as CDegreeFunc } from "functions/chromatic/degree-function/DegreeFunc";
 import { deepFreeze } from "datils/datatypes/objects";
+import { fromDegreeVoicing as cFromDegreeVoicing } from "functions/chromatic/degree-function/building/fromDegreeVoicing";
 import { Pitches as P } from "pitches/alt";
 import { Chords as C } from "chords/alt";
 import { type Interval } from "intervals/alt";
@@ -16,14 +18,14 @@ import { getObjId, type Key as K } from "./caching/key-id";
 export class DegreeFunc
 implements Func,
    IDegreeFunc<Interval, Degree, Voicing> {
-  degree: Degree;
+  baseDegree: Degree;
 
   voicing: Voicing;
 
-  #degrees?: Degree[];
+  #degrees?: Readonly<DegreeArray>;
 
   protected constructor(key: K) {
-    this.degree = key.degree;
+    this.baseDegree = key.degree;
     this.voicing = key.voicing;
     deepFreeze(this);
   }
@@ -45,9 +47,9 @@ implements Func,
   }
 
   // eslint-disable-next-line accessor-pairs
-  get degrees(): Degree[] {
+  get degrees(): Readonly<DegreeArray> {
     if (this.#degrees === undefined)
-      this.#degrees = getDegrees(this);
+      this.#degrees = Object.freeze(getDegrees(this));
 
     return this.#degrees;
   }
@@ -55,7 +57,7 @@ implements Func,
   getChord(root: Pitch): Chord {
     return getOrCalc( {
       calc: () => {
-        const pitchBase = P.shift(root, this.degree);
+        const pitchBase = P.shift(root, this.baseDegree);
 
         return C.fromRootVoicing(pitchBase, this.voicing);
       },
@@ -63,7 +65,14 @@ implements Func,
     } );
   }
 
+  toChromatic(): CDegreeFunc {
+    return cFromDegreeVoicing(
+      this.baseDegree.toChromaticDegree(),
+      this.voicing.toChromatic(),
+    );
+  }
+
   toString() {
-    return `${this.degree} ${this.voicing}`;
+    return `${this.baseDegree} ${this.voicing}`;
   }
 }

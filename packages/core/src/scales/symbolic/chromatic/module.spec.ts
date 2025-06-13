@@ -10,7 +10,7 @@ const functions: string[] = [
   // building
   S.generateByIntervals.name,
   S.fromIntraIntervals.name,
-  S.fromRootIntervals.name,
+  S.fromDegrees.name,
   S.fromAltScale.name,
 
   // modifiers

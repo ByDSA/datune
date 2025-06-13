@@ -1,4 +1,4 @@
-import { fromRootIntervals } from "./building";
+import { fromDegrees } from "./building";
 import { getModeIntraIntervals } from "./modifiers";
 import { Scales as S } from ".";
 
@@ -21,7 +21,7 @@ describe("getModeIntraIntervals", () => {
 } );
 
 it("fromPC: MAJOR", () => {
-  const scale = fromRootIntervals(0, 2, 4, 5, 7, 9, 11);
+  const scale = fromDegrees(0, 2, 4, 5, 7, 9, 11);
 
   expect(scale).toBe(MAJOR);
 } );

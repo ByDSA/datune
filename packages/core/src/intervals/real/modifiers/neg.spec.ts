@@ -3,13 +3,13 @@
 import type { Interval } from "../Interval";
 import { Intervals as I } from "..";
 import { neg } from "./neg";
-import { add } from "./add";
+import { shift } from "./shift";
 
 const { ET12_P5, J_a5, OCTAVE, PT_a7, PT_a1, PT_d2, UNISON } = I;
 
 describe.each([
   ET12_P5,
-  add(ET12_P5, OCTAVE),
+  shift(ET12_P5, OCTAVE),
   J_a5,
   PT_a7,
   OCTAVE,
@@ -23,7 +23,7 @@ describe.each([
   } );
 
   it(`${input} + ${neg(input)} => ${UNISON}`, (): void => {
-    const actual = add(input, neg(input));
+    const actual = shift(input, neg(input));
 
     expect(actual).toBe(UNISON);
   } );

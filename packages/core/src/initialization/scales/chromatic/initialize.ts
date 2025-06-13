@@ -1,3 +1,4 @@
+/* eslint-disable import/no-default-export */
 import type { Data } from "./Data";
 import { cache } from "scales/symbolic/chromatic/caching/cache";
 

@@ -1,8 +1,9 @@
-export interface IInterval {
-  withShifted(interval: IInterval): IInterval;
-  withShiftedDown(interval: IInterval): IInterval;
-  withNeg(): IInterval;
-  withAbs(): IInterval;
-  withSimplified(): IInterval;
-  withCyclicOctave(): IInterval;
+export interface IInterval<D> {
+  withShifted(interval: IInterval<D>): IInterval<D>;
+  withShiftedDown(interval: IInterval<D>): IInterval<D>;
+  withNeg(): IInterval<D>;
+  withAbs(): IInterval<D>;
+  withSimplified(): IInterval<D>;
+  withCyclicOctave(): IInterval<D>;
+  toDegree(): D;
 }

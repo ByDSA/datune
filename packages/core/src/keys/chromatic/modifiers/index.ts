@@ -1,7 +1,19 @@
 export {
-  rootChord3,
-} from "./rootChord3";
+  triadRootChord,
+} from "./triadRootChord";
 
 export {
-  rootChord4,
-} from "./rootChord4";
+  seventhRootChord,
+} from "./seventhRootChord";
+
+export {
+  mode,
+} from "./mode";
+
+export {
+  root,
+} from "./root";
+
+export {
+  scale,
+} from "./scale";

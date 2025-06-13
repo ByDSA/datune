@@ -1,3 +1,7 @@
 export {
-  fromIntervals,
-} from "./intervals";
+  fromRootIntervals,
+} from "./rootIntervals";
+
+export {
+  fromIntraIntervals,
+} from "./intraIntervals";

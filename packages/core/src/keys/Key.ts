@@ -12,7 +12,7 @@ S extends Scale<INTERVAL, any>,
 C extends SymbolicChord<P, INTERVAL>,
 PS extends IPitchSet<P, INTERVAL> >
 extends Iterable<P> {
-  pitches: NonEmptyArray<P>;
+  pitches: Readonly<NonEmptyArray<P>>;
 
   pitchSet: PS;
 
@@ -27,4 +27,13 @@ extends Iterable<P> {
   hasPitches(...pitches: NonEmptyArray<P>): boolean;
 
   getChord(func: IFunc<P, C>): C;
+
+  withMode(n?: number): IKey<INTERVAL, P, S, C, PS>;
+
+  withRoot(root: P): IKey<INTERVAL, P, S, C, PS>;
+  withScale(scale: S): IKey<INTERVAL, P, S, C, PS>;
+
+  triadRootChord: C | null;
+
+  seventhRootChord: C | null;
 }

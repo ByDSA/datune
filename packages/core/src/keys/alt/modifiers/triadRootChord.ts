@@ -11,7 +11,7 @@ type Choices = {
   interval: Interval;
   voicing: Voicing;
 }[];
-export function rootChord3(obj: Key): Chord | null {
+export function triadRootChord(obj: Key): Chord | null {
   const { M6, M3, m6, m3, P1 } = I;
   const { TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = V;
   const chordRootVoicingPriority: Choices = [

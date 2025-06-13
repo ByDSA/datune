@@ -1,7 +1,8 @@
-import type { IntervalArray, Interval } from "intervals/chromatic";
+import type { Interval } from "intervals/chromatic";
 import type { Scale } from "../../Scale";
+import type { Degree, DegreeArray } from "degrees/chromatic";
 import { Intervals as I } from "intervals/chromatic";
-import { Pitches as P } from "pitches/chromatic";
+import { cyclicOctave } from "intervals/symbolic/chromatic/modifiers";
 import { Scales as S } from "../..";
 
 class Generator {
@@ -11,11 +12,11 @@ class Generator {
 
   private startIndex: number;
 
-  private unorderedIntervals: IntervalArray | undefined;
+  private unorderedIntervals: DegreeArray | undefined;
 
-  private rootIntervals: IntervalArray | undefined;
+  private rootIntervals: DegreeArray | undefined;
 
-  private intraIntervals: IntervalArray | undefined;
+  private intraIntervals: DegreeArray | undefined;
 
   private constructor(interval: Interval, length: number, startIndex: number) {
     this.interval = interval;
@@ -30,13 +31,12 @@ class Generator {
     return new Generator(interval, length, startIndex);
   }
 
-  private calculateUnorderedIntervals(): IntervalArray {
-    let lastInterval: Interval = this.fixInitialInterval();
-    const unorderedIntervals: IntervalArray = [lastInterval];
+  private calculateUnorderedIntervals(): DegreeArray {
+    let lastInterval: Degree = this.fixInitialInterval();
+    const unorderedIntervals = [lastInterval];
 
     for (let i = 1; i < this.length; i++) {
-      lastInterval = I.shift(lastInterval, this.interval);
-      lastInterval = toSimpleInterval(lastInterval);
+      lastInterval = cyclicOctave(I.shift(lastInterval, this.interval));
 
       if (unorderedIntervals.includes(lastInterval))
         break;
@@ -44,10 +44,10 @@ class Generator {
       unorderedIntervals.push(lastInterval);
     }
 
-    return unorderedIntervals;
+    return unorderedIntervals as DegreeArray;
   }
 
-  private fixInitialInterval(): Interval {
+  private fixInitialInterval(): Degree {
     let initialInterval = I.P1;
 
     if (this.startIndex > 0) {
@@ -58,7 +58,7 @@ class Generator {
         initialInterval = I.shiftDown(initialInterval, this.interval);
     }
 
-    return toSimpleInterval(initialInterval);
+    return cyclicOctave(initialInterval);
   }
 
   generate(): Scale {
@@ -70,13 +70,13 @@ class Generator {
   }
 }
 
-function calculateIntraIntervals(rootIntervals: IntervalArray): IntervalArray {
+function calculateIntraIntervals(degrees: DegreeArray): DegreeArray {
   const intraIntervals = [];
   let accumulated = I.P1;
 
-  for (let i = 1; i < rootIntervals.length; i++) {
-    const lastRootInterval = rootIntervals[i - 1];
-    const currentRootInterval = rootIntervals[i];
+  for (let i = 1; i < degrees.length; i++) {
+    const lastRootInterval = degrees[i - 1];
+    const currentRootInterval = degrees[i];
     const interval = I.shiftDown(currentRootInterval, lastRootInterval);
 
     accumulated = I.shift(accumulated, interval);
@@ -87,27 +87,15 @@ function calculateIntraIntervals(rootIntervals: IntervalArray): IntervalArray {
 
   intraIntervals.push(remainingInterval);
 
-  return <IntervalArray>intraIntervals;
+  return <DegreeArray>intraIntervals;
 }
 
-function toSimpleInterval(input: Interval): Interval {
-  let interval = input;
-
-  while (interval >= P.NUMBER)
-    interval = I.shiftDown(interval, I.P8);
-
-  while (interval < 0)
-    interval = I.shift(interval, I.P8);
-
-  return interval;
-}
-
-function sortIntervals(unorderedIntervals: IntervalArray): IntervalArray {
+function sortIntervals(unorderedIntervals: DegreeArray): DegreeArray {
   const rootIntervals = [...unorderedIntervals];
 
   rootIntervals.sort((a, b) => a - b);
 
-  return <IntervalArray>rootIntervals;
+  return <DegreeArray>rootIntervals;
 }
 
 type Input = {

@@ -1,7 +1,7 @@
 import { Chord, Degree, Func, Funcs, Intervals as I, Key, Keys, PitchSet, Scale, Scales, Voicing, Voicings } from "@datune/core/alt";
 import { getId as getChordId } from "@datune/core/chords/octave/alt/caching/cache";
 import { getId as getKeyId } from "@datune/core/keys/alt/building/caching/cache";
-import { rootChord3 } from "@datune/core/keys/alt/modifiers";
+import { triadRootChord } from "@datune/core/keys/alt/modifiers";
 import { CompoundFunc } from "@datune/core/functions/alt/compound-function/CompoundFunc";
 import { DegreeFunc } from "@datune/core/functions/alt/degree-function/DegreeFunc";
 import { majorMinorKeyFromChord } from "../regional/chord-region-distance-rule";
@@ -45,7 +45,7 @@ export function getAllDiatonicChordsInRegion(key: Key): Set<FuncChord> {
   diatonicFuncs.push(...dominantSecondariesFuncs.flat(1));
 
   for (const f of diatonicFuncs) {
-    const chord = f.getChord(key);
+    const chord = f.getChord(key.root);
 
     if (key.hasChord(chord)) {
       ret.add( {
@@ -63,6 +63,7 @@ function getSecondariesFromDegree(degree: Degree): Func[] {
     Funcs.compose(Funcs.V, degree),
     Funcs.compose(Funcs.V7, degree),
     Funcs.compose(Funcs.SUBV7, degree),
+    Funcs.compose(Funcs.V7ALT, degree),
   ];
 }
 
@@ -196,7 +197,7 @@ export function findChordByPitchSet( { start, goal }: Props): Ret {
         } );
       }
 
-      const startTonic = rootChord3(start.region)!;
+      const startTonic = triadRootChord(start.region)!;
 
       if (node.chord !== startTonic) {
         const distance = regionalLevelChordDistanceRule( {
@@ -236,7 +237,7 @@ export function findChordByPitchSet( { start, goal }: Props): Ret {
       } );
 
     if (goalInNeighbors.length > 0) {
-      const goalTonic = rootChord3(keyFromChord)!;
+      const goalTonic = triadRootChord(keyFromChord)!;
 
       return goalInNeighbors.flatMap(n=> {
         const funcsOfChord = getFuncsOfChord(n.chord, n.key);

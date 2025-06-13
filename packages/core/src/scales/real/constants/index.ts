@@ -1,6 +1,6 @@
 import type { Scale } from "../Scale";
 import * as I from "intervals/real/constants";
-import { fromIntervals } from "../building";
+import { fromRootIntervals } from "../building";
 
 export function initialize() {
   if (ET12_MAJOR)
@@ -12,7 +12,7 @@ export function initialize() {
   // eslint-disable-next-line max-len
   const { ET12_M2, ET12_M7, ET12_M6, ET12_M3, ET12_P5, ET12_P4, PT_M2, PT_M7, PT_M6, PT_M3, PT_P5, PT_P4, UNISON } = I;
 
-  ET12_MAJOR = fromIntervals(
+  ET12_MAJOR = fromRootIntervals(
     UNISON,
     ET12_M2,
     ET12_M3,
@@ -21,7 +21,7 @@ export function initialize() {
     ET12_M6,
     ET12_M7,
   );
-  PT_MAJOR = fromIntervals(
+  PT_MAJOR = fromRootIntervals(
     UNISON,
     PT_M2,
     PT_M3,

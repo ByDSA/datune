@@ -12,7 +12,7 @@ import { generate } from "./VoiceLeading";
 import { expectTargets, removeDuplicatedSpnArrays } from "./tests/targets";
 
 TestInit.loadAll();
-const { rootChord3, rootChord4 } = K;
+const { triadRootChord, seventhRootChord } = K;
 const { A5, B4, C5, C6, D5, E5, F5, G5, GG5 } = N;
 // eslint-disable-next-line max-len, @typescript-eslint/naming-convention
 const { COMMON_TRIADS, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_MINOR_a5, SEVENTH_MINOR_b5, SEVENTH_SUS4, SIXTH_MINOR, TRIADS_MAJOR_MINOR, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = V;
@@ -246,7 +246,7 @@ it("bº resolution in Key C", () => {
 
 it("dm resolution in Key C (resting=root3) common triads", () => {
   const base: SpnArray = [D5, F5, A5];
-  const rootChord = rootChord3(K.C);
+  const rootChord = triadRootChord(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
   const result = generate(base, {
     multipleGenConfig: {
@@ -280,7 +280,7 @@ it("dm resolution in Key C (resting=root3) common triads", () => {
 
 it("d5 note resolution in Key C (resting=root3)", () => {
   const base: SpnArray = [D5];
-  const rootChord = rootChord3(K.C);
+  const rootChord = triadRootChord(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
   const result = generate(base, {
     multipleGenConfig: {
@@ -301,7 +301,7 @@ it("d5 note resolution in Key C (resting=root3)", () => {
 
 it("c5 note resolution in Key C (resting=root4)", () => {
   const base: SpnArray = [C5];
-  const rootChord = rootChord4(K.C);
+  const rootChord = seventhRootChord(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
   const result = generate(base, {
     multipleGenConfig: {
@@ -321,7 +321,7 @@ it("c5 note resolution in Key C (resting=root4)", () => {
 
 it("d5 note resolution in Key C (resting=root4, maxInterval=3)", () => {
   const base: SpnArray = [D5];
-  const rootChord = rootChord4(K.C);
+  const rootChord = seventhRootChord(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
   const result = generate(base, {
     multipleGenConfig: {
@@ -344,7 +344,7 @@ it("d5 note resolution in Key C (resting=root4, maxInterval=3)", () => {
 
 it("dm resolution in Key C (resting=root3) triads major minor", () => {
   const base: SpnArray = [D5, F5, A5];
-  const rootChord = rootChord3(K.C);
+  const rootChord = triadRootChord(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
   const result = generate(base, {
     multipleGenConfig: {
@@ -373,7 +373,7 @@ it("dm resolution in Key C (resting=root3) triads major minor", () => {
 
 it("dm resolution in Key C (resting=root4)", () => {
   const base: SpnArray = [D5, F5, A5];
-  const rootChord = rootChord4(K.C);
+  const rootChord = seventhRootChord(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
   const result = generate(base, {
     multipleGenConfig: {
@@ -402,7 +402,7 @@ it("dm resolution in Key C (resting=root4)", () => {
 
 it("dm7 resolution in Key C (resting=root4 required, near=true)", () => {
   const base: SpnArray = [D5, F5, A5, C6];
-  const rootChord = rootChord4(K.C);
+  const rootChord = seventhRootChord(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
   const voicings: VoicingArray = [
     ...getAllInversions(SEVENTH),
@@ -462,7 +462,7 @@ it("chord G resolution in C Major Key should not have duplicates", () => {
         enabled: false,
       },
       keyResolution: {
-        restingPitches: rootChord3(K.C)?.pitches!,
+        restingPitches: triadRootChord(K.C)?.pitches!,
       },
     },
   } );
@@ -479,7 +479,7 @@ it("chord G7 resolution in C Major Key (near=false)", () => {
         enabled: false,
       },
       keyResolution: {
-        restingPitches: rootChord3(K.C)?.pitches!,
+        restingPitches: triadRootChord(K.C)?.pitches!,
       },
     },
     combinationApplierConfig: {

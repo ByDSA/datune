@@ -1,6 +1,6 @@
 import type { Interval } from "../Interval";
 import { UNISON } from "../constants";
-import { add } from "./add";
+import { shift } from "./shift";
 import { neg } from "./neg";
 
 export function mult(self: Interval, factor: number): Interval {
@@ -13,7 +13,7 @@ export function mult(self: Interval, factor: number): Interval {
   let acc = self;
 
   for (let i = 0; i < Math.abs(factor) - 1; i++)
-    acc = add(acc, self);
+    acc = shift(acc, self);
 
   if (factor < 0)
     acc = neg(acc);

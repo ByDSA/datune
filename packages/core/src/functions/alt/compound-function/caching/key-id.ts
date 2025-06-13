@@ -1,12 +1,12 @@
 import type { DegreeFunc } from "../../degree-function/DegreeFunc";
 import type { DegreeArray } from "degrees/alt";
+import type { CompoundFunc } from "../CompoundFunc";
 import { getObjId as degreeGetObjId } from "intervals/symbolic/alt/caching/cache";
-import { CompoundFunc } from "../CompoundFunc";
 import { getObjId as degreeFuncGetObjId } from "../../degree-function/caching/key-id";
 
 export type Key = {
   degreeFunc: DegreeFunc;
-  degreeChain: DegreeArray;
+  degreeChain: DegreeArray | Readonly<DegreeArray>;
 };
 
 export function getId(key: Key): string {

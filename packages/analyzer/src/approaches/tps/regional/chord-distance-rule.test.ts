@@ -589,11 +589,11 @@ function genXY(from: Func, to: Func) {
 
   return {
     x: {
-      chord: from.getChord(k)!,
+      chord: k.getChord(from),
       key: k,
     },
     y: {
-      chord: to.getChord(k)!,
+      chord: k.getChord(to),
       key: k,
     },
   };

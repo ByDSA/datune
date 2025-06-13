@@ -1,53 +1,57 @@
 import type { Key } from "./caching/cache";
 import type { Scale as IScale } from "../../Scale";
-import type { IntervalArray as CIntervalArray } from "intervals/chromatic";
-import type { IntervalArray, Interval } from "intervals/alt";
-import { deepFreeze } from "datils/datatypes/objects";
-import { type DegreeArray, type Degree, Degrees as D } from "degrees/alt";
-import { Intervals } from "intervals/symbolic/alt";
+import type { Interval } from "intervals/alt";
+import { type DegreeArray, type Degree } from "degrees/alt";
+import { type DegreeArray as CDegreeArray } from "degrees/chromatic";
 import { Voicings as V } from "voicings/alt";
 import { fromAltInterval } from "intervals/symbolic/chromatic/building/altInterval";
 import { Scale as CScale } from "scales/chromatic";
 import { Intervals as CI } from "intervals/chromatic";
 import { Scales as CS } from "scales/chromatic";
-import { calcIntraIntervals } from "./modifiers/intraIntervals";
+import { stringifyDegree } from "degrees/alt/stringify";
+import { mode } from "./modifiers";
 
 export class Scale implements IScale<Interval, Degree> {
-  private intraIntervals: IntervalArray;
+  intraIntervals: Readonly<DegreeArray>;
 
-  rootIntervals: IntervalArray;
-
-  degrees: DegreeArray;
+  degrees: Readonly<DegreeArray>;
 
   length: number;
 
+  #string?: string;
+
   private constructor(key: Key) {
-    this.intraIntervals = key;
+    this.intraIntervals = Object.freeze(key);
     this.length = this.intraIntervals.length;
-    const voicing = V.fromIntraIntervals(...this.intraIntervals) as any;
+    const voicing = V.fromIntraIntervals(...this.intraIntervals);
 
-    this.rootIntervals = voicing.rootIntervals;
-    this.degrees = calcDegrees(this);
-
-    deepFreeze(this);
+    this.degrees = Object.freeze(voicing.rootIntervals.map(i=>i.toDegree()) as DegreeArray);
   }
 
-  [Symbol.iterator](): Iterator<Interval, any, any> {
-    return this.rootIntervals[Symbol.iterator]();
+  [Symbol.iterator](): Iterator<Degree, any, any> {
+    return this.degrees[Symbol.iterator]();
+  }
+
+  withMode(n: number = 2): Scale {
+    return mode(this, n);
+  }
+
+  hasDegrees(...degrees: DegreeArray): boolean {
+    return degrees.every(i=>this.degrees.includes(i));
   }
 
   toChromatic(): CScale {
-    const rootcIntervals = this.rootIntervals.map(i=>CI.fromAltInterval(i)) as CIntervalArray;
+    const cDegrees = this.degrees.map(i=>CI.fromAltInterval(i)) as CDegreeArray;
 
-    return CS.fromRootIntervals(...rootcIntervals);
+    return CS.fromDegrees(...cDegrees);
   }
 
-  hasEnharmonicDegrees(...degrees: DegreeArray): boolean {
-    for (const degree of degrees) {
+  hasChromaticDegrees(...cDegrees: CDegreeArray): boolean {
+    for (const d of cDegrees) {
       let found = false;
 
       for (const scaleDegree of this.degrees) {
-        if (fromAltInterval(scaleDegree) === fromAltInterval(degree)) {
+        if (fromAltInterval(scaleDegree) === d) {
           found = true;
           break;
         }
@@ -61,20 +65,9 @@ export class Scale implements IScale<Interval, Degree> {
   }
 
   toString() {
-    return this.rootIntervals.map(String).join("-");
+    if (this.#string === undefined)
+      this.#string = this.degrees.map(stringifyDegree).join("-");
+
+    return this.#string;
   }
-}
-
-function calcDegrees(obj: Scale): DegreeArray {
-  const ret: DegreeArray = [D.I];
-  const intraIntervals = calcIntraIntervals(obj);
-
-  for (let i = 0; i < intraIntervals.length - 1; i++) {
-    const interval = intraIntervals[i];
-    const degree = Intervals.shift(ret[ret.length - 1], interval);
-
-    ret.push(degree);
-  }
-
-  return ret;
 }

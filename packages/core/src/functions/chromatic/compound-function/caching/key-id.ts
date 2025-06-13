@@ -6,7 +6,7 @@ import { getObjId as degreeFuncGetObjId } from "../../degree-function/caching/ke
 
 export type Key = {
   degreeFunc: DegreeFunc;
-  degreeChain: DegreeArray;
+  degreeChain: DegreeArray | Readonly<DegreeArray>;
 };
 
 export function getKey(func: CompoundFunc): Key {

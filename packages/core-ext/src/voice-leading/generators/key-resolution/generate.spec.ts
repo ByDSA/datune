@@ -12,12 +12,12 @@ import { toKeyResolution } from "./generate";
 TestInit.loadAll();
 
 const { B4, C5, D5 } = N;
-const { rootChord3, rootChord4 } = K;
+const { triadRootChord, seventhRootChord } = K;
 
 it("base=[B4] in Key=C (root=3)", () => {
   const spns: SpnArray = [B4];
   const key = K.C;
-  const root3 = rootChord3(key);
+  const root3 = triadRootChord(key);
   const restingNotes = root3?.pitches as PitchArray;
   const actual = toKeyResolution( {
     base: spns,
@@ -35,7 +35,7 @@ it("base=[B4] in Key=C (root=3)", () => {
 it("base=[B4, F5] in Key=C (root=3), maxInterval=1", () => {
   const spns: SpnArray = [N.B4, N.F5];
   const key = K.C;
-  const root3 = rootChord3(key);
+  const root3 = triadRootChord(key);
   const restingNotes = root3?.pitches as PitchArray;
   const actual = toKeyResolution( {
     maxInterval: I.m2,
@@ -58,7 +58,7 @@ it("base=[B4, F5] in Key=C (root=3), maxInterval=1", () => {
 it("base=[B4, F5] in Key=C (root=3), maxInterval=2 (default)", () => {
   const spns: SpnArray = [N.B4, N.F5];
   const key = K.C;
-  const root3 = rootChord3(key);
+  const root3 = triadRootChord(key);
   const restingNotes = root3?.pitches as PitchArray;
   const actual = toKeyResolution( {
     base: spns,
@@ -81,7 +81,7 @@ it("base=[B4, F5] in Key=C (root=3), maxInterval=2 (default)", () => {
 it("base=[B4, D5, F5] in Key=C (root=3), maxInterval=1", () => {
   const spns: SpnArray = [N.B4, N.D5, N.F5];
   const key = K.C;
-  const root3 = rootChord3(key);
+  const root3 = triadRootChord(key);
   const restingNotes = root3?.pitches as PitchArray;
   const actual = toKeyResolution( {
     maxInterval: I.m2,
@@ -103,7 +103,7 @@ it("base=[B4, D5, F5] in Key=C (root=3), maxInterval=1", () => {
 
 it("base=[D5] in Key=C (root=3)", () => {
   const notes: SpnArray = [D5];
-  const restingNotes = <PitchArray>rootChord3(K.C)?.pitches;
+  const restingNotes = <PitchArray>triadRootChord(K.C)?.pitches;
   const actual = toKeyResolution( {
     base: notes,
     restingPitches: restingNotes,
@@ -120,7 +120,7 @@ it("base=[D5] in Key=C (root=3)", () => {
 
 it("base=[C5] in Key=C (root=3)", () => {
   const notes: SpnArray = [C5];
-  const restingPitches = rootChord3(K.C)?.pitches as PitchArray;
+  const restingPitches = triadRootChord(K.C)?.pitches as PitchArray;
   const actual = toKeyResolution( {
     base: notes,
     restingPitches,
@@ -131,7 +131,7 @@ it("base=[C5] in Key=C (root=3)", () => {
 
 it("base=[C5] in Key=C (root=4)", () => {
   const notes: SpnArray = [C5];
-  const restingPitches = rootChord4(K.C)?.pitches as PitchArray;
+  const restingPitches = seventhRootChord(K.C)?.pitches as PitchArray;
   const actual = toKeyResolution( {
     base: notes,
     restingPitches,
@@ -147,7 +147,7 @@ it("base=[C5] in Key=C (root=4)", () => {
 
 it("base=[D5] in Key=C (root=4, maxInterval=3)", () => {
   const base: SpnArray = [D5];
-  const restingPitches = rootChord4(K.C)?.pitches as PitchArray;
+  const restingPitches = seventhRootChord(K.C)?.pitches as PitchArray;
   const actual = toKeyResolution( {
     base,
     maxInterval: 3,
@@ -166,7 +166,7 @@ it("base=[D5] in Key=C (root=4, maxInterval=3)", () => {
 
 it("base=[G4, B4, D5, F4] (G7) in Key=C (root=3, maxInterval=2)", () => {
   const base: SpnArray = [N.G4, N.B4, N.D5, N.F4];
-  const restingPitches = rootChord3(K.C)?.pitches as PitchArray;
+  const restingPitches = triadRootChord(K.C)?.pitches as PitchArray;
   const actual = toKeyResolution( {
     base,
     restingPitches,

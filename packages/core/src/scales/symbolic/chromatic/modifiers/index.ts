@@ -1,5 +1,5 @@
-import type { IntervalArray } from "intervals/chromatic";
 import type { Scale } from "../Scale";
+import type { DegreeArray } from "chromatic";
 import { Arrays } from "datils/datatypes/arrays";
 import { fromIntraIntervals } from "../building";
 import { calcIntraIntervals } from "./intraIntervals";
@@ -34,8 +34,8 @@ export function modes(
 export function getModeIntraIntervals(
   obj: Scale,
   n: number,
-): IntervalArray {
-  const intervals: IntervalArray = [...calcIntraIntervals(obj)];
+): DegreeArray {
+  const intervals: DegreeArray = [...calcIntraIntervals(obj)];
 
   if (n > 0)
     Arrays.rotateLeft(intervals, n - 1);

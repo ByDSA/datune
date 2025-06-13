@@ -5,3 +5,7 @@ export {
 export {
   fromAltKey,
 } from "./fromAltKey";
+
+export {
+  fromPitches,
+} from "./fromPitches";

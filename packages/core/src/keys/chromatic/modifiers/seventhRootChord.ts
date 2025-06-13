@@ -2,7 +2,7 @@ import { Chord, Chords } from "chords/chromatic";
 import { Voicings } from "voicings/chromatic";
 import { Key } from "../Key";
 
-export function rootChord4(obj: Key): Chord | null {
+export function seventhRootChord(obj: Key): Chord | null {
   const chordRootVoicingPriority = [
     Voicings.fromRootIntervals(0, 4, 7, 11), // Maj7
     Voicings.fromRootIntervals(0, 3, 7, 11), // mMaj7

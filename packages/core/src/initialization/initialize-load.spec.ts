@@ -21,7 +21,7 @@ describe("initialize", () => {
     } );
 
     it("scales chromatic", () => {
-      const got = chromaticScaleCache.get([0, 4, 7]);
+      const got = chromaticScaleCache.get([0, 2, 4, 5, 7, 9, 11]);
 
       expect(got).toBeUndefined();
     } );

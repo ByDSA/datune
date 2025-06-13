@@ -1,5 +1,7 @@
 import { cyclicMod } from "datils/math";
 import { IntervalDirection, Intervals as DI } from "diatonic";
+import { type Degree, Degrees as D } from "degrees/alt";
+import { stringifyDegree } from "degrees/alt/stringify";
 import { expectInterval } from "../tests/interval";
 import { Intervals as I, type Interval } from "..";
 import { cyclicOctave } from "./cyclic-octave";
@@ -17,7 +19,7 @@ describe.each([
   [I.d1.withNeg(), I.a1],
   [I.d8.withNeg(), I.a1],
   [I.d15.withNeg(), I.a1],
-])("tests", (interval, expected) => {
+])("cyclicOctave", (interval, expected) => {
   describe(`${String(interval)} => ${String(expected)}`, () => {
     let actual: Interval;
 
@@ -54,5 +56,31 @@ describe.each([
         expect(shouldBeAnOctave === I.P8 || shouldBeAnOctave === I.P1).toBeTruthy();
       } );
     }
+  } );
+} );
+
+type DegreeTestCase = [Interval, Degree | null];
+
+describe.each([
+  [I.P4, D.IV],
+  [I.P11, D.IV],
+  [I.m2.withNeg(), D.VII],
+  [I.M7.withNeg(), D.bII],
+  [I.P5.withNeg(), D.IV],
+  [I.P12.withNeg(), D.IV],
+  [I.a7.withNeg(), D.bbII],
+  [I.d1.withNeg(), D.aI],
+  [I.d8.withNeg(), D.aI],
+  [I.d15.withNeg(), D.aI],
+  [I.a7, D.I], // aVII (12) -> I
+  [I.d8, D.VII], // bI (-1) -> VII
+  [I.d1, D.VII], // bI (-1) -> VII
+] as DegreeTestCase[])("degree", (interval, expected) => {
+  describe(`${String(interval)} => ${expected ? stringifyDegree(expected) : "null"}`, () => {
+    it("should match", () => {
+      const actual = interval.toDegree();
+
+      expect(actual).toBe(expected);
+    } );
   } );
 } );

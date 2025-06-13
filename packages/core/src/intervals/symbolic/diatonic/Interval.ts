@@ -1,11 +1,12 @@
 /* eslint-disable import/no-cycle */
 import type { Key } from "./caching/key-id";
 import type { IInterval } from "../IInterval";
+import type { Degree } from "diatonic";
 import { MAJOR_SCALE_DEGREES } from "scales/symbolic/chromatic/constants/majorScaleDegrees";
 import { Direction } from "./Direction";
 import { Intervals as I } from ".";
 
-export class Interval implements IInterval {
+export class Interval implements IInterval<Degree> {
   magnitude: number;
 
   direction: Direction;
@@ -36,6 +37,10 @@ export class Interval implements IInterval {
   }
 
   withCyclicOctave(): Interval {
+    return I.cyclicOctave(this);
+  }
+
+  toDegree(): Degree {
     return I.cyclicOctave(this);
   }
 

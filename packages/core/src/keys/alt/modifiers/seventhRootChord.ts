@@ -5,7 +5,7 @@ import { Voicings as CVoicings } from "voicings/chromatic";
 import { Voicings as DV } from "voicings/diatonic";
 import { Key } from "../Key";
 
-export function rootChord4(obj: Key): Chord | null {
+export function seventhRootChord(obj: Key): Chord | null {
   const { fromVoicings } = Voicings;
   const chordRootVoicingPriority: Voicing[] = [
     fromVoicings(CVoicings.fromRootIntervals(0, 4, 7, 11), DV.SEVENTH) as Voicing, // Maj7

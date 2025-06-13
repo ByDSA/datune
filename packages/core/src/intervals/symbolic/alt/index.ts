@@ -7,7 +7,7 @@ import type { fromIntervals } from "./building/intervals";
 import type * as Constants from "./constants";
 import type { abs } from "./modifiers/abs";
 import type { shift } from "./modifiers/shift";
-import type { cyclicOctave } from "./modifiers/cyclic-octave";
+import type { cyclicOctave, degree } from "./modifiers/cyclic-octave";
 import type { mult } from "./modifiers/mult";
 import type { neg } from "./modifiers/neg";
 import type { simplify } from "./modifiers/simplify";
@@ -40,6 +40,7 @@ type LazyType = Omit<typeof Constants, "initialize"> & {
   abs: typeof abs;
   shift: typeof shift;
   cyclicOctave: typeof cyclicOctave;
+  degree: typeof degree;
   mult: typeof mult;
   neg: typeof neg;
   simplify: typeof simplify;

@@ -1,4 +1,4 @@
-import { Funcs as F, Degrees as D, Voicings as V, Intervals as I, Voicing } from "@datune/core/alt";
+import { Funcs as F, Degrees as D, Voicings as V, Intervals as I, Voicing, Degree } from "@datune/core/alt";
 import { DegreeFunc } from "@datune/core/functions/alt/degree-function/DegreeFunc";
 
 // movimientos simples hardcodeados
@@ -69,7 +69,7 @@ function getCircleRight(func: typeof F.I): DegreeFunc {
   let ret = circleRightMap.get(func);
 
   if (ret === undefined) {
-    const degree = I.shift(func.degree, I.P5).withCyclicOctave();
+    const degree: Degree = I.shift(func.baseDegree, I.P5).withCyclicOctave();
 
     ret = F.fromDegreeVoicing(degree, func.voicing);
   }
@@ -80,9 +80,9 @@ function getCircleLeft(func: typeof F.I): DegreeFunc {
   let ret = circleLeftMap.get(func);
 
   if (ret === undefined) {
-    const degree = I.shiftDown(func.degree, I.P5).withCyclicOctave();
+    const degree: Degree = I.shiftDown(func.baseDegree, I.P5).withCyclicOctave();
 
-    ret = func.withDegree(degree);
+    ret = func.withBaseDegree(degree);
   }
 
   return ret as DegreeFunc;
@@ -95,13 +95,13 @@ function getRelative(func: typeof F.I): DegreeFunc {
     const { voicing } = func;
 
     if (voicing === V.TRIAD_MAJOR) {
-      const degree = I.shiftDown(func.degree, I.m3);
+      const baseDegree: Degree = I.shiftDown(func.baseDegree, I.m3).withCyclicOctave();
 
-      ret = F.fromDegreeVoicing(degree, V.TRIAD_MINOR);
+      ret = F.fromDegreeVoicing(baseDegree, V.TRIAD_MINOR);
     } else if (voicing === V.TRIAD_MINOR) {
-      const degree = I.shift(func.degree, I.m3);
+      const baseDegree: Degree = I.shift(func.baseDegree, I.m3).withCyclicOctave();
 
-      ret = F.fromDegreeVoicing(degree, V.TRIAD_MAJOR);
+      ret = F.fromDegreeVoicing(baseDegree, V.TRIAD_MAJOR);
     }
 
     if (ret === undefined)
@@ -112,10 +112,10 @@ function getRelative(func: typeof F.I): DegreeFunc {
 }
 
 function withVoicing(func: DegreeFunc, voicing: Voicing): DegreeFunc {
-  const { degree } = func;
+  const { baseDegree } = func;
 
   return F.fromDegreeVoicing(
-    degree,
+    baseDegree,
     voicing,
   );
 }
@@ -170,11 +170,11 @@ export function getAllNeighbors(f: DegreeFunc): DegreeFunc[] {
     retRelativeToI = [...simples, ...composites];
   }
 
-  const interval = f.degree;
+  const interval = f.baseDegree;
   const ret = retRelativeToI.map(rf=> {
-    const degree = I.shift(rf.degree, interval).withCyclicOctave();
+    const degree = I.shift(rf.baseDegree, interval).withCyclicOctave();
 
-    return rf.withDegree(degree);
+    return rf.withBaseDegree(degree);
   } );
 
   return ret;

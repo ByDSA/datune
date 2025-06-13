@@ -261,50 +261,50 @@ export function getHarmonicRegions(key: Key): HarmonicRegions {
   if (!harmonicRegion) {
     const tonicRegion: HarmonicRegion = {
       [D.I]: [
-        Funcs.Im.getChord(key),
-        Funcs.Im.getChord(key).withInv(),
-        Funcs.Im7.getChord(key),
-        Funcs.Im7.getChord(key).withInv(),
-        Funcs.fromDegrees(D.I, D.bIII, D.V, D.bVII, D.II).getChord(key), // Im9
+        key.getChord(Funcs.Im),
+        key.getChord(Funcs.Im).withInv(),
+        key.getChord(Funcs.Im7),
+        key.getChord(Funcs.Im7).withInv(),
+        key.getChord(Funcs.fromDegrees(D.I, D.bIII, D.V, D.bVII, D.II)), // Im9
         // Im11
-        Funcs.ISUS4.getChord(key),
-        Funcs.fromDegrees(D.I, D.bIII, D.bVI).getChord(key), // Im6
+        key.getChord(Funcs.ISUS4),
+        key.getChord(Funcs.fromDegrees(D.I, D.bIII, D.bVI)), // Im6
         // Isus2
         // Iadd9
-        Funcs.fromDegrees(D.I, D.II, D.IV).getChord(key),
+        key.getChord(Funcs.fromDegrees(D.I, D.II, D.IV)),
       ],
       [D.bIII]: [
-        Funcs.bIII.getChord(key),
-        Funcs.bIIIMaj7.getChord(key),
+        key.getChord(Funcs.bIII),
+        key.getChord(Funcs.bIIIMaj7),
       ],
       [D.bVI]: [
-        Funcs.bVI.getChord(key),
-        Funcs.bVIMaj7.getChord(key),
+        key.getChord(Funcs.bVI),
+        key.getChord(Funcs.bVIMaj7),
       ],
     };
     const subDominantRegion: HarmonicRegion = {
       [D.IV]: [
-        Funcs.IVm.getChord(key),
-        Funcs.IVm7.getChord(key),
+        key.getChord(Funcs.IVm),
+        key.getChord(Funcs.IVm7),
       ],
       [D.II]: [
-        Funcs.II0.getChord(key),
-        Funcs.fromDegrees(D.II, D.IV, D.bVI, D.I).getChord(key), // IIº7
+        key.getChord(Funcs.II0),
+        key.getChord(Funcs.fromDegrees(D.II, D.IV, D.bVI, D.I)), // IIº7
       ],
     };
-    const dominantRegion = {
+    const dominantRegion: HarmonicRegion = {
       [D.V]: [
-        Funcs.Vm.getChord(key),
-        Funcs.Vm.getChord(key).withInv(),
-        Funcs.Vm.getChord(key).withInv(2),
-        Funcs.V.getChord(key),
-        Funcs.V7.getChord(key),
-        Funcs.VSUS4.getChord(key),
-        Funcs.V7SUS4.getChord(key),
+        key.getChord(Funcs.Vm),
+        key.getChord(Funcs.Vm).withInv(),
+        key.getChord(Funcs.Vm).withInv(2),
+        key.getChord(Funcs.V),
+        key.getChord(Funcs.V7),
+        key.getChord(Funcs.VSUS4),
+        key.getChord(Funcs.V7SUS4),
       ],
       [D.bVII]: [
-        Funcs.bVII.getChord(key),
-        Funcs.bVIISUS4.getChord(key),
+        key.getChord(Funcs.bVII),
+        key.getChord(Funcs.bVIISUS4),
       ],
     };
 

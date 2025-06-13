@@ -1,15 +1,15 @@
 import type { Scale } from "../Scale";
-import type { IntervalArray, Interval } from "intervals/alt";
+import type { Interval } from "intervals/alt";
 import { Intervals as I } from "intervals/alt";
-import { cache } from "../caching/cache";
+import { cache, type Key } from "../caching/cache";
 
-export function fromIntraIntervals(...intervals: IntervalArray): Scale {
+export function fromIntraIntervals(...intervals: Key): Scale {
   checkSumOctave(intervals);
 
   return cache.getOrCreate(intervals);
 }
 
-function checkSumOctave(intervals: IntervalArray): void {
+function checkSumOctave(intervals: Key): void {
   let sum: Interval | null = I.P1;
 
   for (let i = 0; i < intervals.length; i++) {

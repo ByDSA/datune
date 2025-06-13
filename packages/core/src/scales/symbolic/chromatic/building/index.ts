@@ -7,8 +7,8 @@ export {
 } from "./intraIntervals";
 
 export {
-  fromRootIntervals,
-} from "./rootIntervals";
+  fromDegrees,
+} from "./degrees";
 
 export {
   fromAltScale,

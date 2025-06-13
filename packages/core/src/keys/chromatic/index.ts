@@ -1,10 +1,10 @@
 import type { from } from "./building/rootScale";
 import type * as Constants from "./constants";
 import type { KeyArray } from "./Array";
+import type { fromAltKey, fromPitches } from "./building";
 import { createProxyBarrel } from "datils/patterns/proxy";
 import { Key } from "./Key";
 import * as Modifiers from "./modifiers";
-import { fromAltKey } from "./building";
 
 const staticModule = {
   ...Modifiers,
@@ -12,6 +12,7 @@ const staticModule = {
 
 type LazyType = Omit<typeof Constants, "initialize"> & {
   from: typeof from;
+  fromPitches: typeof fromPitches;
   fromAltKey: typeof fromAltKey;
 };
 
@@ -25,8 +26,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
         onLoadModule: (m: typeof Constants)=>!m.C && m.initialize(),
       },
     },
-    "building/rootScale",
-    "building/fromAltKey",
+    "building",
   ],
   // eslint-disable-next-line no-undef
   dirname: __dirname,

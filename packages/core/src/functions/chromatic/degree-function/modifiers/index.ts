@@ -4,14 +4,14 @@ import { shift as shiftInterval, shiftDown as shiftDownInterval, cyclicOctave } 
 import { fromDegreeVoicing } from "../building/fromDegreeVoicing";
 
 export function shift(obj: DegreeFunc, interval: Interval): DegreeFunc {
-  const { degree: oldDegree } = obj;
+  const { baseDegree: oldDegree } = obj;
   const newDegree = cyclicOctave(shiftInterval(oldDegree, interval)) as Degree;
 
   return baseDegree(obj, newDegree);
 }
 
 export function shiftDown(obj: DegreeFunc, interval: Interval): DegreeFunc {
-  const { degree: oldDegree } = obj;
+  const { baseDegree: oldDegree } = obj;
   const newDegree = cyclicOctave(shiftDownInterval(oldDegree, interval)) as Degree;
 
   return baseDegree(obj, newDegree);
@@ -22,5 +22,5 @@ export function baseDegree(obj: DegreeFunc, newDegree: Degree): DegreeFunc {
 }
 
 export function voicing(obj: DegreeFunc, newVoicing: Voicing): DegreeFunc {
-  return fromDegreeVoicing(obj.degree, newVoicing);
+  return fromDegreeVoicing(obj.baseDegree, newVoicing);
 }

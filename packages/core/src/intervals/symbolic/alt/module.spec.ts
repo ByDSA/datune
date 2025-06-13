@@ -97,6 +97,7 @@ const functions: string[] = [
   Intervals.abs.name,
   Intervals.shift.name,
   Intervals.cyclicOctave.name,
+  Intervals.degree.name,
   Intervals.mult.name,
   Intervals.neg.name,
   Intervals.simplify.name,

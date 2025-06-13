@@ -1,5 +1,5 @@
 import { SpnArray, Spns as N } from "@datune/core/spns/chromatic";
-import { rootChord3 } from "@datune/core/keys/chromatic/modifiers";
+import { triadRootChord } from "@datune/core/keys/chromatic/modifiers";
 import { Keys as K } from "@datune/core";
 import { TestInit } from "tests";
 import { createFillZerosTransform } from "voice-leading/combiners/processors/transforms";
@@ -168,7 +168,7 @@ it("notes=[F4] C Major Key Resolution", () => {
     },
     keyResolution: {
       required: true,
-      restingPitches: rootChord3(K.C)?.pitches!,
+      restingPitches: triadRootChord(K.C)?.pitches!,
     },
   } );
   const resultGroups = result.groups;

@@ -4,7 +4,7 @@ import { Degrees as DD } from "diatonic";
 import { cyclicOctave } from "intervals/symbolic/chromatic/modifiers";
 
 describe.each([
-  [D.aVII, CD.I],
+  [D.aVI, CD.bVII],
   [D.I, CD.I],
   [I.fromDiatonicInterval(DD.I, -1), CD.VII],
 ])("toChromatic", (base, expected) => {
@@ -16,8 +16,8 @@ describe.each([
 } );
 
 it("toInterval", () => {
-  const actual = D.aVII;
-  const expected = I.a7;
+  const actual = D.aVI;
+  const expected = I.a6;
 
   expect(actual).toBe(expected);
 } );

@@ -1,15 +1,15 @@
 import { Pitches as P, Voicings as V, Chords as C, Scales as S, Keys as K } from "chromatic";
 import { expectChord } from "chords/octave/chromatic/tests/chord";
-import { rootChord4 } from "./rootChord4";
+import { seventhRootChord } from "./seventhRootChord";
 
 describe.each([
   [K.C, C.CMaj7],
   [K.Am, C.Am7],
   [K.from(P.C, S.LOCRIAN), C.fromRootVoicing(P.C, V.SEVENTH_MINOR_b5)],
   [K.from(P.C, S.ORIENTAL), null],
-])("rootChord4", (k, c)=> {
+])("seventhRootChord", (k, c)=> {
   it(`${k} -> ${c}`, () => {
-    const chord = rootChord4(k);
+    const chord = seventhRootChord(k);
 
     if (c === null && chord === c)
       return;

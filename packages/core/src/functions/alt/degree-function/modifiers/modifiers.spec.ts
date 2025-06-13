@@ -1,5 +1,4 @@
 import { Degrees as D, Funcs, Intervals as I, type Interval, Voicings as V } from "alt";
-import { Degrees as DD } from "diatonic";
 import { shift, shiftDown } from ".";
 
 describe.each([
@@ -8,7 +7,6 @@ describe.each([
   [Funcs.IVm, I.P5, Funcs.Im],
   [Funcs.VIMaj7, I.P12, Funcs.IIIMaj7],
   [Funcs.IV, I.a4, Funcs.VII],
-  [Funcs.IV, I.d5, Funcs.I.withBaseDegree(I.fromDiatonicInterval(DD.I, -1))], // IV + d5 = bI
   [Funcs.V, I.P4, Funcs.I],
   [Funcs.V, I.P4.withNeg(), Funcs.II],
 ])("shift, shiftDown", (obj, interval: Interval, expected) => {
@@ -35,6 +33,38 @@ describe.each([
       const actual = expected.withShiftedDown(interval);
 
       expect(actual).toBe(obj);
+    } );
+  } );
+} );
+
+describe.each([
+  [Funcs.IV, I.d5, Funcs.VII], // IV + d5 = bI (VII)
+])("shift enharmonic fixed: base %s, interval %s", (base, interval, expected) => {
+  it("should not throw error", () => {
+    expect(() => {
+      shift(base, interval);
+    } ).not.toThrow();
+  } );
+
+  it("should return expected value", () => {
+    const actual = shift(base, interval);
+
+    expect(actual).toBe(expected);
+  } );
+
+  describe("reversible", () => {
+    let notBase: typeof base;
+
+    beforeAll(() => {
+      notBase = shiftDown(expected, interval);
+    } );
+
+    it("should not be reversible", () => {
+      expect(notBase).not.toBe(base);
+    } );
+
+    it("should have the same chromatic value as base", () => {
+      expect(notBase.toChromatic()).toBe(base.toChromatic());
     } );
   } );
 } );

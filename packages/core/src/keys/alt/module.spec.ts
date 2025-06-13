@@ -6,10 +6,14 @@ const vars: string[] = CHAROMATIC_PITCHES12_SHARPS_VARNAMES.map(v=>[v, v + "m"])
 const functions: string[] = [
   // building
   K.from.name,
+  K.fromPitches.name,
 
   // modifiers
-  K.rootChord3.name,
-  K.rootChord4.name,
+  K.triadRootChord.name,
+  K.seventhRootChord.name,
+  K.mode.name,
+  K.root.name,
+  K.scale.name,
 ];
 
 it("module should export functions and vars", async () => {

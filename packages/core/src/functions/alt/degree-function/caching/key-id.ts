@@ -1,8 +1,8 @@
 import type { Degree } from "degrees/alt";
 import type { Voicing } from "voicings/alt";
+import type { DegreeFunc } from "../DegreeFunc";
 import { getObjId as degreeGetObjId } from "intervals/symbolic/alt/caching/cache";
 import { getObjId as voicingGetObjId } from "voicings/relative/alt/caching/cache";
-import { DegreeFunc } from "../DegreeFunc";
 
 export type Key = {
   degree: Degree;
@@ -18,7 +18,7 @@ export function getId(key: Key): string {
 
 export function getKey(func: DegreeFunc): Key {
   return {
-    degree: func.degree,
+    degree: func.baseDegree,
     voicing: func.voicing,
   };
 }

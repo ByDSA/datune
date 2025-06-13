@@ -1,25 +1,44 @@
 import type { Key } from "./caching/cache";
 import type { Scale as IScale } from "../../Scale";
 import type { DegreeArray, Degree } from "degrees/chromatic";
-import type { IntervalArray, Interval } from "intervals/chromatic";
+import type { Interval } from "intervals/chromatic";
 import { Scale as AScale, Scales as AS } from "scales/alt";
+import { stringifyDegree } from "degrees/chromatic/stringify";
+import { mode } from "./modifiers";
+import { calcIntraIntervals } from "./modifiers/intraIntervals";
 
 export class Scale implements IScale<Interval, Degree> {
-  rootIntervals: IntervalArray;
+  #intraIntervals?: Readonly<DegreeArray>;
 
-  degrees: DegreeArray;
+  degrees: Readonly<DegreeArray>;
 
   length: number;
 
-  private constructor(key: Key) {
-    this.rootIntervals = key;
-    this.length = this.rootIntervals.length;
+  #string?: string;
 
-    this.degrees = this.rootIntervals as DegreeArray;
+  private constructor(key: Key) {
+    this.degrees = Object.freeze(key);
+    this.length = this.degrees.length;
   }
 
-  [Symbol.iterator](): Iterator<Interval, any, any> {
-    return this.rootIntervals[Symbol.iterator]();
+  [Symbol.iterator](): Iterator<Degree, any, any> {
+    return this.degrees[Symbol.iterator]();
+  }
+
+  hasDegrees(...degrees: DegreeArray): boolean {
+    return degrees.every(i=>this.degrees.includes(i));
+  }
+
+  withMode(n: number = 2): Scale {
+    return mode(this, n);
+  }
+
+  // eslint-disable-next-line accessor-pairs
+  get intraIntervals(): Readonly<DegreeArray> {
+    if (this.#intraIntervals === undefined)
+      this.#intraIntervals = Object.freeze(calcIntraIntervals(this));
+
+    return this.#intraIntervals;
   }
 
   toAlt(): AScale {
@@ -27,6 +46,9 @@ export class Scale implements IScale<Interval, Degree> {
   }
 
   toString(): string {
-    return this.rootIntervals.join("-");
+    if (this.#string === undefined)
+      this.#string = this.degrees.map(stringifyDegree).join("-");
+
+    return this.#string;
   }
 }

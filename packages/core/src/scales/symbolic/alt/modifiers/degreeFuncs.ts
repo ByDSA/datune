@@ -1,5 +1,5 @@
 import type { Scale } from "../Scale";
-import type { DegreeArray } from "degrees/alt";
+import type { DegreeArray as CDegreeArray } from "degrees/chromatic";
 import type { DegreeFunc } from "functions/alt/degree-function/DegreeFunc";
 import { getDegrees } from "functions/alt/degree-function/conversions";
 import { fromDegreeVoicing } from "functions/alt/degree-function/building";
@@ -12,9 +12,10 @@ export function getDegreeFuncs(obj: Scale): DegreeFunc[] {
   for (const degree of obj.degrees) {
     for (const voicing of voicings) {
       const degreeFunction = fromDegreeVoicing(degree, voicing);
-      const degrees = getDegrees(degreeFunction) as DegreeArray;
+      const degrees = getDegrees(degreeFunction)
+        .map(d=>d.toChromaticDegree()) as CDegreeArray;
 
-      if (obj.hasEnharmonicDegrees(...degrees))
+      if (obj.hasChromaticDegrees(...degrees))
         ret.push(degreeFunction);
     }
   }

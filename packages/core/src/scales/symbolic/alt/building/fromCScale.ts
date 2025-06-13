@@ -1,13 +1,13 @@
 import type { Scale } from "../../chromatic/Scale";
 import { cyclicMod } from "datils/math";
 import { Degree as ChromaticDegree } from "degrees/chromatic";
-import { Degrees as DDegrees } from "degrees/diatonic";
 import { calcAlts } from "pitches/alt/calcAlts";
 import { NUMBER as CNUMBER } from "pitches/chromatic/constants/Number";
 import { Scales as AS, Scale as AScale } from "scales/alt";
 import { DegreeArray as ADegreeArray, Degree as ADegree, Degrees as AD } from "degrees/alt";
 import { Intervals as DI } from "intervals/diatonic";
 import { Intervals as I } from "intervals/alt";
+import { degree } from "intervals/symbolic/alt/modifiers/cyclic-octave";
 import { calcIntraIntervals } from "../../chromatic/modifiers/intraIntervals";
 
 type Reparam = (i: number, acc: number)=> ADegree;
@@ -25,7 +25,7 @@ class ScaleAltConversor {
   private static sevenReparam(i: number, semis: number): ADegree {
     const diatonicDegree = DI.fromInt(i - 1);
 
-    return I.fromDiatonicInterval(diatonicDegree, semis as ChromaticDegree);
+    return degree(I.fromDiatonicInterval(diatonicDegree, semis as ChromaticDegree));
   }
 
   private static defaultReparam(_i: number, semis: number): ADegree {
@@ -33,16 +33,16 @@ class ScaleAltConversor {
 
     switch (fixedSemis) {
       case 0: return AD.I;
-      case 1: return I.fromDiatonicInterval(DDegrees.I, 1);
+      case 1: return AD.aI;
       case 2: return AD.II;
-      case 3: return I.fromDiatonicInterval(DDegrees.II, 1);
+      case 3: return AD.aII;
       case 4: return AD.III;
       case 5: return AD.IV;
-      case 6: return I.fromDiatonicInterval(DDegrees.IV, 1);
+      case 6: return AD.aIV;
       case 7: return AD.V;
-      case 8: return I.fromDiatonicInterval(DDegrees.V, 1);
+      case 8: return AD.aV;
       case 9: return AD.VI;
-      case 10: return I.fromDiatonicInterval(DDegrees.VI, 1);
+      case 10: return AD.aVI;
       case 11: return AD.VII;
       default: throw new Error();
     }
@@ -75,9 +75,9 @@ class ScaleAltConversor {
       const iFixed: number = reparametrizer(i, distancesAcc).diatonicInterval.valueOf();
       const diatonicDegree = DI.fromInt(iFixed);
       const alts = calcAlts(distancesAcc, diatonicDegree);
-      const degree: ADegree = I.fromDiatonicInterval(diatonicDegree, alts);
+      const d: ADegree = degree(I.fromDiatonicInterval(diatonicDegree, alts));
 
-      degrees.push(degree);
+      degrees.push(d);
     }
 
     return degrees;

@@ -2,7 +2,7 @@ import { Chord, Chords } from "chords/chromatic";
 import { Voicings } from "voicings/chromatic";
 import { Key } from "../Key";
 
-export function rootChord3(obj: Key): Chord | null {
+export function triadRootChord(obj: Key): Chord | null {
   const { inv, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = Voicings;
   const voicingPriority = [
     TRIAD_MAJOR,

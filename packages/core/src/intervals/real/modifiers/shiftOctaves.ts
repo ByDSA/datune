@@ -1,14 +1,14 @@
 import type { Interval } from "../Interval";
 import { OCTAVE } from "../constants";
-import { add } from "./add";
+import { shift } from "./shift";
 import { mult } from "./mult";
-import { sub } from "./sub";
+import { shiftDown } from "./shiftDown";
 
 export function shiftOctaves(self: Interval, octaves: number): Interval {
   const octavesInterval = mult(OCTAVE, Math.abs(octaves));
 
   if (octaves > 0)
-    return add(self, octavesInterval);
+    return shift(self, octavesInterval);
 
-  return sub(self, octavesInterval);
+  return shiftDown(self, octavesInterval);
 }

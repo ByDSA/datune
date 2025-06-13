@@ -1,5 +1,5 @@
 import { Chord, Key, Keys as K, Scales as S, Voicings } from "@datune/core/alt";
-import { rootChord3 } from "@datune/core/keys/alt/modifiers";
+import { triadRootChord } from "@datune/core/keys/alt/modifiers";
 import { regionalDistanceRule } from "./regional-distance-rule";
 import { regionalLevelChordDistanceRule } from "./chord-distance-rule";
 
@@ -47,8 +47,8 @@ export type ChordRegionDistanceRuleRet = {
 
 export function chordRegionDistanceRule( { start, goal }: Props): ChordRegionDistanceRuleRet {
   let accDist = 0;
-  const startTonic = rootChord3(start.region)!;
-  const goalTonic = rootChord3(goal.region)!;
+  const startTonic = triadRootChord(start.region)!;
+  const goalTonic = triadRootChord(goal.region)!;
   let meta: ChordRegionDistanceRuleRet["meta"] = {};
 
   if (start.chord !== startTonic) {

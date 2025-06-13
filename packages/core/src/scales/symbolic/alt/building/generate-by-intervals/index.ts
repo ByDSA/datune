@@ -1,5 +1,6 @@
 import type { Scale } from "../../Scale";
 import type { IntervalArray, Interval } from "intervals/alt";
+import type { DegreeArray } from "alt";
 import { Intervals as I } from "intervals/alt";
 import { Intervals as CI } from "intervals/chromatic";
 import { Scales } from "../..";
@@ -41,11 +42,11 @@ class Generator {
     const unorderedIntervals = this.calculateUnorderedIntervals();
     const sortedIntervals = sortIntervals(unorderedIntervals);
     const [firstInterval] = sortedIntervals;
-    const rootIntervals = sortedIntervals.map(
-      (value) => sub(value, firstInterval),
-    ) as IntervalArray;
+    const degrees = sortedIntervals.map(
+      (value) => sub(value, firstInterval).toDegree(),
+    ) as DegreeArray;
 
-    return Scales.fromRootIntervals(...rootIntervals);
+    return Scales.fromDegrees(...degrees);
   }
 }
 

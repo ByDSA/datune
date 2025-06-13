@@ -22,7 +22,7 @@ describe.each([
   expectedDegrees: Degree[],
 ) => {
   it("degree", () => {
-    expect(degreeFunc.degree).toBe(expectedDegree);
+    expect(degreeFunc.baseDegree).toBe(expectedDegree);
   } );
 
   it("voicing", () => {

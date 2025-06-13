@@ -4,7 +4,7 @@ import { cyclicOctave, shift as intervalAdd } from "intervals/symbolic/chromatic
 
 export function getDegrees(degreeFunc: DegreeFunc): DegreeArray {
   const ret = [];
-  const initialDegree = degreeFunc.degree;
+  const initialDegree = degreeFunc.baseDegree;
 
   for (const rootIntervalVoicing of degreeFunc.voicing) {
     const degree = cyclicOctave(intervalAdd(initialDegree, rootIntervalVoicing));

@@ -24,7 +24,7 @@ describe.each([
 ) => {
   describe(`${String(degreeFunc)}`, () => {
     it(`degree => ${String(expectedDegree)}`, () => {
-      expect(degreeFunc.degree).toBe(expectedDegree);
+      expect(degreeFunc.baseDegree).toBe(expectedDegree);
     } );
 
     it(`voicing => ${expectedVoicing}`, () => {

@@ -1,12 +1,11 @@
 /* eslint-disable camelcase */
 import type { Scale } from "../Scale";
 import { Degrees as D } from "degrees/alt";
-import { Degrees as DD } from "degrees/diatonic";
-import { Intervals as AI, Intervals } from "intervals/alt";
+import { Intervals as AI } from "intervals/alt";
 import { Scales as CS } from "scales/chromatic";
 import { initialize as initializeDegrees } from "degrees/alt/constants";
 import { mode } from "../modifiers";
-import { fromChromaticScale, fromDegrees, fromIntraIntervals, fromRootIntervals } from "../building";
+import { fromChromaticScale, fromDegrees, fromIntraIntervals } from "../building";
 
 export function initializeConstants() {
   if (MAJOR)
@@ -30,6 +29,7 @@ export function initializeConstants() {
     VI,
     VII,
   );
+  MAJOR.toString = (): string => "Major";
 
   IONIAN = MAJOR;
 
@@ -42,6 +42,7 @@ export function initializeConstants() {
   MIXOLYDIAN = mode(MAJOR, 5);
 
   MINOR = mode(MAJOR, 6);
+  MINOR.toString = (): string => "Minor";
 
   AEOLIAN = MINOR;
 
@@ -146,31 +147,31 @@ export function initializeConstants() {
   // Symmetric
   CHROMATIC = fromDegrees(
     I,
-    Intervals.fromDiatonicInterval(DD.I, 1),
+    D.aI,
     II,
-    Intervals.fromDiatonicInterval(DD.II, 1),
+    D.aII,
     III,
     IV,
-    Intervals.fromDiatonicInterval(DD.IV, 1),
+    D.aIV,
     V,
-    Intervals.fromDiatonicInterval(DD.V, 1),
+    D.aV,
     VI,
-    Intervals.fromDiatonicInterval(DD.VI, 1),
+    D.aVI,
     VII,
   );
 
   CHROMATIC_BY_FIFTHS = fromDegrees(
     I,
-    Intervals.fromDiatonicInterval(DD.I, 1),
+    D.aI,
     II,
-    Intervals.fromDiatonicInterval(DD.II, 1),
+    D.aII,
     III,
-    Intervals.fromDiatonicInterval(DD.III, 1),
-    Intervals.fromDiatonicInterval(DD.IV, 1),
+    D.aIII,
+    D.aIV,
     V,
-    Intervals.fromDiatonicInterval(DD.V, 1),
+    D.aV,
     VI,
-    Intervals.fromDiatonicInterval(DD.VI, 1),
+    D.aVI,
     VII,
   );
 
@@ -183,13 +184,13 @@ export function initializeConstants() {
     bVII,
   );
 
-  AUGMENTED_TRIAD = fromRootIntervals(
+  AUGMENTED_TRIAD = fromDegrees(
     P1,
     M3,
     a5,
   );
 
-  DIMINISHED_7th = fromRootIntervals(
+  DIMINISHED_7th = fromDegrees(
     P1,
     m3,
     d5,

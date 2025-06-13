@@ -56,12 +56,12 @@ export function regionalDistanceRule( { from, to }: Props): Ret {
       const xKey = previous.voicing === V.TRIAD_MAJOR
         ? Keys.from(xRoot, S.MAJOR)
         : Keys.from(xRoot, S.MINOR);
-      const xChord = previous.getChord(from)!;
+      const xChord = from.getChord(previous);
       const yRoot = from.root.withShifted(current.degree);
       const yKey = current.voicing === V.TRIAD_MAJOR
         ? Keys.from(yRoot, S.MAJOR)
         : Keys.from(yRoot, S.MINOR);
-      const yChord = current.getChord(from)!;
+      const yChord = from.getChord(current);
       const currentDist = regionalLevelChordDistanceRule( {
         x: {
           chord: xChord,

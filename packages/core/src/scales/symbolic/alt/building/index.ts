@@ -15,9 +15,5 @@ export {
 } from "./intraIntervals";
 
 export {
-  fromRootIntervals,
-} from "./rootIntervals";
-
-export {
   fromChromaticScale,
 } from "./fromCScale";

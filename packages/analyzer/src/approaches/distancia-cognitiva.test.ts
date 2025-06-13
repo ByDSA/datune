@@ -3,15 +3,15 @@ import { getSortedCantidates, lowestDistanceChord } from "approaches/chord-dista
 
 const key = Keys.FFm;
 const harmonicRegion: Chord[] = [
-  Funcs.Im.getChord(key),
-  Funcs.ISUS4.getChord(key),
-  Funcs.fromDegrees(D.I, D.bIII, D.bVI).getChord(key),
-  Funcs.II0.getChord(key),
-  Funcs.bIII.getChord(key),
-  Funcs.IVm.getChord(key),
-  Funcs.Vm.getChord(key),
-  Funcs.bVI.getChord(key),
-  Funcs.bVII.getChord(key),
+  key.getChord(Funcs.Im),
+  key.getChord(Funcs.ISUS4),
+  key.getChord(Funcs.fromDegrees(D.I, D.bIII, D.bVI)),
+  key.getChord(Funcs.II0),
+  key.getChord(Funcs.bIII),
+  key.getChord(Funcs.IVm),
+  key.getChord(Funcs.Vm),
+  key.getChord(Funcs.bVI),
+  key.getChord(Funcs.bVII),
 ];
 
 it("test1", () => {

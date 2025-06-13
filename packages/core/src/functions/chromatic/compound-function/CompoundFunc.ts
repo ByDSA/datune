@@ -14,7 +14,7 @@ Func,
 ICompoundFunc<Degree, DegreeFunc> {
   degreeFunc: DegreeFunc;
 
-  degreeChain: DegreeArray;
+  degreeChain: Readonly<DegreeArray>;
 
   #string?: string;
 
