@@ -119,8 +119,8 @@ const functions: string[] = [
   V.close.name,
 
   // conversions
-  V.toChromaticInterval.name,
-  V.toDiatonicInterval.name,
+  V.toChromaticVoicing.name,
+  V.toDiatonicVoicing.name,
 ];
 
 it("module should export functions and vars", async () => {

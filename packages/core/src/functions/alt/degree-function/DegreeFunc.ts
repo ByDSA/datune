@@ -65,10 +65,10 @@ implements Func,
     } );
   }
 
-  toChromatic(): CDegreeFunc {
+  toChromaticFunc(): CDegreeFunc {
     return cFromDegreeVoicing(
       this.baseDegree.toChromaticDegree(),
-      this.voicing.toChromatic(),
+      this.voicing.toChromaticVoicing(),
     );
   }
 

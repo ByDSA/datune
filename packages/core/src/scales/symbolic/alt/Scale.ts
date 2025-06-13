@@ -40,7 +40,7 @@ export class Scale implements IScale<Interval, Degree> {
     return degrees.every(i=>this.degrees.includes(i));
   }
 
-  toChromatic(): CScale {
+  toChromaticScale(): CScale {
     const cDegrees = this.degrees.map(i=>CI.fromAltInterval(i)) as CDegreeArray;
 
     return CS.fromDegrees(...cDegrees);

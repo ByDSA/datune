@@ -41,7 +41,7 @@ export class Scale implements IScale<Interval, Degree> {
     return this.#intraIntervals;
   }
 
-  toAlt(): AScale {
+  toAltScale(): AScale {
     return AS.fromChromaticScale(this);
   }
 

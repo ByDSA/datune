@@ -150,9 +150,9 @@ it("immutable set", () => {
   expect(actual.set).toEqual(expected);
 } );
 
-it("toChromatic", () => {
+it("toChromaticPitchSet", () => {
   const ps = PS.fromPitches(P.C, P.DD, P.Eb, P.FF, P.Gb, P.AA, P.Bb, P.Cb);
-  const actual = ps.toChromatic();
+  const actual = ps.toChromaticPitchSet();
 
   expect(actual).toBe(CPS.fromPitches(CP.C, CP.DD, CP.FF, CP.AA, CP.B));
 } );

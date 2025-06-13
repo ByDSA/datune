@@ -38,11 +38,11 @@ implements Func, ICompoundFunc<Degree, DegreeFunc> {
     } );
   }
 
-  toChromatic(): CCompoundFunc {
+  toChromaticFunc(): CCompoundFunc {
     const dDegreeChain = this.degreeChain.map(d=>d.toChromaticDegree()) as CDegreeArray;
 
     return cCompose(
-      this.degreeFunc.toChromatic(),
+      this.degreeFunc.toChromaticFunc(),
       ...dDegreeChain,
     );
   }

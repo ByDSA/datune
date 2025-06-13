@@ -64,7 +64,7 @@ describe.each([
     } );
 
     it("should have the same chromatic value as base", () => {
-      expect(notBase.toChromatic()).toBe(base.toChromatic());
+      expect(notBase.toChromaticFunc()).toBe(base.toChromaticFunc());
     } );
   } );
 } );

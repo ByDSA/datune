@@ -1,7 +1,7 @@
 export {
-  toChromaticInterval,
-} from "./chromaticInterval";
+  toChromaticVoicing,
+} from "./chromaticVoicing";
 
 export {
-  toDiatonicInterval,
-} from "./diatonicInterval";
+  toDiatonicVoicing,
+} from "./diatonicVoicing";

@@ -1,10 +1,10 @@
 /* eslint-disable import/no-cycle */
 import type { Voicing as IVoicing } from "../Voicing";
 import type { Voicing as CVoicing } from "voicings/chromatic";
+import type { Voicing as DVoicing } from "voicings/diatonic";
 import type { IntervalArray, Interval } from "intervals/alt";
-import type { IntervalArray as CIntervalArray } from "intervals/chromatic";
 import { deepFreeze } from "datils/datatypes/objects";
-import { fromRootIntervals as cFromRootIntervals } from "voicings/relative/chromatic/building/rootIntervals";
+import { toChromaticVoicing, toDiatonicVoicing } from "./conversions";
 import { Voicings as V } from ".";
 
 export class Voicing implements IVoicing<Interval> {
@@ -48,12 +48,12 @@ export class Voicing implements IVoicing<Interval> {
     return V.close(this);
   }
 
-  toChromatic(): CVoicing {
-    const cRootIntervals = this.rootIntervals.map(i=>i.toChromaticInterval()) as CIntervalArray;
+  toChromaticVoicing(): CVoicing {
+    return toChromaticVoicing(this);
+  }
 
-    return cFromRootIntervals(
-      ...cRootIntervals,
-    );
+  toDiatonicVoicing(): DVoicing {
+    return toDiatonicVoicing(this);
   }
 
   toString(): string {

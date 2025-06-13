@@ -37,7 +37,7 @@ export class PitchSet implements IPitchSet<Pitch, Interval> {
     return pitches.every((pitch) => this.#set.has(pitch));
   }
 
-  toChromatic(): CPitchSet {
+  toChromaticPitchSet(): CPitchSet {
     const cPitches = this.pitches.map(p=>p.toChromatic());
 
     return CPSfromPitches(...cPitches);

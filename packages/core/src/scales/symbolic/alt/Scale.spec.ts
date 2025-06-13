@@ -22,11 +22,11 @@ it("degreeFuncs - CHROMATIC - I (mayor)", () => {
   expect(actual.includes(F.I)).toBeTruthy();
 } );
 
-it("toChromatic", () => {
+it("toChromaticScale", () => {
   const expected = CS.MAJOR;
   const base = S.MAJOR;
-  const actual = S.MAJOR.toChromatic();
+  const actual = S.MAJOR.toChromaticScale();
 
   expect(actual).toBe(expected);
-  expect(actual.toAlt()).toBe(base);
+  expect(actual.toAltScale()).toBe(base);
 } );

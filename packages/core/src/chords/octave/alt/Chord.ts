@@ -147,7 +147,7 @@ export class Chord implements SymbolicChord<Pitch, Interval> {
     return V.fromRootChord(this);
   }
 
-  toChromatic(): CChord {
+  toChromaticChord(): CChord {
     return CC.fromAltChord(this);
   }
 

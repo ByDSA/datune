@@ -17,7 +17,7 @@ const functions: string[] = [
   Spns.shiftDown.name,
 
   // conversions
-  Spns.toChromatic.name,
+  Spns.toChromaticSpn.name,
 ];
 
 it("module should export functions and vars", async () => {
