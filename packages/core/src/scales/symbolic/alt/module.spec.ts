@@ -11,13 +11,13 @@ const functions: string[] = [
   S.fromDegrees.name,
   S.fromPitches.name,
   S.generateByIntervals.name,
-  S.fromIntraIntervals.name,
+  S.fromDeltaIntervals.name,
   S.fromChromaticScale.name,
 
   // modifiers
   S.getDegreeFuncs.name,
   S.mode.name,
-  S.getModeIntraIntervals.name,
+  S.getModeDeltaIntervals.name,
   S.modes.name,
 ];
 

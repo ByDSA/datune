@@ -1,19 +1,19 @@
 import { fromDegrees } from "./building";
-import { getModeIntraIntervals } from "./modifiers";
+import { getModeDeltaIntervals } from "./modifiers";
 import { Scales as S } from ".";
 
 const { MAJOR } = S;
 
-describe("getModeIntraIntervals", () => {
+describe("deltaIntervals", () => {
   it("-III  = MINOR.intervals", () => {
-    const actual: number[] = getModeIntraIntervals(MAJOR, -3);
+    const actual: number[] = getModeDeltaIntervals(MAJOR, -3);
     const expected: number[] = [2, 1, 2, 2, 1, 2, 2];
 
     expect(actual).toStrictEqual(expected);
   } );
 
   it("vI  = MINOR.intervals", () => {
-    const actual: number[] = getModeIntraIntervals(MAJOR, 6);
+    const actual: number[] = getModeDeltaIntervals(MAJOR, 6);
     const expected: number[] = [2, 1, 2, 2, 1, 2, 2];
 
     expect(actual).toStrictEqual(expected);

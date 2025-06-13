@@ -1,26 +1,26 @@
 import type { Scale } from "../Scale";
 import type { Degree, DegreeArray } from "alt";
 import { Intervals } from "intervals/alt";
-import { fromIntraIntervals } from "./intraIntervals";
+import { fromDeltaIntervals } from "./deltaIntervals";
 
 export function fromDegrees(...degrees: DegreeArray | Readonly<DegreeArray>): Scale {
   const sortedDegrees: Readonly<DegreeArray> = [...degrees].sort((a, b)=>+a - +b) as DegreeArray;
-  const intraIntervals: DegreeArray = [] as any;
+  const deltaIntervals: DegreeArray = [] as any;
 
   for (let i = 1; i < sortedDegrees.length; i++) {
-    const intraIntervalsI = Intervals.shiftDown(sortedDegrees[i], sortedDegrees[i - 1]).toDegree();
+    const deltaIntervalsI = Intervals.shiftDown(sortedDegrees[i], sortedDegrees[i - 1]).toDegree();
 
-    intraIntervals.push(intraIntervalsI);
+    deltaIntervals.push(deltaIntervalsI);
   }
 
-  const lastIntraInterval = getLastIntraInterval(sortedDegrees);
+  const lastDeltaInterval = getLastDeltaInterval(sortedDegrees);
 
-  intraIntervals.push(lastIntraInterval);
+  deltaIntervals.push(lastDeltaInterval);
 
-  return fromIntraIntervals(...intraIntervals);
+  return fromDeltaIntervals(...deltaIntervals);
 }
 
-function getLastIntraInterval(degrees: DegreeArray | Readonly<DegreeArray>): Degree {
+function getLastDeltaInterval(degrees: DegreeArray | Readonly<DegreeArray>): Degree {
   return Intervals.shiftDown(
     Intervals.P8,
     degrees.at(-1)!,

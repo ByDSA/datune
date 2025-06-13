@@ -103,7 +103,7 @@ const vars: string[] = [
 ];
 const functions: string[] = [
   // building
-  V.fromIntraIntervals.name,
+  V.fromDeltaIntervals.name,
   V.fromRootIntervals.name,
   V.fromVoicings.name,
   V.fromDegrees.name,

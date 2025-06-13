@@ -8,7 +8,7 @@ import { DegreeArray as ADegreeArray, Degree as ADegree, Degrees as AD } from "d
 import { Intervals as DI } from "intervals/diatonic";
 import { Intervals as I } from "intervals/alt";
 import { degree } from "intervals/symbolic/alt/modifiers/cyclic-octave";
-import { calcIntraIntervals } from "../../chromatic/modifiers/intraIntervals";
+import { scaleToDeltaIntervals } from "../../chromatic/modifiers/deltaIntervals";
 
 type Reparam = (i: number, acc: number)=> ADegree;
 class ScaleAltConversor {
@@ -44,7 +44,7 @@ class ScaleAltConversor {
       case 9: return AD.VI;
       case 10: return AD.aVI;
       case 11: return AD.VII;
-      default: throw new Error();
+      default: throw new Error("Invalid semis: " + fixedSemis);
     }
   }
 
@@ -85,7 +85,7 @@ class ScaleAltConversor {
 
   // eslint-disable-next-line accessor-pairs
   get scaleDiatonicAlt(): AScale {
-    const ic: number[] = calcIntraIntervals(this.#scale);
+    const ic: number[] = scaleToDeltaIntervals(this.#scale);
 
     if (this.#scale.length === 7)
       return ScaleAltConversor.fromIntervals7(ic[0], ic[1], ic[2], ic[3], ic[4], ic[5], ic[6]);

@@ -1,16 +1,16 @@
 import type { Scale } from "../Scale";
 import type { DegreeArray } from "chromatic";
 import { Arrays } from "datils/datatypes/arrays";
-import { fromIntraIntervals } from "../building";
-import { calcIntraIntervals } from "./intraIntervals";
+import { fromDeltaIntervals } from "../building";
+import { scaleToDeltaIntervals } from "./deltaIntervals";
 
 export function mode(
   obj: Scale,
   n: number,
 ): Scale {
-  const intraIntervals = getModeIntraIntervals(obj, n);
+  const deltaIntervals = getModeDeltaIntervals(obj, n);
 
-  return fromIntraIntervals(...intraIntervals);
+  return fromDeltaIntervals(...deltaIntervals);
 }
 
 export function modes(
@@ -31,11 +31,11 @@ export function modes(
   return ret;
 }
 
-export function getModeIntraIntervals(
+export function getModeDeltaIntervals(
   obj: Scale,
   n: number,
 ): DegreeArray {
-  const intervals: DegreeArray = [...calcIntraIntervals(obj)];
+  const intervals: DegreeArray = [...scaleToDeltaIntervals(obj)];
 
   if (n > 0)
     Arrays.rotateLeft(intervals, n - 1);

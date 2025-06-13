@@ -1,13 +1,13 @@
 import type { Interval } from "intervals/alt";
 import { Intervals as I } from "intervals/alt";
 import { Scales as S } from "..";
-import { getModeIntraIntervals } from "./modeIntraIntervals";
+import { getModeDeltaIntervals } from "./modeDeltaIntervals";
 
 const { MAJOR } = S;
 const { M2, m2 } = I;
 
 it("getModeIntervals - -III  = MINOR.intervals", () => {
-  const actual: Interval[] = getModeIntraIntervals(MAJOR, -3);
+  const actual: Interval[] = getModeDeltaIntervals(MAJOR, -3);
   const expected: Interval[] = [
     M2,
     m2,
@@ -22,7 +22,7 @@ it("getModeIntervals - -III  = MINOR.intervals", () => {
 } );
 
 it("getModeIntervals - VI  = MINOR.intervals", () => {
-  const actual: Interval[] = getModeIntraIntervals(MAJOR, 6);
+  const actual: Interval[] = getModeDeltaIntervals(MAJOR, 6);
   const expected: Interval[] = [
     M2,
     m2,

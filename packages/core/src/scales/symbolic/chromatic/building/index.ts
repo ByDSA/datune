@@ -3,8 +3,8 @@ export {
 } from "./generate-by-intervals";
 
 export {
-  fromIntraIntervals,
-} from "./intraIntervals";
+  fromDeltaIntervals,
+} from "./deltaIntervals";
 
 export {
   fromDegrees,

@@ -1,6 +1,6 @@
 export {
-  fromIntraIntervals,
-} from "./intraIntervals";
+  fromDeltaIntervals,
+} from "./deltaIntervals";
 
 export {
   fromPitches,

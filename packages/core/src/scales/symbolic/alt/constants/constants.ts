@@ -5,7 +5,7 @@ import { Intervals as AI } from "intervals/alt";
 import { Scales as CS } from "scales/chromatic";
 import { initialize as initializeDegrees } from "degrees/alt/constants";
 import { mode } from "../modifiers";
-import { fromChromaticScale, fromDegrees, fromIntraIntervals } from "../building";
+import { fromChromaticScale, fromDegrees, fromDeltaIntervals } from "../building";
 
 export function initializeConstants() {
   if (MAJOR)
@@ -109,7 +109,7 @@ export function initializeConstants() {
   NEAPOLITAN_MAJOR = fromChromaticScale(C_NEAPOLITAN_MAJOR);
 
   // 6
-  BLUES_b5 = fromIntraIntervals(
+  BLUES_b5 = fromDeltaIntervals(
     m3,
     M2,
     m2,
@@ -118,7 +118,7 @@ export function initializeConstants() {
     M2,
   );
 
-  BLUES_a4 = fromIntraIntervals(
+  BLUES_a4 = fromDeltaIntervals(
     m3,
     M2,
     a1,
@@ -128,7 +128,7 @@ export function initializeConstants() {
   );
 
   // 5
-  PENTATONIC_MINOR = fromIntraIntervals(
+  PENTATONIC_MINOR = fromDeltaIntervals(
     m3,
     M2,
     M2,

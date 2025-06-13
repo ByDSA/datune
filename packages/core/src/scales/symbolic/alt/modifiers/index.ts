@@ -7,8 +7,8 @@ export {
 } from "./mode";
 
 export {
-  getModeIntraIntervals,
-} from "./modeIntraIntervals";
+  getModeDeltaIntervals,
+} from "./modeDeltaIntervals";
 
 export {
   modes,

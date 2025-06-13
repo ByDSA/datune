@@ -2,7 +2,7 @@ import type { IntervalArray, Interval } from "intervals/real";
 import type { Scale } from "../Scale";
 import { Intervals as I } from "intervals/real";
 
-export function calcIntraIntervals(obj: Scale): IntervalArray {
+export function calcDeltaIntervals(obj: Scale): IntervalArray {
   const ret: IntervalArray = [] as any;
   const rootIntervals = [...obj.degrees, I.OCTAVE];
 

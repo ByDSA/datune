@@ -1,7 +1,7 @@
 import { NonEmptyArray } from "datils";
 
 export interface Scale<INTERVAL, DEGREE> extends Iterable<DEGREE> {
-  intraIntervals: Readonly<NonEmptyArray<DEGREE>>;
+  deltaIntervals: Readonly<NonEmptyArray<DEGREE>>;
 
   degrees: Readonly<NonEmptyArray<DEGREE>>;
 

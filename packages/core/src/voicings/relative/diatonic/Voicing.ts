@@ -14,7 +14,7 @@ export class Voicing implements IVoicing<Interval> {
 
   rootIntervals: IntervalArray;
 
-  intraIntervals: IntervalArray;
+  deltaIntervals: IntervalArray;
 
   inversionNumber: number;
 
@@ -27,7 +27,7 @@ export class Voicing implements IVoicing<Interval> {
     this.rootIntervals = this.rootIntervalInts.map(
       (ic) => Intervals.fromInt(ic),
     ) as IntervalArray;
-    this.intraIntervals = this.rootIntervalInts.map(
+    this.deltaIntervals = this.rootIntervalInts.map(
       (ic, i, a) => Intervals.fromInt(ic - i > 0 ? a[i - 1] : 0),
     ) as IntervalArray;
     this.inversionNumber = (this.rootIntervalInts.length - this.rootIndex)

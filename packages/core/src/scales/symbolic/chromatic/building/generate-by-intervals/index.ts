@@ -3,6 +3,7 @@ import type { Scale } from "../../Scale";
 import type { Degree, DegreeArray } from "degrees/chromatic";
 import { Intervals as I } from "intervals/chromatic";
 import { cyclicOctave } from "intervals/symbolic/chromatic/modifiers";
+import { rootToDeltaIntervals } from "intervals/symbolic/chromatic/conversions";
 import { Scales as S } from "../..";
 
 class Generator {
@@ -16,7 +17,7 @@ class Generator {
 
   private rootIntervals: DegreeArray | undefined;
 
-  private intraIntervals: DegreeArray | undefined;
+  private deltaIntervals: DegreeArray | undefined;
 
   private constructor(interval: Interval, length: number, startIndex: number) {
     this.interval = interval;
@@ -64,30 +65,10 @@ class Generator {
   generate(): Scale {
     this.unorderedIntervals = this.calculateUnorderedIntervals();
     this.rootIntervals = sortIntervals(this.unorderedIntervals);
-    this.intraIntervals = calculateIntraIntervals(this.rootIntervals);
+    this.deltaIntervals = rootToDeltaIntervals(...this.rootIntervals) as DegreeArray;
 
-    return S.fromIntraIntervals(...this.intraIntervals);
+    return S.fromDeltaIntervals(...this.deltaIntervals);
   }
-}
-
-function calculateIntraIntervals(degrees: DegreeArray): DegreeArray {
-  const intraIntervals = [];
-  let accumulated = I.P1;
-
-  for (let i = 1; i < degrees.length; i++) {
-    const lastRootInterval = degrees[i - 1];
-    const currentRootInterval = degrees[i];
-    const interval = I.shiftDown(currentRootInterval, lastRootInterval);
-
-    accumulated = I.shift(accumulated, interval);
-    intraIntervals.push(interval);
-  }
-
-  const remainingInterval = I.shiftDown(I.P8, accumulated);
-
-  intraIntervals.push(remainingInterval);
-
-  return <DegreeArray>intraIntervals;
 }
 
 function sortIntervals(unorderedIntervals: DegreeArray): DegreeArray {

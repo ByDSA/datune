@@ -1,9 +1,9 @@
 import type { Scale } from "../Scale";
-import { fromIntraIntervals } from "../building";
-import { getModeIntraIntervals } from "./modeIntraIntervals";
+import { fromDeltaIntervals } from "../building";
+import { getModeDeltaIntervals } from "./modeDeltaIntervals";
 
 export function mode(obj: Scale, n: number): Scale {
-  const intraIntervals = getModeIntraIntervals(obj, n);
+  const deltaIntervals = getModeDeltaIntervals(obj, n);
 
-  return fromIntraIntervals(...intraIntervals);
+  return fromDeltaIntervals(...deltaIntervals);
 }

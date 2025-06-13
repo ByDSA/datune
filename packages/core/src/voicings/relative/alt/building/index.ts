@@ -3,8 +3,8 @@ export {
 } from "./voicings";
 
 export {
-  fromIntraIntervals,
-} from "./intraIntervals";
+  fromDeltaIntervals,
+} from "./deltaIntervals";
 
 export {
   fromRootIntervals,

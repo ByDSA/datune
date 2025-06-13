@@ -45,6 +45,10 @@ const functions: string[] = [
   I.cyclicOctave.name,
   I.octaves.name,
   I.abs.name,
+
+  // Conversions
+  I.deltaToRootIntervals.name,
+  I.rootToDeltaIntervals.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -58,6 +62,7 @@ it("module should export functions and vars", async () => {
       "building",
       "constants",
       "modifiers",
+      "conversions",
     ],
     // eslint-disable-next-line no-undef
     dirname: __dirname,

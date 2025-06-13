@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import type { Scale } from "../Scale";
 import { deepFreeze } from "datils/datatypes/objects";
-import { fromIntraIntervals, fromDegrees } from "../building";
+import { fromDeltaIntervals, fromDegrees } from "../building";
 import { mode } from "../modifiers";
 import { MAJOR_SCALE_DEGREES } from "./majorScaleDegrees";
 
@@ -27,7 +27,7 @@ export function initialize() {
 
   LOCRIAN = mode(MAJOR, 7);
 
-  HARMONIC_MINOR = fromIntraIntervals(2, 1, 2, 2, 1, 3, 1);
+  HARMONIC_MINOR = fromDeltaIntervals(2, 1, 2, 2, 1, 3, 1);
 
   LOCRIAN_a6 = mode(HARMONIC_MINOR, 2);
 
@@ -41,7 +41,7 @@ export function initialize() {
 
   SUPERLOCRIAN_bb7 = mode(HARMONIC_MINOR, 7);
 
-  HARMONIC_MAJOR = fromIntraIntervals(2, 2, 1, 2, 1, 3, 1);
+  HARMONIC_MAJOR = fromDeltaIntervals(2, 2, 1, 2, 1, 3, 1);
 
   DORIAN_b5 = mode(HARMONIC_MAJOR, 2);
 
@@ -55,7 +55,7 @@ export function initialize() {
 
   LOCRIAN_bb7 = mode(HARMONIC_MAJOR, 7);
 
-  MELODIC_MINOR = fromIntraIntervals(2, 1, 2, 2, 2, 2, 1);
+  MELODIC_MINOR = fromDeltaIntervals(2, 1, 2, 2, 2, 2, 1);
 
   DORIAN_b2 = mode(MELODIC_MINOR, 2);
 
@@ -69,7 +69,7 @@ export function initialize() {
 
   SUPERLOCRIAN = mode(MELODIC_MINOR, 7);
 
-  DOUBLE_HARMONIC = fromIntraIntervals(1, 3, 1, 2, 1, 3, 1);
+  DOUBLE_HARMONIC = fromDeltaIntervals(1, 3, 1, 2, 1, 3, 1);
 
   LYDIAN_a2_a6 = mode(DOUBLE_HARMONIC, 2);
 
@@ -83,36 +83,36 @@ export function initialize() {
 
   LOCRIAN_bb3_bb7 = mode(DOUBLE_HARMONIC, 7);
 
-  NEAPOLITAN_MINOR = fromIntraIntervals(1, 2, 2, 2, 1, 3, 1);
+  NEAPOLITAN_MINOR = fromDeltaIntervals(1, 2, 2, 2, 1, 3, 1);
 
-  NEAPOLITAN_MAJOR = fromIntraIntervals(1, 2, 2, 2, 2, 2, 1);
+  NEAPOLITAN_MAJOR = fromDeltaIntervals(1, 2, 2, 2, 2, 2, 1);
 
-  MESSIAEN_V_TRUNCATED = fromIntraIntervals(1, 5, 1, 5);
+  MESSIAEN_V_TRUNCATED = fromDeltaIntervals(1, 5, 1, 5);
 
-  MESSIAEN_INV_III_V_TRUNCATED_n2 = fromIntraIntervals(1, 3, 1, 3, 1, 3);
+  MESSIAEN_INV_III_V_TRUNCATED_n2 = fromDeltaIntervals(1, 3, 1, 3, 1, 3);
 
-  HALF_DIMINISHED = fromIntraIntervals(1, 2, 1, 2, 1, 2, 1, 2);
+  HALF_DIMINISHED = fromDeltaIntervals(1, 2, 1, 2, 1, 2, 1, 2);
 
-  MESSIAEN_V = fromIntraIntervals(1, 1, 4, 1, 1, 4);
+  MESSIAEN_V = fromDeltaIntervals(1, 1, 4, 1, 1, 4);
 
-  RAGA_INDRUPRIYA_INDIA = fromIntraIntervals(1, 3, 2, 3, 1, 2);
+  RAGA_INDRUPRIYA_INDIA = fromDeltaIntervals(1, 3, 2, 3, 1, 2);
 
-  MESSIAEN_II_TRUNCATED_n3 = fromIntraIntervals(3, 1, 2, 3, 1, 2);
+  MESSIAEN_II_TRUNCATED_n3 = fromDeltaIntervals(3, 1, 2, 3, 1, 2);
 
-  MESSIAEN_III_INV = fromIntraIntervals(2, 1, 1, 2, 1, 1, 2, 1, 1);
+  MESSIAEN_III_INV = fromDeltaIntervals(2, 1, 1, 2, 1, 1, 2, 1, 1);
 
-  MESSIAEN_IV = fromIntraIntervals(1, 1, 1, 3, 1, 1, 1, 3);
+  MESSIAEN_IV = fromDeltaIntervals(1, 1, 1, 3, 1, 1, 1, 3);
 
-  MESSIAEN_VI = fromIntraIntervals(1, 1, 2, 2, 1, 1, 2, 2);
+  MESSIAEN_VI = fromDeltaIntervals(1, 1, 2, 2, 1, 1, 2, 2);
 
-  MESSIAEN_VII = fromIntraIntervals(1, 1, 1, 1, 2, 1, 1, 1, 1, 2);
+  MESSIAEN_VII = fromDeltaIntervals(1, 1, 1, 1, 2, 1, 1, 1, 1, 2);
 
-  BLUES_b5 = fromIntraIntervals(3, 2, 1, 1, 3, 2);
+  BLUES_b5 = fromDeltaIntervals(3, 2, 1, 1, 3, 2);
 
   BLUES_a4 = BLUES_b5;
 
   // 5
-  PENTATONIC_MINOR = fromIntraIntervals(3, 2, 2, 3, 2);
+  PENTATONIC_MINOR = fromDeltaIntervals(3, 2, 2, 3, 2);
 
   PENTATONIC = mode(PENTATONIC_MINOR, 2);
 
@@ -123,15 +123,15 @@ export function initialize() {
   BLUES_MAJOR = mode(PENTATONIC_MINOR, 5);
 
   // Symmetric
-  CHROMATIC = fromIntraIntervals(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+  CHROMATIC = fromDeltaIntervals(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
-  WHOLE_TONE = fromIntraIntervals(2, 2, 2, 2, 2, 2);
+  WHOLE_TONE = fromDeltaIntervals(2, 2, 2, 2, 2, 2);
 
-  AUGMENTED_TRIAD = fromIntraIntervals(4, 4, 4);
+  AUGMENTED_TRIAD = fromDeltaIntervals(4, 4, 4);
 
-  DIMINISHED_7th = fromIntraIntervals(3, 3, 3, 3);
+  DIMINISHED_7th = fromDeltaIntervals(3, 3, 3, 3);
 
-  DOM7b5 = fromIntraIntervals(4, 2, 4, 2);
+  DOM7b5 = fromDeltaIntervals(4, 2, 4, 2);
 
   // Bebop
   BEBOP_MAJOR = fromDegrees(

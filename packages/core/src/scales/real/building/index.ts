@@ -3,5 +3,5 @@ export {
 } from "./rootIntervals";
 
 export {
-  fromIntraIntervals,
-} from "./intraIntervals";
+  fromDeltaIntervals,
+} from "./deltaIntervals";

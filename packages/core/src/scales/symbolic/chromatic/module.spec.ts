@@ -9,12 +9,12 @@ const vars: string[] = [
 const functions: string[] = [
   // building
   S.generateByIntervals.name,
-  S.fromIntraIntervals.name,
+  S.fromDeltaIntervals.name,
   S.fromDegrees.name,
   S.fromAltScale.name,
 
   // modifiers
-  S.getModeIntraIntervals.name,
+  S.getModeDeltaIntervals.name,
   S.mode.name,
   S.modes.name,
 ];

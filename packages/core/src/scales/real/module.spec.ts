@@ -8,7 +8,7 @@ const vars: string[] = [
 const functions: string[] = [
   // building
   S.fromRootIntervals.name,
-  S.fromIntraIntervals.name,
+  S.fromDeltaIntervals.name,
 ];
 
 it("module should export functions and vars", async () => {

@@ -3,10 +3,10 @@ import type { Interval } from "intervals/alt";
 import { Intervals as I } from "intervals/alt";
 import { cache, type Key } from "../caching/cache";
 
-export function fromIntraIntervals(...intervals: Key): Scale {
-  checkSumOctave(intervals);
+export function fromDeltaIntervals(...deltaIntervals: Key): Scale {
+  checkSumOctave(deltaIntervals);
 
-  return cache.getOrCreate(intervals);
+  return cache.getOrCreate(deltaIntervals);
 }
 
 function checkSumOctave(intervals: Key): void {

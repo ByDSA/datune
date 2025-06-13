@@ -53,7 +53,7 @@ describe.each([
   ["2-2-1-2-2-2-1", MAJOR],
   ["2:2-1:2-2:2-1", MAJOR],
   ["2 2 1 2-2 2:1", MAJOR],
-])("intraIntervals", (str, expected) => {
+])("deltaIntervals", (str, expected) => {
   describe.each([
     LangId.EN,
     LangId.ES,

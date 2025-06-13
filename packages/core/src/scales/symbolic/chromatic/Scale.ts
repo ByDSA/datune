@@ -2,13 +2,13 @@ import type { Key } from "./caching/cache";
 import type { Scale as IScale } from "../../Scale";
 import type { DegreeArray, Degree } from "degrees/chromatic";
 import type { Interval } from "intervals/chromatic";
-import { Scale as AScale, Scales as AS } from "scales/alt";
+import { type Scale as AScale, Scales as AS } from "scales/alt";
 import { stringifyDegree } from "degrees/chromatic/stringify";
 import { mode } from "./modifiers";
-import { calcIntraIntervals } from "./modifiers/intraIntervals";
+import { scaleToDeltaIntervals } from "./modifiers/deltaIntervals";
 
 export class Scale implements IScale<Interval, Degree> {
-  #intraIntervals?: Readonly<DegreeArray>;
+  #deltaIntervals?: Readonly<DegreeArray>;
 
   degrees: Readonly<DegreeArray>;
 
@@ -34,11 +34,11 @@ export class Scale implements IScale<Interval, Degree> {
   }
 
   // eslint-disable-next-line accessor-pairs
-  get intraIntervals(): Readonly<DegreeArray> {
-    if (this.#intraIntervals === undefined)
-      this.#intraIntervals = Object.freeze(calcIntraIntervals(this));
+  get deltaIntervals(): Readonly<DegreeArray> {
+    if (this.#deltaIntervals === undefined)
+      this.#deltaIntervals = Object.freeze(scaleToDeltaIntervals(this));
 
-    return this.#intraIntervals;
+    return this.#deltaIntervals;
   }
 
   toAltScale(): AScale {

@@ -12,7 +12,7 @@ import { stringifyDegree } from "degrees/alt/stringify";
 import { mode } from "./modifiers";
 
 export class Scale implements IScale<Interval, Degree> {
-  intraIntervals: Readonly<DegreeArray>;
+  deltaIntervals: Readonly<DegreeArray>;
 
   degrees: Readonly<DegreeArray>;
 
@@ -21,9 +21,9 @@ export class Scale implements IScale<Interval, Degree> {
   #string?: string;
 
   private constructor(key: Key) {
-    this.intraIntervals = Object.freeze(key);
-    this.length = this.intraIntervals.length;
-    const voicing = V.fromIntraIntervals(...this.intraIntervals);
+    this.deltaIntervals = Object.freeze(key);
+    this.length = this.deltaIntervals.length;
+    const voicing = V.fromDeltaIntervals(...this.deltaIntervals);
 
     this.degrees = Object.freeze(voicing.rootIntervals.map(i=>i.toDegree()) as DegreeArray);
   }

@@ -4,14 +4,14 @@ import { IntervalArray, Interval } from "intervals/real";
 import { mode } from "./modifiers/mode";
 
 export class Scale implements IScale<Interval, Interval> {
-  intraIntervals: Readonly<IntervalArray>;
+  deltaIntervals: Readonly<IntervalArray>;
 
   degrees: Readonly<IntervalArray>;
 
   length: number;
 
   private constructor(key: Key) {
-    this.intraIntervals = Object.freeze(key);
+    this.deltaIntervals = Object.freeze(key);
     this.degrees = Object.freeze([]) as any; // TODO
     this.length = key.length;
   }

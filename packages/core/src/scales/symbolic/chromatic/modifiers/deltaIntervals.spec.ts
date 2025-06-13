@@ -3,9 +3,9 @@
 import type { Scale } from "../Scale";
 import type { IntervalArray } from "intervals/chromatic";
 import type { DegreeArray } from "chromatic";
-import { fromIntraIntervals } from "../building";
+import { fromDeltaIntervals } from "../building";
 import { Scales as S } from "..";
-import { calcIntraIntervals } from "./intraIntervals";
+import { scaleToDeltaIntervals } from "./deltaIntervals";
 import { mode } from ".";
 
 const { BEBOP_DOMINANT, BLUES_a4, BLUES_b5,
@@ -19,13 +19,13 @@ describe.each([
   [mode(BLUES_b5, 4), [1, 3, 2, 3, 2, 1]],
 ] as TestCase[])("intraIntervals modes", (scale, intraIntervals: DegreeArray) => {
   it(`${String(scale)} => ${intraIntervals}`, () => {
-    const degrees = calcIntraIntervals(scale);
+    const degrees = scaleToDeltaIntervals(scale);
 
     expect(degrees).toStrictEqual(intraIntervals);
   } );
 
   it(`${intraIntervals} => ${String(scale)}`, () => {
-    const actual = fromIntraIntervals(...intraIntervals);
+    const actual = fromDeltaIntervals(...intraIntervals);
 
     expect(actual).toBe(scale);
   } );
@@ -41,15 +41,15 @@ describe.each(<[Scale, IntervalArray][]>[
   [BLUES_MINOR, [3, 2, 3, 2, 2]],
   [BLUES_MAJOR, [2, 3, 2, 2, 3]],
   [BEBOP_DOMINANT, [2, 2, 1, 2, 2, 1, 1, 1]],
-] as TestCase[])("intraIntervals source scales", (scale, intraIntervals: DegreeArray) => {
-  it(`${String(scale)} => ${intraIntervals}`, () => {
-    const degrees = calcIntraIntervals(scale);
+] as TestCase[])("deltaIntervals source scales", (scale, deltaIntervals: DegreeArray) => {
+  it(`${String(scale)} => ${deltaIntervals}`, () => {
+    const degrees = scaleToDeltaIntervals(scale);
 
-    expect(degrees).toStrictEqual(intraIntervals);
+    expect(degrees).toStrictEqual(deltaIntervals);
   } );
 
-  it(`${intraIntervals} => ${String(scale)}`, () => {
-    const actual = fromIntraIntervals(...intraIntervals);
+  it(`${deltaIntervals} => ${String(scale)}`, () => {
+    const actual = fromDeltaIntervals(...deltaIntervals);
 
     expect(actual).toBe(scale);
   } );

@@ -10,11 +10,11 @@ it("precalc - MAJOR 12-ET", () => {
   expect(scale).toBeDefined();
 } );
 
-it("intraintervals: MAJOR ET-12", () => {
+it("deltaIntervals: MAJOR ET-12", () => {
   const scale = S.ET12_MAJOR;
-  const { intraIntervals } = scale;
+  const { deltaIntervals } = scale;
 
-  expect(intraIntervals).toStrictEqual([
+  expect(deltaIntervals).toStrictEqual([
     UNISON,
     ET12_M2,
     ET12_M3,
@@ -27,9 +27,9 @@ it("intraintervals: MAJOR ET-12", () => {
 
 it("intervals: MAJOR PYTHAGOREAN", () => {
   const scale = S.PT_MAJOR;
-  const { intraIntervals } = scale;
+  const { deltaIntervals } = scale;
 
-  expect(intraIntervals).toStrictEqual([
+  expect(deltaIntervals).toStrictEqual([
     UNISON,
     PT_M2,
     PT_M3,

@@ -2,7 +2,7 @@ import type { Voicing } from "../Voicing";
 import { IntervalArray, Intervals } from "intervals/alt";
 import { fromRootIntervals } from "./rootIntervals";
 
-export function fromIntraIntervals(
+export function fromDeltaIntervals(
   ...intraIntervals: IntervalArray
 ): Voicing {
   const baseIntervals: IntervalArray = [Intervals.P1];

@@ -101,7 +101,7 @@ const vars: string[] = [
 ];
 const functions: string[] = [
   // building
-  V.fromIntraIntervals.name,
+  V.fromDeltaIntervals.name,
   V.fromRootIntervals.name,
   V.fromPitches.name,
   V.fromDegrees.name,
