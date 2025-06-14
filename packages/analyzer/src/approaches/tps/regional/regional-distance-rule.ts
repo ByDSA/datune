@@ -1,20 +1,20 @@
-import { Degrees, Funcs as F, Intervals as I, Key, Keys, Scales as S, Voicings as V, Voicing } from "@datune/core/alt";
+import { Degrees, Funcs as F, Intervals as I, Key, Keys, Scales as S, IntervalSets as IS, IntervalSet } from "@datune/core/alt";
 import { DegreeFunc } from "@datune/core/functions/alt/degree-function/DegreeFunc";
 import { regionalLevelChordDistanceRule } from "./chord-distance-rule";
 import { findAllShortestPaths } from "./regional-space-motion";
 
-function getMajorOrMinor(key: Key): Voicing {
+function getMajorOrMinor(key: Key): IntervalSet {
   const { root } = key;
   const M3 = root.withShifted(I.M3);
   const P5 = root.withShifted(I.P5);
 
   if (key.hasPitches(M3, P5))
-    return V.TRIAD_MAJOR;
+    return IS.TRIAD_MAJOR;
 
   const m3 = root.withShifted(I.m3);
 
   if (key.hasPitches(m3, P5))
-    return V.TRIAD_MINOR;
+    return IS.TRIAD_MINOR;
 
   throw new Error(`Key ${key} is not major or minor.`);
 }
@@ -36,11 +36,11 @@ type Props = {
   to: Key;
 };
 export function regionalDistanceRule( { from, to }: Props): Ret {
-  const fromRootChordVoicing = getMajorOrMinor(from);
-  const toRootChordVoicing = getMajorOrMinor(to);
+  const fromRootChordIntervalSet = getMajorOrMinor(from);
+  const toRootChordIntervalSet = getMajorOrMinor(to);
   const toRelativeToFrom = I.betweenNext(from.root, to.root);
-  const start = F.fromDegreeVoicing(Degrees.I, fromRootChordVoicing);
-  const goal = F.fromDegreeVoicing(toRelativeToFrom, toRootChordVoicing);
+  const start = F.fromDegreeIntervalSet(Degrees.I, fromRootChordIntervalSet);
+  const goal = F.fromDegreeIntervalSet(toRelativeToFrom, toRootChordIntervalSet);
   const paths = findAllShortestPaths( {
     start,
     goal,
@@ -53,12 +53,12 @@ export function regionalDistanceRule( { from, to }: Props): Ret {
       const previous = pathContent[i - 1];
       const current = pathContent[i];
       const xRoot = from.root.withShifted(previous.degree);
-      const xKey = previous.voicing === V.TRIAD_MAJOR
+      const xKey = previous.intervalSet === IS.TRIAD_MAJOR
         ? Keys.from(xRoot, S.MAJOR)
         : Keys.from(xRoot, S.MINOR);
       const xChord = from.getChord(previous);
       const yRoot = from.root.withShifted(current.degree);
-      const yKey = current.voicing === V.TRIAD_MAJOR
+      const yKey = current.intervalSet === IS.TRIAD_MAJOR
         ? Keys.from(yRoot, S.MAJOR)
         : Keys.from(yRoot, S.MINOR);
       const yChord = from.getChord(current);

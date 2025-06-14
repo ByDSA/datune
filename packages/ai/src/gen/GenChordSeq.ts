@@ -85,7 +85,7 @@ function pickKeyChord(originalKey: Key, func: Func, _chord: Chord): Key {
   }
 
   // let chord = f.getChord(originalKey);
-  // switch (chord.voicing) {
+  // switch (chord.intervalSet) {
   //     case Pattern.TRIAD_MAJOR:
   //         available.push(
   //             keyFrom(root, Scale.MAJOR),

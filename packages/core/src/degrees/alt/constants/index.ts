@@ -1,9 +1,9 @@
 import type { Degree } from "../Degree";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import { Intervals } from "intervals/symbolic/alt";
 
 export function initialize() {
-  if (I)
-    throw new Error("Already initialized");
+  assertNotInitialized(I);
 
   I = Intervals.P1;
   aI = Intervals.a1;

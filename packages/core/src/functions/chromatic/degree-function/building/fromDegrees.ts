@@ -1,10 +1,10 @@
 import type { DegreeFunc } from "../DegreeFunc";
 import type { DegreeArray } from "chromatic";
-import { fromDegrees as voicingFromDegrees } from "voicings/relative/chromatic/building/pitches";
-import { fromDegreeVoicing } from "./fromDegreeVoicing";
+import { fromDegrees as intervalSetFromDegrees } from "sets/interval-sets/chromatic/building/pitches";
+import { fromDegreeIntervalSet } from "./fromDegreeIntervalSet";
 
 export function fromDegrees(...degrees: DegreeArray): DegreeFunc {
-  const voicing = voicingFromDegrees(...degrees);
+  const intervalSet = intervalSetFromDegrees(...degrees);
 
-  return fromDegreeVoicing(degrees[0], voicing);
+  return fromDegreeIntervalSet(degrees[0], intervalSet);
 }

@@ -1,7 +1,7 @@
 import type { fromKeyFunc } from "./building/keyFunc";
 import type { from } from "./building/from";
 import type { fromPitches } from "./building/pitches";
-import type { fromRootVoicing } from "./building/rootVoicing";
+import type { fromRootIntervalSet } from "./building/rootIntervalSet";
 import type * as Constants from "./constants";
 import type * as Modifiers from "./modifiers";
 import { createProxyBarrel } from "datils/patterns/proxy";
@@ -14,7 +14,7 @@ type LazyType = Omit<typeof Constants, "initialize"> & typeof Modifiers & {
   fromKeyFunc: typeof fromKeyFunc;
   fromPitches: typeof fromPitches;
   from: typeof from;
-  fromRootVoicing: typeof fromRootVoicing;
+  fromRootIntervalSet: typeof fromRootIntervalSet;
   fromAltChord: typeof fromAltChord;
 };
 
@@ -25,7 +25,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "building/fromAltChord",
     "building/keyFunc",
     "building/pitches",
-    "building/rootVoicing",
+    "building/rootIntervalSet",
     "modifiers",
     {
       path: "constants",

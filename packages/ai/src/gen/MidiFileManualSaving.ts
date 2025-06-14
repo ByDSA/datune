@@ -4,7 +4,7 @@
 import type { SpnArray, Spn } from "@datune/core/spns/chromatic";
 import { ChordTimeline, TonalApproach } from "@datune/analyzer";
 import { type Key, type MusicalDuration } from "@datune/core";
-import { fromRootVoicing } from "@datune/core/chords/absolute/chromatic/building";
+import { fromRootIntervalSet } from "@datune/core/chords/absolute/chromatic/building";
 import { Keys as K, type Pitch, Spns as N, MusicalDurations as MD } from "@datune/core";
 import { add, sub } from "@datune/core/spns/symbolic/chromatic/modifiers";
 import { fromPitchOctave as spnFrom } from "@datune/core/spns/symbolic/chromatic/building/pitch-octave";
@@ -14,7 +14,7 @@ import { from as midiPitchFrom } from "@datune/midi/pitch/building";
 import { randomN } from "datils/math";
 import { IntervalArray } from "@datune/core/intervals/chromatic";
 import { betweenSpn } from "@datune/core/intervals/symbolic/chromatic/building";
-import { fromRootIntervals } from "@datune/core/voicings/relative/chromatic/building/rootIntervals";
+import { fromRootIntervals } from "@datune/core/intervalSets/relative/chromatic/building/rootIntervals";
 import { Track } from "@datune/midi/files/track/Track";
 import { Channel } from "@datune/midi/files/track/Channel";
 import { Chord as SpnChord } from "@datune/core/chords/absolute/chromatic/Chord";
@@ -261,11 +261,11 @@ export function sample4(): MidiFile {
     const time = node.interval.from;
     const timeTo = node.interval.to;
     const root = <Spn>spnFrom(chord.root, 3);
-    const rootIntervalsVoicing = chord.pitches.map(
+    const rootIntervalsIntervalSet = chord.pitches.map(
       (spn, i, array) => +spn - +array[i],
     ) as IntervalArray;
-    const voicing = fromRootIntervals(...rootIntervalsVoicing);
-    const spnChord = <SpnChord>fromRootVoicing(root, voicing);
+    const intervalSet = fromRootIntervals(...rootIntervalsIntervalSet);
+    const spnChord = <SpnChord>fromRootIntervalSet(root, intervalSet);
     let { pitches } = spnChord;
     const constraints: ConstraintSpn[] = chordConstraints;
 

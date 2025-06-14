@@ -1,17 +1,17 @@
 import type { Scale } from "../Scale";
 import type { DegreeArray as CDegreeArray } from "degrees/chromatic";
 import type { DegreeFunc } from "functions/alt/degree-function/DegreeFunc";
+import { IntervalSets as IS } from "sets/interval-sets/alt";
 import { getDegrees } from "functions/alt/degree-function/conversions";
-import { fromDegreeVoicing } from "functions/alt/degree-function/building";
-import { Voicings as V } from "voicings/relative/alt";
+import { fromDegreeIntervalSet } from "functions/alt/degree-function/building";
 
 export function getDegreeFuncs(obj: Scale): DegreeFunc[] {
   const ret: DegreeFunc[] = [];
-  const voicings = V.COMMON;
+  const intervalSets = IS.COMMON;
 
   for (const degree of obj.degrees) {
-    for (const voicing of voicings) {
-      const degreeFunction = fromDegreeVoicing(degree, voicing);
+    for (const intervalSet of intervalSets) {
+      const degreeFunction = fromDegreeIntervalSet(degree, intervalSet);
       const degrees = getDegrees(degreeFunction)
         .map(d=>d.toChromaticDegree()) as CDegreeArray;
 

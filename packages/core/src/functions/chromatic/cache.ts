@@ -6,12 +6,12 @@ type Props = {
   getId: ()=> string;
   calc: ()=> Chord;
 };
-export function getOrCalc( { getId, calc: create }: Props): Chord {
+export function getOrCalc( { getId, calc }: Props): Chord {
   const id = getId();
   let chord = functionCache.get(id);
 
   if (chord === undefined) {
-    chord = create();
+    chord = calc();
     functionCache.set(id, chord);
   }
 

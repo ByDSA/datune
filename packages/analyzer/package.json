@@ -14,6 +14,7 @@
     "build": "bin/build.mjs",
     "check": "bin/check.mjs",
     "lint": "bin/lint.mjs",
+    "reinstall": "bin/reinstall.mjs",
     "test": "jest --runInBand",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch"

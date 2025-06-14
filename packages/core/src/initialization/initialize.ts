@@ -13,14 +13,14 @@ import { initialize as CKeysInitialize } from "keys/chromatic/constants";
 import { initialize as PitchesAltInitialize } from "pitches/alt/constants";
 import { initialize as ScalesAltInitialize } from "scales/symbolic/alt/constants";
 import { initialize as CScalesInitialize } from "scales/symbolic/chromatic/constants";
-import { initialize as CPitchSetsInitialize } from "sets/pitch-set/chromatic/constants";
+import { initialize as CPitchSetsInitialize } from "sets/pitch-sets/chromatic/constants";
 import { initialize as SpnsAltInitialize } from "spns/symbolic/alt/constants";
 import { initialize as CSpnInitialize } from "spns/symbolic/chromatic/constants";
 import { initialize as CTemperamentsInitialize } from "temperaments/chromatic/constants";
 import { initialize as CTuningsInitialize } from "tunings/chromatic/constants";
-import { initialize as VoicingsAltInitialize } from "voicings/relative/alt/constants";
-import { initialize as CVoicingsInitialize } from "voicings/relative/chromatic/constants";
-import { initialize as DVoicingsInitialize } from "voicings/relative/diatonic/constants";
+import { initialize as IntervalSetsAltInitialize } from "sets/interval-sets/alt/constants";
+import { initialize as CIntervalSetsInitialize } from "sets/interval-sets/chromatic/constants";
+import { initialize as DIntervalSetsInitialize } from "sets/interval-sets/diatonic/constants";
 import { initCFuncs } from "./initializeCommon";
 import { Data } from "./types";
 import { initialize as chromaticScaleInitialize } from "./scales/chromatic";
@@ -42,7 +42,7 @@ function initializeConstants() {
   RIntervalsInitialize();
 
   // Chromatic
-  CVoicingsInitialize();
+  CIntervalSetsInitialize();
   CChordsInitialize();
 
   CSpnInitialize();
@@ -58,7 +58,7 @@ function initializeConstants() {
 
   // Diatonic
   initDIntervals();
-  DVoicingsInitialize();
+  DIntervalSetsInitialize();
 
   // Alt
   PitchesAltInitialize();
@@ -66,7 +66,7 @@ function initializeConstants() {
   SpnsAltInitialize();
 
   IntervalsAltInitialize();
-  VoicingsAltInitialize();
+  IntervalSetsAltInitialize();
   AltChordsInitialize();
 
   AltDegreesInitialize();

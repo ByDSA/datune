@@ -12,8 +12,8 @@ export {
 } from "./from";
 
 export {
-  fromRootVoicing,
-} from "./rootVoicing";
+  fromRootIntervalSet,
+} from "./rootIntervalSet";
 
 export {
   fromChromaticChord,

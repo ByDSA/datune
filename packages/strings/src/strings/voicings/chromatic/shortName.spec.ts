@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-syntax */
-import { Voicings as V, Voicing } from "@datune/core";
+import { IntervalSets as IS, IntervalSet } from "@datune/core";
 import { stringifyShortNameLang } from "./shortName";
 
 // eslint-disable-next-line jest/expect-expect
@@ -14,13 +14,13 @@ it("most of triads should have name", () => {
     [0, 2, 4],
   ].map(String));
 
-  V.TRIAD_SUS2; // Initialize voicings
+  IS.TRIAD_SUS2; // Initialize intervalSets
 
   for (let i = 0; i < 12 - 2; i++) {
     for (let j = i + 1; j < 12 - 1; j++) {
       inner: for (let k = j + 1; k < 12; k++) {
-        let voicing = V.fromRootIntervals(i, j, k);
-        const group = getInversionsGroup(voicing);
+        let intervalSet = IS.fromRootIntervals(i, j, k);
+        const group = getInversionsGroup(intervalSet);
 
         for (const v of group) {
           if (ignore.has(v.rootIntervals.toString()))
@@ -32,17 +32,17 @@ it("most of triads should have name", () => {
             continue inner;
         }
 
-        throw new Error("Voicing with no name: " + group.map(v=>"[" + v.rootIntervals.join(", ") + "]").join(" "));
+        throw new Error("IntervalSet with no name: " + group.map(v=>"[" + v.rootIntervals.join(", ") + "]").join(" "));
       }
     }
   }
 } );
 
-function getInversionsGroup(voicing: Voicing): Voicing[] {
-  const ret: Voicing[] = [voicing];
+function getInversionsGroup(intervalSet: IntervalSet): IntervalSet[] {
+  const ret: IntervalSet[] = [intervalSet];
 
-  for (let i = 1; i < voicing.length; i++)
-    ret.push(voicing.withInv(i));
+  for (let i = 1; i < intervalSet.length; i++)
+    ret.push(intervalSet.withInv(i));
 
   return ret;
 }

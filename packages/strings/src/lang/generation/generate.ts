@@ -3,9 +3,9 @@ import { Input } from "./Input";
 import { diatonicsGenerate } from "./parts/diatonics";
 import { qualitiesGenerate } from "./parts/qualities";
 import { scalesGenerate } from "./parts/scales";
-import { shortVoicingsGenerate } from "./parts/shortVoicings";
+import { shortIntervalSetsGenerate } from "./parts/shortIntervalSets";
 import { temperamentsGenerate } from "./parts/temperaments";
-import { voicingsGenerate } from "./parts/voicings";
+import { intervalSetsGenerate } from "./parts/intervalSets";
 import { wordsGenerate } from "./parts/words";
 
 type DeepPartial<T> = {
@@ -33,13 +33,13 @@ export function generate(params: Params): Language {
       ...scalesGenerate(params.base.scales),
       ...params.customGenerators?.scales,
     },
-    voicings: {
-      ...voicingsGenerate(params.base.voicings),
-      ...params.customGenerators?.voicings,
+    intervalSets: {
+      ...intervalSetsGenerate(params.base.intervalSets),
+      ...params.customGenerators?.intervalSets,
     },
-    shortVoicings: {
-      ...shortVoicingsGenerate(params.base.shortVoicings),
-      ...params.customGenerators?.shortVoicings,
+    shortIntervalSets: {
+      ...shortIntervalSetsGenerate(params.base.shortIntervalSets),
+      ...params.customGenerators?.shortIntervalSets,
     },
     temperaments: {
       ...temperamentsGenerate(params.base.temperaments),

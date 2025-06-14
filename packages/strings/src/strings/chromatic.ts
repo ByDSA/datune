@@ -18,4 +18,4 @@ export * from "./spns/chromatic";
 
 export * from "./temperaments/chromatic";
 
-export * from "./voicings/chromatic";
+export * from "./intervalSets/chromatic";

@@ -1,5 +1,5 @@
 import type { PitchArray } from "pitches/alt";
-import { fromPitches as PSfrom } from "sets/pitch-set/alt/building";
+import { fromPitches as PSfrom } from "sets/pitch-sets/alt/building";
 import { Chord } from "../Chord";
 import { from } from "./from";
 

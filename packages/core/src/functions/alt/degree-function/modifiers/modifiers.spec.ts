@@ -1,4 +1,4 @@
-import { Degrees as D, Funcs, Intervals as I, type Interval, Voicings as V } from "alt";
+import { Degrees as D, Funcs, Intervals as I, type Interval, IntervalSets as IS } from "alt";
 import { shift, shiftDown } from ".";
 
 describe.each([
@@ -76,9 +76,9 @@ it("degree", () => {
   expect(actual).toBe(expected);
 } );
 
-it("voicing", () => {
+it("intervalSet", () => {
   const expected = Funcs.I0;
-  const actual = Funcs.I.withVoicing(V.TRIAD_DIMINISHED);
+  const actual = Funcs.I.withIntervalSet(IS.TRIAD_DIMINISHED);
 
   expect(actual).toBe(expected);
 } );

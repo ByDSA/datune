@@ -1,10 +1,10 @@
 import { ParserBottomUp } from "@datune/utils";
 import { Chord } from "@datune/core/chords/chromatic";
-import { fromRootVoicing } from "@datune/core/chords/octave/chromatic/building/root-voicing";
+import { fromRootIntervalSet } from "@datune/core/chords/octave/chromatic/building/root-intervalSet";
 import { bass } from "@datune/core/chords/octave/chromatic/modifiers";
 import { Pitch } from "@datune/core/pitches/chromatic";
-import { Voicing } from "@datune/core/voicings/chromatic";
-import { parseVoicing } from "parsing/voicings/chromatic";
+import { IntervalSet } from "@datune/core/intervalSets/chromatic";
+import { parseIntervalSet } from "parsing/intervalSets/chromatic";
 import { parsePitch } from "parsing/pitches/chromatic";
 import { Options } from "lang";
 import { normalizeInput } from "../normalizeInput";
@@ -31,13 +31,13 @@ class ChromaticChordString extends ChordStringAbstract<Chord> {
   protected parsingNormal(): Chord | null {
     const parser = new ParserBottomUp()
       .from(this.strValue)
-      .expected([Pitch.name, Voicing.name])
+      .expected([Pitch.name, IntervalSet.name])
       .add(Pitch.name, (str: string): Pitch | null => parsePitch(str, this.options))
-      .add(Voicing.name, (str: string): Voicing | null => parseVoicing(str, this.options));
+      .add(IntervalSet.name, (str: string): IntervalSet | null => parseIntervalSet(str, this.options));
     const objects = parser.parse();
 
     if (objects)
-      return fromRootVoicing(objects[0], objects[1]);
+      return fromRootIntervalSet(objects[0], objects[1]);
 
     return null;
   }

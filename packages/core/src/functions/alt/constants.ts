@@ -1,10 +1,8 @@
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import * as DegreeFuncConstants from "./degree-function/constants";
-import * as CompoundFuncsConstants from "./compound-function/constants";
 
 export function initialize() {
-  if (DegreeFuncConstants.I)
-    throw new Error("Already initialized");
+  assertNotInitialized(DegreeFuncConstants.I);
 
   DegreeFuncConstants.initialize();
-  CompoundFuncsConstants.initialize();
 }

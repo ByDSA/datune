@@ -1,10 +1,10 @@
 import type { Interval } from "../Interval";
 import { deepFreeze } from "datils/datatypes/objects";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import { fromInt } from "../building";
 
 export function initialize() {
-  if (UNISON)
-    throw new Error("Already initialized");
+  assertNotInitialized(UNISON);
 
   UNISON = fromInt(0);
   deepFreeze(UNISON);

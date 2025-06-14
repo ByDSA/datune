@@ -1,24 +1,24 @@
-import { Voicing, Voicings as V } from "@datune/core/voicings/chromatic";
+import { IntervalSet, IntervalSets as IS } from "@datune/core/intervalSets/chromatic";
+import { stringifyLongName } from "strings/intervalSets/chromatic/longName";
+import { stringifyShortName } from "strings/intervalSets/chromatic/shortName";
 import { Options } from "parsing";
-import { stringifyLongName } from "strings/voicings/chromatic/longName";
-import { stringifyShortName } from "strings/voicings/chromatic/shortName";
 import { normalizeInput } from "../normalizeInput";
 
-export function parseFromName(input: string, options?: Options): Voicing | null {
+export function parseFromName(input: string, options?: Options): IntervalSet | null {
   const normalizedInput = normalizeInput(input);
 
-  for (const voicing of V.COMMON) {
-    const longName = stringifyLongName(voicing, options);
+  for (const intervalSet of IS.COMMON) {
+    const longName = stringifyLongName(intervalSet, options);
     const normalizedLongName = longName ? normalizeInput(longName) : null;
 
     if (normalizedInput === normalizedLongName)
-      return voicing;
+      return intervalSet;
 
-    const shortName = stringifyShortName(voicing, options);
+    const shortName = stringifyShortName(intervalSet, options);
     const normalizedShortName = normalizeInput(shortName);
 
     if (normalizedInput === normalizedShortName)
-      return voicing;
+      return intervalSet;
   }
 
   return null;

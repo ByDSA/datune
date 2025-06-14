@@ -16,6 +16,7 @@
     "build": "bin/build.mjs",
     "check": "bin/check.mjs",
     "lint": "bin/lint.mjs",
+    "reinstall": "bin/reinstall.mjs",
     "release": "standard-version",
     "release:push": "git push && git push --tags && pnpm docs:push",
     "test": "jest --runInBand",

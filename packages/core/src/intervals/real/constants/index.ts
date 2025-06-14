@@ -1,14 +1,14 @@
 /* eslint-disable camelcase */
 import type { Interval } from "../Interval";
 import { freeze } from "datils/datatypes/objects";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import { from, fromCents } from "../building";
 import { initialize as commasInitialize } from "./Commas";
 import { initialize as et12Initialize } from "./ET12";
 import { initialize as justInitialize } from "./Just";
 
 export function initialize() {
-  if (UNISON)
-    throw new Error("Already initialized");
+  assertNotInitialized(UNISON);
 
   UNISON = from(1);
   freeze(UNISON);

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import type { Interval } from "../Interval";
-import { Intervals as DIntervals } from "intervals/diatonic";
+import { Intervals as DI } from "intervals/diatonic";
 import { Intervals as I } from "..";
 import { d } from "../quality/constants";
 import { expectInterval } from "../tests/interval";
@@ -10,7 +10,7 @@ import { shiftDown } from "./shiftDown";
 
 const { a5, a4, a2, a7, a1, d5, d9, M2, M7, M6, M3, m2, m7, m6, m3, P11, P4, P8, P12, P1, P5 } = I;
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const { FIFTH, FOURTH, neg: Dneg } = DIntervals;
+const { FIFTH, FOURTH, neg: Dneg } = DI;
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const CASES_AmB = [
   [d5, m3, m3],
@@ -89,6 +89,26 @@ describe("a + B", () => {
       expectInterval(actual, b);
     } );
   } );
+} );
+
+it("sharp limit", () => {
+  const five = I.from(DI.UNISON, 5);
+  const six = I.from(DI.UNISON, 6);
+  const seven = I.from(DI.UNISON, 7);
+
+  expect(five.alts).toBe(5);
+  expect(six.alts).toBe(6);
+  expect(seven.alts).toBe(-5);
+} );
+
+it("bemol limit", () => {
+  const five = I.from(DI.UNISON, -5);
+  const six = I.from(DI.UNISON, -6);
+  const seven = I.from(DI.UNISON, -7);
+
+  expect(five.alts).toBe(-5);
+  expect(six.alts).toBe(6);
+  expect(seven.alts).toBe(5);
 } );
 
 describe("d8, P8, non commutative", () => {

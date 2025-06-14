@@ -1,4 +1,4 @@
-import { Degrees as D, Funcs, Intervals as I, Voicings as V } from "chromatic";
+import { Degrees as D, Funcs, Intervals as I, IntervalSets as IS } from "chromatic";
 import { shift, shiftDown } from ".";
 
 describe.each([
@@ -41,9 +41,9 @@ it("baseDegree", () => {
   expect(actual).toBe(expected);
 } );
 
-it("voicing", () => {
+it("intervalSet", () => {
   const expected = Funcs.I0;
-  const actual = Funcs.I.withVoicing(V.TRIAD_DIMINISHED);
+  const actual = Funcs.I.withIntervalSet(IS.TRIAD_DIMINISHED);
 
   expect(actual).toBe(expected);
 } );

@@ -6,8 +6,8 @@ export function getDegrees(degreeFunc: DegreeFunc): DegreeArray {
   const ret = [];
   const initialDegree = degreeFunc.baseDegree;
 
-  for (const rootIntervalVoicing of degreeFunc.voicing) {
-    const degree = intervalShift(initialDegree, rootIntervalVoicing).withCyclicOctave();
+  for (const rootIntervalIntervalSet of degreeFunc.intervalSet) {
+    const degree = intervalShift(initialDegree, rootIntervalIntervalSet).withCyclicOctave();
 
     ret.push(degree);
   }

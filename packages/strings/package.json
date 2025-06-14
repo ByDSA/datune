@@ -15,6 +15,7 @@
     "check": "bin/check.mjs",
     "lint": "bin/lint.mjs",
     "prepare": "lib/install_chevrotain.sh",
+    "reinstall": "bin/reinstall.mjs",
     "test": "jest --runInBand",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch"

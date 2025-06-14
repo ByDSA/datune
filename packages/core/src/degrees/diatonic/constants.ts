@@ -1,9 +1,10 @@
+import type { Degree } from "./Degree";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import { deepFreeze } from "datils/datatypes/objects";
-import { type Interval, Intervals } from "intervals/symbolic/diatonic";
+import { Intervals } from "intervals/symbolic/diatonic";
 
 export function initialize() {
-  if (I)
-    throw new Error("Already initialized");
+  assertNotInitialized(I);
 
   const { UNISON,
     SECOND,
@@ -32,18 +33,18 @@ export function initialize() {
   ]);
 }
 
-export let I: Interval;
+export let I: Degree;
 
-export let II: Interval;
+export let II: Degree;
 
-export let III: Interval;
+export let III: Degree;
 
-export let IV: Interval;
+export let IV: Degree;
 
-export let V: Interval;
+export let V: Degree;
 
-export let VI: Interval;
+export let VI: Degree;
 
-export let VII: Interval;
+export let VII: Degree;
 
-export let ALL: Interval[];
+export let ALL: Degree[];

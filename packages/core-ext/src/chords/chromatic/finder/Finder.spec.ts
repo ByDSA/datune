@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Chords } from "@datune/core/chords/chromatic";
-import { Pitches } from "@datune/core/pitches/chromatic";
-import { Voicings as V } from "@datune/core/voicings/chromatic";
+import { Pitches as P } from "@datune/core/pitches/chromatic";
+import { IntervalSets as IS } from "@datune/core/chromatic";
 import { TestInit } from "tests";
 import { Finder } from "./Finder";
 
 TestInit.loadAll();
 
-const { C: C_C, D: C_D, G: C_G } = Pitches;
-const { C, C5, Cm, Csus2, Csus4, fromRootVoicing, Fsus2, Gsus4, inv } = Chords;
+const { C: C_C, D: C_D, G: C_G } = P;
+const { C, C5, Cm, Csus2, Csus4, fromRootIntervalSet, Fsus2, Gsus4, inv } = Chords;
 
 it("contains= C, G. MaxLength=3. NotInversions", () => {
   const finder = new Finder()
@@ -47,11 +47,11 @@ it("contains= C, G. MaxLength=3", () => {
 
     Csus4,
     Fsus2,
-    fromRootVoicing(C_G, V.TRIAD_QUARTAL),
+    fromRootIntervalSet(C_G, IS.TRIAD_QUARTAL),
 
     Gsus4,
     Csus2,
-    fromRootVoicing(C_D, V.TRIAD_QUARTAL),
+    fromRootIntervalSet(C_D, IS.TRIAD_QUARTAL),
   ];
 
   expect(actual).toHaveLength(384);

@@ -7,7 +7,7 @@ import { fromDegrees } from "./degrees";
 
 export function fromPitches(...pitches: PitchArray): Scale {
   const degrees = pitches.map(
-    (p: Pitch) => I.fromDiatonicInterval(
+    (p: Pitch) => I.from(
       DI.fromInt(+p.diatonic),
       p.alts,
     ),

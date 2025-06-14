@@ -1,12 +1,12 @@
 import type { NonEmptyArray } from "datils/datatypes/arrays";
 
-export interface IDegreeFunc<I, D, V> {
+export interface IDegreeFunc<I, D, IS> {
   baseDegree: D;
-  voicing: V;
+  intervalSet: IS;
   degrees: Readonly<NonEmptyArray<D>>;
 
-  withShifted(interval: I): IDegreeFunc<I, D, V>;
-  withShiftedDown(interval: I): IDegreeFunc<I, D, V>;
-  withBaseDegree(degree: D): IDegreeFunc<I, D, V>;
-  withVoicing(voicing: V): IDegreeFunc<I, D, V>;
+  withShifted(interval: I): IDegreeFunc<I, D, IS>;
+  withShiftedDown(interval: I): IDegreeFunc<I, D, IS>;
+  withBaseDegree(degree: D): IDegreeFunc<I, D, IS>;
+  withIntervalSet(intervalSet: IS): IDegreeFunc<I, D, IS>;
 }

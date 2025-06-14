@@ -1,10 +1,10 @@
 import type { BPM } from "./BPM";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import * as MD from "../musical-duration/constants";
 import { from } from "./building";
 
 export function initialize() {
-  if (QUARTER_120)
-    throw new Error("Already initialized");
+  assertNotInitialized(QUARTER_120);
 
   if (!MD.QUARTER)
     MD.initialize();

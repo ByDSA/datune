@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
-import { Voicings } from "@datune/core/voicings/alt";
+import { IntervalSets } from "@datune/core/intervalSets/alt";
 import { TestLang } from "tests";
 import { stringifyShortName } from "./shortName";
 
 TestLang.loadAll();
 
-const { SEVENTH, SEVENTH_MAJ7_b5, SEVENTH_SUS4_b9, TRIAD_MAJOR } = Voicings;
+const { SEVENTH, SEVENTH_MAJ7_b5, SEVENTH_SUS4_b9, TRIAD_MAJOR } = IntervalSets;
 
 it("shortName - SEVENTH = 7", () => {
   const actual: string = stringifyShortName(SEVENTH);

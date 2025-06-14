@@ -3,7 +3,7 @@ import { Degrees as D } from "@datune/core/degrees/chromatic";
 import { compose } from "@datune/core/functions/chromatic/compound-function/building/compose";
 import { Keys as K } from "@datune/core/keys/chromatic";
 import { Pitches as C } from "@datune/core/pitches/chromatic";
-import { Voicings as V } from "@datune/core/voicings/chromatic";
+import { IntervalSets as IS } from "@datune/core/intervalSets/chromatic";
 import { Funcs as F } from "@datune/core";
 import { TestLang } from "tests";
 import { stringifyCompoundFunc } from ".";
@@ -36,12 +36,12 @@ describe.each([
   [V7_IV, K.C, CC.C7],
   [V7_V, K.C, CC.D7],
   [V7_VI, K.C, CC.E7],
-  // [SUBV7, K.C, CC.fromRootVoicing(C.Db, V.SEVENTH)],
-  [SUBV7_II, K.C, CC.fromRootVoicing(C.Eb, V.SEVENTH)],
-  [SUBV7_III, K.C, CC.fromRootVoicing(C.F, V.SEVENTH)],
-  [SUBV7_IV, K.C, CC.fromRootVoicing(C.Gb, V.SEVENTH)],
-  [SUBV7_V, K.C, CC.fromRootVoicing(C.Ab, V.SEVENTH)],
-  [SUBV7_VI, K.C, CC.fromRootVoicing(C.Bb, V.SEVENTH)],
+  // [SUBV7, K.C, CC.fromRootIntervalSet(C.Db, V.SEVENTH)],
+  [SUBV7_II, K.C, CC.fromRootIntervalSet(C.Eb, IS.SEVENTH)],
+  [SUBV7_III, K.C, CC.fromRootIntervalSet(C.F, IS.SEVENTH)],
+  [SUBV7_IV, K.C, CC.fromRootIntervalSet(C.Gb, IS.SEVENTH)],
+  [SUBV7_V, K.C, CC.fromRootIntervalSet(C.Ab, IS.SEVENTH)],
+  [SUBV7_VI, K.C, CC.fromRootIntervalSet(C.Bb, IS.SEVENTH)],
 ])("getChord", (func, key, expectedChord) => {
   it(`${String(func)} of ${key} = ${expectedChord}`, () => {
     const actual = func.getChord(key);

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Keys as AK, Pitches as AP, Scales as AS, Intervals as AI, Degrees as AD, Funcs as AF } from "@datune/core/alt";
-import { Keys as K, Chords as C, Pitches as P, Intervals as I, Scales as S, Voicings as V, Funcs, Spns as N, SpnArray, PitchArray } from "@datune/core/chromatic";
+import { Keys as K, Chords as C, Pitches as P, Intervals as I, Scales as S, IntervalSets as IS, Funcs, Spns as N, SpnArray, PitchArray } from "@datune/core/chromatic";
 import { useStringify } from "@datune/strings";
 import { stringifyDegree, stringifyScale } from "@datune/strings/chromatic";
 import { parseChord as parseAChord } from "@datune/strings/alt";
 import { LangId } from "@datune/strings/lang";
-import { scaleFindVoicings } from "@datune/core-ext/scales";
+import { scaleFindIntervalSets } from "@datune/core-ext/scales";
 import { VoiceLeadings as VL } from "@datune/core-ext/voice-leading";
 
 useStringify();
@@ -81,18 +81,18 @@ console.log(
   AF.V7_VI.getChord(AK.C)?.toString(), // -> E7
 );
 console.log(
-  "Which voicing has a chord that has C-F-G pitches?",
-  V.fromPitches(P.C, P.F, P.G).toString(), // -> Sus4
+  "Which intervalSet has a chord that has C-F-G pitches?",
+  IS.fromPitches(P.C, P.F, P.G).toString(), // -> Sus4
 );
 
 console.log(
   "Which Major and Minor triads are there in a minor scale?",
-  scaleFindVoicings(S.MINOR, [V.TRIAD_MAJOR, V.TRIAD_MINOR])
+  scaleFindIntervalSets(S.MINOR, [IS.TRIAD_MAJOR, IS.TRIAD_MINOR])
     .map(a=>a.map(stringifyDegree).join("-")),
 );
 console.log(
   "Which sus4 and sus2 triads are there in C minor key?",
-  scaleFindVoicings(S.MINOR, [V.TRIAD_SUS2, V.TRIAD_SUS4])
+  scaleFindIntervalSets(S.MINOR, [IS.TRIAD_SUS2, IS.TRIAD_SUS4])
     .map(a=>Funcs.fromDegrees(...a).getChord(K.C))
     .map(String),
 );
@@ -125,7 +125,7 @@ const resultWithoutTensions = VL.generate(base, {
   ...voiceLeadingProps,
   combinationApplierConfig: {
     afterFilters: [
-      VL.Appliers.processors.createDisallowInnerVoicingsFilter(V.M2, V.m2, V.TRITONE, V.m7, V.M7),
+      VL.Appliers.processors.createDisallowInnerIntervalSetsFilter(IS.M2, IS.m2, IS.TRITONE, IS.m7, IS.M7),
     ],
   },
 } );

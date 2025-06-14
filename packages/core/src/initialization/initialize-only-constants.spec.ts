@@ -14,13 +14,13 @@ import { Pitches as CP } from "pitches/chromatic";
 import { Pitches as DP } from "pitches/diatonic";
 import { Scales as AS } from "scales/alt";
 import { Scales as CS } from "scales/chromatic";
-import { PitchSets as CPS } from "sets/pitch-set/chromatic";
+import { PitchSets as CPS } from "sets/pitch-sets/chromatic";
 import { Spns as ASpn } from "spns/alt";
 import { Spns as CSpn } from "spns/chromatic";
 import { Temperaments as CTE } from "temperaments/chromatic";
 import { Tunings as CTU } from "tunings/chromatic";
-import { Voicings as AV } from "voicings/alt";
-import { Voicings as CV } from "voicings/chromatic";
+import { IntervalSets as AIS } from "sets/interval-sets/alt";
+import { IntervalSets as CIS } from "sets/interval-sets/chromatic";
 import { initialize } from "./initialize";
 
 describe("initialize all constants", () => {
@@ -45,8 +45,8 @@ describe("initialize all constants", () => {
       expect(CI.P5).toBeDefined();
     } );
 
-    it("voicing", () => {
-      expect(CV.TRIAD_MAJOR).toBeDefined();
+    it("intervalSet", () => {
+      expect(CIS.TRIAD_MAJOR).toBeDefined();
     } );
 
     it("pitch set", () => {
@@ -99,8 +99,8 @@ describe("initialize all constants", () => {
       expect(AI.P5).toBeDefined();
     } );
 
-    it("voicing", () => {
-      expect(AV.TRIAD_MAJOR).toBeDefined();
+    it("intervalSet", () => {
+      expect(AIS.TRIAD_MAJOR).toBeDefined();
     } );
 
     it("chord", () => {

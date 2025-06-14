@@ -1,6 +1,6 @@
 import { Chord, Chords } from "@datune/core/chords/chromatic";
 import { Pitches as P } from "@datune/core/pitches/chromatic";
-import { Voicings as V } from "@datune/core/voicings/chromatic";
+import { IntervalSets as IS } from "@datune/core/intervalSets/chromatic";
 import { bass } from "@datune/core/chords/octave/chromatic/modifiers";
 import { TestLang } from "tests/index";
 import { LangId } from "lang";
@@ -9,14 +9,14 @@ import { stringifyChord } from ".";
 
 TestLang.loadAll();
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const { Cm, C, C7, CC7, CMaj7, CmMaj7, Csus4, fromRootVoicing, Fsus2, inv } = Chords;
+const { Cm, C, C7, CC7, CMaj7, CmMaj7, Csus4, fromRootIntervalSet, Fsus2, inv } = Chords;
 
 describe.each([
   [LangId.EN, C, "C"],
   [LangId.EN, inv(C), "C/E"],
   [LangId.EN, C7, "C7"],
-  [LangId.EN, fromRootVoicing(P.C, V.TRIAD_AUGMENTED), "C+"],
-  [LangId.EN, inv(fromRootVoicing(P.C, V.TRIAD_AUGMENTED)), "E+"],
+  [LangId.EN, fromRootIntervalSet(P.C, IS.TRIAD_AUGMENTED), "C+"],
+  [LangId.EN, inv(fromRootIntervalSet(P.C, IS.TRIAD_AUGMENTED)), "E+"],
   [LangId.EN, CC7, "C♯7"],
   [LangId.EN, CMaj7, "CMaj7"],
   [LangId.EN, CmMaj7, "CmMaj7"],
@@ -37,8 +37,8 @@ describe.each([
   [LangId.EN, bass(Cm, P.F), "Cm/F"],
   [LangId.EN, bass(Cm, P.FF), "Cm/F♯"],
   [LangId.EN, bass(Cm, P.AA), "Cm/A♯"],
-  [LangId.EN, fromRootVoicing(P.C, V.THIRTEENTH_b5a9), "C13♭5♯9"],
-  [LangId.EN, inv(fromRootVoicing(P.C, V.THIRTEENTH_b5a9), 2), "C13♭5♯9/F♯"],
+  [LangId.EN, fromRootIntervalSet(P.C, IS.THIRTEENTH_b5a9), "C13♭5♯9"],
+  [LangId.EN, inv(fromRootIntervalSet(P.C, IS.THIRTEENTH_b5a9), 2), "C13♭5♯9/F♯"],
   [LangId.EN, Chords.fromPitches(P.C, P.E, P.G, P.C), "C"],
   [LangId.EN, Chords.fromPitches(P.G, P.C, P.E, P.G), "C/G"],
   [LangId.EN, Chords.fromPitches(P.C, P.CC, P.DD), "C(1,♭2,♭3)"],

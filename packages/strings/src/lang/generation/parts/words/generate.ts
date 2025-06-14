@@ -13,7 +13,7 @@ export function wordsGenerate(basePart: WordsInput): Settings {
     degreeFunc: basePart.degreeFunc,
     degree: basePart.degree,
     pitch: basePart.pitch,
-    voicing: basePart.voicing,
+    intervalSet: basePart.intervalSet,
     inversion: basePart.inversion,
     root: basePart.root,
     noteAlt: basePart.noteAlt,

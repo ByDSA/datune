@@ -8,7 +8,7 @@ import type { Pitch as CPitch } from "pitches/chromatic";
 import type { Scale as AScale } from "scales/alt";
 import type { Temperament } from "temperaments/chromatic";
 import type { Tuning } from "tunings/chromatic";
-import type { Voicing as AVoicing } from "voicings/alt";
+import type { IntervalSet as AIntervalSet } from "sets/interval-sets/alt";
 
 export type SettingsInterface = {
     default: {
@@ -19,7 +19,7 @@ export type SettingsInterface = {
         key: Key;
         chord: Chord;
         chordAlt: AChord;
-        voicingAlt: AVoicing;
+        intervalSetAlt: AIntervalSet;
         temperament: Temperament;
         tuning: Tuning;
         concertPitch: ConcertPitch;

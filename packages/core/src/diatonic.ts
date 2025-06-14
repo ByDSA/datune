@@ -4,4 +4,4 @@ export * from "./intervals/diatonic";
 
 export * from "./pitches/diatonic";
 
-export * from "./voicings/diatonic";
+export * from "./sets/interval-sets/diatonic";

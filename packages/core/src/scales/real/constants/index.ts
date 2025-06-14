@@ -1,10 +1,10 @@
 import type { Scale } from "../Scale";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import * as I from "intervals/real/constants";
 import { fromRootIntervals } from "../building";
 
 export function initialize() {
-  if (ET12_MAJOR)
-    throw new Error("Already initialized");
+  assertNotInitialized(ET12_MAJOR);
 
   if (!I.UNISON)
     I.initialize();

@@ -3,12 +3,12 @@ import type * as CompoundFuncConstants from "./compound-function/constants";
 import type { Func } from "./Func";
 import { createProxyBarrel } from "datils/patterns/proxy";
 import { compose } from "./compound-function/building/compose";
-import { fromDegreeVoicing } from "./degree-function/building/fromDegreeVoicing";
+import { fromDegreeIntervalSet } from "./degree-function/building/fromDegreeIntervalSet";
 import { fromDegrees } from "./degree-function/building/fromDegrees";
 import { getDegrees } from "./degree-function/conversions";
 
 const staticModule = {
-  fromDegreeVoicing,
+  fromDegreeIntervalSet: fromDegreeIntervalSet,
   fromDegrees,
   compose,
   getDegrees,

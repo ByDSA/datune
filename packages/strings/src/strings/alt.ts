@@ -14,4 +14,4 @@ export * from "./scales/alt";
 
 export * from "./spns/alt";
 
-export * from "./voicings/alt";
+export * from "./intervalSets/alt";

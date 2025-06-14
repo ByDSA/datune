@@ -5,7 +5,7 @@ import { Degrees as DD } from "diatonic";
 describe.each([
   [D.aVI, CD.bVII],
   [D.I, CD.I],
-  [I.fromDiatonicInterval(DD.I, -1), CD.VII],
+  [I.from(DD.I, -1), CD.VII],
 ])("toChromaticDegree", (base, expected) => {
   it(`(${base}) should convert correctly to ${expected}`, () => {
     const actual = base.toChromaticDegree();

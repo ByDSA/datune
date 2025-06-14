@@ -1,4 +1,4 @@
-import { Chord, Key, Keys as K, Scales as S, Voicings } from "@datune/core/alt";
+import { Chord, Key, Keys as K, Scales as S, IntervalSets } from "@datune/core/alt";
 import { triadRootChord } from "@datune/core/keys/alt/modifiers";
 import { regionalDistanceRule } from "./regional-distance-rule";
 import { regionalLevelChordDistanceRule } from "./chord-distance-rule";
@@ -6,11 +6,11 @@ import { regionalLevelChordDistanceRule } from "./chord-distance-rule";
 export function majorMinorKeyFromChord(chord: Chord): Key {
   let key: Key | null = null;
 
-  if (chord.hasRootIntervals(...Voicings.TRIAD_MAJOR.rootIntervals))
+  if (chord.hasRootIntervals(...IntervalSets.TRIAD_MAJOR.rootIntervals))
     key = K.from(chord.root, S.MAJOR);
-  else if (chord.hasRootIntervals(...Voicings.TRIAD_MINOR.rootIntervals))
+  else if (chord.hasRootIntervals(...IntervalSets.TRIAD_MINOR.rootIntervals))
     key = K.from(chord.root, S.MINOR);
-  else if (chord.hasRootIntervals(...Voicings.TRIAD_DIMINISHED.rootIntervals))
+  else if (chord.hasRootIntervals(...IntervalSets.TRIAD_DIMINISHED.rootIntervals))
     key = K.from(chord.root, S.LOCRIAN);
 
   if (key === null)

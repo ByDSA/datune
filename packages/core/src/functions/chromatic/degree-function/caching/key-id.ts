@@ -1,22 +1,22 @@
 import type { Degree } from "degrees/chromatic";
-import type { Voicing } from "voicings/chromatic";
+import type { IntervalSet } from "sets/interval-sets/chromatic";
 import type { DegreeFunc } from "../DegreeFunc";
+import { getObjId as intervalSetGetObjId } from "sets/interval-sets/chromatic/caching/cache";
 import { getObjId as degreeGetObjId } from "intervals/symbolic/chromatic/caching/id";
-import { getObjId as voicingGetObjId } from "voicings/relative/chromatic/caching/cache";
 
 export type Key = {
   degree: Degree;
-  voicing: Voicing;
+  intervalSet: IntervalSet;
 };
 
 export function getId(key: Key): string {
-  return `(${degreeGetObjId(key.degree)}|${voicingGetObjId(key.voicing)})`;
+  return `(${degreeGetObjId(key.degree)}|${intervalSetGetObjId(key.intervalSet)})`;
 }
 
 export function getKey(func: DegreeFunc): Key {
   return {
     degree: func.baseDegree,
-    voicing: func.voicing,
+    intervalSet: func.intervalSet,
   };
 }
 

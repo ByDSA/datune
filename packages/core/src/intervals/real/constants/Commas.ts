@@ -1,11 +1,11 @@
 import type { Interval } from "../Interval";
 import { frac } from "datils/math/num-exp";
 import { deepFreeze } from "datils/datatypes/objects";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import { from } from "../building";
 
 export function initialize() {
-  if (SYNTONIC_COMMA)
-    throw new Error("Already initialized");
+  assertNotInitialized(SYNTONIC_COMMA);
 
   SYNTONIC_COMMA = from(frac(81, 80));
   deepFreeze(SYNTONIC_COMMA);

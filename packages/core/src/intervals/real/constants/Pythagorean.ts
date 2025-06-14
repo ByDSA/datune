@@ -1,5 +1,6 @@
 import type { Interval } from "../Interval";
 import { frac } from "datils/math/num-exp";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import { from } from "../building";
 
 export let COMMA: Interval;
@@ -55,8 +56,7 @@ export let M7: Interval;
 export let a7: Interval;
 
 export function initialize() {
-  if (COMMA)
-    throw new Error("Already initialized");
+  assertNotInitialized(COMMA);
 
   COMMA = from(frac(531441, 524288));
   a1 = from(frac(2187, 2048));

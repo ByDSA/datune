@@ -212,7 +212,7 @@ const functions: string[] = [
   Chords.fromKeyFunc.name,
   Chords.from.name,
   Chords.fromPitches.name,
-  Chords.fromRootVoicing.name,
+  Chords.fromRootIntervalSet.name,
   Chords.fromChromaticChord.name,
 
   // Modifiers

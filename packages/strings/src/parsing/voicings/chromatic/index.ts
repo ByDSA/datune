@@ -1,18 +1,18 @@
-import { Voicing } from "@datune/core/voicings/chromatic";
+import { IntervalSet } from "@datune/core/intervalSets/chromatic";
 import { Options } from "parsing";
 import { parseFromIntervals } from "./intervals";
 import { parseFromName } from "./name";
 
-export function parseVoicing(input: string, options?: Options): Voicing | null {
-  let voicing = parseFromName(input, options);
+export function parseIntervalSet(input: string, options?: Options): IntervalSet | null {
+  let intervalSet = parseFromName(input, options);
 
-  if (voicing)
-    return voicing;
+  if (intervalSet)
+    return intervalSet;
 
-  voicing = parseFromIntervals(input);
+  intervalSet = parseFromIntervals(input);
 
-  if (voicing)
-    return voicing;
+  if (intervalSet)
+    return intervalSet;
 
   return null;
 }

@@ -8,4 +8,4 @@ export * from "./pitches/alt";
 
 export * from "./scales/alt";
 
-export * from "./voicings/alt";
+export * from "./intervalSets/alt";

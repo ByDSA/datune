@@ -85,7 +85,7 @@ it("scale - degrees: BLUES_a4", () => {
     I,
     bIII,
     IV,
-    Intervals.fromDiatonicInterval(DD.IV, 1),
+    Intervals.from(DD.IV, 1),
     V,
     bVII,
   ]);

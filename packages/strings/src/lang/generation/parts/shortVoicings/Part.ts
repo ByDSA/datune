@@ -1,3 +1,3 @@
-import { VoicingsPart } from "../voicings";
+import { IntervalSetsPart } from "../intervalSets";
 
-export type ShortVoicingsPart = VoicingsPart;
+export type ShortIntervalSetsPart = IntervalSetsPart;

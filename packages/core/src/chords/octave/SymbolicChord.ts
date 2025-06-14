@@ -1,6 +1,6 @@
 import { NonEmptyArray } from "datils/datatypes";
-import { Voicing } from "voicings/relative/Voicing";
-import { IPitchSet } from "sets/pitch-set/IPitchSet";
+import { IIntervalSet } from "sets/interval-sets/IIntervalSet";
+import { IPitchSet } from "sets/pitch-sets/IPitchSet";
 
 export interface SymbolicChord<P, I> extends Iterable<P> {
     // Queries
@@ -24,7 +24,6 @@ export interface SymbolicChord<P, I> extends Iterable<P> {
     withSus2(): SymbolicChord<P, I>;
 
     // Properties
-    rootIntervals: Readonly<NonEmptyArray<I>>;
     pitchSet: IPitchSet<P, I>;
     pitches: Readonly<NonEmptyArray<P>>;
     size: number;
@@ -32,5 +31,5 @@ export interface SymbolicChord<P, I> extends Iterable<P> {
     bass: P;
 
     // Transform
-    toRootVoicing: ()=> Voicing<I>;
+    toIntervalSet: ()=> IIntervalSet<I>;
 }

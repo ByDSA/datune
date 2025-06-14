@@ -1,6 +1,6 @@
 export {
-  fromDegreeVoicing,
-} from "./fromDegreeVoicing";
+  fromDegreeIntervalSet,
+} from "./fromDegreeIntervalSet";
 
 export {
   fromDegrees,

@@ -1,11 +1,11 @@
 import type { Key } from "../Key";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import * as P from "pitches/alt/constants";
 import * as S from "scales/symbolic/alt/constants";
 import { from } from "../building";
 
 export function initialize() {
-  if (C)
-    throw new Error("Already initialized");
+  assertNotInitialized(C);
 
   if (!P.C)
     P.initialize();

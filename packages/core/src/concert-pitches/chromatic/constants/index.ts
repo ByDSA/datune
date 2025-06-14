@@ -1,11 +1,11 @@
 import type { ConcertPitch } from "../ConcertPitch";
 import { deepFreeze } from "datils/datatypes/objects";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import { Spns as N } from "spns/chromatic";
 import { fromFrequencySpn } from "../building/frequencySpn";
 
 export function initialize(): void {
-  if (A440)
-    throw new Error("Already initialized");
+  assertNotInitialized(A440);
 
   A440 = fromFrequencySpn(440, N.A4);
   deepFreeze(A440);

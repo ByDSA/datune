@@ -5,17 +5,17 @@ import { DEFAULT_TIMELINE_PARAMS } from "./ConstructorObjType";
 
 export const enum GravitationType {
   Key = "key",
-  Voicing = "voicing"
+  IntervalSet = "intervalSet"
 }
 
 export type Gravitation = {
+  type: "intervalSet";
+  spns: Spn[];
+  step: Step;
+} | {
   type: "key";
   spn: Spn;
   stepInterval: SingleStep["interval"];
-} | {
-  type: "voicing";
-  spns: Spn[];
-  step: Step;
 };
 
 export class GravitationTimeline extends ParallelTimeline<Gravitation> {

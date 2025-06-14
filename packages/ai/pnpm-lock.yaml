@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@datune/analyzer':
         specifier: file:../analyzer/dist
-        version: file:../analyzer/dist
+        version: dist@file:../analyzer/dist
       '@datune/core':
         specifier: file:../core/dist
         version: file:../core/dist
@@ -22,12 +22,6 @@ importers:
         version: file:../utils/dist
 
 packages:
-
-  '@datune/analyzer@file:../analyzer/dist':
-    resolution: {directory: ../analyzer/dist, type: directory}
-
-  '@datune/core-ext@file:../core-ext/dist':
-    resolution: {directory: ../core-ext/dist, type: directory}
 
   '@datune/core@file:../core/dist':
     resolution: {directory: ../core/dist, type: directory}
@@ -44,6 +38,9 @@ packages:
   array-flatten@3.0.0:
     resolution: {integrity: sha512-zPMVc3ZYlGLNk4mpK1NzP2wg0ml9t7fUgDsayR5Y5rSzxQilzR9FGu/EH2jQOcKSAeAfWeylyW8juy3OkWRvNA==}
 
+  dist@file:../analyzer/dist:
+    resolution: {directory: ../analyzer/dist, type: directory}
+
   immutable@5.0.3:
     resolution: {integrity: sha512-P8IdPQHq3lA1xVeBRi5VPqUm5HDgKnx0Ru51wZz5mjxHr5n3RWhjIpOFU7ybkUxfB+5IToy+OLaHYDBIWsv+uw==}
 
@@ -54,18 +51,6 @@ packages:
     resolution: {integrity: sha512-0rWi12x7Y3vLG0bsgPZxeb/GClCcK0JE2L3O00VUhhxP8z+5rVBtUyeCdHcIUl8bEANdCT/D5bjKMW+CnfUZlw==}
 
 snapshots:
-
-  '@datune/analyzer@file:../analyzer/dist':
-    dependencies:
-      '@datune/core': file:../core/dist
-      '@datune/core-ext': file:../core-ext/dist
-      '@datune/midi': file:../midi/dist
-      '@datune/utils': file:../utils/dist
-
-  '@datune/core-ext@file:../core-ext/dist':
-    dependencies:
-      '@datune/core': file:../core/dist
-      '@datune/utils': file:../utils/dist
 
   '@datune/core@file:../core/dist':
     dependencies:
@@ -88,6 +73,8 @@ snapshots:
       midi-file: 1.2.4
 
   array-flatten@3.0.0: {}
+
+  dist@file:../analyzer/dist: {}
 
   immutable@5.0.3: {}
 

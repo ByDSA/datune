@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 import { Input } from "../..";
-import { DiatonicsInput, ScalesInput, ShortVoicingsInput, TemperamentsInput, VoicingsInput } from "../../parts";
+import { DiatonicsInput, ScalesInput, ShortIntervalSetsInput, TemperamentsInput, IntervalSetsInput } from "../../parts";
 
-const voicings: VoicingsInput = {
+const intervalSets: IntervalSetsInput = {
   ADD: "ADD",
   TRITONE: "TRITONE",
   POWER_CHORD: "POWER CHORD",
@@ -30,7 +30,7 @@ const diatonics: DiatonicsInput = {
   A: "A",
   B: "B",
 };
-const shortVoicings: ShortVoicingsInput = {
+const shortIntervalSets: ShortIntervalSetsInput = {
   MINOR: "m",
   MAJOR: "M",
   TRIAD_MAJOR: "",
@@ -100,7 +100,7 @@ const words = {
   degreeFunc: "degree function",
   degree: "degree",
   pitch: "pitch",
-  voicing: "voicing",
+  intervalSet: "intervalSet",
   inversion: "inversion",
   root: "root",
   noteAlt: "altered diatonic note",
@@ -117,9 +117,9 @@ const qualities = {
 };
 
 export const INPUT_EN: Input = {
-  voicings,
+  intervalSets,
   diatonics,
-  shortVoicings,
+  shortIntervalSets,
   scales,
   temperaments,
   words,

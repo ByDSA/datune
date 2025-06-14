@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
-import { Voicings as V } from "@datune/core";
+import { IntervalSets as IS } from "@datune/core";
 import { LangId } from "lang";
 import { TestLang } from "tests";
-import { parseVoicing } from ".";
+import { parseIntervalSet } from ".";
 
 // eslint-disable-next-line max-len
-const { POWER_CHORD, SEVENTH, SEVENTH_b5, SEVENTH_MAJ7_b5, SIXTH, THIRTEENTH_a5, THIRTEENTH_a5a9, THIRTEENTH_a5b9, THIRTEENTH_a9, THIRTEENTH_b5, THIRTEENTH_b5a9, THIRTEENTH_b5b9, THIRTEENTH_b9, THIRTEENTH_MAJ13_a5b9, THIRTEENTH_MAJ13_a9, THIRTEENTH_MAJ13_b5, THIRTEENTH_MAJ13_b5a9, THIRTEENTH_MAJ13_b5b9, THIRTEENTH_MAJ13_b9, THIRTEENTH_MINOR, THIRTEENTH_MINOR_MAJ13, THIRTEENTH_SUS4, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_QUARTAL, THIRTEENTH_MAJ13_a5, THIRTEENTH_MAJ13_a5a9 } = V;
+const { POWER_CHORD, SEVENTH, SEVENTH_b5, SEVENTH_MAJ7_b5, SIXTH, THIRTEENTH_a5, THIRTEENTH_a5a9, THIRTEENTH_a5b9, THIRTEENTH_a9, THIRTEENTH_b5, THIRTEENTH_b5a9, THIRTEENTH_b5b9, THIRTEENTH_b9, THIRTEENTH_MAJ13_a5b9, THIRTEENTH_MAJ13_a9, THIRTEENTH_MAJ13_b5, THIRTEENTH_MAJ13_b5a9, THIRTEENTH_MAJ13_b5b9, THIRTEENTH_MAJ13_b9, THIRTEENTH_MINOR, THIRTEENTH_MINOR_MAJ13, THIRTEENTH_SUS4, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR, TRIAD_QUARTAL, THIRTEENTH_MAJ13_a5, THIRTEENTH_MAJ13_a5a9 } = IS;
 
 TestLang.loadAll();
 
@@ -48,14 +48,14 @@ describe.each([
   [LangId.EN, "6", SIXTH],
   [LangId.EN, "0 4 6 11", SEVENTH_MAJ7_b5],
   [LangId.ES, "0 4 6 11", SEVENTH_MAJ7_b5],
-])("parse", (langId, str, expectedVoicing) => {
-  it(`${langId} - "${str}" => ${expectedVoicing}`, () => {
-    const actual = parseVoicing(str, {
+])("parse", (langId, str, expectedIntervalSet) => {
+  it(`${langId} - "${str}" => ${expectedIntervalSet}`, () => {
+    const actual = parseIntervalSet(str, {
       langId,
     } );
 
-    expect(expectedVoicing).toBeDefined();
+    expect(expectedIntervalSet).toBeDefined();
 
-    expect(actual).toBe(expectedVoicing);
+    expect(actual).toBe(expectedIntervalSet);
   } );
 } );

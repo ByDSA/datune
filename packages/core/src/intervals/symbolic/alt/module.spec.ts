@@ -90,7 +90,7 @@ const functions: string[] = [
   Intervals.fromIntervalQuality.name,
   Intervals.fromIntervals.name,
   Intervals.fromChromaticInterval.name,
-  Intervals.fromDiatonicInterval.name,
+  Intervals.from.name,
 
   // modifiers
   Intervals.serie.name,
@@ -119,8 +119,7 @@ it("module should export functions and vars", async () => {
       "building/betweenNext",
       "building/intervalQuality",
       "building/intervals",
-      "building/fromCInterval",
-      "building/fromDInterval",
+      "building",
       "constants",
       "modifiers/calcSerie",
       "modifiers/abs",

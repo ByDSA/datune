@@ -3,7 +3,7 @@ import { Chord } from "@datune/core/chords/octave/alt/Chord";
 import { Chords as C } from "@datune/core/chords/octave/alt";
 import { getCombinations } from "datils/math/combinatorics";
 import { Pitches as P } from "@datune/core/pitches/alt";
-import { type PitchSet, PitchSets as PS } from "@datune/core/sets/pitch-set/alt";
+import { type PitchSet, PitchSets as PS } from "@datune/core/sets/pitch-sets/alt";
 
 export class Finder {
   #notes?: PitchArray;

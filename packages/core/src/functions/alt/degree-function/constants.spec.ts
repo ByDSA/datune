@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import type { DegreeFunc } from "./DegreeFunc";
 import type { Degree } from "degrees/alt";
-import type { Voicing } from "voicings/alt";
+import type { IntervalSet } from "sets/interval-sets/alt";
 import { Degrees as D } from "degrees/alt";
-import { Voicings as V } from "voicings/alt";
+import { IntervalSets as IS } from "sets/interval-sets/alt";
 import { Funcs as F } from "..";
 import { getDegrees } from "./conversions";
 
 const { I, I0, Im, IVMaj7, VII0 } = F;
-const { SEVENTH_MAJ7, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = V;
+const { SEVENTH_MAJ7, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = IS;
 
 describe.each([
   [I, D.I, TRIAD_MAJOR, [D.I, D.III, D.V]],
@@ -19,7 +19,7 @@ describe.each([
 ])("constants", (
   degreeFunc: DegreeFunc,
   expectedDegree: Degree,
-  expectedVoicing: Voicing,
+  expectedIntervalSet: IntervalSet,
   expectedDegrees: Degree[],
 ) => {
   describe(`${String(degreeFunc)}`, () => {
@@ -27,8 +27,8 @@ describe.each([
       expect(degreeFunc.baseDegree).toBe(expectedDegree);
     } );
 
-    it(`voicing => ${expectedVoicing}`, () => {
-      expect(degreeFunc.voicing).toBe(expectedVoicing);
+    it(`intervalSet => ${expectedIntervalSet}`, () => {
+      expect(degreeFunc.intervalSet).toBe(expectedIntervalSet);
     } );
 
     it(`degrees => ${expectedDegrees.map(String).join("-")}`, () => {

@@ -1,5 +1,5 @@
 import { Pitches as P } from "@datune/core/pitches/alt";
-import { Voicings as V } from "@datune/core/voicings/alt";
+import { IntervalSets as IS } from "@datune/core/alt";
 import { Chords as C } from "@datune/core/chords/alt";
 import { TestInit } from "tests";
 import { Finder } from "./Finder";
@@ -45,11 +45,11 @@ it("contains= C, G. MaxLength=3", () => {
 
     Csus4,
     Fsus2,
-    C.fromRootVoicing(P.G, V.TRIAD_QUARTAL),
+    C.fromRootIntervalSet(P.G, IS.TRIAD_QUARTAL),
 
     Gsus4,
     Csus2,
-    C.fromRootVoicing(P.D, V.TRIAD_QUARTAL),
+    C.fromRootIntervalSet(P.D, IS.TRIAD_QUARTAL),
   ];
 
   expect(actual).toHaveLength(7007);

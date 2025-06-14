@@ -32,9 +32,9 @@ export {
   Scale as AScale,
   ScaleArray as AScaleArray,
   Scales as AScales,
-  Voicing as AVoicing,
-  VoicingArray as AVoicingArray,
-  Voicings as AVoicings,
+  IntervalSet as AIntervalSet,
+  IntervalSetArray as AIntervalSetArray,
+  IntervalSets as AIntervalSets,
 } from "./alt";
 
 export {
@@ -48,7 +48,7 @@ export {
   Pitch as DPitch,
   PitchArray as DPitchArray,
   Pitches as DPitches,
-  Voicing as DVoicing,
-  VoicingArray as DVoicingArray,
-  Voicings as DVoicings,
+  IntervalSet as DIS,
+  IntervalSetArray as DIntervalSetArray,
+  IntervalSets as DIntervalSets,
 } from "./diatonic";

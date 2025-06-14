@@ -1,7 +1,7 @@
 import { KeyMappedFlyweightCache } from "datils/patterns/caching";
 import { Pitch } from "chromatic";
-import { PitchSet } from "sets/pitch-set/chromatic/PitchSet";
-import { getId as getPitchSetId, getKey as getPitchSetKey } from "sets/pitch-set/chromatic/caching/cache";
+import { PitchSet } from "sets/pitch-sets/chromatic/PitchSet";
+import { getId as getPitchSetId, getKey as getPitchSetKey } from "sets/pitch-sets/chromatic/caching/cache";
 import { Chord } from "../Chord";
 
 export type Key = {

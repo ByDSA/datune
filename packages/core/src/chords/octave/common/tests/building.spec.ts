@@ -3,7 +3,7 @@ import { testCoreModules } from "tests/testCoreModules";
 
 describe.each(testCoreModules)("building", (obj)=>{
   const { Chords: C, Pitches: P, type: moduleType,
-    PitchSets: PS, Voicings: V, Keys: K, Funcs: F } = obj;
+    PitchSets: PS, IntervalSets: IS, Keys: K, Funcs: F } = obj;
 
   it(moduleType + ": should throw error trying to create a chord with empty pitch set", () => {
     expect(() => {
@@ -46,8 +46,8 @@ describe.each(testCoreModules)("building", (obj)=>{
     } );
   } );
 
-  describe(moduleType + ": fromRootVoicing", () => {
-    const { NINTH, SEVENTH, SEVENTH_MAJ7, TRIAD_MAJOR, TRIAD_MINOR } = V;
+  describe(moduleType + ": fromRootIntervalSet", () => {
+    const { NINTH, SEVENTH, SEVENTH_MAJ7, TRIAD_MAJOR, TRIAD_MINOR } = IS;
 
     describe.each([
       [P.C, TRIAD_MAJOR, C.C],
@@ -55,23 +55,23 @@ describe.each(testCoreModules)("building", (obj)=>{
       [P.A, TRIAD_MINOR, C.Am],
       [P.C, SEVENTH_MAJ7, C.CMaj7],
       [P.C, NINTH, C.C9, false],
-    ])("from Root + Voicing", (pitch: typeof P.C, voicing: typeof TRIAD_MAJOR, expectedChord: typeof C.C, reversible: boolean = true) => {
+    ])("from Root + IntervalSet", (pitch: typeof P.C, intervalSet: typeof TRIAD_MAJOR, expectedChord: typeof C.C, reversible: boolean = true) => {
       const pitchName = String(pitch);
       const chordName = "expectedChord.pitches";
-      const voicingName = String(voicing);
+      const intervalSetName = String(intervalSet);
 
-      it(`(${pitchName}, ${voicingName}) => ${chordName}`, () => {
-        const chord = C.fromRootVoicing(pitch, voicing);
+      it(`(${pitchName}, ${intervalSetName}) => ${chordName}`, () => {
+        const chord = C.fromRootIntervalSet(pitch, intervalSet);
 
         expect(chord).toBe(expectedChord);
       } );
 
       if (reversible) {
-        it(`Reversible: root=${pitchName}, voicing=${voicingName}`, () => {
-          const chord = C.fromRootVoicing(pitch, voicing);
+        it(`Reversible: root=${pitchName}, intervalSet=${intervalSetName}`, () => {
+          const chord = C.fromRootIntervalSet(pitch, intervalSet);
 
           expect(chord.pitches[0]).toBe(pitch);
-          expect(chord.toRootVoicing()).toBe(voicing);
+          expect(chord.toIntervalSet()).toBe(intervalSet);
         } );
       }
     } );

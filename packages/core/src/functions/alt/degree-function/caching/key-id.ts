@@ -1,25 +1,25 @@
 import type { Degree } from "degrees/alt";
-import type { Voicing } from "voicings/alt";
+import type { IntervalSet } from "sets/interval-sets/alt";
 import type { DegreeFunc } from "../DegreeFunc";
+import { getObjId as intervalSetGetObjId } from "sets/interval-sets/alt/caching/cache";
 import { getObjId as degreeGetObjId } from "intervals/symbolic/alt/caching/cache";
-import { getObjId as voicingGetObjId } from "voicings/relative/alt/caching/cache";
 
 export type Key = {
   degree: Degree;
-  voicing: Voicing;
+  intervalSet: IntervalSet;
 };
 
 export function getId(key: Key): string {
-  const voicingId = voicingGetObjId(key.voicing);
+  const intervalSetId = intervalSetGetObjId(key.intervalSet);
   const degreeId = degreeGetObjId(key.degree);
 
-  return `(${degreeId})|(${voicingId})`;
+  return `(${degreeId})|(${intervalSetId})`;
 }
 
 export function getKey(func: DegreeFunc): Key {
   return {
     degree: func.baseDegree,
-    voicing: func.voicing,
+    intervalSet: func.intervalSet,
   };
 }
 

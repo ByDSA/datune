@@ -1,7 +1,7 @@
 import type { DegreeFunc } from "../DegreeFunc";
-import { type Voicing, type Degree, type Interval } from "chromatic";
+import { type IntervalSet, type Degree, type Interval } from "chromatic";
 import { shift as shiftInterval, shiftDown as shiftDownInterval, cyclicOctave } from "intervals/symbolic/chromatic/modifiers";
-import { fromDegreeVoicing } from "../building/fromDegreeVoicing";
+import { fromDegreeIntervalSet } from "../building/fromDegreeIntervalSet";
 
 export function shift(obj: DegreeFunc, interval: Interval): DegreeFunc {
   const { baseDegree: oldDegree } = obj;
@@ -18,9 +18,9 @@ export function shiftDown(obj: DegreeFunc, interval: Interval): DegreeFunc {
 }
 
 export function baseDegree(obj: DegreeFunc, newDegree: Degree): DegreeFunc {
-  return fromDegreeVoicing(newDegree, obj.voicing);
+  return fromDegreeIntervalSet(newDegree, obj.intervalSet);
 }
 
-export function voicing(obj: DegreeFunc, newVoicing: Voicing): DegreeFunc {
-  return fromDegreeVoicing(obj.baseDegree, newVoicing);
+export function intervalSets(obj: DegreeFunc, newIntervalSet: IntervalSet): DegreeFunc {
+  return fromDegreeIntervalSet(obj.baseDegree, newIntervalSet);
 }

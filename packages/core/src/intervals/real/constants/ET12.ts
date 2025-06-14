@@ -1,11 +1,11 @@
 import type { Interval } from "../Interval";
 import { frac, pow2 } from "datils/math/num-exp";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import { NUMBER as CNUMBER } from "pitches/chromatic/constants/Number";
 import { from, fromCents } from "../building";
 
 export function initialize() {
-  if (SEMITONE)
-    throw new Error("Already initialized");
+  assertNotInitialized(SEMITONE);
 
   QUARTER_TONE = from(pow2(frac(0.5, CNUMBER)));
   SEMITONE = fromCents(100);

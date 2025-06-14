@@ -1,6 +1,6 @@
 import { toNear } from "./near/generate";
 import { toKeyResolution } from "./key-resolution/generate";
-import { toVoicingResolution } from "./voicing-resolution/generate";
+import { toIntervalSetResolution } from "./interval-set-resolution/generate";
 import { multiple } from "./multiple/generate";
 import { StepReason } from "./multiple/step-reason/StepReason";
 import { type StepFilter, processors } from "./processors";
@@ -8,7 +8,7 @@ import { type StepFilter, processors } from "./processors";
 const staticModule = {
   toNear,
   toKeyResolution,
-  toVoicingResolution,
+  toIntervalSetResolution,
   multiple,
   processors,
 };

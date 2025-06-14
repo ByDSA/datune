@@ -1,11 +1,11 @@
 import type { Tuning } from "./Tuning";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import * as CP from "concert-pitches/chromatic/constants";
 import * as TE from "temperaments/chromatic/constants";
 import { from } from "./building/from";
 
 export function initialize() {
-  if (EQUAL_440)
-    throw new Error("Already initialized");
+  assertNotInitialized(EQUAL_440);
 
   if (!CP.A440)
     CP.initialize();

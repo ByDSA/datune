@@ -1,37 +1,37 @@
 import { cyclicMod } from "datils/math";
 import { Chord } from "@datune/core/chords/chromatic";
 import { Pitch, PitchArray } from "@datune/core/pitches/chromatic";
-import { inv } from "@datune/core/voicings/relative/chromatic/modifiers";
-import { getNumInversionOf } from "@datune/core/voicings/relative/chromatic/constants/inversionMap";
-import { Voicing, Voicings as V, Interval } from "@datune/core/chromatic";
+import { inv } from "@datune/core/intervalSets/relative/chromatic/modifiers";
+import { getNumInversionOf } from "@datune/core/intervalSets/relative/chromatic/constants/inversionMap";
+import { IntervalSet, IntervalSets as IS, Interval } from "@datune/core/chromatic";
 import { fromPitches } from "@datune/core/chords/octave/chromatic/building/pitches";
+import { stringifyShortName } from "strings/intervalSets/chromatic/shortName";
+import { stringifyShortNameLang } from "strings/intervalSets/chromatic/shortName";
 import { stringifyPitch } from "strings/pitches/chromatic";
-import { stringifyShortName } from "strings/voicings/chromatic/shortName";
-import { stringifyShortNameLang } from "strings/voicings/chromatic/shortName";
 
 export function stringifyChord(chord: Chord): string {
   const simplifiedChord = removeRepeatedPitches(chord);
-  const voicing = simplifiedChord.toVoicing();
-  const custom = customStringify(simplifiedChord, voicing);
+  const intervalSet = simplifiedChord.toIntervalSet();
+  const custom = customStringify(simplifiedChord, intervalSet);
 
   if (custom)
     return custom;
 
-  const inversion = getNumInversionOf(voicing);
-  const invVoicing = inv(voicing, -inversion);
+  const inversion = getNumInversionOf(intervalSet);
+  const invIntervalSet = inv(intervalSet, -inversion);
   const rootPosition = cyclicMod(-inversion, simplifiedChord.length);
   const rootName = stringifyPitch(simplifiedChord.pitches[rootPosition]);
-  let invVoicingShortName = stringifyShortNameLang(invVoicing);
+  let invIntervalSetShortName = stringifyShortNameLang(invIntervalSet);
 
-  if (invVoicingShortName === null)
-    invVoicingShortName = `(${invVoicing.rootIntervals.map(intervalToRoman)})`;
+  if (invIntervalSetShortName === null)
+    invIntervalSetShortName = `(${invIntervalSet.rootIntervals.map(intervalToRoman)})`;
 
   let inversionName = "";
 
   if (inversion !== 0)
     inversionName = getInversionName(chord);
 
-  return rootName + invVoicingShortName + inversionName;
+  return rootName + invIntervalSetShortName + inversionName;
 }
 
 function removeRepeatedPitches(chord: Chord): Chord {
@@ -57,23 +57,23 @@ function getInversionName(chord: Chord): string {
   return str;
 }
 
-function customStringify(chord: Chord, voicing: Voicing): string | null {
+function customStringify(chord: Chord, intervalSet: IntervalSet): string | null {
   const MAJOR_OVERS = new Set([
-    V.MAJOR_OVER_M2, V.MAJOR_OVER_m2,
-    V.MAJOR_OVER_m3, V.MAJOR_OVER_P4, V.MAJOR_OVER_d5, V.MAJOR_OVER_a5,
+    IS.MAJOR_OVER_M2, IS.MAJOR_OVER_m2,
+    IS.MAJOR_OVER_m3, IS.MAJOR_OVER_P4, IS.MAJOR_OVER_d5, IS.MAJOR_OVER_a5,
   ]);
   const MINOR_OVERS = new Set([
-    V.MINOR_OVER_m2,
-    V.MINOR_OVER_M2, V.MINOR_OVER_M3, V.MINOR_OVER_P4, V.MINOR_OVER_d5, V.MINOR_OVER_m7,
+    IS.MINOR_OVER_m2,
+    IS.MINOR_OVER_M2, IS.MINOR_OVER_M3, IS.MINOR_OVER_P4, IS.MINOR_OVER_d5, IS.MINOR_OVER_m7,
   ]);
 
   if (chord.root === chord.pitches[0]
-    && MAJOR_OVERS.has(voicing))
+    && MAJOR_OVERS.has(intervalSet))
     return stringifyPitch(chord.pitches[1]) + "/" + stringifyPitch(chord.pitches[0]);
 
   if (chord.root === chord.pitches[0]
-    && MINOR_OVERS.has(voicing))
-    return stringifyPitch(chord.pitches[1]) + stringifyShortName(V.TRIAD_MINOR) + "/" + stringifyPitch(chord.pitches[0]);
+    && MINOR_OVERS.has(intervalSet))
+    return stringifyPitch(chord.pitches[1]) + stringifyShortName(IS.TRIAD_MINOR) + "/" + stringifyPitch(chord.pitches[0]);
 
   return null;
 }

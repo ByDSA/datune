@@ -1,12 +1,12 @@
 import type { Interval } from "../Interval";
 import { freeze } from "datils/datatypes/objects";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import * as DI from "../../diatonic/constants";
 import { fromIntervalQuality } from "../building/intervalQuality";
 import { a, d, da, dd, M, m, P } from "../quality/constants";
 
 export function initialize() {
-  if (P1)
-    throw new Error("Already initialized");
+  assertNotInitialized(P1);
 
   if (!DI.UNISON)
     DI.initialize();

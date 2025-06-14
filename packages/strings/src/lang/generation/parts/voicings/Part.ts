@@ -1,4 +1,4 @@
-export type VoicingsPart = {
+export type IntervalSetsPart = {
   m2: string;
   M2: string;
   m3: string;

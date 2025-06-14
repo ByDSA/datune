@@ -1,12 +1,12 @@
 /* eslint-disable camelcase */
 import type { Interval } from "../Interval";
 import { frac } from "datils/math/num-exp";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import { from } from "../building";
 import * as PT from "./Pythagorean";
 
 export function initialize() {
-  if (QUARTER_TONE)
-    throw new Error("Already initialized");
+  assertNotInitialized(QUARTER_TONE);
 
   if (!PT.COMMA)
     PT.initialize();

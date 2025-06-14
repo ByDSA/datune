@@ -1,13 +1,13 @@
 /* eslint-disable camelcase */
-import { Voicings } from "@datune/core/voicings/alt";
+import { IntervalSets } from "@datune/core/intervalSets/alt";
 import { LangId } from "lang";
 import { TestLang } from "tests";
-import { stringifyVoicing } from ".";
+import { stringifyIntervalSet } from ".";
 
 TestLang.loadAll();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const { SEVENTH_MAJ7_b5, SEVENTH_SUS4_b9, TRIAD_MAJOR } = Voicings;
+const { SEVENTH_MAJ7_b5, SEVENTH_SUS4_b9, TRIAD_MAJOR } = IntervalSets;
 
 describe.each([
   [LangId.EN, TRIAD_MAJOR, "MAJOR"],
@@ -16,9 +16,9 @@ describe.each([
   [LangId.EN, SEVENTH_SUS4_b9, "SEVENTH SUS4 ♭9"],
   [LangId.ES, SEVENTH_MAJ7_b5, "SÉPTIMA MAJ7 ♭5"],
   [LangId.ES, SEVENTH_SUS4_b9, "SÉPTIMA SUS4 ♭9"],
-])("stringify", (langId, voicing, expected) => {
-  it(`${langId} - ${voicing?.rootIntervals} - ${expected}`, () => {
-    const actual = stringifyVoicing(voicing, {
+])("stringify", (langId, intervalSet, expected) => {
+  it(`${langId} - ${intervalSet?.rootIntervals} - ${expected}`, () => {
+    const actual = stringifyIntervalSet(intervalSet, {
       langId,
     } );
 

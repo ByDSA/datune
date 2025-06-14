@@ -1,5 +1,5 @@
 import type { Interval } from "intervals/chromatic";
-import type { Voicing } from "voicings/chromatic";
+import type { IntervalSet } from "sets/interval-sets/chromatic";
 import type { Degree, DegreeArray } from "degrees/chromatic";
 import type { IDegreeFunc } from "functions/IDegreeFunc";
 import type { Func } from "../Func";
@@ -9,22 +9,22 @@ import { stringifyDegree } from "degrees/chromatic/stringify";
 import { Pitches as P } from "pitches/chromatic";
 import { Chords as C } from "chords/chromatic";
 import { getOrCalc } from "../cache";
-import { baseDegree, shift, shiftDown, voicing } from "./modifiers";
+import { baseDegree, shift, shiftDown, intervalSets } from "./modifiers";
 import { getObjId, type Key as K } from "./caching/key-id";
 import { getDegrees } from "./conversions";
 
 export class DegreeFunc implements
 Func,
-IDegreeFunc<Interval, Degree, Voicing> {
+IDegreeFunc<Interval, Degree, IntervalSet> {
   baseDegree: Degree;
 
-  voicing: Voicing;
+  intervalSet: IntervalSet;
 
   #degrees?: Readonly<DegreeArray>;
 
   protected constructor(key: K) {
     this.baseDegree = key.degree;
-    this.voicing = key.voicing;
+    this.intervalSet = key.intervalSet;
     deepFreeze(this);
   }
 
@@ -33,7 +33,7 @@ IDegreeFunc<Interval, Degree, Voicing> {
       calc: () => {
         const pitchBase = P.shift(root, this.baseDegree);
 
-        return C.fromRootVoicing(pitchBase, this.voicing);
+        return C.fromRootIntervalSet(pitchBase, this.intervalSet);
       },
       getId: ()=> `(${+root})|(${getObjId(this)})`,
     } );
@@ -51,8 +51,8 @@ IDegreeFunc<Interval, Degree, Voicing> {
     return baseDegree(this, degree);
   }
 
-  withVoicing(newVoicing: Voicing): DegreeFunc {
-    return voicing(this, newVoicing);
+  withIntervalSet(newIntervalSet: IntervalSet): DegreeFunc {
+    return intervalSets(this, newIntervalSet);
   }
 
   // eslint-disable-next-line accessor-pairs
@@ -64,6 +64,6 @@ IDegreeFunc<Interval, Degree, Voicing> {
   }
 
   toString() {
-    return `${stringifyDegree(this.baseDegree)} (${this.voicing})`;
+    return `${stringifyDegree(this.baseDegree)} (${this.intervalSet})`;
   }
 }

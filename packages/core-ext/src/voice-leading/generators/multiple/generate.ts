@@ -1,15 +1,15 @@
 import type { StepGroup } from "../StepsGenerator";
 import type { StepOrNull } from "../../steps/Step";
-import type { StepReasonNearInfo, StepReasonRestNotesInfo, StepReasonVoicingResolutionInfo } from "./step-reason/StepReasonInfo";
+import type { StepReasonNearInfo, StepReasonRestNotesInfo, StepReasonIntervalSetResolutionInfo } from "./step-reason/StepReasonInfo";
 import type { StepFilter } from "../processors/filters";
 import { Spn, SpnArray } from "@datune/core/spns/chromatic";
 import { type CombinerResult, combineStepGroups } from "voice-leading/combiners/combine-groups";
 import { SingleStep } from "voice-leading/steps";
 import { filterNonNullSteps, type StepArray } from "../../steps/Step";
 import { toKeyResolution as generateToKeyResolution, KeyResolutionGeneratorProps } from "../key-resolution/generate";
-import { toVoicingResolution as generateToVoicingResolution, VoicingResolutionGeneratorProps } from "../voicing-resolution/generate";
+import { toIntervalSetResolution as generateToIntervalSetResolution, IntervalSetResolutionGeneratorProps } from "../interval-set-resolution/generate";
 import { toNear as generateToNear, NearGeneratorProps } from "../near/generate";
-import { voicingFromSpnArray } from "../voicing-resolution/generate";
+import { intervalSetFromSpnArray } from "../interval-set-resolution/generate";
 import { compactCombinationsUnsafe } from "../compact-combinations";
 import { StepReason } from "./step-reason/StepReason";
 import { StepToReasonMap } from "./step-reason/ReasonStepMap";
@@ -31,7 +31,7 @@ export type MultipleGenProps = {
     enabled?: boolean;
   };
   keyResolution?: Omit<KeyResolutionGeneratorProps, "base">;
-  voicingResolution?: Omit<VoicingResolutionGeneratorProps, "voicing"> & {
+  intervalSetResolution?: Omit<IntervalSetResolutionGeneratorProps, "intervalSet"> & {
     enabled?: boolean;
   };
 };
@@ -51,7 +51,7 @@ class MultipleGen {
   #reasonsMap;
 
   constructor(base: SpnArray, props?: MultipleGenProps) {
-    const voicingResolutionEnabled = props?.voicingResolution?.enabled ?? true;
+    const intervalSetResolutionEnabled = props?.intervalSetResolution?.enabled ?? true;
     const nearEnabled = props?.near?.enabled ?? true;
 
     this.#props = {
@@ -63,11 +63,11 @@ class MultipleGen {
           enabled: nearEnabled,
         }
         : undefined,
-      voicingResolution: voicingResolutionEnabled
+      intervalSetResolution: intervalSetResolutionEnabled
         ? {
-          ...props?.voicingResolution,
-          filters: mergeArrays(props?.filters, props?.voicingResolution?.filters),
-          enabled: voicingResolutionEnabled,
+          ...props?.intervalSetResolution,
+          filters: mergeArrays(props?.filters, props?.intervalSetResolution?.filters),
+          enabled: intervalSetResolutionEnabled,
         }
         : undefined,
       keyResolution: props?.keyResolution?.restingPitches
@@ -104,8 +104,8 @@ class MultipleGen {
 
     const resolutionGroups: StepGroup[] = [];
 
-    if (this.#props.voicingResolution?.enabled) {
-      const partialGroup = this.#genToVoicingResolution();
+    if (this.#props.intervalSetResolution?.enabled) {
+      const partialGroup = this.#genToIntervalSetResolution();
 
       if (partialGroup)
         resolutionGroups.push(partialGroup);
@@ -141,20 +141,20 @@ class MultipleGen {
     };
   }
 
-  #genToVoicingResolution(): StepGroup | null {
-    const { enabled: _, ...voicingResolutionProps } = this.#props.voicingResolution!;
+  #genToIntervalSetResolution(): StepGroup | null {
+    const { enabled: _, ...intervalSetResolutionProps } = this.#props.intervalSetResolution!;
     const groups: StepGroup[] = [];
-    const gen = generateToVoicingResolution( {
-      ...voicingResolutionProps,
-      voicing: voicingFromSpnArray(this.#base),
+    const gen = generateToIntervalSetResolution( {
+      ...intervalSetResolutionProps,
+      intervalSet: intervalSetFromSpnArray(this.#base),
     } );
 
     for (const result of gen.meta.results) {
       // eslint-disable-next-line prefer-destructuring
       const steps: StepOrNull[] = result.steps;
-      const reason: StepReasonVoicingResolutionInfo = {
-        reason: StepReason.RESOLUTION_VOICING,
-        innerVoicingResult: result.innerVoicing,
+      const reason: StepReasonIntervalSetResolutionInfo = {
+        reason: StepReason.RESOLUTION_INTERVAL_SET,
+        innerIntervalSetResult: result.innerIntervalSet,
       };
 
       if (steps.length === 0)
@@ -176,7 +176,7 @@ class MultipleGen {
     if (group.length === 0)
       return null;
 
-    if (!voicingResolutionProps.required)
+    if (!intervalSetResolutionProps.required)
       group.push(null);
 
     return group as StepGroup;

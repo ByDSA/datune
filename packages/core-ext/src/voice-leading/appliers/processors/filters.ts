@@ -1,8 +1,8 @@
 import type { Target } from "voice-leading/steps/Target";
-import { PitchArray, SpnArray, VoicingArray } from "@datune/core";
-import { fromPitches } from "@datune/core/voicings/relative/chromatic/building/pitches";
-import { findInnerVoicings } from "voicings/findInnerVoicings";
-import { voicingFromSpnArray } from "../../generators/voicing-resolution/generate";
+import { PitchArray, SpnArray, IntervalSetArray } from "@datune/core";
+import { fromPitches } from "@datune/core/sets/interval-sets/chromatic/building/pitches";
+import { findInnerIntervalSets } from "interval-sets/findInnerIntervalSets";
+import { intervalSetFromSpnArray } from "../../generators/interval-set-resolution/generate";
 
 type CombinationApplierFilterProps = {
   base: SpnArray;
@@ -11,27 +11,29 @@ type CombinationApplierFilterProps = {
 };
 export type CombinationApplierFilter = (props: CombinationApplierFilterProps)=> boolean;
 
-export function createHasSomeVoicingFilter(...voicings: VoicingArray): CombinationApplierFilter {
+export function createHasSomeIntervalSetFilter(
+  ...intervalSets: IntervalSetArray
+): CombinationApplierFilter {
   return ( { nonNullTarget } ) => {
     if (nonNullTarget.length === 0)
       return false;
 
-    const voicing = voicingFromSpnArray(nonNullTarget as SpnArray);
+    const intervalSet = intervalSetFromSpnArray(nonNullTarget as SpnArray);
 
-    return voicings.includes(voicing);
+    return intervalSets.includes(intervalSet);
   };
 }
 
-export function createDisallowInnerVoicingsFilter(
-  ...innerVoicings: VoicingArray
+export function createDisallowInnerIntervalSetsFilter(
+  ...innerIntervalSets: IntervalSetArray
 ): CombinationApplierFilter {
   return (props) => {
     if (props.nonNullTarget.length === 0)
       return true;
 
     const pitches = props.nonNullTarget.map(n=>n.pitch) as PitchArray;
-    const voicing = fromPitches(...pitches);
-    const r = findInnerVoicings(voicing, innerVoicings);
+    const intervalSet = fromPitches(...pitches);
+    const r = findInnerIntervalSets(intervalSet, innerIntervalSets);
 
     return r.length === 0;
   };

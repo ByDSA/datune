@@ -2,7 +2,7 @@ import type { Chord } from "@datune/core/chords/chromatic";
 import { type PitchArray, type Pitch, Pitches } from "@datune/core/pitches/chromatic";
 import { Chords } from "@datune/core/chords/octave/chromatic";
 import { PitchSets as PS } from "@datune/core";
-import { PitchSet } from "@datune/core/sets/pitch-set/chromatic/PitchSet";
+import { PitchSet } from "@datune/core/sets/pitch-sets/chromatic/PitchSet";
 import { getCombinations } from "datils/math/combinatorics";
 
 export class Finder {

@@ -66,26 +66,26 @@ function testsBass(obj: TestCoreModule) {
 }
 
 function testsInversions(obj: TestCoreModule) {
-  const { Chords: C, Voicings: V, type: moduleType } = obj;
+  const { Chords: C, IntervalSets: IS, type: moduleType } = obj;
 
   describe.each([
-    [C.C, V.TRIAD_MAJOR],
-    [C.Am, V.TRIAD_MINOR],
-    [C.CMaj7, V.SEVENTH_MAJ7],
-  ])(moduleType + ": inversions", (chord, expectedVoicing) => {
+    [C.C, IS.TRIAD_MAJOR],
+    [C.Am, IS.TRIAD_MINOR],
+    [C.CMaj7, IS.SEVENTH_MAJ7],
+  ])(moduleType + ": inversions", (chord, expectedIntervalSet) => {
     describe.each([
       ["withInv", (c: typeof chord, n: number) => c.withInv(n)],
       ["inv", (c: typeof chord, n: number) => C.inv(c, n)],
     ])("using %s", (methodName, method) => {
-      it(`${chord} should have as voicing: ${expectedVoicing}`, () => {
-        expect(chord.toRootVoicing()).toBe(expectedVoicing);
+      it(`${chord} should have as intervalSet: ${expectedIntervalSet}`, () => {
+        expect(chord.toIntervalSet()).toBe(expectedIntervalSet);
       } );
 
-      it(`${methodName} should maintain the same root voicing`, () => {
-        const originalVoicing = chord.toRootVoicing();
+      it(`${methodName} should maintain the same root intervalSet`, () => {
+        const originalIntervalSet = chord.toIntervalSet();
 
         for (let i = 1; i < chord.size; i++)
-          expect(method(chord, i).toRootVoicing()).toBe(originalVoicing);
+          expect(method(chord, i).toIntervalSet()).toBe(originalIntervalSet);
       } );
 
       it(`${methodName} should keep the chord root => ${chord.root}`, () => {
@@ -113,7 +113,7 @@ function testsInversions(obj: TestCoreModule) {
 }
 
 function testsShift(obj: TestCoreModule) {
-  const { Chords: C, Intervals: I, type: moduleType, Pitches: P, Voicings: V } = obj;
+  const { Chords: C, Intervals: I, type: moduleType, Pitches: P, IntervalSets: IS } = obj;
 
   describe.each([
     ["shift", (c: typeof C.C7, n: number) => C.shift(c, n)],
@@ -147,7 +147,7 @@ function testsShift(obj: TestCoreModule) {
 
     it("c7 - M2 = Bb7", () => {
       const actual = method(C.C7, I.M2);
-      const expected = C.fromRootVoicing(P.Bb, V.SEVENTH);
+      const expected = C.fromRootIntervalSet(P.Bb, IS.SEVENTH);
 
       expect(actual).toBe(expected);
     } );

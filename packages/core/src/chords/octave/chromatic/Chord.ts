@@ -2,14 +2,15 @@
 import type { SymbolicChord } from "../SymbolicChord";
 import type { Key } from "./caching/cache";
 import type { PitchArray, Pitch } from "pitches/chromatic";
-import type { PitchSet } from "sets/pitch-set/chromatic/PitchSet";
+import type { PitchSet } from "sets/pitch-sets/chromatic/PitchSet";
 import type { Chord as AChord } from "chords/octave/alt";
 import { deepFreeze } from "datils/datatypes/objects";
 import { Arrays } from "datils/datatypes/arrays";
-import { Intervals as I, type Interval, type IntervalArray, type Voicing } from "chromatic";
+import { IntervalSets } from "sets/interval-sets/chromatic";
+import { Intervals as I, type Interval, type IntervalArray, type IntervalSet } from "chromatic";
 import { Chords as AC } from "chords/octave/alt";
 import { Chords as C } from "chords/chromatic";
-import { Voicings as V } from "voicings/chromatic";
+import { assertNotEmptyPitchSet } from "sets/pitch-sets/asserts";
 
 export class Chord implements SymbolicChord<Pitch, Interval> {
   #pitches?: Readonly<PitchArray>;
@@ -23,8 +24,7 @@ export class Chord implements SymbolicChord<Pitch, Interval> {
   bass: Pitch;
 
   private constructor(key: Key) {
-    if (key.pitchSet.size === 0)
-      throw new Error("Empty pitch set");
+    assertNotEmptyPitchSet(key.pitchSet);
 
     this.pitchSet = key.pitchSet;
     this.root = key.root;
@@ -142,8 +142,8 @@ export class Chord implements SymbolicChord<Pitch, Interval> {
     return this.#rootIntervals;
   }
 
-  toRootVoicing(): Voicing {
-    return V.fromRootChord(this);
+  toIntervalSet(): IntervalSet {
+    return IntervalSets.fromChord(this);
   }
 
   toAltChord(): AChord {

@@ -1,4 +1,4 @@
-import { Chords as C, Pitches as P, Intervals as I, Voicings as V, Keys as K, Funcs as F } from "@datune/core/chromatic";
+import { Chords as C, Pitches as P, Intervals as I, IntervalSets as IS, Keys as K, Funcs as F } from "@datune/core/chromatic";
 import { useStringify } from "@datune/strings";
 import { parseChord } from "@datune/strings/chromatic";
 import { LangId } from "@datune/strings/lang";
@@ -47,7 +47,7 @@ console.log(
 /* Using functions */
 // Building
 console.log("fromPitches", C.fromPitches(P.C, P.E, P.G, P.Bb).toString()); // -> C-E-G-A# (C7)
-console.log("fromRootVoicing", C.fromRootVoicing(P.G, V.TRIAD_SUS4).toString()); // -> G-C-D (Gsus4)
+console.log("fromRootIntervalSet", C.fromRootIntervalSet(P.G, IS.TRIAD_SUS4).toString()); // -> G-C-D (Gsus4)
 console.log("fromKeyFunction", C.fromKeyFunc(K.C, F.VIm).toString()); // -> A-C-E (Am)
 
 // Modifiers
@@ -97,9 +97,9 @@ console.log("stringify Bº", C.B0.toString()); // -> "Bº"
 console.log("stringify C bass F", C.C.withBass(P.F).toString()); // -> "C/F"
 console.log("stringify Cm bass E", C.Cm.withBass(P.E).toString()); // -> "Cm/E"
 console.log("stringify C13b5a9", C.C13b5a9.toString()); // -> "C13♭5♯9"
-console.log("stringify C13b5", C.fromRootVoicing(P.C, V.THIRTEENTH_b5).toString()); // -> "C13♭5"
+console.log("stringify C13b5", C.fromRootIntervalSet(P.C, IS.THIRTEENTH_b5).toString()); // -> "C13♭5"
 
 /* Others */
-console.log("toRootVoicing", C.G7.toRootVoicing().toString()); // -> 0-4-7-10 (SEVENTH)
+console.log("toRootIntervalSet", C.G7.toRootIntervalSet().toString()); // -> 0-4-7-10 (SEVENTH)
 console.log("ALL_NON_INVERSIONS", C.ALL_NON_INVERSIONS.length); // -> 660
 console.log("ALL", C.ALL.length); // -> 3468

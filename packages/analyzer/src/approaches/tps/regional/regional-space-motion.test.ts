@@ -1,4 +1,4 @@
-import { Funcs as F, Intervals as I, Voicings } from "@datune/core/alt";
+import { Funcs as F, Intervals as I, IntervalSets } from "@datune/core/alt";
 import { DegreeFunc } from "@datune/core/functions/alt/degree-function/DegreeFunc";
 import { Degrees as DD } from "@datune/core/diatonic";
 import { findAllShortestPaths, getAllNeighbors } from "./regional-space-motion";
@@ -57,7 +57,7 @@ const pathsImTobVm = [
     F.Im,
     F.bVI,
     F.bVIm,
-    F.fromDegreeVoicing(I.fromDiatonicInterval(DD.IV, -1), Voicings.TRIAD_MAJOR), // bIV
+    F.fromDegreeIntervalSet(I.fromDiatonicInterval(DD.IV, -1), IntervalSets.TRIAD_MAJOR), // bIV
     F.bVm,
   ],
   [

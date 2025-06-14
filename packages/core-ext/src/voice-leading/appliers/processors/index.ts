@@ -1,9 +1,9 @@
 import { voiceCrossingFilter, voiceOverlappingFilter } from "./voices-interaction-filters";
-import { createHasSomeVoicingFilter, createDisallowInnerVoicingsFilter } from "./filters";
+import { createHasSomeIntervalSetFilter, createDisallowInnerIntervalSetsFilter } from "./filters";
 
 export const processors = {
-  createHasSomeVoicingFilter,
-  createDisallowInnerVoicingsFilter,
+  createHasSomeIntervalSetFilter,
+  createDisallowInnerIntervalSetsFilter,
   voiceCrossingFilter,
   voiceOverlappingFilter,
 };

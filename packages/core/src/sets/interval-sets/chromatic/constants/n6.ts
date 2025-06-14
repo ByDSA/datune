@@ -1,0 +1,45 @@
+/* eslint-disable camelcase */
+import type { IntervalSet } from "../IntervalSet";
+import { fromRootIntervals } from "../building/rootIntervals";
+
+export function initializeN6() {
+  NINTH_ADD6 = fromRootIntervals(0, 4, 7, 9, 10, 14);
+
+  SEVENTH_ADD11 = fromRootIntervals(0, 4, 7, 10, 17);
+
+  NINTH_a11 = fromRootIntervals(0, 4, 7, 10, 14, 18);
+
+  NINTH_MAJ9_a11 = fromRootIntervals(0, 4, 7, 11, 14, 18);
+
+  ELEVENTH = fromRootIntervals(0, 4, 7, 10, 14, 17);
+
+  ELEVENTH_MINOR = fromRootIntervals(0, 3, 7, 10, 14, 17);
+
+  ELEVENTH_b9 = fromRootIntervals(0, 4, 7, 10, 13, 17);
+
+  ELEVENTH_a9 = fromRootIntervals(0, 4, 7, 10, 15, 17);
+
+  ELEVENTH_MAJ11 = fromRootIntervals(0, 4, 7, 11, 14, 17);
+
+  ELEVENTH_MINOR_MAJ11 = fromRootIntervals(0, 3, 7, 11, 14, 17);
+}
+
+export let NINTH_ADD6: IntervalSet;
+
+export let SEVENTH_ADD11: IntervalSet;
+
+export let NINTH_a11: IntervalSet;
+
+export let NINTH_MAJ9_a11: IntervalSet;
+
+export let ELEVENTH: IntervalSet;
+
+export let ELEVENTH_MINOR: IntervalSet;
+
+export let ELEVENTH_b9: IntervalSet;
+
+export let ELEVENTH_a9: IntervalSet;
+
+export let ELEVENTH_MAJ11: IntervalSet;
+
+export let ELEVENTH_MINOR_MAJ11: IntervalSet;

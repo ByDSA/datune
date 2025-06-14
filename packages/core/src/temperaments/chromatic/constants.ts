@@ -1,14 +1,14 @@
 import type { Temperament } from "./Temperament";
 import type { Interval } from "intervals/symbolic/chromatic/Interval";
 import type { Interval as RealInterval } from "intervals/real/Interval";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import * as CI from "intervals/symbolic/chromatic/constants";
 import * as RI from "intervals/real/constants";
 import { simplify, octaves } from "intervals/symbolic/chromatic/modifiers";
 import { shiftOctaves } from "intervals/real/modifiers/shiftOctaves";
 
 export function initialize() {
-  if (ET12 as unknown)
-    throw new Error("Already initialized");
+  assertNotInitialized(ET12 as unknown);
 
   if (!RI.UNISON)
     RI.initialize();

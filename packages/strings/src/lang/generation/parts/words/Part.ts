@@ -8,7 +8,7 @@ export type WordsPart = {
   degreeFunc: string;
   degree: string;
   pitch: string;
-  voicing: string;
+  intervalSet: string;
   root: string;
   inversion: string;
   noteAlt: string;

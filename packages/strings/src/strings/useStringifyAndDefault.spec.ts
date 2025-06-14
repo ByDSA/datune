@@ -1,6 +1,6 @@
-import { Chords as AC, Degrees as AD, Funcs as AF, Intervals as AI, Keys as AK, Pitches as AP, Spns as AN, Scales as AS, Voicings as AV, Pitch as APitch, Voicing as AVoicing, Chord as AChord, Degree as ADegree, Key as AKey, Spn as ASpn, Scale as AScale, Interval as AInterval } from "@datune/core/alt";
-import { Chords as C, Pitches as P, ConcertPitches as CP, Funcs as F, Keys as K, PitchSets as PS, Scales as S, Spns as N, Temperaments as TE, Voicings as V, Pitch, Chord, Voicing, Key, Spn, Scale, ConcertPitch, Degrees as D, Intervals as I } from "@datune/core/chromatic";
-import { Pitches as DP, Voicings as DV, Pitch as DPitch, Voicing as DVoicing } from "@datune/core/diatonic";
+import { Chords as AC, Degrees as AD, Funcs as AF, Intervals as AI, Keys as AK, Pitches as AP, Spns as AN, Scales as AS, IntervalSets as AIS, Pitch as APitch, IntervalSet as AIntervalSet, Chord as AChord, Degree as ADegree, Key as AKey, Spn as ASpn, Scale as AScale, Interval as AInterval } from "@datune/core/alt";
+import { Chords as C, Pitches as P, ConcertPitches as CP, Funcs as F, Keys as K, PitchSets as PS, Scales as S, Spns as N, Temperaments as TE, IntervalSets as IS, Pitch, Chord, IntervalSet, Key, Spn, Scale, ConcertPitch, Degrees as D, Intervals as I } from "@datune/core/chromatic";
+import { Pitches as DP, IntervalSets as DIS, Pitch as DPitch } from "@datune/core/diatonic";
 import { DegreeFunc as ADegreeFunc } from "@datune/core/functions/alt/degree-function/DegreeFunc";
 import { CompoundFunc as ACompoundFunc } from "@datune/core/functions/alt/compound-function/CompoundFunc";
 import { DegreeFunc } from "@datune/core/functions/chromatic/degree-function/DegreeFunc";
@@ -14,7 +14,7 @@ describe("before", ()=> {
 
   describe("diatonic", () => {
     beforeAll(() => {
-      for (const c of [DPitch, DVoicing])
+      for (const c of [DPitch, DIS])
         c.prototype.toString = failFn;
     } );
 
@@ -22,14 +22,14 @@ describe("before", ()=> {
       expect(DP.D.toString()).toBeUndefined();
     } );
 
-    it("voicing", () => {
-      expect(DV.NINTH_SUS4.toString()).toBeUndefined();
+    it("intervalSet", () => {
+      expect(DIS.NINTH_SUS4.toString()).toBeUndefined();
     } );
   } );
 
   describe("alt", () => {
     beforeAll(() => {
-      for (const c of [APitch, AChord, AVoicing, ADegree,
+      for (const c of [APitch, AChord, AIntervalSet, ADegree,
         ADegreeFunc, ACompoundFunc, AInterval, AKey, ASpn, AScale])
         c.prototype.toString = failFn;
     } );
@@ -70,14 +70,14 @@ describe("before", ()=> {
       expect(AS.SUPERLOCRIAN_bb7.toString()).toBeUndefined();
     } );
 
-    it("voicing", () => {
-      expect(AV.THIRTEENTH_a5b9.toString()).toBeUndefined();
+    it("intervalSet", () => {
+      expect(AIS.THIRTEENTH_a5b9.toString()).toBeUndefined();
     } );
   } );
 
   describe("chromatic", () => {
     beforeAll(() => {
-      for (const c of [Pitch, Chord, ConcertPitch, Voicing,
+      for (const c of [Pitch, Chord, ConcertPitch, IntervalSet,
         DegreeFunc, CompoundFunc, Key, PitchSet, Spn, Scale])
         c.prototype.toString = failFn;
 
@@ -139,8 +139,8 @@ describe("before", ()=> {
       expect(TE.ET12.toString()).toBeUndefined();
     } );
 
-    it("voicing", () => {
-      expect(V.ELEVENTH_b9.toString()).toBeUndefined();
+    it("intervalSet", () => {
+      expect(IS.ELEVENTH_b9.toString()).toBeUndefined();
     } );
   } );
 } );
@@ -155,8 +155,8 @@ describe("after", () => {
       expect(DP.D.toString()).toBe("D");
     } );
 
-    it("voicing", () => {
-      expect(DV.NINTH_SUS4.toString()).toBeDefined();
+    it("intervalSet", () => {
+      expect(DIS.NINTH_SUS4.toString()).toBeDefined();
     } );
   } );
 
@@ -197,8 +197,8 @@ describe("after", () => {
       expect(AS.SUPERLOCRIAN_bb7.toString()).toBe("Superlocrian ♭♭7");
     } );
 
-    it("voicing", () => {
-      expect(AV.THIRTEENTH_a5b9.toString()).toBe("THIRTEENTH ♯5 ♭9");
+    it("intervalSet", () => {
+      expect(AIS.THIRTEENTH_a5b9.toString()).toBe("THIRTEENTH ♯5 ♭9");
     } );
   } );
 
@@ -251,8 +251,8 @@ describe("after", () => {
       expect(TE.ET12.toString()).toBe("12-ET");
     } );
 
-    it("voicing", () => {
-      expect(V.ELEVENTH_b9.toString()).toBe("Eleventh ♭9");
+    it("intervalSet", () => {
+      expect(IS.ELEVENTH_b9.toString()).toBe("Eleventh ♭9");
     } );
   } );
 } );
@@ -263,8 +263,8 @@ describe("use default toString back", ()=> {
   } );
 
   describe("diatonic", () => {
-    it("voicing", () => {
-      expect(DV.NINTH_SUS4.toString()).toBeDefined();
+    it("intervalSet", () => {
+      expect(DIS.NINTH_SUS4.toString()).toBeDefined();
     } );
   } );
 
@@ -294,8 +294,8 @@ describe("use default toString back", ()=> {
       expect(AS.SUPERLOCRIAN_bb7.toString()).not.toBe("Superlocrian ♭♭7");
     } );
 
-    it("voicing", () => {
-      expect(AV.THIRTEENTH_a5b9.toString()).not.toBe("THIRTEENTH ♯5 ♭9");
+    it("intervalSet", () => {
+      expect(AIS.THIRTEENTH_a5b9.toString()).not.toBe("THIRTEENTH ♯5 ♭9");
     } );
   } );
 
@@ -333,8 +333,8 @@ describe("use default toString back", ()=> {
       expect(TE.ET12.toString()).toBe("12-ET");
     } );
 
-    it("voicing", () => {
-      expect(V.ELEVENTH_b9.toString()).not.toBe("Eleventh ♭9");
+    it("intervalSet", () => {
+      expect(IS.ELEVENTH_b9.toString()).not.toBe("Eleventh ♭9");
     } );
   } );
 } );

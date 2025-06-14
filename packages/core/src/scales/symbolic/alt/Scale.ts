@@ -1,9 +1,9 @@
 import type { Key } from "./caching/cache";
 import type { Scale as IScale } from "../../Scale";
 import type { Interval } from "intervals/alt";
+import { IntervalSets as IS } from "sets/interval-sets/alt";
 import { type DegreeArray, type Degree } from "degrees/alt";
 import { type DegreeArray as CDegreeArray } from "degrees/chromatic";
-import { Voicings as V } from "voicings/alt";
 import { fromAltInterval } from "intervals/symbolic/chromatic/building/altInterval";
 import { Scale as CScale } from "scales/chromatic";
 import { Intervals as CI } from "intervals/chromatic";
@@ -23,9 +23,9 @@ export class Scale implements IScale<Interval, Degree> {
   private constructor(key: Key) {
     this.deltaIntervals = Object.freeze(key);
     this.length = this.deltaIntervals.length;
-    const voicing = V.fromDeltaIntervals(...this.deltaIntervals);
+    const intervalSet = IS.fromDeltaIntervals(...this.deltaIntervals);
 
-    this.degrees = Object.freeze(voicing.rootIntervals.map(i=>i.toDegree()) as DegreeArray);
+    this.degrees = Object.freeze(intervalSet.rootIntervals.map(i=>i.toDegree()) as DegreeArray);
   }
 
   [Symbol.iterator](): Iterator<Degree, any, any> {

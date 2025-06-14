@@ -8,7 +8,7 @@ export type WordsInput = {
   degreeFunc: string;
   degree: string;
   pitch: string;
-  voicing: string;
+  intervalSet: string;
   inversion: string;
   root: string;
   noteAlt: string;

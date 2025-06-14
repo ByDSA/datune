@@ -1,4 +1,4 @@
-import { Funcs as F, Degrees as D, Voicings as V, Intervals as I, Voicing, Degree } from "@datune/core/alt";
+import { Funcs as F, Degrees as D, IntervalSets as IS, Intervals as I, IntervalSet, Degree } from "@datune/core/alt";
 import { DegreeFunc } from "@datune/core/functions/alt/degree-function/DegreeFunc";
 
 // movimientos simples hardcodeados
@@ -71,7 +71,7 @@ function getCircleRight(func: typeof F.I): DegreeFunc {
   if (ret === undefined) {
     const degree: Degree = I.shift(func.baseDegree, I.P5).withCyclicOctave();
 
-    ret = F.fromDegreeVoicing(degree, func.voicing);
+    ret = F.fromDegreeIntervalSet(degree, func.intervalSet);
   }
 
   return ret as DegreeFunc;
@@ -92,16 +92,16 @@ function getRelative(func: typeof F.I): DegreeFunc {
   let ret = relativeMap.get(func);
 
   if (ret === undefined) {
-    const { voicing } = func;
+    const { intervalSet } = func;
 
-    if (voicing === V.TRIAD_MAJOR) {
+    if (intervalSet === IS.TRIAD_MAJOR) {
       const baseDegree: Degree = I.shiftDown(func.baseDegree, I.m3).withCyclicOctave();
 
-      ret = F.fromDegreeVoicing(baseDegree, V.TRIAD_MINOR);
-    } else if (voicing === V.TRIAD_MINOR) {
+      ret = F.fromDegreeIntervalSet(baseDegree, IS.TRIAD_MINOR);
+    } else if (intervalSet === IS.TRIAD_MINOR) {
       const baseDegree: Degree = I.shift(func.baseDegree, I.m3).withCyclicOctave();
 
-      ret = F.fromDegreeVoicing(baseDegree, V.TRIAD_MAJOR);
+      ret = F.fromDegreeIntervalSet(baseDegree, IS.TRIAD_MAJOR);
     }
 
     if (ret === undefined)
@@ -111,12 +111,12 @@ function getRelative(func: typeof F.I): DegreeFunc {
   return ret as DegreeFunc;
 }
 
-function withVoicing(func: DegreeFunc, voicing: Voicing): DegreeFunc {
+function withIntervalSet(func: DegreeFunc, intervalSet: IntervalSet): DegreeFunc {
   const { baseDegree } = func;
 
-  return F.fromDegreeVoicing(
+  return F.fromDegreeIntervalSet(
     baseDegree,
-    voicing,
+    intervalSet,
   );
 }
 
@@ -124,17 +124,17 @@ function getParallel(func: typeof F.I): DegreeFunc {
   let ret = parallelMap.get(func);
 
   if (ret === undefined) {
-    const { voicing } = func;
+    const { intervalSet } = func;
 
-    if (voicing === V.TRIAD_MAJOR) {
-      ret = withVoicing(
+    if (intervalSet === IS.TRIAD_MAJOR) {
+      ret = withIntervalSet(
         func,
-        V.TRIAD_MINOR,
+        IS.TRIAD_MINOR,
       );
-    } else if (voicing === V.TRIAD_MINOR) {
-      ret = withVoicing(
+    } else if (intervalSet === IS.TRIAD_MINOR) {
+      ret = withIntervalSet(
         func,
-        V.TRIAD_MAJOR,
+        IS.TRIAD_MAJOR,
       );
     }
 
@@ -148,7 +148,7 @@ function getParallel(func: typeof F.I): DegreeFunc {
 const allNeighborsMap = new Map<DegreeFunc, DegreeFunc[]>();
 
 export function getAllNeighbors(f: DegreeFunc): DegreeFunc[] {
-  const fReseted = F.fromDegreeVoicing(D.I, f.voicing);
+  const fReseted = F.fromDegreeIntervalSet(D.I, f.intervalSet);
   let retRelativeToI = allNeighborsMap.get(fReseted);
 
   if (retRelativeToI === undefined) {

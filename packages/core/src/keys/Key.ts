@@ -1,7 +1,7 @@
 import type { Scale } from "scales/Scale";
 import { NonEmptyArray } from "datils";
 import { OctavePitch } from "pitches/OctavePitch";
-import { IPitchSet } from "sets/pitch-set/IPitchSet";
+import { IPitchSet } from "sets/pitch-sets/IPitchSet";
 import { IFunc } from "functions/IFunc";
 import { SymbolicChord } from "../chords/octave/SymbolicChord";
 

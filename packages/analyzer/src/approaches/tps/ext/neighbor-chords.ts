@@ -1,4 +1,4 @@
-import { Chord, Degree, Func, Funcs, Intervals as I, Key, Keys, PitchSet, Scale, Scales, Voicing, Voicings } from "@datune/core/alt";
+import { Chord, Degree, Func, Funcs, Intervals as I, Key, Keys, PitchSet, Scale, Scales, IntervalSet, IntervalSets } from "@datune/core/alt";
 import { getId as getChordId } from "@datune/core/chords/octave/alt/caching/cache";
 import { getId as getKeyId } from "@datune/core/keys/alt/building/caching/cache";
 import { triadRootChord } from "@datune/core/keys/alt/modifiers";
@@ -32,8 +32,8 @@ export function getAllDiatonicChordsInRegion(key: Key): Set<FuncChord> {
   ].flatMap(f=> {
     return [
       f,
-      f.withVoicing(Voicings.TRIAD_MINOR),
-      f.withVoicing(Voicings.TRIAD_DIMINISHED),
+      f.withIntervalSet(IntervalSets.TRIAD_MINOR),
+      f.withIntervalSet(IntervalSets.TRIAD_DIMINISHED),
     ];
   } );
   const dominantSecondariesFuncs = key.pitches
@@ -72,10 +72,10 @@ function scaleHasDegrees(scale: Scale, ...degrees: Degree[]): boolean {
 }
 
 function scaleIsMajorOrMinor(scale: Scale): boolean {
-  if (scaleHasDegrees(scale, ...Voicings.TRIAD_MAJOR.rootIntervals))
+  if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MAJOR.rootIntervals))
     return true;
 
-  if (scaleHasDegrees(scale, ...Voicings.TRIAD_MINOR.rootIntervals))
+  if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MINOR.rootIntervals))
     return true;
 
   return false;
@@ -86,10 +86,10 @@ function keyIsMajorOrMinor(key: Key): boolean {
   return scaleIsMajorOrMinor(scale);
 }
 function chordIsMajorOrMinor(chord: Chord): boolean {
-  if (chord.hasRootIntervals(...Voicings.TRIAD_MAJOR.rootIntervals))
+  if (chord.hasRootIntervals(...IntervalSets.TRIAD_MAJOR.rootIntervals))
     return true;
 
-  if (chord.hasRootIntervals(...Voicings.TRIAD_MINOR.rootIntervals))
+  if (chord.hasRootIntervals(...IntervalSets.TRIAD_MINOR.rootIntervals))
     return true;
 
   return false;
@@ -344,24 +344,24 @@ function getChordKeyBaseFromFuncRegion(f: Func, region: Key): Key {
   scale = Scales.mode(region.scale, mode + 1);
 
   if (scale !== Scales.MAJOR && scale !== Scales.MINOR) {
-    if (scaleHasDegrees(scale, ...Voicings.TRIAD_MAJOR))
+    if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MAJOR))
       scale = Scales.MAJOR;
-    else if (scaleHasDegrees(scale, ...Voicings.TRIAD_MINOR))
+    else if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MINOR))
       scale = Scales.MINOR;
     else
-      scale = voicingToScale(degreeFunc.voicing);
+      scale = intervalSetToScale(degreeFunc.intervalSet);
   }
 
   return Keys.from(pitch, scale!);
 }
 
-function voicingToScale(voicing: Voicing): Scale {
+function intervalSetToScale(intervalSet: IntervalSet): Scale {
   const candidates = [Scales.MAJOR, Scales.MINOR];
 
   for (const c of candidates) {
-    if (scaleHasDegrees(c, ...voicing))
+    if (scaleHasDegrees(c, ...intervalSet))
       return c;
   }
 
-  throw new Error(`The voicing ${voicing} is not compatible with any scale.`);
+  throw new Error(`The intervalSet ${intervalSet} is not compatible with any scale.`);
 }

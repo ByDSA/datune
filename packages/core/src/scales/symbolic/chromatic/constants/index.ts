@@ -1,13 +1,13 @@
 /* eslint-disable camelcase */
 import type { Scale } from "../Scale";
 import { deepFreeze } from "datils/datatypes/objects";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import { fromDeltaIntervals, fromDegrees } from "../building";
 import { mode } from "../modifiers";
 import { MAJOR_SCALE_DEGREES } from "./majorScaleDegrees";
 
 export function initialize() {
-  if (MAJOR)
-    throw new Error("Already initialized");
+  assertNotInitialized(MAJOR);
 
   MAJOR = fromDegrees(...MAJOR_SCALE_DEGREES);
   MAJOR.toString = (): string => "Major";

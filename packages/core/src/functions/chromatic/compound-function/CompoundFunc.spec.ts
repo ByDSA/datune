@@ -2,7 +2,7 @@ import { Chords as C } from "chords/chromatic";
 import { Keys as K } from "keys/chromatic";
 import { Pitches as P } from "pitches/chromatic";
 import { Degrees as D } from "degrees/chromatic";
-import { Voicings as V } from "chromatic";
+import { IntervalSets as IS } from "chromatic";
 import { Funcs as F } from "..";
 import { compose } from "./building/compose";
 
@@ -66,12 +66,12 @@ describe.each([
   [V7_IV, K.C, C7],
   [V7_V, K.C, D7],
   [V7_VI, K.C, E7],
-  [F.SUBV7, K.C, C.fromRootVoicing(P.Db, V.SEVENTH)],
-  [SUBV7_II, K.C, C.fromRootVoicing(P.Eb, V.SEVENTH)],
-  [SUBV7_III, K.C, C.fromRootVoicing(P.F, V.SEVENTH)],
-  [SUBV7_IV, K.C, C.fromRootVoicing(P.Gb, V.SEVENTH)],
-  [SUBV7_V, K.C, C.fromRootVoicing(P.Ab, V.SEVENTH)],
-  [SUBV7_VI, K.C, C.fromRootVoicing(P.Bb, V.SEVENTH)],
+  [F.SUBV7, K.C, C.fromRootIntervalSet(P.Db, IS.SEVENTH)],
+  [SUBV7_II, K.C, C.fromRootIntervalSet(P.Eb, IS.SEVENTH)],
+  [SUBV7_III, K.C, C.fromRootIntervalSet(P.F, IS.SEVENTH)],
+  [SUBV7_IV, K.C, C.fromRootIntervalSet(P.Gb, IS.SEVENTH)],
+  [SUBV7_V, K.C, C.fromRootIntervalSet(P.Ab, IS.SEVENTH)],
+  [SUBV7_VI, K.C, C.fromRootIntervalSet(P.Bb, IS.SEVENTH)],
 ])("getChord", (func, key, expectedChord) => {
   it(`${String(func)} of ${key} = ${expectedChord}`, () => {
     const actual = func.getChord(key.root);

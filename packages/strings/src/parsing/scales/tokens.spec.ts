@@ -16,9 +16,9 @@ describe.each([
 ])("test tokens", (langId, str) => {
   it(`${langId}, "${str}"`, () => {
     const [token] = getLangTokens(langId);
-    const voicing = token.PATTERN as RegExp;
-    const exactVoicing = new RegExp(`^${voicing.source}$`, "i");
-    const actual = exactVoicing.test(str);
+    const intervalSet = token.PATTERN as RegExp;
+    const exactIntervalSet = new RegExp(`^${intervalSet.source}$`, "i");
+    const actual = exactIntervalSet.test(str);
 
     expect(actual).toBeTruthy();
   } );
@@ -33,9 +33,9 @@ describe.each([
 ])("no match", (langId, str) => {
   it(`${langId}, "${str}"`, () => {
     const [token] = getLangTokens(langId);
-    const voicing = token.PATTERN as RegExp;
-    const exactVoicing = new RegExp(`^${voicing.source}$`, "i");
-    const actual = exactVoicing.test(str);
+    const intervalSet = token.PATTERN as RegExp;
+    const exactIntervalSet = new RegExp(`^${intervalSet.source}$`, "i");
+    const actual = exactIntervalSet.test(str);
 
     expect(actual).toBeFalsy();
   } );

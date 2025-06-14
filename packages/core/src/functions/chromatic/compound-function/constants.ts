@@ -1,11 +1,11 @@
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import { Degrees as C } from "degrees/chromatic";
 import * as DegreeFuncs from "../degree-function/constants";
 import { compose } from "./building/compose";
 import { CompoundFunc } from "./CompoundFunc";
 
 export function initialize() {
-  if (V_V)
-    throw new Error("Already initialized");
+  assertNotInitialized(V_V);
 
   if (!DegreeFuncs.I)
     DegreeFuncs.initialize();

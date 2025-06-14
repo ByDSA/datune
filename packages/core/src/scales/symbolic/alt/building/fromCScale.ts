@@ -25,7 +25,7 @@ class ScaleAltConversor {
   private static sevenReparam(i: number, semis: number): ADegree {
     const diatonicDegree = DI.fromInt(i - 1);
 
-    return degree(I.fromDiatonicInterval(diatonicDegree, semis as ChromaticDegree));
+    return degree(I.from(diatonicDegree, semis as ChromaticDegree));
   }
 
   private static defaultReparam(_i: number, semis: number): ADegree {
@@ -75,7 +75,7 @@ class ScaleAltConversor {
       const iFixed: number = reparametrizer(i, distancesAcc).diatonicInterval.valueOf();
       const diatonicDegree = DI.fromInt(iFixed);
       const alts = calcAlts(distancesAcc, diatonicDegree);
-      const d: ADegree = degree(I.fromDiatonicInterval(diatonicDegree, alts));
+      const d: ADegree = degree(I.from(diatonicDegree, alts));
 
       degrees.push(d);
     }

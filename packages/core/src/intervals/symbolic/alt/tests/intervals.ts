@@ -1,6 +1,9 @@
 import { Interval } from "../Interval";
 
-export function expectIntervals(actual: Interval[] | null, expected: Interval[] | null) {
+export function expectIntervals(
+  actual: Interval[] | readonly Interval[] | null,
+  expected: Interval[] | null,
+) {
   try {
     expect(actual).toEqual(expected);
   } catch {

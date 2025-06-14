@@ -14,12 +14,12 @@ export * from "./pitches/chromatic";
 
 export * from "./scales/chromatic";
 
-export * from "./sets/pitch-set/chromatic";
+export * from "./sets/interval-sets/chromatic";
+
+export * from "./sets/pitch-sets/chromatic";
 
 export * from "./spns/chromatic";
 
 export * from "./temperaments/chromatic";
 
 export * from "./tunings/chromatic";
-
-export * from "./voicings/chromatic";

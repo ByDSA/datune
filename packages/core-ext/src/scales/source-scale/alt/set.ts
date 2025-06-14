@@ -1,13 +1,13 @@
 import type { Scale } from "@datune/core/scales/symbolic/alt/Scale";
 import { Scales as S } from "@datune/core/scales/symbolic/alt";
 import { freeze } from "datils/datatypes/objects";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import { cache } from "./cache";
 
 export let SOURCE_SCALES: Set<Scale>;
 
 export function initialize() {
-  if (SOURCE_SCALES)
-    throw new Error("Already initialized");
+  assertNotInitialized(SOURCE_SCALES);
 
   SOURCE_SCALES = new Set([
     S.MAJOR,

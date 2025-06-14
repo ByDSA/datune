@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 /* eslint-disable accessor-pairs */
 import { a11, a5, a9, b5, b9 } from "../../utils";
-import { ShortVoicingsInput } from "./Input";
-import { ShortVoicingsPart } from "./Part";
+import { ShortIntervalSetsInput } from "./Input";
+import { ShortIntervalSetsPart } from "./Part";
 
-export function shortVoicingsGenerate(input: ShortVoicingsInput): ShortVoicingsPart {
+export function shortIntervalSetsGenerate(input: ShortIntervalSetsInput): ShortIntervalSetsPart {
   return {
     get m2(): string { return `${input.MINOR}2`; },
     get M2(): string { return `${input.MAJOR}2`; },

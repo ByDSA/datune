@@ -3,7 +3,7 @@ import { createToken, TokenType } from "chevrotain";
 import { LangId } from "lang";
 
 function generateToken(langId: LangId) {
-  const pattern = generateVoicing(langId);
+  const pattern = generateIntervalSet(langId);
 
   return createToken( {
     name: "Pitch",
@@ -11,7 +11,7 @@ function generateToken(langId: LangId) {
   } );
 }
 
-function generateVoicing(langId: LangId): RegExp {
+function generateIntervalSet(langId: LangId): RegExp {
   switch (langId) {
     case LangId.ES:
       return /(do|re|mi|fa|sol|la|si)(b|#){0,3}/i;

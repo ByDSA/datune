@@ -1,11 +1,11 @@
 import type { MidiPitch } from "./MidiPitch";
 import { deepFreeze, freeze } from "datils/datatypes/objects";
 import { Spns as N } from "@datune/core";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import { from } from "./building";
 
 export function initialize() {
-  if (C0)
-    throw new Error("Already initialized");
+  assertNotInitialized(C0);
 
   C0 = deepFreeze(from(N.C_S1, 0));
   CC0 = deepFreeze(from(N.CC_S1, 0));

@@ -1,4 +1,4 @@
-export type VoicingsInput = {
+export type IntervalSetsInput = {
   ADD: string;
   SUS: string;
   MAJ: string;

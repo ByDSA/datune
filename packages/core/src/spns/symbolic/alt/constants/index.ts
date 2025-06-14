@@ -1,14 +1,14 @@
 import type { Spn } from "../Spn";
 import type { SpnArray } from "../Array";
 import { deepFreeze } from "datils/datatypes/objects";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import * as DP from "pitches/diatonic/constants";
 import * as P from "pitches/alt/constants";
 import { fromDPitchAlts } from "pitches/alt/building/diatonicAlts";
 import { fromPitchOctave } from "../building";
 
 export function initialize() {
-  if (C0)
-    throw new Error("Already initialized");
+  assertNotInitialized(C0);
 
   if (!P.C)
     P.initialize();

@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 /* eslint-disable accessor-pairs */
 import { a11, a5, a9, b5, b9 } from "../../utils";
-import { VoicingsInput } from "./Input";
-import { VoicingsPart } from "./Part";
+import { IntervalSetsInput } from "./Input";
+import { IntervalSetsPart } from "./Part";
 
-export function voicingsGenerate(input: VoicingsInput): VoicingsPart {
+export function intervalSetsGenerate(input: IntervalSetsInput): IntervalSetsPart {
   const utils = {
     get ADD6(): string { return `${input.ADD}6`; },
     get ADD9(): string { return `${input.ADD}9`; },

@@ -1,6 +1,6 @@
 import type { VoiceLeadingResult } from "../Result";
 import { SpnArray, Spn } from "@datune/core";
-import { Voicings as V } from "@datune/core";
+import { IntervalSets as IS } from "@datune/core";
 import { type Target } from "voice-leading/steps/Target";
 import { stringifyStepReasonInfo } from "voice-leading/generators/multiple/step-reason/StepReasonInfo";
 import { toChordMotionReasons } from "./chord-motion-reasons";
@@ -63,7 +63,7 @@ function sortingScoreFinal(hum: HumanizeResultRet[0]): number {
       else if (reasons.length === 1 && r.includes("Near"))
         nearCount++;
 
-      if (r.includes(V.TRITONE.toString()))
+      if (r.includes(IS.TRITONE.toString()))
         tritoneCount++;
     }
   }

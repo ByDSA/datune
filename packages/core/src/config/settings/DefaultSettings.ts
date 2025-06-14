@@ -9,7 +9,7 @@ import { Pitches as C, Pitch as CPitch } from "pitches/chromatic";
 import { Scales as AS, Scale as AScale } from "scales/alt";
 import { Temperaments, Temperament } from "temperaments/chromatic";
 import { Tunings, Tuning } from "tunings/chromatic";
-import { Voicings as AV, Voicing as AVoicing } from "voicings/alt";
+import { IntervalSets as AIS, IntervalSet as AIntervalSet } from "sets/interval-sets/alt";
 import { SettingsInterface } from "./types";
 
 export const DEFAULT_SETTINGS: SettingsInterface = {
@@ -21,7 +21,7 @@ export const DEFAULT_SETTINGS: SettingsInterface = {
     get keyAlt(): AKey { return AK.C; },
     get chord(): CChord { return CC.C; },
     get chordAlt(): AChord { return AC.C; },
-    get voicingAlt(): AVoicing { return AV.TRIAD_MAJOR; },
+    get intervalSetAlt(): AIntervalSet { return AIS.TRIAD_MAJOR; },
     get temperament(): Temperament { return Temperaments.ET12; },
     get tuning(): Tuning { return Tunings.EQUAL_440; },
     get concertPitch(): ConcertPitch { return ConcertPitches.A440; },

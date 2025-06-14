@@ -1,9 +1,9 @@
-import { Voicing } from "@datune/core/voicings/diatonic";
+import { IntervalSet } from "@datune/core/intervalSets/diatonic";
 
-export function stringifyVoicingShortName(obj: Voicing): string {
-  return stringifyVoicing(obj);
+export function stringifyIntervalSetShortName(obj: IntervalSet): string {
+  return stringifyIntervalSet(obj);
 }
 
-export function stringifyVoicing(obj: Voicing): string {
+export function stringifyIntervalSet(obj: IntervalSet): string {
   return obj.rootIntervalInts.toString();
 }

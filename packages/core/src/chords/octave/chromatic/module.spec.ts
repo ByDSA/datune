@@ -178,7 +178,7 @@ const functions: string[] = [
   Chords.fromKeyFunc.name,
   Chords.from.name,
   Chords.fromPitches.name,
-  Chords.fromRootVoicing.name,
+  Chords.fromRootIntervalSet.name,
   Chords.fromAltChord.name,
 
   // Modifiers
@@ -206,7 +206,7 @@ it("module should export functions and vars", async () => {
       "building/fromAltChord",
       "building/keyFunc",
       "building/pitches",
-      "building/rootVoicing",
+      "building/rootIntervalSet",
       "constants",
     ],
     // eslint-disable-next-line no-undef

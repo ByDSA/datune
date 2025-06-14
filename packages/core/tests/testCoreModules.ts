@@ -1,8 +1,8 @@
 /* eslint-disable accessor-pairs */
-import { Chords as CChords, Intervals as CIntervals, Pitches as CPitches, PitchSets as CPitchSets, Voicings as CVoicings } from "../src/chromatic";
+import { Chords as CChords, Intervals as CIntervals, Pitches as CPitches, PitchSets as CPitchSets, IntervalSets as CIntervalSets } from "../src/chromatic";
 import { Keys as CKeys } from "../src/keys/chromatic";
 import { Funcs as CFuncs } from "../src/functions/chromatic";
-import { Chords as AChords, Intervals as AIntervals, Pitches as APitches, PitchSets as APitchSets, Voicings as AVoicings } from "../src/alt";
+import { Chords as AChords, Intervals as AIntervals, Pitches as APitches, PitchSets as APitchSets, IntervalSets as AIntervalSets } from "../src/alt";
 import { Keys as AKeys } from "../src/keys/alt";
 import { Funcs as AFuncs } from "../src/functions/alt";
 
@@ -11,7 +11,7 @@ export type TestCoreModule = {
   Chords: typeof CChords;
   Pitches: typeof CPitches;
   PitchSets: typeof CPitchSets;
-  Voicings: typeof CVoicings;
+  IntervalSets: typeof CIntervalSets;
   Intervals: typeof CIntervals;
   Keys: typeof CKeys;
   Funcs: typeof CFuncs;
@@ -22,7 +22,7 @@ export const testCoreModules: TestCoreModule[] = [
     type: "Chromatic",
     get Chords() { return CChords; },
     Pitches: CPitches,
-    Voicings: CVoicings,
+    IntervalSets: CIntervalSets,
     Intervals: CIntervals,
     PitchSets: CPitchSets,
     get Keys() { return CKeys; },
@@ -32,7 +32,7 @@ export const testCoreModules: TestCoreModule[] = [
     type: "Alt",
     get Chords() { return AChords; },
     Pitches: APitches,
-    Voicings: AVoicings,
+    IntervalSets: AIntervalSets,
     Intervals: AIntervals,
     PitchSets: APitchSets,
     get Keys() { return AKeys; },

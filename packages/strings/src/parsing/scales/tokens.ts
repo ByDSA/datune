@@ -6,7 +6,7 @@ import { getName } from "strings/scales/chromatic/name";
 import { normalizeInputName } from "./normalizeNameInput";
 
 function generateToken(langId: LangId) {
-  const pattern = generateVoicing(langId);
+  const pattern = generateIntervalSet(langId);
 
   return createToken( {
     name: "Scale",
@@ -14,7 +14,7 @@ function generateToken(langId: LangId) {
   } );
 }
 
-function generateVoicing(langId: LangId): RegExp {
+function generateIntervalSet(langId: LangId): RegExp {
   const names: string[] = getAllNamesByLang(langId);
   const str = `(${names
     .map(normalizeInputName)

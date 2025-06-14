@@ -1,12 +1,12 @@
 import type { PitchArray } from "../Array";
 import type { Pitch } from "../Pitch";
 import { deepFreeze } from "datils/datatypes/objects";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import * as DP from "pitches/diatonic/constants";
 import { fromDPitchAlts } from "../building/diatonicAlts";
 
 export function initialize() {
-  if (C)
-    throw new Error("Already initialized");
+  assertNotInitialized(C);
 
   C = fromDPitchAlts(DP.C, 0);
   CC = fromDPitchAlts(DP.C, 1);

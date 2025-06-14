@@ -1,14 +1,14 @@
 /* eslint-disable func-names */
-import { Voicing, Chord, Scale, APitch, AChord, AScale, AVoicing, Pitch, ASpn, ConcertPitch, Key, Spn, Temperaments as TE, ADegree, AKey, AInterval } from "@datune/core";
-import { Voicing as DVoicing, Pitch as DPitch } from "@datune/core/diatonic";
+import { IntervalSet, Chord, Scale, APitch, AChord, AScale, AIntervalSet, Pitch, ASpn, ConcertPitch, Key, Spn, Temperaments as TE, ADegree, AKey, AInterval } from "@datune/core";
+import { IntervalSet as DIS, Pitch as DPitch } from "@datune/core/diatonic";
 import { DegreeFunc } from "@datune/core/functions/chromatic/degree-function/DegreeFunc";
 import { DegreeFunc as ADegreeFunc } from "@datune/core/functions/alt/degree-function/DegreeFunc";
 import { CompoundFunc } from "@datune/core/functions/chromatic/compound-function/CompoundFunc";
 import { CompoundFunc as ACompoundFunc } from "@datune/core/functions/alt/compound-function/CompoundFunc";
 import { PitchSet } from "@datune/core/sets/pitch-set/chromatic/PitchSet";
-import { stringifyVoicing as stringifyAVoicing, stringifyChord as stringifyAChord, stringifyScale as stringifyAScale, stringifyPitch as stringifyAPitch, stringifySpn as stringifyASpn, stringifyDegree as stringifyADegree, stringifyKey as stringifyAKey, stringifyInterval as stringifyAInterval } from "alt";
-import { stringifyVoicing as stringifyDVoicing, stringifyPitch as stringifyDPitch } from "diatonic";
-import { stringifyChord, stringifyConcertPitch, stringifyKey, stringifyPitch, stringifyScale, stringifyVoicing, stringifySpn, stringifyTemperament } from "chromatic";
+import { stringifyIntervalSet as stringifyAIntervalSet, stringifyChord as stringifyAChord, stringifyScale as stringifyAScale, stringifyPitch as stringifyAPitch, stringifySpn as stringifyASpn, stringifyDegree as stringifyADegree, stringifyKey as stringifyAKey, stringifyInterval as stringifyAInterval } from "alt";
+import { stringifyIntervalSet as stringifyDIntervalSet, stringifyPitch as stringifyDPitch } from "diatonic";
+import { stringifyChord, stringifyConcertPitch, stringifyKey, stringifyPitch, stringifyScale, stringifyIntervalSet, stringifySpn, stringifyTemperament } from "chromatic";
 import { LangId } from "lang";
 import { stringifyDegreeFunc } from "./functions/chromatic/degree-function";
 import { stringifyCompoundFunc } from "./functions/chromatic/compound-function";
@@ -32,8 +32,8 @@ function useStringifyDiatonic(langId: LangId) {
       langId,
     } ) as any;
   };
-  DVoicing.prototype.toString = function () {
-    return stringifyDVoicing(this);
+  DIS.prototype.toString = function () {
+    return stringifyDIntervalSet(this);
   };
 }
 
@@ -84,8 +84,8 @@ function useStringifyChromatic(langId: LangId) {
     };
   }
 
-  Voicing.prototype.toString = function () {
-    return stringifyVoicing(this);
+  IntervalSet.prototype.toString = function () {
+    return stringifyIntervalSet(this);
   };
 }
 
@@ -125,8 +125,8 @@ function useStringifyAlt(langId: LangId) {
       langId,
     } );
   };
-  AVoicing.prototype.toString = function () {
-    return stringifyAVoicing(this, {
+  AIntervalSet.prototype.toString = function () {
+    return stringifyAIntervalSet(this, {
       langId,
     } );
   };

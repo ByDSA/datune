@@ -1,11 +1,11 @@
 export {
-  shortVoicingsGenerate,
+  shortIntervalSetsGenerate,
 } from "./generate";
 
 export {
-  ShortVoicingsInput,
+  ShortIntervalSetsInput,
 } from "./Input";
 
 export {
-  ShortVoicingsPart,
+  ShortIntervalSetsPart,
 } from "./Part";

@@ -8,7 +8,7 @@ const functions: string[] = [
   StepsGen.multiple.name,
   StepsGen.toKeyResolution.name,
   StepsGen.toNear.name,
-  StepsGen.toVoicingResolution.name,
+  StepsGen.toIntervalSetResolution.name,
 ];
 
 it("module should export functions and vars", async () => {
@@ -20,7 +20,7 @@ it("module should export functions and vars", async () => {
     barrel: StepsGen,
     modules: [
       "./near/generate",
-      "./voicing-resolution/generate",
+      "./interval-set-resolution/generate",
       "./key-resolution/generate",
       "./multiple/generate",
       "./processors",

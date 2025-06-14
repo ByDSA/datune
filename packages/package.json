@@ -14,10 +14,10 @@
     "build:all": "bin/build-all.sh",
     "check": "bin/check.mjs",
     "check:all": "bin/check-all.sh",
-    "install:all": "bin/install-all.sh",
     "lint": "bin/lint.mjs",
     "lint:all": "bin/lint-all.mjs",
     "prepare": "cd .. && husky packages/.husky",
+    "reinstall:all": "bin/reinstall-all.sh",
     "test:all": "bin/test-all.sh"
   },
   "dependencies": {

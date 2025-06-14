@@ -1,10 +1,10 @@
 import type { MusicalDuration } from "./MusicalDuration";
 import { freeze } from "datils/datatypes/objects";
+import { assertNotInitialized } from "@datune/utils/errors/not-initialized";
 import { from } from "./building/from";
 
 export function initialize() {
-  if (QUARTER)
-    throw new Error("Already initialized");
+  assertNotInitialized(QUARTER);
 
   MAXIMA = from(8);
   LONGA = from(4);

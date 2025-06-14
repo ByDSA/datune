@@ -2,7 +2,7 @@
 /* eslint-disable camelcase */
 import { Chords } from "@datune/core/chords/alt";
 import { Pitches as P } from "@datune/core/pitches/alt";
-import { Voicings } from "@datune/core/voicings/alt";
+import { IntervalSets } from "@datune/core/intervalSets/alt";
 import { bass } from "@datune/core/chords/octave/alt/modifiers";
 import { LangId } from "lang";
 import { stringifyPitches } from "strings/pitches/alt/array";
@@ -11,16 +11,16 @@ import { stringifyChord } from ".";
 
 TestLang.loadAll();
 
-const { SEVENTH, THIRTEENTH_b5a9, TRIAD_AUGMENTED } = Voicings;
-const { C, Cm, C7, CMaj7, CmMaj7, Csus4, Dm7, fromRootVoicing, Fsus2, inv } = Chords;
+const { SEVENTH, THIRTEENTH_b5a9, TRIAD_AUGMENTED } = IntervalSets;
+const { C, Cm, C7, CMaj7, CmMaj7, Csus4, Dm7, fromRootIntervalSet, Fsus2, inv } = Chords;
 
 describe.each([
   [LangId.EN, C, "C"],
   [LangId.EN, inv(C), "C/E"],
   [LangId.EN, C7, "C7"],
-  [LangId.EN, fromRootVoicing(P.C, TRIAD_AUGMENTED), "C+"],
-  [LangId.EN, inv(fromRootVoicing(P.C, TRIAD_AUGMENTED)), "C+/E"],
-  [LangId.EN, fromRootVoicing(P.BBB, SEVENTH), "B♯♯7"],
+  [LangId.EN, fromRootIntervalSet(P.C, TRIAD_AUGMENTED), "C+"],
+  [LangId.EN, inv(fromRootIntervalSet(P.C, TRIAD_AUGMENTED)), "C+/E"],
+  [LangId.EN, fromRootIntervalSet(P.BBB, SEVENTH), "B♯♯7"],
   [LangId.EN, CMaj7, "CMaj7"],
   [LangId.EN, CmMaj7, "CmMaj7"],
   [LangId.EN, inv(C, 2), "C/G"],
@@ -44,7 +44,7 @@ describe.each([
   [LangId.EN, bass(Cm, P.FF), "Cm/F♯"],
   [LangId.EN, bass(Cm, P.Bb), "Cm/B♭"],
   [LangId.EN, Dm7, "Dm7"],
-  [LangId.EN, inv(fromRootVoicing(P.C, THIRTEENTH_b5a9), 2), "C13♭5♯9/G♭"],
+  [LangId.EN, inv(fromRootIntervalSet(P.C, THIRTEENTH_b5a9), 2), "C13♭5♯9/G♭"],
   [LangId.EN, Chords.fromPitches(P.C, P.E, P.G, P.C), "C"],
   [LangId.EN, Chords.fromPitches(P.G, P.C, P.E, P.G), "C/G"],
   [LangId.EN, Chords.fromPitches(P.C, P.CC, P.DD), "C(1,♯1,♯2)"],

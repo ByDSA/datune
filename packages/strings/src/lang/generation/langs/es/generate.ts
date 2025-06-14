@@ -8,11 +8,11 @@ export function generateEs(): Language {
     name: "Castellano",
     base: INPUT_ES,
     customGenerators: {
-      voicings: {
-        m2: `${INPUT_ES.voicings.SECOND} ${INPUT_ES.voicings.MINOR}`,
-        M2: `${INPUT_ES.voicings.SECOND} ${INPUT_ES.voicings.MAJOR}`,
-        m3: `${INPUT_ES.voicings.THIRD} ${INPUT_ES.voicings.MINOR}`,
-        M3: `${INPUT_ES.voicings.THIRD} ${INPUT_ES.voicings.MAJOR}`,
+      intervalSets: {
+        m2: `${INPUT_ES.intervalSets.SECOND} ${INPUT_ES.intervalSets.MINOR}`,
+        M2: `${INPUT_ES.intervalSets.SECOND} ${INPUT_ES.intervalSets.MAJOR}`,
+        m3: `${INPUT_ES.intervalSets.THIRD} ${INPUT_ES.intervalSets.MINOR}`,
+        M3: `${INPUT_ES.intervalSets.THIRD} ${INPUT_ES.intervalSets.MAJOR}`,
       },
     },
   } );

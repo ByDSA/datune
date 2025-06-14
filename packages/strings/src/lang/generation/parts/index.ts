@@ -15,16 +15,16 @@ export {
 } from "./scales";
 
 export {
-  ShortVoicingsInput, ShortVoicingsPart,
-} from "./shortVoicings";
+  ShortIntervalSetsInput, ShortIntervalSetsPart,
+} from "./shortIntervalSets";
 
 export {
   TemperamentsInput, TemperamentsPart,
 } from "./temperaments";
 
 export {
-  VoicingsInput, VoicingsPart,
-} from "./voicings";
+  IntervalSetsInput, IntervalSetsPart,
+} from "./intervalSets";
 
 export {
   WordsInput, WordsPart,

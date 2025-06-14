@@ -1,6 +1,6 @@
 import { TimelineNode } from "@datune/utils";
 import { Interval, intervalBetween, IntervalBound } from "datils/math/intervals";
-import { Key, Keys, Scales, SpnArray, Voicings } from "@datune/core";
+import { Key, Keys, Scales, SpnArray, IntervalSets } from "@datune/core";
 import { MidiNote, MidiTimelineNode } from "@datune/midi";
 import { SingleStepArray, VoiceLeadings } from "@datune/core-ext/voice-leading";
 import { rootChord3 } from "@datune/core/keys/chromatic/modifiers";
@@ -217,14 +217,14 @@ export class WindowProcess {
     this.analyzer.listenerState.tonal.rootChord = chord;
     this.analyzer.log("Updated rootChord to " + this.analyzer.listenerState.tonal.rootChord);
 
-    const voicing = chord.toRootVoicing();
+    const intervalSet = chord.toRootIntervalSet();
     let newKey: Key | undefined = undefined;
 
-    switch (voicing) {
-      case Voicings.TRIAD_MAJOR:
+    switch (intervalSet) {
+      case IntervalSets.TRIAD_MAJOR:
         newKey = Keys.from(chord.root, Scales.MAJOR);
         break;
-      case Voicings.TRIAD_MINOR:
+      case IntervalSets.TRIAD_MINOR:
         newKey = Keys.from(chord.root, Scales.MINOR);
         break;
     }

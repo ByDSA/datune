@@ -19,7 +19,7 @@ import { Interval } from "./Interval";
 import * as QualityBuilding from "./quality/building";
 import * as QualityConstants from "./quality/constants";
 import * as QualityConversions from "./quality/conversions";
-import { fromDiatonicInterval } from "./building/fromDInterval";
+import { from } from "./building/fromDIntervalAlts";
 import { fromChromaticInterval } from "./building/fromCInterval";
 
 const qualityModStatic = {
@@ -35,7 +35,7 @@ type LazyType = Omit<typeof Constants, "initialize"> & {
   betweenNext: typeof betweenNext;
   fromIntervalQuality: typeof fromIntervalQuality;
   fromIntervals: typeof fromIntervals;
-  fromDiatonicInterval: typeof fromDiatonicInterval;
+  from: typeof from;
   fromChromaticInterval: typeof fromChromaticInterval;
   abs: typeof abs;
   shift: typeof shift;
@@ -55,8 +55,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
     "building/betweenNext",
     "building/intervalQuality",
     "building/intervals",
-    "building/fromCInterval",
-    "building/fromDInterval",
+    "building",
     {
       path: "constants",
       omit: ["initialize"],

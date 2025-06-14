@@ -1,7 +1,7 @@
 import type { Pitch } from "pitches/chromatic";
 import { Pitches as P } from "pitches/chromatic";
 import { Scales as S } from "scales/chromatic";
-import { PitchSets as PS } from "sets/pitch-set/chromatic";
+import { PitchSets as PS } from "sets/pitch-sets/chromatic";
 import { from } from "./building";
 import { Keys as K } from ".";
 

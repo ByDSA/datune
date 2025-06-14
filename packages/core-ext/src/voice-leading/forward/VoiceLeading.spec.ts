@@ -3,10 +3,10 @@ import { Keys as K } from "@datune/core/keys/chromatic";
 import { Pitches as P, PitchArray } from "@datune/core/pitches/chromatic";
 import { Chords as C } from "@datune/core/chords/chromatic";
 import { SpnArray, Spns as N } from "@datune/core/spns/chromatic";
-import { VoicingArray, Voicings as V } from "@datune/core/voicings/chromatic";
-import { getAllInversions } from "@datune/core/voicings/relative/chromatic/utils";
+import { IntervalSetArray, IntervalSets as IS } from "@datune/core/chromatic";
+import { getAllInversions } from "@datune/core/sets/interval-sets/chromatic/utils";
 import { TestInit } from "tests";
-import { createHasSomeVoicingFilter } from "voice-leading/appliers/processors/filters";
+import { createHasSomeIntervalSetFilter } from "voice-leading/appliers/processors/filters";
 import { VoiceLeadings as VL } from "voice-leading";
 import { generate } from "./VoiceLeading";
 import { expectTargets, removeDuplicatedSpnArrays } from "./tests/targets";
@@ -15,9 +15,9 @@ TestInit.loadAll();
 const { triadRootChord, seventhRootChord } = K;
 const { A5, B4, C5, C6, D5, E5, F5, G5, GG5 } = N;
 // eslint-disable-next-line max-len, @typescript-eslint/naming-convention
-const { COMMON_TRIADS, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_MINOR_a5, SEVENTH_MINOR_b5, SEVENTH_SUS4, SIXTH_MINOR, TRIADS_MAJOR_MINOR, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = V;
-const TRIADS_MAJOR_MINOR_ARRAY = [...TRIADS_MAJOR_MINOR] as VoicingArray;
-const COMMON_TRIADS_ARRAY = [...COMMON_TRIADS] as VoicingArray;
+const { COMMON_TRIADS, SEVENTH, SEVENTH_MAJ7, SEVENTH_MAJ7_b5, SEVENTH_MINOR, SEVENTH_MINOR_a5, SEVENTH_MINOR_b5, SEVENTH_SUS4, SIXTH_MINOR, TRIADS_MAJOR_MINOR, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = IS;
+const TRIADS_MAJOR_MINOR_ARRAY = [...TRIADS_MAJOR_MINOR] as IntervalSetArray;
+const COMMON_TRIADS_ARRAY = [...COMMON_TRIADS] as IntervalSetArray;
 
 it("voice leading C (default=near)", () => {
   const base: SpnArray = [C5, E5, G5];
@@ -56,11 +56,11 @@ it("voice leading C (near off) should be empty", () => {
 
 it("c near Key.C", () => {
   const base: SpnArray = [C5, E5, G5];
-  const voicings = [
+  const intervalSets = [
     ...getAllInversions(TRIAD_MAJOR),
     ...getAllInversions(TRIAD_MINOR),
     TRIAD_DIMINISHED,
-  ] as VoicingArray;
+  ] as IntervalSetArray;
   const result = generate(base, {
     multipleGenConfig: {
       filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
@@ -68,7 +68,7 @@ it("c near Key.C", () => {
     combinationApplierConfig: {
       voiceOverlapping: true,
       afterFilters: [
-        createHasSomeVoicingFilter(...voicings),
+        createHasSomeIntervalSetFilter(...intervalSets),
       ],
     },
   } );
@@ -88,13 +88,13 @@ it("csus4 resolution no key", () => {
   const base: SpnArray = [C5, F5, G5];
   const result = generate(base, {
     multipleGenConfig: {
-      voicingResolution: {
+      intervalSetResolution: {
         required: true,
       },
     },
     combinationApplierConfig: {
       afterFilters: [
-        createHasSomeVoicingFilter(...TRIADS_MAJOR_MINOR_ARRAY),
+        createHasSomeIntervalSetFilter(...TRIADS_MAJOR_MINOR_ARRAY),
       ],
     },
   } );
@@ -119,13 +119,13 @@ it("csus4 resolution in C", () => {
   const result = generate(base, {
     multipleGenConfig: {
       filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
-      voicingResolution: {
+      intervalSetResolution: {
         required: true,
       },
     },
     combinationApplierConfig: {
       afterFilters: [
-        createHasSomeVoicingFilter(...COMMON_TRIADS_ARRAY),
+        createHasSomeIntervalSetFilter(...COMMON_TRIADS_ARRAY),
       ],
     },
   } );
@@ -141,20 +141,20 @@ it("csus4 resolution in C", () => {
 
 it("bº resolution", () => {
   const base: SpnArray = [B4, D5, F5];
-  const voicings: VoicingArray = [
+  const intervalSets: IntervalSetArray = [
     ...getAllInversions(TRIAD_MAJOR),
     ...getAllInversions(TRIAD_MINOR),
   ];
   const result = generate(base, {
     multipleGenConfig: {
       maxInterval: 3,
-      voicingResolution: {
+      intervalSetResolution: {
         required: true,
       },
     },
     combinationApplierConfig: {
       afterFilters: [
-        createHasSomeVoicingFilter(...voicings),
+        createHasSomeIntervalSetFilter(...intervalSets),
       ],
     },
   } );
@@ -178,13 +178,13 @@ it("c+ resolution", () => {
   const base: SpnArray = [C5, E5, GG5];
   const result = generate(base, {
     multipleGenConfig: {
-      voicingResolution: {
+      intervalSetResolution: {
         required: true,
       },
     },
     combinationApplierConfig: {
       afterFilters: [
-        createHasSomeVoicingFilter(...TRIADS_MAJOR_MINOR_ARRAY),
+        createHasSomeIntervalSetFilter(...TRIADS_MAJOR_MINOR_ARRAY),
       ],
     },
   } );
@@ -223,13 +223,13 @@ it("bº resolution in Key C", () => {
   const result = generate(base, {
     multipleGenConfig: {
       filters: [VL.StepsGen.processors.createAllowedPitchesFilter(base, K.C.pitches as PitchArray)],
-      voicingResolution: {
+      intervalSetResolution: {
         required: true,
       },
     },
     combinationApplierConfig: {
       afterFilters: [
-        createHasSomeVoicingFilter(...COMMON_TRIADS_ARRAY),
+        createHasSomeIntervalSetFilter(...COMMON_TRIADS_ARRAY),
       ],
     },
   } );
@@ -260,7 +260,7 @@ it("dm resolution in Key C (resting=root3) common triads", () => {
       voiceCrossing: true,
       voiceOverlapping: true,
       afterFilters: [
-        createHasSomeVoicingFilter(...COMMON_TRIADS_ARRAY),
+        createHasSomeIntervalSetFilter(...COMMON_TRIADS_ARRAY),
       ],
     },
   } );
@@ -356,7 +356,7 @@ it("dm resolution in Key C (resting=root3) triads major minor", () => {
     },
     combinationApplierConfig: {
       afterFilters: [
-        createHasSomeVoicingFilter(...TRIADS_MAJOR_MINOR_ARRAY),
+        createHasSomeIntervalSetFilter(...TRIADS_MAJOR_MINOR_ARRAY),
       ],
     },
   } );
@@ -385,7 +385,7 @@ it("dm resolution in Key C (resting=root4)", () => {
     },
     combinationApplierConfig: {
       afterFilters: [
-        createHasSomeVoicingFilter(...TRIADS_MAJOR_MINOR_ARRAY),
+        createHasSomeIntervalSetFilter(...TRIADS_MAJOR_MINOR_ARRAY),
       ],
     },
   } );
@@ -404,7 +404,7 @@ it("dm7 resolution in Key C (resting=root4 required, near=true)", () => {
   const base: SpnArray = [D5, F5, A5, C6];
   const rootChord = seventhRootChord(K.C);
   const restingPitches: PitchArray = rootChord?.pitches as PitchArray;
-  const voicings: VoicingArray = [
+  const intervalSets: IntervalSetArray = [
     ...getAllInversions(SEVENTH),
     ...getAllInversions(SEVENTH_SUS4),
     ...getAllInversions(SEVENTH_MINOR),
@@ -428,7 +428,7 @@ it("dm7 resolution in Key C (resting=root4 required, near=true)", () => {
     },
     combinationApplierConfig: {
       afterFilters: [
-        createHasSomeVoicingFilter(...voicings),
+        createHasSomeIntervalSetFilter(...intervalSets),
       ],
     },
   } );
@@ -439,15 +439,15 @@ it("dm7 resolution in Key C (resting=root4 required, near=true)", () => {
     C.FMaj7.withInv(3),
     C.Em7,
     C.Em7.withInv(3),
-    C.fromRootVoicing(P.E, SEVENTH_SUS4).withInv(3),
-    C.fromRootVoicing(P.B, SEVENTH_MINOR_a5).withInv(), // D6sus4
+    C.fromRootIntervalSet(P.E, SEVENTH_SUS4).withInv(3),
+    C.fromRootIntervalSet(P.B, SEVENTH_MINOR_a5).withInv(), // D6sus4
     C.G7.withInv(2),
-    C.fromRootVoicing(P.D, SIXTH_MINOR), // Bm7b5/D
-    C.fromRootVoicing(P.A, SEVENTH_SUS4).withInv(2),
-    C.fromRootVoicing(P.F, SEVENTH_MAJ7_b5).withInv(3),
-    C.fromRootVoicing(P.E, SEVENTH_MINOR_a5).withInv(3),
-    C.fromRootVoicing(P.D, SEVENTH_SUS4),
-    C.fromRootVoicing(P.G, SEVENTH_SUS4).withInv(2),
+    C.fromRootIntervalSet(P.D, SIXTH_MINOR), // Bm7b5/D
+    C.fromRootIntervalSet(P.A, SEVENTH_SUS4).withInv(2),
+    C.fromRootIntervalSet(P.F, SEVENTH_MAJ7_b5).withInv(3),
+    C.fromRootIntervalSet(P.E, SEVENTH_MINOR_a5).withInv(3),
+    C.fromRootIntervalSet(P.D, SEVENTH_SUS4),
+    C.fromRootIntervalSet(P.G, SEVENTH_SUS4).withInv(2),
   ].map(c=>c.pitchSet);
 
   expectTargets(result.targets).toEqualPitchSets(expected);
@@ -484,7 +484,7 @@ it("chord G7 resolution in C Major Key (near=false)", () => {
     },
     combinationApplierConfig: {
       afterFilters: [
-        VL.Appliers.processors.createDisallowInnerVoicingsFilter(V.M2, V.m2),
+        VL.Appliers.processors.createDisallowInnerIntervalSetsFilter(IS.M2, IS.m2),
       ],
     },
   } );
@@ -510,7 +510,13 @@ it("chord G7 (near=true, keyResolution=C, requireAnyResolution=true)", () => {
     },
     combinationApplierConfig: {
       afterFilters: [
-        VL.Appliers.processors.createDisallowInnerVoicingsFilter(V.M2, V.m2, V.TRITONE, V.M7, V.m7),
+        VL.Appliers.processors.createDisallowInnerIntervalSetsFilter(
+          IS.M2,
+          IS.m2,
+          IS.TRITONE,
+          IS.M7,
+          IS.m7,
+        ),
       ],
     },
   } );

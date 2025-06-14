@@ -146,7 +146,7 @@ it("disableResolutions - DIM in notes: G3, B3, D4, F4", () => {
     near: {
       enabled: false,
     },
-    voicingResolution: {
+    intervalSetResolution: {
       enabled: false,
     },
   } );
@@ -163,7 +163,7 @@ it("notes=[F4] C Major Key Resolution", () => {
     near: {
       enabled: false,
     },
-    voicingResolution: {
+    intervalSetResolution: {
       enabled: false,
     },
     keyResolution: {

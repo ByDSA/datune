@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 /* eslint-disable accessor-pairs */
 import { Input } from "../..";
-import { DiatonicsInput, ScalesInput, TemperamentsInput, VoicingsInput } from "../../parts";
+import { DiatonicsInput, ScalesInput, TemperamentsInput, IntervalSetsInput } from "../../parts";
 import { INPUT_EN } from "../en/Input";
 
-const voicings: VoicingsInput = {
+const intervalSets: IntervalSetsInput = {
   ADD: "ADD",
   TRITONE: "TRITONO",
   POWER_CHORD: "POWER CHORD",
@@ -81,7 +81,7 @@ const scales: ScalesInput = {
 
   BEBOP_MAJOR: "MAYOR BEBOP",
 };
-const { shortVoicings } = INPUT_EN;
+const { shortIntervalSets } = INPUT_EN;
 const temperaments: TemperamentsInput = {
   ...INPUT_EN.temperaments,
   ET12: "T. Igual 12",
@@ -97,7 +97,7 @@ const words = {
   get degreeFunc(): string { return "función tonal"; },
   get degree(): string { return "grado"; },
   get pitch(): string { return "pitch"; },
-  get voicing(): string { return "patrón"; },
+  get intervalSet(): string { return "patrón"; },
   get inversion(): string { return "inversión"; },
   get root(): string { return "raíz"; },
   get noteAlt(): string { return "nota diatónica alterada"; },
@@ -114,9 +114,9 @@ const qualities = {
 };
 
 export const INPUT_ES: Input = {
-  voicings,
+  intervalSets,
   diatonics,
-  shortVoicings,
+  shortIntervalSets,
   scales,
   temperaments,
   words,

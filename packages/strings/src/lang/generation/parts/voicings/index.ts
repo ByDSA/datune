@@ -1,11 +1,11 @@
 export {
-  voicingsGenerate,
+  intervalSetsGenerate,
 } from "./generate";
 
 export {
-  VoicingsInput,
+  IntervalSetsInput,
 } from "./Input";
 
 export {
-  VoicingsPart,
+  IntervalSetsPart,
 } from "./Part";

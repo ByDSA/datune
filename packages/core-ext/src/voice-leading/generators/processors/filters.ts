@@ -3,7 +3,10 @@ import type { PitchArray, SpnArray } from "@datune/core";
 
 export type StepFilter = (step: Step)=> boolean;
 
-export function createAllowedPitchesFilter(base: SpnArray, pitches: PitchArray): StepFilter {
+export function createAllowedPitchesFilter(
+  base: SpnArray,
+  pitches: Readonly<PitchArray>,
+): StepFilter {
   return (step: Step) => {
     const target = [...base];
 

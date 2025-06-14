@@ -1,10 +1,10 @@
+import { IntervalSets as IS } from "sets/interval-sets/chromatic";
 import { Chord, Chords } from "chords/chromatic";
-import { Voicings } from "voicings/chromatic";
 import { Key } from "../Key";
 
 export function triadRootChord(obj: Key): Chord | null {
-  const { inv, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = Voicings;
-  const voicingPriority = [
+  const { inv, TRIAD_AUGMENTED, TRIAD_DIMINISHED, TRIAD_MAJOR, TRIAD_MINOR } = IS;
+  const intervalSetPriority = [
     TRIAD_MAJOR,
     TRIAD_MINOR,
     TRIAD_DIMINISHED,
@@ -12,13 +12,13 @@ export function triadRootChord(obj: Key): Chord | null {
   ];
 
   for (let i = 0; i < 3; i++) {
-    for (const voicing of voicingPriority) {
-      let voicingInv = voicing;
+    for (const intervalSet of intervalSetPriority) {
+      let intervalSetInv = intervalSet;
 
       if (i > 0)
-        voicingInv = inv(voicingInv, i);
+        intervalSetInv = inv(intervalSetInv, i);
 
-      const chord = Chords.fromRootVoicing(obj.root, voicingInv);
+      const chord = Chords.fromRootIntervalSet(obj.root, intervalSetInv);
 
       if (obj.hasChord(chord))
         return chord;

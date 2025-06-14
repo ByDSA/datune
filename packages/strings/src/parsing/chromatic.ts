@@ -8,4 +8,4 @@ export * from "./pitches/chromatic";
 
 export * from "./scales/chromatic";
 
-export * from "./voicings/chromatic";
+export * from "./intervalSets/chromatic";

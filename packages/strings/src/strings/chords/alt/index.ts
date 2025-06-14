@@ -1,42 +1,42 @@
 import { cyclicMod } from "datils/math";
 import { Chord } from "@datune/core/chords/alt";
 import { Pitch } from "@datune/core/pitches/alt";
-import { inv } from "@datune/core/voicings/relative/alt/modifiers/inv";
-import { getNumInversionOf } from "@datune/core/voicings/relative/alt/constants/inversionMap";
-import { Voicing, Voicings as V, PitchArray, Interval } from "@datune/core/alt";
+import { inv } from "@datune/core/intervalSets/relative/alt/modifiers/inv";
+import { getNumInversionOf } from "@datune/core/intervalSets/relative/alt/constants/inversionMap";
+import { IntervalSet, IntervalSets as IS, PitchArray, Interval } from "@datune/core/alt";
 import { fromPitches } from "@datune/core/chords/octave/alt/building";
 import { fromInterval } from "@datune/core/degrees/alt/building";
+import { stringifyShortName, stringifyShortNameLang } from "strings/intervalSets/alt/shortName";
 import { Options } from "lang/Options";
 import { stringifyPitch } from "strings/pitches/alt";
-import { stringifyShortName, stringifyShortNameLang } from "strings/voicings/alt/shortName";
 
 export function stringifyChord(chord: Chord, options?: Options): string {
   const simplifiedChord = removeRepeatedPitches(chord);
-  const voicing = simplifiedChord.toVoicing();
+  const intervalSet = simplifiedChord.toIntervalSet();
 
-  if (!voicing)
+  if (!intervalSet)
     return getDefaultName(simplifiedChord, options);
 
-  const custom = customStringify(simplifiedChord, voicing);
+  const custom = customStringify(simplifiedChord, intervalSet);
 
   if (custom)
     return custom;
 
-  const inversion = getNumInversionOf(voicing);
-  const invVoicing = inv(voicing, -inversion);
+  const inversion = getNumInversionOf(intervalSet);
+  const invIntervalSet = inv(intervalSet, -inversion);
   const rootPosition = cyclicMod(-inversion, simplifiedChord.length);
   const rootName = stringifyPitch(simplifiedChord.pitches[rootPosition], options);
-  let invVoicingShortName = stringifyShortNameLang(invVoicing);
+  let invIntervalSetShortName = stringifyShortNameLang(invIntervalSet);
 
-  if (invVoicingShortName === null)
-    invVoicingShortName = `(${invVoicing.rootIntervals.map(intervalToRoman)})`;
+  if (invIntervalSetShortName === null)
+    invIntervalSetShortName = `(${invIntervalSet.rootIntervals.map(intervalToRoman)})`;
 
   let inversionName = "";
 
   if (inversion !== 0)
     inversionName = getInversionName(simplifiedChord, options);
 
-  return rootName + invVoicingShortName + inversionName;
+  return rootName + invIntervalSetShortName + inversionName;
 }
 
 function removeRepeatedPitches(chord: Chord): Chord {
@@ -66,31 +66,31 @@ function getInversionName(chord: Chord, options?: Options): string {
   return str;
 }
 
-let MAJOR_OVERS: Set<Voicing>;
-let MINOR_OVERS: Set<Voicing>;
+let MAJOR_OVERS: Set<IntervalSet>;
+let MINOR_OVERS: Set<IntervalSet>;
 
-function customStringify(chord: Chord, voicing: Voicing): string | null {
+function customStringify(chord: Chord, intervalSet: IntervalSet): string | null {
   if (!MAJOR_OVERS) {
     MAJOR_OVERS = new Set([
-      V.MAJOR_OVER_M2, V.MAJOR_OVER_m2,
-      V.MAJOR_OVER_m3, V.MAJOR_OVER_P4, V.MAJOR_OVER_a4, V.MAJOR_OVER_d5,
-      V.MAJOR_OVER_m6, V.MAJOR_OVER_a5,
+      IS.MAJOR_OVER_M2, IS.MAJOR_OVER_m2,
+      IS.MAJOR_OVER_m3, IS.MAJOR_OVER_P4, IS.MAJOR_OVER_a4, IS.MAJOR_OVER_d5,
+      IS.MAJOR_OVER_m6, IS.MAJOR_OVER_a5,
     ]);
 
     MINOR_OVERS = new Set([
-      V.MINOR_OVER_m2,
-      V.MINOR_OVER_M2, V.MINOR_OVER_M3, V.MINOR_OVER_P4, V.MINOR_OVER_a4,
-      V.MINOR_OVER_d5, V.MINOR_OVER_m7,
+      IS.MINOR_OVER_m2,
+      IS.MINOR_OVER_M2, IS.MINOR_OVER_M3, IS.MINOR_OVER_P4, IS.MINOR_OVER_a4,
+      IS.MINOR_OVER_d5, IS.MINOR_OVER_m7,
     ]);
   }
 
   if (chord.root === chord.pitches[0]
-    && MAJOR_OVERS.has(voicing))
+    && MAJOR_OVERS.has(intervalSet))
     return stringifyPitch(chord.pitches[1]) + "/" + stringifyPitch(chord.pitches[0]);
 
   if (chord.root === chord.pitches[0]
-    && MINOR_OVERS.has(voicing))
-    return stringifyPitch(chord.pitches[1]) + stringifyShortName(V.TRIAD_MINOR) + "/" + stringifyPitch(chord.pitches[0]);
+    && MINOR_OVERS.has(intervalSet))
+    return stringifyPitch(chord.pitches[1]) + stringifyShortName(IS.TRIAD_MINOR) + "/" + stringifyPitch(chord.pitches[0]);
 
   return null;
 }

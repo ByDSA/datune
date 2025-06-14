@@ -7,5 +7,5 @@ export {
 } from "./source-scale/alt";
 
 export {
-  findVoicings as scaleFindVoicings,
-} from "./voicings-finder";
+  findIntervalSets as scaleFindIntervalSets,
+} from "./interval-sets-finder";

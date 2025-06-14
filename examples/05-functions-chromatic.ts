@@ -1,4 +1,4 @@
-import { Funcs as F, Degrees as D, Voicings as V, Keys as K } from "@datune/core/chromatic";
+import { Funcs as F, Degrees as D, IntervalSets as IS, Keys as K } from "@datune/core/chromatic";
 import { useStringify } from "@datune/strings";
 import { stringifyDegree } from "@datune/strings/chromatic";
 
@@ -7,7 +7,7 @@ useStringify();
 /* Constants */
 console.log("obj", F.I); /* -> DegreeFunction {
   degree: 0,
-  voicing: Voicing { rootIntervals: [ 0, 4, 7 ], length: 3 },
+  intervalSet: IntervalSet { rootIntervals: [ 0, 4, 7 ], length: 3 },
   degrees: [ 0, 4, 7 ]
 } */
 
@@ -18,15 +18,15 @@ console.log(
   stringifyDegree(F.bIIIm.degree), // -> bIII
 );
 console.log(
-  "voicing",
-  F.V7.voicing
+  "intervalSet",
+  F.V7.intervalSet
     .toString(), // -> Seventh
 );
 
 /* Building */
 console.log(
-  "fromDegreeVoicing",
-  F.fromDegreeVoicing(D.II, V.SEVENTH_MINOR)
+  "fromDegreeIntervalSet",
+  F.fromDegreeIntervalSet(D.II, IS.SEVENTH_MINOR)
     .toString(), // -> IIm7
   F.fromDegrees(D.I, D.IV, D.V)
     .toString(), // -> Isus4
