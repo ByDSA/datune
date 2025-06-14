@@ -69,7 +69,7 @@ function getCircleRight(func: typeof F.I): DegreeFunc {
   let ret = circleRightMap.get(func);
 
   if (ret === undefined) {
-    const degree: Degree = I.shift(func.baseDegree, I.P5).withCyclicOctave();
+    const degree: Degree = I.shift(func.baseDegree, I.P5).toDegree();
 
     ret = F.fromDegreeIntervalSet(degree, func.intervalSet);
   }
@@ -80,7 +80,7 @@ function getCircleLeft(func: typeof F.I): DegreeFunc {
   let ret = circleLeftMap.get(func);
 
   if (ret === undefined) {
-    const degree: Degree = I.shiftDown(func.baseDegree, I.P5).withCyclicOctave();
+    const degree: Degree = I.shiftDown(func.baseDegree, I.P5).toDegree();
 
     ret = func.withBaseDegree(degree);
   }
@@ -95,11 +95,11 @@ function getRelative(func: typeof F.I): DegreeFunc {
     const { intervalSet } = func;
 
     if (intervalSet === IS.TRIAD_MAJOR) {
-      const baseDegree: Degree = I.shiftDown(func.baseDegree, I.m3).withCyclicOctave();
+      const baseDegree: Degree = I.shiftDown(func.baseDegree, I.m3).toDegree();
 
       ret = F.fromDegreeIntervalSet(baseDegree, IS.TRIAD_MINOR);
     } else if (intervalSet === IS.TRIAD_MINOR) {
-      const baseDegree: Degree = I.shift(func.baseDegree, I.m3).withCyclicOctave();
+      const baseDegree: Degree = I.shift(func.baseDegree, I.m3).toDegree();
 
       ret = F.fromDegreeIntervalSet(baseDegree, IS.TRIAD_MAJOR);
     }
@@ -172,7 +172,7 @@ export function getAllNeighbors(f: DegreeFunc): DegreeFunc[] {
 
   const interval = f.baseDegree;
   const ret = retRelativeToI.map(rf=> {
-    const degree = I.shift(rf.baseDegree, interval).withCyclicOctave();
+    const degree = I.shift(rf.baseDegree, interval).toDegree();
 
     return rf.withBaseDegree(degree);
   } );

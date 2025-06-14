@@ -42,7 +42,7 @@ export function fifthLevelFromChord(chord: Chord): PitchSet {
   let firstPitchFromRoot = chord.root;
 
   if (!chord.has(firstPitchFromRoot)) {
-    const cPitches = chord.pitchSet.toChromatic();
+    const cPitches = chord.pitchSet.toChromaticPitchSet();
     const cFirstPitchFromRoot = firstPitchFromRoot.toChromatic();
 
     for (let i = 0; i < 12; i++) {

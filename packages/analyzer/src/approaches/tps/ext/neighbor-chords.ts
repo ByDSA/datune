@@ -1,4 +1,4 @@
-import { Chord, Degree, Func, Funcs, Intervals as I, Key, Keys, PitchSet, Scale, Scales, IntervalSet, IntervalSets } from "@datune/core/alt";
+import { Chord, Degree, Func, Funcs, Intervals as I, Key, Keys, PitchSet, Scale, Scales, IntervalSet, IntervalSets, DegreeArray } from "@datune/core/alt";
 import { getId as getChordId } from "@datune/core/chords/octave/alt/caching/cache";
 import { getId as getKeyId } from "@datune/core/keys/alt/building/caching/cache";
 import { triadRootChord } from "@datune/core/keys/alt/modifiers";
@@ -37,7 +37,7 @@ export function getAllDiatonicChordsInRegion(key: Key): Set<FuncChord> {
     ];
   } );
   const dominantSecondariesFuncs = key.pitches
-    .map(p=>I.betweenNext(key.root, p).withSimplified())
+    .map(p=>I.betweenNext(key.root, p).toDegree())
     .map(degree => {
       return getSecondariesFromDegree(degree);
     } );
@@ -68,14 +68,14 @@ function getSecondariesFromDegree(degree: Degree): Func[] {
 }
 
 function scaleHasDegrees(scale: Scale, ...degrees: Degree[]): boolean {
-  return degrees.every(d=>scale.rootIntervals.includes(d));
+  return degrees.every(d=>scale.degrees.includes(d));
 }
 
 function scaleIsMajorOrMinor(scale: Scale): boolean {
-  if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MAJOR.rootIntervals))
+  if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MAJOR.rootIntervals as DegreeArray))
     return true;
 
-  if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MINOR.rootIntervals))
+  if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MINOR.rootIntervals as DegreeArray))
     return true;
 
   return false;
@@ -86,10 +86,10 @@ function keyIsMajorOrMinor(key: Key): boolean {
   return scaleIsMajorOrMinor(scale);
 }
 function chordIsMajorOrMinor(chord: Chord): boolean {
-  if (chord.hasRootIntervals(...IntervalSets.TRIAD_MAJOR.rootIntervals))
+  if (chord.hasRootIntervals(...IntervalSets.TRIAD_MAJOR.rootIntervals as DegreeArray))
     return true;
 
-  if (chord.hasRootIntervals(...IntervalSets.TRIAD_MINOR.rootIntervals))
+  if (chord.hasRootIntervals(...IntervalSets.TRIAD_MINOR.rootIntervals as DegreeArray))
     return true;
 
   return false;
@@ -322,7 +322,7 @@ function getDegreeBase(f: Func): Degree | null {
   if (f instanceof CompoundFunc)
     return f.degreeChain.at(-1)!;
   else if (f instanceof DegreeFunc)
-    return f.degree;
+    return f.baseDegree;
 
   return null;
 }
@@ -344,9 +344,9 @@ function getChordKeyBaseFromFuncRegion(f: Func, region: Key): Key {
   scale = Scales.mode(region.scale, mode + 1);
 
   if (scale !== Scales.MAJOR && scale !== Scales.MINOR) {
-    if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MAJOR))
+    if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MAJOR.rootIntervals as DegreeArray))
       scale = Scales.MAJOR;
-    else if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MINOR))
+    else if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MINOR.rootIntervals as DegreeArray))
       scale = Scales.MINOR;
     else
       scale = intervalSetToScale(degreeFunc.intervalSet);
@@ -359,7 +359,7 @@ function intervalSetToScale(intervalSet: IntervalSet): Scale {
   const candidates = [Scales.MAJOR, Scales.MINOR];
 
   for (const c of candidates) {
-    if (scaleHasDegrees(c, ...intervalSet))
+    if (scaleHasDegrees(c, ...intervalSet.rootIntervals.map(i=>i.toDegree())))
       return c;
   }
 

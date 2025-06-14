@@ -42,8 +42,8 @@ export function calcI( { x, y }: ChordDistanceRuleProps): number {
   const yPitchSet = PS.fromPitches(...y.key.pitches);
 
   return Math.abs(getNRegionalCircleOfFifthsRule( {
-    from: xPitchSet.toChromatic(),
-    to: yPitchSet.toChromatic(),
+    from: xPitchSet.toChromaticPitchSet(),
+    to: yPitchSet.toChromaticPitchSet(),
   } ));
 }
 
@@ -217,8 +217,8 @@ export function distinctivePitchClassesInBasicSpaceLevelsAToD(
   { x, y }: ChordDistanceRuleProps,
 ): number {
   let count = distinctivePitchClassesInBasicSpaceLevelsAToC(
-    x.chord.toChromatic(),
-    y.chord.toChromatic(),
+    x.chord.toChromaticChord(),
+    y.chord.toChromaticChord(),
   );
   // Level d:
   const yDiatonicLevel = y.key.pitchSet

@@ -1,6 +1,9 @@
 import { Intervals as I, Pitch, PitchSet } from "@datune/core";
 
-export function regionalCircleOfFifthsRule(diatonicLevel: Pitch[], n: number = 1): Pitch[] {
+export function regionalCircleOfFifthsRule(
+  diatonicLevel: readonly Pitch[],
+  n: number = 1,
+): Pitch[] {
   const interval = (I.P5 * n) % 12;
 
   return diatonicLevel.map(p=>p.withShifted(interval));

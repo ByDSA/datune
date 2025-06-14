@@ -57,7 +57,7 @@ const pathsImTobVm = [
     F.Im,
     F.bVI,
     F.bVIm,
-    F.fromDegreeIntervalSet(I.fromDiatonicInterval(DD.IV, -1), IntervalSets.TRIAD_MAJOR), // bIV
+    F.fromDegreeIntervalSet(I.from(DD.IV, -1).toDegree(), IntervalSets.TRIAD_MAJOR), // bIV
     F.bVm,
   ],
   [

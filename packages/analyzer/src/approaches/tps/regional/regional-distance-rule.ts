@@ -38,7 +38,7 @@ type Props = {
 export function regionalDistanceRule( { from, to }: Props): Ret {
   const fromRootChordIntervalSet = getMajorOrMinor(from);
   const toRootChordIntervalSet = getMajorOrMinor(to);
-  const toRelativeToFrom = I.betweenNext(from.root, to.root);
+  const toRelativeToFrom = I.betweenNext(from.root, to.root).toDegree();
   const start = F.fromDegreeIntervalSet(Degrees.I, fromRootChordIntervalSet);
   const goal = F.fromDegreeIntervalSet(toRelativeToFrom, toRootChordIntervalSet);
   const paths = findAllShortestPaths( {
@@ -52,12 +52,12 @@ export function regionalDistanceRule( { from, to }: Props): Ret {
     for (let i = 1; i < pathContent.length; i++) {
       const previous = pathContent[i - 1];
       const current = pathContent[i];
-      const xRoot = from.root.withShifted(previous.degree);
+      const xRoot = from.root.withShifted(previous.baseDegree);
       const xKey = previous.intervalSet === IS.TRIAD_MAJOR
         ? Keys.from(xRoot, S.MAJOR)
         : Keys.from(xRoot, S.MINOR);
       const xChord = from.getChord(previous);
-      const yRoot = from.root.withShifted(current.degree);
+      const yRoot = from.root.withShifted(current.baseDegree);
       const yKey = current.intervalSet === IS.TRIAD_MAJOR
         ? Keys.from(yRoot, S.MAJOR)
         : Keys.from(yRoot, S.MINOR);

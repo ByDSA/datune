@@ -30,7 +30,7 @@ export function chordDistanceRule( { x, y }: ChordDistanceRuleProps): Ret {
     from: x,
     to: y,
   } );
-  const k = calcK(x.toChromatic(), y.toChromatic());
+  const k = calcK(x.toChromaticChord(), y.toChromaticChord());
 
   return {
     dist: j + k,
