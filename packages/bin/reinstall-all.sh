@@ -8,6 +8,9 @@ function install {
 	cd ..
 }
 
+echo "=====Root====="
+pnpm reinstall
+
 install utils
 install core
 install core-ext

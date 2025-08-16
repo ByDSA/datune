@@ -1,4 +1,4 @@
-import { Funcs as F, Degrees as D, IntervalSets as IS, Intervals as I, IntervalSet, Degree } from "@datune/core/alt";
+import { Funcs as F, Degrees as D, IntervalSets as IS, Intervals as I, Degree } from "@datune/core/alt";
 import { DegreeFunc } from "@datune/core/functions/alt/degree-function/DegreeFunc";
 
 // movimientos simples hardcodeados
@@ -51,8 +51,6 @@ const circleRightMap: Map<DegreeFunc, DegreeFunc> = new Map([
   [F.VIm, F.IIIm],
   [F.bVII, F.IV],
   [F.bVIIm, F.IVm],
-  [F.VII, F.fromDegrees(D.aIV, D.VI, D.aI)],
-  [F.VIIm, F.fromDegrees(D.aIV, D.aVI, D.aI)],
 ]);
 // Reverse of circleRightMap
 const circleLeftMap: Map<DegreeFunc, DegreeFunc> = new Map(
@@ -65,7 +63,7 @@ const relativeMap: Map<DegreeFunc, DegreeFunc> = new Map([
   [F.bIII, F.Im],
 ]);
 
-function getCircleRight(func: typeof F.I): DegreeFunc {
+function getCircleRight(func: DegreeFunc): DegreeFunc {
   let ret = circleRightMap.get(func);
 
   if (ret === undefined) {
@@ -74,9 +72,9 @@ function getCircleRight(func: typeof F.I): DegreeFunc {
     ret = F.fromDegreeIntervalSet(degree, func.intervalSet);
   }
 
-  return ret as DegreeFunc;
+  return ret;
 }
-function getCircleLeft(func: typeof F.I): DegreeFunc {
+function getCircleLeft(func: DegreeFunc): DegreeFunc {
   let ret = circleLeftMap.get(func);
 
   if (ret === undefined) {
@@ -85,10 +83,10 @@ function getCircleLeft(func: typeof F.I): DegreeFunc {
     ret = func.withBaseDegree(degree);
   }
 
-  return ret as DegreeFunc;
+  return ret;
 }
 
-function getRelative(func: typeof F.I): DegreeFunc {
+function getRelative(func: DegreeFunc): DegreeFunc {
   let ret = relativeMap.get(func);
 
   if (ret === undefined) {
@@ -108,35 +106,19 @@ function getRelative(func: typeof F.I): DegreeFunc {
       throw new Error(`No relative for ${func}.`);
   }
 
-  return ret as DegreeFunc;
+  return ret;
 }
 
-function withIntervalSet(func: DegreeFunc, intervalSet: IntervalSet): DegreeFunc {
-  const { baseDegree } = func;
-
-  return F.fromDegreeIntervalSet(
-    baseDegree,
-    intervalSet,
-  );
-}
-
-function getParallel(func: typeof F.I): DegreeFunc {
+function getParallel(func: DegreeFunc): DegreeFunc {
   let ret = parallelMap.get(func);
 
   if (ret === undefined) {
     const { intervalSet } = func;
 
-    if (intervalSet === IS.TRIAD_MAJOR) {
-      ret = withIntervalSet(
-        func,
-        IS.TRIAD_MINOR,
-      );
-    } else if (intervalSet === IS.TRIAD_MINOR) {
-      ret = withIntervalSet(
-        func,
-        IS.TRIAD_MAJOR,
-      );
-    }
+    if (intervalSet === IS.TRIAD_MAJOR)
+      ret = func.withIntervalSet(IS.TRIAD_MINOR);
+    else if (intervalSet === IS.TRIAD_MINOR)
+      ret = func.withIntervalSet(IS.TRIAD_MAJOR);
 
     if (ret === undefined)
       throw new Error(`No parallel for ${func}.`);

@@ -1,63 +1,46 @@
-import { Chord, Key, Keys as K, Scales as S, IntervalSets, IntervalArray } from "@datune/core/alt";
-import { triadRootChord } from "@datune/core/keys/alt/modifiers";
+import { Chord, Key } from "@datune/core/alt";
+import { ChordKey } from "../ChordKey";
+import { chordToMajorMinorKey } from "../major-minor-conversions";
 import { regionalDistanceRule } from "./regional-distance-rule";
 import { regionalLevelChordDistanceRule } from "./chord-distance-rule";
 
-export function majorMinorKeyFromChord(chord: Chord): Key {
-  let key: Key | null = null;
-
-  if (chord.hasRootIntervals(...IntervalSets.TRIAD_MAJOR.rootIntervals as IntervalArray))
-    key = K.from(chord.root, S.MAJOR);
-  else if (chord.hasRootIntervals(...IntervalSets.TRIAD_MINOR.rootIntervals as IntervalArray))
-    key = K.from(chord.root, S.MINOR);
-  else if (chord.hasRootIntervals(...IntervalSets.TRIAD_DIMINISHED.rootIntervals as IntervalArray))
-    key = K.from(chord.root, S.LOCRIAN);
-
-  if (key === null)
-    throw new Error(`The chord ${chord} is not compatible with the key ${key}.`);
-
-  return key;
-}
-
-type ChordKey = {
+type ChordKeyRegion = {
   chord: Chord;
-  key: Key;
-};
-type ChordKeyRegion = ChordKey & {
+  key?: Key;
   region: Key;
 };
 type Props = {
   start: ChordKeyRegion;
-  goal: ChordKeyRegion;
+  end: ChordKeyRegion;
 };
 type RegionalLevelChordDistanceRuleInfo = ReturnType<typeof regionalLevelChordDistanceRule> & {
   meta: {
     start: ChordKey;
-    goal: ChordKey;
+    end: ChordKey;
   };
 };
-export type ChordRegionDistanceRuleRet = {
+export type Ret = {
   dist: number;
   meta: {
-    startToTonicPivotRegion?: RegionalLevelChordDistanceRuleInfo;
+    startToPivot?: RegionalLevelChordDistanceRuleInfo;
     pivotRegionShifts?: ReturnType<typeof regionalDistanceRule>;
-    endTonicPivotRegionToGoal?: RegionalLevelChordDistanceRuleInfo;
+    pivotToEnd?: RegionalLevelChordDistanceRuleInfo;
   };
 };
 
-export function chordRegionDistanceRule( { start, goal }: Props): ChordRegionDistanceRuleRet {
-  let accDist = 0;
-  const startTonic = triadRootChord(start.region)!;
-  const goalTonic = triadRootChord(goal.region)!;
-  let meta: ChordRegionDistanceRuleRet["meta"] = {};
+export function chordRegionDistanceRule( { start, end }: Props): Ret {
+  let dist = 0;
+  let meta: Ret["meta"] = {};
+  const startTonicChord = start.region.triadRootChord!;
+  const startChord = start.chord;
 
-  if (start.chord !== startTonic) {
+  if (startChord !== startTonicChord) {
     const x = {
-      chord: start.chord,
-      key: majorMinorKeyFromChord(start.chord),
+      chord: startChord,
+      key: start.key ?? chordToMajorMinorKey(startChord),
     };
     const y = {
-      chord: startTonic,
+      chord: startTonicChord,
       key: start.region,
     };
     const distanceChordToTonic = regionalLevelChordDistanceRule( {
@@ -65,52 +48,55 @@ export function chordRegionDistanceRule( { start, goal }: Props): ChordRegionDis
       y,
     } );
 
-    meta.startToTonicPivotRegion = {
+    meta.startToPivot = {
       ...distanceChordToTonic,
       meta: {
         ...distanceChordToTonic.meta,
         start: x,
-        goal: y,
+        end: y,
       },
     },
-    accDist += distanceChordToTonic.dist;
+    dist += distanceChordToTonic.dist;
   }
 
   const regionalDistanceObj = regionalDistanceRule( {
     from: start.region,
-    to: goal.region,
+    to: end.region,
   } );
 
   meta.pivotRegionShifts = regionalDistanceObj;
-  accDist += regionalDistanceObj.dist;
+  dist += regionalDistanceObj.dist;
 
-  if (goal.chord !== goalTonic) {
+  const endChord = end.chord;
+  const endTonicChord = end.region.triadRootChord!;
+
+  if (endChord !== endTonicChord) {
     const x = {
-      chord: goalTonic,
-      key: goal.region,
+      chord: endTonicChord,
+      key: end.region,
     };
     const y = {
-      chord: goal.chord,
-      key: goal.key,
+      chord: endChord,
+      key: end.key ?? chordToMajorMinorKey(endChord),
     };
     const distanceTonicToChord = regionalLevelChordDistanceRule( {
       x,
       y,
     } );
 
-    meta.endTonicPivotRegionToGoal = {
+    meta.pivotToEnd = {
       ...distanceTonicToChord,
       meta: {
         ...distanceTonicToChord.meta,
         start: x,
-        goal: y,
+        end: y,
       },
     },
-    accDist += distanceTonicToChord.dist;
+    dist += distanceTonicToChord.dist;
   }
 
   return {
-    dist: accDist,
+    dist,
     meta,
   };
 }

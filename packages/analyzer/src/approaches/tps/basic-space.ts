@@ -1,6 +1,7 @@
-import { Intervals as I, Pitch, Chord, Pitches, Key, PitchSet, PitchSets as PS } from "@datune/core/alt";
+import type { ChordKey } from "./ChordKey";
+import { Intervals as I, Pitch, type Chord, Pitches, type PitchSet, PitchSets as PS } from "@datune/core/alt";
 
-export type BasicSpaceLevels = {
+export type BasicSpace = {
   octave: Pitch;
   fifth: PitchSet;
   triad: PitchSet;
@@ -8,13 +9,9 @@ export type BasicSpaceLevels = {
   chromatic: PitchSet;
 };
 
-type BasicSpaceFromProps = {
-  key: Key;
-  chord: Chord;
-};
-export function fromKeyChord(props: BasicSpaceFromProps): BasicSpaceLevels {
+export function fromChordKey(props: ChordKey): BasicSpace {
   const { octave, fifth, triad } = levelsAToCFromChord(props.chord);
-  const diatonic = PS.fromPitches(...props.key.pitches);
+  const diatonic = props.key.pitchSet;
 
   return {
     octave,
@@ -25,11 +22,11 @@ export function fromKeyChord(props: BasicSpaceFromProps): BasicSpaceLevels {
   };
 }
 
-type BasicSpaceLevelsAToC = Pick<BasicSpaceLevels, "fifth" | "octave" | "triad">;
-export function levelsAToCFromChord(chord: Chord): BasicSpaceLevelsAToC {
+type BasicSpaceLevelsAToC = Pick<BasicSpace, "fifth" | "octave" | "triad">;
+function levelsAToCFromChord(chord: Chord): BasicSpaceLevelsAToC {
   const octave = chord.root;
   const fifth = fifthLevelFromChord(chord);
-  const triad = PS.fromPitches(...chord.pitches);
+  const triad = chord.pitchSet;
 
   return {
     octave,
@@ -38,27 +35,33 @@ export function levelsAToCFromChord(chord: Chord): BasicSpaceLevelsAToC {
   };
 }
 
-export function fifthLevelFromChord(chord: Chord): PitchSet {
+export function fifthLevelFromChord(chord: Chord): BasicSpace["fifth"] {
+  let firstPitchFromRoot = getFirstPitchFromRoot(chord);
+
+  return PS.fromPitches(firstPitchFromRoot, getPitchFifth(firstPitchFromRoot, chord.pitchSet));
+}
+
+function getFirstPitchFromRoot(chord: Chord): Pitch {
   let firstPitchFromRoot = chord.root;
 
   if (!chord.has(firstPitchFromRoot)) {
-    const cPitches = chord.pitchSet.toChromaticPitchSet();
+    const cPitchSet = chord.pitchSet.toChromaticPitchSet();
     const cFirstPitchFromRoot = firstPitchFromRoot.toChromatic();
 
     for (let i = 0; i < 12; i++) {
       const p = cFirstPitchFromRoot.withShifted(i);
 
-      if (cPitches.has(p)) {
+      if (cPitchSet.has(p)) {
         firstPitchFromRoot = chord.pitches.find(ap => ap.toChromatic() === p)!;
         break;
       }
     }
   }
 
-  return PS.fromPitches(firstPitchFromRoot, getPitchFifth(firstPitchFromRoot, chord.pitchSet));
+  return firstPitchFromRoot;
 }
 
-export const getPitchFifth = (root: Pitch, c: PitchSet): Pitch => {
+const getPitchFifth = (root: Pitch, c: PitchSet): Pitch => {
   const P5 = root.withShifted(I.P5);
 
   if (c.has(P5) || !c.has(root))
@@ -70,18 +73,4 @@ export const getPitchFifth = (root: Pitch, c: PitchSet): Pitch => {
     return d5;
 
   return P5;
-};
-
-export const getPitchFourth = (root: Pitch, c: PitchSet): Pitch => {
-  const P4 = root.withShifted(I.P4);
-
-  if (c.has(P4) || !c.has(root))
-    return P4;
-
-  const a4 = root.withShifted(I.d5);
-
-  if (c.has(a4))
-    return a4;
-
-  return P4;
 };

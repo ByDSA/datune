@@ -1,134 +1,22 @@
-import { Chord, Degree, Func, Funcs, Intervals as I, Key, Keys, PitchSet, Scale, Scales, IntervalSet, IntervalSets, DegreeArray } from "@datune/core/alt";
+import { DegreeFunc, CompoundFunc } from "@datune/core/alt";
+import { Chord, Degree, Func, Key, Keys, PitchSet, Scales } from "@datune/core/alt";
 import { getId as getChordId } from "@datune/core/chords/octave/alt/caching/cache";
 import { getId as getKeyId } from "@datune/core/keys/alt/building/caching/cache";
 import { triadRootChord } from "@datune/core/keys/alt/modifiers";
-import { CompoundFunc } from "@datune/core/functions/alt/compound-function/CompoundFunc";
-import { DegreeFunc } from "@datune/core/functions/alt/degree-function/DegreeFunc";
-import { majorMinorKeyFromChord } from "../regional/chord-region-distance-rule";
+import { assertIsDefined } from "datils/datatypes/nullish";
+import { chordIsMajorOrMinor, chordToMajorMinorKey, intervalSetToMajorMinorScale, keyIsMajorOrMinor, scaleToMajorMinorScale } from "../major-minor-conversions";
 import { regionalLevelChordDistanceRule } from "../regional/chord-distance-rule";
 import { regionalDistanceRule } from "../regional/regional-distance-rule";
 import { findManyByDistance } from "./finder";
-
-type FuncChord = {
-  chord: Chord;
-  func: Func;
-};
-export function getAllDiatonicChordsInRegion(key: Key): Set<FuncChord> {
-  const ret = new Set<FuncChord>();
-  const diatonicFuncs: Func[] = [
-    Funcs.I,
-    Funcs.bII,
-    Funcs.II,
-    Funcs.bIII,
-    Funcs.III,
-    Funcs.IV,
-    Funcs.IV.withShifted(I.a1),
-    Funcs.bV,
-    Funcs.V,
-    Funcs.bVI,
-    Funcs.VI,
-    Funcs.bVII,
-    Funcs.VII,
-  ].flatMap(f=> {
-    return [
-      f,
-      f.withIntervalSet(IntervalSets.TRIAD_MINOR),
-      f.withIntervalSet(IntervalSets.TRIAD_DIMINISHED),
-    ];
-  } );
-  const dominantSecondariesFuncs = key.pitches
-    .map(p=>I.betweenNext(key.root, p).toDegree())
-    .map(degree => {
-      return getSecondariesFromDegree(degree);
-    } );
-
-  diatonicFuncs.push(...dominantSecondariesFuncs.flat(1));
-
-  for (const f of diatonicFuncs) {
-    const chord = f.getChord(key.root);
-
-    if (key.hasChord(chord)) {
-      ret.add( {
-        chord,
-        func: f,
-      } );
-    }
-  }
-
-  return ret;
-}
-
-function getSecondariesFromDegree(degree: Degree): Func[] {
-  return [
-    Funcs.compose(Funcs.V, degree),
-    Funcs.compose(Funcs.V7, degree),
-    Funcs.compose(Funcs.SUBV7, degree),
-    Funcs.compose(Funcs.V7ALT, degree),
-  ];
-}
-
-function scaleHasDegrees(scale: Scale, ...degrees: Degree[]): boolean {
-  return degrees.every(d=>scale.degrees.includes(d));
-}
-
-function scaleIsMajorOrMinor(scale: Scale): boolean {
-  if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MAJOR.rootIntervals as DegreeArray))
-    return true;
-
-  if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MINOR.rootIntervals as DegreeArray))
-    return true;
-
-  return false;
-}
-function keyIsMajorOrMinor(key: Key): boolean {
-  const { scale } = key;
-
-  return scaleIsMajorOrMinor(scale);
-}
-function chordIsMajorOrMinor(chord: Chord): boolean {
-  if (chord.hasRootIntervals(...IntervalSets.TRIAD_MAJOR.rootIntervals as DegreeArray))
-    return true;
-
-  if (chord.hasRootIntervals(...IntervalSets.TRIAD_MINOR.rootIntervals as DegreeArray))
-    return true;
-
-  return false;
-}
+import { getAllTriadChordsInRegion } from "./regions";
 
 type KeyChord = {
   key: Key;
   chord: Chord;
 };
-type RegionChordFunc = {
-  region: Key;
-  chord: Chord;
-  func: Func;
-};
+
 function hashKeyChord(kc: KeyChord): string {
   return getKeyId(kc.key) + " " + getChordId(kc.chord);
-}
-export function getAllTriadChordsInRegion(region: Key): Set<RegionChordFunc> {
-  if (!keyIsMajorOrMinor(region))
-    return new Set();
-
-  const { root, scale } = region;
-  const modes = Scales.modes(scale);
-  const keyModes = modes.map(s=>Keys.from(root, s));
-  const ret = new Set<RegionChordFunc>();
-
-  for (const k of keyModes) {
-    const dChordFuncs = getAllDiatonicChordsInRegion(k);
-
-    for (const cf of dChordFuncs) {
-      ret.add( {
-        chord: cf.chord,
-        func: cf.func,
-        region: k,
-      } );
-    }
-  }
-
-  return ret;
 }
 
 type N = KeyChord;
@@ -271,7 +159,7 @@ export function findChordByPitchSet( { start, goal }: Props): Ret {
     } );
 
     return neighborsMajorOrMinor.map(n => {
-      const keyTo = majorMinorKeyFromChord(n.chord);
+      const keyTo = chordToMajorMinorKey(n.chord);
       const distance = regionalDistanceRule( {
         from: keyFromChord,
         to: keyTo,
@@ -309,59 +197,56 @@ function getFuncsOfChord(chord: Chord, region: Key): Func[] {
   return ret;
 }
 
-function getDegreeFunc(f: Func): DegreeFunc | null {
+function getDegreeFunc(f: Func): DegreeFunc {
   if (f instanceof CompoundFunc)
     return f.degreeFunc;
   else if (f instanceof DegreeFunc)
     return f;
 
-  return null;
+  throw new Error(`The function ${f} is not a DegreeFunc or CompoundFunc.`);
 }
 
-function getDegreeBase(f: Func): Degree | null {
+function getBaseDegree(f: Func): Degree {
   if (f instanceof CompoundFunc)
     return f.degreeChain.at(-1)!;
   else if (f instanceof DegreeFunc)
     return f.baseDegree;
 
-  return null;
+  throw new Error(`The function ${f} is not a DegreeFunc or CompoundFunc.`);
 }
 
 function getChordKeyBaseFromFuncRegion(f: Func, region: Key): Key {
-  let degree = getDegreeBase(f);
+  let baseDegree = getBaseDegree(f);
   let degreeFunc = getDegreeFunc(f);
+  const pitch = region.root.withShifted(baseDegree);
 
-  if (degree === null || degreeFunc === null)
-    throw new Error(`The function ${f} does not have a degree or degree function.`);
+  if (degreeFunc === f) { // Not compound
+    const s = intervalSetToMajorMinorScale(degreeFunc.intervalSet);
 
-  const pitch = region.root.withShifted(degree);
-  let scale: Scale;
+    if (s !== null) {
+      return Keys.from(
+        pitch,
+        s,
+      );
+    }
+  }
+
+  // Si es función compuesta, o no es una triada mayor o menor
   const mode = region.pitches.indexOf(pitch);
 
   if (mode === -1)
     throw new Error(`The pitch ${pitch} is not in the region ${region}.`);
 
-  scale = Scales.mode(region.scale, mode + 1);
+  let scale = region.scale.withMode(mode + 1);
 
   if (scale !== Scales.MAJOR && scale !== Scales.MINOR) {
-    if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MAJOR.rootIntervals as DegreeArray))
-      scale = Scales.MAJOR;
-    else if (scaleHasDegrees(scale, ...IntervalSets.TRIAD_MINOR.rootIntervals as DegreeArray))
-      scale = Scales.MINOR;
-    else
-      scale = intervalSetToScale(degreeFunc.intervalSet);
+    const replaceScale = scaleToMajorMinorScale(scale);
+
+    if (replaceScale !== null)
+      scale = replaceScale;
   }
 
-  return Keys.from(pitch, scale!);
-}
+  assertIsDefined(scale);
 
-function intervalSetToScale(intervalSet: IntervalSet): Scale {
-  const candidates = [Scales.MAJOR, Scales.MINOR];
-
-  for (const c of candidates) {
-    if (scaleHasDegrees(c, ...intervalSet.rootIntervals.map(i=>i.toDegree())))
-      return c;
-  }
-
-  throw new Error(`The intervalSet ${intervalSet} is not compatible with any scale.`);
+  return Keys.from(pitch, scale);
 }

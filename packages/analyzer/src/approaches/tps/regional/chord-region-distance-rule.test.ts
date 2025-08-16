@@ -25,11 +25,11 @@ describe.each([
   goal } ) => {
   const actual = chordRegionDistanceRule( {
     start,
-    goal,
+    end: goal,
   } );
 
   it("should return correct start distance", () => {
-    expect(actual.meta.startToTonicPivotRegion?.dist).toBe(expectedStartDist);
+    expect(actual.meta.startToPivot?.dist).toBe(expectedStartDist);
   } );
 
   it("should return correct pivot region shifts distance", () => {
@@ -37,7 +37,7 @@ describe.each([
   } );
 
   it("should return correct end distance", () => {
-    expect(actual.meta.endTonicPivotRegionToGoal?.dist).toBe(expectedEndDist);
+    expect(actual.meta.pivotToEnd?.dist).toBe(expectedEndDist);
   } );
 
   it("should return correct overall distance", () => {

@@ -64,6 +64,6 @@ IDegreeFunc<Interval, Degree, IntervalSet> {
   }
 
   toString() {
-    return `${stringifyDegree(this.baseDegree)} (${this.intervalSet})`;
+    return `${stringifyDegree(this.baseDegree)}(${this.intervalSet})`;
   }
 }

@@ -3,18 +3,7 @@ import type { Chord as CChord } from "@datune/core/chromatic";
 import { fifthLevelFromChord } from "../basic-space-chromatic";
 import { getNChordalCircleOfFifthsRule } from "./chordal-circle-of-fifths-rule";
 
-type JProps = {
-  from: Chord;
-  to: Chord;
-};
-export function calcJ( { from, to }: JProps): number {
-  return Math.abs(getNChordalCircleOfFifthsRule( {
-    from,
-    to,
-  } ));
-}
-
-type ChordDistanceRuleProps = {
+type Props = {
   x: Chord;
   y: Chord;
 };
@@ -25,10 +14,10 @@ type Ret = {
     k: number;
   };
 };
-export function chordDistanceRule( { x, y }: ChordDistanceRuleProps): Ret {
+export function chordDistanceRule( { x, y }: Props): Ret {
   const j = calcJ( {
-    from: x,
-    to: y,
+    x,
+    y,
   } );
   const k = calcK(x.toChromaticChord(), y.toChromaticChord());
 
@@ -41,11 +30,18 @@ export function chordDistanceRule( { x, y }: ChordDistanceRuleProps): Ret {
   };
 }
 
-export const calcK = distinctivePitchClassesInBasicSpaceLevelsAToC;
+export function calcJ( { x, y }: Props): number {
+  const n = getNChordalCircleOfFifthsRule( {
+    from: x,
+    to: y,
+  } );
 
-export function distinctivePitchClassesInBasicSpaceLevelsAToC(x: CChord, y: CChord): number {
-  const xSet = x.pitchSet;
-  const ySet = y.pitchSet;
+  return Math.abs(n);
+}
+
+export const calcK = countDiffsLevelsAToC;
+
+export function countDiffsLevelsAToC(x: CChord, y: CChord): number {
   let count = 0;
 
   // Level a:
@@ -62,8 +58,11 @@ export function distinctivePitchClassesInBasicSpaceLevelsAToC(x: CChord, y: CCho
   }
 
   // Level c:
-  for (const p of ySet) {
-    if (!xSet.has(p))
+  const xChordLevel = x.pitchSet;
+  const yChordLevel = y.pitchSet;
+
+  for (const p of yChordLevel) {
+    if (!xChordLevel.has(p))
       count++;
   }
 

@@ -3,15 +3,15 @@ import { getNRegionalCircleOfFifthsRule, regionalCircleOfFifthsRule } from "./re
 
 describe.each([
   // Figure 2.16, p. 60:
-  [Keys.C.pitches, 1, Keys.G.pitches],
+  [Keys.C.pitches, 1, Keys.G.pitchSet],
   // Anothers:
-  [Keys.C.pitches, -1, Keys.F.pitches],
+  [Keys.C.pitchSet, -1, Keys.F.pitchSet],
 ])("regionalCircleOfFifthsRule", (diatonicLevel, n: number, expected) => {
   describe(diatonicLevel + " n=" + n + " => " + expected, () => {
     it("returns the correct pitches", () => {
       const actual = regionalCircleOfFifthsRule(diatonicLevel, n);
 
-      expect(actual).toStrictEqual(expected);
+      expect(actual).toBe(expected);
     } );
 
     describe("getNRegionalCircleOfFifthsRule", () => {

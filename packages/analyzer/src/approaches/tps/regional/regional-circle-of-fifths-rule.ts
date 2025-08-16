@@ -1,12 +1,27 @@
-import { Intervals as I, Pitch, PitchSet } from "@datune/core";
+import { Intervals as I, PitchSet, type Pitch } from "@datune/core";
+import { PitchSets as PS } from "@datune/core";
 
 export function regionalCircleOfFifthsRule(
-  diatonicLevel: readonly Pitch[],
+  diatonicLevel: Readonly<Iterable<Pitch>>,
   n: number = 1,
-): Pitch[] {
+): PitchSet {
   const interval = (I.P5 * n) % 12;
+  let pitchSetBase: PitchSet;
 
-  return diatonicLevel.map(p=>p.withShifted(interval));
+  if (diatonicLevel instanceof PitchSet)
+    pitchSetBase = diatonicLevel;
+  else {
+    let set;
+
+    if (diatonicLevel instanceof Set)
+      set = diatonicLevel;
+    else
+      set = new Set(diatonicLevel);
+
+    pitchSetBase = PS.from(set);
+  }
+
+  return pitchSetBase.withShifted(interval);
 }
 
 type nProps = {

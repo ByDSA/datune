@@ -1,23 +1,10 @@
-import { Degrees, Funcs as F, Intervals as I, Key, Keys, Scales as S, IntervalSets as IS, IntervalSet } from "@datune/core/alt";
+import { Degrees, Funcs as F, Intervals as I, Key, Keys } from "@datune/core/alt";
 import { DegreeFunc } from "@datune/core/functions/alt/degree-function/DegreeFunc";
+import { assertIsDefined } from "datils/datatypes/nullish";
+import { intervalSetToMajorMinorScale, scaleToMajorMinorIntervalSet } from "../major-minor-conversions";
 import { regionalLevelChordDistanceRule } from "./chord-distance-rule";
 import { findAllShortestPaths } from "./regional-space-motion";
 
-function getMajorOrMinor(key: Key): IntervalSet {
-  const { root } = key;
-  const M3 = root.withShifted(I.M3);
-  const P5 = root.withShifted(I.P5);
-
-  if (key.hasPitches(M3, P5))
-    return IS.TRIAD_MAJOR;
-
-  const m3 = root.withShifted(I.m3);
-
-  if (key.hasPitches(m3, P5))
-    return IS.TRIAD_MINOR;
-
-  throw new Error(`Key ${key} is not major or minor.`);
-}
 type PathNode = {
   content: DegreeFunc;
   dist: {
@@ -36,9 +23,13 @@ type Props = {
   to: Key;
 };
 export function regionalDistanceRule( { from, to }: Props): Ret {
-  const fromRootChordIntervalSet = getMajorOrMinor(from);
-  const toRootChordIntervalSet = getMajorOrMinor(to);
+  const fromRootChordIntervalSet = scaleToMajorMinorIntervalSet(from.scale);
+  const toRootChordIntervalSet = scaleToMajorMinorIntervalSet(to.scale);
   const toRelativeToFrom = I.betweenNext(from.root, to.root).toDegree();
+
+  assertIsDefined(fromRootChordIntervalSet, `The scale ${from.scale} are not compatible with the regional distance rule.`);
+  assertIsDefined(toRootChordIntervalSet, `The scale ${to.scale} are not compatible with the regional distance rule.`);
+
   const start = F.fromDegreeIntervalSet(Degrees.I, fromRootChordIntervalSet);
   const goal = F.fromDegreeIntervalSet(toRelativeToFrom, toRootChordIntervalSet);
   const paths = findAllShortestPaths( {
@@ -53,24 +44,24 @@ export function regionalDistanceRule( { from, to }: Props): Ret {
       const previous = pathContent[i - 1];
       const current = pathContent[i];
       const xRoot = from.root.withShifted(previous.baseDegree);
-      const xKey = previous.intervalSet === IS.TRIAD_MAJOR
-        ? Keys.from(xRoot, S.MAJOR)
-        : Keys.from(xRoot, S.MINOR);
-      const xChord = from.getChord(previous);
+      const xScale = intervalSetToMajorMinorScale(previous.intervalSet);
+
+      assertIsDefined(xScale);
+      const x = {
+        chord: from.getChord(previous),
+        key: Keys.from(xRoot, xScale),
+      };
       const yRoot = from.root.withShifted(current.baseDegree);
-      const yKey = current.intervalSet === IS.TRIAD_MAJOR
-        ? Keys.from(yRoot, S.MAJOR)
-        : Keys.from(yRoot, S.MINOR);
-      const yChord = from.getChord(current);
+      const yScale = intervalSetToMajorMinorScale(current.intervalSet);
+
+      assertIsDefined(yScale);
+      const y = {
+        chord: from.getChord(current),
+        key: Keys.from(yRoot, yScale),
+      };
       const currentDist = regionalLevelChordDistanceRule( {
-        x: {
-          chord: xChord,
-          key: xKey,
-        },
-        y: {
-          chord: yChord,
-          key: yKey,
-        },
+        x,
+        y,
       } );
 
       accDist += currentDist.dist;

@@ -1,6 +1,7 @@
 import { Chords as C, Chord, Funcs as F, Keys as K, Key, PitchSet } from "@datune/core/alt";
 import { regionalLevelChordDistanceRule } from "../regional/chord-distance-rule";
-import { findChordByPitchSet, getAllDiatonicChordsInRegion } from "./neighbor-chords";
+import { findChordByPitchSet } from "./neighbor-chords";
+import { getAllDiatonicChordsInRegion } from "./regions";
 
 it("test", () => {
   const key = K.C;

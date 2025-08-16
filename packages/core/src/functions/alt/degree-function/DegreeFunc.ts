@@ -9,6 +9,7 @@ import { Pitches as P } from "pitches/alt";
 import { Chords as C } from "chords/alt";
 import { type Interval } from "intervals/alt";
 import { IDegreeFunc } from "functions/IDegreeFunc";
+import { stringifyDegree } from "degrees/alt/stringify";
 import { Func } from "../Func";
 import { getOrCalc } from "../cache";
 import { getDegrees } from "./conversions";
@@ -73,6 +74,6 @@ implements Func,
   }
 
   toString() {
-    return `${this.baseDegree} ${this.intervalSet}`;
+    return `${stringifyDegree(this.baseDegree)}(${this.intervalSet})`;
   }
 }

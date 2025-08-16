@@ -17,6 +17,7 @@
     "lint": "bin/lint.mjs",
     "lint:all": "bin/lint-all.mjs",
     "prepare": "cd .. && husky packages/.husky",
+    "reinstall": "bin/reinstall.mjs",
     "reinstall:all": "bin/reinstall-all.sh",
     "test:all": "bin/test-all.sh"
   },

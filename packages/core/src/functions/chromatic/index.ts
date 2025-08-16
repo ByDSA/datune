@@ -2,13 +2,15 @@ import type * as DegreeFuncConstants from "./degree-function/constants";
 import type * as CompoundFuncConstants from "./compound-function/constants";
 import type { Func } from "./Func";
 import { createProxyBarrel } from "datils/patterns/proxy";
+import { DegreeFunc } from "./degree-function/DegreeFunc";
+import { CompoundFunc } from "./compound-function/CompoundFunc";
 import { compose } from "./compound-function/building/compose";
 import { fromDegreeIntervalSet } from "./degree-function/building/fromDegreeIntervalSet";
 import { fromDegrees } from "./degree-function/building/fromDegrees";
 import { getDegrees } from "./degree-function/conversions";
 
 const staticModule = {
-  fromDegreeIntervalSet: fromDegreeIntervalSet,
+  fromDegreeIntervalSet,
   fromDegrees,
   compose,
   getDegrees,
@@ -39,5 +41,7 @@ const mod = createProxyBarrel<LazyType & typeof staticModule>( {
 
 export {
   Func,
+  DegreeFunc,
+  CompoundFunc,
   mod as Funcs,
 };

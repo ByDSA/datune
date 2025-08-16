@@ -1,6 +1,6 @@
 import type { DegreeFunc } from "../degree-function/DegreeFunc";
 import type { Degree, DegreeArray } from "degrees/chromatic";
-import type { Pitch } from "chromatic";
+import type { Interval, Pitch } from "chromatic";
 import { Chords as C, type Chord } from "chords/chromatic";
 import { Intervals as I } from "intervals/chromatic";
 import { stringifyDegree } from "degrees/chromatic/stringify";
@@ -18,6 +18,10 @@ ICompoundFunc<Degree, DegreeFunc> {
 
   #string?: string;
 
+  #degrees?: Readonly<DegreeArray>;
+
+  #accInterval?: Interval;
+
   private constructor(key: K) {
     this.degreeFunc = key.degreeFunc;
     this.degreeChain = key.degreeChain;
@@ -27,21 +31,40 @@ ICompoundFunc<Degree, DegreeFunc> {
     return getOrCalc( {
       calc: () => {
         const baseChord = this.degreeFunc.getChord(root);
-        let accInterval = I.P1;
 
-        for (const degree of this.degreeChain)
-          accInterval = I.shift(accInterval, degree);
+        if (this.#accInterval === undefined)
+          this.#calcAccInterval();
 
-        return C.shift(baseChord, accInterval);
+        return C.shift(baseChord, this.#accInterval!);
       },
       getId: ()=> `(${+root})|(${getId(this)})`,
     } );
   }
 
+  #calcAccInterval(): void {
+    this.#accInterval = I.P1;
+
+    for (const degree of this.degreeChain)
+      this.#accInterval = I.shift(this.#accInterval, degree);
+  }
+
   toString() {
     if (this.#string === undefined)
-      this.#string = this.degreeFunc + "/" + this.degreeChain.map(stringifyDegree).join("/");
+      this.#string = `${this.degreeFunc}/${this.degreeChain.map(stringifyDegree).join("/")}`;
 
     return this.#string;
+  }
+
+  // eslint-disable-next-line accessor-pairs
+  get degrees(): Readonly<DegreeArray> {
+    if (this.#degrees === undefined) {
+      if (this.#accInterval === undefined)
+        this.#calcAccInterval();
+
+      this.#degrees = this.degreeFunc.degrees
+        .map(d=> I.shift(d, this.#accInterval!)) as DegreeArray;
+    }
+
+    return this.#degrees;
   }
 }
