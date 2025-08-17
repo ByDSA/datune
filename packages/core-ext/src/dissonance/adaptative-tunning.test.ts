@@ -1,4 +1,5 @@
-import { AdaptiveTuning, RelativeOvertone } from "./adaptative-tuning";
+import { Interval, Intervals } from "@datune/core/intervals/real";
+import { AdaptiveTuning, NoteConfiguration, RelativeOvertone } from "./adaptative-tuning";
 import { ratioToCents } from "./analysis";
 import { genOvertoneAmplitudes } from "./utils/overtones";
 
@@ -13,55 +14,49 @@ const createHarmonicRelativeOvertones = (
 
   return partials;
 };
-const createMajorChord12TETConfiguration = (baseFrequency: number, numPartials: number = 5) => {
-  const props: Parameters<typeof createHarmonicRelativeOvertones>[0] = {
-    type: "natural-harmonic",
-    num: numPartials,
-  };
-  const overtones = createHarmonicRelativeOvertones(props);
 
-  return [
-    {
-      fundamentalFrequency: baseFrequency, // C
-      overtones: overtones,
-      isFixed: true,
-    },
-    {
-      fundamentalFrequency: baseFrequency * (2 ** (4 / 12)), // E
-      overtones,
-      isFixed: false,
-    },
-    {
-      fundamentalFrequency: baseFrequency * (2 ** (7 / 12)), // G
-      overtones,
-      isFixed: false,
-    },
-  ];
+type Props = {
+  intervals: Interval[];
+  baseFrequency: number;
+  numPartials?: number;
 };
-const createMinorChord12TETConfiguration = (baseFrequency: number, numPartials: number = 5) => {
+const createChordConfiguration = ( { baseFrequency,
+  intervals,
+  numPartials = 5 }: Props) => {
   const props: Parameters<typeof createHarmonicRelativeOvertones>[0] = {
     type: "natural-harmonic",
     num: numPartials,
   };
   const overtones = createHarmonicRelativeOvertones(props);
+  const ret: NoteConfiguration[] = [Intervals.UNISON, ...intervals]
+    .map((r, i)=> {
+      if (i === 0) {
+        return {
+          fundamentalFrequency: baseFrequency,
+          overtones,
+          isFixed: true,
+        };
+      }
 
-  return [
-    {
-      fundamentalFrequency: baseFrequency, // C
-      overtones,
-      isFixed: true,
-    },
-    {
-      fundamentalFrequency: baseFrequency * (2 ** (3 / 12)), // Eb
-      overtones,
-      isFixed: false,
-    },
-    {
-      fundamentalFrequency: baseFrequency * (2 ** (7 / 12)), // G
-      overtones,
-      isFixed: false,
-    },
-  ];
+      return {
+        fundamentalFrequency: baseFrequency * +r,
+        overtones,
+      };
+    } );
+
+  return ret;
+};
+const createMajorChord12TetConfiguration = (props: Omit<Props, "intervals">) => {
+  return createChordConfiguration( {
+    ...props,
+    intervals: [Intervals.ET12_M3, Intervals.ET12_P5],
+  } );
+};
+const createMinorChord12TetConfiguration = (props: Omit<Props, "intervals">) => {
+  return createChordConfiguration( {
+    ...props,
+    intervals: [Intervals.ET12_m3, Intervals.ET12_P5],
+  } );
 };
 const calcEachRatio = (ratios: number[]) => {
   const eachRatios: Record<string, number> = {};
@@ -81,17 +76,10 @@ const calcEachRatio = (ratios: number[]) => {
 
   return eachRatios;
 };
-const tuneChord = (baseFrequency: number, numPartials: number, chordType: "major" | "minor") => {
-  const chordNotes = chordType === "major"
-    ? createMajorChord12TETConfiguration(baseFrequency, numPartials)
-    : createMinorChord12TETConfiguration(baseFrequency, numPartials);
-  const tuner = new AdaptiveTuning( {
-    reversed: false,
-    mode: "normal",
-  } );
-
-  return tuner.tune(chordNotes);
-};
+const tuner = new AdaptiveTuning( {
+  reversed: false,
+  mode: "normal",
+} );
 const expectFrequenciesClose = (
   actual: number[],
   expected: number[],
@@ -125,11 +113,18 @@ const M3 = base * (2 ** (4 / 12));
 const P5 = base * (2 ** (7 / 12));
 
 describe("adaptive Tuning - 4 Partials", () => {
+  const numPartials = 4;
+
   describe("major Chord", () => {
     let result: any;
 
     beforeAll(() => {
-      result = tuneChord(base, 4, "major");
+      const chordNotes = createMajorChord12TetConfiguration( {
+        baseFrequency: base,
+        numPartials,
+      } );
+
+      result = tuner.tune(chordNotes);
     } );
 
     it("should have correct original frequencies", () => {
@@ -157,7 +152,12 @@ describe("adaptive Tuning - 4 Partials", () => {
     let result: any;
 
     beforeAll(() => {
-      result = tuneChord(base, 4, "minor");
+      const chordNotes = createMinorChord12TetConfiguration( {
+        baseFrequency: base,
+        numPartials,
+      } );
+
+      result = tuner.tune(chordNotes);
     } );
 
     it("should have correct original frequencies", () => {
@@ -183,11 +183,18 @@ describe("adaptive Tuning - 4 Partials", () => {
 } );
 
 describe("adaptive Tuning - 10 Partials", () => {
+  const numPartials = 10;
+
   describe("major Chord", () => {
     let result: any;
 
     beforeAll(() => {
-      result = tuneChord(base, 10, "major");
+      const chordNotes = createMajorChord12TetConfiguration( {
+        baseFrequency: base,
+        numPartials,
+      } );
+
+      result = tuner.tune(chordNotes);
     } );
 
     it("should have correct original frequencies", () => {
@@ -211,7 +218,12 @@ describe("adaptive Tuning - 10 Partials", () => {
     let result: any;
 
     beforeAll(() => {
-      result = tuneChord(base, 10, "minor");
+      const chordNotes = createMinorChord12TetConfiguration( {
+        baseFrequency: base,
+        numPartials,
+      } );
+
+      result = tuner.tune(chordNotes);
     } );
 
     it("should have correct original frequencies", () => {
