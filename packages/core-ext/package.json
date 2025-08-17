@@ -13,6 +13,7 @@
   "scripts": {
     "build": "bin/build.mjs",
     "check": "bin/check.mjs",
+    "postinstall": "cd node_modules/canvas && pnpm install --ignore-workspace > /dev/null || true",
     "lint": "bin/lint.mjs",
     "reinstall": "bin/reinstall.mjs",
     "test": "jest --runInBand",
@@ -23,7 +24,11 @@
     "@datune/core": "file:../core/dist",
     "@datune/utils": "file:../utils/dist"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "canvas": "3.1.2",
+    "chart.js": "4.5.0",
+    "chartjs-node-canvas": "5.0.0"
+  },
   "standard-version": {
     "scripts": {
       "postcommit": "pnpm docs && pnpm release:push"
